@@ -1,0 +1,23 @@
+{
+  "none": "neviens",
+  "hideMolecules": "Slēpt molekulas",
+  "balanced": "līdzsvarā",
+  "introduction": "Ievads",
+  "moleculesAreHidden": "molekulas slēptas",
+  "separateWater": "Atdalīt ūdeni",
+  "balancingGame": "Vienādošanas spēle",
+  "hideWhy": "Paslēpt pamatojumu",
+  "showAnswer": "Parādīt atbildi",
+  "equation0of1": "{0}. vienādojums no {1}:",
+  "notBalanced": "nav vienādots",
+  "tryAgain": "Mēģināt vēlreiz",
+  "balancing-chemical-equations.name": "Ķīmisko reakciju vienādošana",
+  "combustMethane": "Izveidot metānu",
+  "next": "nākamais",
+  "balanceScales": "Līdzsvara svari",
+  "check": "Pārbaudīt",
+  "barCharts": "Stabiņu grafiki",
+  "makeAmmonia": "Izveidot amoniju",
+  "notSimplified": "nav vienkāršots",
+  "showWhy": "Parādīt padomu"
+}

@@ -1,0 +1,23 @@
+{
+  "none": "Ezer",
+  "hideMolecules": "Molekulak Ezkutatu",
+  "balanced": "Doituta",
+  "introduction": "Sarrera",
+  "moleculesAreHidden": "Molekulak ezkutuan daude",
+  "separateWater": "Uraren banakuntza",
+  "balancingGame": "Jokoa",
+  "hideWhy": "Ezkutatu zergatik",
+  "showAnswer": "Ikus erantzuna",
+  "equation0of1": "{1}-tik {0} ekuazioa:",
+  "notBalanced": "Doitu gabe",
+  "tryAgain": "Froba berriro",
+  "balancing-chemical-equations.name": "Ekuazio Kimikoen Doiketa",
+  "combustMethane": "Metanoaren errekuntza",
+  "next": "Hurrengoa",
+  "balanceScales": "Balantzak",
+  "check": "Frogatu",
+  "barCharts": "Laukiak",
+  "makeAmmonia": "Amoniako sintesia",
+  "notSimplified": "Sinplifikatu gabe",
+  "showWhy": "Ikus zergatik"
+}

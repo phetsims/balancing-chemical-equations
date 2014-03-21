@@ -1,0 +1,23 @@
+{
+  "none": "គ្មាន",
+  "hideMolecules": "លាក់ម៉ូលេគុល",
+  "balanced": "មានតុល្យភាព",
+  "introduction": "សេចក្ដីណែនាំ",
+  "moleculesAreHidden": "លាក់ម៉ូលេគុល",
+  "separateWater": "បំបែកទឹក",
+  "balancingGame": "ល្បែងដែលមានតុល្យភាព",
+  "hideWhy": "លាក់ការជ្រើសរើស",
+  "showAnswer": "បង្ហាញចម្លើយ",
+  "equation0of1": "សមីការ {0} នៃ {1} ៖",
+  "notBalanced": "គ្មានតុល្យភាព",
+  "tryAgain": "សាកល្បងម្តងទៀត",
+  "balancing-chemical-equations.name": "សមីកាគីមីដែលមានតុល្យភាព",
+  "combustMethane": "ចំហេះមេតាន",
+  "next": "បន្ទាប់",
+  "balanceScales": "មាត្រដ្ឋានតុល្យភាព",
+  "check": "ពិនិត្យមើល",
+  "barCharts": "គំនូស​​តាង​​បង្គោល",
+  "makeAmmonia": "បង្កើតអាម៉ូញ៉ាក់",
+  "notSimplified": "មិនងាយស្រួលទេ",
+  "showWhy": "បង្ហាញការជ្រើសរើស"
+}

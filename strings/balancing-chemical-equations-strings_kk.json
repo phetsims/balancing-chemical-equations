@@ -1,0 +1,23 @@
+{
+  "none": "жоқ",
+  "hideMolecules": "молекуланы жағалту",
+  "balanced": "иінтірек",
+  "introduction": "көрініс",
+  "moleculesAreHidden": "молекулалар жоғалды",
+  "separateWater": " бөлек су",
+  "balancingGame": "иінтіректі ойын",
+  "hideWhy": "неге жағалту",
+  "showAnswer": "жауабын көрсет",
+  "equation0of1": "көбейтінді {0} of {1}:",
+  "notBalanced": "иінтірек емес",
+  "tryAgain": "қайтадан",
+  "balancing-chemical-equations.name": "иінтіректік химиялық  көбейту",
+  "combustMethane": "физиканың жануы мен метанның жарылуы",
+  "next": "келесі",
+  "balanceScales": "иінтіректі салмақ",
+  "check": "тексеру",
+  "barCharts": "баға кестесінің бары",
+  "makeAmmonia": "аммиак істу",
+  "notSimplified": "жеңілдетілген жоқ",
+  "showWhy": "неге көрсет"
+}

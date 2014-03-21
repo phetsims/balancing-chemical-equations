@@ -1,0 +1,23 @@
+{
+  "none": "هیچی",
+  "hideMolecules": "مولکول ها را پنهان کن",
+  "balanced": "موازنه شد",
+  "introduction": "مقدماتی",
+  "moleculesAreHidden": "مولکول ها پنهان اند",
+  "separateWater": "جدا کردن مولکول های آب",
+  "balancingGame": "بازی موازنه",
+  "hideWhy": "دلیل را پنهان کن",
+  "showAnswer": "پاسخ را نشان بده",
+  "equation0of1": "Equation {0} of {1}:",
+  "notBalanced": "موازنه نشده",
+  "tryAgain": "دوباره سعی کن",
+  "balancing-chemical-equations.name": "موازنه ی معادله های شیمیایی",
+  "combustMethane": "سوختن متان",
+  "next": "بعد",
+  "balanceScales": " ترازوی کفه ای",
+  "check": "بررسی کن",
+  "barCharts": "نمودار میله ای",
+  "makeAmmonia": "ساختن آمونیاک",
+  "notSimplified": "ساده نشده",
+  "showWhy": "دلیل را نشان بده"
+}

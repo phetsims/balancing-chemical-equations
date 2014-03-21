@@ -1,0 +1,23 @@
+{
+  "none": "Không hiển thị",
+  "hideMolecules": "Không hiển thị phân tử",
+  "balanced": "Cân bằng",
+  "introduction": "Giới thiệu",
+  "moleculesAreHidden": "Các phân tử được dấu đi",
+  "separateWater": "Phân tích nước",
+  "balancingGame": "Trò chơi",
+  "hideWhy": "Không hiển thị lời giải thích",
+  "showAnswer": "Hiển thị câu trả lời",
+  "equation0of1": "Phương trình {0} / {1}:",
+  "notBalanced": "không cân bằng",
+  "tryAgain": "Thử lại",
+  "balancing-chemical-equations.name": "Cân bằng phương trình phản ứng hoá học",
+  "combustMethane": "Đốt Metan",
+  "next": "Kế tiếp",
+  "balanceScales": "Cân",
+  "translation.credits": "PhET_VN",
+  "check": "Kiểm lại",
+  "barCharts": "Biểu đồ",
+  "makeAmmonia": "Tạo Ammoniac",
+  "showWhy": "Giải thích"
+}
