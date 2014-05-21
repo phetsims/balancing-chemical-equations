@@ -14,11 +14,15 @@ define( function( require ) {
 
   function IntroductionModel( width, height ) {
 
+    var COEFFICENTS_ARRAY = [0, 1, 2, 3]; // Array of possible equation coefficients
+
     // dimensions of the model's space
     this.width = width;
     this.height = height;
 
-    PropertySet.call( this, {} );
+    PropertySet.call( this, {
+      currentEquation: null
+    } );
 
   }
 
