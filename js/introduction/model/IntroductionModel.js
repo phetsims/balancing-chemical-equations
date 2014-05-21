@@ -3,7 +3,7 @@
 /**
  * Model container for the 'Introduction' screen.
  *
- * @author Daria Mitina (MLearner)
+ * @author Vasily Shakhov (MLearner)
  */
 define( function( require ) {
   'use strict';
