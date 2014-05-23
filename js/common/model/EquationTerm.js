@@ -10,12 +10,20 @@
 define( function( require ) {
   'use strict';
 
-  // imports
-  var inherit = require( 'PHET_CORE/inherit' );
+  //modules
+  var Property = require('AXON/Property');
 
-  function EquationTerm( width, height ) {
+  function EquationTerm( balancedCoefficient, molecule, actualCoefficient ) {
+    this.molecule = molecule;
+    this.balancedCoefficient = balancedCoefficient;
+    this.actualCoefficient = actualCoefficient || 0;
+
+    this.userCoefficient = new Property(this.actualCoefficient);
   }
 
+  EquationTerm.prototype.reset = function() {
+    this.userCoefficient.reset();
+  };
 
   return EquationTerm;
 } );

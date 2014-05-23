@@ -15,11 +15,40 @@ define( function( require ) {
   // imports
   var inherit = require( 'PHET_CORE/inherit' );
   var Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/equation' );
+  var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
 
-  function SynthesisEquation() {
+  //strings
+  var makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
 
+
+  /*
+   * Convenience constructor.
+   *
+   * @param {Integer} r1 balanced coefficient for reactant1
+   * @param {Molecule} reactant1
+   * @param {Integer} r2 balanced coefficient for reactant2
+   * @param {Molecule} reactant2
+   * @param {Integer} p1 balanced coefficient for product1
+   * @param {Molecule} product1
+   */
+  function SynthesisEquation( r1, reactant1, r2, reactant2, p1, product1 ) {
+    Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 )] );
   }
 
+  inherit( Equation, SynthesisEquation );
 
-  return inherit( Equation, SynthesisEquation );
+  return {
+    // N2 + 3 H2 -> 2 NH3
+    Synthesis_N2_3H2_2NH3: function() {
+      var equation = new SynthesisEquation( 1, 'N2', 3, 'H2', 2, 'NH3' );
+
+      //@Override
+      //TODO do we need this getName at all?
+      equation.getName = function() {
+        return makeAmmoniaString;
+      };
+      return equation;
+    }
+  };
+
 } );

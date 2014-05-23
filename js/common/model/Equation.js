@@ -16,10 +16,63 @@ define( function( require ) {
 
   // imports
   var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
-  function Equation( width, height ) {
+  /**
+   * @param {[EquationTerm]} reactants
+   * @param {[EquationTerm]} products
+   */
+
+  function Equation( reactants, products ) {
+    this.reactants = reactants;
+    this.products = products;
+
+    PropertySet.call( this, {
+      balanced: false,
+      balancedAndSimplified: false
+    } );
+
+    //equation is balanced if all terms are balanced.
+    this.reactants.forEach( function( reactant ) {
+      reactant.userCoefficient.bind( this, this.updateBalancedProperties );
+    } );
+    this.products.forEach( function( product ) {
+      product.userCoefficient.bind( this, this.updateBalancedProperties );
+    } );
+
   }
 
+  inherit( PropertySet, Equation, {
+    reset: function() {
+      this.reactants.forEach( function( reactant ) {
+        reactant.reset();
+      } );
+      this.products.forEach( function( product ) {
+        product.reset();
+      } );
+    },
+    /*
+     * An equation is balanced if all of its terms have a coefficient that is the
+     * same integer multiple of the term's balanced coefficient.  If the integer
+     * multiple is 1, then the term is balanced with lowest possible coefficients.
+     */
+    updateBalancedProperties: function() {
+      // Get integer multiplier from the first reactant term.
+      var multiplier = this.reactants[0].userCoefficient / this.reactants[0].balancedCoefficient;
+      var balanced = ( multiplier > 0 );
+
+      // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
+      this.reactants.forEach( function( reactant ) {
+        balanced = balanced && ( reactant.userCoefficient === multiplier * reactant.balancedCoefficient );
+      } );
+      this.products.forEach( function( product ) {
+        balanced = balanced && ( product.userCoefficient === multiplier * product.balancedCoefficient );
+      } );
+
+      this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific property first
+      this.balanced = balanced;
+    }
+  } );
 
   return Equation;
 } );

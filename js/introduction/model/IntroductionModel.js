@@ -12,13 +12,16 @@ define( function( require ) {
   // imports
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
+  var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
+  var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
 
-  function IntroductionModel( width, height ) {
+  function IntroductionModel() {
 
     var COEFFICENTS_ARRAY = [0, 1, 2, 3]; // Array of possible equation coefficients
 
     //list of possible equations
-    var equations = [new Synthesis_N2_3H2_2NH3(), new Decomposition_2H2O_2H2_O2(), new Displacement_CH4_2O2_CO2_2H2O()];
+    var equations = [SynthesisEquation.Synthesis_N2_3H2_2NH3()/*, new Decomposition_2H2O_2H2_O2(), new Displacement_CH4_2O2_CO2_2H2O()*/];
 
     PropertySet.call( this, {
       currentEquation: equations[0]
