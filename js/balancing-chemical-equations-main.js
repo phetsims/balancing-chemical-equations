@@ -30,10 +30,10 @@ define( function( require ) {
   var screens = [
     new Screen( introductionTitleString, new Image( introductionImage ),
       function() { return new IntroductionModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
-      function( model ) { return new IntroductionView( model ); } ),
-    new Screen( balancingGameTitleString, new Image( balancingGameImage ),
-      function() { return new GameModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
-      function( model ) { return new GameView( model ); } )
+      function( model ) { return new IntroductionView( model ); } )/*,
+     new Screen( balancingGameTitleString, new Image( balancingGameImage ),
+     function() { return new GameModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
+     function( model ) { return new GameView( model ); } )*/
   ];
 
 

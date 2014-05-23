@@ -21,7 +21,7 @@ define( function( require ) {
     var COEFFICENTS_ARRAY = [0, 1, 2, 3]; // Array of possible equation coefficients
 
     //list of possible equations
-    var equations = [SynthesisEquation.Synthesis_N2_3H2_2NH3()/*, new Decomposition_2H2O_2H2_O2(), new Displacement_CH4_2O2_CO2_2H2O()*/];
+    var equations = [SynthesisEquation.Synthesis_N2_3H2_2NH3(), DecompositionEquation.Decomposition_2H2O_2H2_O2()/*, new Displacement_CH4_2O2_CO2_2H2O()*/];
 
     PropertySet.call( this, {
       currentEquation: equations[0]
