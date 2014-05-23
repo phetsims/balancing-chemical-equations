@@ -2,6 +2,7 @@
 
 /**
  * Model container for the 'Introduction' screen.
+ * This model has a small set of equations, one of which is the current equation that we're operating on.*
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -16,18 +17,18 @@ define( function( require ) {
 
     var COEFFICENTS_ARRAY = [0, 1, 2, 3]; // Array of possible equation coefficients
 
-    // dimensions of the model's space
-    this.width = width;
-    this.height = height;
+    //list of possible equations
+    var equations = [new Synthesis_N2_3H2_2NH3(), new Decomposition_2H2O_2H2_O2(), new Displacement_CH4_2O2_CO2_2H2O()];
 
     PropertySet.call( this, {
-      currentEquation: null
+      currentEquation: equations[0]
     } );
 
   }
 
   inherit( PropertySet, IntroductionModel, {
     reset: function() {
+      PropertySet.prototype.reset.call( this );
     }
   } );
 
