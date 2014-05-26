@@ -3,7 +3,7 @@
 /**
  * Scene graph for the 'Introduction' screen.
  *
- * @author Daria Mitina (MLearner)
+ * @author Vasily Shakhov (MLearner)
  */
 
 define( function( require ) {
@@ -12,9 +12,18 @@ define( function( require ) {
   // imports
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var BalancedRepresentationChoiceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BalancedRepresentationChoiceNode' );
 
   function IntroductionView( model ) {
     ScreenView.call( this, { renderer: 'svg' } );
+
+    /*var BOX_SIZE = new Dimension2( 285, 145);
+     var BOX_SEPARATION = 110;*/
+
+    // control for choosing the visual representation of "balanced"
+    var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width-10, top: 10} );
+    this.addChild( balanceChoiceNode );
+
   }
 
   return inherit( ScreenView, IntroductionView );
