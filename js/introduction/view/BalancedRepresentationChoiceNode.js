@@ -22,7 +22,6 @@ define( function( require ) {
   var chartsImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/charts.png' );
   var scalesImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/scales.png' );
 
-
   //strings
   var toolsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tools' );
   var noneString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/none' );
