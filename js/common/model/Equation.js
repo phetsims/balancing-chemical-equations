@@ -24,6 +24,8 @@ define( function( require ) {
    */
 
   function Equation( reactants, products ) {
+    var self = this;
+
     this.reactants = reactants;
     this.products = products;
 
@@ -34,10 +36,10 @@ define( function( require ) {
 
     //equation is balanced if all terms are balanced.
     this.reactants.forEach( function( reactant ) {
-      reactant.userCoefficient.bind( this, this.updateBalancedProperties );
+      reactant.userCoefficient.link( self.updateBalancedProperties.bind( self ) );
     } );
     this.products.forEach( function( product ) {
-      product.userCoefficient.bind( this, this.updateBalancedProperties );
+      product.userCoefficient.link( self.updateBalancedProperties.bind( self ) );
     } );
 
   }
@@ -59,6 +61,7 @@ define( function( require ) {
     updateBalancedProperties: function() {
       // Get integer multiplier from the first reactant term.
       var multiplier = this.reactants[0].userCoefficient / this.reactants[0].balancedCoefficient;
+
       var balanced = ( multiplier > 0 );
 
       // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
