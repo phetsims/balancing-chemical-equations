@@ -34,7 +34,7 @@ define( function( require ) {
     this.coefficientProperty = coefficientProperty;
 
     //arrows
-    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, lineWidth: 0, yMargin: 2, xMargin: 0 };
+    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, lineWidth: 0, yMargin: 2, xMargin: 0, fill:'none' };
     this.upArrowButton = new ArrowButton( 'up', function() { coefficientProperty.value = coefficientProperty.value + 1; }, arrowButtonOptions );
     this.downArrowButton = new ArrowButton( 'down', function() { coefficientProperty.value = coefficientProperty.value - 1; }, arrowButtonOptions );
 
@@ -72,7 +72,7 @@ define( function( require ) {
     var extendedTouchAreaWidth = this.upArrowButton.width * 2.5;
     var extendedTouchAreaHeight = this.upArrowButton.height * 1.65; // Tweaked for minimal overlap in most layouts that use this.
     this.upArrowButton.touchArea = Shape.rectangle(
-      -extendedTouchAreaWidth / 2 + this.upArrowButton.width / 2,
+      -extendedTouchAreaWidth / 2 +this.upArrowButton.width / 2,
       -extendedTouchAreaHeight + this.upArrowButton.height,
       extendedTouchAreaWidth,
       extendedTouchAreaHeight

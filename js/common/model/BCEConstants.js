@@ -13,7 +13,9 @@ define( function( require ) {
 
   return Object.freeze( {
     UNBALANCED_COLOR: 'rgb(46,107,178)',
-    BALANCED_HIGHLIGHT_COLOR: 'yellow'
+    BALANCED_HIGHLIGHT_COLOR: 'yellow',
+    INTRODUCTION_CANVAS_BACKGROUND: '#d9ebff',
+    BOX_COLOR: 'white'
   } );
 
 } );

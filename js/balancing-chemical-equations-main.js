@@ -16,6 +16,7 @@ define( function( require ) {
   var GameView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameView' );
   var IntroductionModel = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/IntroductionModel' );
   var IntroductionView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionView' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BCEConstants' );
 
   // strings
   var simTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.name' );
@@ -30,7 +31,8 @@ define( function( require ) {
   var screens = [
     new Screen( introductionTitleString, new Image( introductionImage ),
       function() { return new IntroductionModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
-      function( model ) { return new IntroductionView( model ); } )/*,
+      function( model ) { return new IntroductionView( model ); },
+      {backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND} )/*,
      new Screen( balancingGameTitleString, new Image( balancingGameImage ),
      function() { return new GameModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
      function( model ) { return new GameView( model ); } )*/

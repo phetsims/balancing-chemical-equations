@@ -26,7 +26,7 @@ define( function( require ) {
   var FONT = new PhetFont( FONT_SIZE );
   var SUBSUP_OPTIONS = {font: FONT, supScale: 1}; // options for all instances of SubSupNode
 
-
+  //TODO SUBSUP_OPTIONS to EquationNode
   var Molecule = function( image, symbolText, elements ) {
     var self = this;
 
@@ -38,6 +38,12 @@ define( function( require ) {
     } );
   };
 
+  /**
+   * Any molecule with more than 5 atoms is considered "big".
+   * This affects degree of difficulty in the Game.
+   *
+   * @return
+   */
   Molecule.prototype.isBig = function() {
     return this.atoms.length > 5;
   };
