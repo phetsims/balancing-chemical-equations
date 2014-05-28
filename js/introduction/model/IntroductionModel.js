@@ -9,23 +9,24 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/BalancedRepresentation' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
   var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
+  var Range = require( 'DOT/Range' );
 
   function IntroductionModel( width, height ) {
 
-    var COEFFICENTS_ARRAY = [0, 1, 2, 3]; // Array of possible equation coefficients
+    this.COEFFICENTS_RANGE = new Range( 0, 3 ); // Range of possible equation coefficients
 
     this.width = width;
     this.height = height;
 
     //list of possible equations
-    this.equations = [SynthesisEquation.Synthesis_N2_3H2_2NH3(), DecompositionEquation.Decomposition_2H2O_2H2_O2()/*, new Displacement_CH4_2O2_CO2_2H2O()*/];
+    this.equations = [SynthesisEquation.Synthesis_N2_3H2_2NH3(), DecompositionEquation.Decomposition_2H2O_2H2_O2(), DisplacementEquation.Displacement_CH4_2O2_CO2_2H2O()];
 
     PropertySet.call( this, {
       currentEquation: this.equations[0],

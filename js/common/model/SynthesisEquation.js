@@ -12,10 +12,11 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/equation' );
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
+  var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
   //strings
   var makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
@@ -40,7 +41,7 @@ define( function( require ) {
   return {
     // N2 + 3 H2 -> 2 NH3
     Synthesis_N2_3H2_2NH3: function() {
-      var equation = new SynthesisEquation( 1, 'N2', 3, 'H2', 2, 'NH3' );
+      var equation = new SynthesisEquation( 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2(), 2, MoleculeFactory.NH3() );
 
       //@Override
       //TODO do we need this getName at all?

@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -30,8 +30,6 @@ define( function( require ) {
    */
 
   function EquationChoiceAndResetNode( model, options ) {
-    var self = this;
-
     //height of control node
     var RECT_HEIGHT = 50;
     //options for text
@@ -54,6 +52,7 @@ define( function( require ) {
     } ) );
 
     //choices
+    //TODO text from Equation toString
     this.addChild( new HBox( {
       children: [
         new AquaRadioButton( model.currentEquationProperty, model.equations[0], new Text( makeAmmonia, textOptions ), {radius: 8} ),
@@ -65,17 +64,6 @@ define( function( require ) {
       centerY: RECT_HEIGHT / 2,
       x: 80
     } ) );
-
-
-    //var text = new Text( toolsString, {'font': textFont, 'fontWeight': 'bold'} );
-
-    //choices
-    /*options = _.extend( {
-     children: [text, comboBox],
-     spacing: 5,
-     }, options );*/
-
-
   }
 
   return inherit( Node, EquationChoiceAndResetNode );

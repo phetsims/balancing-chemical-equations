@@ -6,7 +6,7 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
   var ScreenView = require( 'JOIST/ScreenView' );

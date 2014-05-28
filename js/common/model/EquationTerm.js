@@ -11,14 +11,12 @@ define( function( require ) {
   'use strict';
 
   //modules
-  var Property = require('AXON/Property');
+  var Property = require( 'AXON/Property' );
 
   function EquationTerm( balancedCoefficient, molecule, actualCoefficient ) {
     this.molecule = molecule;
     this.balancedCoefficient = balancedCoefficient;
-    this.actualCoefficient = actualCoefficient || 0;
-
-    this.userCoefficient = new Property(this.actualCoefficient);
+    this.userCoefficient = new Property( actualCoefficient || 0 );
   }
 
   EquationTerm.prototype.reset = function() {

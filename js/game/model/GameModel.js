@@ -8,9 +8,10 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Range = require('DOT/Range');
 
   /**
    * The set of game states.
@@ -30,7 +31,7 @@ define( function( require ) {
 
   function GameModel( width, height ) {
 
-    var COEFFICENTS_RANGE = [0, 1, 2, 3, 4, 5, 6, 7]; // range for equation coefficients
+    this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     var LEVELS_RANGE = [1, 2, 3];
     var EQUATIONS_PER_GAME = 5;
     var POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
