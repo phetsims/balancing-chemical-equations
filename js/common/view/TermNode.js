@@ -24,35 +24,18 @@ define( function( require ) {
 
     this.coefficientNode = new CoefficientNode( coefficientRange, term.userCoefficient, editable );
     this.addChild( this.coefficientNode );
-    this.coefficientNode.x = this.symbolNode.x - this.coefficientNode.width-2;
+    this.coefficientNode.x = this.symbolNode.x - this.coefficientNode.width - 2;
     this.coefficientNode.centerY = this.symbolNode.centerY;
 
-    /*    private final CoefficientNode coefficientNode;
-
-
-
-     // coefficient
-     coefficientNode = new CoefficientNode( new UserComponent( term.getMolecule().getSymbol() ), coefficientRange, term.getUserCoefficientProperty(), editable );
-     addChild( coefficientNode );
-
-     // molecule symbol
-     SymbolNode symbolNode = new SymbolNode( term.getMolecule().getSymbol() );
-     addChild( symbolNode );
-
-     // layout
-     coefficientNode.setOffset( 0, 0 );
-     symbolNode.setOffset( coefficientNode.getFullBoundsReference().getMaxX() + 5, 0 );
-     }
-
-     public void setEditable( boolean editable ) {
-     coefficientNode.setEditable( editable );
-     }
-
-     public void cleanup() {
-     coefficientNode.removeCoefficientObserver();
-     }*/
   }
 
-  return inherit( Node, TermNode, {} );
+  return inherit( Node, TermNode, {
+    setEditable: function( editable ) {
+      this.coefficientNode.setEditable( editable );
+    },
+    cleanup: function() {
+      this.coefficientNode.removeCoefficientObserver();
+    }
+  } );
 
 } );

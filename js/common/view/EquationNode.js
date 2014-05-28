@@ -70,10 +70,10 @@ define( function( require ) {
     updateNode: function() {
       this.termsParent.removeAllChildren();
 
-      /*for ( TermNode node : termNodes ) {
-       node.cleanup();
-       }
-       termNodes.clear();*/
+      this.termNodes.forEach( function( termNode ) {
+        termNode.cleanup();
+      } );
+      this.termNodes = [];
 
       this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
       this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
@@ -102,7 +102,6 @@ define( function( require ) {
            * Make sure that the term doesn't get too close to the plus sign.
            * If it does, then shift the plus sign a bit to the right.
            */
-
           var x = xOffsets[i] + ( ( xOffsets[i + 1] - xOffsets[i] ) / 2 ) - ( plusNode.width / 2 ); // centered between 2 offsets
           var minSeparation = 20;
           var separation = x - termNode.maxX;

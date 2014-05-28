@@ -27,16 +27,18 @@ define( function( require ) {
 
   // Constants
   var NUMBER_BOX_SIZE = { width: 40, height: 40}; // Size empirically determined.
-  var NUMBER_FONT = new PhetFont( 28 );
+  var NUMBER_FONT = new PhetFont( 36 );
 
-  function CoefficientNode( range, coefficientProperty, editable, options ) {
+  function CoefficientNode( range, coefficientProperty, editable ) {
+    var self = this;
+    this.coefficientProperty = coefficientProperty;
 
     //arrows
-    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, lineWidth:0,yMargin:2,xMargin:0 };
-    var upArrowButton = new ArrowButton( 'up', function() { coefficientProperty.value = coefficientProperty.value + 1; }, arrowButtonOptions );
-    var downArrowButton = new ArrowButton( 'down', function() { coefficientProperty.value = coefficientProperty.value - 1; }, arrowButtonOptions );
+    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, lineWidth: 0, yMargin: 2, xMargin: 0 };
+    this.upArrowButton = new ArrowButton( 'up', function() { coefficientProperty.value = coefficientProperty.value + 1; }, arrowButtonOptions );
+    this.downArrowButton = new ArrowButton( 'down', function() { coefficientProperty.value = coefficientProperty.value - 1; }, arrowButtonOptions );
 
-    //text
+    //textNode
     var answerValueBackground = new Rectangle( 0, 0, NUMBER_BOX_SIZE.width, NUMBER_BOX_SIZE.height, 4, 4,
       {
         fill: 'white',
@@ -44,100 +46,53 @@ define( function( require ) {
         lineWidth: 1
       } );
 
-    coefficientProperty.link( function( newValue ) {
-      answerValueBackground.removeAllChildren();
-      var textNode = new Text( newValue, {
-        font: NUMBER_FONT
-      } );
-      textNode.scale( Math.min( 1, Math.min( ( answerValueBackground.width * 0.8 ) / textNode.width, ( answerValueBackground.height * 0.9 ) / textNode.height ) ) );
-      textNode.centerX = answerValueBackground.width / 2;
-      textNode.centerY = answerValueBackground.height / 2;
-      answerValueBackground.addChild( textNode );
-      upArrowButton.setEnabled( newValue < range.max );
-      downArrowButton.setEnabled( newValue > range.min );
+    VBox.call( this, {
+      children: [this.upArrowButton, answerValueBackground, this.downArrowButton],
+      spacing: 0
     } );
+
+    //text in textNode
+    var textNode = new Text( coefficientProperty, {
+      font: NUMBER_FONT,
+      centerY: NUMBER_BOX_SIZE.height / 2
+    } );
+    answerValueBackground.addChild( textNode );
+
+    this.coefficientObserver = function( newValue ) {
+      textNode.setText( newValue );
+      textNode.centerX = answerValueBackground.width / 2;
+      self.upArrowButton.setEnabled( newValue < range.max );
+      self.downArrowButton.setEnabled( newValue > range.min );
+    };
+
+    coefficientProperty.link( this.coefficientObserver );
 
     // Set up extended touch areas for the up/down buttons.  The areas are
     // set up such that they don't overlap with one another.
-    var extendedTouchAreaWidth = upArrowButton.width * 2.5;
-    var extendedTouchAreaHeight = upArrowButton.height * 1.65; // Tweaked for minimal overlap in most layouts that use this.
-    upArrowButton.touchArea = Shape.rectangle(
-      -extendedTouchAreaWidth / 2 + upArrowButton.width / 2,
-      -extendedTouchAreaHeight + upArrowButton.height,
+    var extendedTouchAreaWidth = this.upArrowButton.width * 2.5;
+    var extendedTouchAreaHeight = this.upArrowButton.height * 1.65; // Tweaked for minimal overlap in most layouts that use this.
+    this.upArrowButton.touchArea = Shape.rectangle(
+      -extendedTouchAreaWidth / 2 + this.upArrowButton.width / 2,
+      -extendedTouchAreaHeight + this.upArrowButton.height,
       extendedTouchAreaWidth,
       extendedTouchAreaHeight
     );
-    downArrowButton.touchArea = Shape.rectangle(
-      -extendedTouchAreaWidth / 2 + upArrowButton.width / 2,
+    this.downArrowButton.touchArea = Shape.rectangle(
+      -extendedTouchAreaWidth / 2 + this.upArrowButton.width / 2,
       0,
       extendedTouchAreaWidth,
       extendedTouchAreaHeight
     );
-
-    VBox.call( this, {
-      children: [upArrowButton,answerValueBackground,downArrowButton],
-      spacing:0
-    } ); // Call super constructor.
-    /*    private final Property<Integer> coefficientProperty;
-     private final SimpleObserver coefficientObserver;
-     private final PText textNode;
-     private final PSwing spinnerNode;
-
-     public CoefficientNode( final IUserComponent userComponent, IntegerRange range, final Property<Integer> coefficientProperty, boolean editable ) {
-
-     // read-only text
-     textNode = new PText();
-     textNode.setFont( FONT );
-     textNode.setTextPaint( COEFFICIENT_COLOR );
-
-     // editable spinner
-     final IntegerSpinner spinner = new IntegerSpinner( userComponent, range );
-     spinner.setForeground( COEFFICIENT_COLOR );
-     spinner.setFont( FONT );
-     spinner.setValue( coefficientProperty.get() );
-     spinner.addChangeListener( new ChangeListener() {
-     public void stateChanged( ChangeEvent e ) {
-     SimSharingManager.sendUserMessage( chain( userComponent, UserComponents.spinner ), UserComponentTypes.spinner, UserActions.changed,
-     ParameterSet.parameterSet( ParameterKeys.value, spinner.getIntValue() ) );
-
-     coefficientProperty.set( spinner.getIntValue() );
-     }
-     } );
-     spinnerNode = new PSwing( spinner );
-     if ( PhetUtilities.isMacintosh() ) {
-     spinnerNode.scale( 1.75 ); //WORKAROUND: JSpinner font changes are ignored on Mac
-     }
-
-     // rendering order
-     addChild( spinnerNode );
-     addChild( textNode );
-
-     // visibility
-     textNode.setVisible( !editable );
-     spinnerNode.setVisible( editable );
-
-     // coefficient observer
-     this.coefficientProperty = coefficientProperty;
-     coefficientObserver = new SimpleObserver() {
-     public void update() {
-     spinner.setIntValue( coefficientProperty.get() );
-     textNode.setText( String.valueOf( coefficientProperty.get() ) );
-     textNode.setOffset( spinnerNode.getFullBoundsReference().getMaxX() - textNode.getFullBoundsReference().getWidth() - 12, 0 ); // right justified
-     }
-     };
-     coefficientProperty.addObserver( coefficientObserver );
-     }
-
-     public void setEditable( boolean editable ) {
-     textNode.setVisible( !editable );
-     spinnerNode.setVisible( editable );
-     }
-
-     public void removeCoefficientObserver() {
-     coefficientProperty.removeObserver( coefficientObserver );
-     }*/
   }
 
-  return inherit( VBox, CoefficientNode );
+  return inherit( VBox, CoefficientNode, {
+    setEditable: function( editable ) {
+      this.upArrowButton.setVisible( editable );
+      this.downArrowButton.setVisible( editable );
+    },
+    removeCoefficientObserver: function() {
+      this.coefficientProperty.unlink( this.coefficientObserver );
+    }
+  } );
 } )
 ;
