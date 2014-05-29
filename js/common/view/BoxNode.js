@@ -14,8 +14,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var AccordionBox = require( 'SUN/AccordionBox' );
+  var ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
+  var Property = require( 'AXON/Property' );
+  var Shape = require( 'KITE/Shape' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
 
+  //constants
+  var TITLE_FONT = new PhetFont( 18 );
 
   /**
    * Constructor
@@ -25,170 +32,78 @@ define( function( require ) {
    * @param {Object} options
    */
 
-  function BoxNode( terms, coefficientRange, offsets, options ) {
+  function BoxNode( aligner, coefficientRange, options ) {
+    var self = this;
     this.coefficientRange = coefficientRange;
-
-    var contentNode = new Node();
-    contentNode.addChild( new Rectangle( 0, 0, options.width, options.height, {fill: 'white', lineWidth: 1, stroke: 'black'} ) );
+    this.aligner = aligner;
 
     Node.call( this, options );
-    this.addChild( contentNode );
+
+    //box options
+    var options = _.extend( {
+      buttonLength: 15,
+      xMargin: 5,
+      yMargin: 5,
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1,
+      title: '',
+      width: 100,
+      height: 100
+    }, options );
+
+    //title node
+    this.titleNode = new Rectangle( 0, 0, options.width, options.buttonLength + 2 * options.yMargin, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
+    this.addChild( this.titleNode );
+    this.titleNode.addChild( new Text( options.title, {
+      font: TITLE_FONT,
+      centerY: this.titleNode.centerY,
+      centerX: this.titleNode.centerX
+    } ) );
+
+    //contentNode
+    this.contentNode = new Rectangle( 0, 0, options.width, options.height, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
+    this.addChild( this.contentNode );
+
+    // Create a property that tracks the open/closed state.
+    this.openProperty = new Property( true );
+
+    // expand/collapse button
+    var button = new ExpandCollapseButton( options.buttonLength, this.openProperty );
+    button.touchArea = Shape.bounds( button.localBounds.dilatedXY( 10, 10 ) );
+    this.addChild( button );
+    button.right = this.width - options.xMargin;
+    button.y = options.yMargin;
+
+    // show/hide title and contentNode
+    this.openProperty.link( function( isOpen ) {
+      self.titleNode.setVisible( !isOpen );
+      self.contentNode.setVisible( isOpen );
+    } );
   }
 
+  return inherit( Node, BoxNode, {
+    /*
+     Creates molecules in the boxes for one set of terms (reactants or products).
+     */
+    createMolecules: function( terms, xOffsets ) {
+      this.contentNode.removeAllChildren();
+      var yMargin = 0;
+      var rowHeight = ( this.aligner.boxSize.height - ( 2 * yMargin ) ) / this.coefficientRange.max;
 
-  return inherit( Node, BoxNode, {} );
+      for ( var i = 0; i < terms.length; i++ ) {
+        var numberOfMolecules = terms[i].userCoefficient;
+        var moleculeImageConstructor = terms[i].molecule.imageConstructor;
+        var y = this.aligner.boxSize.height - yMargin - ( rowHeight / 2 );
+
+        for ( var j = 0; j < numberOfMolecules; j++ ) {
+          var imageNode = new moleculeImageConstructor();
+          this.contentNode.addChild( imageNode );
+          imageNode.center = new Vector2( xOffsets[i] - this.x, y );
+          y -= rowHeight;
+        }
+      }
+    }
+  } );
 
 } );
-
-/*
- // boxes
- final BoxNode reactantsBoxNode = new BoxNode( aligner.getBoxSizeReference() );
- addChild( reactantsBoxNode );
- final BoxNode productsBoxNode = new BoxNode( aligner.getBoxSizeReference() );
- addChild( productsBoxNode );
-
- // right-pointing arrow
- arrowNode = new RightArrowNode( equationProperty.get().isBalanced() );
- addChild( arrowNode );
-
- // molecules
- moleculesParentNode = new PComposite();
- addChild( moleculesParentNode );
-
- // "molecules are hidden" message
- moleculesHiddenLeftNode = new MoleculesAreHiddenNode();
- addChild( moleculesHiddenLeftNode );
- moleculesHiddenRightNode = new MoleculesAreHiddenNode();
- addChild( moleculesHiddenRightNode );
-
- // layout
- double x = 0;
- double y = 0;
- reactantsBoxNode.setOffset( x, y );
- moleculesParentNode.setOffset( x, y );
- x = aligner.getCenterXOffset() - ( arrowNode.getFullBoundsReference().getWidth() / 2 );
- y = reactantsBoxNode.getFullBoundsReference().getCenterY() - ( arrowNode.getFullBoundsReference().getHeight() / 2 );
- arrowNode.setOffset( x, y );
- x = reactantsBoxNode.getFullBoundsReference().getMaxX() + aligner.getBoxSeparation();
- y = reactantsBoxNode.getYOffset();
- productsBoxNode.setOffset( x, y );
- x = reactantsBoxNode.getFullBoundsReference().getCenterX() - ( moleculesHiddenLeftNode.getFullBoundsReference().getWidth() / 2 );
- y = reactantsBoxNode.getFullBoundsReference().getCenterY() - ( moleculesHiddenLeftNode.getFullBoundsReference().getHeight() / 2 );
- moleculesHiddenLeftNode.setOffset( x, y );
- x = productsBoxNode.getFullBoundsReference().getCenterX() - ( moleculesHiddenRightNode.getFullBoundsReference().getWidth() / 2 );
- y = productsBoxNode.getFullBoundsReference().getCenterY() - ( moleculesHiddenRightNode.getFullBoundsReference().getHeight() / 2 );
- moleculesHiddenRightNode.setOffset( x, y );
-
- // coefficient changes
- coefficientsObserver = new SimpleObserver() {
- public void update() {
- updateNode();
- }
- };
- // equation changes
- this.equation = equationProperty.get();
- equationProperty.addObserver( new SimpleObserver() {
- public void update() {
- BoxesNode.this.equation.removeCoefficientsObserver( coefficientsObserver );
- BoxesNode.this.equation = equationProperty.get();
- BoxesNode.this.equation.addCoefficientsObserver( coefficientsObserver );
- }
- } );
- // box color changes
- boxColorProperty.addObserver( new SimpleObserver() {
- public void update() {
- reactantsBoxNode.setPaint( boxColorProperty.get() );
- productsBoxNode.setPaint( boxColorProperty.get() );
- }
- } );
- // molecules visibility
- moleculesVisibleProperty.addObserver( new SimpleObserver() {
- public void update() {
- setMoleculesVisible( moleculesVisibleProperty.get() );
- }
- } );
- }
-
- *//*
- * Shows or hides the molecules in the boxes.
- *//*
- private void setMoleculesVisible( boolean moleculesVisible ) {
- moleculesParentNode.setVisible( moleculesVisible );
- moleculesHiddenLeftNode.setVisible( !moleculesVisible );
- moleculesHiddenRightNode.setVisible( !moleculesVisible );
- }
-
- *//**
- * Enables or disables the highlighting feature.
- * When enabled, the arrow between the boxes will light up when the equation is balanced.
- * This is enabled by default, but we want to disable in the Game until the user presses the "Check" button.
- * @param enabled
- *//*
- public void setBalancedHighlightEnabled( boolean enabled ) {
- if ( enabled != balancedHighlightEnabled ) {
- balancedHighlightEnabled = enabled;
- arrowNode.setHighlighted( equation.isBalanced() && balancedHighlightEnabled );
- }
- }
-
- *//*
- * Updates the number of molecules and whether the arrow is highlighted.
- *//*
- private void updateNode() {
- moleculesParentNode.removeAllChildren();
- createMolecules( equation.getReactants(), aligner.getReactantXOffsets( equation ) );
- createMolecules( equation.getProducts(), aligner.getProductXOffsets( equation ) );
- arrowNode.setHighlighted( equation.isBalanced() && balancedHighlightEnabled );
- }
-
- *//*
- * Creates molecules in the boxes for one set of terms (reactants or products).
- *//*
- private void createMolecules( EquationTerm[] terms, double[] xOffsets ) {
- assert( terms.length == xOffsets.length );
- final double yMargin = 10;
- final double rowHeight = ( aligner.getBoxSizeReference().getHeight() - ( 2 * yMargin ) ) / ( coefficientRange.getMax() );
- for ( int i = 0; i < terms.length; i++ ) {
- int numberOfMolecules = terms[i].getUserCoefficient();
- Image moleculeImage = terms[i].getMolecule().getImage();
- double y = 0;
- if ( TOP_DOWN_STACKS ) {
- y = yMargin + ( rowHeight / 2 );
- }
- else {
- y = aligner.getBoxSizeReference().getHeight() - yMargin - ( rowHeight / 2 );
- }
- for ( int j = 0; j < numberOfMolecules; j++ ) {
- PImage imageNode = new PImage( moleculeImage );
- moleculesParentNode.addChild( imageNode );
- imageNode.setOffset( xOffsets[i] - ( imageNode.getFullBoundsReference().getWidth() / 2 ), y - ( imageNode.getFullBoundsReference().getHeight()  / 2 ) );
- if ( TOP_DOWN_STACKS ) {
- y += rowHeight;
- }
- else {
- y -= rowHeight;
- }
- }
- }
- }
-
- *//*
- * A simple box.
- *//*
- private static class BoxNode extends PPath {
- public BoxNode( Dimension boxSize ) {
- super( new Rectangle2D.Double( 0, 0, boxSize.getWidth(), boxSize.getHeight() ) );
- setStrokePaint( Color.BLACK );
- setStroke( new BasicStroke( 1f ) );
- }
- }
-
- *//*
- * The "molecules are hidden" message.
- *//*
- private static class MoleculesAreHiddenNode extends HTMLNode {
- public MoleculesAreHiddenNode() {
- super( BCEStrings.MOLECULES_ARE_HIDDEN, Color.WHITE, new PhetFont( 18 ) );
- }
- }
- }*/

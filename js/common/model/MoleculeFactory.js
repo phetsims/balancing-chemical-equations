@@ -27,10 +27,10 @@ define( function( require ) {
   var SUBSUP_OPTIONS = {font: FONT, supScale: 1}; // options for all instances of SubSupNode
 
   //TODO SUBSUP_OPTIONS to EquationNode
-  var Molecule = function( image, symbolText, elements ) {
+  var Molecule = function( imageConstructor, symbolText, elements ) {
     var self = this;
 
-    this.image = image;
+    this.imageConstructor = imageConstructor;
     this.symbol = new SubSupText( symbolText, SUBSUP_OPTIONS );
     this.atoms = [];
     elements.forEach( function( element ) {
@@ -50,25 +50,25 @@ define( function( require ) {
 
   return {
     H2: function() {
-      return new Molecule( new H2Node(), 'H<sub>2</sub>', [Element.H, Element.H] );
+      return new Molecule( H2Node, 'H<sub>2</sub>', [Element.H, Element.H] );
     },
     H2O: function() {
-      return new Molecule( new H2ONode(), 'H<sub>2</sub>O', [Element.H, Element.H, Element.O] );
+      return new Molecule( H2ONode, 'H<sub>2</sub>O', [Element.H, Element.H, Element.O] );
     },
     CH4: function() {
-      return new Molecule( new CH4Node(), 'CH<sub>4</sub>', [Element.C, Element.H, Element.H, Element.H, Element.H] );
+      return new Molecule( CH4Node, 'CH<sub>4</sub>', [Element.C, Element.H, Element.H, Element.H, Element.H] );
     },
     CO2: function() {
-      return new Molecule( new CO2Node(), 'CO<sub>2</sub>', [Element.C, Element.O, Element.O] );
+      return new Molecule( CO2Node, 'CO<sub>2</sub>', [Element.C, Element.O, Element.O] );
     },
     N2: function() {
-      return new Molecule( new N2Node(), 'N<sub>2</sub>', [Element.N, Element.N, Element.O] );
+      return new Molecule( N2Node, 'N<sub>2</sub>', [Element.N, Element.N, Element.O] );
     },
     NH3: function() {
-      return new Molecule( new NH3Node(), 'NH<sub>3</sub>', [Element.N, Element.H, Element.H, Element.H] );
+      return new Molecule( NH3Node, 'NH<sub>3</sub>', [Element.N, Element.H, Element.H, Element.H] );
     },
     O2: function() {
-      return new Molecule( new O2Node(), 'O<sub>2</sub>', [Element.O, Element.O] );
+      return new Molecule( O2Node, 'O<sub>2</sub>', [Element.O, Element.O] );
     }
   };
 

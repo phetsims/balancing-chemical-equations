@@ -39,7 +39,7 @@ define( function( require ) {
     this.balancedHighlightEnabled = true;
 
     //boxes
-    var reactantsBoxNode = new BoxNode( this.equation.reactants, coefficientRange, aligner.getReactantXOffsets( this.equation ), {
+    this.reactantsBoxNode = new BoxNode( aligner,coefficientRange, {
       fill: boxColorProperty,
       title: reactantsString,
       x: aligner.centerXOffset - aligner.boxSize.width - aligner.boxSeparation / 2,
@@ -47,9 +47,9 @@ define( function( require ) {
       y: 0,
       height: aligner.boxSize.height
     } );
-    this.addChild( reactantsBoxNode );
+    this.addChild( this.reactantsBoxNode );
 
-    var productsBoxNode = new BoxNode( this.equation.products, coefficientRange, aligner.getProductXOffsets( this.equation ), {
+    this.productsBoxNode = new BoxNode(aligner, coefficientRange, {
       fill: boxColorProperty,
       title: productsString,
       x: aligner.centerXOffset + aligner.boxSeparation / 2,
@@ -57,7 +57,7 @@ define( function( require ) {
       y: 0,
       height: aligner.boxSize.height
     } );
-    this.addChild( productsBoxNode );
+    this.addChild( this.productsBoxNode );
 
     // right-pointing arrow
     this.arrowNode = new RightArrowNode( equationProperty.balanced );
@@ -67,16 +67,16 @@ define( function( require ) {
 
     //if coefficient changes
     var coefficientsObserver = function() {
-      self.arrowNode.setHighlighted( self.equation.balanced && self.balancedHighlightEnabled );
+      self.updateNode();
     };
 
     // if the equation changes...
     equationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) {
-        oldEquation.balancedProperty.unlink( coefficientsObserver );
+        oldEquation.removeCoefficientsObserver( coefficientsObserver );
       }
       self.equation = newEquation;
-      self.equation.balancedProperty.link( coefficientsObserver );
+      self.equation.addCoefficientsObserver( coefficientsObserver );
     } );
   }
 
@@ -93,6 +93,14 @@ define( function( require ) {
         this.balancedHighlightEnabled = enabled;
         this.arrowNode.setHighlighted( this.equation.isBalanced() && this.balancedHighlightEnabled );
       }
+    },
+    /*
+     *Updates the number of molecules and whether the arrow is highlighted.
+     */
+    updateNode: function() {
+      this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
+      this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
+      this.productsBoxNode.createMolecules( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
     }
   } );
 

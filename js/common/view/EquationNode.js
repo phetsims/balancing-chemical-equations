@@ -42,6 +42,7 @@ define( function( require ) {
     this.addChild( this.rightArrowNode );
     this.rightArrowNode.centerX = this.aligner.centerXOffset;
 
+    //TODO term alignment
     //the parent for all equation terms and the "+" signs
     this.termsParent = new Node();
     this.addChild( this.termsParent );
@@ -67,24 +68,24 @@ define( function( require ) {
   return inherit( Node, BalancedRepresentationChoiceNode, {
     /*
      * Rebuilds the left and right sides of the equation.
-     */
-    updateNode: function() {
-      this.termsParent.removeAllChildren();
+                                                    */
+                                                  updateNode: function() {
+    this.termsParent.removeAllChildren();
 
-      this.termNodes.forEach( function( termNode ) {
-        termNode.cleanup();
-      } );
-      this.termNodes = [];
+    this.termNodes.forEach( function( termNode ) {
+      termNode.cleanup();
+    } );
+    this.termNodes = [];
 
-      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
-      this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
-    },
-    /*
-     * Updates one side of the equation.
-     * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
-     * This allows us to align the baselines of HTML-formatted text.
-     */
-    updateSideOfEquation: function( terms, xOffsets ) {
+    this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
+    this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
+  },
+  /*
+   * Updates one side of the equation.
+   * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
+   * This allows us to align the baselines of HTML-formatted text.
+   */
+  updateSideOfEquation: function( terms, xOffsets ) {
       var plusNode;
       var termNode;
 

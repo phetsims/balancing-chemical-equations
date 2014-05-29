@@ -35,13 +35,7 @@ define( function( require ) {
     } );
 
     //equation is balanced if all terms are balanced.
-    this.reactants.forEach( function( reactant ) {
-      reactant.userCoefficient.link( self.updateBalancedProperties.bind( self ) );
-    } );
-    this.products.forEach( function( product ) {
-      product.userCoefficient.link( self.updateBalancedProperties.bind( self ) );
-    } );
-
+    this.addCoefficientsObserver( self.updateBalancedProperties.bind( self ) );
   }
 
   inherit( PropertySet, Equation, {
@@ -59,11 +53,10 @@ define( function( require ) {
      * multiple is 1, then the term is balanced with lowest possible coefficients.
      */
     updateBalancedProperties: function() {
+
       // Get integer multiplier from the first reactant term.
       var multiplier = this.reactants[0].userCoefficient / this.reactants[0].balancedCoefficient;
-
       var balanced = ( multiplier > 0 );
-
       // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
       this.reactants.forEach( function( reactant ) {
         balanced = balanced && ( reactant.userCoefficient === multiplier * reactant.balancedCoefficient );
@@ -74,6 +67,29 @@ define( function( require ) {
 
       this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific property first
       this.balanced = balanced;
+    },
+    /**
+     * Convenience method for adding an observer to all coefficients.
+     */
+    addCoefficientsObserver: function( observer ) {
+      this.reactants.forEach( function( reactant ) {
+        reactant.userCoefficientProperty.link( observer );
+      } );
+      this.products.forEach( function( product ) {
+        product.userCoefficientProperty.link( observer );
+      } );
+    },
+
+    /**
+     * Convenience method for removing an observer from all coefficients.
+     */
+    removeCoefficientsObserver: function( observer ) {
+      this.reactants.forEach( function( reactant ) {
+        reactant.userCoefficientProperty.unlink( observer );
+      } );
+      this.products.forEach( function( product ) {
+        product.userCoefficientProperty.unlink( observer );
+      } );
     }
   } );
 

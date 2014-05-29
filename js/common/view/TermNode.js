@@ -22,7 +22,7 @@ define( function( require ) {
     this.symbolNode = term.molecule.symbol;
     this.addChild( this.symbolNode );
 
-    this.coefficientNode = new CoefficientNode( coefficientRange, term.userCoefficient, editable );
+    this.coefficientNode = new CoefficientNode( coefficientRange, term.userCoefficientProperty, editable );
     this.addChild( this.coefficientNode );
     this.coefficientNode.x = this.symbolNode.x - this.coefficientNode.width - 2;
     this.coefficientNode.centerY = this.symbolNode.centerY;

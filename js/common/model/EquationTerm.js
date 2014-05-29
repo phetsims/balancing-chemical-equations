@@ -11,17 +11,16 @@ define( function( require ) {
   'use strict';
 
   //modules
-  var Property = require( 'AXON/Property' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
   function EquationTerm( balancedCoefficient, molecule, actualCoefficient ) {
     this.molecule = molecule;
     this.balancedCoefficient = balancedCoefficient;
-    this.userCoefficient = new Property( actualCoefficient || 0 );
+    PropertySet.call( this, {
+      userCoefficient: actualCoefficient || 0
+    } );
   }
 
-  EquationTerm.prototype.reset = function() {
-    this.userCoefficient.reset();
-  };
-
-  return EquationTerm;
+  return inherit( PropertySet, EquationTerm );
 } );
