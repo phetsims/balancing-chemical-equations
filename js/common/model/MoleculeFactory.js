@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
-  var Atom = require( 'NITROGLYCERIN/nodes/H2Node' );
+  var Atom = require( 'NITROGLYCERIN/Atom' );
   var Element = require( 'NITROGLYCERIN/Element' );
   var CH4Node = require( 'NITROGLYCERIN/nodes/CH4Node' );
   var CO2Node = require( 'NITROGLYCERIN/nodes/CO2Node' );
@@ -62,7 +62,7 @@ define( function( require ) {
       return new Molecule( CO2Node, 'CO<sub>2</sub>', [Element.C, Element.O, Element.O] );
     },
     N2: function() {
-      return new Molecule( N2Node, 'N<sub>2</sub>', [Element.N, Element.N, Element.O] );
+      return new Molecule( N2Node, 'N<sub>2</sub>', [Element.N, Element.N] );
     },
     NH3: function() {
       return new Molecule( NH3Node, 'NH<sub>3</sub>', [Element.N, Element.H, Element.H, Element.H] );

@@ -17,6 +17,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
 
   /**
    * @param {[EquationTerm]} reactants
@@ -90,8 +91,71 @@ define( function( require ) {
       this.products.forEach( function( product ) {
         product.userCoefficientProperty.unlink( observer );
       } );
+    },
+    /**
+     * Returns a count of each type of atom, based on the user coefficients.
+     * <p/>
+     * The order of atoms will be the same order that they are encountered in the reactant terms.
+     * For example, if the left-hand side of the equation is CH4 + O2, then the order of atoms
+     * will be [C,H,O].
+     */
+    getAtomCounts: function() {
+      var atomCounts = []; //array of AtomCounts
+      this.setAtomCounts( atomCounts, this.reactants, true /* isReactants */ );
+      this.setAtomCounts( atomCounts, this.products, false /* isReactants */ );
+      return atomCounts;
+    },
+
+    /*
+     * Some of our visual representations of "balanced" (ie, balance scales and bar charts)
+     * compare the number of atoms on the left and right side of the equation.
+     * <p>
+     * This algorithm supports those representations by computing the atom counts.
+     * It examines a collection of terms in the equation (either reactants or products),
+     * examines those terms' molecules, and counts the number of each atom type.
+     * <p>
+     * This is a brute force algorithm, but our number of terms is always small,
+     * and this is easy to implement and understand.
+     *
+     * @param atomCounts
+     * @param terms
+     * @param isReactants true if the terms are the reactants, false if they are the products
+     */
+    setAtomCounts: function( atomCounts, terms, isReactants ) {
+      terms.forEach( function( term ) {
+        term.molecule.atoms.forEach( function( atom ) {
+
+          var found = false;
+          for ( var i = 0; i < atomCounts.length; i++ ) {
+            var atomCount = atomCounts[i];
+            // add to an existing count
+            if ( atomCount.element === atom.element ) {
+              if ( isReactants ) {
+                atomCount.reactantsCount += term.userCoefficient;
+              }
+              else {
+                atomCount.productsCount += term.userCoefficient;
+              }
+              found = true;
+              break;
+            }
+          }
+
+          // if no existing count was found, create one.
+          if ( !found ) {
+            if ( isReactants ) {
+              atomCounts.push( new AtomCount( atom.element, term.userCoefficient, 0 ) );
+            }
+            else {
+              atomCounts.push( new AtomCount( atom.element, 0, term.userCoefficient ) );
+            }
+          }
+        } );
+      } );
     }
   } );
 
+
   return Equation;
-} );
+} )
+;

@@ -39,7 +39,7 @@ define( function( require ) {
     this.balancedHighlightEnabled = true;
 
     //boxes
-    this.reactantsBoxNode = new BoxNode( aligner,coefficientRange, {
+    this.reactantsBoxNode = new BoxNode( aligner, coefficientRange, {
       fill: boxColorProperty,
       title: reactantsString,
       x: aligner.centerXOffset - aligner.boxSize.width - aligner.boxSeparation / 2,
@@ -49,7 +49,7 @@ define( function( require ) {
     } );
     this.addChild( this.reactantsBoxNode );
 
-    this.productsBoxNode = new BoxNode(aligner, coefficientRange, {
+    this.productsBoxNode = new BoxNode( aligner, coefficientRange, {
       fill: boxColorProperty,
       title: productsString,
       x: aligner.centerXOffset + aligner.boxSeparation / 2,
@@ -64,19 +64,14 @@ define( function( require ) {
     this.arrowNode.center = new Vector2( aligner.centerXOffset, aligner.boxSize.height / 2 );
     this.addChild( this.arrowNode );
 
-
-    //if coefficient changes
-    var coefficientsObserver = function() {
-      self.updateNode();
-    };
-
     // if the equation changes...
     equationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) {
-        oldEquation.removeCoefficientsObserver( coefficientsObserver );
+        oldEquation.removeCoefficientsObserver( self.updateNode.bind( self ) );
       }
       self.equation = newEquation;
-      self.equation.addCoefficientsObserver( coefficientsObserver );
+      //observer for coefficients
+      self.equation.addCoefficientsObserver( self.updateNode.bind( self ) );
     } );
   }
 

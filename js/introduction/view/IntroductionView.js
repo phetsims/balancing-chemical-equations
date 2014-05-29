@@ -19,6 +19,7 @@ define( function( require ) {
   var EquationChoiceAndResetNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/EquationChoiceAndResetNode' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/equationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BCEConstants' );
+  var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BarChartsNode' );
 
   //constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -29,6 +30,11 @@ define( function( require ) {
 
     //aligner for equation
     var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2 );
+
+    // bar charts
+    var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, 170 );
+    this.addChild( barChartsNode );
+
 
     // control for choosing an equation and reset button
     var equationChoiceAndResetNode = new EquationChoiceAndResetNode( model, {y: model.height - 65} );
@@ -46,6 +52,8 @@ define( function( require ) {
     // control for choosing the visual representation of "balanced"
     var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 10} );
     this.addChild( balanceChoiceNode );
+
+
 
   }
 
