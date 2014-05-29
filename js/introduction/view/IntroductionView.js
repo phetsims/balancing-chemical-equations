@@ -30,10 +30,6 @@ define( function( require ) {
     //aligner for equation
     var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2 );
 
-    // control for choosing the visual representation of "balanced"
-    var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 10} );
-    this.addChild( balanceChoiceNode );
-
     // control for choosing an equation and reset button
     var equationChoiceAndResetNode = new EquationChoiceAndResetNode( model, {y: model.height - 65} );
     this.addChild( equationChoiceAndResetNode );
@@ -46,6 +42,10 @@ define( function( require ) {
     var boxesNode = new BoxesNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner,
       BCEConstants.BOX_COLOR, {y:180} );
     this.addChild( boxesNode );
+
+    // control for choosing the visual representation of "balanced"
+    var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 10} );
+    this.addChild( balanceChoiceNode );
 
   }
 
