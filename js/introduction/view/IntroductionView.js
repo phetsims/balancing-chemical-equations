@@ -20,6 +20,8 @@ define( function( require ) {
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/equationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BCEConstants' );
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BarChartsNode' );
+  var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BalanceScalesNode' );
+  var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/BalancedRepresentation' );
 
   //constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -32,9 +34,12 @@ define( function( require ) {
     var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2 );
 
     // bar charts
-    var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, 170 );
+    var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, 170 /* maxY */ );
     this.addChild( barChartsNode );
 
+    // balance scales
+    var balanceScalesNode = new BalanceScalesNode( model.currentEquation, horizontalAligner, 170 /* maxY */ );
+    this.addChild( balanceScalesNode );
 
     // control for choosing an equation and reset button
     var equationChoiceAndResetNode = new EquationChoiceAndResetNode( model, {y: model.height - 65} );
@@ -46,13 +51,17 @@ define( function( require ) {
 
     //boxes that show molecules corresponding to the equation coefficients
     var boxesNode = new BoxesNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner,
-      BCEConstants.BOX_COLOR, {y:180} );
+      BCEConstants.BOX_COLOR, {y: 180} );
     this.addChild( boxesNode );
 
     // control for choosing the visual representation of "balanced"
     var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 10} );
     this.addChild( balanceChoiceNode );
 
+    model.balanceChoiceProperty.link( function( choice ) {
+      barChartsNode.setVisible( choice === BalancedRepresentation.BAR_CHARTS );
+      balanceScalesNode.setVisible( choice === BalancedRepresentation.BALANCE_SCALES );
+    } );
 
 
   }

@@ -47,7 +47,7 @@ define( function( require ) {
     //scales
     var scales = new Image( scalesImage, {'font': textFont, scale: 0.75} );
     scales.scale( 0.5 );
-    comboChildren.push( ComboBox.createItem( scales, BalancedRepresentation.BALANCE_SCALES_ ) );
+    comboChildren.push( ComboBox.createItem( scales, BalancedRepresentation.BALANCE_SCALES ) );
 
     //charts
     var charts = new Image( chartsImage, {'font': textFont, scale: 0.75} );

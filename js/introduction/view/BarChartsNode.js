@@ -29,8 +29,8 @@ define( function( require ) {
   function BarChartsNode( equationProperty, aligner, maxY) {
     var self = this;
     Node.call( this );
-    this.maxY = maxY;
 
+    this.maxY = maxY;
     this.aligner = aligner;
 
     this.reactantsChartParent = new Node();
@@ -39,6 +39,8 @@ define( function( require ) {
     this.productsChartParent = new Node();
     this.addChild( this.productsChartParent );
 
+
+    //TODO
     /*this.equalsSignNode = new EqualsSignNode( equationProperty.get().isBalanced() );
      addChild( equalsSignNode );
 
