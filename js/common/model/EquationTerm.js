@@ -18,7 +18,7 @@ define( function( require ) {
     this.molecule = molecule;
     this.balancedCoefficient = balancedCoefficient;
     PropertySet.call( this, {
-      userCoefficient: actualCoefficient || 1
+      userCoefficient: actualCoefficient || 0
     } );
   }
 
