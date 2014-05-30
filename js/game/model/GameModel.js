@@ -13,29 +13,30 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Range = require('DOT/Range');
 
-  /**
-   * The set of game states.
-   * For lack of better names, the state names correspond to the main action that
-   * the user can take in that state.  For example. the CHECK state is where the user
-   * can enter coefficients and press the "Check" button to check their answer.
-   */
-  var GameState = {
-    START_GAME: 'START_GAME',
-    CHECK: 'CHECK',
-    TRY_AGAIN: 'TRY_AGAIN',
-    SHOW_ANSWER: 'SHOW_ANSWER',
-    NEXT: 'NEXT',
-    NEW_GAME: 'NEW_GAME'
-  };
+
 
 
   function GameModel( width, height ) {
+    /**
+     * The set of game states.
+     * For lack of better names, the state names correspond to the main action that
+     * the user can take in that state.  For example. the CHECK state is where the user
+     * can enter coefficients and press the "Check" button to check their answer.
+     */
+    this.gameState = {
+      START_GAME: 'START_GAME',
+      CHECK: 'CHECK',
+      TRY_AGAIN: 'TRY_AGAIN',
+      SHOW_ANSWER: 'SHOW_ANSWER',
+      NEXT: 'NEXT',
+      NEW_GAME: 'NEW_GAME'
+    };
 
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
-    var LEVELS_RANGE = [1, 2, 3];
-    var EQUATIONS_PER_GAME = 5;
-    var POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
-    var POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
+    this.LEVELS_RANGE = new Range( 1, 3 );
+    this.EQUATIONS_PER_GAME = 5;
+    this.POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
+    this.POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
     // dimensions of the model's space
     this.width = width;
@@ -47,8 +48,9 @@ define( function( require ) {
       currentEquation: null,
       attempts:0,// how many attempts the user has made at solving the current challenge
       currentEquationIndex: 0, // index of the current equation that the user is working on
-      isSoundOn: true,
-      isTimerOn: true
+      soundEnabled: true,
+      isTimerOn: true,
+      elapsedTime:0
     } );
 
   }

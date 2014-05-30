@@ -34,7 +34,7 @@ define( function( require ) {
     this.coefficientProperty = coefficientProperty;
 
     //arrows
-    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, lineWidth: 0, yMargin: 2, xMargin: 0, fill: 'none' };
+    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, lineWidth: 0, yMargin: 2, xMargin: 0, fill: null };
     this.upArrowButton = new ArrowButton( 'up', function() { coefficientProperty.value = coefficientProperty.value + 1; }, arrowButtonOptions );
     this.downArrowButton = new ArrowButton( 'down', function() { coefficientProperty.value = coefficientProperty.value - 1; }, arrowButtonOptions );
 
@@ -74,6 +74,8 @@ define( function( require ) {
 
     this.upArrowButton.touchArea = Shape.bounds( this.upArrowButton.localBounds.dilatedXY( extendedTouchAreaWidth, extendedTouchAreaHeight ) );
     this.downArrowButton.touchArea = Shape.bounds( this.downArrowButton.localBounds.dilatedXY( extendedTouchAreaWidth, extendedTouchAreaHeight ) );
+
+    this.editable( editable );
   }
 
   return inherit( VBox, CoefficientNode, {

@@ -25,12 +25,14 @@ require.config( {
     JOIST: '../../joist/js',
     KITE: '../../kite/js',
     NITROGLYCERIN: '../../nitroglycerin/js',
-    PHET_CORE: '../../phet-core/js',
     PHETCOMMON: '../../phetcommon/js',
+    PHET_CORE: '../../phet-core/js',
     SCENERY: '../../scenery/js',
     SCENERY_PHET: '../../scenery-phet/js',
+    SHERPA: '../../sherpa',
     SUN: '../../sun/js',
-
+    VEGAS: '../../vegas/js',
+    VIBE: '../../vibe/js',
     // sim code
     BALANCING_CHEMICAL_EQUATIONS: '.'
   },

@@ -28,7 +28,7 @@ define( function( require ) {
   var BOX_SEPARATION = 110;
 
   function IntroductionView( model ) {
-    ScreenView.call( this, { renderer: 'svg' } );
+    ScreenView.call( this );
 
     //aligner for equation
     var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2 );
