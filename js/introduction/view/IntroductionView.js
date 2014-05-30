@@ -38,7 +38,7 @@ define( function( require ) {
     this.addChild( barChartsNode );
 
     // balance scales
-    var balanceScalesNode = new BalanceScalesNode( model.currentEquation, horizontalAligner, 170 /* maxY */ );
+    var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, horizontalAligner, 170 /* maxY */ );
     this.addChild( balanceScalesNode );
 
     // control for choosing an equation and reset button

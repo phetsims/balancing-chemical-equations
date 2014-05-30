@@ -19,7 +19,7 @@ define( function( require ) {
   //modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
+  var BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BalanceScaleNode' );
 
   /**
    * Constructor.
@@ -54,6 +54,8 @@ define( function( require ) {
      * Updates this node's entire geometry and layout
      */
     updateNode: function() {
+      var self = this;
+
       this.removeAllChildren();
       var atomCounts = this.equation.getAtomCounts();
       var xSpacing = 32;
@@ -61,8 +63,8 @@ define( function( require ) {
       var x = 0;
       var highlighted = this.equation.balanced;
       atomCounts.forEach( function( atomCount ) {
-        var scaleNode = new BalanceScaleNode( atomCount.getElement(), atomCount.reactansCount, atomCount.productsCount, highlighted, {x: x} );
-        this.addChild( scaleNode );
+        var scaleNode = new BalanceScaleNode( atomCount.element, atomCount.reactantsCount, atomCount.productsCount, highlighted, {x: x} );
+        self.addChild( scaleNode );
         x += dx;
       } );
       this.centerX = this.aligner.centerXOffset;
