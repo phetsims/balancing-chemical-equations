@@ -26,7 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function GameView( gameModel ) {
-    ScreenView.call( this );
+    ScreenView.call( this, {renderer: 'svg'} );
     var thisScene = this;
 
     // Add a root node where all of the game-related nodes will live.
@@ -39,19 +39,19 @@ define( function( require ) {
     var rewardNode = new Node();
 
     /*var startGameLevelNode = new StartGameLevelNode( gameModel, this.layoutBounds );
-    var scoreboard = new Scoreboard(
-      gameModel.problemIndexProperty,
-      new Property( gameModel.PROBLEMS_PER_LEVEL ),
-      gameModel.levelProperty,
-      gameModel.scoreProperty,
-      gameModel.elapsedTimeProperty,
-      gameModel.timerEnabledProperty,
-      function() { gameModel.newGame(); },
-      { levelVisible: false }
-    );
-    scoreboard.mutate( { centerX: this.layoutBounds.centerX, bottom: this.layoutBounds.maxY - 10 } );
+     var scoreboard = new Scoreboard(
+     gameModel.problemIndexProperty,
+     new Property( gameModel.PROBLEMS_PER_LEVEL ),
+     gameModel.levelProperty,
+     gameModel.scoreProperty,
+     gameModel.elapsedTimeProperty,
+     gameModel.timerEnabledProperty,
+     function() { gameModel.newGame(); },
+     { levelVisible: false }
+     );
+     scoreboard.mutate( { centerX: this.layoutBounds.centerX, bottom: this.layoutBounds.maxY - 10 } );
 
-    var rewardNode = new Node();*/
+     var rewardNode = new Node();*/
 
     // Monitor the game state and update the view accordingly.
     gameModel.stateProperty.link( function( state ) {
