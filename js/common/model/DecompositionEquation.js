@@ -81,31 +81,19 @@ define( function( require ) {
     // 2 NO2 -> 2 NO + O2
     Decomposition_2NO2_2NO_O2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.NO2(), 2, MoleculeFactory.NO(), 1, MoleculeFactory.O2() );
+    },
+    // 4 PCl3 -> P4 + 6 Cl2
+    Decomposition_4PCl3_P4_6Cl2: function() {
+      return new DecompositionEquation( 4, MoleculeFactory.PCl3(), 1, MoleculeFactory.P4(), 6, MoleculeFactory.Cl2() );
+    },
+    // PCl5 -> PCl3 + Cl2
+    Decomposition_PCl5_PCl3_Cl2: function() {
+      return new DecompositionEquation( 1, MoleculeFactory.PCl5(), 1, MoleculeFactory.PCl3(), 1, MoleculeFactory.Cl2() );
+    },
+    // 2 SO3 -> 2 SO2 + O2
+    Decomposition_2SO3_2SO2_O2: function() {
+      return new DecompositionEquation( 2, MoleculeFactory.SO3(), 2, MoleculeFactory.SO2(), 1, MoleculeFactory.O2() );
     }
-   /*
-
-
-
-  // 4 PCl3 -> P4 + 6 Cl2
-  public static class Decomposition_4PCl3_P4_6Cl2 extends DecompositionEquation {
-    public Decomposition_4PCl3_P4_6Cl2() {
-      super( 4, new PCl3(), 1, new P4(), 6, new Cl2() );
-    }
-  }
-
-  // PCl5 -> PCl3 + Cl2
-  public static class Decomposition_PCl5_PCl3_Cl2 extends DecompositionEquation {
-    public Decomposition_PCl5_PCl3_Cl2() {
-      super( 1, new PCl5(), 1, new PCl3(), 1, new Cl2() );
-    }
-  }
-
-  // 2 SO3 -> 2 SO2 + O2
-  public static class Decomposition_2SO3_2SO2_O2 extends DecompositionEquation {
-    public Decomposition_2SO3_2SO2_O2() {
-      super( 2, new SO3(), 2, new SO2(), 1, new O2() );
-    }
-  }*/
   };
 
 } );
