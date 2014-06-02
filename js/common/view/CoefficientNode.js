@@ -18,7 +18,6 @@ define( function( require ) {
   // modules
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -34,7 +33,7 @@ define( function( require ) {
     this.coefficientProperty = coefficientProperty;
 
     //arrows
-    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, lineWidth: 0, yMargin: 2, xMargin: 0, fill: null };
+    var arrowButtonOptions = { arrowHeight: 30, arrowWidth: 10, timerDelay: 200, yMargin: 2, xMargin: 0, fill: null, lineWidth:0 };
     this.upArrowButton = new ArrowButton( 'up', function() { coefficientProperty.value = coefficientProperty.value + 1; }, arrowButtonOptions );
     this.downArrowButton = new ArrowButton( 'down', function() { coefficientProperty.value = coefficientProperty.value - 1; }, arrowButtonOptions );
 
@@ -75,7 +74,7 @@ define( function( require ) {
     this.upArrowButton.touchArea = Shape.bounds( this.upArrowButton.localBounds.dilatedXY( extendedTouchAreaWidth, extendedTouchAreaHeight ) );
     this.downArrowButton.touchArea = Shape.bounds( this.downArrowButton.localBounds.dilatedXY( extendedTouchAreaWidth, extendedTouchAreaHeight ) );
 
-    this.editable( editable );
+    this.setEditable( editable );
   }
 
   return inherit( VBox, CoefficientNode, {
