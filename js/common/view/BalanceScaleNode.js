@@ -16,8 +16,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BeamNode' );
-  var FulcrumNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/FulcrumNode' );
+  var BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BeamNode' );
+  var FulcrumNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/FulcrumNode' );
   var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var Vector2 = require( 'DOT/Vector2' );

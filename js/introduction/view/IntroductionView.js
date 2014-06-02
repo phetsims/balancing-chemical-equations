@@ -19,9 +19,9 @@ define( function( require ) {
   var EquationChoiceAndResetNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/EquationChoiceAndResetNode' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/equationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BCEConstants' );
-  var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BarChartsNode' );
-  var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BalanceScalesNode' );
-  var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/BalancedRepresentation' );
+  var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
+  var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
+  var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
 
   //constants
   var BOX_SIZE = new Dimension2( 285, 145 );
