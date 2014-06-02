@@ -24,8 +24,8 @@ define( function( require ) {
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
 
   //constants
-  var BOX_SIZE = new Dimension2( 285, 310 );
-  var BOX_SEPARATION = 135;
+  var BOX_SIZE = new Dimension2( 285, 145 );
+  var BOX_SEPARATION = 110;
 
   function IntroductionView( model ) {
     ScreenView.call( this, {renderer:'svg'} );
@@ -46,7 +46,7 @@ define( function( require ) {
     this.addChild( equationChoiceAndResetNode );
 
     // equation, in formula format
-    var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 90} );
+    var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 100} );
     this.addChild( equationNode );
 
     //boxes that show molecules corresponding to the equation coefficients
