@@ -28,10 +28,10 @@ define( function( require ) {
   var introductionImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
   var balancingGameImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
   var screens = [
-    /*new Screen( introductionTitleString, new Image( introductionImage ),
+    new Screen( introductionTitleString, new Image( introductionImage ),
      function() { return new IntroductionModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
      function( model ) { return new IntroductionView( model ); },
-     {backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND} ),*/
+     {backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND} ),
     new Screen( balancingGameTitleString, new Image( balancingGameImage ),
       function() { return new GameModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
       function( model ) { return new GameView( model ); },
