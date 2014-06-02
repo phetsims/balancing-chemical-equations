@@ -77,7 +77,6 @@ define( function( require ) {
     } );
   }
 
-
   return inherit( Node, BoxesNode, {
     /**
      * Enables or disables the highlighting feature.
@@ -102,81 +101,3 @@ define( function( require ) {
   } );
 
 } );
-
-/*
- // molecules
- moleculesParentNode = new PComposite();
- addChild( moleculesParentNode );
-
- // layout
- double x = 0;
- double y = 0;
- reactantsBoxNode.setOffset( x, y );
- moleculesParentNode.setOffset( x, y );
- x = aligner.getCenterXOffset() - ( arrowNode.getFullBoundsReference().getWidth() / 2 );
- y = reactantsBoxNode.getFullBoundsReference().getCenterY() - ( arrowNode.getFullBoundsReference().getHeight() / 2 );
- arrowNode.setOffset( x, y );
- x = reactantsBoxNode.getFullBoundsReference().getMaxX() + aligner.getBoxSeparation();
- y = reactantsBoxNode.getYOffset();
- productsBoxNode.setOffset( x, y );
- x = reactantsBoxNode.getFullBoundsReference().getCenterX() - ( moleculesHiddenLeftNode.getFullBoundsReference().getWidth() / 2 );
- y = reactantsBoxNode.getFullBoundsReference().getCenterY() - ( moleculesHiddenLeftNode.getFullBoundsReference().getHeight() / 2 );
- moleculesHiddenLeftNode.setOffset( x, y );
- x = productsBoxNode.getFullBoundsReference().getCenterX() - ( moleculesHiddenRightNode.getFullBoundsReference().getWidth() / 2 );
- y = productsBoxNode.getFullBoundsReference().getCenterY() - ( moleculesHiddenRightNode.getFullBoundsReference().getHeight() / 2 );
- moleculesHiddenRightNode.setOffset( x, y );
-
-
- *//*
- * Updates the number of molecules and whether the arrow is highlighted.
- *//*
- private void updateNode() {
- moleculesParentNode.removeAllChildren();
- createMolecules( equation.getReactants(), aligner.getReactantXOffsets( equation ) );
- createMolecules( equation.getProducts(), aligner.getProductXOffsets( equation ) );
- }
-
- *//*
- * Creates molecules in the boxes for one set of terms (reactants or products).
- *//*
- private void createMolecules( EquationTerm[] terms, double[] xOffsets ) {
- assert( terms.length == xOffsets.length );
- final double yMargin = 10;
- final double rowHeight = ( aligner.getBoxSizeReference().getHeight() - ( 2 * yMargin ) ) / ( coefficientRange.getMax() );
- for ( int i = 0; i < terms.length; i++ ) {
- int numberOfMolecules = terms[i].getUserCoefficient();
- Image moleculeImage = terms[i].getMolecule().getImage();
- double y = 0;
- if ( TOP_DOWN_STACKS ) {
- y = yMargin + ( rowHeight / 2 );
- }
- else {
- y = aligner.getBoxSizeReference().getHeight() - yMargin - ( rowHeight / 2 );
- }
- for ( int j = 0; j < numberOfMolecules; j++ ) {
- PImage imageNode = new PImage( moleculeImage );
- moleculesParentNode.addChild( imageNode );
- imageNode.setOffset( xOffsets[i] - ( imageNode.getFullBoundsReference().getWidth() / 2 ), y - ( imageNode.getFullBoundsReference().getHeight()  / 2 ) );
- if ( TOP_DOWN_STACKS ) {
- y += rowHeight;
- }
- else {
- y -= rowHeight;
- }
- }
- }
- }
-
- *//*
- * A simple box.
- *//*
- private static class BoxNode extends PPath {
- public BoxNode( Dimension boxSize ) {
- super( new Rectangle2D.Double( 0, 0, boxSize.getWidth(), boxSize.getHeight() ) );
- setStrokePaint( Color.BLACK );
- setStroke( new BasicStroke( 1f ) );
- }
- }
-
-
- }*/
