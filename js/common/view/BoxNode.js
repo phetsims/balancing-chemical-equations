@@ -40,7 +40,7 @@ define( function( require ) {
     Node.call( this, options );
 
     //box options
-    var options = _.extend( {
+    options = _.extend( {
       buttonLength: 15,
       xMargin: 5,
       yMargin: 5,

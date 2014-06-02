@@ -210,6 +210,9 @@ define( function( require ) {
     };
 
     this.getEquationClasses = function( numberOfEquations ) {
+      //function for
+
+
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
 

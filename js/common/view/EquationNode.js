@@ -18,7 +18,6 @@ define( function( require ) {
   var RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
   var TermNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/TermNode' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Equation} equationProperty
