@@ -87,7 +87,7 @@ define( function( require ) {
     setBalancedHighlightEnabled: function( enabled ) {
       if ( enabled !== this.balancedHighlightEnabled ) {
         this.balancedHighlightEnabled = enabled;
-        this.arrowNode.setHighlighted( this.equation.isBalanced() && this.balancedHighlightEnabled );
+        this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
       }
     },
     /*

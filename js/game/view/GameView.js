@@ -81,12 +81,12 @@ define( function( require ) {
     this.gamePlayNode.addChild( scoreboard );
 
     // Equation
-    var equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 120} );
-    this.gamePlayNode.addChild( equationNode );
+    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 120} );
+    this.gamePlayNode.addChild( this.equationNode );
 
     // boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, BCEConstants.BOX_COLOR, {y: 20} );
-    this.gamePlayNode.addChild( boxesNode );
+    this.boxesNode = new BoxesNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, BCEConstants.BOX_COLOR, {y: 20} );
+    this.gamePlayNode.addChild( this.boxesNode );
 
 
     //gameCompleted nodes
@@ -121,6 +121,25 @@ define( function( require ) {
       this.rootNode.addChild( this.startGameLevelNode );
     },
     initCheck: function() {
+      this.setBalancedHighlightEnabled( false );
+    },
+    initTryAgain: function() {
+    },
+    initShowAnswer: function() {
+    },
+    initNext: function() {
+      this.setBalancedHighlightEnabled( true );
+    },
+    initLevelCompleted: function() {
+    },
+    /*
+     * Turns on/off the highlighting feature that indicates whether the equation is balanced.
+     * We need to be able to control this so that a balanced equation doesn't highlight
+     * until after the user presses the Check button.
+     */
+    setBalancedHighlightEnabled: function( enabled ) {
+      this.equationNode.setBalancedHighlightEnabled( enabled );
+      this.boxesNode.setBalancedHighlightEnabled( enabled );
     }
   } );
 } )

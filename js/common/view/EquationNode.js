@@ -57,10 +57,10 @@ define( function( require ) {
       if ( oldEquation ) {
         oldEquation.balancedProperty.unlink( coefficientsObserver );
       }
-      if(newEquation) {
-      self.equation = newEquation;
-      self.equation.balancedProperty.link( coefficientsObserver );
-      self.updateNode();
+      if ( newEquation ) {
+        self.equation = newEquation;
+        self.equation.balancedProperty.link( coefficientsObserver );
+        self.updateNode();
       }
     } );
 
@@ -70,24 +70,24 @@ define( function( require ) {
   return inherit( Node, BalancedRepresentationChoiceNode, {
     /*
      * Rebuilds the left and right sides of the equation.
-                                                    */
-                                                  updateNode: function() {
-    this.termsParent.removeAllChildren();
+     */
+    updateNode: function() {
+      this.termsParent.removeAllChildren();
 
-    this.termNodes.forEach( function( termNode ) {
-      termNode.cleanup();
-    } );
-    this.termNodes = [];
+      this.termNodes.forEach( function( termNode ) {
+        termNode.cleanup();
+      } );
+      this.termNodes = [];
 
-    this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
-    this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
-  },
-  /*
-   * Updates one side of the equation.
-   * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
-   * This allows us to align the baselines of HTML-formatted text.
-   */
-  updateSideOfEquation: function( terms, xOffsets ) {
+      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
+      this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
+    },
+    /*
+     * Updates one side of the equation.
+     * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
+     * This allows us to align the baselines of HTML-formatted text.
+     */
+    updateSideOfEquation: function( terms, xOffsets ) {
       var plusNode;
       var termNode;
 
@@ -117,6 +117,19 @@ define( function( require ) {
         }
       }
       this.rightArrowNode.centerY = termNode.centerY;
+    },
+    /**
+     * Enables or disables the highlighting feature.
+     * When enabled, the arrow between the left and right sides of the equation will light up when the equation is balanced.
+     * This is enabled by default, but we want to disable in the Game until the user presses the "Check" button.
+     *
+     * @param enabled
+     */
+    setBalancedHighlightEnabled: function( enabled ) {
+      if ( enabled !== this.balancedHighlightEnabled ) {
+        this.balancedHighlightEnabled = enabled;
+        this.rightArrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
+      }
     }
   } );
 } );
