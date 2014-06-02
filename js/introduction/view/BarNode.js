@@ -14,7 +14,7 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );

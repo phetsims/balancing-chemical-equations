@@ -13,7 +13,7 @@
 define( function( require ) {
   'use strict';
 
-  //modules
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BeamNode' );
