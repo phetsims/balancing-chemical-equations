@@ -27,12 +27,12 @@ define( function( require ) {
      * can enter coefficients and press the "Check" button to check their answer.
      */
     this.gameState = {
-      START_GAME: 'START_GAME',
-      CHECK: 'CHECK',
-      TRY_AGAIN: 'TRY_AGAIN',
-      SHOW_ANSWER: 'SHOW_ANSWER',
-      NEXT: 'NEXT',
-      NEW_GAME: 'NEW_GAME'
+      START_GAME: 'StartGame', //level selection screen
+      CHECK: 'Check',
+      TRY_AGAIN: 'TryAgain',
+      SHOW_ANSWER: 'ShowAnswer',
+      NEXT: 'Next',
+      LEVEL_COMPLETED: 'LevelCompleted' //reward node
     };
 
     /*
@@ -45,6 +45,8 @@ define( function( require ) {
       3: new BalancedRepresentationStrategy().Constant( BalancedRepresentation.BAR_CHARTS )
     };
 
+
+    //TODO check if we can move it outside function
     //constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new Range( 1, 3 );
@@ -79,7 +81,6 @@ define( function( require ) {
       this.bestTimes[i] = 0;
     }
 
-
   }
 
   inherit( PropertySet, GameModel, {
@@ -91,25 +92,20 @@ define( function( require ) {
     startGame: function() {
       this.equations = this.equationsFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
       this.currentEquationIndex = 0;
-      this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES( this.currentLevel ).balancedRepresentation;
+      this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ].getBalancedRepresentation();
       this.attempts = 0;
       this.isNewBestTime = false;
       this.timer.start();
       this.currentPoints = 0;
       this.points = 0;
       this.currentEquation = this.equations [this.currentEquationIndex ];
-      this.state = this.GameState.CHECK;
+      this.state = this.gameState.CHECK;
     },
     /**
      * Called when the user presses the "Check" button.
      */
     check: function() {
       this.attempts++;
-      /* TODO      SimSharingManager.sendModelMessage( GameSimSharing.ModelComponents.game, ModelComponentTypes.feature, guessChecked,
-       parameterSet( Parameters.equation, currentEquation.get().getName() ).
-       with( Parameters.attempts, attempts ).
-       with( Parameters.isBalancedAndSimplified, currentEquation.get().isBalancedAndSimplified() ).
-       with( Parameters.isBalanced, currentEquation.get().isBalanced() ) );*/
       if ( this.currentEquation.balancedAndSimplified ) {
         // award points
         if ( this.attempts === 1 ) {
@@ -194,7 +190,7 @@ define( function( require ) {
         this.state = this.gameState.CHECK;
       }
       else {
-        this.state = this.gameState.NEW_GAME;
+        this.state = this.gameState.LEVEL_COMPLETED;
       }
     }
   } );

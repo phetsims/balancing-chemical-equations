@@ -69,9 +69,11 @@ define( function( require ) {
       if ( oldEquation ) {
         oldEquation.removeCoefficientsObserver( self.updateNode.bind( self ) );
       }
-      self.equation = newEquation;
-      //observer for coefficients
-      self.equation.addCoefficientsObserver( self.updateNode.bind( self ) );
+      if ( newEquation ) {
+        self.equation = newEquation;
+        //observer for coefficients
+        self.equation.addCoefficientsObserver( self.updateNode.bind( self ) );
+      }
     } );
   }
 

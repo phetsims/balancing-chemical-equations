@@ -57,9 +57,11 @@ define( function( require ) {
       if ( oldEquation ) {
         oldEquation.balancedProperty.unlink( coefficientsObserver );
       }
+      if(newEquation) {
       self.equation = newEquation;
       self.equation.balancedProperty.link( coefficientsObserver );
       self.updateNode();
+      }
     } );
 
 

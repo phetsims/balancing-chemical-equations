@@ -24,5 +24,6 @@
   "tools": "Tools:",
   "reactants": "Reactants",
   "products": "Products",
-  "chooseYourGame" : "Choose Your Game!"
+  "chooseYourGame" : "Choose Your Game!",
+  "newGame": "New Game"
 }

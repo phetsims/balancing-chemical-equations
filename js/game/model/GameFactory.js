@@ -184,7 +184,7 @@ define( function( require ) {
    * @param level 1-N
    */
   GameFactory.prototype.createEquations = function( numberOfEquations, level ) {
-    var equationClasses = this.STRATEGIES[level].getEquationClasses();
+    var equationClasses = this.STRATEGIES[level].getEquationClasses( numberOfEquations );
     var equations = [];
 
     equationClasses.forEach( function( equationClass ) {
@@ -253,18 +253,17 @@ define( function( require ) {
         }
 
         // add the equation to the game
-        equationClasses.add( equationClass );
+        equationClasses.push( equationClass );
 
         // remove the equation from the pool so it won't be selected again
-        poolCopy.remove( equationClass );
+        poolCopy.splice( poolCopy.indexOf( equationClass ), 1 );
 
         // if the selected equation has exclusions, remove them from the pool
-        var exclusedEquations = exclusions.get( equationClass );
-        if ( exclusedEquations !== null ) {
+        var exclusedEquations = exclusions[ equationClass ];
+        if ( exclusedEquations !== undefined ) {
           _.remove( poolCopy, function( equationClass ) {exclusedEquations.indexOf( equationClass !== -1 );}, this );
         }
       }
-
       return equationClasses;
     };
   };

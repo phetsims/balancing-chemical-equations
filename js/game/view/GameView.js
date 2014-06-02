@@ -10,14 +10,31 @@ define( function( require ) {
   'use strict';
 
   // Imports
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
+  var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/equationNode' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BCEConstants' );
+  var Scoreboard = require( 'VEGAS/Scoreboard' );
   var Property = require( 'AXON/Property' );
   var Scoreboard = require( 'VEGAS/Scoreboard' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
+  var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+
+  // strings
+  var newGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/newGame' );
+
+  // Constants
+  var BOX_SIZE = new Dimension2( 285, 310 );
+  var BOX_SEPARATION = 140; // horizontal spacing between boxes
+  var BUTTONS_COLOR = '#00ff99';
+  var BUTTONS_FONT = new PhetFont( 30 );
 
   /**
    * Constructor.
@@ -26,75 +43,85 @@ define( function( require ) {
    * @constructor
    */
   function GameView( gameModel ) {
+    var self = this;
+
     ScreenView.call( this, {renderer: 'svg'} );
-    var thisScene = this;
+
+    this.model = gameModel;
+    this.audioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
+    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, gameModel.width / 2 );
 
     // Add a root node where all of the game-related nodes will live.
-    var rootNode = new Node();
-    thisScene.addChild( rootNode );
+    this.rootNode = new Node();
+    this.addChild( this.rootNode );
 
-    var startGameLevelNode = new Node();
-    var scoreboard = new Node();
-    var gameAudioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
-    var rewardNode = new Node();
+    //3 main nodes, start, game and complete
+    this.startGameLevelNode = new Node();
+    this.gamePlayNode = new Node();
+    this.gameCompletedLevelNode = new Node();
 
-    /*var startGameLevelNode = new StartGameLevelNode( gameModel, this.layoutBounds );
-     var scoreboard = new Scoreboard(
-     gameModel.problemIndexProperty,
-     new Property( gameModel.PROBLEMS_PER_LEVEL ),
-     gameModel.levelProperty,
-     gameModel.scoreProperty,
-     gameModel.elapsedTimeProperty,
-     gameModel.timerEnabledProperty,
-     function() { gameModel.newGame(); },
-     { levelVisible: false }
-     );
-     scoreboard.mutate( { centerX: this.layoutBounds.centerX, bottom: this.layoutBounds.maxY - 10 } );
+    //startGame nodes
 
-     var rewardNode = new Node();*/
+    //game nodes
+    //scoreboard at the bottom of the screen
+    var scoreboard = new Scoreboard(
+      gameModel.currentEquationIndexProperty,
+      new Property( gameModel.EQUATIONS_PER_GAME ),
+      new DerivedProperty( [gameModel.currentLevelProperty], function( currentLevel ) {return currentLevel - 1;} ), //because we numbered level 1-2-3 and scoreboard count 0-1-2 we need this workaround
+      gameModel.pointsProperty,
+      gameModel.elapsedTimeProperty,
+      gameModel.timerEnabledProperty,
+      function() { gameModel.state = self.model.gameState.START_GAME; },
+      {
+        startOverButtonText: newGameString,
+        centerX: this.aligner.centerXOffset,
+        bottom: this.model.height - 20
+      }
+    );
+    this.gamePlayNode.addChild( scoreboard );
+
+    // Equation
+    var equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 120} );
+    this.gamePlayNode.addChild( equationNode );
+
+    // boxes that show molecules corresponding to the equation coefficients
+    var boxesNode = new BoxesNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, BCEConstants.BOX_COLOR, {y: 20} );
+    this.gamePlayNode.addChild( boxesNode );
+
+
+    //gameCompleted nodes
+
+
+    //observers
 
     // Monitor the game state and update the view accordingly.
     gameModel.stateProperty.link( function( state ) {
-      if ( state === 'selectGameLevel' ) {
-        rewardNode.animationEnabled = false;
-        rootNode.removeAllChildren();
-        rootNode.addChild( startGameLevelNode );
-      }
-      else if ( state === 'levelCompleted' ) {
-        rootNode.removeAllChildren();
-        if ( gameModel.score === gameModel.MAX_POINTS_PER_GAME_LEVEL ) {
-          // Perfect score, add the reward node.
-          rootNode.addChild( rewardNode );
-          rewardNode.mutate( { centerX: thisScene.layoutBounds.width / 2, centerY: thisScene.layoutBounds.height / 2 } );
-          rewardNode.animationEnabled = true;
-        }
-
-        // Add the dialog node that indicates that the level has been completed.
-        rootNode.addChild( new LevelCompletedNode( gameModel.level, gameModel.score, gameModel.MAX_POINTS_PER_GAME_LEVEL,
-          gameModel.PROBLEMS_PER_LEVEL, gameModel.timerEnabled, gameModel.elapsedTime, gameModel.bestTimes[ gameModel.level ], gameModel.newBestTime,
-          function() { gameModel.state = 'selectGameLevel'; }, {
-            centerX: thisScene.layoutBounds.width / 2,
-            centerY: thisScene.layoutBounds.height / 2,
-            levelVisible: false
-          } ) );
-
-        // Play the appropriate audio feedback.
-        if ( gameModel.score === gameModel.MAX_POINTS_PER_GAME_LEVEL ) {
-          gameAudioPlayer.gameOverPerfectScore();
-        }
-        else if ( gameModel.score > 0 ) {
-          gameAudioPlayer.gameOverImperfectScore();
-        }
-      }
-      else if ( typeof( state.createView ) === 'function' ) {
-        // Since we're not in the start or game-over states, we must be
-        // presenting a problem.
-        rootNode.removeAllChildren();
-        rootNode.addChild( state.createView( thisScene.layoutBounds ) );
-        rootNode.addChild( scoreboard );
-      }
+      /*
+       * Call an initializer to handle setup of the view for a specified state.
+       * See the gameModel for GameState for the semantics of states and the significance of their names.
+       */
+      console.log( 'init' + state )
+      self['init' + state]();
     } );
+
+    //TODO remove
+    this.startGame();
+
   }
 
-  return inherit( ScreenView, GameView );
-} );
+  return inherit( ScreenView, GameView, {
+    startGame: function() {
+      this.rootNode.removeAllChildren();
+      this.rootNode.addChild( this.gamePlayNode );
+      this.model.currentLevel = 1;
+      this.model.startGame();
+    },
+    initStartGame: function() {
+      this.rootNode.removeAllChildren();
+      this.rootNode.addChild( this.startGameLevelNode );
+    },
+    initCheck: function() {
+    }
+  } );
+} )
+;
