@@ -17,7 +17,7 @@ define( function( require ) {
   var RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  //strings
+  // strings
   var reactantsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/reactants' );
   var productsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/products' );
 

@@ -19,7 +19,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  //strings
+  // strings
   var combustMethane = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
   var makeAmmonia = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
   var separateWater = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );

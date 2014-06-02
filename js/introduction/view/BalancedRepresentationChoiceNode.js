@@ -18,11 +18,11 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Image = require( 'SCENERY/nodes/Image' );
 
-  //images
+  // images
   var chartsImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/charts.png' );
   var scalesImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/scales.png' );
 
-  //strings
+  // strings
   var toolsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tools' );
   var noneString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/none' );
 
