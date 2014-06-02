@@ -152,6 +152,25 @@ define( function( require ) {
           }
         } );
       } );
+    },
+    /**
+     * Does this equation contain at least one "big" molecule?
+     * This affects degree of difficulty in the Game.
+     *
+     * @return
+     */
+    hasBigMolecule: function() {
+      this.reactants.forEach( function( reactant ) {
+        if ( reactant.molecule.isBig() ) {
+          return true;
+        }
+      } );
+      this.products.forEach( function( product ) {
+        if ( product.molecule.isBig() ) {
+          return true;
+        }
+      } );
+      return false;
     }
   } );
 
