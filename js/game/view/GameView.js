@@ -10,12 +10,12 @@ define( function( require ) {
   'use strict';
 
   // Imports
-  //var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
+  var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   var inherit = require( 'PHET_CORE/inherit' );
-  //var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
+  var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
-  //var Scoreboard = require( 'VEGAS/Scoreboard' );
+  var Scoreboard = require( 'VEGAS/Scoreboard' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
 
@@ -35,7 +35,7 @@ define( function( require ) {
 
     var startGameLevelNode = new Node();
     var scoreboard = new Node();
-    var gameAudioPlayer = new Node();
+    var gameAudioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
     var rewardNode = new Node();
 
     /*var startGameLevelNode = new StartGameLevelNode( gameModel, this.layoutBounds );
@@ -50,7 +50,7 @@ define( function( require ) {
       { levelVisible: false }
     );
     scoreboard.mutate( { centerX: this.layoutBounds.centerX, bottom: this.layoutBounds.maxY - 10 } );
-    var gameAudioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
+
     var rewardNode = new Node();*/
 
     // Monitor the game state and update the view accordingly.

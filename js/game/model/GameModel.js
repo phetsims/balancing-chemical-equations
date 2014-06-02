@@ -17,6 +17,7 @@ define( function( require ) {
 
 
   function GameModel( width, height ) {
+    var self = this;
     /**
      * The set of game states.
      * For lack of better names, the state names correspond to the main action that
@@ -44,7 +45,7 @@ define( function( require ) {
 
     PropertySet.call( this, {
       points: 0, // how many points the user has earned for the current game
-      state: GameState.START_GAME,
+      state: self.gameState.START_GAME,
       currentEquation: null,
       attempts:0,// how many attempts the user has made at solving the current challenge
       currentEquationIndex: 0, // index of the current equation that the user is working on

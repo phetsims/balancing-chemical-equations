@@ -12,6 +12,7 @@ require.config( {
   paths: {
 
     // plugins
+    audio: '../../chipper/requirejs-plugins/audio',
     image: '../../chipper/requirejs-plugins/image',
     string: '../../chipper/requirejs-plugins/string',
 
