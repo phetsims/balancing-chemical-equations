@@ -16,7 +16,7 @@ define( function( require ) {
   var GameView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameView' );
   var IntroductionModel = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/IntroductionModel' );
   var IntroductionView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionView' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BCEConstants' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // strings
   var simTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.name' );

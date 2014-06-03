@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BCEConstants' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   var BeamNode = function( beamLength, beamThickness ) {
     Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, {fill: 'black', stroke: 'black'} );
