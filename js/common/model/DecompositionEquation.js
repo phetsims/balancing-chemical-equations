@@ -33,14 +33,9 @@ define( function( require ) {
     Equation.call( this, [new EquationTerm( r1, reactant1 )], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 )] );
   }
 
-  inherit( Equation, DecompositionEquation );
-
-
-
-
-  return {
+  return inherit( Equation, DecompositionEquation, {}, {
     // 2 H2O -> 2 H2 + O2
-    Decomposition_2H2O_2H2_O2: function() {
+    create_2H2O_2H2_O2: function() {
       var equation = new DecompositionEquation( 2, MoleculeFactory.H2O(), 2, MoleculeFactory.H2(), 1, MoleculeFactory.O2() );
 
       //@Override
@@ -51,49 +46,49 @@ define( function( require ) {
       return equation;
     },
     // 2 HCl -> H2 + Cl2
-    Decomposition_2HCl_H2_Cl2: function() {
+    create_2HCl_H2_Cl2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.HCl(), 1, MoleculeFactory.H2(), 1, MoleculeFactory.Cl2() );
     },
     // CH3OH -> CO + 2 H2
-    Decomposition_CH3OH_CO_2H2: function() {
+    create_CH3OH_CO_2H2: function() {
       return new DecompositionEquation( 1, MoleculeFactory.CH3OH(), 1, MoleculeFactory.CO(), 2, MoleculeFactory.H2() );
     },
     // C2H6 -> C2H4 + H2
-    Decomposition_C2H6_C2H4_H2: function() {
+    create_C2H6_C2H4_H2: function() {
       return new DecompositionEquation( 1, MoleculeFactory.C2H6(), 1, MoleculeFactory.C2H4(), 2, MoleculeFactory.H2() );
     },
     // 2 CO2 -> 2 CO + O2
-    Decomposition_2CO2_2CO_O2: function() {
+    create_2CO2_2CO_O2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.CO2(), 2, MoleculeFactory.CO(), 1, MoleculeFactory.O2() );
     },
     // 2 CO -> C + CO2
-    Decomposition_2CO_C_CO2: function() {
+    create_2CO_C_CO2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.CO(), 1, MoleculeFactory.C(), 1, MoleculeFactory.CO2() );
     },
     // 2 NH3 -> N2 + 3 H2
-    Decomposition_2NH3_N2_3H2: function() {
+    create_2NH3_N2_3H2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.NH3(), 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2() );
     },
     // 2 NO -> N2 + O2
-    Decomposition_2NO_N2_O2: function() {
+    create_2NO_N2_O2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.NO(), 1, MoleculeFactory.N2(), 1, MoleculeFactory.O2() );
     },
     // 2 NO2 -> 2 NO + O2
-    Decomposition_2NO2_2NO_O2: function() {
+    create_2NO2_2NO_O2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.NO2(), 2, MoleculeFactory.NO(), 1, MoleculeFactory.O2() );
     },
     // 4 PCl3 -> P4 + 6 Cl2
-    Decomposition_4PCl3_P4_6Cl2: function() {
+    create_4PCl3_P4_6Cl2: function() {
       return new DecompositionEquation( 4, MoleculeFactory.PCl3(), 1, MoleculeFactory.P4(), 6, MoleculeFactory.Cl2() );
     },
     // PCl5 -> PCl3 + Cl2
-    Decomposition_PCl5_PCl3_Cl2: function() {
+    create_PCl5_PCl3_Cl2: function() {
       return new DecompositionEquation( 1, MoleculeFactory.PCl5(), 1, MoleculeFactory.PCl3(), 1, MoleculeFactory.Cl2() );
     },
     // 2 SO3 -> 2 SO2 + O2
-    Decomposition_2SO3_2SO2_O2: function() {
+    create_2SO3_2SO2_O2: function() {
       return new DecompositionEquation( 2, MoleculeFactory.SO3(), 2, MoleculeFactory.SO2(), 1, MoleculeFactory.O2() );
     }
-  };
+  } );
 
 } );

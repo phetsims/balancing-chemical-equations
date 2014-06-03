@@ -26,7 +26,7 @@ define( function( require ) {
     this.height = height;
 
     //list of possible equations
-    this.equations = [SynthesisEquation.Synthesis_N2_3H2_2NH3(), DecompositionEquation.Decomposition_2H2O_2H2_O2(), DisplacementEquation.Displacement_CH4_2O2_CO2_2H2O()];
+    this.equations = [SynthesisEquation.create_N2_3H2_2NH3(), DecompositionEquation.create_2H2O_2H2_O2(), DisplacementEquation.create_CH4_2O2_CO2_2H2O()];
 
     PropertySet.call( this, {
       currentEquation: this.equations[0],
