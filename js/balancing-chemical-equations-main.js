@@ -7,37 +7,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Screen = require( 'JOIST/Screen' );
-  var ScreenView = require( 'JOIST/ScreenView' );
+  var IntroductionScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/IntroductionScreen' );
+  var GameScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/game/GameScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
-  var GameModel = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameModel' );
-  var GameView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameView' );
-  var IntroductionModel = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/IntroductionModel' );
-  var IntroductionView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionView' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // strings
   var simTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.name' );
-  var introductionTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/introduction' );
-  var balancingGameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancingGame' );
 
-  //TODO replace to normal images
-  //images
-  var introductionImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
-  var balancingGameImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
-  var screens = [
-    new Screen( introductionTitleString, new Image( introductionImage ),
-     function() { return new IntroductionModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
-     function( model ) { return new IntroductionView( model ); },
-     {backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND} ),
-    new Screen( balancingGameTitleString, new Image( balancingGameImage ),
-      function() { return new GameModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
-      function( model ) { return new GameView( model ); },
-      {backgroundColor: BCEConstants.GAME_CANVAS_BACKGROUND} )
-  ];
-
+  var screens = [new IntroductionScreen(), new GameScreen()];
 
   //TODO populate credits
   var simOptions = {
