@@ -23,6 +23,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   //constants
   var MAX_NUMBER_OF_ATOMS = 12;
@@ -49,7 +50,7 @@ define( function( require ) {
     var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
 
     //image
-    var image = new AtomNode( element, 37 );
+    var image = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
 
     //symbol and image
     var symbolHBox = new HBox( {children: [image, symbolNode], spacing: 3} );

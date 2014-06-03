@@ -25,6 +25,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   //constants
   var FULCRUM_SIZE = new Dimension2( 60, 45 );
@@ -132,7 +133,7 @@ define( function( require ) {
       var x = 0;
       var y = 0;
       for ( var i = 0; i < numberOfAtoms; i++ ) {
-        var atomNode = new AtomNode( element );
+        var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
         parent.addChild( atomNode );
         atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
         atomsInRow--;

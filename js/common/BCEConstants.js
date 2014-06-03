@@ -16,7 +16,8 @@ define( function() {
     BALANCED_HIGHLIGHT_COLOR: 'yellow',
     INTRODUCTION_CANVAS_BACKGROUND: '#d9ebff',
     GAME_CANVAS_BACKGROUND: '#ffffe4',
-    BOX_COLOR: 'white'
+    BOX_COLOR: 'white',
+    ATOM_OPTIONS: { stroke: 'black', lineWidth: 0.5 }
   } );
 
 } );

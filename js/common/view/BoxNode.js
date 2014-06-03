@@ -20,6 +20,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   //constants
   var TITLE_FONT = new PhetFont( 18 );
@@ -97,7 +98,7 @@ define( function( require ) {
         var y = this.aligner.boxSize.height - yMargin - ( rowHeight / 2 );
 
         for ( var j = 0; j < numberOfMolecules; j++ ) {
-          var imageNode = new moleculeImageConstructor();
+          var imageNode = new moleculeImageConstructor( BCEConstants.ATOM_OPTIONS );
           this.contentNode.addChild( imageNode );
           imageNode.center = new Vector2( xOffsets[i] - this.x, y );
           y -= rowHeight;
