@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var BalancedRepresentationStrategy = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/BalancedRepresentationStrategy' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var GameFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameFactory' );
   var GameTimer = require( 'VEGAS/GameTimer' );
@@ -39,17 +38,19 @@ define( function( require ) {
      * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
      * This is a map from level to strategy.
      */
-    this.BALANCED_REPRESENTATION_STRATEGIES = {
-      1: new BalancedRepresentationStrategy().Constant( BalancedRepresentation.BALANCE_SCALES ),
-      2: new BalancedRepresentationStrategy().Random(),
-      3: new BalancedRepresentationStrategy().Constant( BalancedRepresentation.BAR_CHARTS )
-    };
+    this.BALANCED_REPRESENTATION_STRATEGIES = [
+      function() { return BalancedRepresentation.BALANCE_SCALES; }, //level 1
+      function() {  //level 2
+        return Math.random() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS;
+      },
+      function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
+    ];
 
 
     //TODO check if we can move it outside function
     //constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
-    this.LEVELS_RANGE = new Range( 1, 3 );
+    this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
     this.EQUATIONS_PER_GAME = 5;
     this.POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
     this.POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
@@ -90,7 +91,7 @@ define( function( require ) {
     startGame: function() {
       this.equations = this.equationsFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
       this.currentEquationIndex = 0;
-      this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ].getBalancedRepresentation();
+      this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ];
       this.attempts = 0;
       this.isNewBestTime = false;
       this.timer.start();

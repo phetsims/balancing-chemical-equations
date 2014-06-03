@@ -169,12 +169,11 @@ define( function( require ) {
     };
 
     // map of game levels to strategies for selecting equations
-    this.STRATEGIES = {
-      1: new RandomStrategy( this.LEVEL1_POOL, false ),
-      2: new RandomStrategy( this.LEVEL2_POOL, true ),
-      3: new RandomWithExclusionsStrategy( this.LEVEL3_POOL, this.LEVEL3_EXCLUSIONS, true )
-    };
-
+    this.STRATEGIES = [
+      new RandomStrategy( this.LEVEL1_POOL, false ), //level 1
+      new RandomStrategy( this.LEVEL2_POOL, true ), //level 2
+      new RandomWithExclusionsStrategy( this.LEVEL3_POOL, this.LEVEL3_EXCLUSIONS, true ) //level 3
+    ];
 
   };
 

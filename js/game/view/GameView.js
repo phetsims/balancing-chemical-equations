@@ -74,7 +74,7 @@ define( function( require ) {
     var scoreboard = new Scoreboard(
       gameModel.currentEquationIndexProperty,
       new Property( gameModel.EQUATIONS_PER_GAME ),
-      new DerivedProperty( [gameModel.currentLevelProperty], function( currentLevel ) {return currentLevel - 1;} ), //because we numbered level 1-2-3 and scoreboard count 0-1-2 we need this workaround
+      gameModel.currentLevelProperty,
       gameModel.pointsProperty,
       gameModel.elapsedTimeProperty,
       gameModel.timerEnabledProperty,
@@ -145,7 +145,7 @@ define( function( require ) {
     startGame: function() {
       this.rootNode.removeAllChildren();
       this.rootNode.addChild( this.gamePlayNode );
-      this.model.currentLevel = 1;
+      this.model.currentLevel = 0;
       this.model.startGame();
     },
     initStartGame: function() {
