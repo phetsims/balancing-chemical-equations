@@ -91,7 +91,7 @@ define( function( require ) {
     startGame: function() {
       this.equations = this.equationsFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
       this.currentEquationIndex = 0;
-      this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ];
+      this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
       this.attempts = 0;
       this.isNewBestTime = false;
       this.timer.start();
@@ -183,7 +183,7 @@ define( function( require ) {
       if ( this.currentEquationIndex < this.equations.length - 1 ) {
         this.attempts = 0;
         this.currentPoints = 0;
-        this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[this.currentLevel].balancedRepresentation;
+        this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[this.currentLevel].balancedRepresentation();
         this.currentEquationIndex++;
         this.currentEquation = this.equations[this.currentEquationIndex];
         this.state = this.gameState.CHECK;
