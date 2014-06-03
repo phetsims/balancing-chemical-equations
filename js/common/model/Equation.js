@@ -173,6 +173,18 @@ define( function( require ) {
         }
       } );
       return false;
+    },
+    /**
+     * Balances the equation by copying the balanced coefficient value to
+     * the user coefficient value for each term in the equation.
+     */
+    balance: function() {
+      this.reactants.forEach( function( term ) {
+        term.userCoefficient = term.balancedCoefficient;
+      } );
+      this.products.forEach( function( term ) {
+        term.userCoefficient = term.balancedCoefficient;
+      } );
     }
   } );
 } )

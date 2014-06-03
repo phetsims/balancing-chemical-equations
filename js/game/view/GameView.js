@@ -99,34 +99,34 @@ define( function( require ) {
     this.gamePlayNode.addChild( this.boxesNode );
 
     //buttons check, next, tryAgain, showAnswer
-    this.checkButton = new TextPushButton( checkString, _.extend( {
+    this.checkButton = new TextPushButton( checkString, _.extend( BUTTONS_OPTIONS, {
       listener: function() {
         self.playGuessAudio();
         self.model.check();
       }
-    }, BUTTONS_OPTIONS ) );
-    this.nextButton = new TextPushButton( nextString, _.extend( {
+    } ) );
+    this.nextButton = new TextPushButton( nextString, _.extend( BUTTONS_OPTIONS, {
       listener: function() {
         self.model.next();
       }
-    }, BUTTONS_OPTIONS ) );
-    this.tryAgainButton = new TextPushButton( tryAgainString, _.extend( {
+    } ) );
+    this.tryAgainButton = new TextPushButton( tryAgainString, _.extend( BUTTONS_OPTIONS, {
       listener: function() {
         self.model.tryAgain();
       }
-    }, BUTTONS_OPTIONS ) );
-    this.showAnswerButton = new TextPushButton( showAnswerString, _.extend( {
+    } ) );
+    this.showAnswerButton = new TextPushButton( showAnswerString, _.extend( BUTTONS_OPTIONS, {
       listener: function() {
         self.model.showAnswer();
       }
-    }, BUTTONS_OPTIONS ) );
+    } ) );
     this.gamePlayNode.addChild( this.checkButton );
     this.gamePlayNode.addChild( this.nextButton );
     this.gamePlayNode.addChild( this.tryAgainButton );
     this.gamePlayNode.addChild( this.showAnswerButton );
 
     //popups
-    this.popupNode = new Node(); // looks like a dialog, tells user how they did
+    this.popupNode = null; // looks like a dialog, tells user how they did
     //listeners
     this.showWhyButtonListener = function() {
       self.swapPopups( new NotBalancedVerboseNode( self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
@@ -180,10 +180,11 @@ define( function( require ) {
     },
     initNext: function() {
       this.setButtonNodeVisible( this.nextButton );
-      this.setBalancedHighlightEnabled( this.model.currentEquation.balancedAndSimplified );
-      this.setPopupVisible( true );
+      this.setPopupVisible( this.model.currentEquation.balancedAndSimplified );
+      this.model.currentEquation.balance(); // show the correct answer
     },
     initLevelCompleted: function() {
+
     },
     /*
      * Turns on/off the highlighting feature that indicates whether the equation is balanced.
