@@ -40,7 +40,9 @@ define( function( require ) {
   }
 
   inherit( PropertySet, Equation, {
+    // @override
     reset: function() {
+      PropertySet.prototype.reset.call( this );
       this.reactants.forEach( function( reactant ) {
         reactant.reset();
       } );

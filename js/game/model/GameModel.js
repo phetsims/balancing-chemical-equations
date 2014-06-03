@@ -84,8 +84,6 @@ define( function( require ) {
   }
 
   inherit( PropertySet, GameModel, {
-    reset: function() {
-    },
     /**
      * Called when the user presses the "Start Game" button.
      */
