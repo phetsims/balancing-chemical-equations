@@ -35,7 +35,7 @@ define( function( require ) {
 
   }
 
-  inherit( PropertySet, IntroductionModel, {
+  return inherit( PropertySet, IntroductionModel, {
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.equations.forEach( function( equation ) {
@@ -43,6 +43,4 @@ define( function( require ) {
       } );
     }
   } );
-
-  return IntroductionModel;
 } );

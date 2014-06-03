@@ -39,7 +39,7 @@ define( function( require ) {
     this.addCoefficientsObserver( self.updateBalancedProperties.bind( self ) );
   }
 
-  inherit( PropertySet, Equation, {
+  return inherit( PropertySet, Equation, {
     // @override
     reset: function() {
       PropertySet.prototype.reset.call( this );
@@ -175,8 +175,5 @@ define( function( require ) {
       return false;
     }
   } );
-
-
-  return Equation;
 } )
 ;

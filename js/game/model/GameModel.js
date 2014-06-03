@@ -83,7 +83,7 @@ define( function( require ) {
 
   }
 
-  inherit( PropertySet, GameModel, {
+  return inherit( PropertySet, GameModel, {
     /**
      * Called when the user presses the "Start Game" button.
      */
@@ -192,6 +192,4 @@ define( function( require ) {
       }
     }
   } );
-
-  return GameModel;
 } );
