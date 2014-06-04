@@ -73,15 +73,14 @@ define( function( require ) {
       balancedRepresentation: null, // which representation to use in the "Not Balanced" popup
       isNewBestTime: false, // is the time for this game a new best time?
       soundEnabled: true,
-      timerEnabled: true,
-      elapsedTime: 0
+      timerEnabled: true
     } );
 
     this.equationsFactory = new GameFactory(); // generates problem sets
     this.timer = new GameTimer();
     this.bestTimes = [];// best times, maps level to time in ms
     for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
-      this.bestTimes[i] = new Property(0);
+      this.bestTimes[i] = new Property( 0 );
     }
 
   }
@@ -125,10 +124,11 @@ define( function( require ) {
         if ( this.currentEquationIndex === this.equations.length - 1 ) {
           this.timer.stop();
           // check for new best time
-          var previousBestTime = this.bestTimes[this.currentLevel];
-          if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.time < previousBestTime ) ) {
+          var previousBestTime = this.bestTimes[this.currentLevel].get();
+
+          if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime< previousBestTime ) ) {
             this.isNewBestTime = true;
-            this.bestTimes.put( this.currentLevel, this.timer.time );
+            this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
           }
         }
 
@@ -170,7 +170,7 @@ define( function( require ) {
      * @return
      */
     isPerfectScore: function() {
-      return this.points.get() === this.getPerfectScore();
+      return this.points === this.getPerfectScore();
     },
     /**
      * Called when the user presses the "New Game" button.

@@ -55,7 +55,7 @@ define( function( require ) {
     },
     // C2H6 -> C2H4 + H2
     create_C2H6_C2H4_H2: function() {
-      return new DecompositionEquation( 1, MoleculeFactory.C2H6(), 1, MoleculeFactory.C2H4(), 2, MoleculeFactory.H2() );
+      return new DecompositionEquation( 1, MoleculeFactory.C2H6(), 1, MoleculeFactory.C2H4(), 1, MoleculeFactory.H2() );
     },
     // 2 CO2 -> 2 CO + O2
     create_2CO2_2CO_O2: function() {

@@ -27,6 +27,10 @@ define( function( require ) {
   var BalancedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNode' );
   var BalancedNotSimplifiedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNotSimplifiedNode' );
   var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
+  var RewardNode = require( 'VEGAS/RewardNode' );
+  var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
+  var AtomNode = require('NITROGLYCERIN/nodes/AtomNode');
+  var Element = require('NITROGLYCERIN/Element');
 
   // strings
   var newGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/newGame' );
@@ -66,13 +70,12 @@ define( function( require ) {
     this.rootNode = new Node();
     this.addChild( this.rootNode );
 
-    //3 main nodes, start, game and complete
+    //main nodes, start and game
     this.startGameLevelNode = new StartGameLevelNode( this.model );
     this.gamePlayNode = new Node();
-    this.gameCompletedLevelNode = new Node();
+
 
     //startGame nodes
-
     //game nodes
     //scoreboard at the bottom of the screen
     var scoreboard = new Scoreboard(
@@ -80,9 +83,9 @@ define( function( require ) {
       new Property( gameModel.EQUATIONS_PER_GAME ),
       gameModel.currentLevelProperty,
       gameModel.pointsProperty,
-      gameModel.elapsedTimeProperty,
+      gameModel.timer.elapsedTimeProperty,
       gameModel.timerEnabledProperty,
-      function() { gameModel.state = self.model.gameState.LEVEL_SELECTION; },
+      function() { self.model.state = self.model.gameState.LEVEL_SELECTION; },
       {
         startOverButtonText: newGameString,
         centerX: this.aligner.centerXOffset,
@@ -136,9 +139,6 @@ define( function( require ) {
       self.swapPopups( new NotBalancedTerseNode( self.showWhyButtonListener ) );
     };
 
-    //gameCompleted nodes
-
-
     //observers
     // Monitor the game state and update the view accordingly.
     gameModel.stateProperty.link( function( state ) {
@@ -155,6 +155,11 @@ define( function( require ) {
   }
 
   return inherit( ScreenView, GameView, {
+    step: function( dt ) {
+      if ( this.animateReward ) {
+        this.rewardNode.step( dt );
+      }
+    },
     initLevelSelection: function() {
       this.rootNode.removeAllChildren();
       this.rootNode.addChild( this.startGameLevelNode );
@@ -183,8 +188,47 @@ define( function( require ) {
       this.model.currentEquation.balance(); // show the correct answer
     },
     initLevelCompleted: function() {
+      var self = this;
       this.rootNode.removeAllChildren();
-      this.rootNode.addChild( this.gameCompletedLevelNode );
+
+      if ( this.model.isPerfectScore() ) {
+        // Perfect score, add the reward node.
+        //reward node
+        this.rewardNode = new RewardNode({
+          nodes: [
+            new AtomNode(Element.C),
+            new AtomNode(Element.Cl),
+            new AtomNode(Element.F),
+            new AtomNode(Element.H),
+            new AtomNode(Element.N),
+            new AtomNode(Element.O),
+            new AtomNode(Element.P),
+            new AtomNode(Element.S)
+          ]
+        });
+        this.rootNode.addChild( this.rewardNode );
+        this.animateReward = true;
+      }
+
+      // Add the dialog node that indicates that the level has been completed.
+      this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore(),
+        this.model.EQUATIONS_PER_GAME, this.model.timerEnabled, this.model.timer.elapsedTime, this.model.bestTimes[ this.model.currentLevel ].get(), this.model.isNewBestTime,
+        function() {
+          self.animateReward = false;
+          self.model.state = self.model.gameState.LEVEL_SELECTION;
+        }, {
+          centerX: this.model.width / 2,
+          centerY: this.model.height / 2,
+          levelVisible: false
+        } ) );
+
+      // Play the appropriate audio feedback.
+      if ( this.model.isPerfectScore() ) {
+        this.audioPlayer.gameOverPerfectScore();
+      }
+      else {
+        this.audioPlayer.gameOverImperfectScore();
+      }
     },
     /*
      * Turns on/off the highlighting feature that indicates whether the equation is balanced.
