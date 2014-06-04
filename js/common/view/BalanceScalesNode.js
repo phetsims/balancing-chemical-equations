@@ -47,6 +47,9 @@ define( function( require ) {
       self.equation.addCoefficientsObserver( coefficientsObserver );
     } );
 
+    this.centerX = this.aligner.centerXOffset;
+    this.bottom = this.maxY;
+
   };
 
   return inherit( Node, BalanceScalesNode, {
@@ -67,8 +70,6 @@ define( function( require ) {
         self.addChild( scaleNode );
         x += dx;
       } );
-      this.centerX = this.aligner.centerXOffset;
-      this.bottom = this.maxY;
     }
   } );
 
