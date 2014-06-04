@@ -55,7 +55,7 @@ define( function( require ) {
     this.addChild( boxesNode );
 
     // control for choosing the visual representation of "balanced"
-    var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 10} );
+    var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 20} );
     this.addChild( balanceChoiceNode );
 
     model.balanceChoiceProperty.link( function( choice ) {

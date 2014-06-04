@@ -33,7 +33,7 @@ define( function( require ) {
    */
 
   function BalancedRepresentationChoiceNode( balancedProperty, parentNode, options ) {
-    var textFont = new PhetFont( 14 );
+    var textFont = new PhetFont( 22 );
 
     //tools text
     var text = new Text( toolsString, {'font': textFont, 'fontWeight': 'bold'} );
@@ -55,12 +55,14 @@ define( function( require ) {
 
     var comboBox = new ComboBox( comboChildren, balancedProperty, parentNode, {
       buttonCornerRadius: 0,
-      listCornerRadius: 0
+      listCornerRadius: 0,
+      itemYMargin:0,
+      itemXMargin:3
     } );
 
     options = _.extend( {
       children: [text, comboBox],
-      spacing: 5
+      spacing: 10
     }, options );
 
     HBox.call( this, options );
