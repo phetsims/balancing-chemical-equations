@@ -19,10 +19,10 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
 
   // strings
-  var balancingGameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/introduction' );
+  var balancingGameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancingGame' );
 
   // images
-  var balancingGameImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
+  var balancingGameImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/game-icon.png' );
 
   var IntroductionScreen = function() {
     Screen.call( this,

@@ -22,7 +22,7 @@ define( function( require ) {
   var introductionTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/introduction' );
 
   // images
-  var introductionImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
+  var introductionImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/introduction-icon.png' );
 
   var IntroductionScreen = function() {
     Screen.call( this,
