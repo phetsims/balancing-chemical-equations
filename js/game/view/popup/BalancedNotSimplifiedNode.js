@@ -18,8 +18,6 @@ define( function( require ) {
   var GamePopupNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/GamePopupNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Image = require( 'SCENERY/nodes/Image' );
 
