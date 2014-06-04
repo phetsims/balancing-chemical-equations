@@ -26,6 +26,7 @@ define( function( require ) {
   var NotBalancedVerboseNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/NotBalancedVerboseNode' );
   var BalancedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNode' );
   var BalancedNotSimplifiedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNotSimplifiedNode' );
+  var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
 
   // strings
   var newGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/newGame' );
@@ -66,7 +67,7 @@ define( function( require ) {
     this.addChild( this.rootNode );
 
     //3 main nodes, start, game and complete
-    this.startGameLevelNode = new Node();
+    this.startGameLevelNode = new StartGameLevelNode( this.model );
     this.gamePlayNode = new Node();
     this.gameCompletedLevelNode = new Node();
 
@@ -81,7 +82,7 @@ define( function( require ) {
       gameModel.pointsProperty,
       gameModel.elapsedTimeProperty,
       gameModel.timerEnabledProperty,
-      function() { gameModel.state = self.model.gameState.START_GAME; },
+      function() { gameModel.state = self.model.gameState.LEVEL_SELECTION; },
       {
         startOverButtonText: newGameString,
         centerX: this.aligner.centerXOffset,
@@ -139,7 +140,6 @@ define( function( require ) {
 
 
     //observers
-
     // Monitor the game state and update the view accordingly.
     gameModel.stateProperty.link( function( state ) {
       /*
@@ -150,20 +150,19 @@ define( function( require ) {
     } );
 
     //TODO remove
-    this.startGame();
+    //this.startGame();
 
   }
 
   return inherit( ScreenView, GameView, {
-    startGame: function() {
+    initLevelSelection: function() {
       this.rootNode.removeAllChildren();
-      this.rootNode.addChild( this.gamePlayNode );
-      this.model.currentLevel = 0;
-      this.model.startGame();
+      this.rootNode.addChild( this.startGameLevelNode );
     },
     initStartGame: function() {
       this.rootNode.removeAllChildren();
-      this.rootNode.addChild( this.startGameLevelNode );
+      this.rootNode.addChild( this.gamePlayNode );
+      this.model.startGame();
     },
     initCheck: function() {
       this.setBalancedHighlightEnabled( false );
@@ -184,7 +183,8 @@ define( function( require ) {
       this.model.currentEquation.balance(); // show the correct answer
     },
     initLevelCompleted: function() {
-
+      this.rootNode.removeAllChildren();
+      this.rootNode.addChild( this.gameCompletedLevelNode );
     },
     /*
      * Turns on/off the highlighting feature that indicates whether the equation is balanced.
@@ -209,7 +209,12 @@ define( function( require ) {
       buttonNode.setVisible( true );
     },
     playGuessAudio: function() {
-      //TODO
+      if ( this.model.currentEquation.balancedSimplified ) {
+        this.audioPlayer.correctAnswer();
+      }
+      else {
+        this.audioPlayer.wrongAnswer();
+      }
     },
     /**
      * Controls the visibility of the games results "popup".
@@ -238,11 +243,6 @@ define( function( require ) {
 
         this.popupNode.centerX = this.aligner.centerXOffset;
         this.popupNode.bottom = this.checkButton.y - 10;
-        /*// Layout, ideally centered between the boxes, but guarantee that buttons are not covered.
-         PNodeLayoutUtils.alignInside( popupNode, boxesNode, SwingConstants.CENTER, SwingConstants.CENTER );
-         if ( popupNode.getFullBoundsReference().getMaxY() >= checkButton.getFullBoundsReference().getMinY() ) {
-         PNodeLayoutUtils.alignInside( popupNode, boxesNode, SwingConstants.BOTTOM, SwingConstants.CENTER );
-         }*/
 
         this.gamePlayNode.addChild( this.popupNode ); // visible and in front
       }

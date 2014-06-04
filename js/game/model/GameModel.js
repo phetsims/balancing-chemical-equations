@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var GameFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameFactory' );
   var GameTimer = require( 'VEGAS/GameTimer' );
@@ -26,7 +27,8 @@ define( function( require ) {
      * can enter coefficients and press the "Check" button to check their answer.
      */
     this.gameState = {
-      START_GAME: 'StartGame', //level selection screen
+      LEVEL_SELECTION: 'LevelSelection', //level selection screen
+      START_GAME: 'StartGame', //intermediate state, needed for initialize game view
       CHECK: 'Check',
       TRY_AGAIN: 'TryAgain',
       SHOW_ANSWER: 'ShowAnswer',
@@ -61,7 +63,7 @@ define( function( require ) {
 
     //properties
     PropertySet.call( this, {
-      state: self.gameState.START_GAME,
+      state: self.gameState.LEVEL_SELECTION,
       points: 0, // how many points the user has earned for the current game
       currentEquation: null,
       currentLevel: 0,
@@ -78,8 +80,8 @@ define( function( require ) {
     this.equationsFactory = new GameFactory(); // generates problem sets
     this.timer = new GameTimer();
     this.bestTimes = [];// best times, maps level to time in ms
-    for ( var i = this.LEVELS_RANGE.min; i < this.LEVELS_RANGE.max; i++ ) {
-      this.bestTimes[i] = 0;
+    for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
+      this.bestTimes[i] = new Property(0);
     }
 
   }
@@ -158,7 +160,7 @@ define( function( require ) {
      * @return
      */
     getPerfectScore: function() {
-      return this.equations.length * this.POINTS_FIRST_ATTEMPT;
+      return this.EQUATIONS_PER_GAME * this.POINTS_FIRST_ATTEMPT;
     },
     /**
      * Is the current score a perfect score?
@@ -174,7 +176,7 @@ define( function( require ) {
      * Called when the user presses the "New Game" button.
      */
     newGame: function() {
-      this.state = this.gameState.START_GAME;
+      this.state = this.gameState.LEVEL_SELECTION;
     },
     /**
      * Called when the user presses the "Next" button.

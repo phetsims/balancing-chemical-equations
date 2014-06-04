@@ -24,6 +24,7 @@
   "tools": "Tools:",
   "reactants": "Reactants",
   "products": "Products",
-  "chooseYourGame" : "Choose Your Game!",
+  "chooseYourLevel" : "Choose Your Level",
+  "pattern_0level" : "Level {0}",
   "newGame": "New Game"
 }
