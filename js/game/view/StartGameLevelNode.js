@@ -3,13 +3,12 @@
 /**
  * Start Game Node, level buttons and settings
  *
- * @author Chris Malley (PixelZoom, Inc.)
+ * @author Vasily Shakhov (mlearner.com)
  */
 define( function( require ) {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelStartButton = require( 'VEGAS/LevelStartButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );

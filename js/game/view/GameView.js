@@ -209,7 +209,7 @@ define( function( require ) {
       buttonNode.setVisible( true );
     },
     playGuessAudio: function() {
-      if ( this.model.currentEquation.balancedSimplified ) {
+      if ( this.model.currentEquation.balancedAndSimplified ) {
         this.audioPlayer.correctAnswer();
       }
       else {
