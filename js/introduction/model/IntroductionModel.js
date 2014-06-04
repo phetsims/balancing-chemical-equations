@@ -30,7 +30,7 @@ define( function( require ) {
 
     PropertySet.call( this, {
       currentEquation: this.equations[0],
-      balanceChoice: BalancedRepresentation.BALANCE_SCALES
+      balanceChoice: BalancedRepresentation.BAR_CHARTS
     } );
 
   }

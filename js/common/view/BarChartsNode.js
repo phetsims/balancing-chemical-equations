@@ -19,6 +19,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BarNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarNode' );
+  var EqualsSignNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EqualsSignNode' );
+  var NotEqualsSignNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/NotEqualsSignNode' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Constructor
@@ -26,12 +29,13 @@ define( function( require ) {
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Object} options
    */
-  function BarChartsNode( equationProperty, aligner, maxY) {
+  function BarChartsNode( equationProperty, aligner, maxY ) {
     var self = this;
     Node.call( this );
 
     this.maxY = maxY;
     this.aligner = aligner;
+    this.equationProperty = equationProperty;
 
     this.reactantsChartParent = new Node();
     this.addChild( this.reactantsChartParent );
@@ -39,13 +43,14 @@ define( function( require ) {
     this.productsChartParent = new Node();
     this.addChild( this.productsChartParent );
 
+    this.equalsSignNode = new EqualsSignNode( equationProperty.get().balanced, 50, 10, 10 );
+    this.addChild( this.equalsSignNode );
+    this.equalsSignNode.center = new Vector2( aligner.centerXOffset, -42 );
 
-    //TODO
-    /*this.equalsSignNode = new EqualsSignNode( equationProperty.get().isBalanced() );
-     addChild( equalsSignNode );
 
-     notEqualsSignNode = new NotEqualsSignNode();
-     addChild( notEqualsSignNode );*/
+    this.notEqualsSignNode = new NotEqualsSignNode( 50, 10, 10 );
+    this.addChild( this.notEqualsSignNode );
+    this.notEqualsSignNode.center = new Vector2( aligner.centerXOffset, -42 );
 
     //if coefficient changes
     var coefficientsObserver = function() {
@@ -92,119 +97,15 @@ define( function( require ) {
       }
 
     },
-    updateEqualitySign: function() {},
+    updateEqualitySign: function() {
+      this.equalsSignNode.setVisible( this.equationProperty.get().balanced );
+      this.notEqualsSignNode.setVisible( !this.equalsSignNode.visible );
+      // highlight
+      this.equalsSignNode.setHighlighted( this.equationProperty.get().balanced );
+    },
     updateLayout: function() {
       this.bottom = this.maxY;
     }
   } );
 
 } );
-
-/*
- * Updates the equality sign.
- *//*
-
- private void updateEqualitySign() {
- // visibility
- equalsSignNode.setVisible( equation.isBalanced() );
- notEqualsSignNode.setVisible( !equalsSignNode.getVisible() );
- // highlight
- equalsSignNode.setHighlighted( equation.isBalanced() );
- }
-
- */
-/*
- * Updates the layout.
- *//*
-
- private void updateLayout() {
-
- final double xSpacing = 120;
-
- // equals sign at center
- double x = aligner.getCenterXOffset() - ( equalsSignNode.getFullBoundsReference().getWidth() / 2 );
- double y = -equalsSignNode.getFullBoundsReference().getHeight() / 2;
- equalsSignNode.setOffset( x, y );
- notEqualsSignNode.setOffset( x, y );
-
- // reactants chart to the left
- x = equalsSignNode.getFullBoundsReference().getMinX() - reactantsChartParent.getFullBoundsReference().getWidth() - PNodeLayoutUtils.getOriginXOffset( reactantsChartParent ) - xSpacing;
- y = 0;
- reactantsChartParent.setOffset( x, y );
-
- // products chart to the right
- x = equalsSignNode.getFullBoundsReference().getMaxX() - PNodeLayoutUtils.getOriginXOffset( productsChartParent ) + xSpacing;
- y = 0;
- productsChartParent.setOffset( x, y );
- }
-
- */
-/*
- * Equals sign, drawn using Piccolo nodes so that we can put a stroke around it.
- * This will prevent it from disappearing on light-colored background when it "lights up" to indicate "balanaced".
- *//*
-
- private static class EqualsSignNode extends PComposite {
-
- private static final double BAR_WIDTH = 50;
- private static final double BAR_HEIGHT = 10;
- private static final double BAR_Y_SPACING = 10;
-
- private final PPath topBarNode, bottomBarNode;
-
- public EqualsSignNode( boolean highlighted ) {
-
- Rectangle2D shape = new Rectangle2D.Double( 0, 0, BAR_WIDTH, BAR_HEIGHT );
- Stroke stroke = new BasicStroke( 1.5f );
- Color strokeColor = Color.BLACK;
-
- topBarNode = new PPath( shape );
- topBarNode.setStroke( stroke );
- topBarNode.setStrokePaint( strokeColor );
- addChild( topBarNode );
-
- bottomBarNode = new PPath( shape );
- bottomBarNode.setStroke( stroke );
- bottomBarNode.setStrokePaint( strokeColor );
- addChild( bottomBarNode );
-
- // layout
- topBarNode.setOffset( 0, 0 );
- bottomBarNode.setOffset( 0, BAR_HEIGHT + BAR_Y_SPACING );
-
- setHighlighted( highlighted );
- }
-
- public void setHighlighted( boolean highlighted ) {
- topBarNode.setPaint( highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
- bottomBarNode.setPaint( highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
- }
- }
-
- */
-/*
- * Not-equals sign, drawn using constructive-area geometry so that we can put a stroke around it.
- *//*
-
- private static class NotEqualsSignNode extends PPath {
- public NotEqualsSignNode() {
- super();
- setStroke( new BasicStroke( 1f ) );
- setStrokePaint( Color.BLACK );
- setPaint( BCEConstants.UNBALANCED_COLOR );
-
- Shape topBarShape = new Rectangle2D.Double( 0, 0, EqualsSignNode.BAR_WIDTH, EqualsSignNode.BAR_HEIGHT );
- Shape bottomBarShape = new Rectangle2D.Double( 0, EqualsSignNode.BAR_HEIGHT + EqualsSignNode.BAR_Y_SPACING, EqualsSignNode.BAR_WIDTH, EqualsSignNode.BAR_HEIGHT );
-
- Rectangle2D r = new Rectangle2D.Double( 0, EqualsSignNode.BAR_HEIGHT + ( ( EqualsSignNode.BAR_Y_SPACING - EqualsSignNode.BAR_HEIGHT ) / 2 ), EqualsSignNode.BAR_WIDTH, EqualsSignNode.BAR_HEIGHT );
- AffineTransform t2 = AffineTransform.getRotateInstance( Math.toRadians( -75 ), EqualsSignNode.BAR_WIDTH / 2, EqualsSignNode.BAR_HEIGHT + ( EqualsSignNode.BAR_Y_SPACING / 2 ) );
- Shape slashShape = t2.createTransformedShape( r );
-
- Area area = new Area( topBarShape );
- area.add( new Area( slashShape ) );
- area.add( new Area( bottomBarShape ) );
- setPathTo( area );
- }
- }
- }
- */
