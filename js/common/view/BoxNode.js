@@ -94,11 +94,11 @@ define( function( require ) {
 
       for ( var i = 0; i < terms.length; i++ ) {
         var numberOfMolecules = terms[i].userCoefficient;
-        var moleculeImageConstructor = terms[i].molecule.imageConstructor;
+        var MoleculeImageConstructor = terms[i].molecule.imageConstructor;
         var y = this.aligner.boxSize.height - yMargin - ( rowHeight / 2 );
 
         for ( var j = 0; j < numberOfMolecules; j++ ) {
-          var imageNode = new moleculeImageConstructor( BCEConstants.ATOM_OPTIONS );
+          var imageNode = new MoleculeImageConstructor( BCEConstants.ATOM_OPTIONS );
           this.contentNode.addChild( imageNode );
           imageNode.center = new Vector2( xOffsets[i] - this.x, y );
           y -= rowHeight;
