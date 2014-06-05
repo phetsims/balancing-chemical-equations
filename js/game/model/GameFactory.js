@@ -248,7 +248,7 @@ define( function( require ) {
               // give up if we've examined all equations in the pool
               if ( index === startIndex ) {
                 done = true;
-                window.console.log( "ERROR: first equation contains big molecules because we ran out of equations" );
+                throw new Error( 'first equation contains big molecules because we ran out of equations' );
               }
             }
           }
