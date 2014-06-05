@@ -37,9 +37,6 @@ define( function( require ) {
   return inherit( Node, TermNode, {
     setEditable: function( editable ) {
       this.coefficientNode.pickable = editable;
-    },
-    cleanup: function() {
-      this.coefficientNode.removeCoefficientObserver();
     }
   } );
 

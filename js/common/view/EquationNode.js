@@ -69,10 +69,6 @@ define( function( require ) {
      */
     updateNode: function() {
       this.termsParent.removeAllChildren();
-
-      this.termNodes.forEach( function( termNode ) {
-        termNode.cleanup();
-      } );
       this.termNodes = [];
 
       this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
