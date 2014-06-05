@@ -19,9 +19,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BarNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarNode' );
-  var EqualsSignNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EqualsSignNode' );
-  var NotEqualsSignNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/NotEqualsSignNode' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   /**
    * Constructor
@@ -43,14 +44,19 @@ define( function( require ) {
     this.productsChartParent = new Node();
     this.addChild( this.productsChartParent );
 
-    this.equalsSignNode = new EqualsSignNode( equationProperty.get().balanced, 50, 10, 10 );
+    var textOptions = {
+      font: new PhetFont( 80 ),
+      stroke: 'black',
+      fill: BCEConstants.UNBALANCED_COLOR
+    };
+
+    this.equalsSignNode = new Text( '\u003D', textOptions );
     this.addChild( this.equalsSignNode );
-    this.equalsSignNode.center = new Vector2( aligner.centerXOffset, -42 );
+    this.equalsSignNode.center = new Vector2( aligner.centerXOffset, -40 );
 
-
-    this.notEqualsSignNode = new NotEqualsSignNode( 50, 10, 10 );
+    this.notEqualsSignNode = new Text( '\u2260', textOptions );
     this.addChild( this.notEqualsSignNode );
-    this.notEqualsSignNode.center = new Vector2( aligner.centerXOffset, -42 );
+    this.notEqualsSignNode.center = new Vector2( aligner.centerXOffset, -40 );
 
     //if coefficient changes
     var coefficientsObserver = function() {
@@ -101,7 +107,7 @@ define( function( require ) {
       this.equalsSignNode.setVisible( this.equationProperty.get().balanced );
       this.notEqualsSignNode.setVisible( !this.equalsSignNode.visible );
       // highlight
-      this.equalsSignNode.setHighlighted( this.equationProperty.get().balanced );
+      this.equalsSignNode.fill = ( this.equationProperty.get().balanced ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
     },
     updateLayout: function() {
       this.bottom = this.maxY;
