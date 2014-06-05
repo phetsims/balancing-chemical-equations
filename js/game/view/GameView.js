@@ -151,10 +151,6 @@ define( function( require ) {
       self['init' + state]();
     } );
 
-
-    this.model.currentLevel = 0;
-    this.model.state = this.model.gameState.START_GAME;
-    this.model.state = this.model.gameState.TRY_AGAIN;
   }
 
   return inherit( ScreenView, GameView, {

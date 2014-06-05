@@ -51,7 +51,7 @@ define( function( require ) {
         model.currentLevel = level;
         model.state = model.gameState.START_GAME;
       },
-      model.bestTimes[ level ],
+      model.bestScores[ level ],
       model.getPerfectScore(),
       {
         backgroundColor: '#f0ffcb',

@@ -77,9 +77,12 @@ define( function( require ) {
     this.equationsFactory = new GameFactory(); // generates problem sets
     this.timer = new GameTimer();
     this.bestTimes = [];// best times, maps level to time in ms
+    this.bestScores = []; //best scores, maps level to best score
     for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
       this.bestTimes[i] = new Property( 0 );
+      this.bestScores[i] = new Property( 0 );
     }
+
 
   }
 
@@ -121,10 +124,14 @@ define( function( require ) {
         // end the game
         if ( this.currentEquationIndex === this.equations.length - 1 ) {
           this.timer.stop();
+          //check for new best score
+          if ( this.points > this.bestScores[this.currentLevel].get() ) {
+            this.bestScores[this.currentLevel].set( this.points );
+          }
+
           // check for new best time
           var previousBestTime = this.bestTimes[this.currentLevel].get();
-
-          if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime< previousBestTime ) ) {
+          if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
             this.isNewBestTime = true;
             this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
           }
