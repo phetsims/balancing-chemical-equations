@@ -16,7 +16,7 @@ define( function( require ) {
   var RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
   var TermNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/TermNode' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
 
   /**
    * @param {Equation} equationProperty
@@ -40,8 +40,10 @@ define( function( require ) {
     this.rightArrowNode.centerX = this.aligner.centerXOffset;
 
     //the parent for all equation terms and the "+" signs
-    this.termsParent = new Node();
-    this.addChild( this.termsParent );
+    this.reactantsTermsParent = new Node();
+    this.productsTermsParent = new Node();
+    this.addChild( this.reactantsTermsParent );
+    this.addChild( this.productsTermsParent );
 
     //if coefficients changes
     var coefficientsObserver = function() {
@@ -68,47 +70,43 @@ define( function( require ) {
      * Rebuilds the left and right sides of the equation.
      */
     updateNode: function() {
-      this.termsParent.removeAllChildren();
       this.termNodes = [];
 
-      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
-      this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
+      this.updateSideOfEquation( this.equation.reactants, this.reactantsTermsParent );
+      this.updateSideOfEquation( this.equation.products, this.productsTermsParent );
+
+      this.productsTermsParent.x = this.aligner.centerXOffset + this.aligner.boxSeparation / 2;
+      this.reactantsTermsParent.right = this.aligner.centerXOffset - this.aligner.boxSeparation / 2;
+
     },
     /*
      * Updates one side of the equation.
      * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
      * This allows us to align the baselines of HTML-formatted text.
      */
-    updateSideOfEquation: function( terms, xOffsets ) {
-      var plusNode;
+    updateSideOfEquation: function( terms, termsParentNode ) {
+      termsParentNode.removeAllChildren();
+
       var termNode;
+      //we don't have enough space for alignment like in java(for example CH3OH don't fit), so easy way
+      var hBoxChildren = [];
 
       for ( var i = 0; i < terms.length; i++ ) {
         // term
         termNode = new TermNode( this.coefficientRange, terms[i] );
-        this.termNodes.push( termNode );
-        this.termsParent.addChild( termNode );
-        termNode.center = new Vector2( xOffsets[i], 0 );
-
+        hBoxChildren.push( termNode );
         if ( terms.length > 1 && i < terms.length - 1 ) {
-          plusNode = new PlusNode();
-          this.termsParent.addChild( plusNode );
-
-          /*
-           * Make sure that the term doesn't get too close to the plus sign.
-           * If it does, then shift the plus sign a bit to the right.
-           */
-          var x = xOffsets[i] + ( ( xOffsets[i + 1] - xOffsets[i] ) / 2 ) - ( plusNode.width / 2 ); // centered between 2 offsets
-          var minSeparation = 20;
-          var separation = x - termNode.maxX;
-          if ( separation < minSeparation ) {
-            x += ( minSeparation - separation );
-          }
-          plusNode.x = x;
-          plusNode.centerY = termNode.centerY;
+          hBoxChildren.push( new PlusNode() );
         }
       }
-      this.rightArrowNode.centerY = termNode.centerY;
+
+      termsParentNode.addChild(new HBox({
+        children:hBoxChildren,
+        spacing:15,
+        centerY:this.rightArrowNode.centerY
+      }));
+
+
     },
     /**
      * Enables or disables the highlighting feature.
