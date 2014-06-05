@@ -122,6 +122,19 @@ define( function( require ) {
         this.balancedHighlightEnabled = enabled;
         this.rightArrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
       }
+    },
+    /**
+     * Controls whether the coefficients are editable.
+     *
+     * @param editable
+     */
+    setEditable: function( editable ) {
+      if ( editable !== this.editable ) {
+        this.editable = editable;
+        this.termNodes.forEach( function( termNode ) {
+          termNode.setEditable( editable );
+        } );
+      }
     }
   } );
 } );

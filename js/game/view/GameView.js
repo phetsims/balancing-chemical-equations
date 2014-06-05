@@ -29,8 +29,8 @@ define( function( require ) {
   var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
   var RewardNode = require( 'VEGAS/RewardNode' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
-  var AtomNode = require('NITROGLYCERIN/nodes/AtomNode');
-  var Element = require('NITROGLYCERIN/Element');
+  var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
+  var Element = require( 'NITROGLYCERIN/Element' );
 
   // strings
   var newGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/newGame' );
@@ -146,6 +146,8 @@ define( function( require ) {
        * Call an initializer to handle setup of the view for a specified state.
        * See the gameModel for GameState for the semantics of states and the significance of their names.
        */
+
+      self.equationNode.setEditable( state === self.model.gameState.CHECK );
       self['init' + state]();
     } );
   }
@@ -190,18 +192,18 @@ define( function( require ) {
       if ( this.model.isPerfectScore() ) {
         // Perfect score, add the reward node.
         //reward node
-        this.rewardNode = new RewardNode({
+        this.rewardNode = new RewardNode( {
           nodes: [
-            new AtomNode(Element.C),
-            new AtomNode(Element.Cl),
-            new AtomNode(Element.F),
-            new AtomNode(Element.H),
-            new AtomNode(Element.N),
-            new AtomNode(Element.O),
-            new AtomNode(Element.P),
-            new AtomNode(Element.S)
+            new AtomNode( Element.C ),
+            new AtomNode( Element.Cl ),
+            new AtomNode( Element.F ),
+            new AtomNode( Element.H ),
+            new AtomNode( Element.N ),
+            new AtomNode( Element.O ),
+            new AtomNode( Element.P ),
+            new AtomNode( Element.S )
           ]
-        });
+        } );
         this.rootNode.addChild( this.rewardNode );
         this.animateReward = true;
       }
