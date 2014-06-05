@@ -18,6 +18,8 @@ define( function( require ) {
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
+  // strings
+  var separateWater = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
 
   /*
    * Convenience constructor.
@@ -39,9 +41,8 @@ define( function( require ) {
       var equation = new DecompositionEquation( 2, MoleculeFactory.H2O(), 2, MoleculeFactory.H2(), 1, MoleculeFactory.O2() );
 
       //@Override
-      //TODO do we need this getName at all?
       equation.getName = function() {
-        //return SEPARATE_WATER;
+        return separateWater;
       };
       return equation;
     },

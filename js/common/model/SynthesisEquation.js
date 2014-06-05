@@ -21,7 +21,6 @@ define( function( require ) {
   // strings
   var makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
 
-
   /*
    * Convenience constructor.
    *
@@ -69,7 +68,6 @@ define( function( require ) {
     create_N2_3H2_2NH3: function() {
       var equation = new SynthesisEquation( 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2(), 2, MoleculeFactory.NH3() );
       //@Override
-      //TODO do we need this getName at all?
       equation.getName = function() {
         return makeAmmoniaString;
       };

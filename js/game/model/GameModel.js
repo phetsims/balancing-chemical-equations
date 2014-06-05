@@ -48,8 +48,6 @@ define( function( require ) {
       function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
     ];
 
-
-    //TODO check if we can move it outside function
     //constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0

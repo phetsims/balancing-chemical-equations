@@ -148,10 +148,6 @@ define( function( require ) {
        */
       self['init' + state]();
     } );
-
-    //TODO remove
-    //this.startGame();
-
   }
 
   return inherit( ScreenView, GameView, {

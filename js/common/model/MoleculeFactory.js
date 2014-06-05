@@ -9,8 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Atom = require( 'NITROGLYCERIN/Atom' );
   var Element = require( 'NITROGLYCERIN/Element' );
   var CH4Node = require( 'NITROGLYCERIN/nodes/CH4Node' );
@@ -48,17 +46,11 @@ define( function( require ) {
   var OF2Node = require( 'NITROGLYCERIN/nodes/OF2Node' );
   var C2H5OHNode = require( 'NITROGLYCERIN/nodes/C2H5OHNode' );
 
-  // constants related to text
-  var FONT_SIZE = 36;
-  var FONT = new PhetFont( FONT_SIZE );
-  var SUBSUP_OPTIONS = {font: FONT, supScale: 1}; // options for all instances of SubSupNode
-
-  //TODO SUBSUP_OPTIONS to EquationNode
   var Molecule = function( imageConstructor, symbolText, elements ) {
     var self = this;
 
     this.imageConstructor = imageConstructor;
-    this.symbol = new SubSupText( symbolText, SUBSUP_OPTIONS );
+    this.symbol = symbolText;
     this.atoms = [];
     elements.forEach( function( element ) {
       self.atoms.push( new Atom( element ) );

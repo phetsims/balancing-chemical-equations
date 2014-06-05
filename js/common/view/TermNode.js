@@ -16,18 +16,24 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
 
+  // constants related to text
+  var FONT_SIZE = 36;
+  var FONT = new PhetFont( FONT_SIZE );
+  var SUBSUP_OPTIONS = {font: FONT, supScale: 1}; // options for all instances of SubSupNode
 
   function TermNode( coefficientRange, term ) {
     Node.call( this );
 
-    this.symbolNode = term.molecule.symbol;
+    this.symbolNode = new SubSupText( term.molecule.symbol, SUBSUP_OPTIONS );
     this.addChild( this.symbolNode );
 
     this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
       color: 'black',
       xMargin: 8,
-      font: new PhetFont( 30 )
+      yMargin:0,
+      font: new PhetFont( FONT_SIZE )
     } );
     this.addChild( this.coefficientNode );
     this.coefficientNode.x = this.symbolNode.x - this.coefficientNode.width - 2;

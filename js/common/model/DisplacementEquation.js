@@ -18,6 +18,9 @@ define( function( require ) {
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
+  // strings
+  var combustMethane = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
+
   /*
    * Convenience constructor.
    *
@@ -40,9 +43,8 @@ define( function( require ) {
       var equation = new DisplacementEquation( 1, MoleculeFactory.CH4(), 2, MoleculeFactory.O2(), 1, MoleculeFactory.CO2(), 2, MoleculeFactory.H2O() );
 
       //@Override
-      //TODO do we need this getName at all?
       equation.getName = function() {
-        //return COMBUST_METHANE;
+        return combustMethane;
       };
       return equation;
     },

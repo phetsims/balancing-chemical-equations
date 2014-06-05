@@ -19,11 +19,6 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  // strings
-  var combustMethane = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
-  var makeAmmonia = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
-  var separateWater = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
-
   /**
    * @param {IntroductionModel} model of simulation
    * @param {Object} options
@@ -52,12 +47,11 @@ define( function( require ) {
     } ) );
 
     //choices
-    //TODO text from Equation toString
     this.addChild( new HBox( {
       children: [
-        new AquaRadioButton( model.currentEquationProperty, model.equations[0], new Text( makeAmmonia, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.currentEquationProperty, model.equations[1], new Text( separateWater, textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.currentEquationProperty, model.equations[2], new Text( combustMethane, textOptions ), {radius: 8} )
+        new AquaRadioButton( model.currentEquationProperty, model.equations[0], new Text( model.equations[0].getName(), textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.currentEquationProperty, model.equations[1], new Text( model.equations[1].getName(), textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.currentEquationProperty, model.equations[2], new Text( model.equations[2].getName(), textOptions ), {radius: 8} )
       ],
       spacing: 20,
       align: 'left',
