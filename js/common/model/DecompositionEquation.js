@@ -14,7 +14,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/equation' );
+  var Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/Equation' );
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 

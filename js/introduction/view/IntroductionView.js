@@ -17,7 +17,7 @@ define( function( require ) {
   var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   var BalancedRepresentationChoiceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BalancedRepresentationChoiceNode' );
   var EquationChoiceAndResetNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/EquationChoiceAndResetNode' );
-  var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/equationNode' );
+  var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
