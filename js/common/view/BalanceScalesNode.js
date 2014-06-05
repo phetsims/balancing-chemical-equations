@@ -45,11 +45,9 @@ define( function( require ) {
       }
       self.equation = newEquation;
       self.equation.addCoefficientsObserver( coefficientsObserver );
+      self.centerX = self.aligner.centerXOffset;
+      self.bottom = self.maxY;
     } );
-
-    this.centerX = this.aligner.centerXOffset;
-    this.bottom = this.maxY;
-
   };
 
   return inherit( Node, BalanceScalesNode, {
