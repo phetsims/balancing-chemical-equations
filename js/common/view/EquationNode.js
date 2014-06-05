@@ -16,6 +16,7 @@ define( function( require ) {
   var RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
   var TermNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/TermNode' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Equation} equationProperty
@@ -38,7 +39,6 @@ define( function( require ) {
     this.addChild( this.rightArrowNode );
     this.rightArrowNode.centerX = this.aligner.centerXOffset;
 
-    //TODO term alignment
     //the parent for all equation terms and the "+" signs
     this.termsParent = new Node();
     this.addChild( this.termsParent );
@@ -88,7 +88,7 @@ define( function( require ) {
         termNode = new TermNode( this.coefficientRange, terms[i] );
         this.termNodes.push( termNode );
         this.termsParent.addChild( termNode );
-        termNode.centerX = xOffsets[i];
+        termNode.center = new Vector2( xOffsets[i], 0 );
 
         if ( terms.length > 1 && i < terms.length - 1 ) {
           plusNode = new PlusNode();

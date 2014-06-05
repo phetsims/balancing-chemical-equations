@@ -26,23 +26,29 @@ define( function( require ) {
   function TermNode( coefficientRange, term ) {
     Node.call( this );
 
+    var capHeight = this.getCapHeight();
+
     this.symbolNode = new SubSupText( term.molecule.symbol, SUBSUP_OPTIONS );
     this.addChild( this.symbolNode );
+    this.symbolNode.centerY = capHeight / 2 - (capHeight / 2 - this.symbolNode.height / 2);
 
     this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
       color: 'black',
       xMargin: 8,
-      yMargin:0,
+      yMargin: 0,
       font: new PhetFont( FONT_SIZE )
     } );
     this.addChild( this.coefficientNode );
     this.coefficientNode.x = this.symbolNode.x - this.coefficientNode.width - 2;
-    this.coefficientNode.centerY = this.symbolNode.centerY;
+    this.coefficientNode.centerY = capHeight / 2;
   }
 
   return inherit( Node, TermNode, {
     setEditable: function( editable ) {
       this.coefficientNode.pickable = editable;
+    },
+    getCapHeight: function() {
+      return new SubSupText( 'T', SUBSUP_OPTIONS ).height;
     }
   } );
 
