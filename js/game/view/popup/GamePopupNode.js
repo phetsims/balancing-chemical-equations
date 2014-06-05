@@ -22,6 +22,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
 
   //constants
@@ -42,12 +43,12 @@ define( function( require ) {
     var startPosition = null;
     this.addInputListener( new MovableDragHandler( { locationProperty: position }, ModelViewTransform2.createIdentity() ) );
 
-    position.lazyLink(function() {
-      if(startPosition===null ) {
+    position.lazyLink( function() {
+      if ( startPosition === null ) {
         startPosition = self.translation;
       }
-      self.translation = startPosition.plus(position.get());
-    });
+      self.translation = startPosition.plus( position.get() );
+    } );
 
 
     //background
@@ -67,11 +68,44 @@ define( function( require ) {
     //content
     this.addChild( new VBox( {
       children: this.vBoxChildren,
-      spacing: 15
+      spacing: 15,
+      centerX: self.centerX
     } ) );
 
     var backgroundBounds = Shape.bounds( this.localBounds.dilatedXY( 10, 10 ) ).bounds;
     this.backgroundRect.setRect( backgroundBounds.x, backgroundBounds.y, backgroundBounds.width, backgroundBounds.height );
+
+    //top left cross
+
+    /*tailWidth: 5,
+     headWidth: 10,
+     headHeight: 10,
+     doubleHead: false*/
+
+    var CROSS_WIDTH = 30;
+    var TAIL_WIDTH = 5;
+    var HEAD_WIDTH = 10;
+    var HEAD_HEIGHT = 8;
+
+    var cross = new Node( {y: 10} );
+    cross.addChild( new ArrowNode( -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, 0, {
+      tailWidth: TAIL_WIDTH,
+      headWidth: HEAD_WIDTH,
+      headHeight: HEAD_HEIGHT,
+      doubleHead: true,
+      fill: '#f1f1f2',
+      lineWidth: 0} ) );
+
+    cross.addChild( new ArrowNode( 0, -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, {
+      tailWidth: TAIL_WIDTH,
+      headWidth: HEAD_WIDTH,
+      headHeight: HEAD_HEIGHT,
+      doubleHead: true,
+      fill: '#f1f1f2',
+      lineWidth: 0} ) );
+    this.addChild( cross );
+    cross.right = this.backgroundRect.localBounds.right-5;
+
 
   };
 
