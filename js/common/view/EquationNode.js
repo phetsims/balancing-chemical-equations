@@ -3,8 +3,6 @@
 /**
  * Displays a chemical equation.
  * Reactants are on the left-hand size, products are on the right-hand side.
- * When coefficients are editable, they are displayed as editable spinners.
- * When coefficients are not editable, they are displayed as PText.                                                                *
  *
  * @author Vasily Shakhov (mlearner.com)
  */
@@ -33,7 +31,6 @@ define( function( require ) {
     this.balancedHighlightEnabled = true;
     this.aligner = aligner;
     this.equation = equationProperty;
-    this.editable = true;
     this.termNodes = [];
 
     // arrow node, in a fixed location
@@ -92,7 +89,7 @@ define( function( require ) {
 
       for ( var i = 0; i < terms.length; i++ ) {
         // term
-        termNode = new TermNode( this.coefficientRange, terms[i], this.editable );
+        termNode = new TermNode( this.coefficientRange, terms[i] );
         this.termNodes.push( termNode );
         this.termsParent.addChild( termNode );
         termNode.centerX = xOffsets[i];
