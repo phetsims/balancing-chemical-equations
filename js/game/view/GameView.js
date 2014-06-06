@@ -95,7 +95,7 @@ define( function( require ) {
     this.gamePlayNode.addChild( scoreboard );
 
     // Equation
-    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 120} );
+    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 130} );
     this.gamePlayNode.addChild( this.equationNode );
 
     // boxes that show molecules corresponding to the equation coefficients

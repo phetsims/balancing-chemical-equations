@@ -46,7 +46,7 @@ define( function( require ) {
     this.addChild( equationChoiceAndResetNode );
 
     // equation, in formula format
-    var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 100} );
+    var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} );
     this.addChild( equationNode );
 
     //boxes that show molecules corresponding to the equation coefficients
