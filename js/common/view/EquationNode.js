@@ -98,6 +98,7 @@ define( function( require ) {
         if ( terms.length > 1 && i < terms.length - 1 ) {
           hBoxChildren.push( new PlusNode() );
         }
+        this.termNodes.push(termNode);
       }
 
       termsParentNode.addChild(new HBox({
