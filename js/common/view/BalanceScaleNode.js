@@ -55,6 +55,7 @@ define( function( require ) {
 
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS );
     this.addChild( this.beamNode );
+    this.beamNode.bottom = 0;
 
     this.atomPilesParentNode = new Node();
     this.addChild( this.atomPilesParentNode );
@@ -88,7 +89,7 @@ define( function( require ) {
         ],
         spacing: 5,
         centerX: -0.25 * BEAM_LENGTH,
-        bottom: -1
+        bottom: -1-BEAM_THICKNESS/2
       } );
       this.atomPilesParentNode.addChild( leftPileNode );
 
@@ -100,7 +101,7 @@ define( function( require ) {
         ],
         spacing: 5,
         centerX: 0.25 * BEAM_LENGTH,
-        bottom: -1
+        bottom: -1-BEAM_THICKNESS/2
       } );
       this.atomPilesParentNode.addChild( rightPileNode );
 
