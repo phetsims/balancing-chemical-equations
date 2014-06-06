@@ -58,6 +58,7 @@ define( function( require ) {
     this.addChild( this.titleNode );
     this.titleNode.addChild( new Text( options.title, {
       font: TITLE_FONT,
+      fontWeight: 'bold',
       centerY: this.titleNode.centerY,
       centerX: this.titleNode.centerX
     } ) );
