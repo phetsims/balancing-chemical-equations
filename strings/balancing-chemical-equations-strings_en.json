@@ -25,6 +25,5 @@
   "reactants": "Reactants",
   "products": "Products",
   "chooseYourLevel" : "Choose Your Level",
-  "pattern_0level" : "Level {0}",
-  "newGame": "New Game"
+  "pattern_0level": "Level {0}"
 }

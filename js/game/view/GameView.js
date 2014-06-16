@@ -33,7 +33,6 @@ define( function( require ) {
   var Element = require( 'NITROGLYCERIN/Element' );
 
   // strings
-  var newGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/newGame' );
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
   var nextString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/next' );
   var tryAgainString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tryAgain' );
@@ -87,7 +86,6 @@ define( function( require ) {
       gameModel.timerEnabledProperty,
       function() { self.model.state = self.model.gameState.LEVEL_SELECTION; },
       {
-        startOverButtonText: newGameString,
         centerX: this.aligner.centerXOffset,
         bottom: this.model.height - 10
       }
