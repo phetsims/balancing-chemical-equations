@@ -41,7 +41,7 @@ define( function( require ) {
 
 
   // Constants
-  var BOX_SIZE = new Dimension2( 285, 310 );
+  var BOX_SIZE = new Dimension2( 285, 360 );
   var BOX_SEPARATION = 140; // horizontal spacing between boxes
 
   /**
@@ -89,17 +89,17 @@ define( function( require ) {
       {
         startOverButtonText: newGameString,
         centerX: this.aligner.centerXOffset,
-        bottom: this.model.height - 20
+        bottom: this.model.height - 10
       }
     );
     this.gamePlayNode.addChild( scoreboard );
 
     // Equation
-    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 130} );
+    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 100} );
     this.gamePlayNode.addChild( this.equationNode );
 
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, BCEConstants.BOX_COLOR, {y: 20} );
+    this.boxesNode = new BoxesNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, BCEConstants.BOX_COLOR, {y: 10} );
     this.gamePlayNode.addChild( this.boxesNode );
 
     //buttons check, next, tryAgain, showAnswer
