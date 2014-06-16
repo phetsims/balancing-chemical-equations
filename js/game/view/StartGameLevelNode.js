@@ -21,6 +21,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // images, ordered by level
   var levelImagesConstructors = [
@@ -41,7 +42,7 @@ define( function( require ) {
 
     // 'Level N' centered above icon
     var label = new Text( StringUtils.format( pattern_0level, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
-    var image = new levelImagesConstructors[level]( { centerX: label.centerX, top: label.bottom + 20, scale: 2 } );
+    var image = new levelImagesConstructors[level]( _.extend( BCEConstants.ATOM_OPTIONS, { centerX: label.centerX, top: label.bottom + 20, scale: 2 } ) );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
     return new LevelStartButton(
