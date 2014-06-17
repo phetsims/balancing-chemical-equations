@@ -4,7 +4,7 @@
  * Base class for synthesis equations.
  * In a synthesis reaction two or more chemical species combine to form a more complex product.
  * All synthesis equations in this sim have 2 reactants and 1 product.
- * This base class adds no new functionality to Equation, it simply provides convenient constructors.
+ * This base class adds no new functionality to Equation, it simply provides convenient factory functions.
  *
  * @author Vasily Shakhov (mlearner.com)
  */
