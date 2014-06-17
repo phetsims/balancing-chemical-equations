@@ -22,8 +22,8 @@ define( function( require ) {
   /**
    * @param {[EquationTerm]} reactants
    * @param {[EquationTerm]} products
+   * @constructor
    */
-
   function Equation( reactants, products ) {
     var self = this;
 
@@ -35,11 +35,12 @@ define( function( require ) {
       balancedAndSimplified: false
     } );
 
-    //equation is balanced if all terms are balanced.
+    // equation is balanced if all terms are balanced.
     this.addCoefficientsObserver( self.updateBalancedProperties.bind( self ) );
   }
 
   return inherit( PropertySet, Equation, {
+
     // @override
     reset: function() {
       PropertySet.prototype.reset.call( this );
@@ -50,6 +51,7 @@ define( function( require ) {
         product.reset();
       } );
     },
+
     /*
      * An equation is balanced if all of its terms have a coefficient that is the
      * same integer multiple of the term's balanced coefficient.  If the integer
@@ -71,6 +73,7 @@ define( function( require ) {
       this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific property first
       this.balanced = balanced;
     },
+
     /**
      * Convenience method for adding an observer to all coefficients.
      */
@@ -94,6 +97,7 @@ define( function( require ) {
         product.userCoefficientProperty.unlink( observer );
       } );
     },
+
     /**
      * Returns a count of each type of atom, based on the user coefficients.
      * <p/>
@@ -155,11 +159,12 @@ define( function( require ) {
         } );
       } );
     },
+
     /**
      * Does this equation contain at least one "big" molecule?
      * This affects degree of difficulty in the Game.
      *
-     * @return
+     * @return {Boolean}
      */
     hasBigMolecule: function() {
       this.reactants.forEach( function( reactant ) {
@@ -174,6 +179,7 @@ define( function( require ) {
       } );
       return false;
     },
+
     /**
      * Balances the equation by copying the balanced coefficient value to
      * the user coefficient value for each term in the equation.
@@ -186,18 +192,25 @@ define( function( require ) {
         term.userCoefficient = term.balancedCoefficient;
       } );
     },
+
     /**
      * Gets the display name for the equation.
      * By default, this is an HTML representation of the equation formula.
      * Subclasses may override this to provide a more user-friendly name, eg "make water".
      *
-     * @return
+     * @return {String}
      */
     getName: function() {
       return this.createName( this.reactants, this.products );
     },
-    /*  Creates an plaintext string that shows the equation formula.
+
+    /*
+     * Creates an plaintext string that shows the equation formula.
      * Used for equations that don't have a more general name (eg, "Make Ammonia").
+     *
+     * @param {[EquationTerm]} reactants
+     * @param {[EquationTerm]} products
+     * @return {String}
      */
     createName: function( reactants, products ) {
       var string = '';
@@ -222,5 +235,4 @@ define( function( require ) {
       return string;
     }
   } );
-} )
-;
+} );
