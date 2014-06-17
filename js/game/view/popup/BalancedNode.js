@@ -44,7 +44,7 @@ define( function( require ) {
       return new VBox( {
         children: [
           hBox,
-          new Text( "+" + points, {font: phetFont} ) //points text
+          new Text( '+' + points, {font: phetFont} ) //points text
         ],
         spacing: 15
       } );
