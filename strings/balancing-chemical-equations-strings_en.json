@@ -19,5 +19,6 @@
   "reactants": "Reactants",
   "products": "Products",
   "chooseYourLevel" : "Choose Your Level",
-  "pattern_0level": "Level {0}"
+  "pattern_0level": "Level {0}",
+  "pattern_0points": "+{0}"
 }

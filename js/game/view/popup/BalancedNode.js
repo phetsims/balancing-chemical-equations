@@ -17,9 +17,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
   var balancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balanced' );
+  var pattern0PointsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0points' );
 
   // images
   var correctImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
@@ -44,7 +46,7 @@ define( function( require ) {
       return new VBox( {
         children: [
           hBox,
-          new Text( '+' + points, {font: phetFont} ) //points text
+          new Text( StringUtils.format( pattern0PointsString, points ), {font: phetFont} ) //points text
         ],
         spacing: 15
       } );
