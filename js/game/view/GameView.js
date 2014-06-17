@@ -140,15 +140,13 @@ define( function( require ) {
     //observers
     // Monitor the game state and update the view accordingly.
     gameModel.stateProperty.link( function( state ) {
+      self.equationNode.setEditable( state === self.model.gameState.CHECK );
       /*
        * Call an initializer to handle setup of the view for a specified state.
-       * See the gameModel for GameState for the semantics of states and the significance of their names.
+       * The various initializer functions are named 'initXXX', where 'XXX" is defined by GameModel.gameState.
        */
-
-      self.equationNode.setEditable( state === self.model.gameState.CHECK );
       self['init' + state]();
     } );
-
   }
 
   return inherit( ScreenView, GameView, {
