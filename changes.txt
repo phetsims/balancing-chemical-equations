@@ -1,4 +1,6 @@
+# 1.0.0-dev.2 6/16/14
 6/16/14 #17 use default "Start Over" for button label on scoreboard
+# 1.0.0-dev.1 6/16/14
 6/3/14 #13 stroke atoms
 3/20/14 port images and strings from Java SVN repository
 3/20/14 create basic directory structure and top-level files
