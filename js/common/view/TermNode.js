@@ -36,6 +36,7 @@ define( function( require ) {
       color: 'black',
       xMargin: 8,
       yMargin: 0,
+      touchAreaExpandX: 30,
       font: new PhetFont( FONT_SIZE )
     } );
     this.addChild( this.coefficientNode );
