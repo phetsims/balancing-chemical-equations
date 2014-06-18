@@ -119,6 +119,23 @@ define( function( require ) {
      */
     check: function() {
       this.attempts++;
+
+      // end the game, last equation and correct answer or 2 attempts
+      if ( this.currentEquationIndex === this.equations.length - 1 && (this.currentEquation.balancedAndSimplified || this.attempts > 1) ) {
+        this.timer.stop();
+        //check for new best score
+        if ( this.points > this.bestScores[this.currentLevel].get() ) {
+          this.bestScores[this.currentLevel].set( this.points );
+        }
+
+        // check for new best time
+        var previousBestTime = this.bestTimes[this.currentLevel].get();
+        if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
+          this.isNewBestTime = true;
+          this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
+        }
+      }
+
       if ( this.currentEquation.balancedAndSimplified ) {
         // award points
         if ( this.attempts === 1 ) {
@@ -132,23 +149,6 @@ define( function( require ) {
           this.currentPoints = 0;
         }
         this.points += this.currentPoints;
-
-        // end the game
-        if ( this.currentEquationIndex === this.equations.length - 1 ) {
-          this.timer.stop();
-          //check for new best score
-          if ( this.points > this.bestScores[this.currentLevel].get() ) {
-            this.bestScores[this.currentLevel].set( this.points );
-          }
-
-          // check for new best time
-          var previousBestTime = this.bestTimes[this.currentLevel].get();
-          if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
-            this.isNewBestTime = true;
-            this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
-          }
-        }
-
         this.state = this.gameState.NEXT;
       }
       else if ( this.attempts < 2 ) {
