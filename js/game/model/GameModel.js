@@ -71,7 +71,9 @@ define( function( require ) {
       balancedRepresentation: null, // which representation to use in the "Not Balanced" popup
       isNewBestTime: false, // is the time for this game a new best time?
       soundEnabled: true,
-      timerEnabled: true
+      timerEnabled: true,
+      leftBoxOpen: true,
+      rightBoxOpen: true
     } );
 
     this.equationsFactory = new GameFactory(); // generates problem sets
@@ -178,10 +180,12 @@ define( function( require ) {
       return this.points === this.getPerfectScore();
     },
     /**
-     * Called when the user presses the "New Game" button.
+     * Called when the user presses the "New Game" of "Start Over" button.
      */
     newGame: function() {
       this.state = this.gameState.LEVEL_SELECTION;
+      this.leftBoxOpenProperty.reset();
+      this.rightBoxOpenProperty.reset();
     },
     /**
      * Called when the user presses the "Next" button.

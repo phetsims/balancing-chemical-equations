@@ -23,23 +23,22 @@ define( function( require ) {
 
   /**
    * Constructor
-   * @param equationProperty the equation
-   * @param coefficientRange range of the coefficients
+   * @param {model} model - current screen model.
    * @param aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param boxColorProperty fill color of the boxes
    */
 
-  function BoxesNode( equationProperty, coefficientRange, aligner, boxColorProperty, options ) {
+  function BoxesNode( model, aligner, boxColorProperty, options ) {
     var self = this;
     Node.call( this, options );
 
-    this.coefficientRange = coefficientRange;
+    this.COEFFICENTS_RANGE = model.COEFFICENTS_RANGE;
     this.aligner = aligner;
-    this.equation = equationProperty.get();
+    this.equation = model.currentEquation;
     this.balancedHighlightEnabled = true;
 
     //boxes
-    this.reactantsBoxNode = new BoxNode( aligner, coefficientRange, {
+    this.reactantsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
       fill: boxColorProperty,
       title: reactantsString,
       x: aligner.centerXOffset - aligner.boxSize.width - aligner.boxSeparation / 2,
@@ -49,7 +48,7 @@ define( function( require ) {
     } );
     this.addChild( this.reactantsBoxNode );
 
-    this.productsBoxNode = new BoxNode( aligner, coefficientRange, {
+    this.productsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.rightBoxOpenProperty,{
       fill: boxColorProperty,
       title: productsString,
       x: aligner.centerXOffset + aligner.boxSeparation / 2,
@@ -60,12 +59,12 @@ define( function( require ) {
     this.addChild( this.productsBoxNode );
 
     // right-pointing arrow
-    this.arrowNode = new RightArrowNode( equationProperty.balanced );
+    this.arrowNode = new RightArrowNode(  model.currentEquationProperty.balanced );
     this.arrowNode.center = new Vector2( aligner.centerXOffset, aligner.boxSize.height / 2 );
     this.addChild( this.arrowNode );
 
     // if the equation changes...
-    equationProperty.link( function( newEquation, oldEquation ) {
+    model.currentEquationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) {
         oldEquation.removeCoefficientsObserver( self.updateNode.bind( self ) );
       }

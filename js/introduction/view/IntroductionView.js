@@ -50,7 +50,7 @@ define( function( require ) {
     this.addChild( equationNode );
 
     //boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner,
+    var boxesNode = new BoxesNode(model, horizontalAligner,
       BCEConstants.BOX_COLOR, {y: 180} );
     this.addChild( boxesNode );
 

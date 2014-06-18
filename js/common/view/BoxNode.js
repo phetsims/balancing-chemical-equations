@@ -33,7 +33,7 @@ define( function( require ) {
    * @param {Object} options
    */
 
-  function BoxNode( aligner, coefficientRange, options ) {
+  function BoxNode( aligner, coefficientRange, openProperty, options ) {
     var self = this;
     this.coefficientRange = coefficientRange;
     this.aligner = aligner;
@@ -67,18 +67,15 @@ define( function( require ) {
     this.contentNode = new Rectangle( 0, 0, options.width, options.height, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
     this.addChild( this.contentNode );
 
-    // Create a property that tracks the open/closed state.
-    this.openProperty = new Property( true );
-
     // expand/collapse button
-    var button = new ExpandCollapseButton( options.buttonLength, this.openProperty );
+    var button = new ExpandCollapseButton( options.buttonLength, openProperty );
     button.touchArea = Shape.bounds( button.localBounds.dilatedXY( 10, 10 ) );
     this.addChild( button );
     button.right = this.width - options.xMargin;
     button.y = options.yMargin;
 
     // show/hide title and contentNode
-    this.openProperty.link( function( isOpen ) {
+    openProperty.link( function( isOpen ) {
       self.titleNode.setVisible( !isOpen );
       self.contentNode.setVisible( isOpen );
     } );

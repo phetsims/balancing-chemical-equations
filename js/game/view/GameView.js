@@ -84,7 +84,7 @@ define( function( require ) {
       gameModel.pointsProperty,
       gameModel.timer.elapsedTimeProperty,
       gameModel.timerEnabledProperty,
-      function() { self.model.state = self.model.gameState.LEVEL_SELECTION; },
+      self.model.newGame.bind(self.model),
       {
         centerX: this.aligner.centerXOffset,
         bottom: this.model.height - 10
@@ -97,7 +97,7 @@ define( function( require ) {
     this.gamePlayNode.addChild( this.equationNode );
 
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, BCEConstants.BOX_COLOR, {y: 10} );
+    this.boxesNode = new BoxesNode(gameModel, this.aligner, BCEConstants.BOX_COLOR, {y: 10} );
     this.gamePlayNode.addChild( this.boxesNode );
 
     //buttons check, next, tryAgain, showAnswer
