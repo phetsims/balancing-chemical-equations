@@ -22,13 +22,14 @@ define( function( require ) {
   var productsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/products' );
 
   /**
-   * Constructor
    * @param {model} model - current screen model.
-   * @param aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param boxColorProperty fill color of the boxes
+   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param {String} boxColor fill color of the boxes
+   * @param {Object} options
+   * @constructor
    */
 
-  function BoxesNode( model, aligner, boxColorProperty, options ) {
+  function BoxesNode( model, aligner, boxColor, options ) {
     var self = this;
     Node.call( this, options );
 
@@ -39,7 +40,7 @@ define( function( require ) {
 
     //boxes
     this.reactantsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
-      fill: boxColorProperty,
+      fill: boxColor,
       title: reactantsString,
       x: aligner.centerXOffset - aligner.boxSize.width - aligner.boxSeparation / 2,
       width: aligner.boxSize.width,
@@ -49,7 +50,7 @@ define( function( require ) {
     this.addChild( this.reactantsBoxNode );
 
     this.productsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.rightBoxOpenProperty,{
-      fill: boxColorProperty,
+      fill: boxColor,
       title: productsString,
       x: aligner.centerXOffset + aligner.boxSeparation / 2,
       width: aligner.boxSize.width,

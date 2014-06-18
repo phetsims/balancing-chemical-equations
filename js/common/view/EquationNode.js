@@ -20,11 +20,13 @@ define( function( require ) {
 
   /**
    * @param {Equation} equationProperty
-   * @param {Array} coefficientRange node that will be used as the list's parent, use this to ensuring that the list is in front of everything else
+   * @param {DOT.Range} coefficientRange range of the coefficients
+   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Object} options
+   * @constructor
    */
 
-  function BalancedRepresentationChoiceNode( equationProperty, coefficientRange, aligner, options ) {
+  function EquationNode( equationProperty, coefficientRange, aligner, options ) {
     var self = this;
     Node.call( this, options );
 
@@ -65,7 +67,7 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, BalancedRepresentationChoiceNode, {
+  return inherit( Node, EquationNode, {
     /*
      * Rebuilds the left and right sides of the equation.
      */

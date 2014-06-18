@@ -26,11 +26,11 @@ define( function( require ) {
   var TITLE_FONT = new PhetFont( 18 );
 
   /**
-   * Constructor
-   * @param {[EquationTerm]} terms of the equation
-   * @param coefficientRange range of the coefficients
-   * @param aligner provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param {DOT.Range} coefficientRange range of the coefficients
+   * @param {Property} openProperty is Box open property
    * @param {Object} options
+   * @constructor
    */
 
   function BoxNode( aligner, coefficientRange, openProperty, options ) {

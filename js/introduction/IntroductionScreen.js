@@ -24,6 +24,10 @@ define( function( require ) {
   // images
   var introductionImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/introduction-icon.png' );
 
+  /**
+   * @constructor
+   */
+
   var IntroductionScreen = function() {
     Screen.call( this,
       introductionTitleString,

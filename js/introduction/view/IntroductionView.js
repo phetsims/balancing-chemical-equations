@@ -27,6 +27,11 @@ define( function( require ) {
   var BOX_SIZE = new Dimension2( 285, 145 );
   var BOX_SEPARATION = 110;
 
+  /**
+   * @param {IntroductionModel} model
+   * @constructor
+   */
+
   function IntroductionView( model ) {
     ScreenView.call( this, {renderer: 'svg'} );
 

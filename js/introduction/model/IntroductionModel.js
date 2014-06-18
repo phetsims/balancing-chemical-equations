@@ -18,6 +18,12 @@ define( function( require ) {
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
   var Range = require( 'DOT/Range' );
 
+  /**
+   * @param {Number} width of Screen
+   * @param {Number} height of Screen
+   * @constructor
+   */
+
   function IntroductionModel( width, height ) {
 
     this.COEFFICENTS_RANGE = new Range( 0, 3 ); // Range of possible equation coefficients

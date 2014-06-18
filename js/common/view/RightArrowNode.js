@@ -20,6 +20,11 @@ define( function( require ) {
   var HEAD_WIDTH = 35;
   var TAIL_WIDTH = 15;
 
+  /**
+   * @param {Boolean} highlighted if arrow highlighted
+   * @constructor
+   */
+
   function RightArrowNode( highlighted ) {
     ArrowNode.call( this, TAIL_LOCATION.x, TAIL_LOCATION.y, TIP_LOCATION.x, TIP_LOCATION.y, {
       tailWidth: TAIL_WIDTH,

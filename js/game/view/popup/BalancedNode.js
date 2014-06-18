@@ -27,9 +27,8 @@ define( function( require ) {
   var correctImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
 
   /**
-   * Convenience constructor.
-   *
-   * @param whyButtonListener
+   * @param {Number} points number of points for answer
+   * @constructor
    */
   var BalancedNode = function( points ) {
     GamePopupNode.call( this, true, function( phetFont ) {

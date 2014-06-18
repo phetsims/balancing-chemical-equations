@@ -18,6 +18,13 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
+  /**
+   * @param {NITROGLYCERIN.Element} element to show
+   * @param {DOT.Dimension2} fulcrumSize width and height
+   * @param {String} fulcrumFill color of filling
+   * @constructor
+   */
+
   var FulcrumNode = function( element, fulcrumSize, fulcrumFill ) {
     Node.call( this );
 

@@ -14,6 +14,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
+  /**
+   * @param {Number} balancedCoefficient balanced coefficient for molecule
+   * @param {Molecule} molecule
+   * @param {Number} actualCoefficient actual coefficient for molecule
+   * @constructor
+   */
+
   function EquationTerm( balancedCoefficient, molecule, actualCoefficient ) {
     this.molecule = molecule;
     this.balancedCoefficient = balancedCoefficient;

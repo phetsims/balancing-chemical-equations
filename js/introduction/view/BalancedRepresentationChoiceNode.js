@@ -30,6 +30,7 @@ define( function( require ) {
    * @param {BalancedRepresentation} balancedProperty
    * @param {Node} parentNode node that will be used as the list's parent, use this to ensuring that the list is in front of everything else
    * @param {Object} options
+   * @constructor
    */
 
   function BalancedRepresentationChoiceNode( balancedProperty, parentNode, options ) {

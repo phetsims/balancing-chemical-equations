@@ -21,7 +21,7 @@ define( function( require ) {
   // strings
   var combustMethane = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
 
-  /*
+  /**
    * Convenience constructor.
    *
    * @param {Integer} r1 balanced coefficient for reactant1
@@ -32,6 +32,7 @@ define( function( require ) {
    * @param {Molecule} product1
    * @param {Integer} p2 balanced coefficient for product2
    * @param {Molecule} product2
+   * @constructor
    */
   function DisplacementEquation( r1, reactant1, r2, reactant2, p1, product1, p2, product2 ) {
     Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 )] );

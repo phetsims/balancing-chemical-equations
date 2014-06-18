@@ -17,6 +17,11 @@ define( function( require ) {
   var GameTimer = require( 'VEGAS/GameTimer' );
   var Range = require( 'DOT/Range' );
 
+  /**
+   * @param {Number} width of Screen
+   * @param {Number} height of Screen
+   * @constructor
+   */
 
   function GameModel( width, height ) {
     var self = this;

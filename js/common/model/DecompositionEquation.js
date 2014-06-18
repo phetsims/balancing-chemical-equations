@@ -21,7 +21,7 @@ define( function( require ) {
   // strings
   var separateWater = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
 
-  /*
+  /**
    * Convenience constructor.
    *
    * @param {Integer} r1 balanced coefficient for reactant1
@@ -30,6 +30,7 @@ define( function( require ) {
    * @param {Molecule} product1
    * @param {Integer} p2 balanced coefficient for product2
    * @param {Molecule} product2
+   * @constructor
    */
   function DecompositionEquation( r1, reactant1, p1, product1, p2, product2 ) {
     Equation.call( this, [new EquationTerm( r1, reactant1 )], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 )] );

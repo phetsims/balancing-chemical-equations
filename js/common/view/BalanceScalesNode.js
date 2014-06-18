@@ -22,9 +22,10 @@ define( function( require ) {
   var BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
 
   /**
-   * Constructor.
-   * @param equationProperty the equation that the scales are representing
-   * @param aligner provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param {Property} equationProperty the equation that the scales are representing
+   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param {Number} maxY - max bottom y position of node
+   * @constructor
    */
   var BalanceScalesNode = function( equationProperty, aligner, maxY ) {
     var self = this;

@@ -15,6 +15,12 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
+  /**
+   * @param {Number} beamLength
+   * @param {Number} beamThickness
+   * @constructor
+   */
+
   var BeamNode = function( beamLength, beamThickness ) {
     Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, {fill: 'black', stroke: 'black'} );
   };

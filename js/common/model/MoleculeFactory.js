@@ -46,6 +46,12 @@ define( function( require ) {
   var OF2Node = require( 'NITROGLYCERIN/nodes/OF2Node' );
   var C2H5OHNode = require( 'NITROGLYCERIN/nodes/C2H5OHNode' );
 
+  /**
+   * @param {NITROGLYCERIN.node} imageConstructor constructor of molecule from NITROGLYCERIN
+   * @param {String} symbolText html string
+   * @param {[NITROGLYCERIN.Element]} elements
+   * @constructor
+   */
   var Molecule = function( imageConstructor, symbolText, elements ) {
     var self = this;
 

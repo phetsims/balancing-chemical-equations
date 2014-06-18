@@ -11,7 +11,7 @@ define( function() {
   'use strict';
 
   /**
-   * @param {nitroglycerin.Element} element
+   * @param {NITROGLYCERIN.Element} element
    * @param {Number} reactantsCount
    * @param {Number} productsCount
    * @constructor

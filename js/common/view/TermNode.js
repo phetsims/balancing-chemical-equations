@@ -23,6 +23,12 @@ define( function( require ) {
   var FONT = new PhetFont( FONT_SIZE );
   var SUBSUP_OPTIONS = {font: FONT, supScale: 1}; // options for all instances of SubSupNode
 
+  /**
+   * @param {DOT.Range} coefficientRange range of the coefficients
+   * @param {EquationTerm} term
+   * @constructor
+   */
+
   function TermNode( coefficientRange, term ) {
     Node.call( this );
 

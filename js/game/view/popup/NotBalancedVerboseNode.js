@@ -33,11 +33,12 @@ define( function( require ) {
   // images
   var incorrectImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Heavy-Ballot-X-u2718.png' );
 
-  /*
-   * @param equation the equation
+  /**
+   * @param {Equation} equationProperty the equation
    * @param whyButtonListener notified when the "Hide Why" button is pressed
    * @param balancedRepresentation which representation of "balanced" should we show?
-   * @param aligner specifies horizontal layout, for aligning with other user-interface components
+   * @param {HorizontalAligner} aligner specifies horizontal layout, for aligning with other user-interface components
+   * @constructor
    */
   var NotBalancedVerboseNode = function( equationProperty, whyButtonListener, balancedRepresentation, aligner ) {
     GamePopupNode.call( this, false, function( phetFont ) {

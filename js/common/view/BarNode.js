@@ -31,6 +31,13 @@ define( function( require ) {
   var STROKE = 1.5;
   var STROKE_COLOR = 'black';
 
+  /**
+   * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the bar
+   * @param {Number} numberOfAtoms number of elements
+   * @param {Object} options
+   * @constructor
+   */
+
   var BarNode = function( element, numberOfAtoms, options ) {
     this.element = element;
     this.numberOfAtoms = numberOfAtoms;

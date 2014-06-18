@@ -30,9 +30,8 @@ define( function( require ) {
   var incorrectImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Heavy-Ballot-X-u2718.png' );
 
   /**
-   * Convenience constructor.
-   *
    * @param whyButtonListener
+   * @constructor
    */
   var NotBalancedTerseNode = function( whyButtonListener ) {
     GamePopupNode.call( this, false, function( phetFont ) {

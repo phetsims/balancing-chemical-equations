@@ -22,6 +22,7 @@ define( function( require ) {
   /**
    * @param {IntroductionModel} model of simulation
    * @param {Object} options
+   * @constructor
    */
 
   function EquationChoiceAndResetNode( model, options ) {

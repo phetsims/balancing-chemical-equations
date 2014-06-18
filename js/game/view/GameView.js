@@ -44,8 +44,6 @@ define( function( require ) {
   var BOX_SEPARATION = 140; // horizontal spacing between boxes
 
   /**
-   * Constructor.
-   *
    * @param {gameModel} gameModel - balancing model object.
    * @constructor
    */

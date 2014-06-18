@@ -29,6 +29,10 @@ define( function( require ) {
   var correctImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
   var incorrectImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Heavy-Ballot-X-u2718.png' );
 
+  /**
+   * @constructor
+   */
+
   var BalancedNotSimplifiedNode = function() {
     GamePopupNode.call( this, true, function( phetFont ) {
 

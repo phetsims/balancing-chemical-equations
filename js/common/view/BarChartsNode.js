@@ -25,10 +25,10 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   /**
-   * Constructor
-   * @param {Equation} equationProperty the equation that the chart is representing
+   * @param {Property} equationProperty the equation that the scales are representing
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Object} options
+   * @param {Number} maxY - max bottom y position of node
+   * @constructor
    */
   function BarChartsNode( equationProperty, aligner, maxY ) {
     var self = this;

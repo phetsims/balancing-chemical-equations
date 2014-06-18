@@ -14,9 +14,10 @@ define( function() {
   'use strict';
 
   /**
-   * Constructor.
-   * @param boxSize size of one of the 2 boxes (both boxes are assumed to be the same size)
-   * @param boxSeparation horizontal separation between the left and right boxes
+   * @param {DOT.Dimension2} boxSize size of one of the 2 boxes (both boxes are assumed to be the same size)
+   * @param {Number} boxSeparation horizontal separation between the left and right boxes
+   * @param {Number} centerXOffset distance from left side of the screen to center
+   * @constructor
    */
 
   var HorizontalAligner = function( boxSize, boxSeparation, centerXOffset ) {

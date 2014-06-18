@@ -30,8 +30,8 @@ define( function( require ) {
   var FACE_DIAMETER = 75;
 
   /**
-   * @param smile
-   * @param createContentFunction function that creates the content of the dialog that will appear below the face node
+   * @param {Boolean} smile
+   * @param {Function} createContentFunction function that creates the content of the dialog that will appear below the face node
    */
   var GamePopupNode = function( smile, createContentFunction ) {
     var self = this;

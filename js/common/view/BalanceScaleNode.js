@@ -36,12 +36,12 @@ define( function( require ) {
   var ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
 
   /**
-   * Constructor.
-   * @param element the atom that we're displaying on the scale
-   * @param leftNumberOfAtoms
-   * @param rightNumberOfAtoms
-   * @param highlighted whether the beam is highlighted (used to indicate whether the scale is balanaced)
-   * @param {Object] options
+   * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
+   * @param {Number} leftNumberOfAtoms
+   * @param {Number} rightNumberOfAtoms
+   * @param {Boolean} highlighted whether the beam is highlighted (used to indicate whether the scale is balanaced)
+   * @param {Object} options
+   * @constructor
    */
 
   var BalanceScaleNode = function( element, leftNumberOfAtoms, rightNumberOfAtoms, highlighted, options ) {

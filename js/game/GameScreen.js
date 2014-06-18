@@ -24,6 +24,10 @@ define( function( require ) {
   // images
   var balancingGameImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/game-icon.png' );
 
+  /**
+   * @constructor
+   */
+
   var IntroductionScreen = function() {
     Screen.call( this,
       balancingGameTitleString,

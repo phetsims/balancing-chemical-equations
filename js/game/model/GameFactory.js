@@ -20,6 +20,10 @@ define( function( require ) {
   var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
 
+  /**
+   * @constructor
+   */
+
   var GameFactory = function() {
 
     // Level 1 pool

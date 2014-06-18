@@ -21,7 +21,7 @@ define( function( require ) {
   // strings
   var makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
 
-  /*
+  /**
    * Convenience constructor.
    *
    * @param {Integer} r1 balanced coefficient for reactant1
@@ -30,6 +30,7 @@ define( function( require ) {
    * @param {Molecule} reactant2
    * @param {Integer} p1 balanced coefficient for product1
    * @param {Molecule} product1
+   * @constructor
    */
   function SynthesisEquation( r1, reactant1, r2, reactant2, p1, product1 ) {
     Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 )] );
