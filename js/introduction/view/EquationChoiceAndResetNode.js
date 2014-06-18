@@ -36,7 +36,7 @@ define( function( require ) {
     Node.call( this, options );
 
     //background
-    this.addChild( new Rectangle( 0, 0, model.width, RECT_HEIGHT, {fill: '#3376c4'} ) );
+    this.addChild( new Rectangle( -2000, 0, model.width+4000, RECT_HEIGHT, {fill: '#3376c4'} ) );
 
     //reset
     this.addChild( new ResetAllButton( {
