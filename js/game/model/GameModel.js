@@ -89,6 +89,16 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, GameModel, {
+    //@override
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.bestTimes.forEach( function( bestTimeProperty ) {
+        bestTimeProperty.reset();
+      } );
+      this.bestScores.forEach( function( bestScoreProperty ) {
+        bestScoreProperty.reset();
+      } );
+    },
     /**
      * Called when the user presses the "Start Game" button.
      */
