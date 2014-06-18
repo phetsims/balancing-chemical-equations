@@ -45,7 +45,7 @@ define( function( require ) {
    */
 
   var BalanceScaleNode = function( element, leftNumberOfAtoms, rightNumberOfAtoms, highlighted, options ) {
-    Node.call( this, options );
+    Node.call( this );
     this.element = element;
     this.leftNumberOfAtoms = leftNumberOfAtoms;
     this.rightNumberOfAtoms = rightNumberOfAtoms;
@@ -59,6 +59,8 @@ define( function( require ) {
 
     this.atomPilesParentNode = new Node();
     this.addChild( this.atomPilesParentNode );
+
+    this.mutate( options );
 
     this.setHighlighted( highlighted );
     this.updateNode();
@@ -78,30 +80,35 @@ define( function( require ) {
      * relative balance between the left and right piles.
      */
     updateNode: function() {
+
       // all dynamic stuff is above the beam, and is children of atomPilesParentNode
       this.atomPilesParentNode.removeAllChildren();
 
       // left pile of atoms, centered on left-half of beam width number
+      var leftPileChildren = [new Text( this.leftNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
+      if ( this.leftNumberOfAtoms > 0 ) {
+        leftPileChildren.push( this.createAtomPile( this.leftNumberOfAtoms, this.element ) );
+      }
+
       var leftPileNode = new VBox( {
-        children: [
-          new Text( this.leftNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} ),
-          this.createAtomPile( this.leftNumberOfAtoms, this.element )
-        ],
+        children: leftPileChildren,
         spacing: 5,
         centerX: -0.25 * BEAM_LENGTH,
-        bottom: -1-BEAM_THICKNESS/2
+        bottom: -1 - BEAM_THICKNESS / 2
       } );
       this.atomPilesParentNode.addChild( leftPileNode );
 
       // right pile of atoms, centered on left-half of beam width number
+      var rightPileChildren = [new Text( this.rightNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
+      if ( this.rightNumberOfAtoms > 0 ) {
+        rightPileChildren.push( this.createAtomPile( this.rightNumberOfAtoms, this.element ) );
+      }
+
       var rightPileNode = new VBox( {
-        children: [
-          new Text( this.rightNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} ),
-          this.createAtomPile( this.rightNumberOfAtoms, this.element )
-        ],
+        children: rightPileChildren,
         spacing: 5,
         centerX: 0.25 * BEAM_LENGTH,
-        bottom: -1-BEAM_THICKNESS/2
+        bottom: -1 - BEAM_THICKNESS / 2
       } );
       this.atomPilesParentNode.addChild( rightPileNode );
 
@@ -135,7 +142,7 @@ define( function( require ) {
       var y = 0;
       for ( var i = 0; i < numberOfAtoms; i++ ) {
         var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
-        atomNode.scale(BCEConstants.MOLECULE_SCALE_FACTOR);
+        atomNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
         parent.addChild( atomNode );
         atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
         atomsInRow--;
