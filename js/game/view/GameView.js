@@ -205,9 +205,13 @@ define( function( require ) {
         this.animateReward = true;
       }
 
+
+      // bestTime on level, must be null to not show in popup
+      var bestTimeOnThisLevel = this.model.bestTimes[ this.model.currentLevel ].get() === 0 ? null : this.model.bestTimes[ this.model.currentLevel ].get();
+
       // Add the dialog node that indicates that the level has been completed.
       this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore(),
-        this.model.EQUATIONS_PER_GAME, this.model.timerEnabled, this.model.timer.elapsedTime, this.model.bestTimes[ this.model.currentLevel ].get(), this.model.isNewBestTime,
+        this.model.EQUATIONS_PER_GAME, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
         function() {
           self.animateReward = false;
           self.model.state = self.model.gameState.LEVEL_SELECTION;
