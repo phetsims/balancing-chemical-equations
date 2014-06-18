@@ -196,6 +196,7 @@ define( function( require ) {
       this.state = this.gameState.LEVEL_SELECTION;
       this.leftBoxOpenProperty.reset();
       this.rightBoxOpenProperty.reset();
+      this.timer.restart();
     },
     /**
      * Called when the user presses the "Next" button.
