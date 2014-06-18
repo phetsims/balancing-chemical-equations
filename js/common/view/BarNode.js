@@ -51,6 +51,7 @@ define( function( require ) {
 
     //image
     var image = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+    image.scale(BCEConstants.MOLECULE_SCALE_FACTOR);
 
     //symbol and image
     var symbolHBox = new HBox( {children: [image, symbolNode], spacing: 3} );

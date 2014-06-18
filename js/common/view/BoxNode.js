@@ -97,6 +97,7 @@ define( function( require ) {
 
         for ( var j = 0; j < numberOfMolecules; j++ ) {
           var imageNode = new MoleculeImageConstructor( BCEConstants.ATOM_OPTIONS );
+          imageNode.scale(BCEConstants.MOLECULE_SCALE_FACTOR);
           this.contentNode.addChild( imageNode );
           imageNode.center = new Vector2( xOffsets[i] - this.x, y );
           y -= rowHeight;

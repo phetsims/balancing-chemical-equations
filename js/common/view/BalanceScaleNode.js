@@ -135,6 +135,7 @@ define( function( require ) {
       var y = 0;
       for ( var i = 0; i < numberOfAtoms; i++ ) {
         var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+        atomNode.scale(BCEConstants.MOLECULE_SCALE_FACTOR);
         parent.addChild( atomNode );
         atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
         atomsInRow--;
