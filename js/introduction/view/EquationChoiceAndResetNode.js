@@ -37,8 +37,7 @@ define( function( require ) {
     Node.call( this, options );
 
     //background, extra wide so that it will appear to fill the entire screen for all but extreme window sizes
-    var backgroundWidth = 4 * model.width;
-    this.addChild( new Rectangle( 0, 0, backgroundWidth, RECT_HEIGHT, {fill: '#3376c4', centerX: model.width / 2 } ) );
+    this.addChild( new Rectangle( 0, 0, 4 * model.width, RECT_HEIGHT, {fill: '#3376c4', centerX: model.width / 2 } ) );
 
     //reset
     this.addChild( new ResetAllButton( {
