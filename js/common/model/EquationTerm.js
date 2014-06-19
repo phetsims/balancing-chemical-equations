@@ -17,15 +17,18 @@ define( function( require ) {
   /**
    * @param {Number} balancedCoefficient balanced coefficient for molecule
    * @param {Molecule} molecule
-   * @param {Number} actualCoefficient actual coefficient for molecule
+   * @param {*} options
    * @constructor
    */
 
-  function EquationTerm( balancedCoefficient, molecule, actualCoefficient ) {
+  function EquationTerm( balancedCoefficient, molecule, options ) {
+    options = _.extend( {
+       initialCoefficient: 0 // initial value of the coefficient
+    }, options );
     this.molecule = molecule;
     this.balancedCoefficient = balancedCoefficient;
     PropertySet.call( this, {
-      userCoefficient: actualCoefficient || 0
+      userCoefficient: options.initialCoefficient
     } );
   }
 
