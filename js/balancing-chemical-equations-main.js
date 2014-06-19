@@ -17,7 +17,6 @@ define( function( require ) {
 
   var screens = [new IntroductionScreen(), new GameScreen()];
 
-  //TODO populate credits
   var simOptions = {
     credits: {
       leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
