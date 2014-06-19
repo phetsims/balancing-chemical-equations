@@ -43,7 +43,7 @@ define( function( require ) {
 
     // up/down arrows
     var arrowOptions = { fill: 'black' };
-    var arrowSize = 0.5 * ( faceNode.height - arrowYSpacing );
+    var arrowSize = 0.4 * ( faceNode.height - arrowYSpacing );
     var upArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize/2, arrowSize ).lineTo( -arrowSize/2, arrowSize ).close(), arrowOptions );
     var downArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize/2, -arrowSize ).lineTo( -arrowSize/2, -arrowSize ).close(), arrowOptions );
 
