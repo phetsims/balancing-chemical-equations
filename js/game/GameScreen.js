@@ -47,13 +47,13 @@ define( function( require ) {
     var upArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize/2, arrowSize ).lineTo( -arrowSize/2, arrowSize ).close(), arrowOptions );
     var downArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize/2, -arrowSize ).lineTo( -arrowSize/2, -arrowSize ).close(), arrowOptions );
 
-    // layout
+    // layout, arrows to left of face
     upArrowNode.right = faceNode.left - arrowXSpacing;
     upArrowNode.bottom = faceNode.centerY - arrowYSpacing;
     downArrowNode.right = faceNode.left - arrowXSpacing;
     downArrowNode.top = faceNode.centerY + arrowYSpacing;
 
-    // scale to fit
+    // scale to fit, center in background
     var contentNode = new Node( { children: [ faceNode, upArrowNode, downArrowNode ] } );
     contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
     contentNode.center = background.center;
