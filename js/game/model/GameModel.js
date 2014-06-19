@@ -76,7 +76,7 @@ define( function( require ) {
       balancedRepresentation: null, // which representation to use in the "Not Balanced" popup
       isNewBestTime: false, // is the time for this game a new best time?
       soundEnabled: true,
-      timerEnabled: true,
+      timerEnabled: false,
       leftBoxOpen: true,
       rightBoxOpen: true
     } );
