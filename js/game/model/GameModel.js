@@ -195,7 +195,7 @@ define( function( require ) {
       return this.points === this.getPerfectScore();
     },
     /**
-     * Called when the user presses the "New Game" of "Start Over" button.
+     * Called when the user presses the "Start Over" button.
      */
     newGame: function() {
       this.state = this.gameState.LEVEL_SELECTION;
