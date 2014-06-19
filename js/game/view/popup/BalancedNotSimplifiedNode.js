@@ -19,15 +19,11 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // strings
   var balancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balanced' );
   var notSimplifiedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/notSimplified' );
-
-  // images
-  var correctImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
-  var incorrectImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Heavy-Ballot-X-u2718.png' );
 
   /**
    * @constructor
@@ -39,7 +35,7 @@ define( function( require ) {
       // balanced icon and text
       var balancedHBox = new HBox( {
         children: [
-          new Image( correctImage ),
+          BCEConstants.CORRECT_ICON,
           new Text( balancedString, {font: phetFont} )
         ],
         spacing: 0
@@ -48,7 +44,7 @@ define( function( require ) {
       // not simplified icon and text
       var notSimplifiedHBox = new HBox( {
         children: [
-          new Image( incorrectImage ),
+          BCEConstants.INCORRECT_ICON,
           new Text( notSimplifiedString, {font: phetFont} )
         ],
         spacing: 0

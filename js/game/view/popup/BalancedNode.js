@@ -6,7 +6,6 @@
  *
  * Author: Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -16,15 +15,12 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // strings
   var balancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balanced' );
   var pattern0PointsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0points' );
-
-  // images
-  var correctImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Check-Mark-u2713.png' );
 
   /**
    * @param {Number} points number of points for answer
@@ -36,7 +32,7 @@ define( function( require ) {
       // icon and text
       var hBox = new HBox( {
         children: [
-          new Image( correctImage ),
+          BCEConstants.CORRECT_ICON,
           new Text( balancedString, {font: phetFont} )
         ],
         spacing: 0

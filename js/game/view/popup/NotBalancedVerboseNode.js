@@ -24,14 +24,11 @@ define( function( require ) {
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // strings
   var notBalancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/notBalanced' );
   var hideWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/hideWhy' );
-
-  // images
-  var incorrectImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Heavy-Ballot-X-u2718.png' );
 
   /**
    * @param {Equation} equationProperty the equation
@@ -46,7 +43,7 @@ define( function( require ) {
       // icon and text
       var hBox = new HBox( {
         children: [
-          new Image( incorrectImage ),
+          BCEConstants.INCORRECT_ICON,
           new Text( notBalancedString, {font: phetFont} )
         ],
         spacing: 0

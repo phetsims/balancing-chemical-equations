@@ -20,14 +20,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // strings
   var notBalancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/notBalanced' );
   var showWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showWhy' );
-
-  // images
-  var incorrectImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/Heavy-Ballot-X-u2718.png' );
 
   /**
    * @param whyButtonListener
@@ -39,7 +36,7 @@ define( function( require ) {
       // icon and text
       var hBox = new HBox( {
         children: [
-          new Image( incorrectImage ),
+          BCEConstants.INCORRECT_ICON,
           new Text( notBalancedString, {font: phetFont} )
         ],
         spacing: 0
