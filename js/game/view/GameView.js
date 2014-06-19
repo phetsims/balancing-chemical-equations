@@ -145,6 +145,15 @@ define( function( require ) {
        */
       self['init' + state]();
     } );
+
+    // Disable 'Check' button when all coefficients are zero.
+    var coefficientsSumObserver = function( coefficientsSum ) {
+      self.checkButton.enabled = ( coefficientsSum > 0 );
+    };
+    gameModel.currentEquationProperty.link( function( newEquation, oldEquation ) {
+      if ( oldEquation ) { oldEquation.coefficientsSumProperty.unlink( coefficientsSumObserver ); }
+      if ( newEquation ) { newEquation.coefficientsSumProperty.link( coefficientsSumObserver ); }
+    } );
   }
 
   return inherit( ScreenView, GameView, {

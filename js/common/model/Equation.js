@@ -32,11 +32,23 @@ define( function( require ) {
 
     PropertySet.call( this, {
       balanced: false,
-      balancedAndSimplified: false
+      balancedAndSimplified: false,
+      coefficientsSum: 0
     } );
 
     // equation is balanced if all terms are balanced.
     this.addCoefficientsObserver( self.updateBalancedProperties.bind( self ) );
+
+    // keep a sum of all coefficients, so we know when the sum is non-zero
+    this.addCoefficientsObserver( function() {
+      var coefficientsSum = 0;
+      var addCoefficients = function( equationTerm ) {
+        coefficientsSum += equationTerm.userCoefficientProperty.get();
+      };
+      self.reactants.forEach( addCoefficients );
+      self.products.forEach( addCoefficients );
+      self.coefficientsSum = coefficientsSum;
+    } );
   }
 
   return inherit( PropertySet, Equation, {
