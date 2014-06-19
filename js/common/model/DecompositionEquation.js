@@ -19,7 +19,7 @@ define( function( require ) {
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
   // strings
-  var separateWater = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
+  var separateWaterString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
 
   /**
    * Convenience constructor.
@@ -30,22 +30,17 @@ define( function( require ) {
    * @param {Molecule} product1
    * @param {Integer} p2 balanced coefficient for product2
    * @param {Molecule} product2
+   * @param {*} options
    * @constructor
    */
-  function DecompositionEquation( r1, reactant1, p1, product1, p2, product2 ) {
-    Equation.call( this, [new EquationTerm( r1, reactant1 )], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 )] );
+  function DecompositionEquation( r1, reactant1, p1, product1, p2, product2, options ) {
+    Equation.call( this, [new EquationTerm( r1, reactant1 )], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 )], options );
   }
 
   return inherit( Equation, DecompositionEquation, {}, {
     // 2 H2O -> 2 H2 + O2
     create_2H2O_2H2_O2: function() {
-      var equation = new DecompositionEquation( 2, MoleculeFactory.H2O(), 2, MoleculeFactory.H2(), 1, MoleculeFactory.O2() );
-
-      //@Override
-      equation.getName = function() {
-        return separateWater;
-      };
-      return equation;
+      return new DecompositionEquation( 2, MoleculeFactory.H2O(), 2, MoleculeFactory.H2(), 1, MoleculeFactory.O2(), { name: separateWaterString } );
     },
     // 2 HCl -> H2 + Cl2
     create_2HCl_H2_Cl2: function() {

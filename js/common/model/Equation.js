@@ -19,16 +19,48 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
 
+  /*
+   * Creates a plaintext string that shows the equation formula.
+   * Used for equations that don't have a more general name (eg, "Make Ammonia").
+   *
+   * @param {[EquationTerm]} reactants
+   * @param {[EquationTerm]} products
+   * @return {String}
+   */
+  var createName = function( reactants, products ) {
+    var string = '';
+    for ( var i = 0; i < reactants.length; i++ ) {
+      string += reactants[i].balancedCoefficient;
+      string += ' ';
+      string += reactants[i].molecule.symbol;
+      if ( i < reactants.length - 1 ) {
+        string += ' + ';
+      }
+    }
+    string += ' -> ';
+    for ( i = 0; i < products.length; i++ ) {
+      string += products[i].balancedCoefficient;
+      string += ' ';
+      string += products[i].molecule.symbol;
+      if ( i < products.length - 1 ) {
+        string += ' + ';
+      }
+    }
+    return string;
+  };
+
   /**
    * @param {[EquationTerm]} reactants
    * @param {[EquationTerm]} products
+   * @param {*} options
    * @constructor
    */
-  function Equation( reactants, products ) {
+  function Equation( reactants, products, options ) {
     var self = this;
 
     this.reactants = reactants;
     this.products = products;
+    this.name = ( options && options.name ) || createName( reactants, products );
 
     PropertySet.call( this, {
       balanced: false,
@@ -203,48 +235,6 @@ define( function( require ) {
       this.products.forEach( function( term ) {
         term.userCoefficient = term.balancedCoefficient;
       } );
-    },
-
-    /**
-     * Gets the display name for the equation.
-     * By default, this is an HTML representation of the equation formula.
-     * Subclasses may override this to provide a more user-friendly name, eg "make water".
-     *
-     * @return {String}
-     */
-    getName: function() {
-      return this.createName( this.reactants, this.products );
-    },
-
-    /*
-     * Creates an plaintext string that shows the equation formula.
-     * Used for equations that don't have a more general name (eg, "Make Ammonia").
-     *
-     * @param {[EquationTerm]} reactants
-     * @param {[EquationTerm]} products
-     * @return {String}
-     */
-    createName: function( reactants, products ) {
-      var string = '';
-      for ( var i = 0; i < reactants.length; i++ ) {
-        string += reactants[i].balancedCoefficient;
-        string += ' ';
-        string += reactants[i].molecule.symbol;
-        if ( i < reactants.length - 1 ) {
-          string += ' + ';
-        }
-      }
-      string += ' -> ';
-      for ( i = 0; i < products.length; i++ ) {
-        string += products[i].balancedCoefficient;
-        string += ' ';
-        string += products[i].molecule.symbol;
-        if ( i < products.length - 1 ) {
-          string += ' + ';
-        }
-      }
-
-      return string;
     }
   } );
 } );

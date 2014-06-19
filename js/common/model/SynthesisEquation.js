@@ -30,10 +30,11 @@ define( function( require ) {
    * @param {Molecule} reactant2
    * @param {Integer} p1 balanced coefficient for product1
    * @param {Molecule} product1
+   * @param {*} options
    * @constructor
    */
-  function SynthesisEquation( r1, reactant1, r2, reactant2, p1, product1 ) {
-    Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 )] );
+  function SynthesisEquation( r1, reactant1, r2, reactant2, p1, product1, options ) {
+    Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 )], options );
   }
 
   return inherit( Equation, SynthesisEquation, {}, {
@@ -67,12 +68,7 @@ define( function( require ) {
     },
     // N2 + 3 H2 -> 2 NH3
     create_N2_3H2_2NH3: function() {
-      var equation = new SynthesisEquation( 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2(), 2, MoleculeFactory.NH3() );
-      //@Override
-      equation.getName = function() {
-        return makeAmmoniaString;
-      };
-      return equation;
+      return new SynthesisEquation( 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2(), 2, MoleculeFactory.NH3(), { name: makeAmmoniaString } );
     },
     // 2 N2 + O2 -> 2 N2O
     create_2N2_O2_2N2O: function() {

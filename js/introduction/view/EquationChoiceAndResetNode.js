@@ -50,9 +50,9 @@ define( function( require ) {
     //choices
     this.addChild( new HBox( {
       children: [
-        new AquaRadioButton( model.currentEquationProperty, model.equations[0], new Text( model.equations[0].getName(), textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.currentEquationProperty, model.equations[1], new Text( model.equations[1].getName(), textOptions ), {radius: 8} ),
-        new AquaRadioButton( model.currentEquationProperty, model.equations[2], new Text( model.equations[2].getName(), textOptions ), {radius: 8} )
+        new AquaRadioButton( model.currentEquationProperty, model.equations[0], new Text( model.equations[0].name, textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.currentEquationProperty, model.equations[1], new Text( model.equations[1].name, textOptions ), {radius: 8} ),
+        new AquaRadioButton( model.currentEquationProperty, model.equations[2], new Text( model.equations[2].name, textOptions ), {radius: 8} )
       ],
       spacing: 20,
       align: 'left',

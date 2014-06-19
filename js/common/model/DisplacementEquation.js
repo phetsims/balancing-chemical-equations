@@ -19,7 +19,7 @@ define( function( require ) {
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
   // strings
-  var combustMethane = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
+  var combustMethaneString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
 
   /**
    * Convenience constructor.
@@ -32,22 +32,17 @@ define( function( require ) {
    * @param {Molecule} product1
    * @param {Integer} p2 balanced coefficient for product2
    * @param {Molecule} product2
+   * @param {*} options
    * @constructor
    */
-  function DisplacementEquation( r1, reactant1, r2, reactant2, p1, product1, p2, product2 ) {
-    Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 )] );
+  function DisplacementEquation( r1, reactant1, r2, reactant2, p1, product1, p2, product2, options ) {
+    Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 )], options );
   }
 
   return inherit( Equation, DisplacementEquation, {}, {
     // 2 H2O -> 2 H2 + O2
     create_CH4_2O2_CO2_2H2O: function() {
-      var equation = new DisplacementEquation( 1, MoleculeFactory.CH4(), 2, MoleculeFactory.O2(), 1, MoleculeFactory.CO2(), 2, MoleculeFactory.H2O() );
-
-      //@Override
-      equation.getName = function() {
-        return combustMethane;
-      };
-      return equation;
+      return new DisplacementEquation( 1, MoleculeFactory.CH4(), 2, MoleculeFactory.O2(), 1, MoleculeFactory.CO2(), 2, MoleculeFactory.H2O(), { name: combustMethaneString } );
     },
     // 2 C + 2 H2O -> CH4 + CO2
     create_2C_2H2O_CH4_CO2: function() {
