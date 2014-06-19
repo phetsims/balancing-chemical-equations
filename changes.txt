@@ -1,3 +1,4 @@
+6/19/14 #41 create icon for 'Introduction' screen programmatically
 6/19/14 #41 create icon for 'Game' screen programmatically
 6/19/14 EquationTerm: change unused constructor parameter (actualCoefficient) to an option
 6/19/14 Equation: replace overriding of getName with options.name
