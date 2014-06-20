@@ -125,22 +125,6 @@ define( function( require ) {
     check: function() {
       this.attempts++;
 
-      // end the game, last equation and correct answer or 2 attempts
-      if ( this.currentEquationIndex === this.equations.length - 1 && (this.currentEquation.balancedAndSimplified || this.attempts > 1) ) {
-        this.timer.stop();
-        //check for new best score
-        if ( this.points > this.bestScores[this.currentLevel].get() ) {
-          this.bestScores[this.currentLevel].set( this.points );
-        }
-
-        // check for new best time
-        var previousBestTime = this.bestTimes[this.currentLevel].get();
-        if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
-          this.isNewBestTime = true;
-          this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
-        }
-      }
-
       if ( this.currentEquation.balancedAndSimplified ) {
         // award points
         if ( this.attempts === 1 ) {
@@ -155,12 +139,36 @@ define( function( require ) {
         }
         this.points += this.currentPoints;
         this.state = this.gameState.NEXT;
+
+        if ( this.currentEquationIndex === this.equations.length - 1) {
+          this.gameEnd();
+        }
       }
       else if ( this.attempts < 2 ) {
         this.state = this.gameState.TRY_AGAIN;
       }
       else {
+        if ( this.currentEquationIndex === this.equations.length - 1) {
+          this.gameEnd();
+        }
         this.state = this.gameState.SHOW_ANSWER;
+      }
+    },
+    /**
+     * On game end stop timer and set new best time if perfect score
+     */
+      gameEnd : function() {
+      this.timer.stop();
+      //check for new best score
+      if ( this.points > this.bestScores[this.currentLevel].get() ) {
+        this.bestScores[this.currentLevel].set( this.points );
+      }
+
+      // check for new best time
+      var previousBestTime = this.bestTimes[this.currentLevel].get();
+      if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
+        this.isNewBestTime = true;
+        this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
       }
     },
     /**
