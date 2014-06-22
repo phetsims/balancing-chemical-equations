@@ -36,7 +36,7 @@ define( function( require ) {
     ScreenView.call( this, {renderer: 'svg'} );
 
     //aligner for equation
-    var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2 );
+    var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2, 0, model.width );
 
     // bar charts
     var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, 170 /* maxY */ );
@@ -55,7 +55,7 @@ define( function( require ) {
     this.addChild( equationNode );
 
     //boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode(model, horizontalAligner,
+    var boxesNode = new BoxesNode( model, horizontalAligner,
       BCEConstants.BOX_COLOR, {y: 180} );
     this.addChild( boxesNode );
 

@@ -17,13 +17,17 @@ define( function() {
    * @param {DOT.Dimension2} boxSize size of one of the 2 boxes (both boxes are assumed to be the same size)
    * @param {Number} boxSeparation horizontal separation between the left and right boxes
    * @param {Number} centerXOffset distance from left side of the screen to center
+   * @param {Number} minX for Screen
+   * @param {Number} maxX for Screen
    * @constructor
    */
 
-  var HorizontalAligner = function( boxSize, boxSeparation, centerXOffset ) {
+  var HorizontalAligner = function( boxSize, boxSeparation, centerXOffset, minX, maxX ) {
     this.boxSize = boxSize;
     this.boxSeparation = boxSeparation;
     this.centerXOffset = centerXOffset;
+    this.minX = minX;
+    this.maxX = maxX;
   };
 
   /**

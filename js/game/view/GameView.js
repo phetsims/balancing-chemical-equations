@@ -61,7 +61,7 @@ define( function( require ) {
 
     this.model = gameModel;
     this.audioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
-    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, gameModel.width / 2 );
+    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, gameModel.width / 2, 0, gameModel.width );
 
     // Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();
@@ -82,7 +82,7 @@ define( function( require ) {
       gameModel.pointsProperty,
       gameModel.timer.elapsedTimeProperty,
       gameModel.timerEnabledProperty,
-      self.model.newGame.bind(self.model),
+      self.model.newGame.bind( self.model ),
       {
         centerX: this.aligner.centerXOffset,
         bottom: this.model.height - 10
@@ -95,7 +95,7 @@ define( function( require ) {
     this.gamePlayNode.addChild( this.equationNode );
 
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode(gameModel, this.aligner, BCEConstants.BOX_COLOR, {y: 10} );
+    this.boxesNode = new BoxesNode( gameModel, this.aligner, BCEConstants.BOX_COLOR, {y: 10} );
     this.gamePlayNode.addChild( this.boxesNode );
 
     //buttons check, next, tryAgain, showAnswer
