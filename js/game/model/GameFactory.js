@@ -265,9 +265,20 @@ define( function( require ) {
         poolCopy.splice( poolCopy.indexOf( equationClass ), 1 );
 
         // if the selected equation has exclusions, remove them from the pool
-        var exclusedEquations = exclusions[ equationClass ];
+        var exclusedEquations;
+        //trying to find exclusedEquations from comparing equationClass with DisplacementEquation[keys in exclusions]
+        //if functions the same - we've found key and exclusions[key] target exclused list
+        for ( var exclusionClassName in exclusions ) {
+          if ( exclusions.hasOwnProperty( exclusionClassName ) ) {
+            if ( DisplacementEquation[exclusionClassName] === equationClass ) {
+              exclusedEquations = exclusions[ exclusionClassName];
+            }
+          }
+        }
         if ( exclusedEquations !== undefined ) {
-          _.remove( poolCopy, function( equationClass ) {exclusedEquations.indexOf( equationClass !== -1 );}, this );
+          _.remove( poolCopy, function( equationClass ) {
+            return exclusedEquations.indexOf( equationClass ) !== -1;
+          }, this );
         }
       }
       return equationClasses;
