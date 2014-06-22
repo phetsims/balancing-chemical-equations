@@ -67,12 +67,13 @@ define( function( require ) {
     // if the equation changes...
     model.currentEquationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) {
-        oldEquation.removeCoefficientsObserver( self.updateNode.bind( self ) );
+        oldEquation.removeCoefficientsObserver( self.updateMolecules.bind( self ) );
       }
       if ( newEquation ) {
         self.equation = newEquation;
+        self.updateNode();
         //observer for coefficients
-        self.equation.addCoefficientsObserver( self.updateNode.bind( self ) );
+        self.equation.addCoefficientsObserver( self.updateMolecules.bind( self ) );
       }
     } );
   }
@@ -91,12 +92,19 @@ define( function( require ) {
       }
     },
     /*
-     *Updates the number of molecules and whether the arrow is highlighted.
+     * create new equation molecules.
      */
     updateNode: function() {
-      this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
-      this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
+      this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ));
       this.productsBoxNode.createMolecules( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
+    },
+    /*
+     * Updates the number of visible molecules and whether the arrow is highlighted.
+     */
+    updateMolecules : function() {
+      this.reactantsBoxNode.updateMolecules( this.equation.reactants);
+      this.productsBoxNode.updateMolecules( this.equation.products );
+      this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
     }
   } );
 

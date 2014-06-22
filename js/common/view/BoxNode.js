@@ -85,21 +85,37 @@ define( function( require ) {
      Creates molecules in the boxes for one set of terms (reactants or products).
      */
     createMolecules: function( terms, xOffsets ) {
+      var imageNodes; //array of all molecule images for every term
+      this.termNodes = {}; //contains imageNodes with key term.molecule.symbol
       this.contentNode.removeAllChildren();
       var yMargin = 0;
       var rowHeight = ( this.aligner.boxSize.height - ( 2 * yMargin ) ) / this.coefficientRange.max;
 
       for ( var i = 0; i < terms.length; i++ ) {
-        var numberOfMolecules = terms[i].userCoefficient;
+        imageNodes = [];
         var MoleculeImageConstructor = terms[i].molecule.imageConstructor;
         var y = this.aligner.boxSize.height - yMargin - ( rowHeight / 2 );
-
-        for ( var j = 0; j < numberOfMolecules; j++ ) {
+        for ( var j = 0; j < this.coefficientRange.max; j++ ) {
           var imageNode = new MoleculeImageConstructor( BCEConstants.ATOM_OPTIONS );
-          imageNode.scale(BCEConstants.MOLECULE_SCALE_FACTOR);
+          imageNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
           this.contentNode.addChild( imageNode );
           imageNode.center = new Vector2( xOffsets[i] - this.x, y );
           y -= rowHeight;
+          imageNodes.push( imageNode );
+        }
+
+        this.termNodes[terms[i].molecule.symbol] = imageNodes;
+      }
+    },
+    updateMolecules: function( terms ) {
+      var isVisible = function( moleculePosition, userCoefficient ) {
+        return moleculePosition < userCoefficient;
+      };
+
+      for ( var i = 0; i < terms.length; i++ ) {
+        var imageNodes = this.termNodes[terms[i].molecule.symbol];
+        for ( var j = 0; j < this.coefficientRange.max; j++ ) {
+          imageNodes[j].visible = isVisible( j, terms[i].userCoefficient );
         }
       }
     }
