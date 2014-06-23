@@ -19,6 +19,7 @@ define( function( require ) {
   var HEAD_HEIGHT = 30;
   var HEAD_WIDTH = 35;
   var TAIL_WIDTH = 15;
+  var SCALE = 0.95;
 
   /**
    * @param {Boolean} highlighted if arrow highlighted
@@ -29,7 +30,8 @@ define( function( require ) {
     ArrowNode.call( this, TAIL_LOCATION.x, TAIL_LOCATION.y, TIP_LOCATION.x, TIP_LOCATION.y, {
       tailWidth: TAIL_WIDTH,
       headWidth: HEAD_WIDTH,
-      headHeight: HEAD_HEIGHT
+      headHeight: HEAD_HEIGHT,
+      scale: SCALE
     } );
 
     this.setHighlighted( highlighted );

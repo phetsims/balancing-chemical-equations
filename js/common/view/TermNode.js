@@ -19,7 +19,7 @@ define( function( require ) {
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
 
   // constants related to text
-  var FONT_SIZE = 36;
+  var FONT_SIZE = 32;
   var FONT = new PhetFont( FONT_SIZE );
   var SUBSUP_OPTIONS = {font: FONT, supScale: 1}; // options for all instances of SubSupNode
 
