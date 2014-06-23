@@ -1,3 +1,4 @@
+# 1.0.0-dev.3 6/23/14
 6/23/14 #27 uniformly reduce size of terms and arrow in equations
 6/23/14 #29 address space problems with 'balanced / not balanced' dialog
 6/23/14 change color of game buttons to 'yellow'
