@@ -52,7 +52,7 @@ define( function( require ) {
   };
 
   return inherit( Node, BalanceScalesNode, {
-    /*
+    /**
      * Updates this node's entire geometry and layout
      */
     updateNode: function() {

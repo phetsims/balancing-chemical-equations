@@ -67,7 +67,7 @@ define( function( require ) {
    * Any molecule with more than 5 atoms is considered "big".
    * This affects degree of difficulty in the Game.
    *
-   * @return
+   * @return {Boolean}
    */
   Molecule.prototype.isBig = function() {
     return this.atoms.length > 5;

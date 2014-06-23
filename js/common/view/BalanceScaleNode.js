@@ -68,13 +68,13 @@ define( function( require ) {
 
   return inherit( Node, BalanceScaleNode, {
     /**
-     * Determines whether the beam is highlighted, use to indicate whether the scale is balanced.
-     * @param highlighted
+     * set highlighting of the beam, use to indicate whether the scale is balanced.
+     * @param {Boolean} highlighted
      */
     setHighlighted: function( highlighted ) {
       this.beamNode.setHighlighted( highlighted );
     },
-    /*
+    /**
      * Places piles of atoms on the ends of the beam, with a count of the number of
      * atoms above each pile.  Then rotates the beam and stuff on it to indicate the
      * relative balance between the left and right piles.
@@ -128,10 +128,12 @@ define( function( require ) {
       this.beamNode.setRotation( angle );
       this.atomPilesParentNode.setRotation( angle );
     },
-    /*
+    /**
      * Creates a triangular pile of atoms.
      * Atoms are populated one row at a time, starting from the base of the triangle and working up.
      * Origin is at the lower-left corner of the pile.
+     *
+     * @return {Node} node with atoms
      */
     createAtomPile: function( numberOfAtoms, element ) {
       var parent = new Node();
@@ -169,6 +171,9 @@ define( function( require ) {
       return parent;
     }
   }, {
+    /**
+     * @return {Number} length of beam
+     */
     getBeamLength: function() {
       return BEAM_LENGTH;
     }

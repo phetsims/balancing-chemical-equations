@@ -19,7 +19,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
 
-  /*
+  /**
    * Creates a plaintext string that shows the equation formula.
    * Used for equations that don't have a more general name (eg, "Make Ammonia").
    *
@@ -96,7 +96,7 @@ define( function( require ) {
       } );
     },
 
-    /*
+    /**
      * An equation is balanced if all of its terms have a coefficient that is the
      * same integer multiple of the term's balanced coefficient.  If the integer
      * multiple is 1, then the term is balanced with lowest possible coefficients.
@@ -156,14 +156,14 @@ define( function( require ) {
       return atomCounts;
     },
 
-    /*
+    /**
      * Some of our visual representations of "balanced" (ie, balance scales and bar charts)
      * compare the number of atoms on the left and right side of the equation.
-     * <p>
+     *
      * This algorithm supports those representations by computing the atom counts.
      * It examines a collection of terms in the equation (either reactants or products),
      * examines those terms' molecules, and counts the number of each atom type.
-     * <p>
+     *
      * This is a brute force algorithm, but our number of terms is always small,
      * and this is easy to implement and understand.
      *

@@ -74,15 +74,18 @@ define( function( require ) {
   }
 
   return inherit( Node, BarChartsNode, {
-    /*
+    /**
      * Updates this node's entire geometry and layout
      */
     updateNode: function() {
       this.updateChart( this.reactantsChartParent, true /* isReactants */ );
       this.updateChart( this.productsChartParent, false /* isReactants */ );
       this.updateEqualitySign();
-      this.updateLayout();
+      this.setMaxY();
     },
+    /**
+     * Updates single chart
+     */
     updateChart: function( parentNode, isReactants ) {
       parentNode.removeAllChildren();
       var x = 0;
@@ -103,13 +106,19 @@ define( function( require ) {
       }
 
     },
+    /**
+     * Updates equality and nonEquality signs
+     */
     updateEqualitySign: function() {
       this.equalsSignNode.setVisible( this.equationProperty.get().balanced );
       this.notEqualsSignNode.setVisible( !this.equalsSignNode.visible );
       // highlight
       this.equalsSignNode.fill = ( this.equationProperty.get().balanced ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
     },
-    updateLayout: function() {
+    /**
+     * Sets bottom of this node to max value
+     */
+    setMaxY: function() {
       this.bottom = this.maxY;
     }
   } );

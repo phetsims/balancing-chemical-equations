@@ -49,7 +49,7 @@ define( function( require ) {
     } );
     this.addChild( this.reactantsBoxNode );
 
-    this.productsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.rightBoxOpenProperty,{
+    this.productsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.rightBoxOpenProperty, {
       fill: boxColor,
       title: productsString,
       x: aligner.centerXOffset + aligner.boxSeparation / 2,
@@ -60,7 +60,7 @@ define( function( require ) {
     this.addChild( this.productsBoxNode );
 
     // right-pointing arrow
-    this.arrowNode = new RightArrowNode(  model.currentEquationProperty.balanced );
+    this.arrowNode = new RightArrowNode( model.currentEquationProperty.balanced );
     this.arrowNode.center = new Vector2( aligner.centerXOffset, aligner.boxSize.height / 2 );
     this.addChild( this.arrowNode );
 
@@ -91,18 +91,18 @@ define( function( require ) {
         this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
       }
     },
-    /*
+    /**
      * create new equation molecules.
      */
     updateNode: function() {
-      this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ));
+      this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
       this.productsBoxNode.createMolecules( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
     },
-    /*
-     * Updates the number of visible molecules and whether the arrow is highlighted.
+    /**
+     * Updates the number of visible molecules and arrow highlighting.
      */
-    updateMolecules : function() {
-      this.reactantsBoxNode.updateMolecules( this.equation.reactants);
+    updateMolecules: function() {
+      this.reactantsBoxNode.updateMolecules( this.equation.reactants );
       this.productsBoxNode.updateMolecules( this.equation.products );
       this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
     }

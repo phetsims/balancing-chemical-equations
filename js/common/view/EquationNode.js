@@ -64,7 +64,7 @@ define( function( require ) {
   }
 
   return inherit( Node, EquationNode, {
-    /*
+    /**
      * Rebuilds the left and right sides of the equation.
      */
     updateNode: function() {
@@ -75,10 +75,14 @@ define( function( require ) {
       this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ), this.aligner.centerXOffset + this.aligner.boxSeparation / 2, this.aligner.maxX );
 
     },
-    /*
+    /**
      * Updates one side of the equation.
      * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
      * This allows us to align the baselines of HTML-formatted text.
+     * @param {EquationTerm} terms array
+     * @param {Number} xOffsets array for terms
+     * @param {Number} minX minimal possible x for equation
+     * @param {Number} maxX maximum possible x for equation
      */
     updateSideOfEquation: function( terms, xOffsets, minX, maxX ) {
       var plusNode;
@@ -157,7 +161,6 @@ define( function( require ) {
     },
     /**
      * Controls whether the coefficients are editable.
-     *
      * @param editable
      */
     setEditable: function( editable ) {

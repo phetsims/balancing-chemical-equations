@@ -81,8 +81,10 @@ define( function( require ) {
   }
 
   return inherit( Node, BoxNode, {
-    /*
+    /**
      Creates molecules in the boxes for one set of terms (reactants or products).
+     @param {EquationTerm} terms array
+     @param {Number} xOffsets array of offsets for terms
      */
     createMolecules: function( terms, xOffsets ) {
       var imageNodes; //array of all molecule images for every term
@@ -107,6 +109,10 @@ define( function( require ) {
         this.termNodes[terms[i].molecule.symbol] = imageNodes;
       }
     },
+    /**
+     Updates molecule visibility
+     @param {EquationTerm} terms array
+     */
     updateMolecules: function( terms ) {
       var isVisible = function( moleculePosition, userCoefficient ) {
         return moleculePosition < userCoefficient;

@@ -196,7 +196,7 @@ define( function( require ) {
     return equations;
   };
 
-  /*
+  /**
    * Selects a random set from a pool of equations, with no duplicates.
    * Selection of an equation may cause other equations to be excluded from the pool.
    * Use the firstBigMolecule flag to specify whether it's OK if the first
@@ -285,7 +285,7 @@ define( function( require ) {
     };
   };
 
-  /*
+  /**
    * Selects a random set from a pool of equations, with no duplicates.
    * Use the firstBigMolecule flag to specify whether it's OK if the first
    * equation in the set contains a "big" molecule.

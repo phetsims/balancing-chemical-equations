@@ -187,7 +187,7 @@ define( function( require ) {
      * Gets the number of points in a perfect score, which occurs when the user
      * balances every equation in the game correctly on the first attempt.
      *
-     * @return
+     * @return {Number}
      */
     getPerfectScore: function() {
       return this.EQUATIONS_PER_GAME * this.POINTS_FIRST_ATTEMPT;
@@ -197,7 +197,7 @@ define( function( require ) {
      * This can be called at any time during the game, but can't possibly
      * return true until the game has been completed.
      *
-     * @return
+     * @return {Boolean}
      */
     isPerfectScore: function() {
       return this.points === this.getPerfectScore();
