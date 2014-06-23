@@ -292,7 +292,7 @@ define( function( require ) {
         }
 
         this.popupNode.centerX = this.aligner.centerXOffset;
-        this.popupNode.bottom = this.checkButton.y - 10;
+        this.popupNode.top = 20;
 
         this.gamePlayNode.addChild( this.popupNode ); // visible and in front
       }

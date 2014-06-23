@@ -68,7 +68,7 @@ define( function( require ) {
     //content
     this.addChild( new VBox( {
       children: this.vBoxChildren,
-      spacing: 15,
+      spacing: 10,
       centerX: self.centerX
     } ) );
 
@@ -105,8 +105,6 @@ define( function( require ) {
       lineWidth: 0} ) );
     this.addChild( cross );
     cross.right = this.backgroundRect.localBounds.right - 5;
-
-
   };
 
   return inherit( Node, GamePopupNode );

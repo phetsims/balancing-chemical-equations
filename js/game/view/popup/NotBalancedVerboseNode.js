@@ -57,6 +57,7 @@ define( function( require ) {
       else if ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
         balanceRepresentationNode = new BarChartsNode( equationProperty, aligner );
       }
+      balanceRepresentationNode.setScaleMagnitude( 0.65 ); // issue #29, shrink size so that it doesn't cover so much of the screen
 
       return new VBox( {
         children: [
@@ -67,7 +68,7 @@ define( function( require ) {
           } ),
           balanceRepresentationNode
         ],
-        spacing: 15
+        spacing: 10
       } );
     } );
   };

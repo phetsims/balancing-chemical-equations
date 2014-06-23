@@ -50,7 +50,7 @@ define( function( require ) {
             baseColor: '#d9d9d9'
           } )
         ],
-        spacing: 15
+        spacing: 10
       } );
     } );
   };

@@ -55,7 +55,7 @@ define( function( require ) {
           balancedHBox,
           notSimplifiedHBox
         ],
-        spacing: 15
+        spacing: 10
       } );
     } );
   };

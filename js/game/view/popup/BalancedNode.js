@@ -43,7 +43,7 @@ define( function( require ) {
           hBox,
           new Text( StringUtils.format( pattern0PointsString, points ), {font: phetFont} ) //points text
         ],
-        spacing: 15
+        spacing: 10
       } );
     } );
   };
