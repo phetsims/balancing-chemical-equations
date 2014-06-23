@@ -52,7 +52,7 @@ define( function( require ) {
 
     //Constants
     var BUTTONS_OPTIONS = {
-      baseColor: '#00ff99',
+      baseColor: 'yellow',
       centerX: gameModel.width / 2,
       y: 290
     };
