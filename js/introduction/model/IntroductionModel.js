@@ -37,8 +37,8 @@ define( function( require ) {
     PropertySet.call( this, {
       currentEquation: this.equations[0],
       balanceChoice: BalancedRepresentation.NONE,
-      leftBoxOpen:true,
-      rightBoxOpen:true
+      leftBoxOpen: true,
+      rightBoxOpen: true
     } );
 
   }

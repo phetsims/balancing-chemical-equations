@@ -104,7 +104,7 @@ define( function( require ) {
       fill: '#f1f1f2',
       lineWidth: 0} ) );
     this.addChild( cross );
-    cross.right = this.backgroundRect.localBounds.right-5;
+    cross.right = this.backgroundRect.localBounds.right - 5;
 
 
   };

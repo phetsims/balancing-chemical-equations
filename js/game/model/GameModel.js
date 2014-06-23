@@ -140,7 +140,7 @@ define( function( require ) {
         this.points += this.currentPoints;
         this.state = this.gameState.NEXT;
 
-        if ( this.currentEquationIndex === this.equations.length - 1) {
+        if ( this.currentEquationIndex === this.equations.length - 1 ) {
           this.gameEnd();
         }
       }
@@ -148,7 +148,7 @@ define( function( require ) {
         this.state = this.gameState.TRY_AGAIN;
       }
       else {
-        if ( this.currentEquationIndex === this.equations.length - 1) {
+        if ( this.currentEquationIndex === this.equations.length - 1 ) {
           this.gameEnd();
         }
         this.state = this.gameState.SHOW_ANSWER;
@@ -157,7 +157,7 @@ define( function( require ) {
     /**
      * On game end stop timer and set new best time if perfect score
      */
-      gameEnd : function() {
+    gameEnd: function() {
       this.timer.stop();
       //check for new best score
       if ( this.points > this.bestScores[this.currentLevel].get() ) {

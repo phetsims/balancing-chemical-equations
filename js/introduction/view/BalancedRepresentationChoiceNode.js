@@ -57,8 +57,8 @@ define( function( require ) {
     var comboBox = new ComboBox( comboChildren, balancedProperty, parentNode, {
       buttonCornerRadius: 0,
       listCornerRadius: 0,
-      itemYMargin:0,
-      itemXMargin:3
+      itemYMargin: 0,
+      itemXMargin: 3
     } );
 
     options = _.extend( {
