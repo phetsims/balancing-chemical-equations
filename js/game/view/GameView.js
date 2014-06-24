@@ -185,6 +185,7 @@ define( function( require ) {
       this.setPopupVisible( true );
     },
     initNext: function() {
+      this.setBalancedHighlightEnabled( true );
       this.setButtonNodeVisible( this.nextButton );
       this.setPopupVisible( this.model.currentEquation.balancedAndSimplified );
       this.model.currentEquation.balance(); // show the correct answer
