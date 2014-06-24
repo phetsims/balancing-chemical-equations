@@ -113,7 +113,7 @@ define( function( require ) {
       this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
       this.attempts = 0;
       this.isNewBestTime = false;
-      this.timer.start();
+      this.timer.restart();
       this.currentPoints = 0;
       this.points = 0;
       this.currentEquation = this.equations [this.currentEquationIndex ];
