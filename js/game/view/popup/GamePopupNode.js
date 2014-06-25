@@ -26,7 +26,7 @@ define( function( require ) {
 
 
   //constants
-  var FONT = new PhetFont( 24 );
+  var FONT = new PhetFont( 18 );
   var FACE_DIAMETER = 75;
 
   /**
@@ -68,7 +68,7 @@ define( function( require ) {
     //content
     this.addChild( new VBox( {
       children: this.vBoxChildren,
-      spacing: 10,
+      spacing: 5,
       centerX: self.centerX
     } ) );
 

@@ -1,3 +1,4 @@
+6/25/14 #29 game dialogs: reduce font size, reduce vertical spacing, reduce size of X and check mark
 # 1.0.0-dev.3 6/23/14
 6/23/14 #27 uniformly reduce size of terms and arrow in equations
 6/23/14 #29 address space problems with 'balanced / not balanced' dialog

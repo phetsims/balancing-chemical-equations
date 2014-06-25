@@ -22,8 +22,8 @@ define( function( require ) {
     BOX_COLOR: 'white',
     ATOM_OPTIONS: { stroke: 'black', lineWidth: 0.5 },
     MOLECULE_SCALE_FACTOR: 0.74, // scale all molecules by scaleFactor to fit design
-    CORRECT_ICON: new ShadowText( '\u2713', { fill: 'rgb(251,247,0)', font: new PhetFont( 72 ) } ), // heavy-ballot check mark
-    INCORRECT_ICON: new ShadowText( '\u2718', { fill: 'rgb(252,104,0)', font: new PhetFont( 72 ) } ) // big X
+    CORRECT_ICON: new ShadowText( '\u2713', { fill: 'rgb(251,247,0)', font: new PhetFont( 40 ) } ), // heavy-ballot check mark
+    INCORRECT_ICON: new ShadowText( '\u2718', { fill: 'rgb(252,104,0)', font: new PhetFont( 40 ) } ) // big X
   } );
 
 } );

@@ -68,7 +68,7 @@ define( function( require ) {
           } ),
           balanceRepresentationNode
         ],
-        spacing: 10
+        spacing: 5
       } );
     } );
   };
