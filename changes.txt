@@ -1,3 +1,4 @@
+7/2/14 fix an assertion bug in BarChartsNode
 7/2/14 #57 use inherit(Object,...) instead of prototype assignment
 7/2/14 replace 'Author:' with @author annotation in JSdoc
 7/2/14 fix an assertion bug in BalanceScalesNode
