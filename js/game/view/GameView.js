@@ -38,7 +38,6 @@ define( function( require ) {
   var tryAgainString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tryAgain' );
   var showAnswerString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showAnswer' );
 
-
   // Constants
   var BOX_SIZE = new Dimension2( 285, 360 );
   var BOX_SEPARATION = 140; // horizontal spacing between boxes
@@ -181,39 +180,47 @@ define( function( require ) {
   }
 
   return inherit( ScreenView, GameView, {
+
     step: function( dt ) {
       if ( this.animateReward ) {
         this.rewardNode.step( dt );
       }
     },
+
     initLevelSelection: function() {
       this.rootNode.removeAllChildren();
       this.rootNode.addChild( this.startGameLevelNode );
     },
+
     initStartGame: function() {
       this.rootNode.removeAllChildren();
       this.rootNode.addChild( this.gamePlayNode );
       this.model.startGame();
     },
+
     initCheck: function() {
       this.setBalancedHighlightEnabled( false );
       this.setButtonNodeVisible( this.checkButton );
       this.setPopupVisible( false );
     },
+
     initTryAgain: function() {
       this.setButtonNodeVisible( this.tryAgainButton );
       this.setPopupVisible( true );
     },
+
     initShowAnswer: function() {
       this.setButtonNodeVisible( this.showAnswerButton );
       this.setPopupVisible( true );
     },
+
     initNext: function() {
       this.setBalancedHighlightEnabled( true );
       this.setButtonNodeVisible( this.nextButton );
       this.setPopupVisible( this.model.currentEquation.balancedAndSimplified );
       this.model.currentEquation.balance(); // show the correct answer
     },
+
     initLevelCompleted: function() {
       var self = this;
       this.rootNode.removeAllChildren();
@@ -236,7 +243,6 @@ define( function( require ) {
         this.rootNode.addChild( this.rewardNode );
         this.animateReward = true;
       }
-
 
       // bestTime on level, must be null to not show in popup
       var bestTimeOnThisLevel = this.model.bestTimes[ this.model.currentLevel ].get() === 0 ? null : this.model.bestTimes[ this.model.currentLevel ].get();
@@ -261,6 +267,7 @@ define( function( require ) {
         this.audioPlayer.gameOverImperfectScore();
       }
     },
+
     /*
      * Turns on/off the highlighting feature that indicates whether the equation is balanced.
      * We need to be able to control this so that a balanced equation doesn't highlight
@@ -270,6 +277,7 @@ define( function( require ) {
       this.equationNode.setBalancedHighlightEnabled( enabled );
       this.boxesNode.setBalancedHighlightEnabled( enabled );
     },
+
     /*
      * Make one of the buttons visible.
      * Visibility of the buttons is mutually exclusive.
@@ -283,6 +291,7 @@ define( function( require ) {
       // make one visible
       buttonNode.setVisible( true );
     },
+
     playGuessAudio: function() {
       if ( this.model.currentEquation.balancedAndSimplified ) {
         this.audioPlayer.correctAnswer();
@@ -291,6 +300,7 @@ define( function( require ) {
         this.audioPlayer.wrongAnswer();
       }
     },
+
     /**
      * Controls the visibility of the games results "popup".
      * This tells the user whether their guess is correct or not.
@@ -322,6 +332,7 @@ define( function( require ) {
         this.gamePlayNode.addChild( this.popupNode ); // visible and in front
       }
     },
+
     /*
      * Replaces the current popup with a new popup.
      * This is used for the "Not Balanced" popup, which has terse and verbose versions.
