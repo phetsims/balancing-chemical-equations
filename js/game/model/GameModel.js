@@ -82,7 +82,6 @@ define( function( require ) {
       rightBoxOpen: true
     } );
 
-    this.equationsFactory = new GameFactory(); // generates problem sets
     this.timer = new GameTimer();
     this.bestTimes = [];// best times, maps level to time in ms
     this.bestScores = []; //best scores, maps level to best score
@@ -109,7 +108,7 @@ define( function( require ) {
      * Called when the user presses the "Start Game" button.
      */
     startGame: function() {
-      this.equations = this.equationsFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
+      this.equations = GameFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
       this.currentEquationIndex = 0;
       this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
       this.attempts = 0;
