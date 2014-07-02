@@ -4,9 +4,8 @@
  * Base class for all "popups" used in the Game to tell the user whether their guess is balanced or unbalanced.
  * These indicators look like a dialog (aka "popup").
  *
- * Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 

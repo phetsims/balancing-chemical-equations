@@ -4,7 +4,7 @@
  * The beam is a horizontal lever, centered on the fulcrum.
  * It will be pivoted to represent the relationship between quantities on either side of the fulcrum.
  *
- * Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (mlearner.com)
  */
 define( function( require ) {
   'use strict';

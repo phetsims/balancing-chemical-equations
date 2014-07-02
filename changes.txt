@@ -1,3 +1,4 @@
+7/2/14 replace 'Author:' with @author annotation in JSdoc
 7/2/14 fix an assertion bug in BalanceScalesNode
 7/2/14 add/remove blank lines to match typical PhET formatting
 7/2/14 #45 replace obtuse method of calling game initializer with a switch statement

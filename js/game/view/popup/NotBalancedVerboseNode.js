@@ -8,9 +8,8 @@
  * "Hide Why" button
  * alternate representation (bar chart or balance scale) of "balanced"
  *
- * Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 

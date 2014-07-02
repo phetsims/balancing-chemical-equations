@@ -4,7 +4,7 @@
  * A collection of constants that configure global properties.
  * If you change something here, it will change *everywhere* in this project.
  *
- *  Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (mlearner.com)
  */
 define( function( require ) {
   'use strict';

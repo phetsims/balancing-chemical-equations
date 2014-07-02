@@ -2,7 +2,8 @@
 
 /**
  * Choices for visual representations of "balanced".
- * Author: Vasily Shakhov (Mlearner)
+ *
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function() {
   'use strict';

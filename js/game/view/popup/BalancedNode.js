@@ -4,7 +4,7 @@
  * Indicator that an equation is balanced.
  * This looks like a dialog, and contains a smiley face, and check mark for balanced
  *
- * Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (mlearner.com)
  */
 define( function( require ) {
   'use strict';

@@ -7,7 +7,7 @@
  * big 'X' for 'not balanced'
  * 'Show Why' button for showing an additional representation
  *
- * Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (mlearner.com)
  */
 define( function( require ) {
   'use strict';

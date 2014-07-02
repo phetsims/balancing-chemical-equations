@@ -7,7 +7,7 @@
  * check mark for "balanced"
  * big "X" for "not simplified"
  *
- * Author: Vasily Shakhov (mlearner.com)
+ * @author Vasily Shakhov (mlearner.com)
  */
 define( function( require ) {
   'use strict';
