@@ -26,10 +26,8 @@ define( function( require ) {
   var BalancedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNode' );
   var BalancedNotSimplifiedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNotSimplifiedNode' );
   var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
-  var RewardNode = require( 'VEGAS/RewardNode' );
+  var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
-  var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
-  var Element = require( 'NITROGLYCERIN/Element' );
 
   // strings
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
@@ -224,21 +222,9 @@ define( function( require ) {
       var self = this;
       this.rootNode.removeAllChildren();
 
-      if ( this.model.isPerfectScore() ) {
-        // Perfect score, add the reward node.
-        //reward node
-        this.rewardNode = new RewardNode( {
-          nodes: [
-            new AtomNode( Element.C ),
-            new AtomNode( Element.Cl ),
-            new AtomNode( Element.F ),
-            new AtomNode( Element.H ),
-            new AtomNode( Element.N ),
-            new AtomNode( Element.O ),
-            new AtomNode( Element.P ),
-            new AtomNode( Element.S )
-          ]
-        } );
+      // game reward, shown for perfect score (or with 'reward' query parameter)
+      if ( this.model.isPerfectScore() || window.phetcommon.getQueryParameter( 'reward' ) ) {
+        this.rewardNode = new BCERewardNode( this.model.currentLevel );
         this.rootNode.addChild( this.rewardNode );
       }
 
