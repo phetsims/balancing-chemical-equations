@@ -181,7 +181,7 @@ define( function( require ) {
   return inherit( ScreenView, GameView, {
 
     step: function( dt ) {
-      if ( this.animateReward ) {
+      if ( this.rewardNode ) {
         this.rewardNode.step( dt );
       }
     },
@@ -240,7 +240,6 @@ define( function( require ) {
           ]
         } );
         this.rootNode.addChild( this.rewardNode );
-        this.animateReward = true;
       }
 
       // bestTime on level, must be null to not show in popup
@@ -250,7 +249,8 @@ define( function( require ) {
       this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore(),
         this.model.EQUATIONS_PER_GAME, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
         function() {
-          self.animateReward = false;
+          self.rootNode.removeChild( self.rewardNode );
+          self.rewardNode = null;
           self.model.state = self.model.gameState.LEVEL_SELECTION;
         }, {
           centerX: this.model.width / 2,
