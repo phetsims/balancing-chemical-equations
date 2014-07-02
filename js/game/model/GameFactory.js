@@ -204,18 +204,16 @@ define( function( require ) {
    * equation in the set contains a "big" molecule.
    */
   var RandomWithExclusionsStrategy = function( pool, exclusions, firstBigMolecules ) {
+
     this.pool = pool;
     this.exclusions = exclusions;
     this.firstBigMolecule = firstBigMolecules;  // can the first equation in the set contain a "big" molecule?
-
 
     this.hasBigMolecule = function( equationClass ) {
       return equationClass().hasBigMolecule();
     };
 
     this.getEquationClasses = function( numberOfEquations ) {
-      //function for
-
 
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
