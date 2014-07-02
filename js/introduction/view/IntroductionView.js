@@ -22,6 +22,7 @@ define( function( require ) {
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
+  var FaceNode = require( 'SCENERY_PHET/FaceNode' );
 
   //constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -45,6 +46,19 @@ define( function( require ) {
     // balance scales
     var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, horizontalAligner, 170 /* maxY */ );
     this.addChild( balanceScalesNode );
+
+    // smiley face, top center, shown when equation is balanced
+    var faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
+    this.addChild( faceNode );
+    var updateFace = function() {
+      faceNode.visible = true;//model.currentEquationProperty.get().balanced;
+    };
+    model.currentEquationProperty.link( function( newEquation, oldEquation ) {
+      if ( oldEquation ) {
+        oldEquation.removeCoefficientsObserver( updateFace );
+      }
+      newEquation.addCoefficientsObserver( updateFace );
+    } );
 
     // control for choosing an equation and reset button
     var equationChoiceAndResetNode = new EquationChoiceAndResetNode( model, {y: model.height - 65} );
