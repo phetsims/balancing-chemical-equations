@@ -15,6 +15,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var inherit = require( 'PHET_CORE/inherit' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
   var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
@@ -178,20 +179,23 @@ define( function( require ) {
     ];
   };
 
-  /**
-   * Creates a set of equations to be used in the game.
-   * @param numberOfEquations
-   * @param level 1-N
-   */
-  GameFactory.prototype.createEquations = function( numberOfEquations, level ) {
-    var equationClasses = this.STRATEGIES[level].getEquationClasses( numberOfEquations );
-    var equations = [];
+  inherit( Object, GameFactory, {
 
-    equationClasses.forEach( function( equationClass ) {
-      equations.push( equationClass() );
-    } );
-    return equations;
-  };
+    /**
+     * Creates a set of equations to be used in the game.
+     * @param numberOfEquations
+     * @param level 1-N
+     */
+    createEquations: function( numberOfEquations, level ) {
+      var equationClasses = this.STRATEGIES[level].getEquationClasses( numberOfEquations );
+      var equations = [];
+
+      equationClasses.forEach( function( equationClass ) {
+        equations.push( equationClass() );
+      } );
+      return equations;
+    }
+  } );
 
   /**
    * Selects a random set from a pool of equations, with no duplicates.
