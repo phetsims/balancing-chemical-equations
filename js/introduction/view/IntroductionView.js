@@ -51,7 +51,7 @@ define( function( require ) {
     var faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
     this.addChild( faceNode );
     var updateFace = function() {
-      faceNode.visible = true;//model.currentEquationProperty.get().balanced;
+      faceNode.visible = model.currentEquationProperty.get().balanced;
     };
     model.currentEquationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) {
