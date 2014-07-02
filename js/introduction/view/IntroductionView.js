@@ -67,8 +67,6 @@ define( function( require ) {
       barChartsNode.setVisible( choice === BalancedRepresentation.BAR_CHARTS );
       balanceScalesNode.setVisible( choice === BalancedRepresentation.BALANCE_SCALES );
     } );
-
-
   }
 
   return inherit( ScreenView, IntroductionView );
