@@ -57,7 +57,7 @@ define( function( require ) {
       y: 290
     };
 
-    ScreenView.call( this, {renderer: 'svg'} );
+    ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     this.model = gameModel;
     this.audioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
