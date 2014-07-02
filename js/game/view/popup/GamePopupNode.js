@@ -76,18 +76,12 @@ define( function( require ) {
     this.backgroundRect.setRect( backgroundBounds.x, backgroundBounds.y, backgroundBounds.width, backgroundBounds.height );
 
     //top left cross
-
-    /*tailWidth: 5,
-     headWidth: 10,
-     headHeight: 10,
-     doubleHead: false*/
-
     var CROSS_WIDTH = 30;
     var TAIL_WIDTH = 5;
     var HEAD_WIDTH = 10;
     var HEAD_HEIGHT = 8;
 
-    var cross = new Node( {y: 10} );
+    var cross = new Node();
     cross.addChild( new ArrowNode( -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, 0, {
       tailWidth: TAIL_WIDTH,
       headWidth: HEAD_WIDTH,
@@ -105,6 +99,7 @@ define( function( require ) {
       lineWidth: 0} ) );
     this.addChild( cross );
     cross.right = this.backgroundRect.localBounds.right - 5;
+    cross.top = this.backgroundRect.localBounds.top + 5;
   };
 
   return inherit( Node, GamePopupNode );
