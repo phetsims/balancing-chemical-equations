@@ -75,30 +75,21 @@ define( function( require ) {
     var backgroundBounds = Shape.bounds( this.localBounds.dilatedXY( 10, 10 ) ).bounds;
     this.backgroundRect.setRect( backgroundBounds.x, backgroundBounds.y, backgroundBounds.width, backgroundBounds.height );
 
-    //top left cross
+    // move icon (cross) at upper-left
     var CROSS_WIDTH = 30;
-    var TAIL_WIDTH = 5;
-    var HEAD_WIDTH = 10;
-    var HEAD_HEIGHT = 8;
-
+    var arrowOptions = {
+      tailWidth: 5,
+      headWidth: 10,
+      headHeight: 8,
+      doubleHead: true,
+      fill: '#f1f1f2',
+      lineWidth: 0
+    };
     var cross = new Node();
-    cross.addChild( new ArrowNode( -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, 0, {
-      tailWidth: TAIL_WIDTH,
-      headWidth: HEAD_WIDTH,
-      headHeight: HEAD_HEIGHT,
-      doubleHead: true,
-      fill: '#f1f1f2',
-      lineWidth: 0} ) );
-
-    cross.addChild( new ArrowNode( 0, -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, {
-      tailWidth: TAIL_WIDTH,
-      headWidth: HEAD_WIDTH,
-      headHeight: HEAD_HEIGHT,
-      doubleHead: true,
-      fill: '#f1f1f2',
-      lineWidth: 0} ) );
+    cross.addChild( new ArrowNode( -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, 0, arrowOptions ) );
+    cross.addChild( new ArrowNode( 0, -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, arrowOptions ) );
     this.addChild( cross );
-    cross.right = this.backgroundRect.localBounds.right - 5;
+    cross.left = this.backgroundRect.localBounds.left + 5;
     cross.top = this.backgroundRect.localBounds.top + 5;
   };
 
