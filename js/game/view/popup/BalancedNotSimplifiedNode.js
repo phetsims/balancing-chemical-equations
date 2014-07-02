@@ -9,7 +9,6 @@
  *
  * Author: Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -28,7 +27,6 @@ define( function( require ) {
   /**
    * @constructor
    */
-
   var BalancedNotSimplifiedNode = function() {
     GamePopupNode.call( this, true, function( phetFont ) {
 
@@ -61,5 +59,4 @@ define( function( require ) {
   };
 
   return inherit( GamePopupNode, BalancedNotSimplifiedNode );
-
 } );

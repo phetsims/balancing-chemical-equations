@@ -104,5 +104,4 @@ define( function( require ) {
   };
 
   return inherit( Screen, IntroductionScreen );
-
 } );

@@ -15,7 +15,7 @@
 define( function( require ) {
   'use strict';
 
-// modules
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BarNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarNode' );
@@ -31,6 +31,7 @@ define( function( require ) {
    * @constructor
    */
   function BarChartsNode( equationProperty, aligner, maxY ) {
+
     var self = this;
     Node.call( this );
 
@@ -74,6 +75,7 @@ define( function( require ) {
   }
 
   return inherit( Node, BarChartsNode, {
+
     /**
      * Updates this node's entire geometry and layout
      */
@@ -83,6 +85,7 @@ define( function( require ) {
       this.updateEqualitySign();
       this.setMaxY();
     },
+
     /**
      * Updates single chart
      */
@@ -106,6 +109,7 @@ define( function( require ) {
       }
 
     },
+
     /**
      * Updates equality and nonEquality signs
      */
@@ -115,6 +119,7 @@ define( function( require ) {
       // highlight
       this.equalsSignNode.fill = ( this.equationProperty.get().balanced ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
     },
+
     /**
      * Sets bottom of this node to max value
      */
@@ -122,5 +127,4 @@ define( function( require ) {
       this.bottom = this.maxY;
     }
   } );
-
 } );

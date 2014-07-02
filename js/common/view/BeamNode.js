@@ -6,7 +6,6 @@
  *
  * Author: Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -26,10 +25,10 @@ define( function( require ) {
   };
 
   return inherit( Rectangle, BeamNode, {
+
     setHighlighted: function( highlighted ) {
       this.fill = highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : 'black';
       this.lineWidth = highlighted ? 1 : 0;
     }
   } );
-
 } );

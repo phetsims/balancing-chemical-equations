@@ -22,11 +22,14 @@ define( function( require ) {
    */
 
   function EquationTerm( balancedCoefficient, molecule, options ) {
+
     options = _.extend( {
       initialCoefficient: 0 // initial value of the coefficient
     }, options );
+
     this.molecule = molecule;
     this.balancedCoefficient = balancedCoefficient;
+
     PropertySet.call( this, {
       userCoefficient: options.initialCoefficient
     } );

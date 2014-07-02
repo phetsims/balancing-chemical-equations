@@ -26,6 +26,7 @@ define( function( require ) {
    */
 
   function EquationChoiceAndResetNode( model, options ) {
+
     //height of control node
     var RECT_HEIGHT = 50;
     //options for text

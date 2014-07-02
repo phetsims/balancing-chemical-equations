@@ -5,7 +5,6 @@
  *
  * @author Vasily Shakhov (MLearner)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -34,6 +33,7 @@ define( function( require ) {
    */
 
   function BalancedRepresentationChoiceNode( balancedProperty, parentNode, options ) {
+
     var textFont = new PhetFont( 22 );
 
     //tools text

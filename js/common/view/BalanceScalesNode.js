@@ -12,7 +12,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -28,6 +27,7 @@ define( function( require ) {
    * @constructor
    */
   var BalanceScalesNode = function( equationProperty, aligner, maxY ) {
+
     var self = this;
     Node.call( this );
 
@@ -52,6 +52,7 @@ define( function( require ) {
   };
 
   return inherit( Node, BalanceScalesNode, {
+
     /**
      * Updates this node's entire geometry and layout
      */
@@ -71,5 +72,4 @@ define( function( require ) {
       } );
     }
   } );
-
 } );

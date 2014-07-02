@@ -11,7 +11,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -23,7 +22,6 @@ define( function( require ) {
   /**
    * @constructor
    */
-
   var GameFactory = function() {
 
     // Level 1 pool
@@ -178,7 +176,6 @@ define( function( require ) {
       new RandomStrategy( this.LEVEL2_POOL, true ), //level 2
       new RandomWithExclusionsStrategy( this.LEVEL3_POOL, this.LEVEL3_EXCLUSIONS, true ) //level 3
     ];
-
   };
 
   /**
@@ -294,7 +291,5 @@ define( function( require ) {
     RandomWithExclusionsStrategy.call( this, pool, {}, firstBigMolecules );
   };
 
-
   return GameFactory;
-
 } );

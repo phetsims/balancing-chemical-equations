@@ -5,7 +5,6 @@
  *
  * @author Vasily Shakhov (MLearner)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -34,6 +33,7 @@ define( function( require ) {
    */
 
   function IntroductionView( model ) {
+
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     //aligner for equation

@@ -4,7 +4,6 @@
  * RequireJS configuration file for the 'Balancing Chemical Equations' sim.
  * Paths are relative to the location of this file.
  */
-
 require.config( {
 
   deps: ['balancing-chemical-equations-main'],

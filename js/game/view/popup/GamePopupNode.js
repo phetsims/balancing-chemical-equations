@@ -24,7 +24,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
-
   //constants
   var FONT = new PhetFont( 18 );
   var FACE_DIAMETER = 75;
@@ -34,8 +33,8 @@ define( function( require ) {
    * @param {Function} createContentFunction function that creates the content of the dialog that will appear below the face node
    */
   var GamePopupNode = function( smile, createContentFunction ) {
-    var self = this;
 
+    var self = this;
     Node.call( this, {cursor: 'pointer'} );
 
     //draggable
@@ -49,7 +48,6 @@ define( function( require ) {
       }
       self.translation = startPosition.plus( position.get() );
     } );
-
 
     //background
     this.backgroundRect = new Rectangle( 0, 0, 0, 0, {

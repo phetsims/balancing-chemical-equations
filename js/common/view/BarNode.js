@@ -39,6 +39,7 @@ define( function( require ) {
    */
 
   var BarNode = function( element, numberOfAtoms, options ) {
+
     this.element = element;
     this.numberOfAtoms = numberOfAtoms;
 
@@ -72,5 +73,4 @@ define( function( require ) {
   };
 
   return inherit( VBox, BarNode );
-
 } );

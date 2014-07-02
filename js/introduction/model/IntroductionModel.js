@@ -44,6 +44,8 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, IntroductionModel, {
+
+    // @override
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.equations.forEach( function( equation ) {

@@ -1,12 +1,11 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *  * Fulcrum on which the scale balances.
+ * Fulcrum on which the scale balances.
  * Labeled with the atom symbol.
  * Origin is at the tip of the fulcrum.
  * Author: Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -24,8 +23,8 @@ define( function( require ) {
    * @param {String} fulcrumFill color of filling
    * @constructor
    */
-
   var FulcrumNode = function( element, fulcrumSize, fulcrumFill ) {
+
     Node.call( this );
 
     var triangle = new Path( new Shape().
@@ -48,6 +47,6 @@ define( function( require ) {
     } );
     this.addChild( text );
   };
-  return inherit( Node, FulcrumNode );
 
+  return inherit( Node, FulcrumNode );
 } );

@@ -6,7 +6,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -28,8 +27,8 @@ define( function( require ) {
    * @param {EquationTerm} term
    * @constructor
    */
-
   function TermNode( coefficientRange, term ) {
+
     Node.call( this );
 
     var capHeight = this.getCapHeight();
@@ -51,9 +50,11 @@ define( function( require ) {
   }
 
   return inherit( Node, TermNode, {
+
     setEditable: function( editable ) {
       this.coefficientNode.pickable = editable;
     },
+
     /**
      * get height of standard uppercase letter
      * */
@@ -61,5 +62,4 @@ define( function( require ) {
       return new SubSupText( 'T', SUBSUP_OPTIONS ).height;
     }
   } );
-
 } );

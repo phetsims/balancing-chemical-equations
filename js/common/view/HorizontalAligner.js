@@ -9,7 +9,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function() {
   'use strict';
 
@@ -82,9 +81,7 @@ define( function() {
     }
 
     return xOffsets;
-
   };
 
   return HorizontalAligner;
-
 } );

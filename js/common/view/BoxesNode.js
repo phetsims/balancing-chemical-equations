@@ -6,7 +6,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -28,8 +27,8 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-
   function BoxesNode( model, aligner, boxColor, options ) {
+
     var self = this;
     Node.call( this, options );
 
@@ -79,6 +78,7 @@ define( function( require ) {
   }
 
   return inherit( Node, BoxesNode, {
+
     /**
      * Enables or disables the highlighting feature.
      * When enabled, the arrow between the boxes will light up when the equation is balanced.
@@ -91,6 +91,7 @@ define( function( require ) {
         this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
       }
     },
+
     /**
      * create new equation molecules.
      */
@@ -98,6 +99,7 @@ define( function( require ) {
       this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
       this.productsBoxNode.createMolecules( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
     },
+
     /**
      * Updates the number of visible molecules and arrow highlighting.
      */
@@ -107,5 +109,4 @@ define( function( require ) {
       this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
     }
   } );
-
 } );

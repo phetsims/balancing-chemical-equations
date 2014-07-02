@@ -6,7 +6,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -25,7 +24,6 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-
   function EquationNode( equationProperty, coefficientRange, aligner, options ) {
     var self = this;
     Node.call( this, options );
@@ -64,6 +62,7 @@ define( function( require ) {
   }
 
   return inherit( Node, EquationNode, {
+
     /**
      * Rebuilds the left and right sides of the equation.
      */
@@ -75,6 +74,7 @@ define( function( require ) {
       this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ), this.aligner.centerXOffset + this.aligner.boxSeparation / 2, this.aligner.maxX );
 
     },
+
     /**
      * Updates one side of the equation.
      * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
@@ -141,11 +141,9 @@ define( function( require ) {
         }
       }
 
-
       this.rightArrowNode.centerY = termNode.centerY;
-
-
     },
+
     /**
      * Enables or disables the highlighting feature.
      * When enabled, the arrow between the left and right sides of the equation will light up when the equation is balanced.
@@ -159,6 +157,7 @@ define( function( require ) {
         this.rightArrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
       }
     },
+
     /**
      * Controls whether the coefficients are editable.
      * @param editable

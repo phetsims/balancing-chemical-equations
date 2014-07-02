@@ -6,8 +6,6 @@
  *
  *  Author: Vasily Shakhov (mlearner.com)
  */
-
-
 define( function( require ) {
   'use strict';
 
@@ -26,5 +24,4 @@ define( function( require ) {
     CORRECT_ICON: new ShadowText( '\u2713', { fill: 'rgb(251,247,0)', font: new PhetFont( 40 ) } ), // heavy-ballot check mark
     INCORRECT_ICON: new ShadowText( '\u2718', { fill: 'rgb(252,104,0)', font: new PhetFont( 40 ) } ) // big X
   } );
-
 } );

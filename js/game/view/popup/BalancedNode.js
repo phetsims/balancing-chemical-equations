@@ -49,5 +49,4 @@ define( function( require ) {
   };
 
   return inherit( GamePopupNode, BalancedNode );
-
 } );

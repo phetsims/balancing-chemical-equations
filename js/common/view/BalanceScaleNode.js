@@ -9,7 +9,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -43,9 +42,10 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-
   var BalanceScaleNode = function( element, leftNumberOfAtoms, rightNumberOfAtoms, highlighted, options ) {
+
     Node.call( this );
+
     this.element = element;
     this.leftNumberOfAtoms = leftNumberOfAtoms;
     this.rightNumberOfAtoms = rightNumberOfAtoms;
@@ -67,6 +67,7 @@ define( function( require ) {
   };
 
   return inherit( Node, BalanceScaleNode, {
+
     /**
      * set highlighting of the beam, use to indicate whether the scale is balanced.
      * @param {Boolean} highlighted
@@ -74,6 +75,7 @@ define( function( require ) {
     setHighlighted: function( highlighted ) {
       this.beamNode.setHighlighted( highlighted );
     },
+
     /**
      * Places piles of atoms on the ends of the beam, with a count of the number of
      * atoms above each pile.  Then rotates the beam and stuff on it to indicate the
@@ -128,6 +130,7 @@ define( function( require ) {
       this.beamNode.setRotation( angle );
       this.atomPilesParentNode.setRotation( angle );
     },
+
     /**
      * Creates a triangular pile of atoms.
      * Atoms are populated one row at a time, starting from the base of the triangle and working up.
@@ -178,5 +181,4 @@ define( function( require ) {
       return BEAM_LENGTH;
     }
   } );
-
 } );

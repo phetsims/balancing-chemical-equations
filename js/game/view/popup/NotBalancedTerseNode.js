@@ -9,7 +9,6 @@
  *
  * Author: Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -56,5 +55,4 @@ define( function( require ) {
   };
 
   return inherit( GamePopupNode, NotBalancedTerseNode );
-
 } );

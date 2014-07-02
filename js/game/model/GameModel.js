@@ -22,9 +22,10 @@ define( function( require ) {
    * @param {Number} height of Screen
    * @constructor
    */
-
   function GameModel( width, height ) {
+
     var self = this;
+
     /*
      * The set of game states.
      * For lack of better names, the state names correspond to the main action that
@@ -89,11 +90,10 @@ define( function( require ) {
       this.bestTimes[i] = new Property( 0 );
       this.bestScores[i] = new Property( 0 );
     }
-
-
   }
 
   return inherit( PropertySet, GameModel, {
+
     //@override
     reset: function() {
       PropertySet.prototype.reset.call( this );
@@ -104,6 +104,7 @@ define( function( require ) {
         bestScoreProperty.reset();
       } );
     },
+
     /**
      * Called when the user presses the "Start Game" button.
      */
@@ -119,6 +120,7 @@ define( function( require ) {
       this.currentEquation = this.equations [this.currentEquationIndex ];
       this.state = this.gameState.CHECK;
     },
+
     /**
      * Called when the user presses the "Check" button.
      */
@@ -154,6 +156,7 @@ define( function( require ) {
         this.state = this.gameState.SHOW_ANSWER;
       }
     },
+
     /**
      * On game end stop timer and set new best time if perfect score
      */
@@ -171,18 +174,21 @@ define( function( require ) {
         this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
       }
     },
+
     /**
      * Called when the user presses the "Try Again" button.
      */
     tryAgain: function() {
       this.state = this.gameState.CHECK;
     },
+
     /**
      * Called when the user presses the "Show Answer" button.
      */
     showAnswer: function() {
       this.state = this.gameState.NEXT;
     },
+
     /**
      * Gets the number of points in a perfect score, which occurs when the user
      * balances every equation in the game correctly on the first attempt.
@@ -192,6 +198,7 @@ define( function( require ) {
     getPerfectScore: function() {
       return this.EQUATIONS_PER_GAME * this.POINTS_FIRST_ATTEMPT;
     },
+
     /**
      * Is the current score a perfect score?
      * This can be called at any time during the game, but can't possibly
@@ -202,6 +209,7 @@ define( function( require ) {
     isPerfectScore: function() {
       return this.points === this.getPerfectScore();
     },
+
     /**
      * Called when the user presses the "Start Over" button.
      */
@@ -211,6 +219,7 @@ define( function( require ) {
       this.rightBoxOpenProperty.reset();
       this.timer.restart();
     },
+
     /**
      * Called when the user presses the "Next" button.
      */

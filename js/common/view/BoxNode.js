@@ -6,7 +6,6 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -31,8 +30,8 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-
   function BoxNode( aligner, coefficientRange, openProperty, options ) {
+
     var self = this;
     this.coefficientRange = coefficientRange;
     this.aligner = aligner;
@@ -81,6 +80,7 @@ define( function( require ) {
   }
 
   return inherit( Node, BoxNode, {
+
     /**
      Creates molecules in the boxes for one set of terms (reactants or products).
      @param {EquationTerm} terms array
@@ -109,6 +109,7 @@ define( function( require ) {
         this.termNodes[terms[i].molecule.symbol] = imageNodes;
       }
     },
+
     /**
      Updates molecule visibility
      @param {EquationTerm} terms array
@@ -126,5 +127,4 @@ define( function( require ) {
       }
     }
   } );
-
 } );

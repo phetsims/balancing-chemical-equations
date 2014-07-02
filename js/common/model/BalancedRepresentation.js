@@ -4,7 +4,6 @@
  * Choices for visual representations of "balanced".
  * Author: Vasily Shakhov (Mlearner)
  */
-
 define( function() {
   'use strict';
   return Object.freeze( {
