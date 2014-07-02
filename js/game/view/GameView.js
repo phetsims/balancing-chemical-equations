@@ -138,12 +138,36 @@ define( function( require ) {
     //observers
     // Monitor the game state and update the view accordingly.
     gameModel.stateProperty.link( function( state ) {
+
       self.equationNode.setEditable( state === self.model.gameState.CHECK );
-      /*
-       * Call an initializer to handle setup of the view for a specified state.
-       * The various initializer functions are named 'initXXX', where 'XXX" is defined by GameModel.gameState.
-       */
-      self['init' + state]();
+
+      // call an initializer to setup the game for the state
+      var states = gameModel.gameState;
+      switch( state ) {
+        case states.LEVEL_SELECTION:
+          self.initLevelSelection();
+          break;
+        case states.START_GAME:
+          self.initStartGame();
+          break;
+        case states.CHECK:
+          self.initCheck();
+          break;
+        case states.TRY_AGAIN:
+          self.initTryAgain();
+          break;
+        case states.SHOW_ANSWER:
+          self.initShowAnswer();
+          break;
+        case states.NEXT:
+          self.initNext();
+          break;
+        case states.LEVEL_COMPLETED:
+          self.initLevelCompleted();
+          break;
+        default:
+          throw new Error( 'unsupported state: ' + state );
+      }
     } );
 
     // Disable 'Check' button when all coefficients are zero.
