@@ -7,6 +7,7 @@
  */
 define( function() {
   'use strict';
+
   return Object.freeze( {
     'NONE': 'NONE',
     'BALANCE_SCALES': 'BALANCE_SCALES',
