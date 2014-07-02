@@ -46,13 +46,6 @@ define( function( require ) {
   function GameView( gameModel ) {
     var self = this;
 
-    //Constants
-    var BUTTONS_OPTIONS = {
-      baseColor: 'yellow',
-      centerX: gameModel.width / 2,
-      y: 290
-    };
-
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     this.model = gameModel;
@@ -95,6 +88,11 @@ define( function( require ) {
     this.gamePlayNode.addChild( this.boxesNode );
 
     //buttons check, next, tryAgain, showAnswer
+    var BUTTONS_OPTIONS = {
+      baseColor: 'yellow',
+      centerX: gameModel.width / 2,
+      bottom: this.boxesNode.bottom
+    };
     this.checkButton = new TextPushButton( checkString, _.extend( BUTTONS_OPTIONS, {
       listener: function() {
         self.playGuessAudio();

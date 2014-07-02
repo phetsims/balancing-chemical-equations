@@ -1,3 +1,4 @@
+7/2/14 #60 align bottom of game buttons with bottom of boxes
 7/2/14 #37 implemented the game reward
 7/2/14 restructure GameFactory as a singleton
 7/2/14 fix an assertion bug in BarChartsNode
