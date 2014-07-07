@@ -15,7 +15,7 @@ define( function( require ) {
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var Scoreboard = require( 'VEGAS/Scoreboard' );
+  var ScoreboardPanel = require( 'VEGAS/ScoreboardPanel' );
   var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -64,7 +64,7 @@ define( function( require ) {
     //startGame nodes
     //game nodes
     //scoreboard at the bottom of the screen
-    var scoreboard = new Scoreboard(
+    var scoreboard = new ScoreboardPanel(
       gameModel.currentEquationIndexProperty,
       new Property( gameModel.EQUATIONS_PER_GAME ),
       gameModel.currentLevelProperty,
