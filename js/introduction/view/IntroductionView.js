@@ -23,6 +23,7 @@ define( function( require ) {
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   // constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -40,7 +41,8 @@ define( function( require ) {
     var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, model.width / 2, 0, model.width );
 
     // 'Tools' combo box, at upper-right
-    this.addChild( new ToolsComboBox( model.balanceChoiceProperty, this,
+    var comboBoxParent = new Node();
+    this.addChild( new ToolsComboBox( model.balanceChoiceProperty, comboBoxParent,
       { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
 
     // boxes that show molecules corresponding to the equation coefficients
@@ -82,6 +84,9 @@ define( function( require ) {
       centerY: equationChoiceNode.centerY,
       scale: 0.8
     } ) );
+
+    // add this last, so that combo box list is on top of everything else
+    this.addChild( comboBoxParent );
 
     model.balanceChoiceProperty.link( function( choice ) {
       barChartsNode.setVisible( choice === BalancedRepresentation.BAR_CHARTS );
