@@ -66,13 +66,10 @@ define( function( require ) {
     } );
 
     // boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( model, horizontalAligner,
-      BCEConstants.BOX_COLOR, {y: 180} );
-    this.addChild( boxesNode );
+    this.addChild( new BoxesNode( model, horizontalAligner, BCEConstants.BOX_COLOR, {y: 180} ) );
 
     // equation, in formula format
-    var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} );
-    this.addChild( equationNode );
+    this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} ) );
 
     // control for choosing an equation
     var equationChoiceNode = new EquationChoiceNode( model, {y: model.height - 65} );
