@@ -38,7 +38,7 @@ define( function( require ) {
 
   // Constants
   var BOX_SIZE = new Dimension2( 285, 360 );
-  var BOX_SEPARATION = 140; // horizontal spacing between boxes
+  var BOX_X_SPACING = 140; // horizontal spacing between boxes
 
   /**
    * @param {gameModel} gameModel - balancing model object.
@@ -51,7 +51,7 @@ define( function( require ) {
 
     this.model = gameModel;
     this.audioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
-    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, gameModel.width / 2, 0, gameModel.width );
+    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, gameModel.width / 2, 0, gameModel.width );
 
     // Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();

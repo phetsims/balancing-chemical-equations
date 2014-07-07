@@ -27,7 +27,7 @@ define( function( require ) {
 
   // constants
   var BOX_SIZE = new Dimension2( 285, 145 );
-  var BOX_X_SPACING = 110;
+  var BOX_X_SPACING = 110; // horizontal spacing between boxes
 
   /**
    * @param {IntroductionModel} model
