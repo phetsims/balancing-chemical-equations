@@ -26,7 +26,7 @@ define( function( require ) {
 
   //constants
   var BOX_SIZE = new Dimension2( 285, 145 );
-  var BOX_SEPARATION = 110;
+  var BOX_X_SPACING = 110;
 
   /**
    * @param {IntroductionModel} model
@@ -37,7 +37,7 @@ define( function( require ) {
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     //aligner for equation
-    var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2, 0, model.width );
+    var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, model.width / 2, 0, model.width );
 
     // 'Tools' combo box
     this.addChild( new ToolsComboBox( model.balanceChoiceProperty, this,
