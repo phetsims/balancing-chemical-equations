@@ -111,8 +111,8 @@ define( function( require ) {
     },
 
     /**
-     Updates molecule visibility
-     @param {EquationTerm} terms array
+     * Updates molecule visibility
+     * @param {EquationTerm} terms array
      */
     updateMolecules: function( terms ) {
       var isVisible = function( moleculePosition, userCoefficient ) {

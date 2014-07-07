@@ -93,7 +93,7 @@ define( function( require ) {
 
   return inherit( PropertySet, GameModel, {
 
-    //@override
+    // @override
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.bestTimes.forEach( function( bestTimeProperty ) {
