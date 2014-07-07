@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Number} maxY - max bottom y position of node
    * @constructor
    */
-  var BalanceScalesNode = function( equationProperty, aligner, maxY ) {
+  function BalanceScalesNode( equationProperty, aligner, maxY ) {
 
     var self = this;
     Node.call( this );
@@ -49,7 +49,7 @@ define( function( require ) {
       self.centerX = self.aligner.centerXOffset;
       self.bottom = self.maxY;
     } );
-  };
+  }
 
   return inherit( Node, BalanceScalesNode, {
 

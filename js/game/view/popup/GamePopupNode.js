@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {Function} createContentFunction function that creates the content of the dialog that will appear below the face node
    * @param {*} options
    */
-  var GamePopupNode = function( smile, createContentFunction, options ) {
+  function GamePopupNode( smile, createContentFunction, options ) {
 
     options = _.extend( {
       xMargin: 25,
@@ -91,7 +91,7 @@ define( function( require ) {
       }
       self.translation = startPosition.plus( position.get() );
     } );
-  };
+  }
 
   return inherit( Node, GamePopupNode );
 } );

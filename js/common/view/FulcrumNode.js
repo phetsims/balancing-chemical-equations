@@ -24,7 +24,7 @@ define( function( require ) {
    * @param {String} fulcrumFill color of filling
    * @constructor
    */
-  var FulcrumNode = function( element, fulcrumSize, fulcrumFill ) {
+  function FulcrumNode( element, fulcrumSize, fulcrumFill ) {
 
     Node.call( this );
 
@@ -48,7 +48,7 @@ define( function( require ) {
       centerY: this.centerY + 8
     } );
     this.addChild( text );
-  };
+  }
 
   return inherit( Node, FulcrumNode );
 } );

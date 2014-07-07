@@ -42,7 +42,7 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  var BalanceScaleNode = function( element, leftNumberOfAtoms, rightNumberOfAtoms, highlighted, options ) {
+  function BalanceScaleNode( element, leftNumberOfAtoms, rightNumberOfAtoms, highlighted, options ) {
 
     Node.call( this );
 
@@ -63,7 +63,7 @@ define( function( require ) {
 
     this.setHighlighted( highlighted );
     this.updateNode();
-  };
+  }
 
   /**
    * Creates a triangular pile of atoms.

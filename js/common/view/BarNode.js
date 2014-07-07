@@ -39,7 +39,7 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  var BarNode = function( element, numberOfAtoms, options ) {
+  function BarNode( element, numberOfAtoms, options ) {
 
     this.element = element;
     this.numberOfAtoms = numberOfAtoms;

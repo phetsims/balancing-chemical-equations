@@ -18,7 +18,7 @@ define( function( require ) {
    * @param {[NITROGLYCERIN.Element]} elements
    * @constructor
    */
-  var Molecule = function( nodeConstructor, symbolText, elements ) {
+  function Molecule( nodeConstructor, symbolText, elements ) {
     var self = this;
 
     this.nodeConstructor = nodeConstructor;
@@ -27,7 +27,7 @@ define( function( require ) {
     elements.forEach( function( element ) {
       self.atoms.push( new Atom( element ) );
     } );
-  };
+  }
 
   return inherit( Object, Molecule, {
 

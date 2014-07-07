@@ -23,13 +23,13 @@ define( function( require ) {
    * @param {Number} maxX for Screen
    * @constructor
    */
-  var HorizontalAligner = function( boxSize, boxSeparation, centerXOffset, minX, maxX ) {
+  function HorizontalAligner( boxSize, boxSeparation, centerXOffset, minX, maxX ) {
     this.boxSize = boxSize;
     this.boxSeparation = boxSeparation;
     this.centerXOffset = centerXOffset;
     this.minX = minX;
     this.maxX = maxX;
-  };
+  }
 
   return inherit( Object, HorizontalAligner, {
 
