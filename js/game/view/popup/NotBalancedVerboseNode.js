@@ -31,14 +31,15 @@ define( function( require ) {
 
   /**
    * @param {Property<Vector2>} locationProperty
+   * @param {Bounds2} dragBounds
    * @param {Equation} equationProperty the equation
    * @param whyButtonListener notified when the "Hide Why" button is pressed
    * @param balancedRepresentation which representation of "balanced" should we show?
    * @param {HorizontalAligner} aligner specifies horizontal layout, for aligning with other user-interface components
    * @constructor
    */
-  function NotBalancedVerboseNode( locationProperty, equationProperty, whyButtonListener, balancedRepresentation, aligner ) {
-    GamePopupNode.call( this, locationProperty, false, function( phetFont ) {
+  function NotBalancedVerboseNode( locationProperty, dragBounds, equationProperty, whyButtonListener, balancedRepresentation, aligner ) {
+    GamePopupNode.call( this, locationProperty, dragBounds, false, function( phetFont ) {
 
       // icon and text
       var hBox = new HBox( {

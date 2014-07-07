@@ -26,10 +26,11 @@ define( function( require ) {
 
   /**
    * @param {Property<Vector2>} locationProperty
+   * @param {Bounds2} dragBounds
    * @constructor
    */
-  function BalancedNotSimplifiedNode( locationProperty ) {
-    GamePopupNode.call( this, locationProperty, true, function( phetFont ) {
+  function BalancedNotSimplifiedNode( locationProperty, dragBounds ) {
+    GamePopupNode.call( this, locationProperty, dragBounds, true, function( phetFont ) {
 
       // balanced icon and text
       var balancedHBox = new HBox( {

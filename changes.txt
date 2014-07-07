@@ -1,3 +1,4 @@
+7/7/14 #67 crude drag bounds for game dialog
 7/7/14 #67 clean up how location of game dialog is handled, in preparation for enforcing drag bounds
 7/7/14 rename GameModel.gameState to GameModel.states
 7/7/14 factor out private constants in game model

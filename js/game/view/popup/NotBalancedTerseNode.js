@@ -27,11 +27,12 @@ define( function( require ) {
 
   /**
    * @param {Property<Vector2>} locationProperty
+   * @param {Bounds2} dragBounds
    * @param whyButtonListener
    * @constructor
    */
-  function NotBalancedTerseNode( locationProperty, whyButtonListener ) {
-    GamePopupNode.call( this, locationProperty, false, function( phetFont ) {
+  function NotBalancedTerseNode( locationProperty, dragBounds, whyButtonListener ) {
+    GamePopupNode.call( this, locationProperty, dragBounds, false, function( phetFont ) {
 
       // icon and text
       var hBox = new HBox( {

@@ -24,11 +24,12 @@ define( function( require ) {
 
   /**
    * @param {Property<Vector2>} locationProperty
+   * @param {Bounds2} dragBounds
    * @param {Number} points number of points for answer
    * @constructor
    */
-  function BalancedNode( locationProperty, points ) {
-    GamePopupNode.call( this, locationProperty, true, function( phetFont ) {
+  function BalancedNode( locationProperty, dragBounds, points ) {
+    GamePopupNode.call( this, locationProperty, dragBounds, true, function( phetFont ) {
 
       // icon and text
       var hBox = new HBox( {
