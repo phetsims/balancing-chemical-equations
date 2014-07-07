@@ -30,7 +30,7 @@ define( function( require ) {
   function BoxesNode( model, aligner, boxColor, options ) {
 
     var self = this;
-    Node.call( this, options );
+    Node.call( this );
 
     this.COEFFICENTS_RANGE = model.COEFFICENTS_RANGE;
     this.aligner = aligner;
@@ -75,6 +75,8 @@ define( function( require ) {
         self.equation.addCoefficientsObserver( self.updateMolecules.bind( self ) );
       }
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, BoxesNode, {

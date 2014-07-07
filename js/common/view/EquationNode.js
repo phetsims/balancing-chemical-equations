@@ -26,7 +26,7 @@ define( function( require ) {
    */
   function EquationNode( equationProperty, coefficientRange, aligner, options ) {
     var self = this;
-    Node.call( this, options );
+    Node.call( this );
 
     this.coefficientRange = coefficientRange;
     this.balancedHighlightEnabled = true;
@@ -59,6 +59,8 @@ define( function( require ) {
         self.updateNode();
       }
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, EquationNode, {
