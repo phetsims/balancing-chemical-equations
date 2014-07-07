@@ -17,6 +17,21 @@ define( function( require ) {
   var GameTimer = require( 'VEGAS/GameTimer' );
   var Range = require( 'DOT/Range' );
 
+  // constants
+  /*
+   * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
+   * This is a map from level to strategy.
+   */
+  var BALANCED_REPRESENTATION_STRATEGIES = [
+    function() { return BalancedRepresentation.BALANCE_SCALES; }, //level 1
+    function() {  //level 2
+      return Math.random() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS;
+    },
+    function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
+  ];
+  var POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
+  var POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
+
   /**
    * @constructor
    */
@@ -40,24 +55,11 @@ define( function( require ) {
       LEVEL_COMPLETED: 'LevelCompleted' //reward node
     };
 
-    /*
-     * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
-     * This is a map from level to strategy.
-     */
-    this.BALANCED_REPRESENTATION_STRATEGIES = [
-      function() { return BalancedRepresentation.BALANCE_SCALES; }, //level 1
-      function() {  //level 2
-        return Math.random() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS;
-      },
-      function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
-    ];
-
     // constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
     this.EQUATIONS_PER_GAME = 5;
-    this.POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
-    this.POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
+
 
     // properties
     PropertySet.call( this, {
@@ -104,7 +106,7 @@ define( function( require ) {
     startGame: function() {
       this.equations = GameFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
       this.currentEquationIndex = 0;
-      this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
+      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
       this.attempts = 0;
       this.isNewBestTime = false;
       this.timer.restart();
@@ -123,11 +125,11 @@ define( function( require ) {
       if ( this.currentEquation.balancedAndSimplified ) {
         // award points
         if ( this.attempts === 1 ) {
-          this.currentPoints = this.POINTS_FIRST_ATTEMPT;
+          this.currentPoints = POINTS_FIRST_ATTEMPT;
 
         }
         else if ( this.attempts === 2 ) {
-          this.currentPoints = this.POINTS_SECOND_ATTEMPT;
+          this.currentPoints = POINTS_SECOND_ATTEMPT;
         }
         else {
           this.currentPoints = 0;
@@ -189,7 +191,7 @@ define( function( require ) {
      * @return {Number}
      */
     getPerfectScore: function() {
-      return this.EQUATIONS_PER_GAME * this.POINTS_FIRST_ATTEMPT;
+      return this.EQUATIONS_PER_GAME * POINTS_FIRST_ATTEMPT;
     },
 
     /**
@@ -220,7 +222,7 @@ define( function( require ) {
       if ( this.currentEquationIndex < this.equations.length - 1 ) {
         this.attempts = 0;
         this.currentPoints = 0;
-        this.balancedRepresentation = this.BALANCED_REPRESENTATION_STRATEGIES[this.currentLevel]();
+        this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[this.currentLevel]();
         this.currentEquationIndex++;
         this.currentEquation = this.equations[this.currentEquationIndex];
         this.state = this.gameState.CHECK;

@@ -1,3 +1,4 @@
+7/7/14 factor out private constants in game model
 7/7/14 rename Molecule.imageConstructor to nodeConstructor, since molecules are scenery Nodes, not images
 7/7/14 pull out Molecule into its own js file, since its public interface is used outside of MoleculeFactory
 7/7/14 remove width and height from the model, it is relevant only to the view
