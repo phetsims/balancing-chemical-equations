@@ -26,7 +26,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
-  //constants
+  // constants
   var FULCRUM_SIZE = new Dimension2( 60, 45 );
   var FULCRUM_FILL = new LinearGradient( 0, 0, 0, FULCRUM_SIZE.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' );
   var BEAM_LENGTH = 205;
@@ -47,23 +47,67 @@ define( function( require ) {
     Node.call( this );
 
     this.element = element;
-    this.leftNumberOfAtoms = leftNumberOfAtoms;
-    this.rightNumberOfAtoms = rightNumberOfAtoms;
+    this.leftNumberOfAtoms = leftNumberOfAtoms; // @private
+    this.rightNumberOfAtoms = rightNumberOfAtoms; // @private
 
-    this.fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE, FULCRUM_FILL );
-    this.addChild( this.fulcrumNode );
+    this.addChild( new FulcrumNode( element, FULCRUM_SIZE, FULCRUM_FILL ) );
 
-    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS );
+    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS ); // @private
     this.addChild( this.beamNode );
     this.beamNode.bottom = 0;
 
-    this.atomPilesParentNode = new Node();
+    this.atomPilesParentNode = new Node(); // @private
     this.addChild( this.atomPilesParentNode );
 
     this.mutate( options );
 
     this.setHighlighted( highlighted );
     this.updateNode();
+  };
+
+  /**
+   * Creates a triangular pile of atoms.
+   * Atoms are populated one row at a time, starting from the base of the triangle and working up.
+   * Origin is at the lower-left corner of the pile.
+   *
+   * @param {number} numberOfAtoms
+   * @param {Element} element
+   * @return {Node} node with atoms
+   */
+  var createAtomPile = function( numberOfAtoms, element ) {
+    var parent = new Node();
+    var atomsInRow = ATOMS_IN_PILE_BASE;
+    var row = 0;
+    var pile = 0;
+    var x = 0;
+    var y = 0;
+    for ( var i = 0; i < numberOfAtoms; i++ ) {
+      var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+      atomNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
+      parent.addChild( atomNode );
+      atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
+      atomsInRow--;
+      if ( atomsInRow > 0 ) {
+        // continue with current row
+        x = atomNode.bounds.maxX;
+      }
+      else if ( row < ATOMS_IN_PILE_BASE - 1 ) {
+        // move to next row in current triangular pile
+        row++;
+        atomsInRow = ATOMS_IN_PILE_BASE - row;
+        x = ( pile + row ) * ( atomNode.width / 2 );
+        y = -( row * 0.85 * atomNode.height );
+      }
+      else {
+        // start a new pile, offset from the previous pile
+        row = 0;
+        pile++;
+        atomsInRow = ATOMS_IN_PILE_BASE;
+        x = pile * ( atomNode.width / 2 );
+        y = 0;
+      }
+    }
+    return parent;
   };
 
   return inherit( Node, BalanceScaleNode, {
@@ -80,6 +124,7 @@ define( function( require ) {
      * Places piles of atoms on the ends of the beam, with a count of the number of
      * atoms above each pile.  Then rotates the beam and stuff on it to indicate the
      * relative balance between the left and right piles.
+     * @private
      */
     updateNode: function() {
 
@@ -89,7 +134,7 @@ define( function( require ) {
       // left pile of atoms, centered on left-half of beam width number
       var leftPileChildren = [new Text( this.leftNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
       if ( this.leftNumberOfAtoms > 0 ) {
-        leftPileChildren.push( this.createAtomPile( this.leftNumberOfAtoms, this.element ) );
+        leftPileChildren.push( createAtomPile( this.leftNumberOfAtoms, this.element ) );
       }
 
       var leftPileNode = new VBox( {
@@ -103,7 +148,7 @@ define( function( require ) {
       // right pile of atoms, centered on left-half of beam width number
       var rightPileChildren = [new Text( this.rightNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
       if ( this.rightNumberOfAtoms > 0 ) {
-        rightPileChildren.push( this.createAtomPile( this.rightNumberOfAtoms, this.element ) );
+        rightPileChildren.push( createAtomPile( this.rightNumberOfAtoms, this.element ) );
       }
 
       var rightPileNode = new VBox( {
@@ -129,49 +174,6 @@ define( function( require ) {
       }
       this.beamNode.setRotation( angle );
       this.atomPilesParentNode.setRotation( angle );
-    },
-
-    /**
-     * Creates a triangular pile of atoms.
-     * Atoms are populated one row at a time, starting from the base of the triangle and working up.
-     * Origin is at the lower-left corner of the pile.
-     *
-     * @return {Node} node with atoms
-     */
-    createAtomPile: function( numberOfAtoms, element ) {
-      var parent = new Node();
-      var atomsInRow = ATOMS_IN_PILE_BASE;
-      var row = 0;
-      var pile = 0;
-      var x = 0;
-      var y = 0;
-      for ( var i = 0; i < numberOfAtoms; i++ ) {
-        var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
-        atomNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
-        parent.addChild( atomNode );
-        atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
-        atomsInRow--;
-        if ( atomsInRow > 0 ) {
-          // continue with current row
-          x = atomNode.bounds.maxX;
-        }
-        else if ( row < ATOMS_IN_PILE_BASE - 1 ) {
-          // move to next row in current triangular pile
-          row++;
-          atomsInRow = ATOMS_IN_PILE_BASE - row;
-          x = ( pile + row ) * ( atomNode.width / 2 );
-          y = -( row * 0.85 * atomNode.height );
-        }
-        else {
-          // start a new pile, offset from the previous pile
-          row = 0;
-          pile++;
-          atomsInRow = ATOMS_IN_PILE_BASE;
-          x = pile * ( atomNode.width / 2 );
-          y = 0;
-        }
-      }
-      return parent;
     }
   }, {
     /**
