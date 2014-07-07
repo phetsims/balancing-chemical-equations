@@ -1,3 +1,4 @@
+# 1.0.0-dev.6 7/7/14
 7/7/14 #27 add option to specify font size for equations, so that we can have screen-specific sizes
 7/7/14 adjust layout of pickers relative to symbols
 7/7/14 fix: when pressing 'Continue' button at end of game, remove reward only if it exists
