@@ -28,6 +28,7 @@ define( function( require ) {
 
     Node.call( this );
 
+    // start at tip and move clockwise
     var triangle = new Path( new Shape().
       moveTo( 0, 0 ).
       lineTo( fulcrumSize.width / 2, fulcrumSize.height ).
