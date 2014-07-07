@@ -1,3 +1,4 @@
+7/7/14 rename StartGameLevelNode to LevelSelectionNode, fix constructor name
 7/7/14 use named constructors for subtypes of GamePopupNode
 7/7/14 simplify implementation of GamePopupNode
 7/7/14 add subtle shadow to game dialog, so that it looks like a dialog and stands out from the reactants/products boxes

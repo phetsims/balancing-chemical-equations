@@ -25,7 +25,7 @@ define( function( require ) {
   var NotBalancedVerboseNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/NotBalancedVerboseNode' );
   var BalancedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNode' );
   var BalancedNotSimplifiedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNotSimplifiedNode' );
-  var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
+  var LevelSelectionNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/LevelSelectionNode' );
   var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -58,7 +58,7 @@ define( function( require ) {
     this.addChild( this.rootNode );
 
     // main nodes, start and game
-    this.startGameLevelNode = new StartGameLevelNode( this.model );
+    this.levelSelectionNode = new LevelSelectionNode( this.model );
     this.gamePlayNode = new Node();
 
     // Scoreboard bar at the top of the screen
@@ -187,7 +187,7 @@ define( function( require ) {
 
     initLevelSelection: function() {
       this.rootNode.removeAllChildren();
-      this.rootNode.addChild( this.startGameLevelNode );
+      this.rootNode.addChild( this.levelSelectionNode );
     },
 
     initStartGame: function() {

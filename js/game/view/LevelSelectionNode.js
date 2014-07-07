@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Start Game Node, level buttons and settings
+ * Controls for selecting a level and adjusting various game settings (sound, timer, ...)
  *
  * @author Vasily Shakhov (mlearner.com)
  */
@@ -65,7 +65,7 @@ define( function( require ) {
    * @param {GameModel} model
    * @constructor
    */
-  function SettingsNode( model ) {
+  function LevelSelectionNode( model ) {
 
     Node.call( this );
 
@@ -107,6 +107,6 @@ define( function( require ) {
     this.addChild( resetButton );
   }
 
-  return inherit( Node, SettingsNode );
+  return inherit( Node, LevelSelectionNode );
 } );
 
