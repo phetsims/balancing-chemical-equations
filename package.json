@@ -1,6 +1,6 @@
 {
   "name": "balancing-chemical-equations",
-  "version": "1.0.0-dev.3",
+  "version": "1.0.0-dev.4",
   "phetLibs": "balancing-chemical-equations assert dot axon brand joist kite nitroglycerin phet-core phetcommon scenery scenery-phet sun sherpa vegas vibe",
   "preload": "../sherpa/jquery-2.1.0.js ../sherpa/lodash-2.4.1.js ../sherpa/has.js ../sherpa/FileSaver.js ../phetcommon/js/util/query-parameters.js ../phetcommon/js/util/check-assertions.js ../phetcommon/js/analytics/google-analytics.js",
   "license": "GPLv3",
