@@ -15,7 +15,7 @@ define( function( require ) {
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var ScoreboardPanel = require( 'VEGAS/ScoreboardPanel' );
+  var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
   var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -28,6 +28,7 @@ define( function( require ) {
   var StartGameLevelNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/StartGameLevelNode' );
   var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // strings
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
@@ -56,15 +57,13 @@ define( function( require ) {
     this.rootNode = new Node();
     this.addChild( this.rootNode );
 
-    //main nodes, start and game
+    // main nodes, start and game
     this.startGameLevelNode = new StartGameLevelNode( this.model );
     this.gamePlayNode = new Node();
 
-
-    //startGame nodes
-    //game nodes
-    //scoreboard at the bottom of the screen
-    var scoreboard = new ScoreboardPanel(
+    // Scoreboard bar at the top of the screen
+    var scoreboard = new ScoreboardBar(
+      this.layoutBounds.width,
       gameModel.currentEquationIndexProperty,
       new Property( gameModel.EQUATIONS_PER_GAME ),
       gameModel.currentLevelProperty,
@@ -73,21 +72,26 @@ define( function( require ) {
       gameModel.timerEnabledProperty,
       self.model.newGame.bind( self.model ),
       {
-        centerX: this.aligner.centerXOffset,
-        bottom: this.model.height - 10
+        font: new PhetFont( 14 ),
+        yMargin: 5,
+        leftMargin: 30,
+        rightMargin: 30,
+        centerX: this.layoutBounds.centerX,
+        top: this.layoutBounds.top
       }
     );
     this.gamePlayNode.addChild( scoreboard );
 
-    // Equation
-    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner, {y: this.model.height - 100} );
-    this.gamePlayNode.addChild( this.equationNode );
-
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( gameModel, this.aligner, BCEConstants.BOX_COLOR, {y: 10} );
+    this.boxesNode = new BoxesNode( gameModel, this.aligner, BCEConstants.BOX_COLOR, { y: scoreboard.bottom + 15 } );
     this.gamePlayNode.addChild( this.boxesNode );
 
-    //buttons check, next, tryAgain, showAnswer
+    // Equation
+    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner );
+    this.gamePlayNode.addChild( this.equationNode );
+    this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.boxesNode.bottom ) / 2;
+
+    // buttons: Check, Next, Try Again, Show Answer
     var BUTTONS_OPTIONS = {
       baseColor: 'yellow',
       centerX: gameModel.width / 2,
@@ -119,7 +123,7 @@ define( function( require ) {
     this.gamePlayNode.addChild( this.tryAgainButton );
     this.gamePlayNode.addChild( this.showAnswerButton );
 
-    //popups
+    // popups
     this.popupNode = null; // looks like a dialog, tells user how they did
     //listeners
     this.showWhyButtonListener = function() {
@@ -129,7 +133,6 @@ define( function( require ) {
       self.swapPopups( new NotBalancedTerseNode( self.showWhyButtonListener ) );
     };
 
-    //observers
     // Monitor the game state and update the view accordingly.
     gameModel.stateProperty.link( function( state ) {
 
@@ -309,8 +312,8 @@ define( function( require ) {
           this.popupNode = new NotBalancedTerseNode( this.showWhyButtonListener );
         }
 
-        this.popupNode.centerX = this.aligner.centerXOffset;
-        this.popupNode.top = 20;
+        this.popupNode.centerX = this.layoutBounds.centerX;
+        this.popupNode.top = this.boxesNode.top + 20;
 
         this.gamePlayNode.addChild( this.popupNode ); // visible and in front
       }
