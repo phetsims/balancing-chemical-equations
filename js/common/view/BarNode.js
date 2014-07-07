@@ -29,7 +29,7 @@ define( function( require ) {
 
   //constants
   var MAX_NUMBER_OF_ATOMS = 12;
-  var MAX_BAR_SIZE = new Dimension2( 40, 135 );
+  var MAX_BAR_SIZE = new Dimension2( 40, 60 );
   var ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
   var STROKE = 1.5;
   var STROKE_COLOR = 'black';
