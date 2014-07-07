@@ -32,13 +32,12 @@ define( function( require ) {
     var self = this;
     Node.call( this );
 
-    this.COEFFICENTS_RANGE = model.COEFFICENTS_RANGE;
     this.aligner = aligner;
     this.equation = model.currentEquation;
     this.balancedHighlightEnabled = true;
 
     //boxes
-    this.reactantsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
+    this.reactantsBoxNode = new BoxNode( aligner, model.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
       fill: boxColor,
       title: reactantsString,
       x: aligner.centerXOffset - aligner.boxSize.width - aligner.boxSeparation / 2,
@@ -48,7 +47,7 @@ define( function( require ) {
     } );
     this.addChild( this.reactantsBoxNode );
 
-    this.productsBoxNode = new BoxNode( aligner, this.COEFFICENTS_RANGE, model.rightBoxOpenProperty, {
+    this.productsBoxNode = new BoxNode( aligner, model.COEFFICENTS_RANGE, model.rightBoxOpenProperty, {
       fill: boxColor,
       title: productsString,
       x: aligner.centerXOffset + aligner.boxSeparation / 2,
