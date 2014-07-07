@@ -30,14 +30,15 @@ define( function( require ) {
   var hideWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/hideWhy' );
 
   /**
+   * @param {Property<Vector2>} locationProperty
    * @param {Equation} equationProperty the equation
    * @param whyButtonListener notified when the "Hide Why" button is pressed
    * @param balancedRepresentation which representation of "balanced" should we show?
    * @param {HorizontalAligner} aligner specifies horizontal layout, for aligning with other user-interface components
    * @constructor
    */
-  function NotBalancedVerboseNode( equationProperty, whyButtonListener, balancedRepresentation, aligner ) {
-    GamePopupNode.call( this, false, function( phetFont ) {
+  function NotBalancedVerboseNode( locationProperty, equationProperty, whyButtonListener, balancedRepresentation, aligner ) {
+    GamePopupNode.call( this, locationProperty, false, function( phetFont ) {
 
       // icon and text
       var hBox = new HBox( {

@@ -23,11 +23,12 @@ define( function( require ) {
   var pattern0PointsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0points' );
 
   /**
+   * @param {Property<Vector2>} locationProperty
    * @param {Number} points number of points for answer
    * @constructor
    */
-  function BalancedNode( points ) {
-    GamePopupNode.call( this, true, function( phetFont ) {
+  function BalancedNode( locationProperty, points ) {
+    GamePopupNode.call( this, locationProperty, true, function( phetFont ) {
 
       // icon and text
       var hBox = new HBox( {

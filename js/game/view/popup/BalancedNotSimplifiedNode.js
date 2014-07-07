@@ -25,10 +25,11 @@ define( function( require ) {
   var notSimplifiedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/notSimplified' );
 
   /**
+   * @param {Property<Vector2>} locationProperty
    * @constructor
    */
-  function BalancedNotSimplifiedNode() {
-    GamePopupNode.call( this, true, function( phetFont ) {
+  function BalancedNotSimplifiedNode( locationProperty ) {
+    GamePopupNode.call( this, locationProperty, true, function( phetFont ) {
 
       // balanced icon and text
       var balancedHBox = new HBox( {

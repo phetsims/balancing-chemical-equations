@@ -28,11 +28,12 @@ define( function( require ) {
   var FACE_DIAMETER = 75;
 
   /**
+   * @param {Property<Vector2>} locationProperty
    * @param {Boolean} smile
    * @param {Function} createContentFunction function that creates the content of the dialog that will appear below the face node
    * @param {*} options
    */
-  function GamePopupNode( smile, createContentFunction, options ) {
+  function GamePopupNode( locationProperty, smile, createContentFunction, options ) {
 
     options = _.extend( {
       xMargin: 25,
@@ -82,14 +83,9 @@ define( function( require ) {
     Node.call( this, options );
 
     // draggable
-    var position = new Property( new Vector2( 0, 0 ) );
-    var startPosition = null;
-    this.addInputListener( new MovableDragHandler( { locationProperty: position }, ModelViewTransform2.createIdentity() ) );
-    position.lazyLink( function() {
-      if ( startPosition === null ) {
-        startPosition = self.translation;
-      }
-      self.translation = startPosition.plus( position.get() );
+    this.addInputListener( new MovableDragHandler( { locationProperty: locationProperty }, ModelViewTransform2.createIdentity() ) );
+    locationProperty.link( function() {
+      self.centerTop = locationProperty.get();
     } );
   }
 

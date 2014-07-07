@@ -29,6 +29,7 @@ define( function( require ) {
   var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
@@ -127,13 +128,14 @@ define( function( require ) {
     this.gamePlayNode.addChild( buttonsParent );
 
     // popups
-    this.popupNode = null; // looks like a dialog, tells user how they did
-    //listeners
+    this.popupNode = null; // @private looks like a dialog, tells user how they did
+    this.popupLocationProperty = new Property( new Vector2( this.layoutBounds.centerX, this.boxesNode.top + 20 ) ); // @private
+    // listeners
     this.showWhyButtonListener = function() {
-      self.swapPopups( new NotBalancedVerboseNode( self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
+      self.swapPopups( new NotBalancedVerboseNode( self.popupLocationProperty, self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
     };
     this.hideWhyButtonListener = function() {
-      self.swapPopups( new NotBalancedTerseNode( self.showWhyButtonListener ) );
+      self.swapPopups( new NotBalancedTerseNode( self.popupLocationProperty, self.showWhyButtonListener ) );
     };
 
     // Monitor the game state and update the view accordingly.
@@ -300,24 +302,21 @@ define( function( require ) {
       if ( this.popupNode !== null ) {
         this.gamePlayNode.removeChild( this.popupNode );
         this.popupNode = null;
+        this.popupLocationProperty.reset();
       }
       if ( visible ) {
 
         // evaluate the user's answer and create the proper type of node
         var equation = this.model.currentEquation;
         if ( equation.balancedAndSimplified ) {
-          this.popupNode = new BalancedNode( this.model.currentPoints );
+          this.popupNode = new BalancedNode( this.popupLocationProperty, this.model.currentPoints );
         }
         else if ( equation.balanced ) {
-          this.popupNode = new BalancedNotSimplifiedNode();
+          this.popupNode = new BalancedNotSimplifiedNode( this.popupLocationProperty );
         }
         else {
-          this.popupNode = new NotBalancedTerseNode( this.showWhyButtonListener );
+          this.popupNode = new NotBalancedTerseNode( this.popupLocationProperty, this.showWhyButtonListener );
         }
-
-        this.popupNode.centerX = this.layoutBounds.centerX;
-        this.popupNode.top = this.boxesNode.top + 20;
-
         this.gamePlayNode.addChild( this.popupNode ); // visible and in front
       }
     },
@@ -326,18 +325,10 @@ define( function( require ) {
      * Replaces the current popup with a new popup.
      * This is used for the "Not Balanced" popup, which has terse and verbose versions.
      * The new popup is positioned so that it has the same top-center as the old popup.
-     * As an additional constrain, the new popup is guaranteed to be above the Try Again button,
-     * so that that buttons is not obscured by the popup.
      */
     swapPopups: function( newPopupNode ) {
-      var oldPopupNode = this.popupNode;
       this.gamePlayNode.removeChild( this.popupNode );
       this.popupNode = newPopupNode;
-
-      // align with top-center of old popup
-      this.popupNode.centerX = oldPopupNode.centerX;
-      this.popupNode.y = oldPopupNode.y;
-
       this.gamePlayNode.addChild( this.popupNode );
     }
   } );
