@@ -23,7 +23,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
-  //constants
+  // constants
   var FONT = new PhetFont( 18 );
   var FACE_DIAMETER = 75;
 
@@ -54,36 +54,25 @@ define( function( require ) {
       self.translation = startPosition.plus( position.get() );
     } );
 
-    // background shadow
-    this.shadowRect = new Rectangle( 0, 0, 0, 0, {
-      fill: 'rgba(80,80,80,0.12)'
-    } );
-    this.addChild( this.shadowRect );
-
-    //background
-    this.backgroundRect = new Rectangle( 0, 0, 0, 0, {
-      fill: '#c1d8fe',
-      stroke: 'black'
-    } );
-    this.addChild( this.backgroundRect );
-
     // face
     var faceNode = new FaceNode( FACE_DIAMETER );
     if ( !smile ) {
       faceNode.frown();
     }
 
-    this.vBoxChildren = [faceNode, createContentFunction.call( this, FONT )];
-    //content
-    this.addChild( new VBox( {
-      children: this.vBoxChildren,
+    // content
+    var content = new VBox( {
+      children: [ faceNode, createContentFunction.call( this, FONT ) ],
       spacing: 5,
       centerX: self.centerX
-    } ) );
+    } );
 
-    var backgroundBounds = Shape.bounds( this.localBounds.dilatedXY( options.xMargin, options.yMargin ) ).bounds;
-    this.backgroundRect.setRect( backgroundBounds.x, backgroundBounds.y, backgroundBounds.width, backgroundBounds.height );
-    this.shadowRect.setRect( backgroundBounds.x + 5, backgroundBounds.y + 5, backgroundBounds.width, backgroundBounds.height );
+    // background with shadow
+    var backgroundBounds = Shape.bounds( content.bounds.dilatedXY( options.xMargin, options.yMargin ) ).bounds;
+    var backgroundNode = new Rectangle( backgroundBounds.x, backgroundBounds.y, backgroundBounds.width, backgroundBounds.height,
+      { fill: '#c1d8fe', stroke: 'black' } );
+    var shadowNode = new Rectangle( backgroundBounds.x + 5, backgroundBounds.y + 5, backgroundBounds.width, backgroundBounds.height,
+      { fill: 'rgba(80,80,80,0.12)' } );
 
     // move icon (cross) at upper-left
     var CROSS_WIDTH = 30;
@@ -98,9 +87,13 @@ define( function( require ) {
     var cross = new Node();
     cross.addChild( new ArrowNode( -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, 0, arrowOptions ) );
     cross.addChild( new ArrowNode( 0, -CROSS_WIDTH / 2, 0, CROSS_WIDTH / 2, arrowOptions ) );
+    cross.left = backgroundNode.left + 5;
+    cross.top = backgroundNode.top + 5;
+
+    this.addChild( shadowNode );
+    this.addChild( backgroundNode );
     this.addChild( cross );
-    cross.left = this.backgroundRect.localBounds.left + 5;
-    cross.top = this.backgroundRect.localBounds.top + 5;
+    this.addChild( content );
   };
 
   return inherit( Node, GamePopupNode );
