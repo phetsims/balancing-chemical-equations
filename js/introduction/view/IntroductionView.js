@@ -40,6 +40,10 @@ define( function( require ) {
     //aligner for equation
     var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_SEPARATION, model.width / 2, 0, model.width );
 
+    // 'Tools' combo box
+    this.addChild( new ToolsComboBox( model.balanceChoiceProperty, this,
+      { right: this.layoutBounds.right - 10, top: this.layoutBounds.top + 20} ) );
+
     // bar charts
     var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, 170 /* maxY */ );
     this.addChild( barChartsNode );
@@ -61,22 +65,18 @@ define( function( require ) {
       newEquation.addCoefficientsObserver( updateFace );
     } );
 
-    // control for choosing an equation and reset button
-    var equationChoiceNode = new EquationChoiceNode( model, {y: model.height - 65} );
-    this.addChild( equationChoiceNode );
-
-    // equation, in formula format
-    var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} );
-    this.addChild( equationNode );
-
     // boxes that show molecules corresponding to the equation coefficients
     var boxesNode = new BoxesNode( model, horizontalAligner,
       BCEConstants.BOX_COLOR, {y: 180} );
     this.addChild( boxesNode );
 
-    // 'Tools' combo box
-    this.addChild( new ToolsComboBox( model.balanceChoiceProperty, this,
-      { right: this.layoutBounds.right - 10, top: this.layoutBounds.top + 20} ) );
+    // equation, in formula format
+    var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} );
+    this.addChild( equationNode );
+
+    // control for choosing an equation
+    var equationChoiceNode = new EquationChoiceNode( model, {y: model.height - 65} );
+    this.addChild( equationChoiceNode );
 
     // Reset All button
     this.addChild( new ResetAllButton( {
