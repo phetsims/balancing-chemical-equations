@@ -17,8 +17,7 @@ define( function() {
    * @constructor
    */
   var AtomCount = function( element, reactantsCount, productsCount ) {
-    // the element that describes the atom's chemical properties
-    this.element = element;
+    this.element = element; // the element that describes the atom's chemical properties
     this.reactantsCount = reactantsCount;
     this.productsCount = productsCount;
   };
