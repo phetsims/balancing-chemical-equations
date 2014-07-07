@@ -24,7 +24,7 @@ define( function( require ) {
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
 
-  //constants
+  // constants
   var BOX_SIZE = new Dimension2( 285, 145 );
   var BOX_X_SPACING = 110;
 
@@ -36,10 +36,10 @@ define( function( require ) {
 
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
-    //aligner for equation
+    // aligner for equation
     var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, model.width / 2, 0, model.width );
 
-    // 'Tools' combo box
+    // 'Tools' combo box, at upper-right
     this.addChild( new ToolsComboBox( model.balanceChoiceProperty, this,
       { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
 
@@ -47,11 +47,11 @@ define( function( require ) {
     var boxesNode = new BoxesNode( model, horizontalAligner, BCEConstants.BOX_COLOR, { top: 180 } );
     this.addChild( boxesNode );
 
-    // bar charts
+    // bar charts, above boxes
     var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( barChartsNode );
 
-    // balance scales
+    // balance scales, above boxes
     var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, horizontalAligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( balanceScalesNode );
 
@@ -68,7 +68,7 @@ define( function( require ) {
       newEquation.addCoefficientsObserver( updateFace );
     } );
 
-    // equation, in formula format
+    // interactive equation
     this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
