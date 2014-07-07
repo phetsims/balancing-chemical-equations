@@ -29,7 +29,7 @@ define( function( require ) {
    * @param whyButtonListener
    * @constructor
    */
-  var NotBalancedTerseNode = function( whyButtonListener ) {
+  function NotBalancedTerseNode( whyButtonListener ) {
     GamePopupNode.call( this, false, function( phetFont ) {
 
       // icon and text
@@ -52,7 +52,7 @@ define( function( require ) {
         spacing: 5
       } );
     } );
-  };
+  }
 
   return inherit( GamePopupNode, NotBalancedTerseNode );
 } );

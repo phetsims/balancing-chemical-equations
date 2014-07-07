@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Number} points number of points for answer
    * @constructor
    */
-  var BalancedNode = function( points ) {
+  function BalancedNode( points ) {
     GamePopupNode.call( this, true, function( phetFont ) {
 
       // icon and text
@@ -46,7 +46,7 @@ define( function( require ) {
         spacing: 5
       } );
     } );
-  };
+  }
 
   return inherit( GamePopupNode, BalancedNode );
 } );

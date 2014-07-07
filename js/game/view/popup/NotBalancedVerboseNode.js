@@ -36,7 +36,7 @@ define( function( require ) {
    * @param {HorizontalAligner} aligner specifies horizontal layout, for aligning with other user-interface components
    * @constructor
    */
-  var NotBalancedVerboseNode = function( equationProperty, whyButtonListener, balancedRepresentation, aligner ) {
+  function NotBalancedVerboseNode( equationProperty, whyButtonListener, balancedRepresentation, aligner ) {
     GamePopupNode.call( this, false, function( phetFont ) {
 
       // icon and text
@@ -70,7 +70,7 @@ define( function( require ) {
         spacing: 5
       } );
     } );
-  };
+  }
 
   return inherit( GamePopupNode, NotBalancedVerboseNode );
 } );

@@ -27,7 +27,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  var BalancedNotSimplifiedNode = function() {
+  function BalancedNotSimplifiedNode() {
     GamePopupNode.call( this, true, function( phetFont ) {
 
       // balanced icon and text
@@ -56,7 +56,7 @@ define( function( require ) {
         spacing: 5
       } );
     } );
-  };
+  }
 
   return inherit( GamePopupNode, BalancedNotSimplifiedNode );
 } );
