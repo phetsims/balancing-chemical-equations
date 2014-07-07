@@ -139,10 +139,10 @@ define( function( require ) {
     // Monitor the game state and update the view accordingly.
     model.stateProperty.link( function( state ) {
 
-      self.equationNode.setEditable( state === self.model.gameState.CHECK );
+      self.equationNode.setEditable( state === self.model.states.CHECK );
 
       // call an initializer to setup the game for the state
-      var states = model.gameState;
+      var states = model.states;
       switch( state ) {
         case states.LEVEL_SELECTION:
           self.initLevelSelection();
@@ -241,7 +241,7 @@ define( function( require ) {
         function() {
           self.rootNode.removeChild( self.rewardNode );
           self.rewardNode = null;
-          self.model.state = self.model.gameState.LEVEL_SELECTION;
+          self.model.state = self.model.states.LEVEL_SELECTION;
         }, {
           centerX: this.layoutBounds.centerX,
           centerY: this.layoutBounds.centerY,

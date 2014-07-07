@@ -45,7 +45,7 @@ define( function( require ) {
      * the user can take in that state.  For example. the CHECK state is where the user
      * can enter coefficients and press the "Check" button to check their answer.
      */
-    this.gameState = {
+    this.states = {
       LEVEL_SELECTION: 'LevelSelection', //level selection screen
       START_GAME: 'StartGame', //intermediate state, needed for initialize game view
       CHECK: 'Check',
@@ -63,7 +63,7 @@ define( function( require ) {
 
     // properties
     PropertySet.call( this, {
-      state: self.gameState.LEVEL_SELECTION,
+      state: self.states.LEVEL_SELECTION,
       points: 0, // how many points the user has earned for the current game
       currentEquation: null,
       currentLevel: 0,
@@ -113,7 +113,7 @@ define( function( require ) {
       this.currentPoints = 0;
       this.points = 0;
       this.currentEquation = this.equations [this.currentEquationIndex ];
-      this.state = this.gameState.CHECK;
+      this.state = this.states.CHECK;
     },
 
     /**
@@ -135,20 +135,20 @@ define( function( require ) {
           this.currentPoints = 0;
         }
         this.points += this.currentPoints;
-        this.state = this.gameState.NEXT;
+        this.state = this.states.NEXT;
 
         if ( this.currentEquationIndex === this.equations.length - 1 ) {
           this.gameEnd();
         }
       }
       else if ( this.attempts < 2 ) {
-        this.state = this.gameState.TRY_AGAIN;
+        this.state = this.states.TRY_AGAIN;
       }
       else {
         if ( this.currentEquationIndex === this.equations.length - 1 ) {
           this.gameEnd();
         }
-        this.state = this.gameState.SHOW_ANSWER;
+        this.state = this.states.SHOW_ANSWER;
       }
     },
 
@@ -174,14 +174,14 @@ define( function( require ) {
      * Called when the user presses the "Try Again" button.
      */
     tryAgain: function() {
-      this.state = this.gameState.CHECK;
+      this.state = this.states.CHECK;
     },
 
     /**
      * Called when the user presses the "Show Answer" button.
      */
     showAnswer: function() {
-      this.state = this.gameState.NEXT;
+      this.state = this.states.NEXT;
     },
 
     /**
@@ -209,7 +209,7 @@ define( function( require ) {
      * Called when the user presses the "Start Over" button.
      */
     newGame: function() {
-      this.state = this.gameState.LEVEL_SELECTION;
+      this.state = this.states.LEVEL_SELECTION;
       this.leftBoxOpenProperty.reset();
       this.rightBoxOpenProperty.reset();
       this.timer.restart();
@@ -225,10 +225,10 @@ define( function( require ) {
         this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[this.currentLevel]();
         this.currentEquationIndex++;
         this.currentEquation = this.equations[this.currentEquationIndex];
-        this.state = this.gameState.CHECK;
+        this.state = this.states.CHECK;
       }
       else {
-        this.state = this.gameState.LEVEL_COMPLETED;
+        this.state = this.states.LEVEL_COMPLETED;
       }
     }
   } );

@@ -50,7 +50,7 @@ define( function( require ) {
       model.EQUATIONS_PER_GAME,
       function() {
         model.currentLevel = level;
-        model.state = model.gameState.START_GAME;
+        model.state = model.states.START_GAME;
       },
       model.bestScores[ level ],
       model.getPerfectScore(),
