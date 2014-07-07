@@ -40,19 +40,6 @@ define( function( require ) {
     }, options );
 
     var self = this;
-    Node.call( this, {cursor: 'pointer'} );
-
-    //draggable
-    var position = new Property( new Vector2( 0, 0 ) );
-    var startPosition = null;
-    this.addInputListener( new MovableDragHandler( { locationProperty: position }, ModelViewTransform2.createIdentity() ) );
-
-    position.lazyLink( function() {
-      if ( startPosition === null ) {
-        startPosition = self.translation;
-      }
-      self.translation = startPosition.plus( position.get() );
-    } );
 
     // face
     var faceNode = new FaceNode( FACE_DIAMETER );
@@ -63,8 +50,7 @@ define( function( require ) {
     // content
     var content = new VBox( {
       children: [ faceNode, createContentFunction.call( this, FONT ) ],
-      spacing: 5,
-      centerX: self.centerX
+      spacing: 5
     } );
 
     // background with shadow
@@ -73,6 +59,7 @@ define( function( require ) {
       { fill: '#c1d8fe', stroke: 'black' } );
     var shadowNode = new Rectangle( backgroundBounds.x + 5, backgroundBounds.y + 5, backgroundBounds.width, backgroundBounds.height,
       { fill: 'rgba(80,80,80,0.12)' } );
+    content.centerX = backgroundNode.centerX;
 
     // move icon (cross) at upper-left
     var CROSS_WIDTH = 30;
@@ -90,10 +77,20 @@ define( function( require ) {
     cross.left = backgroundNode.left + 5;
     cross.top = backgroundNode.top + 5;
 
-    this.addChild( shadowNode );
-    this.addChild( backgroundNode );
-    this.addChild( cross );
-    this.addChild( content );
+    options.cursor = 'pointer';
+    options.children = [ shadowNode, backgroundNode, cross, content ];
+    Node.call( this, options );
+
+    // draggable
+    var position = new Property( new Vector2( 0, 0 ) );
+    var startPosition = null;
+    this.addInputListener( new MovableDragHandler( { locationProperty: position }, ModelViewTransform2.createIdentity() ) );
+    position.lazyLink( function() {
+      if ( startPosition === null ) {
+        startPosition = self.translation;
+      }
+      self.translation = startPosition.plus( position.get() );
+    } );
   };
 
   return inherit( Node, GamePopupNode );
