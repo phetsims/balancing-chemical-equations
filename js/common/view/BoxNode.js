@@ -51,7 +51,7 @@ define( function( require ) {
       height: 100
     }, options );
 
-    //title node
+    // title
     this.titleNode = new Rectangle( 0, 0, options.width, options.buttonLength + 2 * options.yMargin, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
     this.addChild( this.titleNode );
     this.titleNode.addChild( new Text( options.title, {
@@ -61,7 +61,7 @@ define( function( require ) {
       centerX: this.titleNode.centerX
     } ) );
 
-    //contentNode
+    // content
     this.contentNode = new Rectangle( 0, 0, options.width, options.height, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
     this.addChild( this.contentNode );
 
@@ -82,9 +82,9 @@ define( function( require ) {
   return inherit( Node, BoxNode, {
 
     /**
-     Creates molecules in the boxes for one set of terms (reactants or products).
-     @param {EquationTerm} terms array
-     @param {Number} xOffsets array of offsets for terms
+     * Creates molecules in the boxes for one set of terms (reactants or products).
+     * @param {EquationTerm} terms array
+     * @param {Number} xOffsets array of offsets for terms
      */
     createMolecules: function( terms, xOffsets ) {
       var moleculeNodes; //array of all molecule images for every term

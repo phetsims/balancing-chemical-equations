@@ -19,7 +19,6 @@ define( function( require ) {
    * @param {Number} beamThickness
    * @constructor
    */
-
   var BeamNode = function( beamLength, beamThickness ) {
     Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, {fill: 'black', stroke: 'black'} );
   };

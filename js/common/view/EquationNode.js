@@ -39,11 +39,11 @@ define( function( require ) {
     this.addChild( this.rightArrowNode );
     this.rightArrowNode.centerX = this.aligner.centerXOffset;
 
-    //the parent for all equation terms and the "+" signs
+    // the parent for all equation terms and the "+" signs
     this.termsParent = new Node();
     this.addChild( this.termsParent );
 
-    //if coefficients changes
+    // if coefficients changes
     var coefficientsObserver = function() {
       self.rightArrowNode.setHighlighted( self.equation.balanced && self.balancedHighlightEnabled );
     };

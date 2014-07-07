@@ -34,7 +34,7 @@ define( function( require ) {
   var chooseYourLevelString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/chooseYourLevel' );
   var pattern_0level = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0level' );
 
-  //CONSTANTS
+  // constants
   var BUTTON_MARGIN = 20;
 
   // Creates a level selection button

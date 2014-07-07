@@ -36,7 +36,7 @@ define( function( require ) {
     this.equation = model.currentEquation;
     this.balancedHighlightEnabled = true;
 
-    //boxes
+    // boxes
     this.reactantsBoxNode = new BoxNode( aligner, model.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
       fill: boxColor,
       title: reactantsString,

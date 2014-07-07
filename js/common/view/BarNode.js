@@ -26,7 +26,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
-  //constants
+  // constants
   var MAX_NUMBER_OF_ATOMS = 12;
   var MAX_BAR_SIZE = new Dimension2( 40, 60 );
   var ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
@@ -39,16 +39,15 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-
   var BarNode = function( element, numberOfAtoms, options ) {
 
     this.element = element;
     this.numberOfAtoms = numberOfAtoms;
 
-    //number
+    // number
     var numberNode = new Text( String( this.numberOfAtoms ), {font: new PhetFont( 18 )} );
 
-    //bar
+    // bar
     var bar;
     var barOptions = {
       fill: element.color,
@@ -74,14 +73,14 @@ define( function( require ) {
       bar = new Path( barShape, barOptions );
     }
 
-    //symbol
+    // symbol
     var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
 
-    //image
+    // image
     var image = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
     image.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
 
-    //symbol and image
+    // symbol and image
     var symbolHBox = new HBox( {children: [image, symbolNode], spacing: 3} );
 
     options = _.extend( {

@@ -55,9 +55,7 @@ define( function( require ) {
       this.coefficientNode.pickable = editable;
     },
 
-    /**
-     * get height of standard uppercase letter
-     * */
+    // Get height of standard uppercase letter
     getCapHeight: function() {
       return new SubSupText( 'T', SUBSUP_OPTIONS ).height;
     }
