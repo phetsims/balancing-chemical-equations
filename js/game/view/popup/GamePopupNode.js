@@ -54,6 +54,12 @@ define( function( require ) {
       self.translation = startPosition.plus( position.get() );
     } );
 
+    // background shadow
+    this.shadowRect = new Rectangle( 0, 0, 0, 0, {
+      fill: 'rgba(80,80,80,0.12)'
+    } );
+    this.addChild( this.shadowRect );
+
     //background
     this.backgroundRect = new Rectangle( 0, 0, 0, 0, {
       fill: '#c1d8fe',
@@ -77,6 +83,7 @@ define( function( require ) {
 
     var backgroundBounds = Shape.bounds( this.localBounds.dilatedXY( options.xMargin, options.yMargin ) ).bounds;
     this.backgroundRect.setRect( backgroundBounds.x, backgroundBounds.y, backgroundBounds.width, backgroundBounds.height );
+    this.shadowRect.setRect( backgroundBounds.x + 5, backgroundBounds.y + 5, backgroundBounds.width, backgroundBounds.height );
 
     // move icon (cross) at upper-left
     var CROSS_WIDTH = 30;

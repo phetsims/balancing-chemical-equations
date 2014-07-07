@@ -1,3 +1,4 @@
+7/7/14 add subtle shadow to game dialog, so that it looks like a dialog and stands out from the reactants/products boxes
 7/7/14 increase x-margin on game dialog
 # 1.0.0-dev.5 7/7/14
 7/7/14 #58 replace scoreboard 'panel' with 'bar'
