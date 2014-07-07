@@ -32,7 +32,6 @@ define( function( require ) {
    * @param {IntroductionModel} model
    * @constructor
    */
-
   function IntroductionView( model ) {
 
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
@@ -42,14 +41,18 @@ define( function( require ) {
 
     // 'Tools' combo box
     this.addChild( new ToolsComboBox( model.balanceChoiceProperty, this,
-      { right: this.layoutBounds.right - 10, top: this.layoutBounds.top + 20} ) );
+      { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
+
+    // boxes that show molecules corresponding to the equation coefficients
+    var boxesNode = new BoxesNode( model, horizontalAligner, BCEConstants.BOX_COLOR, { top: 180 } );
+    this.addChild( boxesNode );
 
     // bar charts
-    var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, 170 /* maxY */ );
+    var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( barChartsNode );
 
     // balance scales
-    var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, horizontalAligner, 170 /* maxY */ );
+    var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, horizontalAligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( balanceScalesNode );
 
     // smiley face, top center, shown when equation is balanced
@@ -65,11 +68,8 @@ define( function( require ) {
       newEquation.addCoefficientsObserver( updateFace );
     } );
 
-    // boxes that show molecules corresponding to the equation coefficients
-    this.addChild( new BoxesNode( model, horizontalAligner, BCEConstants.BOX_COLOR, {y: 180} ) );
-
     // equation, in formula format
-    this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} ) );
+    this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
     var equationChoiceNode = new EquationChoiceNode( model, {y: model.height - 65} );

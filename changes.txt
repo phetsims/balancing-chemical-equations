@@ -1,3 +1,4 @@
+7/7/14 use relative layout for IntroductionView
 7/7/14 reorder IntroductionView to correspond to top-to-bottom layout of nodes
 7/7/14 clean up implementation of 'Tools' combo box
 7/7/14 Introduction: left-align radio buttons with reactants box
