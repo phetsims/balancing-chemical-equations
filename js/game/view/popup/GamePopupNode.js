@@ -21,6 +21,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   // constants
@@ -83,8 +84,20 @@ define( function( require ) {
     options.children = [ shadowNode, backgroundNode, cross, content ];
     Node.call( this, options );
 
+    // Adjust drag bounds to account for dialog dimensions. Origin is at top-center.
+    var minWidth = 20; // minimum amount of dialog width that must be visible
+    var minHeight = 20; // minimum amount of dialog height that must be visible
+    var adjustedDragBounds = new Bounds2(
+        dragBounds.minX - this.width / 2 + minWidth, dragBounds.minY - this.height + minHeight,
+        dragBounds.maxX + this.width / 2 - minWidth, dragBounds.maxY - minHeight );
+
+    // If location is outside drag bounds, move it inside.
+    var x = Math.max( adjustedDragBounds.minX, Math.min( adjustedDragBounds.maxX, locationProperty.get().x ) );
+    var y = Math.max( adjustedDragBounds.minY, Math.min( adjustedDragBounds.maxY, locationProperty.get().y ) );
+    locationProperty.set( new Vector2( x, y ) );
+
     // draggable
-    this.addInputListener( new MovableDragHandler( { locationProperty: locationProperty, dragBounds: dragBounds }, ModelViewTransform2.createIdentity() ) );
+    this.addInputListener( new MovableDragHandler( { locationProperty: locationProperty, dragBounds: adjustedDragBounds }, ModelViewTransform2.createIdentity() ) );
     locationProperty.link( function() {
       self.centerTop = locationProperty.get();
     } );
