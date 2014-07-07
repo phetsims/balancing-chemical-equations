@@ -61,7 +61,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function IntroductionScreen() {
+  function GameScreen() {
     Screen.call( this,
       balancingGameTitleString,
       createScreenIcon(),
@@ -73,5 +73,5 @@ define( function( require ) {
     );
   }
 
-  return inherit( Screen, IntroductionScreen );
+  return inherit( Screen, GameScreen );
 } );
