@@ -24,10 +24,13 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
 
   //constants
   var MAX_NUMBER_OF_ATOMS = 12;
-  var MAX_BAR_SIZE = new Dimension2( 40, 60 );
+  var MAX_BAR_SIZE = new Dimension2( 40, 135 );
+  var ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
   var STROKE = 1.5;
   var STROKE_COLOR = 'black';
 
@@ -46,13 +49,31 @@ define( function( require ) {
     //number
     var numberNode = new Text( String( this.numberOfAtoms ), {font: new PhetFont( 18 )} );
 
-    var height = MAX_BAR_SIZE.height * ( this.numberOfAtoms / MAX_NUMBER_OF_ATOMS );
     //bar
-    var bar = new Rectangle( 0, 0, MAX_BAR_SIZE.width, height, {
+    var bar;
+    var barOptions = {
       fill: element.color,
       stroke: STROKE_COLOR,
       lineWidth: STROKE
-    } );
+    };
+    if ( numberOfAtoms <= MAX_NUMBER_OF_ATOMS ) {
+      // standard bar
+      var height = MAX_BAR_SIZE.height * ( this.numberOfAtoms / MAX_NUMBER_OF_ATOMS );
+      bar = new Rectangle( 0, 0, MAX_BAR_SIZE.width, height, barOptions );
+    }
+    else {
+      // bar with upward-pointing arrow, path is specified clockwise from arrow tip.
+      var barShape = new Shape()
+        .moveTo( 0, -MAX_BAR_SIZE.height )
+        .lineTo( ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+        .lineTo( MAX_BAR_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+        .lineTo( MAX_BAR_SIZE.width / 2, 0 )
+        .lineTo( -MAX_BAR_SIZE.width / 2, 0 )
+        .lineTo( -MAX_BAR_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+        .lineTo( -ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+        .close();
+      bar = new Path( barShape, barOptions );
+    }
 
     //symbol
     var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
