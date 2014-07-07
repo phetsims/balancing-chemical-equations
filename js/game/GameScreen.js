@@ -14,7 +14,6 @@ define( function( require ) {
   var GameView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameView' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var Screen = require( 'JOIST/Screen' );
-  var ScreenView = require( 'JOIST/ScreenView' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Path = require( 'SCENERY/nodes/Path' );

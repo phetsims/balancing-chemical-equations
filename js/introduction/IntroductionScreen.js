@@ -15,7 +15,6 @@ define( function( require ) {
   var IntroductionView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionView' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var Screen = require( 'JOIST/Screen' );
-  var ScreenView = require( 'JOIST/ScreenView' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
