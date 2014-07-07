@@ -13,15 +13,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {NITROGLYCERIN.node} imageConstructor constructor of molecule from NITROGLYCERIN
+   * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
    * @param {String} symbolText html string
    * @param {[NITROGLYCERIN.Element]} elements
    * @constructor
    */
-  var Molecule = function( imageConstructor, symbolText, elements ) {
+  var Molecule = function( nodeConstructor, symbolText, elements ) {
     var self = this;
 
-    this.imageConstructor = imageConstructor;
+    this.nodeConstructor = nodeConstructor;
     this.symbol = symbolText;
     this.atoms = [];
     elements.forEach( function( element ) {

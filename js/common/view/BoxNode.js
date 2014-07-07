@@ -87,26 +87,26 @@ define( function( require ) {
      @param {Number} xOffsets array of offsets for terms
      */
     createMolecules: function( terms, xOffsets ) {
-      var imageNodes; //array of all molecule images for every term
-      this.termNodes = {}; //contains imageNodes with key term.molecule.symbol
+      var moleculeNodes; //array of all molecule images for every term
+      this.termNodes = {}; //contains moleculeNodes with key term.molecule.symbol
       this.contentNode.removeAllChildren();
       var yMargin = 0;
       var rowHeight = ( this.aligner.boxSize.height - ( 2 * yMargin ) ) / this.coefficientRange.max;
 
       for ( var i = 0; i < terms.length; i++ ) {
-        imageNodes = [];
-        var MoleculeImageConstructor = terms[i].molecule.imageConstructor;
+        moleculeNodes = [];
+        var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
         var y = this.aligner.boxSize.height - yMargin - ( rowHeight / 2 );
         for ( var j = 0; j < this.coefficientRange.max; j++ ) {
-          var imageNode = new MoleculeImageConstructor( BCEConstants.ATOM_OPTIONS );
-          imageNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
-          this.contentNode.addChild( imageNode );
-          imageNode.center = new Vector2( xOffsets[i] - this.x, y );
+          var moleculeNode = new MoleculeNodeConstructor( BCEConstants.ATOM_OPTIONS );
+          moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
+          this.contentNode.addChild( moleculeNode );
+          moleculeNode.center = new Vector2( xOffsets[i] - this.x, y );
           y -= rowHeight;
-          imageNodes.push( imageNode );
+          moleculeNodes.push( moleculeNode );
         }
 
-        this.termNodes[terms[i].molecule.symbol] = imageNodes;
+        this.termNodes[terms[i].molecule.symbol] = moleculeNodes;
       }
     },
 
@@ -120,9 +120,9 @@ define( function( require ) {
       };
 
       for ( var i = 0; i < terms.length; i++ ) {
-        var imageNodes = this.termNodes[terms[i].molecule.symbol];
+        var moleculeNodes = this.termNodes[terms[i].molecule.symbol];
         for ( var j = 0; j < this.coefficientRange.max; j++ ) {
-          imageNodes[j].visible = isVisible( j, terms[i].userCoefficient );
+          moleculeNodes[j].visible = isVisible( j, terms[i].userCoefficient );
         }
       }
     }

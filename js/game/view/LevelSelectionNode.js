@@ -25,9 +25,9 @@ define( function( require ) {
 
   // images, ordered by level
   var levelImagesConstructors = [
-    MoleculeFactory.HCl().imageConstructor,
-    MoleculeFactory.H2O().imageConstructor,
-    MoleculeFactory.NH3().imageConstructor
+    MoleculeFactory.HCl().nodeConstructor,
+    MoleculeFactory.H2O().nodeConstructor,
+    MoleculeFactory.NH3().nodeConstructor
   ];
 
   // strings
