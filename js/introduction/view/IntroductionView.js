@@ -15,13 +15,14 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   var BalancedRepresentationChoiceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BalancedRepresentationChoiceNode' );
-  var EquationChoiceAndResetNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/EquationChoiceAndResetNode' );
+  var EquationChoiceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/EquationChoiceNode' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
 
   //constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -61,8 +62,8 @@ define( function( require ) {
     } );
 
     // control for choosing an equation and reset button
-    var equationChoiceAndResetNode = new EquationChoiceAndResetNode( model, {y: model.height - 65} );
-    this.addChild( equationChoiceAndResetNode );
+    var equationChoiceNode = new EquationChoiceNode( model, {y: model.height - 65} );
+    this.addChild( equationChoiceNode );
 
     // equation, in formula format
     var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} );
@@ -76,6 +77,14 @@ define( function( require ) {
     // control for choosing the visual representation of "balanced"
     var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 20} );
     this.addChild( balanceChoiceNode );
+
+    // Reset All button
+    this.addChild( new ResetAllButton( {
+      listener: model.reset.bind( model ),
+      right: model.width - 20,
+      centerY: equationChoiceNode.centerY,
+      scale: 0.8
+    } ) );
 
     model.balanceChoiceProperty.link( function( choice ) {
       barChartsNode.setVisible( choice === BalancedRepresentation.BAR_CHARTS );
