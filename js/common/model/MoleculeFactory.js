@@ -9,9 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Atom = require( 'NITROGLYCERIN/Atom' );
   var Element = require( 'NITROGLYCERIN/Element' );
+  var Molecule = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/Molecule' );
   var CH4Node = require( 'NITROGLYCERIN/nodes/CH4Node' );
   var CO2Node = require( 'NITROGLYCERIN/nodes/CO2Node' );
   var H2Node = require( 'NITROGLYCERIN/nodes/H2Node' );
@@ -46,35 +45,6 @@ define( function( require ) {
   var H2SNode = require( 'NITROGLYCERIN/nodes/H2SNode' );
   var OF2Node = require( 'NITROGLYCERIN/nodes/OF2Node' );
   var C2H5OHNode = require( 'NITROGLYCERIN/nodes/C2H5OHNode' );
-
-  /**
-   * @param {NITROGLYCERIN.node} imageConstructor constructor of molecule from NITROGLYCERIN
-   * @param {String} symbolText html string
-   * @param {[NITROGLYCERIN.Element]} elements
-   * @constructor
-   */
-  var Molecule = function( imageConstructor, symbolText, elements ) {
-    var self = this;
-
-    this.imageConstructor = imageConstructor;
-    this.symbol = symbolText;
-    this.atoms = [];
-    elements.forEach( function( element ) {
-      self.atoms.push( new Atom( element ) );
-    } );
-  };
-
-  inherit( Object, Molecule, {
-
-    /**
-     * Any molecule with more than 5 atoms is considered "big".
-     * This affects degree of difficulty in the Game.
-     * @return {Boolean}
-     */
-    isBig: function() {
-      return this.atoms.length > 5;
-    }
-  } );
 
   return {
 
