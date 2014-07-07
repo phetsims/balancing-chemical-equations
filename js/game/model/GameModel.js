@@ -60,7 +60,6 @@ define( function( require ) {
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
     this.EQUATIONS_PER_GAME = 5;
 
-
     // properties
     PropertySet.call( this, {
       state: self.states.LEVEL_SELECTION,
@@ -101,7 +100,7 @@ define( function( require ) {
     },
 
     /**
-     * Called when the user presses the "Start Game" button.
+     * Called when the user presses a level-selection button.
      */
     startGame: function() {
       this.equations = GameFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
@@ -138,7 +137,7 @@ define( function( require ) {
         this.state = this.states.NEXT;
 
         if ( this.currentEquationIndex === this.equations.length - 1 ) {
-          this.gameEnd();
+          this.endGame();
         }
       }
       else if ( this.attempts < 2 ) {
@@ -146,16 +145,17 @@ define( function( require ) {
       }
       else {
         if ( this.currentEquationIndex === this.equations.length - 1 ) {
-          this.gameEnd();
+          this.endGame();
         }
         this.state = this.states.SHOW_ANSWER;
       }
     },
 
     /**
-     * On game end stop timer and set new best time if perfect score
+     * When a game ends, stop the timer and (if perfect score) set the new best time.
+     * @private
      */
-    gameEnd: function() {
+    endGame: function() {
       this.timer.stop();
       //check for new best score
       if ( this.points > this.bestScores[this.currentLevel].get() ) {
