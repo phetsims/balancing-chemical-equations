@@ -94,7 +94,7 @@ define( function( require ) {
     // buttons: Check, Next, Try Again, Show Answer
     var BUTTONS_OPTIONS = {
       baseColor: 'yellow',
-      centerX: gameModel.width / 2,
+      centerX: 0,
       bottom: this.boxesNode.bottom
     };
     this.checkButton = new TextPushButton( checkString, _.extend( BUTTONS_OPTIONS, {
@@ -118,10 +118,13 @@ define( function( require ) {
         self.model.showAnswer();
       }
     } ) );
-    this.gamePlayNode.addChild( this.checkButton );
-    this.gamePlayNode.addChild( this.nextButton );
-    this.gamePlayNode.addChild( this.tryAgainButton );
-    this.gamePlayNode.addChild( this.showAnswerButton );
+
+    // scale buttons uniformly to fit the horizontal space between the boxes, see issue #68
+    var buttonsParent = new Node( { children: [ this.checkButton, this.nextButton, this.tryAgainButton, this.showAnswerButton ] } );
+    buttonsParent.setScaleMagnitude( Math.min( 1, 0.85 * BOX_X_SPACING / buttonsParent.width ) );
+    buttonsParent.centerX = this.layoutBounds.centerX;
+    buttonsParent.bottom = this.boxesNode.bottom;
+    this.gamePlayNode.addChild( buttonsParent );
 
     // popups
     this.popupNode = null; // looks like a dialog, tells user how they did
