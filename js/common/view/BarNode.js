@@ -89,7 +89,7 @@ define( function( require ) {
 
     VBox.call( this, options );
     this.bottom = 0;
-  };
+  }
 
   return inherit( VBox, BarNode );
 } );
