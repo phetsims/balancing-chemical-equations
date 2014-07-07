@@ -1,3 +1,4 @@
+7/7/14 fix: when pressing 'Continue' button at end of game, remove reward only if it exists
 7/7/14 move initial position of game dialog down slightly
 7/7/14 #67 more sophisticated drag bounds for game dialog, accounts for dialog dimensions
 7/7/14 #67 crude drag bounds for game dialog

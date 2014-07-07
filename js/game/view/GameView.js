@@ -241,8 +241,10 @@ define( function( require ) {
       this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore(),
         this.model.EQUATIONS_PER_GAME, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
         function() {
-          self.rootNode.removeChild( self.rewardNode );
-          self.rewardNode = null;
+          if (  self.rewardNode ) {
+            self.rootNode.removeChild( self.rewardNode );
+            self.rewardNode = null;
+          }
           self.model.state = self.model.states.LEVEL_SELECTION;
         }, {
           centerX: this.layoutBounds.centerX,
