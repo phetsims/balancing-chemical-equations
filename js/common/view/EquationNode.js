@@ -25,6 +25,10 @@ define( function( require ) {
    * @constructor
    */
   function EquationNode( equationProperty, coefficientRange, aligner, options ) {
+
+    options = _.extend( { fontSize: 32 }, options );
+    this.fontSize = options.fontSize;
+
     var self = this;
     Node.call( this );
 
@@ -94,7 +98,7 @@ define( function( require ) {
 
       for ( var i = 0; i < terms.length; i++ ) {
         // term
-        termNode = new TermNode( this.coefficientRange, terms[i] );
+        termNode = new TermNode( this.coefficientRange, terms[i], { fontSize: this.fontSize } );
         this.termNodes.push( termNode );
         this.termsParent.addChild( termNode );
         termNode.center = new Vector2( xOffsets[i], 0 );

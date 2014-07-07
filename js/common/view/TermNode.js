@@ -17,47 +17,42 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
 
-  // constants related to text
-  var FONT_SIZE = 32;
-  var FONT = new PhetFont( FONT_SIZE );
-  var SUBSUP_OPTIONS = {font: FONT, supScale: 1}; // options for all instances of SubSupNode
-
   /**
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {EquationTerm} term
    * @constructor
    */
-  function TermNode( coefficientRange, term ) {
+  function TermNode( coefficientRange, term, options ) {
+
+    options = _.extend( {
+      fontSize: 32,
+      xSpacing: 4
+    }, options );
 
     Node.call( this );
 
-    var capHeight = this.getCapHeight();
-
-    this.symbolNode = new SubSupText( term.molecule.symbol, SUBSUP_OPTIONS );
+    this.subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
+    this.symbolNode = new SubSupText( term.molecule.symbol, this.subSupOptions );
     this.addChild( this.symbolNode );
-    this.symbolNode.centerY = capHeight / 2 - (capHeight / 2 - this.symbolNode.height / 2);
 
     this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
       color: 'black',
       xMargin: 8,
       yMargin: 0,
       touchAreaExpandX: 30,
-      font: new PhetFont( FONT_SIZE )
+      font: new PhetFont( options.fontSize )
     } );
     this.addChild( this.coefficientNode );
-    this.coefficientNode.x = this.symbolNode.x - this.coefficientNode.width - 2;
-    this.coefficientNode.centerY = capHeight / 2;
+
+    this.symbolNode.left = this.coefficientNode.right + options.xSpacing;
+    // vertically center the non-subscript part of the symbol on the picker
+    this.symbolNode.centerY = this.coefficientNode.centerY + ( this.symbolNode.height - new SubSupText( 'H', this.subSupOptions ).height )/2;
   }
 
   return inherit( Node, TermNode, {
 
     setEditable: function( editable ) {
       this.coefficientNode.pickable = editable;
-    },
-
-    // Get height of standard uppercase letter
-    getCapHeight: function() {
-      return new SubSupText( 'T', SUBSUP_OPTIONS ).height;
     }
   } );
 } );
