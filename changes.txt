@@ -1,3 +1,4 @@
+7/7/14 clean up implementation of 'Tools' combo box
 7/7/14 Introduction: left-align radio buttons with reactants box
 7/7/14 Introduction: remove Reset All button from equation-choice control
 7/7/14 rename StartGameLevelNode to LevelSelectionNode, fix constructor name

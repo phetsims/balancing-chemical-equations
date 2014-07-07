@@ -14,7 +14,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
-  var BalancedRepresentationChoiceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/BalancedRepresentationChoiceNode' );
+  var ToolsComboBox = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/ToolsComboBox' );
   var EquationChoiceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/EquationChoiceNode' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
@@ -69,14 +69,14 @@ define( function( require ) {
     var equationNode = new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, {y: model.height - 130} );
     this.addChild( equationNode );
 
-    //boxes that show molecules corresponding to the equation coefficients
+    // boxes that show molecules corresponding to the equation coefficients
     var boxesNode = new BoxesNode( model, horizontalAligner,
       BCEConstants.BOX_COLOR, {y: 180} );
     this.addChild( boxesNode );
 
-    // control for choosing the visual representation of "balanced"
-    var balanceChoiceNode = new BalancedRepresentationChoiceNode( model.balanceChoiceProperty, this, {right: model.width - 10, y: 20} );
-    this.addChild( balanceChoiceNode );
+    // 'Tools' combo box
+    this.addChild( new ToolsComboBox( model.balanceChoiceProperty, this,
+      { right: this.layoutBounds.right - 10, top: this.layoutBounds.top + 20} ) );
 
     // Reset All button
     this.addChild( new ResetAllButton( {
