@@ -24,7 +24,7 @@ define( function( require ) {
   // strings
   var balancingGameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancingGame' );
 
-  // creates the icon for this screen
+  // creates the icon for this screen: a smiley face to the right of up/down arrows
   var createScreenIcon = function() {
 
     // constants

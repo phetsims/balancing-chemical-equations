@@ -30,7 +30,7 @@ define( function( require ) {
   // strings
   var introductionTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/introduction' );
 
-  // creates the icon for this screen
+  // creates the icon for this screen: an equation above a balance beam
   var createScreenIcon = function() {
 
     // background rectangle
