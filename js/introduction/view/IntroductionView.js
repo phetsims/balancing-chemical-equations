@@ -38,7 +38,7 @@ define( function( require ) {
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     // aligner for equation
-    var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, model.width / 2, 0, model.width );
+    var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, this.layoutBounds.width / 2, 0, this.layoutBounds.width );
 
     // 'Tools' combo box, at upper-right
     var comboBoxParent = new Node();
@@ -74,13 +74,13 @@ define( function( require ) {
     this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
-    var equationChoiceNode = new EquationChoiceNode( model, {y: model.height - 65} );
+    var equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model, { bottom: this.layoutBounds.bottom - 10 } );
     this.addChild( equationChoiceNode );
 
     // Reset All button
     this.addChild( new ResetAllButton( {
       listener: model.reset.bind( model ),
-      right: model.width - 20,
+      right: this.layoutBounds.right - 20,
       centerY: equationChoiceNode.centerY,
       scale: 0.8
     } ) );

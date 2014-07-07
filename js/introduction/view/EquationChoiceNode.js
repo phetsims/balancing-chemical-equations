@@ -23,16 +23,17 @@ define( function( require ) {
   var RADIO_BUTTON_OPTIONS = { radius: 8 };
   
   /**
+   * @param {number} screenWidth
    * @param {IntroductionModel} model of simulation
    * @param {Object} options
    * @constructor
    */
-  function EquationChoiceNode( model, options ) {
+  function EquationChoiceNode( screenWidth, model, options ) {
 
-    Node.call( this, options );
+    Node.call( this );
 
     // background, extra wide so that it will appear to fill the entire screen for all but extreme window sizes
-    this.addChild( new Rectangle( 0, 0, 4 * model.width, BAR_HEIGHT, { fill: '#3376c4', centerX: model.width / 2 } ) );
+    this.addChild( new Rectangle( 0, 0, 4 * screenWidth, BAR_HEIGHT, { fill: '#3376c4', centerX: screenWidth / 2 } ) );
 
     // radio buttons, one for each equation, arranged horizontally
     var radioButtons = [];
@@ -46,6 +47,8 @@ define( function( require ) {
       left: 50,
       centerY: BAR_HEIGHT / 2
     } ) );
+
+    this.mutate( options );
   }
 
   return inherit( Node, EquationChoiceNode );

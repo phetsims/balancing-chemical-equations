@@ -66,7 +66,7 @@ define( function( require ) {
     Screen.call( this,
       balancingGameTitleString,
       createScreenIcon(),
-      function() { return new GameModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
+      function() { return new GameModel(); },
       function( model ) { return new GameView( model ); },
       {
         backgroundColor: BCEConstants.GAME_CANVAS_BACKGROUND

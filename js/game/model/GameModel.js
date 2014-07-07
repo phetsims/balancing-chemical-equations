@@ -18,11 +18,9 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
 
   /**
-   * @param {Number} width of Screen
-   * @param {Number} height of Screen
    * @constructor
    */
-  function GameModel( width, height ) {
+  function GameModel() {
 
     var self = this;
 
@@ -54,18 +52,14 @@ define( function( require ) {
       function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
     ];
 
-    //constants
+    // constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
     this.EQUATIONS_PER_GAME = 5;
     this.POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
     this.POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
-    // dimensions of the model's space
-    this.width = width;
-    this.height = height;
-
-    //properties
+    // properties
     PropertySet.call( this, {
       state: self.gameState.LEVEL_SELECTION,
       points: 0, // how many points the user has earned for the current game

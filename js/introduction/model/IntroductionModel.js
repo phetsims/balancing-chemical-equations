@@ -19,20 +19,18 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
 
   /**
-   * @param {Number} width of Screen
-   * @param {Number} height of Screen
    * @constructor
    */
-
-  function IntroductionModel( width, height ) {
+  function IntroductionModel() {
 
     this.COEFFICENTS_RANGE = new Range( 0, 3 ); // Range of possible equation coefficients
 
-    this.width = width;
-    this.height = height;
-
-    //list of possible equations
-    this.equations = [SynthesisEquation.create_N2_3H2_2NH3(), DecompositionEquation.create_2H2O_2H2_O2(), DisplacementEquation.create_CH4_2O2_CO2_2H2O()];
+    // list of possible equations
+    this.equations = [
+      SynthesisEquation.create_N2_3H2_2NH3(),
+      DecompositionEquation.create_2H2O_2H2_O2(),
+      DisplacementEquation.create_CH4_2O2_CO2_2H2O()
+    ];
 
     PropertySet.call( this, {
       currentEquation: this.equations[0],
@@ -40,7 +38,6 @@ define( function( require ) {
       leftBoxOpen: true,
       rightBoxOpen: true
     } );
-
   }
 
   return inherit( PropertySet, IntroductionModel, {

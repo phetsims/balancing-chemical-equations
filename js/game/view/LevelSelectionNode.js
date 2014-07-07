@@ -42,7 +42,7 @@ define( function( require ) {
 
     // 'Level N' centered above icon
     var label = new Text( StringUtils.format( pattern_0level, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
-    var image = new levelImagesConstructors[level]( _.extend( { centerX: label.centerX, top: label.bottom + 20, scale: 2 }, BCEConstants.ATOM_OPTIONS  ) );
+    var image = new levelImagesConstructors[level]( _.extend( { centerX: label.centerX, top: label.bottom + 20, scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
     return new LevelStartButton(
@@ -65,44 +65,43 @@ define( function( require ) {
    * @param {GameModel} model
    * @constructor
    */
-  function LevelSelectionNode( model ) {
+  function LevelSelectionNode( model, layoutBounds ) {
 
     Node.call( this );
 
-    // Title
-    var title = new Text( chooseYourLevelString, {
-      font: new PhetFont( 36 ),
-      y: 70,
-      centerX: model.width / 2
-    } );
-    this.addChild( title );
-
-    //buttons
+    // buttons
     var buttons = [];
     for ( var level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
       buttons.push( createLevelStartButton( level, model ) );
     }
-    this.addChild( new HBox( {
+    var buttonsParent = new HBox( {
       children: buttons,
-      spacing: 55,
+      spacing: 50,
       resize: false,
-      y: 140,
-      centerX: model.width / 2
-    } ) );
+      center: layoutBounds.center
+    } );
+    this.addChild( buttonsParent );
 
-    // Timer and Sound controls
+    // title
+    var title = new Text( chooseYourLevelString, {
+      font: new PhetFont( 36 ),
+      centerX: layoutBounds.centerX,
+      centerY: buttonsParent.top / 2
+    } );
+    this.addChild( title );
+
+    // Timer and Sound controls, lower left
     var toggleOptions = { stroke: 'black', cornerRadius: 10 };
-    var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: model.height - BUTTON_MARGIN} ) );
+    var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: layoutBounds.bottom - BUTTON_MARGIN} ) );
     this.addChild( soundToggleButton );
-    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: soundToggleButton.y - BUTTON_MARGIN / 2} ) );
+    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: soundToggleButton.top - BUTTON_MARGIN / 2} ) );
     this.addChild( timerToggleButton );
 
-
-    // Reset All button
+    // Reset All button, lower right
     var resetButton = new ResetAllButton( {
       listener: function() { model.reset(); },
-      right: model.width - BUTTON_MARGIN,
-      bottom: model.height - BUTTON_MARGIN
+      right: layoutBounds.right - BUTTON_MARGIN,
+      bottom: layoutBounds.bottom - BUTTON_MARGIN
     } );
     this.addChild( resetButton );
   }

@@ -95,7 +95,7 @@ define( function( require ) {
     Screen.call( this,
       introductionTitleString,
       createScreenIcon(),
-      function() { return new IntroductionModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height ); },
+      function() { return new IntroductionModel(); },
       function( model ) { return new IntroductionView( model ); },
       {
         backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND

@@ -41,35 +41,35 @@ define( function( require ) {
   var BOX_X_SPACING = 140; // horizontal spacing between boxes
 
   /**
-   * @param {gameModel} gameModel - balancing model object.
+   * @param {GameModel} model
    * @constructor
    */
-  function GameView( gameModel ) {
-    var self = this;
+  function GameView( model ) {
 
+    var self = this;
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
-    this.model = gameModel;
-    this.audioPlayer = new GameAudioPlayer( gameModel.soundEnabledProperty );
-    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, gameModel.width / 2, 0, gameModel.width );
+    this.model = model;
+    this.audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
+    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, this.layoutBounds.width / 2, 0, this.layoutBounds.width );
 
     // Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();
     this.addChild( this.rootNode );
 
     // main nodes, start and game
-    this.levelSelectionNode = new LevelSelectionNode( this.model );
+    this.levelSelectionNode = new LevelSelectionNode( this.model, this.layoutBounds );
     this.gamePlayNode = new Node();
 
     // Scoreboard bar at the top of the screen
     var scoreboard = new ScoreboardBar(
       this.layoutBounds.width,
-      gameModel.currentEquationIndexProperty,
-      new Property( gameModel.EQUATIONS_PER_GAME ),
-      gameModel.currentLevelProperty,
-      gameModel.pointsProperty,
-      gameModel.timer.elapsedTimeProperty,
-      gameModel.timerEnabledProperty,
+      model.currentEquationIndexProperty,
+      new Property( model.EQUATIONS_PER_GAME ),
+      model.currentLevelProperty,
+      model.pointsProperty,
+      model.timer.elapsedTimeProperty,
+      model.timerEnabledProperty,
       self.model.newGame.bind( self.model ),
       {
         font: new PhetFont( 14 ),
@@ -83,7 +83,7 @@ define( function( require ) {
     this.gamePlayNode.addChild( scoreboard );
 
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( gameModel, this.aligner, BCEConstants.BOX_COLOR, { y: scoreboard.bottom + 15 } );
+    this.boxesNode = new BoxesNode( model, this.aligner, BCEConstants.BOX_COLOR, { y: scoreboard.bottom + 15 } );
     this.gamePlayNode.addChild( this.boxesNode );
 
     // Equation
@@ -137,12 +137,12 @@ define( function( require ) {
     };
 
     // Monitor the game state and update the view accordingly.
-    gameModel.stateProperty.link( function( state ) {
+    model.stateProperty.link( function( state ) {
 
       self.equationNode.setEditable( state === self.model.gameState.CHECK );
 
       // call an initializer to setup the game for the state
-      var states = gameModel.gameState;
+      var states = model.gameState;
       switch( state ) {
         case states.LEVEL_SELECTION:
           self.initLevelSelection();
@@ -174,7 +174,7 @@ define( function( require ) {
     var coefficientsSumObserver = function( coefficientsSum ) {
       self.checkButton.enabled = ( coefficientsSum > 0 );
     };
-    gameModel.currentEquationProperty.link( function( newEquation, oldEquation ) {
+    model.currentEquationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) { oldEquation.coefficientsSumProperty.unlink( coefficientsSumObserver ); }
       if ( newEquation ) { newEquation.coefficientsSumProperty.link( coefficientsSumObserver ); }
     } );
@@ -243,8 +243,8 @@ define( function( require ) {
           self.rewardNode = null;
           self.model.state = self.model.gameState.LEVEL_SELECTION;
         }, {
-          centerX: this.model.width / 2,
-          centerY: this.model.height / 2,
+          centerX: this.layoutBounds.centerX,
+          centerY: this.layoutBounds.centerY,
           levelVisible: false
         } ) );
 
