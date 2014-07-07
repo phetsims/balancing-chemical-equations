@@ -30,8 +30,14 @@ define( function( require ) {
   /**
    * @param {Boolean} smile
    * @param {Function} createContentFunction function that creates the content of the dialog that will appear below the face node
+   * @param {*} options
    */
-  var GamePopupNode = function( smile, createContentFunction ) {
+  var GamePopupNode = function( smile, createContentFunction, options ) {
+
+    options = _.extend( {
+      xMargin: 25,
+      yMargin: 10
+    }, options );
 
     var self = this;
     Node.call( this, {cursor: 'pointer'} );
@@ -69,7 +75,7 @@ define( function( require ) {
       centerX: self.centerX
     } ) );
 
-    var backgroundBounds = Shape.bounds( this.localBounds.dilatedXY( 10, 10 ) ).bounds;
+    var backgroundBounds = Shape.bounds( this.localBounds.dilatedXY( options.xMargin, options.yMargin ) ).bounds;
     this.backgroundRect.setRect( backgroundBounds.x, backgroundBounds.y, backgroundBounds.width, backgroundBounds.height );
 
     // move icon (cross) at upper-left
