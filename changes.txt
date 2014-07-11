@@ -1,4 +1,4 @@
-7/11/14 #72 support different numbers of equations per game level, to support 'playAll' query parameter
+7/11/14 #71 support different numbers of equations per game level, to support 'playAll' query parameter
 7/11/14 #72 show correct coefficients when running in dev mode
 7/11/14 #71 add 'playAll' query parameter, to iterate over all possible challenges in the game
 7/10/14 #55 check that both timerID and intervalID are null, so that vegas.NumberPicker doesn't get stuck
