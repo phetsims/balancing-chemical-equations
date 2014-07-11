@@ -66,11 +66,11 @@ define( function( require ) {
   // Level 3 equation pool
   var LEVEL3_POOL = [
     DisplacementEquation.create_C2H5OH_3O2_2CO2_3H2O, // this is the longest equation, put it first to simplify layout testing
+    DisplacementEquation.create_2CO2_3H2O_C2H5OH_3O2, // this is the reverse of the previous equation
     DisplacementEquation.create_2C2H6_7O2_4CO2_6H2O,
     DisplacementEquation.create_4CO2_6H2O_2C2H6_7O2,
     DisplacementEquation.create_2C2H2_5O2_4CO2_2H2O,
     DisplacementEquation.create_4CO2_2H2O_2C2H2_5O2,
-    DisplacementEquation.create_2CO2_3H2O_C2H5OH_3O2,
     DisplacementEquation.create_4NH3_3O2_2N2_6H2O,
     DisplacementEquation.create_2N2_6H2O_4NH3_3O2,
     DisplacementEquation.create_4NH3_5O2_4NO_6H2O,
