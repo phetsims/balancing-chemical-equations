@@ -185,6 +185,7 @@ define( function( require ) {
 
     // show the answer when running in dev mode, bottom center
     if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
       this.gamePlayNode.addChild( answerNode );
       // lazyLink, because there is no current equation until a game begins
@@ -192,6 +193,15 @@ define( function( require ) {
         answerNode.text = equation.getCoefficientsString();
         answerNode.centerX = self.layoutBounds.centerX;
       } );
+
+      // skips the current equation
+      var skipButton = new TextPushButton( 'Skip', {
+        font: new PhetFont( 12 ),
+        listener: model.next.bind( model ), // equivalent to 'Next'
+        centerX: buttonsParent.centerX,
+        bottom: buttonsParent.top - 8
+      } );
+      this.gamePlayNode.addChild( skipButton );
     }
   }
 
