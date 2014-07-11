@@ -25,6 +25,7 @@ define( function( require ) {
 
   // Level 1 equation pool
   var LEVEL1_POOL = [
+    DecompositionEquation.create_PCl5_PCl3_Cl2, // this is the largest molecule, put it first to simplify layout testing
     SynthesisEquation.create_2H2_O2_2H2O,
     SynthesisEquation.create_H2_F2_2HF,
     DecompositionEquation.create_2HCl_H2_Cl2,
@@ -44,7 +45,6 @@ define( function( require ) {
     SynthesisEquation.create_P4_6H2_4PH3,
     SynthesisEquation.create_P4_6F2_4PF3,
     DecompositionEquation.create_4PCl3_P4_6Cl2,
-    DecompositionEquation.create_PCl5_PCl3_Cl2,
     DecompositionEquation.create_2SO3_2SO2_O2
   ];
 
@@ -65,11 +65,11 @@ define( function( require ) {
 
   // Level 3 equation pool
   var LEVEL3_POOL = [
+    DisplacementEquation.create_C2H5OH_3O2_2CO2_3H2O, // this is the longest equation, put it first to simplify layout testing
     DisplacementEquation.create_2C2H6_7O2_4CO2_6H2O,
     DisplacementEquation.create_4CO2_6H2O_2C2H6_7O2,
     DisplacementEquation.create_2C2H2_5O2_4CO2_2H2O,
     DisplacementEquation.create_4CO2_2H2O_2C2H2_5O2,
-    DisplacementEquation.create_C2H5OH_3O2_2CO2_3H2O,
     DisplacementEquation.create_2CO2_3H2O_C2H5OH_3O2,
     DisplacementEquation.create_4NH3_3O2_2N2_6H2O,
     DisplacementEquation.create_2N2_6H2O_4NH3_3O2,
