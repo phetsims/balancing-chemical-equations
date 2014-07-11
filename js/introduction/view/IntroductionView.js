@@ -24,6 +24,8 @@ define( function( require ) {
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -35,6 +37,7 @@ define( function( require ) {
    */
   function IntroductionView( model ) {
 
+    var self = this;
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     // aligner for equation
@@ -92,6 +95,16 @@ define( function( require ) {
       barChartsNode.setVisible( choice === BalancedRepresentation.BAR_CHARTS );
       balanceScalesNode.setVisible( choice === BalancedRepresentation.BALANCE_SCALES );
     } );
+
+    // show the answer when running in dev mode, bottom center
+    if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+      var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
+      this.addChild( answerNode );
+      model.currentEquationProperty.link( function( equation ) {
+        answerNode.text = equation.getCoefficientsString();
+        answerNode.centerX = self.layoutBounds.centerX;
+      } );
+    }
   }
 
   return inherit( ScreenView, IntroductionView );

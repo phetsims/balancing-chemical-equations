@@ -37,7 +37,7 @@ define( function( require ) {
         string += ' + ';
       }
     }
-    string += ' -> ';
+    string += ' \u2192 '; // right arrow
     for ( i = 0; i < products.length; i++ ) {
       string += products[i].balancedCoefficient;
       string += ' ';
@@ -235,6 +235,26 @@ define( function( require ) {
       this.products.forEach( function( term ) {
         term.userCoefficient = term.balancedCoefficient;
       } );
+    },
+
+    /**
+     * Gets a string that shows just the coefficients of the equations.
+     * This is used to show game answers when running in 'dev' mode.
+     *
+     * @returns {string}
+     */
+    getCoefficientsString: function() {
+      var string = '';
+      for ( var i = 0; i < this.reactants.length; i++ ) {
+        string += this.reactants[i].balancedCoefficient;
+        string += ( i < this.reactants.length - 1 ) ? ' + ' : ' ';
+      }
+      string += '\u2192 '; // right arrow
+      for ( i = 0; i < this.products.length; i++ ) {
+        string += this.products[i].balancedCoefficient;
+        string += ( i < this.products.length - 1 ) ? ' + ' : '';
+      }
+      return string;
     }
   } );
 } );

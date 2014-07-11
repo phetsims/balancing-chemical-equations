@@ -30,6 +30,7 @@ define( function( require ) {
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
@@ -181,6 +182,17 @@ define( function( require ) {
       if ( oldEquation ) { oldEquation.coefficientsSumProperty.unlink( coefficientsSumObserver ); }
       if ( newEquation ) { newEquation.coefficientsSumProperty.link( coefficientsSumObserver ); }
     } );
+
+    // show the answer when running in dev mode, bottom center
+    if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+      var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
+      this.gamePlayNode.addChild( answerNode );
+      // lazyLink, because there is no current equation until a game begins
+      this.model.currentEquationProperty.lazyLink( function( equation ) {
+        answerNode.text = equation.getCoefficientsString();
+        answerNode.centerX = self.layoutBounds.centerX;
+      } );
+    }
   }
 
   return inherit( ScreenView, GameView, {
