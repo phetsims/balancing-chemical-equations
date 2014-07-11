@@ -1,3 +1,4 @@
+# 1.0.0-dev.7 7/11/14
 7/11/14 #27 move equations that present layout problems to the beginning of their pools, so that they are displayed first in dev testing
 7/11/14 when running in dev mode, fill in the correct coefficients in all pickers
 7/11/14 #74 add 'Skip' button to game in dev mode
