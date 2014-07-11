@@ -1,3 +1,4 @@
+# 1.0.0-dev.8 7/11/14
 7/11/14 remove erroneous RSC credit, no funding was provided for this sim according to KP
 7/11/14 #27 move initial position of game dialog up, to account for shorter game boxes, so that dialog doesn't cover buttons
 7/11/14 #27 reduce height of game boxes from 360 to 340, which still looks comfortable for PCl5
