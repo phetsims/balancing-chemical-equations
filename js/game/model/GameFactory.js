@@ -20,6 +20,9 @@ define( function( require ) {
   var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
 
+  // constants
+  var EQUATIONS_PER_GAME = 5;
+
   // Level 1 equation pool
   var LEVEL1_POOL = [
     SynthesisEquation.create_2H2_O2_2H2O,
@@ -77,6 +80,9 @@ define( function( require ) {
     DisplacementEquation.create_4NH3_6NO_5N2_6H2O,
     DisplacementEquation.create_5N2_6H2O_4NH3_6NO
   ];
+
+  // all pools, indexed by level
+  var POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
 
   /*
    *  Level 3 exclusions map
@@ -183,11 +189,6 @@ define( function( require ) {
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
 
-      // for testing, return the entire pool so that we can get complete coverage
-      if ( window.phetcommon.getQueryParameter( 'playAll' ) ) {
-        return poolCopy;
-      }
-
       var equationConstructors = [];
       for ( var i = 0; i < numberOfEquations; i++ ) {
 
@@ -264,14 +265,26 @@ define( function( require ) {
   return {
 
     /**
+     * Gets the number of equations for a level.
+     * If we're playing all equations for testing purposes, return the entire pool length.
+     * @param level
+     * @returns {Window.length|*}
+     */
+    getNumberOfEquations: function( level ) {
+      return window.phetcommon.getQueryParameter( 'playAll' ) ? POOLS[level].length : EQUATIONS_PER_GAME;
+    },
+
+    /**
      * Creates a set of equations to be used in the game.
-     * @param numberOfEquations
+     * If 'playAll' query parameter is defined, return all equations for the level.
      * @param level
      * @return [Equation]
      */
-    createEquations: function( numberOfEquations, level ) {
+    createEquations: function( level ) {
       var equations = [];
-      var equationConstructors = STRATEGIES[level].getEquationConstructors( numberOfEquations );
+      var equationConstructors = ( window.phetcommon.getQueryParameter( 'playAll' ) ) ?
+                                 _.clone( POOLS[level] ) :
+                                 STRATEGIES[level].getEquationConstructors( EQUATIONS_PER_GAME );
       equationConstructors.forEach( function( equationClass ) {
         equations.push( equationClass() );
       } );

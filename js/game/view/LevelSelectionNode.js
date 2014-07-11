@@ -47,13 +47,13 @@ define( function( require ) {
 
     return new LevelStartButton(
       icon,
-      model.EQUATIONS_PER_GAME,
+      model.getNumberOfEquations( level ),
       function() {
         model.currentLevel = level;
         model.state = model.states.START_GAME;
       },
       model.bestScores[ level ],
-      model.getPerfectScore(),
+      model.getPerfectScore( level ),
       {
         backgroundColor: '#f0ffcb',
         buttonWidth: 155,

@@ -58,7 +58,6 @@ define( function( require ) {
     // constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
-    this.EQUATIONS_PER_GAME = 5;
 
     // properties
     PropertySet.call( this, {
@@ -104,7 +103,7 @@ define( function( require ) {
      * Called when the user presses a level-selection button.
      */
     startGame: function() {
-      this.equations = GameFactory.createEquations( this.EQUATIONS_PER_GAME, this.currentLevel );
+      this.equations = GameFactory.createEquations( this.currentLevel );
       this.currentEquationIndex = 0;
       this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
       this.attempts = 0;
@@ -186,13 +185,24 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of points in a perfect score, which occurs when the user
-     * balances every equation in the game correctly on the first attempt.
+     * Gets the number of equations for a specified level.
      *
+     * @param level
+     * @returns {*}
+     */
+    getNumberOfEquations: function( level ) {
+      return GameFactory.getNumberOfEquations( level );
+    },
+
+    /**
+     * Gets the number of points in a perfect score for a specified level.
+     * A perfect score is obtained when the user balances every equation correctly on the first attempt.
+     *
+     * @param level
      * @return {Number}
      */
-    getPerfectScore: function() {
-      return this.EQUATIONS_PER_GAME * POINTS_FIRST_ATTEMPT;
+    getPerfectScore: function( level ) {
+      return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
     },
 
     /**
@@ -203,7 +213,7 @@ define( function( require ) {
      * @return {Boolean}
      */
     isPerfectScore: function() {
-      return this.points === this.getPerfectScore();
+      return this.points === this.getPerfectScore( this.currentLevel );
     },
 
     /**

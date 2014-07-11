@@ -252,8 +252,8 @@ define( function( require ) {
       var bestTimeOnThisLevel = this.model.bestTimes[ this.model.currentLevel ].get() === 0 ? null : this.model.bestTimes[ this.model.currentLevel ].get();
 
       // Add the dialog node that indicates that the level has been completed.
-      this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore(),
-        this.model.EQUATIONS_PER_GAME, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
+      this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore( this.model.currentLevel ),
+        this.model.getNumberOfEquations( this.model.currentLevel ), this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
         function() {
           if (  self.rewardNode ) {
             self.rootNode.removeChild( self.rewardNode );
