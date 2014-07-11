@@ -39,7 +39,7 @@ define( function( require ) {
   var showAnswerString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showAnswer' );
 
   // Constants
-  var BOX_SIZE = new Dimension2( 285, 360 );
+  var BOX_SIZE = new Dimension2( 285, 340 );
   var BOX_X_SPACING = 140; // horizontal spacing between boxes
 
   /**
