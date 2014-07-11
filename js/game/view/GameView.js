@@ -252,19 +252,25 @@ define( function( require ) {
       var bestTimeOnThisLevel = this.model.bestTimes[ this.model.currentLevel ].get() === 0 ? null : this.model.bestTimes[ this.model.currentLevel ].get();
 
       // Add the dialog node that indicates that the level has been completed.
+      var numberOfEquations = this.model.getNumberOfEquations( this.model.currentLevel );
       this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore( this.model.currentLevel ),
-        this.model.getNumberOfEquations( this.model.currentLevel ), this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
+        numberOfEquations, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
+        // continueFunction
         function() {
-          if (  self.rewardNode ) {
+          if ( self.rewardNode ) {
             self.rootNode.removeChild( self.rewardNode );
             self.rewardNode = null;
           }
           self.model.state = self.model.states.LEVEL_SELECTION;
-        }, {
+        },
+        {
+          // LevelCompletedNode options
+          starDiameter: Math.min( 60, 300 / numberOfEquations ),
           centerX: this.layoutBounds.centerX,
           centerY: this.layoutBounds.centerY,
           levelVisible: false
-        } ) );
+        }
+      ) );
 
       // Play the appropriate audio feedback.
       if ( this.model.isPerfectScore() ) {
