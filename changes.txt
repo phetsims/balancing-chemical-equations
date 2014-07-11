@@ -1,3 +1,4 @@
+7/11/13 #27 move initial position of game dialog up, to account for shorter game boxes, so that dialog doesn't cover buttons
 7/11/13 #27 reduce height of game boxes from 360 to 340, which still looks comfortable for PCl5
 7/11/13 #27 move reverse of C2H5OH equation to 2nd location in level-3 pool
 # 1.0.0-dev.7 7/11/14

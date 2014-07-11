@@ -131,7 +131,7 @@ define( function( require ) {
 
     // popups
     this.popupNode = null; // @private looks like a dialog, tells user how they did
-    this.popupLocationProperty = new Property( new Vector2( this.layoutBounds.centerX, this.boxesNode.top + 30 ) ); // @private
+    this.popupLocationProperty = new Property( new Vector2( this.layoutBounds.centerX, this.boxesNode.top + 10 ) ); // @private
     this.popupDragBounds = this.layoutBounds;
     this.showWhyButtonListener = function() {
       self.swapPopups( new NotBalancedVerboseNode( self.popupLocationProperty, self.popupDragBounds, self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
