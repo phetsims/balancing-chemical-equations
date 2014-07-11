@@ -178,16 +178,17 @@ define( function( require ) {
 
   inherit( Object, RandomStrategy, {
 
-    hasBigMolecule: function( equationClass ) {
-      return equationClass().hasBigMolecule();
-    },
-
-    getEquationClasses: function( numberOfEquations ) {
+    getEquationConstructors: function( numberOfEquations ) {
 
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
 
-      var equationClasses = [];
+      // for testing, return the entire pool so that we can get complete coverage
+      if ( window.phetcommon.getQueryParameter( 'playAll' ) ) {
+        return poolCopy;
+      }
+
+      var equationConstructors = [];
       for ( var i = 0; i < numberOfEquations; i++ ) {
 
         // randomly select an equation
@@ -196,7 +197,7 @@ define( function( require ) {
 
         // If the first equation isn't supposed to contain any "big" molecules,
         // then find an equation in the pool that has no big molecules.
-        if ( i === 0 && !this.firstBigMolecule && this.hasBigMolecule( equationClass ) ) {
+        if ( i === 0 && !this.firstBigMolecule && equationClass().hasBigMolecule() ) {
 
           // start the search at a random index
           var startIndex = Math.floor( Math.random() * poolCopy.length );
@@ -207,7 +208,7 @@ define( function( require ) {
             // next equation in the pool
             equationClass = poolCopy.get( index );
 
-            if ( !this.hasBigMolecule( equationClass ) ) {
+            if ( !equationClass().hasBigMolecule() ) {
               done = true; // success, this equation has no big molecules
             }
             else {
@@ -227,7 +228,7 @@ define( function( require ) {
         }
 
         // add the equation to the game
-        equationClasses.push( equationClass );
+        equationConstructors.push( equationClass );
 
         // remove the equation from the pool so it won't be selected again
         poolCopy.splice( poolCopy.indexOf( equationClass ), 1 );
@@ -249,7 +250,7 @@ define( function( require ) {
           }, this );
         }
       }
-      return equationClasses;
+      return equationConstructors;
     }
   } );
 
@@ -257,7 +258,7 @@ define( function( require ) {
   var STRATEGIES = [
     new RandomStrategy( LEVEL1_POOL, false ), //level 1
     new RandomStrategy( LEVEL2_POOL, true ), //level 2
-    new RandomStrategy( LEVEL3_POOL, true, LEVEL3_EXCLUSIONS ) //level 3
+    new RandomStrategy( LEVEL3_POOL, true, { exclusions: LEVEL3_EXCLUSIONS } ) //level 3
   ];
 
   return {
@@ -266,12 +267,12 @@ define( function( require ) {
      * Creates a set of equations to be used in the game.
      * @param numberOfEquations
      * @param level
+     * @return [Equation]
      */
     createEquations: function( numberOfEquations, level ) {
-      var equationClasses = STRATEGIES[level].getEquationClasses( numberOfEquations );
       var equations = [];
-
-      equationClasses.forEach( function( equationClass ) {
+      var equationConstructors = STRATEGIES[level].getEquationConstructors( numberOfEquations );
+      equationConstructors.forEach( function( equationClass ) {
         equations.push( equationClass() );
       } );
       return equations;

@@ -77,6 +77,7 @@ define( function( require ) {
       rightBoxOpen: true
     } );
 
+    this.equations = []; // array of Equation
     this.timer = new GameTimer();
     this.bestTimes = [];// best times, maps level to time in ms
     this.bestScores = []; //best scores, maps level to best score
