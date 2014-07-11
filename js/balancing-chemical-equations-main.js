@@ -22,8 +22,7 @@ define( function( require ) {
       leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
       softwareDevelopment: 'Chris Malley',
       designTeam: 'Julia Chamberlain, Patricia Loeblein, Emily B. Moore, Robert Parson,\nAriel Paul, Kathy Perkins',
-      thanks: '\u2022 Conversion of this simulation to HTML5 was funded in part by the Royal Society of Chemistry.\n' +
-              '\u2022 Thanks to Mobile Learner Labs for working with the PhET development team to convert this\nsimulation to HTML5.'
+      thanks: '\u2022 Thanks to Mobile Learner Labs for working with the PhET development team to convert this\nsimulation to HTML5.'
     }
   };
 
