@@ -1,3 +1,4 @@
+7/11/14 when running in dev mode, fill in the correct coefficients in all pickers
 7/11/14 #74 add 'Skip' button to game in dev mode
 7/11/14 #71 scale diameter of starts in LevelCompletedNode for levels with lots of stars
 7/11/14 #71 support different numbers of equations per game level, to support 'playAll' query parameter

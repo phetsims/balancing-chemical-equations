@@ -27,6 +27,11 @@ define( function( require ) {
       initialCoefficient: 0 // initial value of the coefficient
     }, options );
 
+    // If running in dev mode, fill in the correct answer.
+    if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+      options.initialCoefficient = balancedCoefficient;
+    }
+
     this.molecule = molecule;
     this.balancedCoefficient = balancedCoefficient;
 
