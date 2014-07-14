@@ -29,12 +29,12 @@ define( function( require ) {
   var FONT = new PhetFont( 22 );
 
   /**
-   * @param {BalancedRepresentation} balancedProperty
+   * @param {Property<BalancedRepresentation>} balanceRepresentationProperty
    * @param {Node} parentNode node that will be used as the list's parent, use this to ensuring that the list is in front of everything else
    * @param {Object} options
    * @constructor
    */
-  function ToolsComboBox( balancedProperty, parentNode, options ) {
+  function ToolsComboBox( balanceRepresentationProperty, parentNode, options ) {
 
     options = _.extend( {
       buttonCornerRadius: 0,
@@ -55,7 +55,7 @@ define( function( require ) {
       ComboBox.createItem( new Image( chartsImage, { font: FONT, scale: 0.375} ), BalancedRepresentation.BAR_CHARTS )
     ];
 
-    ComboBox.call( this, items, balancedProperty, parentNode, options );
+    ComboBox.call( this, items, balanceRepresentationProperty, parentNode, options );
   }
 
   return inherit( ComboBox, ToolsComboBox );

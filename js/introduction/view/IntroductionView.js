@@ -44,7 +44,8 @@ define( function( require ) {
 
     var viewProperties = new PropertySet( {
       reactantsBoxExpanded: true,
-      productsBoxExpanded: true
+      productsBoxExpanded: true,
+      balancedRepresentation: BalancedRepresentation.NONE
     } );
 
     // aligner for equation
@@ -52,7 +53,7 @@ define( function( require ) {
 
     // 'Tools' combo box, at upper-right
     var comboBoxParent = new Node();
-    this.addChild( new ToolsComboBox( model.balanceChoiceProperty, comboBoxParent,
+    this.addChild( new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
       { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
 
     // boxes that show molecules corresponding to the equation coefficients
@@ -103,9 +104,9 @@ define( function( require ) {
     // add this last, so that combo box list is on top of everything else
     this.addChild( comboBoxParent );
 
-    model.balanceChoiceProperty.link( function( choice ) {
-      barChartsNode.setVisible( choice === BalancedRepresentation.BAR_CHARTS );
-      balanceScalesNode.setVisible( choice === BalancedRepresentation.BALANCE_SCALES );
+    viewProperties.balancedRepresentationProperty.link( function( balancedRepresentation ) {
+      barChartsNode.setVisible( balancedRepresentation === BalancedRepresentation.BAR_CHARTS );
+      balanceScalesNode.setVisible( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES );
     } );
 
     // show the answer when running in dev mode, bottom center
