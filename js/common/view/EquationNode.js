@@ -41,7 +41,7 @@ define( function( require ) {
     // arrow node, in a fixed location
     this.rightArrowNode = new RightArrowNode( equationProperty.balanced );
     this.addChild( this.rightArrowNode );
-    this.rightArrowNode.centerX = this.aligner.centerXOffset;
+    this.rightArrowNode.centerX = this.aligner.getScreenCenterX();
 
     // the parent for all equation terms and the "+" signs
     this.termsParent = new Node();
@@ -76,8 +76,8 @@ define( function( require ) {
       this.termsParent.removeAllChildren();
       this.termNodes = [];
 
-      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ), this.aligner.minX, this.aligner.centerXOffset - this.aligner.boxSeparation / 2 );
-      this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ), this.aligner.centerXOffset + this.aligner.boxSeparation / 2, this.aligner.maxX );
+      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ), this.aligner.getScreenLeft(), this.aligner.getReactantsBoxRight() );
+      this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ), this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
 
     },
 

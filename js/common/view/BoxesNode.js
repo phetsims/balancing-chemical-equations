@@ -40,7 +40,7 @@ define( function( require ) {
     this.reactantsBoxNode = new BoxNode( aligner, model.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
       fill: boxColor,
       title: reactantsString,
-      x: aligner.centerXOffset - aligner.boxSize.width - aligner.boxSeparation / 2,
+      x: aligner.getReactantsBoxLeft(),
       width: aligner.boxSize.width,
       y: 0,
       height: aligner.boxSize.height
@@ -50,7 +50,7 @@ define( function( require ) {
     this.productsBoxNode = new BoxNode( aligner, model.COEFFICENTS_RANGE, model.rightBoxOpenProperty, {
       fill: boxColor,
       title: productsString,
-      x: aligner.centerXOffset + aligner.boxSeparation / 2,
+      x: aligner.getProductsBoxLeft(),
       width: aligner.boxSize.width,
       y: 0,
       height: aligner.boxSize.height
@@ -59,7 +59,7 @@ define( function( require ) {
 
     // right-pointing arrow
     this.arrowNode = new RightArrowNode( model.currentEquationProperty.balanced );
-    this.arrowNode.center = new Vector2( aligner.centerXOffset, aligner.boxSize.height / 2 );
+    this.arrowNode.center = new Vector2( aligner.getScreenCenterX(), aligner.boxSize.height / 2 );
     this.addChild( this.arrowNode );
 
     // if the equation changes...

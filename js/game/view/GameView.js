@@ -54,7 +54,7 @@ define( function( require ) {
 
     this.model = model;
     this.audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
-    this.aligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, this.layoutBounds.width / 2, 0, this.layoutBounds.width );
+    this.aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE, BOX_X_SPACING );
 
     // Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();

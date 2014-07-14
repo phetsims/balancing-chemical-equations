@@ -1,3 +1,4 @@
+7/14/14 first phase of HorizontalAligner refactor
 7/14/14 internal cleanup of HorizontalAligner
 7/14/14 fill in correct coefficients only when 'playAll' query parameter is set
 7/14/14 encapsulate and document query parameters in BCEQueryParameters

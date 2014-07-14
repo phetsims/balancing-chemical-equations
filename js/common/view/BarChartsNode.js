@@ -52,11 +52,11 @@ define( function( require ) {
 
     this.equalsSignNode = new Text( '\u003D', textOptions );
     this.addChild( this.equalsSignNode );
-    this.equalsSignNode.center = new Vector2( aligner.centerXOffset, -40 );
+    this.equalsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
 
     this.notEqualsSignNode = new Text( '\u2260', textOptions );
     this.addChild( this.notEqualsSignNode );
-    this.notEqualsSignNode.center = new Vector2( aligner.centerXOffset, -40 );
+    this.notEqualsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
 
     //if coefficient changes
     var coefficientsObserver = function() {
@@ -100,13 +100,7 @@ define( function( require ) {
         x = barNode.bounds.maxX + 50;
       } );
 
-      if ( isReactants ) {
-        parentNode.centerX = this.aligner.centerXOffset - this.aligner.boxSeparation / 2 - this.aligner.boxSize.width / 2;
-      }
-      else {
-        parentNode.centerX = this.aligner.centerXOffset + this.aligner.boxSeparation / 2 + this.aligner.boxSize.width / 2;
-      }
-
+      parentNode.centerX = isReactants ? this.aligner.getReactantsBoxCenterX() : this.aligner.getProductsBoxCenterX();
     },
 
     /**

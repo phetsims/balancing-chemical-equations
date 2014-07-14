@@ -42,7 +42,7 @@ define( function( require ) {
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     // aligner for equation
-    var horizontalAligner = new HorizontalAligner( BOX_SIZE, BOX_X_SPACING, this.layoutBounds.width / 2, 0, this.layoutBounds.width );
+    var horizontalAligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE, BOX_X_SPACING );
 
     // 'Tools' combo box, at upper-right
     var comboBoxParent = new Node();
