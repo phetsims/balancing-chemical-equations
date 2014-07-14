@@ -64,18 +64,18 @@ define( function( require ) {
       state: self.states.LEVEL_SELECTION,
       points: 0, // how many points the user has earned for the current game
       currentEquation: null,
-      currentLevel: 0,
-      currentPoints: 0, // how many points were earned for the current challenge
-      attempts: 0,// how many attempts the user has made at solving the current challenge
       currentEquationIndex: 0, // index of the current challenge that the user is working on
-      balancedRepresentation: null, // which representation to use in the "Not Balanced" popup
-      isNewBestTime: false // is the time for this game a new best time?
+      currentLevel: 0
     } );
 
     this.equations = []; // array of Equation
     this.timer = new GameTimer();
-    this.bestTimes = [];// best times, maps level to time in ms
-    this.bestScores = []; //best scores, maps level to best score
+    this.attempts = 0; // @private how many attempts the user has made at solving the current challenge
+    this.currentPoints = 0; // how many points were earned for the current challenge
+    this.balancedRepresentation = null; // which representation to use in the "Not Balanced" popup
+    this.isNewBestTime = false; // is the time for this game a new best time?
+    this.bestTimes = [];// best times in ms, indexed by level
+    this.bestScores = []; // best scores, indexed by level
     for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
       this.bestTimes[i] = new Property( 0 );
       this.bestScores[i] = new Property( 0 );

@@ -1,3 +1,4 @@
+7/14/14 Game: convert Properties that are not observed to simple fields (currentPoints, attempts, balancedRepresentation, isNewBestTime)
 7/14/14 fix in GameView, where current equation is undefined until a level is selected (on startup and on reset)
 7/14/14 Game: move timerEnabled property to view
 7/14/14 Intro: move balancedRepresentation property from model to view
