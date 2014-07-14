@@ -42,7 +42,7 @@ define( function( require ) {
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     // aligner for equation
-    var horizontalAligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
+    var aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // 'Tools' combo box, at upper-right
     var comboBoxParent = new Node();
@@ -50,15 +50,15 @@ define( function( require ) {
       { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
 
     // boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( model, horizontalAligner, BOX_SIZE, BCEConstants.BOX_COLOR, { top: 180 } );
+    var boxesNode = new BoxesNode( model, aligner, BOX_SIZE, BCEConstants.BOX_COLOR, { top: 180 } );
     this.addChild( boxesNode );
 
     // bar charts, above boxes
-    var barChartsNode = new BarChartsNode( model.currentEquationProperty, horizontalAligner, boxesNode.top - 10 /* maxY */ );
+    var barChartsNode = new BarChartsNode( model.currentEquationProperty, aligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( barChartsNode );
 
     // balance scales, above boxes
-    var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, horizontalAligner, boxesNode.top - 10 /* maxY */ );
+    var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, aligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( balanceScalesNode );
 
     // smiley face, top center, shown when equation is balanced
@@ -75,7 +75,7 @@ define( function( require ) {
     } );
 
     // interactive equation
-    this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, horizontalAligner, { top: boxesNode.bottom + 20 } ) );
+    this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, aligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
     var equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model, { bottom: this.layoutBounds.bottom - 10 } );

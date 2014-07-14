@@ -54,7 +54,7 @@ define( function( require ) {
 
     this.model = model;
     this.audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
-    this.horizontalAligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
+    this.aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();
@@ -87,11 +87,11 @@ define( function( require ) {
     this.gamePlayNode.addChild( scoreboard );
 
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( model, this.horizontalAligner, BOX_SIZE, BCEConstants.BOX_COLOR, { y: scoreboard.bottom + 15 } );
+    this.boxesNode = new BoxesNode( model, this.aligner, BOX_SIZE, BCEConstants.BOX_COLOR, { y: scoreboard.bottom + 15 } );
     this.gamePlayNode.addChild( this.boxesNode );
 
     // Equation
-    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.horizontalAligner );
+    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner );
     this.gamePlayNode.addChild( this.equationNode );
     this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.boxesNode.bottom ) / 2;
 
@@ -133,7 +133,7 @@ define( function( require ) {
     // popups
     this.popupNode = null; // @private looks like a dialog, tells user how they did
     this.showWhyButtonListener = function() {
-      self.swapPopups( new NotBalancedVerboseNode( self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.horizontalAligner ) );
+      self.swapPopups( new NotBalancedVerboseNode( self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
     };
     this.hideWhyButtonListener = function() {
       self.swapPopups( new NotBalancedTerseNode( self.showWhyButtonListener ) );
