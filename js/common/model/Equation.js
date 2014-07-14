@@ -64,12 +64,13 @@ define( function( require ) {
 
     PropertySet.call( this, {
       balanced: false,
-      balancedAndSimplified: false,
       coefficientsSum: 0
     } );
 
+    this.balancedAndSimplified = false; // read only
+
     // equation is balanced if all terms are balanced.
-    this.addCoefficientsObserver( self.updateBalancedProperties.bind( self ) );
+    this.addCoefficientsObserver( self.updateBalanced.bind( self ) );
 
     // keep a sum of all coefficients, so we know when the sum is non-zero
     this.addCoefficientsObserver( function() {
@@ -101,7 +102,7 @@ define( function( require ) {
      * same integer multiple of the term's balanced coefficient.  If the integer
      * multiple is 1, then the term is balanced with lowest possible coefficients.
      */
-    updateBalancedProperties: function() {
+    updateBalanced: function() {
 
       // Get integer multiplier from the first reactant term.
       var multiplier = this.reactants[0].userCoefficient / this.reactants[0].balancedCoefficient;

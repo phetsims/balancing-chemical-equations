@@ -1,3 +1,4 @@
+7/14/14 change Equation.balancedAndSimplified from a Property to a field, nothing observes it
 7/14/14 #27 change minX for reactant terms to left-edge of box, to fix layout problem with C2H5OH + 3O2 -> 2CO2 + 3H2O
 7/14/14 remove weird couplings where HorizontalAligner was providing information about vertical dimension
 7/14/14 completed HorizontalAligner refactor
