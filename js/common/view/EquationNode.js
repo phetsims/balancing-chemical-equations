@@ -73,12 +73,12 @@ define( function( require ) {
      * Rebuilds the left and right sides of the equation.
      */
     updateNode: function() {
+
       this.termsParent.removeAllChildren();
       this.termNodes = [];
 
       this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ), this.aligner.getScreenLeft(), this.aligner.getReactantsBoxRight() );
       this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ), this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
-
     },
 
     /**
@@ -91,6 +91,7 @@ define( function( require ) {
      * @param {Number} maxX maximum possible x for equation
      */
     updateSideOfEquation: function( terms, xOffsets, minX, maxX ) {
+
       var plusNode;
       var termNode;
       var minSeparation = 15;
