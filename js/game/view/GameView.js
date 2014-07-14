@@ -20,10 +20,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-  var NotBalancedTerseNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/NotBalancedTerseNode' );
-  var NotBalancedVerboseNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/NotBalancedVerboseNode' );
-  var BalancedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNode' );
-  var BalancedNotSimplifiedNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/popup/BalancedNotSimplifiedNode' );
+  var GameFeedbackDialog = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameFeedbackDialog' );
   var LevelSelectionNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/LevelSelectionNode' );
   var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
@@ -61,6 +58,7 @@ define( function( require ) {
     this.model = model;
     this.audioPlayer = new GameAudioPlayer( this.viewProperties.soundEnabledProperty );
     this.aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
+    this.feedbackDialog = null; // feedback dialog, tells user how they did on a challenge
 
     // Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();
@@ -140,15 +138,6 @@ define( function( require ) {
     buttonsParent.centerX = this.layoutBounds.centerX;
     buttonsParent.bottom = this.boxesNode.bottom;
     this.gamePlayNode.addChild( buttonsParent );
-
-    // popups
-    this.popupNode = null; // @private looks like a dialog, tells user how they did
-    this.showWhyButtonListener = function() {
-      self.swapPopups( new NotBalancedVerboseNode( self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
-    };
-    this.hideWhyButtonListener = function() {
-      self.swapPopups( new NotBalancedTerseNode( self.showWhyButtonListener ) );
-    };
 
     // Monitor the game state and update the view accordingly.
     model.stateProperty.link( function( state ) {
@@ -238,23 +227,23 @@ define( function( require ) {
     initCheck: function() {
       this.setBalancedHighlightEnabled( false );
       this.setButtonNodeVisible( this.checkButton );
-      this.setPopupVisible( false );
+      this.setFeedbackDialogVisible( false );
     },
 
     initTryAgain: function() {
       this.setButtonNodeVisible( this.tryAgainButton );
-      this.setPopupVisible( true );
+      this.setFeedbackDialogVisible( true );
     },
 
     initShowAnswer: function() {
       this.setButtonNodeVisible( this.showAnswerButton );
-      this.setPopupVisible( true );
+      this.setFeedbackDialogVisible( true );
     },
 
     initNext: function() {
       this.setBalancedHighlightEnabled( true );
       this.setButtonNodeVisible( this.nextButton );
-      this.setPopupVisible( this.model.currentEquation.balancedAndSimplified );
+      this.setFeedbackDialogVisible( this.model.currentEquation.balancedAndSimplified );
       this.model.currentEquation.balance(); // show the correct answer
     },
 
@@ -341,45 +330,20 @@ define( function( require ) {
     },
 
     /**
-     * Controls the visibility of the games results "popup".
+     * Controls the visibility of the game feedback dialog.
      * This tells the user whether their guess is correct or not.
      * @param visible
      */
-    setPopupVisible: function( visible ) {
-      if ( this.popupNode !== null ) {
-        this.gamePlayNode.removeChild( this.popupNode );
-        this.popupNode = null;
+    setFeedbackDialogVisible: function( visible ) {
+      if ( this.feedbackDialog !== null ) {
+        this.gamePlayNode.removeChild( this.feedbackDialog );
+        this.feedbackDialog = null;
       }
       if ( visible ) {
-
-        // evaluate the user's answer and create the proper type of node
-        var equation = this.model.currentEquation;
-        if ( equation.balancedAndSimplified ) {
-          this.popupNode = new BalancedNode( this.model.currentPoints );
-        }
-        else if ( equation.balanced ) {
-          this.popupNode = new BalancedNotSimplifiedNode();
-        }
-        else {
-          this.popupNode = new NotBalancedTerseNode(this.showWhyButtonListener );
-        }
-        this.popupNode.centerX = this.layoutBounds.centerX;
-        this.popupNode.top = this.boxesNode.top + 10;
-        this.gamePlayNode.addChild( this.popupNode ); // visible and in front
+        this.feedbackDialog = new GameFeedbackDialog( this.model.currentEquation, this.aligner, this.model.balancedRepresentation, this.model.currentPoints,
+          { centerX: this.layoutBounds.centerX, top: this.boxesNode.top + 10 } );
+        this.gamePlayNode.addChild( this.feedbackDialog ); // visible and in front
       }
-    },
-
-    /*
-     * Replaces the current popup with a new popup.
-     * This is used for the "Not Balanced" popup, which has terse and verbose versions.
-     * The new popup is positioned so that it has the same top-center as the old popup.
-     * @private
-     */
-    swapPopups: function( newPopupNode ) {
-      newPopupNode.centerTop = this.popupNode.centerTop;
-      this.gamePlayNode.removeChild( this.popupNode );
-      this.popupNode = newPopupNode;
-      this.gamePlayNode.addChild( this.popupNode );
     }
   } );
 } )

@@ -1,3 +1,4 @@
+7/14/14 replace complicated game popup types (5 files) with a single type, GameFeedbackDialog
 7/14/14 #69 use visible instead of add/removeChild to transition between level-selection and game-play interfaces
 7/14/14 #69 update bar charts and balance scales only when they are visible
 7/14/14 remove erroneous font option from Image constructors in ToolsComboBox
