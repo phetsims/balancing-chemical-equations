@@ -73,11 +73,10 @@ define( function( require ) {
     this.gamePlayNode = new Node();
 
     // Scoreboard bar at the top of the screen
-    this.challengesPerGameProperty = new Property( model.equations.length ); // @private
     var scoreboard = new ScoreboardBar(
       this.layoutBounds.width,
       model.currentEquationIndexProperty,
-      this.challengesPerGameProperty,
+      model.challengesPerGameProperty,
       model.currentLevelProperty,
       model.pointsProperty,
       model.timer.elapsedTimeProperty,
@@ -232,7 +231,6 @@ define( function( require ) {
       this.rootNode.removeAllChildren();
       this.rootNode.addChild( this.gamePlayNode );
       this.model.startGame();
-      this.challengesPerGameProperty.set( this.model.equations.length );
     },
 
     initCheck: function() {

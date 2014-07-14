@@ -66,7 +66,8 @@ define( function( require ) {
       points: 0, // how many points the user has earned for the current game
       currentEquation: SynthesisEquation.create_N2_3H2_2NH3(), // any non-null {Equation} will do here
       currentEquationIndex: 0, // index of the current challenge that the user is working on
-      currentLevel: 0
+      currentLevel: 0,
+      challengesPerGame: 0
     } );
 
     this.equations = []; // array of Equation
@@ -100,15 +101,22 @@ define( function( require ) {
      * Called when the user presses a level-selection button.
      */
     startGame: function() {
+
+      // create a set of challenges
       this.equations = GameFactory.createEquations( this.currentLevel );
-      this.currentEquationIndex = 0;
-      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
+
+      // initialize simple fields
       this.attempts = 0;
-      this.isNewBestTime = false;
-      this.timer.restart();
       this.currentPoints = 0;
-      this.points = 0;
+      this.isNewBestTime = false;
+      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
+      this.timer.restart();
+
+      // initialize properties
       this.currentEquation = this.equations [this.currentEquationIndex ];
+      this.currentEquationIndex = 0;
+      this.challengesPerGame = this.equations.length;
+      this.points = 0;
       this.state = this.states.CHECK;
     },
 
