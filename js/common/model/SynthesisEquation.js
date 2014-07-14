@@ -24,11 +24,11 @@ define( function( require ) {
   /**
    * Convenience constructor.
    *
-   * @param {Integer} r1 balanced coefficient for reactant1
+   * @param {Number} r1 balanced coefficient for reactant1
    * @param {Molecule} reactant1
-   * @param {Integer} r2 balanced coefficient for reactant2
+   * @param {Number} r2 balanced coefficient for reactant2
    * @param {Molecule} reactant2
-   * @param {Integer} p1 balanced coefficient for product1
+   * @param {Number} p1 balanced coefficient for product1
    * @param {Molecule} product1
    * @param {*} options
    * @constructor

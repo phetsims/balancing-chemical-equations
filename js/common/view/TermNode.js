@@ -18,7 +18,7 @@ define( function( require ) {
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
 
   /**
-   * @param {DOT.Range} coefficientRange range of the coefficients
+   * @param {DOT.Range} coefficientRange
    * @param {EquationTerm} term
    * @constructor
    */
@@ -31,10 +31,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    this.subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
-    this.symbolNode = new SubSupText( term.molecule.symbol, this.subSupOptions );
-    this.addChild( this.symbolNode );
-
+    // coefficient picker
     this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
       color: 'black',
       xMargin: 8,
@@ -43,6 +40,11 @@ define( function( require ) {
       font: new PhetFont( options.fontSize )
     } );
     this.addChild( this.coefficientNode );
+
+    // symbol
+    this.subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
+    this.symbolNode = new SubSupText( term.molecule.symbol, this.subSupOptions );
+    this.addChild( this.symbolNode );
 
     this.symbolNode.left = this.coefficientNode.right + options.xSpacing;
     // vertically center the non-subscript part of the symbol on the picker

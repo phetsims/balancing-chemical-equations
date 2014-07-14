@@ -29,24 +29,18 @@ define( function( require ) {
     Node.call( this );
 
     // start at tip and move clockwise
-    var triangle = new Path( new Shape().
-      moveTo( 0, 0 ).
-      lineTo( fulcrumSize.width / 2, fulcrumSize.height ).
-      lineTo( -fulcrumSize.width / 2, fulcrumSize.height ).
-      close(),
-      {
-        fill: fulcrumFill,
-        lineWidth: 1,
-        stroke: 'black'
-      }
+    var triangle = new Path( new Shape()
+        .moveTo( 0, 0 )
+        .lineTo( fulcrumSize.width / 2, fulcrumSize.height )
+        .lineTo( -fulcrumSize.width / 2, fulcrumSize.height )
+        .close(),
+      { fill: fulcrumFill, lineWidth: 1, stroke: 'black' }
     );
     this.addChild( triangle );
 
-    var text = new Text( element.symbol, {
-      font: new PhetFont( 22 ),
-      centerX: 0,
-      centerY: this.centerY + 8
-    } );
+    var text = new Text( element.symbol,
+      { font: new PhetFont( 22 ), centerX: 0, centerY: this.centerY + 8 }
+    );
     this.addChild( text );
   }
 

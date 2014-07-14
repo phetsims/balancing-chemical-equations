@@ -21,7 +21,6 @@ define( function( require ) {
    * @param {*} options
    * @constructor
    */
-
   function EquationTerm( balancedCoefficient, molecule, options ) {
 
     options = _.extend( {

@@ -1,8 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A pair of boxes that show the number of molecules indicated by the equation's user coefficients.
- * Left box is for the reactants, right box is for the products.
+ * A box that shows the number of molecules indicated by the equation's user coefficients.
  *
  * @author Vasily Shakhov (mlearner.com)
  */
@@ -25,11 +24,11 @@ define( function( require ) {
 
   /**
    * @param {DOT.Range} coefficientRange range of the coefficients
-   * @param {Property} openProperty is Box open property
+   * @param {Property} expandedProperty is Box open property
    * @param {Object} options
    * @constructor
    */
-  function BoxNode( coefficientRange, openProperty, options ) {
+  function BoxNode( coefficientRange, expandedProperty, options ) {
 
     var self = this;
     this.coefficientRange = coefficientRange;
@@ -66,14 +65,14 @@ define( function( require ) {
     this.addChild( this.contentNode );
 
     // expand/collapse button
-    var button = new ExpandCollapseButton( options.buttonLength, openProperty );
+    var button = new ExpandCollapseButton( options.buttonLength, expandedProperty );
     button.touchArea = Shape.bounds( button.localBounds.dilatedXY( 10, 10 ) );
     this.addChild( button );
     button.right = this.width - options.xMargin;
     button.y = options.yMargin;
 
     // show/hide title and contentNode
-    openProperty.link( function( isOpen ) {
+    expandedProperty.link( function( isOpen ) {
       self.titleNode.setVisible( !isOpen );
       self.contentNode.setVisible( isOpen );
     } );

@@ -177,6 +177,7 @@ define( function( require ) {
     }
   }, {
     /**
+     * @static
      * @return {Number} length of beam
      */
     getBeamLength: function() {

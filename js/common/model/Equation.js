@@ -50,8 +50,8 @@ define( function( require ) {
   };
 
   /**
-   * @param {[EquationTerm]} reactants
-   * @param {[EquationTerm]} products
+   * @param {[EquationTerm]} reactants terms on the left side of the equation
+   * @param {[EquationTerm]} products terms on the right side of the equation
    * @param {*} options
    * @constructor
    */
@@ -67,9 +67,8 @@ define( function( require ) {
       coefficientsSum: 0
     } );
 
-    this.balancedAndSimplified = false; // read only
+    this.balancedAndSimplified = false; // balanced with the lowest possible coefficients
 
-    // equation is balanced if all terms are balanced.
     this.addCoefficientsObserver( self.updateBalanced.bind( self ) );
 
     // keep a sum of all coefficients, so we know when the sum is non-zero
@@ -108,6 +107,7 @@ define( function( require ) {
       // Get integer multiplier from the first reactant term.
       var multiplier = this.reactants[0].userCoefficient / this.reactants[0].balancedCoefficient;
       var balanced = ( multiplier > 0 );
+
       // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
       this.reactants.forEach( function( reactant ) {
         balanced = balanced && ( reactant.userCoefficient === multiplier * reactant.balancedCoefficient );
@@ -146,10 +146,10 @@ define( function( require ) {
 
     /**
      * Returns a count of each type of atom, based on the user coefficients.
-     * <p/>
      * The order of atoms will be the same order that they are encountered in the reactant terms.
      * For example, if the left-hand side of the equation is CH4 + O2, then the order of atoms
      * will be [C,H,O].
+     * @return {Number}
      */
     getAtomCounts: function() {
       var atomCounts = []; //array of AtomCounts
@@ -169,9 +169,9 @@ define( function( require ) {
      * This is a brute force algorithm, but our number of terms is always small,
      * and this is easy to implement and understand.
      *
-     * @param atomCounts
-     * @param terms
-     * @param isReactants true if the terms are the reactants, false if they are the products
+     * @param {[Number]} atomCounts
+     * @param {[EquationTerm]} terms
+     * @param {boolean} isReactants true if the terms are the reactants, false if they are the products
      */
     setAtomCounts: function( atomCounts, terms, isReactants ) {
       terms.forEach( function( term ) {
@@ -209,7 +209,6 @@ define( function( require ) {
     /**
      * Does this equation contain at least one "big" molecule?
      * This affects degree of difficulty in the Game.
-     *
      * @return {Boolean}
      */
     hasBigMolecule: function() {
@@ -242,7 +241,6 @@ define( function( require ) {
     /**
      * Gets a string that shows just the coefficients of the equations.
      * This is used to show game answers when running in 'dev' mode.
-     *
      * @returns {string}
      */
     getCoefficientsString: function() {
