@@ -17,11 +17,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Shape = require( 'KITE/Shape' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   // constants
   var FONT = new PhetFont( 18 );
@@ -38,8 +33,6 @@ define( function( require ) {
       xMargin: 25,
       yMargin: 10
     }, options );
-
-    var self = this;
 
     // face
     var faceNode = new FaceNode( FACE_DIAMETER );

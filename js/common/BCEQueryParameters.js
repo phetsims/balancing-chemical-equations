@@ -19,5 +19,5 @@ define( function( require ) {
 
     // show the game reward regardless of score
     REWARD: getQueryParameter( 'reward' ) || false
-  }
+  };
 } );

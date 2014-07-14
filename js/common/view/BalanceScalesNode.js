@@ -31,7 +31,7 @@ define( function( require ) {
     var self = this;
     Node.call( this );
 
-    this.equationProperty = equationProperty
+    this.equationProperty = equationProperty;
     this.maxY = maxY || 0;
     this.aligner = aligner;
 
