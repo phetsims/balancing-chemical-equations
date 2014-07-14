@@ -52,22 +52,39 @@ define( function( require ) {
   return inherit( Node, BalanceScalesNode, {
 
     /**
-     * Updates this node's entire geometry and layout
+     * Update the node when it becomes visible.
+     * @param visible
+     * @override
+     */
+    setVisible: function( visible ) {
+      var wasVisible = this.visible;
+      Node.prototype.setVisible.call( this, visible );
+      if ( !wasVisible && visible ) {
+        this.updateNode();
+        this.centerX = this.aligner.getScreenCenterX();
+        this.bottom = this.maxY;
+      }
+    },
+
+    /**
+     * Updates this node's entire geometry and layout.
      */
     updateNode: function() {
-      var self = this;
+      if ( this.visible ) {
+        var self = this;
 
-      this.removeAllChildren();
-      var atomCounts = this.equationProperty.get().getAtomCounts();
-      var xSpacing = 32;
-      var dx = BalanceScaleNode.getBeamLength() + xSpacing;
-      var x = 0;
-      var highlighted = this.equationProperty.get().balanced;
-      atomCounts.forEach( function( atomCount ) {
-        var scaleNode = new BalanceScaleNode( atomCount.element, atomCount.reactantsCount, atomCount.productsCount, highlighted, {x: x} );
-        self.addChild( scaleNode );
-        x += dx;
-      } );
+        this.removeAllChildren();
+        var atomCounts = this.equationProperty.get().getAtomCounts();
+        var xSpacing = 32;
+        var dx = BalanceScaleNode.getBeamLength() + xSpacing;
+        var x = 0;
+        var highlighted = this.equationProperty.get().balanced;
+        atomCounts.forEach( function( atomCount ) {
+          var scaleNode = new BalanceScaleNode( atomCount.element, atomCount.reactantsCount, atomCount.productsCount, highlighted, {x: x} );
+          self.addChild( scaleNode );
+          x += dx;
+        } );
+      }
     }
   } );
 } );

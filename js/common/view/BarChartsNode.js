@@ -73,13 +73,28 @@ define( function( require ) {
   return inherit( Node, BarChartsNode, {
 
     /**
+     * Update the node when it becomes visible.
+     * @param visible
+     * @override
+     */
+    setVisible: function( visible ) {
+      var wasVisible = this.visible;
+      Node.prototype.setVisible.call( this, visible );
+      if ( !wasVisible && visible ) {
+         this.updateNode();
+      }
+    },
+
+    /**
      * Updates this node's entire geometry and layout
      */
     updateNode: function() {
-      this.updateChart( this.reactantsChartParent, true /* isReactants */ );
-      this.updateChart( this.productsChartParent, false /* isReactants */ );
-      this.updateEqualitySign();
-      this.setMaxY();
+      if ( this.visible ) {
+        this.updateChart( this.reactantsChartParent, true /* isReactants */ );
+        this.updateChart( this.productsChartParent, false /* isReactants */ );
+        this.updateEqualitySign();
+        this.setMaxY();
+      }
     },
 
     /**
