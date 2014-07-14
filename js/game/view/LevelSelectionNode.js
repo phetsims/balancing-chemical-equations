@@ -49,7 +49,7 @@ define( function( require ) {
       icon,
       model.getNumberOfEquations( level ),
       function() {
-        model.currentLevel = level;
+        model.level = level;
         model.state = model.states.START_GAME;
       },
       model.bestScores[ level ],

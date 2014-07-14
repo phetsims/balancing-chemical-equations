@@ -76,8 +76,8 @@ define( function( require ) {
     var scoreboard = new ScoreboardBar(
       this.layoutBounds.width,
       model.currentEquationIndexProperty,
-      model.challengesPerGameProperty,
-      model.currentLevelProperty,
+      model.numberOfEquationsProperty,
+      model.levelProperty,
       model.pointsProperty,
       model.timer.elapsedTimeProperty,
       this.viewProperties.timerEnabledProperty,
@@ -262,16 +262,16 @@ define( function( require ) {
 
       // game reward, shown for perfect score (or with 'reward' query parameter)
       if ( this.model.isPerfectScore() || BCEQueryParameters.REWARD ) {
-        this.rewardNode = new BCERewardNode( this.model.currentLevel );
+        this.rewardNode = new BCERewardNode( this.model.level );
         this.rootNode.addChild( this.rewardNode );
       }
 
       // bestTime on level, must be null to not show in popup
-      var bestTimeOnThisLevel = this.model.bestTimes[ this.model.currentLevel ].get() === 0 ? null : this.model.bestTimes[ this.model.currentLevel ].get();
+      var bestTimeOnThisLevel = this.model.bestTimes[ this.model.level ].get() === 0 ? null : this.model.bestTimes[ this.model.level ].get();
 
       // Add the dialog node that indicates that the level has been completed.
-      var numberOfEquations = this.model.getNumberOfEquations( this.model.currentLevel );
-      this.rootNode.addChild( new LevelCompletedNode( this.model.currentLevel, this.model.points, this.model.getPerfectScore( this.model.currentLevel ),
+      var numberOfEquations = this.model.getNumberOfEquations( this.model.level );
+      this.rootNode.addChild( new LevelCompletedNode( this.model.level, this.model.points, this.model.getPerfectScore( this.model.level ),
         numberOfEquations, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
         // continueFunction
         function() {

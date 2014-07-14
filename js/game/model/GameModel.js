@@ -63,11 +63,11 @@ define( function( require ) {
     // properties
     PropertySet.call( this, {
       state: self.states.LEVEL_SELECTION,
+      level: 0, // level of the current game
       points: 0, // how many points the user has earned for the current game
+      numberOfEquations: 0, // number of challenges in the current game
       currentEquation: SynthesisEquation.create_N2_3H2_2NH3(), // any non-null {Equation} will do here
-      currentEquationIndex: 0, // index of the current challenge that the user is working on
-      currentLevel: 0,
-      challengesPerGame: 0
+      currentEquationIndex: 0 // index of the current challenge that the user is working on
     } );
 
     this.equations = []; // array of Equation
@@ -103,19 +103,19 @@ define( function( require ) {
     startGame: function() {
 
       // create a set of challenges
-      this.equations = GameFactory.createEquations( this.currentLevel );
+      this.equations = GameFactory.createEquations( this.level );
 
       // initialize simple fields
       this.attempts = 0;
       this.currentPoints = 0;
       this.isNewBestTime = false;
-      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.currentLevel ]();
+      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.level ]();
       this.timer.restart();
 
       // initialize properties
       this.currentEquation = this.equations [this.currentEquationIndex ];
       this.currentEquationIndex = 0;
-      this.challengesPerGame = this.equations.length;
+      this.numberOfEquations = this.equations.length;
       this.points = 0;
       this.state = this.states.CHECK;
     },
@@ -163,15 +163,15 @@ define( function( require ) {
     endGame: function() {
       this.timer.stop();
       //check for new best score
-      if ( this.points > this.bestScores[this.currentLevel].get() ) {
-        this.bestScores[this.currentLevel].set( this.points );
+      if ( this.points > this.bestScores[this.level].get() ) {
+        this.bestScores[this.level].set( this.points );
       }
 
       // check for new best time
-      var previousBestTime = this.bestTimes[this.currentLevel].get();
+      var previousBestTime = this.bestTimes[this.level].get();
       if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
         this.isNewBestTime = true;
-        this.bestTimes[this.currentLevel].set( this.timer.elapsedTime );
+        this.bestTimes[this.level].set( this.timer.elapsedTime );
       }
     },
 
@@ -218,7 +218,7 @@ define( function( require ) {
      * @return {Boolean}
      */
     isPerfectScore: function() {
-      return this.points === this.getPerfectScore( this.currentLevel );
+      return this.points === this.getPerfectScore( this.level );
     },
 
     /**
@@ -236,7 +236,7 @@ define( function( require ) {
       if ( this.currentEquationIndex < this.equations.length - 1 ) {
         this.attempts = 0;
         this.currentPoints = 0;
-        this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[this.currentLevel]();
+        this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[this.level]();
         this.currentEquationIndex++;
         this.currentEquation = this.equations[this.currentEquationIndex];
         this.state = this.states.CHECK;
