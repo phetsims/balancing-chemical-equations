@@ -50,9 +50,9 @@ define( function( require ) {
       // 'None'
       ComboBox.createItem( new Text( noneString, { font: FONT} ), BalancedRepresentation.NONE ),
       // scales
-      ComboBox.createItem( new Image( scalesImage, { font: FONT, scale: 0.375} ), BalancedRepresentation.BALANCE_SCALES ),
+      ComboBox.createItem( new Image( scalesImage, { scale: 0.375} ), BalancedRepresentation.BALANCE_SCALES ),
       // bar charts
-      ComboBox.createItem( new Image( chartsImage, { font: FONT, scale: 0.375} ), BalancedRepresentation.BAR_CHARTS )
+      ComboBox.createItem( new Image( chartsImage, { scale: 0.375} ), BalancedRepresentation.BAR_CHARTS )
     ];
 
     ComboBox.call( this, items, balanceRepresentationProperty, parentNode, options );
