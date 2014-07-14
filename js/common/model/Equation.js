@@ -116,7 +116,7 @@ define( function( require ) {
         balanced = balanced && ( product.userCoefficient === multiplier * product.balancedCoefficient );
       } );
 
-      this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific property first
+      this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific value first
       this.balanced = balanced;
     },
 
