@@ -191,9 +191,9 @@ define( function( require ) {
       if ( newEquation ) { newEquation.coefficientsSumProperty.link( coefficientsSumObserver ); }
     } );
 
-    // show the answer when running in dev mode, bottom center
     if ( BCEQueryParameters.DEV ) {
 
+      // display correct coefficient at bottom center of the screen
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
       this.gamePlayNode.addChild( answerNode );
       this.model.currentEquationProperty.link( function( equation ) {
