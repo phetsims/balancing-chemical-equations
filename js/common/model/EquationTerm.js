@@ -28,8 +28,8 @@ define( function( require ) {
       initialCoefficient: 0 // initial value of the coefficient
     }, options );
 
-    // If running in dev mode, fill in the correct answer.
-    if ( BCEQueryParameters.DEV ) {
+    // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
+    if ( BCEQueryParameters.PLAY_ALL ) {
       options.initialCoefficient = balancedCoefficient;
     }
 
