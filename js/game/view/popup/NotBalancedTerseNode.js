@@ -26,13 +26,11 @@ define( function( require ) {
   var showWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showWhy' );
 
   /**
-   * @param {Property<Vector2>} locationProperty
-   * @param {Bounds2} dragBounds
    * @param whyButtonListener
    * @constructor
    */
-  function NotBalancedTerseNode( locationProperty, dragBounds, whyButtonListener ) {
-    GamePopupNode.call( this, locationProperty, dragBounds, false, function( phetFont ) {
+  function NotBalancedTerseNode( whyButtonListener ) {
+    GamePopupNode.call( this, false, function( phetFont ) {
 
       // icon and text
       var hBox = new HBox( {

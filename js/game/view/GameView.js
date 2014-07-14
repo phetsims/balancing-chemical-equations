@@ -131,13 +131,11 @@ define( function( require ) {
 
     // popups
     this.popupNode = null; // @private looks like a dialog, tells user how they did
-    this.popupLocationProperty = new Property( new Vector2( this.layoutBounds.centerX, this.boxesNode.top + 10 ) ); // @private
-    this.popupDragBounds = this.layoutBounds;
     this.showWhyButtonListener = function() {
-      self.swapPopups( new NotBalancedVerboseNode( self.popupLocationProperty, self.popupDragBounds, self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
+      self.swapPopups( new NotBalancedVerboseNode( self.model.currentEquationProperty, self.hideWhyButtonListener, self.model.balancedRepresentation, self.aligner ) );
     };
     this.hideWhyButtonListener = function() {
-      self.swapPopups( new NotBalancedTerseNode( self.popupLocationProperty, self.popupDragBounds, self.showWhyButtonListener ) );
+      self.swapPopups( new NotBalancedTerseNode( self.showWhyButtonListener ) );
     };
 
     // Monitor the game state and update the view accordingly.
@@ -333,21 +331,22 @@ define( function( require ) {
       if ( this.popupNode !== null ) {
         this.gamePlayNode.removeChild( this.popupNode );
         this.popupNode = null;
-        this.popupLocationProperty.reset();
       }
       if ( visible ) {
 
         // evaluate the user's answer and create the proper type of node
         var equation = this.model.currentEquation;
         if ( equation.balancedAndSimplified ) {
-          this.popupNode = new BalancedNode( this.popupLocationProperty, this.popupDragBounds, this.model.currentPoints );
+          this.popupNode = new BalancedNode( this.model.currentPoints );
         }
         else if ( equation.balanced ) {
-          this.popupNode = new BalancedNotSimplifiedNode( this.popupLocationProperty, this.popupDragBounds );
+          this.popupNode = new BalancedNotSimplifiedNode();
         }
         else {
-          this.popupNode = new NotBalancedTerseNode( this.popupLocationProperty, this.popupDragBounds, this.showWhyButtonListener );
+          this.popupNode = new NotBalancedTerseNode(this.showWhyButtonListener );
         }
+        this.popupNode.centerX = this.layoutBounds.centerX;
+        this.popupNode.top = this.boxesNode.top + 10;
         this.gamePlayNode.addChild( this.popupNode ); // visible and in front
       }
     },
@@ -359,6 +358,7 @@ define( function( require ) {
      * @private
      */
     swapPopups: function( newPopupNode ) {
+      newPopupNode.centerTop = this.popupNode.centerTop;
       this.gamePlayNode.removeChild( this.popupNode );
       this.popupNode = newPopupNode;
       this.gamePlayNode.addChild( this.popupNode );
