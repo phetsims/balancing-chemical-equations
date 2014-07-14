@@ -69,8 +69,7 @@ define( function( require ) {
       attempts: 0,// how many attempts the user has made at solving the current challenge
       currentEquationIndex: 0, // index of the current challenge that the user is working on
       balancedRepresentation: null, // which representation to use in the "Not Balanced" popup
-      isNewBestTime: false, // is the time for this game a new best time?
-      timerEnabled: false
+      isNewBestTime: false // is the time for this game a new best time?
     } );
 
     this.equations = []; // array of Equation

@@ -55,6 +55,7 @@ define( function( require ) {
 
     this.viewProperties = new PropertySet( {
       soundEnabled: true,
+      timerEnabled: false,
       reactantsBoxExpanded: true,
       productsBoxExpanded: true
     } );
@@ -80,7 +81,7 @@ define( function( require ) {
       model.currentLevelProperty,
       model.pointsProperty,
       model.timer.elapsedTimeProperty,
-      model.timerEnabledProperty,
+      this.viewProperties.timerEnabledProperty,
       self.model.newGame.bind( self.model ),
       {
         font: new PhetFont( 14 ),

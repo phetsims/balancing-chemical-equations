@@ -63,6 +63,8 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
+   * @param {PropertySet} viewProperties
+   * @param {Bounds2} layoutBounds
    * @constructor
    */
   function LevelSelectionNode( model, viewProperties, layoutBounds ) {
@@ -94,7 +96,7 @@ define( function( require ) {
     var toggleOptions = { stroke: 'black', cornerRadius: 10 };
     var soundToggleButton = new SoundToggleButton( viewProperties.soundEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: layoutBounds.bottom - BUTTON_MARGIN} ) );
     this.addChild( soundToggleButton );
-    var timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: soundToggleButton.top - BUTTON_MARGIN / 2} ) );
+    var timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: soundToggleButton.top - BUTTON_MARGIN / 2} ) );
     this.addChild( timerToggleButton );
 
     // Reset All button, lower right
