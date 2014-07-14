@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function HorizontalAligner( screenWidth, boxSize, boxXSpacing ) {
     this.screenWidth = screenWidth; // @private
-    this.boxSize = boxSize;
+    this.boxSize = boxSize; // @private
     this.boxXSpacing = boxXSpacing; // @private
   }
 
@@ -96,6 +96,10 @@ define( function( require ) {
     getScreenRight: function() { return this.screenWidth; },
 
     getScreenCenterX: function() { return this.screenWidth / 2; },
+
+    getBoxWidth: function() { return this.boxSize.width; },
+
+    getBoxHeight: function() { return this.boxSize.height; },
 
     getReactantsBoxLeft: function() {
       return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxSize.width;

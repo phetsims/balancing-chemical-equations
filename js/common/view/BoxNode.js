@@ -91,12 +91,12 @@ define( function( require ) {
       this.termNodes = {}; //contains moleculeNodes with key term.molecule.symbol
       this.contentNode.removeAllChildren();
       var yMargin = 0;
-      var rowHeight = ( this.aligner.boxSize.height - ( 2 * yMargin ) ) / this.coefficientRange.max;
+      var rowHeight = ( this.aligner.getBoxHeight() - ( 2 * yMargin ) ) / this.coefficientRange.max;
 
       for ( var i = 0; i < terms.length; i++ ) {
         moleculeNodes = [];
         var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
-        var y = this.aligner.boxSize.height - yMargin - ( rowHeight / 2 );
+        var y = this.aligner.getBoxHeight() - yMargin - ( rowHeight / 2 );
         for ( var j = 0; j < this.coefficientRange.max; j++ ) {
           var moleculeNode = new MoleculeNodeConstructor( BCEConstants.ATOM_OPTIONS );
           moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );

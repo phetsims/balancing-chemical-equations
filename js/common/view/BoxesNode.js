@@ -41,9 +41,9 @@ define( function( require ) {
       fill: boxColor,
       title: reactantsString,
       x: aligner.getReactantsBoxLeft(),
-      width: aligner.boxSize.width,
+      width: aligner.getBoxWidth(),
       y: 0,
-      height: aligner.boxSize.height
+      height: aligner.getBoxHeight()
     } );
     this.addChild( this.reactantsBoxNode );
 
@@ -51,15 +51,15 @@ define( function( require ) {
       fill: boxColor,
       title: productsString,
       x: aligner.getProductsBoxLeft(),
-      width: aligner.boxSize.width,
+      width: aligner.getBoxWidth(),
       y: 0,
-      height: aligner.boxSize.height
+      height: aligner.getBoxHeight()
     } );
     this.addChild( this.productsBoxNode );
 
     // right-pointing arrow
     this.arrowNode = new RightArrowNode( model.currentEquationProperty.balanced );
-    this.arrowNode.center = new Vector2( aligner.getScreenCenterX(), aligner.boxSize.height / 2 );
+    this.arrowNode.center = new Vector2( aligner.getScreenCenterX(), aligner.getBoxHeight() / 2 );
     this.addChild( this.arrowNode );
 
     // if the equation changes...
