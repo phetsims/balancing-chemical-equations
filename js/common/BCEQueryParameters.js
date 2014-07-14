@@ -12,12 +12,12 @@ define( function( require ) {
 
   return {
     // enabled developer-only features
-    DEV: getQueryParameter( 'dev' ),
+    DEV: getQueryParameter( 'dev' ) || false,
 
     // play all challenges for each level of the game, to get 100% test coverage
-    PLAY_ALL: getQueryParameter( 'playAll' ),
+    PLAY_ALL: getQueryParameter( 'playAll' ) || false,
 
     // show the game reward regardless of score
-    REWARD: getQueryParameter( 'reward' )
+    REWARD: getQueryParameter( 'reward' ) || false
   }
 } );
