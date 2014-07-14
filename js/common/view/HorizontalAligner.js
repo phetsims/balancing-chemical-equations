@@ -31,6 +31,48 @@ define( function( require ) {
     this.maxX = maxX;
   }
 
+  /**
+   * Gets the x offsets for a set of terms.
+   * The box is divided up into columns and terms are centered in the columns.
+   * @param terms
+   * @param {Number} boxWidth
+   * @param {Number} boxLeft left edge of box
+   * @param alignment alignment for single term, 'left' or 'right'
+   * @returns [{number}] x offset for each term
+   */
+  var getXOffsets = function( terms, boxWidth, boxLeft, alignment ) {
+
+    assert && assert( alignment === 'left' || alignment === 'right ' );
+
+    var numberOfTerms = terms.length;
+    var xOffsets = [];
+    if ( numberOfTerms === 1 ) {
+      /*
+       * In the special case of 1 term, the box is divided into 2 columns,
+       * and the single term is centered in the column that corresponds to alignment.
+       */
+      if ( alignment === 'left' ) {
+        xOffsets[0] = boxLeft + ( 0.25 * boxWidth );
+      }
+      else {
+        xOffsets[0] = boxLeft + ( 0.75 * boxWidth );
+      }
+    }
+    else {
+      /*
+       * In the general case of N terms, the box is divided into N columns,
+       * and one term is centered in each column.
+       */
+      var columnWidth = boxWidth / numberOfTerms;
+      var x = boxLeft + columnWidth / 2;
+      for ( var i = 0; i < numberOfTerms; i++ ) {
+        xOffsets[i] = x;
+        x += columnWidth;
+      }
+    }
+    return xOffsets;
+  };
+
   return inherit( Object, HorizontalAligner, {
 
     /**
@@ -39,7 +81,8 @@ define( function( require ) {
      * @param equation
      */
     getReactantXOffsets: function( equation ) {
-      return this.getXOffsets( equation.reactants, false /*right justified */, this.centerXOffset - this.boxSize.width - this.boxSeparation / 2/* left edge of left box */ );
+      var boxLeft = this.centerXOffset - this.boxSize.width - this.boxSeparation / 2;
+      return getXOffsets( equation.reactants, this.boxSize.width, boxLeft, 'right' );
     },
 
     /**
@@ -48,42 +91,8 @@ define( function( require ) {
      * @param equation
      */
     getProductXOffsets: function( equation ) {
-      return this.getXOffsets( equation.products, true /*left justified */, this.centerXOffset + this.boxSeparation / 2/* left edge of right box */ );
-    },
-
-    /**
-     * Gets the x offsets for a set of terms.
-     * The box is divided up into columns and terms are centered in the columns.
-     * @param terms
-     * @param leftJustified
-     * @param xAdjustment
-     */
-    getXOffsets: function( terms, leftJustified, xAdjustment ) {
-      var numberOfTerms = terms.length;
-      var xOffsets = [];
-      if ( numberOfTerms === 1 ) {
-        /* In the special case of 1 term, the box is divided into 2 columns,
-         * and the single term is centered in the column that corresponds to alignment.*/
-        if ( leftJustified ) {
-          xOffsets[0] = xAdjustment + ( 0.25 * this.boxSize.width );
-        }
-        else {
-          xOffsets[0] = xAdjustment + ( 0.75 * this.boxSize.width );
-        }
-      }
-      else {
-        /*
-         * In the general case of N terms, the box is divided into N columns,
-         * and one term is centered in each column.
-         */
-        var columnWidth = this.boxSize.width / numberOfTerms;
-        var x = xAdjustment + columnWidth / 2;
-        for ( var i = 0; i < numberOfTerms; i++ ) {
-          xOffsets[i] = x;
-          x += columnWidth;
-        }
-      }
-      return xOffsets;
+      var boxLeft = this.centerXOffset + this.boxSeparation / 2;
+      return getXOffsets( equation.products, this.boxSize.width, boxLeft, 'left' );
     }
   } );
 } );
