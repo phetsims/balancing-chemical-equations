@@ -77,7 +77,7 @@ define( function( require ) {
       this.termsParent.removeAllChildren();
       this.termNodes = [];
 
-      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ), this.aligner.getScreenLeft(), this.aligner.getReactantsBoxRight() );
+      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ), this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
       this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ), this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
     },
 
