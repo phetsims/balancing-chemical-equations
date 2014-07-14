@@ -100,7 +100,8 @@ define( function( require ) {
     /**
      * An equation is balanced if all of its terms have a coefficient that is the
      * same integer multiple of the term's balanced coefficient.  If the integer
-     * multiple is 1, then the term is balanced with lowest possible coefficients.
+     * multiple is 1, then the term is "balanced and simplified" (balanced with
+     * lowest possible coefficients).
      */
     updateBalanced: function() {
 
