@@ -1,3 +1,4 @@
+7/14/14 encapsulate and document query parameters in BCEQueryParameters
 7/14/14 #66 remove 'move' feature from game dialog
 # 1.0.0-dev.8 7/11/14
 7/11/14 remove erroneous RSC credit, no funding was provided for this sim according to KP

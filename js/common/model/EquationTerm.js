@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
 
   /**
    * @param {Number} balancedCoefficient balanced coefficient for molecule
@@ -28,7 +29,7 @@ define( function( require ) {
     }, options );
 
     // If running in dev mode, fill in the correct answer.
-    if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+    if ( BCEQueryParameters.DEV ) {
       options.initialCoefficient = balancedCoefficient;
     }
 

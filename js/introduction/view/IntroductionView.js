@@ -26,6 +26,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
 
   // constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -97,7 +98,7 @@ define( function( require ) {
     } );
 
     // show the answer when running in dev mode, bottom center
-    if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+    if ( BCEQueryParameters.DEV ) {
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
       this.addChild( answerNode );
       model.currentEquationProperty.link( function( equation ) {

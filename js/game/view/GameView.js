@@ -31,6 +31,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Vector2 = require( 'DOT/Vector2' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
 
   // strings
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
@@ -182,7 +183,7 @@ define( function( require ) {
     } );
 
     // show the answer when running in dev mode, bottom center
-    if ( window.phetcommon.getQueryParameter( 'dev' ) ) {
+    if ( BCEQueryParameters.DEV ) {
 
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
       this.gamePlayNode.addChild( answerNode );
@@ -251,7 +252,7 @@ define( function( require ) {
       this.rootNode.removeAllChildren();
 
       // game reward, shown for perfect score (or with 'reward' query parameter)
-      if ( this.model.isPerfectScore() || window.phetcommon.getQueryParameter( 'reward' ) ) {
+      if ( this.model.isPerfectScore() || BCEQueryParameters.REWARD ) {
         this.rewardNode = new BCERewardNode( this.model.currentLevel );
         this.rootNode.addChild( this.rewardNode );
       }

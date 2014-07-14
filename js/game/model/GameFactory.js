@@ -19,6 +19,7 @@ define( function( require ) {
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
   var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
+  var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
 
   // constants
   var EQUATIONS_PER_GAME = 5;
@@ -271,7 +272,7 @@ define( function( require ) {
      * @returns {Window.length|*}
      */
     getNumberOfEquations: function( level ) {
-      return window.phetcommon.getQueryParameter( 'playAll' ) ? POOLS[level].length : EQUATIONS_PER_GAME;
+      return BCEQueryParameters.PLAY_ALL ? POOLS[level].length : EQUATIONS_PER_GAME;
     },
 
     /**
@@ -282,7 +283,7 @@ define( function( require ) {
      */
     createEquations: function( level ) {
       var equations = [];
-      var equationConstructors = ( window.phetcommon.getQueryParameter( 'playAll' ) ) ?
+      var equationConstructors = BCEQueryParameters.PLAY_ALL ?
                                  _.clone( POOLS[level] ) :
                                  STRATEGIES[level].getEquationConstructors( EQUATIONS_PER_GAME );
       equationConstructors.forEach( function( equationClass ) {
