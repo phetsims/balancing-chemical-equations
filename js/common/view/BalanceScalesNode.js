@@ -21,7 +21,7 @@ define( function( require ) {
   var BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
 
   /**
-   * @param {Property} equationProperty the equation that the scales are representing
+   * @param {Property<Equation>} equationProperty the equation that the scales are representing
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Number} maxY - max bottom y position of node
    * @constructor
@@ -31,6 +31,7 @@ define( function( require ) {
     var self = this;
     Node.call( this );
 
+    this.equationProperty = equationProperty
     this.maxY = maxY || 0;
     this.aligner = aligner;
 
@@ -41,11 +42,8 @@ define( function( require ) {
 
     // if the equation changes...
     equationProperty.link( function( newEquation, oldEquation ) {
-      if ( oldEquation ) {
-        oldEquation.removeCoefficientsObserver( coefficientsObserver );
-      }
-      self.equation = newEquation;
-      self.equation.addCoefficientsObserver( coefficientsObserver );
+      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+      newEquation.addCoefficientsObserver( coefficientsObserver );
       self.centerX = self.aligner.getScreenCenterX();
       self.bottom = self.maxY;
     } );
@@ -60,11 +58,11 @@ define( function( require ) {
       var self = this;
 
       this.removeAllChildren();
-      var atomCounts = this.equation.getAtomCounts();
+      var atomCounts = this.equationProperty.get().getAtomCounts();
       var xSpacing = 32;
       var dx = BalanceScaleNode.getBeamLength() + xSpacing;
       var x = 0;
-      var highlighted = this.equation.balanced;
+      var highlighted = this.equationProperty.get().balanced;
       atomCounts.forEach( function( atomCount ) {
         var scaleNode = new BalanceScaleNode( atomCount.element, atomCount.reactantsCount, atomCount.productsCount, highlighted, {x: x} );
         self.addChild( scaleNode );

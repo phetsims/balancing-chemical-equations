@@ -37,7 +37,7 @@ define( function( require ) {
     Node.call( this );
 
     this.aligner = aligner;
-    this.equation = equationProperty.get();
+    this.equationProperty = equationProperty;
     this.balancedHighlightEnabled = true;
 
     // boxes
@@ -68,15 +68,9 @@ define( function( require ) {
 
     // if the equation changes...
     equationProperty.link( function( newEquation, oldEquation ) {
-      if ( oldEquation ) {
-        oldEquation.removeCoefficientsObserver( self.updateMolecules.bind( self ) );
-      }
-      if ( newEquation ) {
-        self.equation = newEquation;
-        self.updateNode();
-        //observer for coefficients
-        self.equation.addCoefficientsObserver( self.updateMolecules.bind( self ) );
-      }
+      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( self.updateMolecules.bind( self ) ); }
+      self.updateNode();
+      newEquation.addCoefficientsObserver( self.updateMolecules.bind( self ) );
     } );
 
     this.mutate( options );
@@ -93,7 +87,7 @@ define( function( require ) {
     setBalancedHighlightEnabled: function( enabled ) {
       if ( enabled !== this.balancedHighlightEnabled ) {
         this.balancedHighlightEnabled = enabled;
-        this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
+        this.arrowNode.setHighlighted( this.equationProperty.get().balanced && this.balancedHighlightEnabled );
       }
     },
 
@@ -102,8 +96,9 @@ define( function( require ) {
      * @private
      */
     updateNode: function() {
-      this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
-      this.productsBoxNode.createMolecules( this.equation.products, this.aligner.getProductXOffsets( this.equation ) );
+      var equation = this.equationProperty.get();
+      this.reactantsBoxNode.createMolecules( equation.reactants, this.aligner.getReactantXOffsets( equation ) );
+      this.productsBoxNode.createMolecules( equation.products, this.aligner.getProductXOffsets( equation ) );
     },
 
     /**
@@ -111,9 +106,10 @@ define( function( require ) {
      * @private
      */
     updateMolecules: function() {
-      this.reactantsBoxNode.updateMolecules( this.equation.reactants );
-      this.productsBoxNode.updateMolecules( this.equation.products );
-      this.arrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
+      var equation = this.equationProperty.get();
+      this.reactantsBoxNode.updateMolecules( equation.reactants );
+      this.productsBoxNode.updateMolecules( equation.products );
+      this.arrowNode.setHighlighted( equation.balanced && this.balancedHighlightEnabled );
     }
   } );
 } );

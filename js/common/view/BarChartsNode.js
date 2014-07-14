@@ -65,11 +65,8 @@ define( function( require ) {
 
     // if the equation changes...
     equationProperty.link( function( newEquation, oldEquation ) {
-      if ( oldEquation ) {
-        oldEquation.removeCoefficientsObserver( coefficientsObserver );
-      }
-      self.equation = newEquation;
-      self.equation.addCoefficientsObserver( coefficientsObserver );
+      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+      newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
   }
 
@@ -91,7 +88,7 @@ define( function( require ) {
     updateChart: function( parentNode, isReactants ) {
       parentNode.removeAllChildren();
       var x = 0;
-      var atomCounts = this.equation.getAtomCounts();
+      var atomCounts = this.equationProperty.get().getAtomCounts();
 
       atomCounts.forEach( function( atomCount ) {
         var count = ( isReactants ? atomCount.reactantsCount : atomCount.productsCount );

@@ -18,7 +18,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {Equation} equationProperty
+   * @param {Property<Equation>} equationProperty
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Object} options
@@ -35,11 +35,11 @@ define( function( require ) {
     this.coefficientRange = coefficientRange;
     this.balancedHighlightEnabled = true;
     this.aligner = aligner;
-    this.equation = equationProperty;
+    this.equationProperty = equationProperty;
     this.termNodes = [];
 
     // arrow node, in a fixed location
-    this.rightArrowNode = new RightArrowNode( equationProperty.balanced );
+    this.rightArrowNode = new RightArrowNode( equationProperty.get().balanced );
     this.addChild( this.rightArrowNode );
     this.rightArrowNode.centerX = this.aligner.getScreenCenterX();
 
@@ -49,19 +49,14 @@ define( function( require ) {
 
     // if coefficients changes
     var coefficientsObserver = function() {
-      self.rightArrowNode.setHighlighted( self.equation.balanced && self.balancedHighlightEnabled );
+      self.rightArrowNode.setHighlighted( equationProperty.get().balanced && self.balancedHighlightEnabled );
     };
 
     // if the equation changes...
     equationProperty.link( function( newEquation, oldEquation ) {
-      if ( oldEquation ) {
-        oldEquation.balancedProperty.unlink( coefficientsObserver );
-      }
-      if ( newEquation ) {
-        self.equation = newEquation;
-        self.equation.balancedProperty.link( coefficientsObserver );
-        self.updateNode();
-      }
+      if ( oldEquation ) { oldEquation.balancedProperty.unlink( coefficientsObserver ); }
+      newEquation.balancedProperty.link( coefficientsObserver );
+      self.updateNode();
     } );
 
     this.mutate( options );
@@ -77,8 +72,9 @@ define( function( require ) {
       this.termsParent.removeAllChildren();
       this.termNodes = [];
 
-      this.updateSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ), this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
-      this.updateSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ), this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
+      var equation = this.equationProperty.get();
+      this.updateSideOfEquation( equation.reactants, this.aligner.getReactantXOffsets( equation ), this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
+      this.updateSideOfEquation( equation.products, this.aligner.getProductXOffsets( equation ), this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
     },
 
     /**
@@ -161,7 +157,7 @@ define( function( require ) {
     setBalancedHighlightEnabled: function( enabled ) {
       if ( enabled !== this.balancedHighlightEnabled ) {
         this.balancedHighlightEnabled = enabled;
-        this.rightArrowNode.setHighlighted( this.equation.balanced && this.balancedHighlightEnabled );
+        this.rightArrowNode.setHighlighted( this.equationProperty.get().balanced && this.balancedHighlightEnabled );
       }
     },
 

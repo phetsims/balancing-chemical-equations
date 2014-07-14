@@ -1,3 +1,4 @@
+7/14/14 remove unnecessary equation field in nodes that observe equationProperty, get value from equationProperty
 7/14/14 GameModel: rename some properties
 7/14/14 Game: move challengesPerGame property from view to model
 7/14/14 remove coupling between EquationChoiceNode and IntroductionModel
