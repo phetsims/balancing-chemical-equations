@@ -87,7 +87,7 @@ define( function( require ) {
     this.addChild( new EquationNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
-    var equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model, { bottom: this.layoutBounds.bottom - 10 } );
+    var equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.equations, { bottom: this.layoutBounds.bottom - 10 } );
     this.addChild( equationChoiceNode );
 
     // Reset All button
