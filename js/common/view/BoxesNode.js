@@ -23,11 +23,12 @@ define( function( require ) {
   /**
    * @param {model} model - current screen model.
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param {Dimension2} boxSize
    * @param {String} boxColor fill color of the boxes
    * @param {Object} options
    * @constructor
    */
-  function BoxesNode( model, aligner, boxColor, options ) {
+  function BoxesNode( model, aligner, boxSize, boxColor, options ) {
 
     var self = this;
     Node.call( this );
@@ -37,29 +38,29 @@ define( function( require ) {
     this.balancedHighlightEnabled = true;
 
     // boxes
-    this.reactantsBoxNode = new BoxNode( aligner, model.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
+    this.reactantsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
       fill: boxColor,
       title: reactantsString,
+      boxWidth: boxSize.width,
+      boxHeight: boxSize.height,
       x: aligner.getReactantsBoxLeft(),
-      width: aligner.getBoxWidth(),
-      y: 0,
-      height: aligner.getBoxHeight()
+      y: 0
     } );
     this.addChild( this.reactantsBoxNode );
 
-    this.productsBoxNode = new BoxNode( aligner, model.COEFFICENTS_RANGE, model.rightBoxOpenProperty, {
+    this.productsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, model.rightBoxOpenProperty, {
       fill: boxColor,
       title: productsString,
+      boxWidth: boxSize.width,
+      boxHeight: boxSize.height,
       x: aligner.getProductsBoxLeft(),
-      width: aligner.getBoxWidth(),
-      y: 0,
-      height: aligner.getBoxHeight()
+      y: 0
     } );
     this.addChild( this.productsBoxNode );
 
     // right-pointing arrow
     this.arrowNode = new RightArrowNode( model.currentEquationProperty.balanced );
-    this.arrowNode.center = new Vector2( aligner.getScreenCenterX(), aligner.getBoxHeight() / 2 );
+    this.arrowNode.center = new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 );
     this.addChild( this.arrowNode );
 
     // if the equation changes...

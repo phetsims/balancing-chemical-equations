@@ -24,17 +24,15 @@ define( function( require ) {
   var TITLE_FONT = new PhetFont( 18 );
 
   /**
-   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {Property} openProperty is Box open property
    * @param {Object} options
    * @constructor
    */
-  function BoxNode( aligner, coefficientRange, openProperty, options ) {
+  function BoxNode( coefficientRange, openProperty, options ) {
 
     var self = this;
     this.coefficientRange = coefficientRange;
-    this.aligner = aligner;
 
     Node.call( this, options );
 
@@ -47,12 +45,14 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 1,
       title: '',
-      width: 100,
-      height: 100
+      boxWidth: 100,
+      boxHeight: 100
     }, options );
 
+    this.boxHeight = options.boxHeight;
+
     // title
-    this.titleNode = new Rectangle( 0, 0, options.width, options.buttonLength + 2 * options.yMargin, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
+    this.titleNode = new Rectangle( 0, 0, options.boxWidth, options.buttonLength + 2 * options.yMargin, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
     this.addChild( this.titleNode );
     this.titleNode.addChild( new Text( options.title, {
       font: TITLE_FONT,
@@ -62,7 +62,7 @@ define( function( require ) {
     } ) );
 
     // content
-    this.contentNode = new Rectangle( 0, 0, options.width, options.height, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
+    this.contentNode = new Rectangle( 0, 0, options.boxWidth, options.boxHeight, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
     this.addChild( this.contentNode );
 
     // expand/collapse button
@@ -91,12 +91,12 @@ define( function( require ) {
       this.termNodes = {}; //contains moleculeNodes with key term.molecule.symbol
       this.contentNode.removeAllChildren();
       var yMargin = 0;
-      var rowHeight = ( this.aligner.getBoxHeight() - ( 2 * yMargin ) ) / this.coefficientRange.max;
+      var rowHeight = ( this.boxHeight - ( 2 * yMargin ) ) / this.coefficientRange.max;
 
       for ( var i = 0; i < terms.length; i++ ) {
         moleculeNodes = [];
         var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
-        var y = this.aligner.getBoxHeight() - yMargin - ( rowHeight / 2 );
+        var y = this.boxHeight - yMargin - ( rowHeight / 2 );
         for ( var j = 0; j < this.coefficientRange.max; j++ ) {
           var moleculeNode = new MoleculeNodeConstructor( BCEConstants.ATOM_OPTIONS );
           moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );

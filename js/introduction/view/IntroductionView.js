@@ -42,7 +42,7 @@ define( function( require ) {
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
     // aligner for equation
-    var horizontalAligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE, BOX_X_SPACING );
+    var horizontalAligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // 'Tools' combo box, at upper-right
     var comboBoxParent = new Node();
@@ -50,7 +50,7 @@ define( function( require ) {
       { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
 
     // boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( model, horizontalAligner, BCEConstants.BOX_COLOR, { top: 180 } );
+    var boxesNode = new BoxesNode( model, horizontalAligner, BOX_SIZE, BCEConstants.BOX_COLOR, { top: 180 } );
     this.addChild( boxesNode );
 
     // bar charts, above boxes

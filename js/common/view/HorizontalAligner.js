@@ -17,13 +17,13 @@ define( function( require ) {
 
   /**
    * @param {Number} screenWidth screen width
-   * @param {DOT.Dimension2} boxSize size of one of the 2 boxes (both boxes are assumed to be the same size)
+   * @param {DOT.Dimension2} boxWidth size of one of the 2 boxes (both boxes are assumed to be the same size)
    * @param {Number} boxSeparation horizontal separation between the left and right boxes
    * @constructor
    */
-  function HorizontalAligner( screenWidth, boxSize, boxXSpacing ) {
+  function HorizontalAligner( screenWidth, boxWidth, boxXSpacing ) {
     this.screenWidth = screenWidth; // @private
-    this.boxSize = boxSize; // @private
+    this.boxWidth = boxWidth; // @private
     this.boxXSpacing = boxXSpacing; // @private
   }
 
@@ -77,8 +77,8 @@ define( function( require ) {
      * @param equation
      */
     getReactantXOffsets: function( equation ) {
-      var boxLeft = this.screenWidth / 2 - this.boxSize.width - this.boxXSpacing / 2;
-      return getXOffsets( equation.reactants, this.boxSize.width, boxLeft, 'right' );
+      var boxLeft = this.screenWidth / 2 - this.boxWidth - this.boxXSpacing / 2;
+      return getXOffsets( equation.reactants, this.boxWidth, boxLeft, 'right' );
     },
 
     /**
@@ -88,7 +88,7 @@ define( function( require ) {
      */
     getProductXOffsets: function( equation ) {
       var boxLeft = this.screenWidth / 2 + this.boxXSpacing / 2;
-      return getXOffsets( equation.products, this.boxSize.width, boxLeft, 'left' );
+      return getXOffsets( equation.products, this.boxWidth, boxLeft, 'left' );
     },
 
     getScreenLeft: function() { return 0; },
@@ -97,12 +97,8 @@ define( function( require ) {
 
     getScreenCenterX: function() { return this.screenWidth / 2; },
 
-    getBoxWidth: function() { return this.boxSize.width; },
-
-    getBoxHeight: function() { return this.boxSize.height; },
-
     getReactantsBoxLeft: function() {
-      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxSize.width;
+      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth;
     },
 
     getProductsBoxLeft: function() {
@@ -114,15 +110,15 @@ define( function( require ) {
     },
 
     getProductsBoxRight: function() {
-      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxSize.width;
+      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth;
     },
 
     getReactantsBoxCenterX: function() {
-      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxSize.width / 2;
+      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth / 2;
     },
 
     getProductsBoxCenterX: function() {
-      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxSize.width / 2;
+      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth / 2;
     }
   } );
 } );
