@@ -197,10 +197,12 @@ define( function( require ) {
 
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
       this.gamePlayNode.addChild( answerNode );
-      // lazyLink, because there is no current equation until a game begins
-      this.model.currentEquationProperty.lazyLink( function( equation ) {
-        answerNode.text = equation.getCoefficientsString();
-        answerNode.centerX = self.layoutBounds.centerX;
+      this.model.currentEquationProperty.link( function( equation ) {
+         // there is no current equation at startup or on reset
+        if ( equation ) {
+          answerNode.text = equation.getCoefficientsString();
+          answerNode.centerX = self.layoutBounds.centerX;
+        }
       } );
 
       // skips the current equation

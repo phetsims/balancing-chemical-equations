@@ -1,3 +1,4 @@
+7/14/14 fix in GameView, where current equation is undefined until a level is selected (on startup and on reset)
 7/14/14 Game: move timerEnabled property to view
 7/14/14 Intro: move balancedRepresentation property from model to view
 7/14/14 move view-specific properties out of models (soundEnabled, reactantsBoxExpanded, productsBoxExpanded)
