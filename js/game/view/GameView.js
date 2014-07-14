@@ -95,8 +95,8 @@ define( function( require ) {
     this.gamePlayNode.addChild( scoreboard );
 
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( model, this.aligner, BOX_SIZE, BCEConstants.BOX_COLOR,
-      this.viewProperties.reactantsBoxExpandedProperty, this.viewProperties.productsBoxExpandedProperty,
+    this.boxesNode = new BoxesNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, this.aligner,
+      BOX_SIZE, BCEConstants.BOX_COLOR, this.viewProperties.reactantsBoxExpandedProperty, this.viewProperties.productsBoxExpandedProperty,
       { y: scoreboard.bottom + 15 } );
     this.gamePlayNode.addChild( this.boxesNode );
 
@@ -198,11 +198,8 @@ define( function( require ) {
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
       this.gamePlayNode.addChild( answerNode );
       this.model.currentEquationProperty.link( function( equation ) {
-         // there is no current equation at startup or on reset
-        if ( equation ) {
-          answerNode.text = equation.getCoefficientsString();
-          answerNode.centerX = self.layoutBounds.centerX;
-        }
+        answerNode.text = equation.getCoefficientsString();
+        answerNode.centerX = self.layoutBounds.centerX;
       } );
 
       // skips the current equation

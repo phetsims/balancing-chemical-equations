@@ -1,3 +1,6 @@
+7/14/14 rename IntroductionModel.currentEquation to equation
+7/14/14 remove coupling between BoxesNode and models
+7/14/14 give GameModel.currentEquation a non-null initial value, to prevent the recurring problems that this had been causing
 7/14/14 Game: convert Properties that are not observed to simple fields (currentPoints, attempts, balancedRepresentation, isNewBestTime)
 7/14/14 fix in GameView, where current equation is undefined until a level is selected (on startup and on reset)
 7/14/14 Game: move timerEnabled property to view

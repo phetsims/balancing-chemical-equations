@@ -32,7 +32,7 @@ define( function( require ) {
     ];
 
     PropertySet.call( this, {
-      currentEquation: this.equations[0]
+      equation: this.equations[0] // the equation that is selected
     } );
   }
 

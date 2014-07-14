@@ -21,7 +21,8 @@ define( function( require ) {
   var productsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/products' );
 
   /**
-   * @param {model} model - current screen model.
+   * @param {Property<Equation>} equationProperty the equation displayed in the boxes
+   * @param {Range} coefficientsRange
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Dimension2} boxSize
    * @param {String} boxColor fill color of the boxes
@@ -30,17 +31,17 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  function BoxesNode( model, aligner, boxSize, boxColor, reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
+  function BoxesNode( equationProperty, coefficientsRange, aligner, boxSize, boxColor, reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
 
     var self = this;
     Node.call( this );
 
     this.aligner = aligner;
-    this.equation = model.currentEquation;
+    this.equation = equationProperty.get();
     this.balancedHighlightEnabled = true;
 
     // boxes
-    this.reactantsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, reactantsBoxExpandedProperty, {
+    this.reactantsBoxNode = new BoxNode( coefficientsRange, reactantsBoxExpandedProperty, {
       fill: boxColor,
       title: reactantsString,
       boxWidth: boxSize.width,
@@ -50,7 +51,7 @@ define( function( require ) {
     } );
     this.addChild( this.reactantsBoxNode );
 
-    this.productsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, productsBoxExpandedProperty, {
+    this.productsBoxNode = new BoxNode( coefficientsRange, productsBoxExpandedProperty, {
       fill: boxColor,
       title: productsString,
       boxWidth: boxSize.width,
@@ -61,12 +62,12 @@ define( function( require ) {
     this.addChild( this.productsBoxNode );
 
     // right-pointing arrow
-    this.arrowNode = new RightArrowNode( model.currentEquationProperty.balanced );
+    this.arrowNode = new RightArrowNode( equationProperty.get().balanced );
     this.arrowNode.center = new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 );
     this.addChild( this.arrowNode );
 
     // if the equation changes...
-    model.currentEquationProperty.link( function( newEquation, oldEquation ) {
+    equationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) {
         oldEquation.removeCoefficientsObserver( self.updateMolecules.bind( self ) );
       }
@@ -97,7 +98,8 @@ define( function( require ) {
     },
 
     /**
-     * create new equation molecules.
+     * Creates new equation molecules.
+     * @private
      */
     updateNode: function() {
       this.reactantsBoxNode.createMolecules( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ) );
@@ -106,6 +108,7 @@ define( function( require ) {
 
     /**
      * Updates the number of visible molecules and arrow highlighting.
+     * @private
      */
     updateMolecules: function() {
       this.reactantsBoxNode.updateMolecules( this.equation.reactants );

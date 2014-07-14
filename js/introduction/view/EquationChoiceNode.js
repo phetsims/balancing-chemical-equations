@@ -38,7 +38,7 @@ define( function( require ) {
     // radio buttons, one for each equation, arranged horizontally
     var radioButtons = [];
     model.equations.forEach( function( equation ) {
-       radioButtons.push( new AquaRadioButton( model.currentEquationProperty, equation, new Text( equation.name, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS ) );
+       radioButtons.push( new AquaRadioButton( model.equationProperty, equation, new Text( equation.name, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS ) );
     } );
     this.addChild( new HBox( {
       children: radioButtons,

@@ -16,6 +16,7 @@ define( function( require ) {
   var GameFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameFactory' );
   var GameTimer = require( 'VEGAS/GameTimer' );
   var Range = require( 'DOT/Range' );
+  var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
   // constants
   /*
@@ -63,7 +64,7 @@ define( function( require ) {
     PropertySet.call( this, {
       state: self.states.LEVEL_SELECTION,
       points: 0, // how many points the user has earned for the current game
-      currentEquation: null,
+      currentEquation: SynthesisEquation.create_N2_3H2_2NH3(), // any non-null {Equation} will do here
       currentEquationIndex: 0, // index of the current challenge that the user is working on
       currentLevel: 0
     } );

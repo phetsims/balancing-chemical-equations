@@ -57,26 +57,26 @@ define( function( require ) {
       { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
 
     // boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( model, aligner, BOX_SIZE, BCEConstants.BOX_COLOR,
-      viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
+    var boxesNode = new BoxesNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner,
+      BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { top: 180 } );
     this.addChild( boxesNode );
 
     // bar charts, above boxes
-    var barChartsNode = new BarChartsNode( model.currentEquationProperty, aligner, boxesNode.top - 10 /* maxY */ );
+    var barChartsNode = new BarChartsNode( model.equationProperty, aligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( barChartsNode );
 
     // balance scales, above boxes
-    var balanceScalesNode = new BalanceScalesNode( model.currentEquationProperty, aligner, boxesNode.top - 10 /* maxY */ );
+    var balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, boxesNode.top - 10 /* maxY */ );
     this.addChild( balanceScalesNode );
 
     // smiley face, top center, shown when equation is balanced
     var faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
     this.addChild( faceNode );
     var updateFace = function() {
-      faceNode.visible = model.currentEquationProperty.get().balanced;
+      faceNode.visible = model.equationProperty.get().balanced;
     };
-    model.currentEquationProperty.link( function( newEquation, oldEquation ) {
+    model.equationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) {
         oldEquation.removeCoefficientsObserver( updateFace );
       }
@@ -84,7 +84,7 @@ define( function( require ) {
     } );
 
     // interactive equation
-    this.addChild( new EquationNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, aligner, { top: boxesNode.bottom + 20 } ) );
+    this.addChild( new EquationNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
     var equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model, { bottom: this.layoutBounds.bottom - 10 } );
@@ -113,7 +113,7 @@ define( function( require ) {
     if ( BCEQueryParameters.DEV ) {
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
       this.addChild( answerNode );
-      model.currentEquationProperty.link( function( equation ) {
+      model.equationProperty.link( function( equation ) {
         answerNode.text = equation.getCoefficientsString();
         answerNode.centerX = self.layoutBounds.centerX;
       } );
