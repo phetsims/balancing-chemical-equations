@@ -27,6 +27,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
   // constants
   var BOX_SIZE = new Dimension2( 285, 145 );
@@ -41,6 +42,11 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
+    var viewProperties = new PropertySet( {
+      reactantsBoxExpanded: true,
+      productsBoxExpanded: true
+    } );
+
     // aligner for equation
     var aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
@@ -50,7 +56,9 @@ define( function( require ) {
       { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
 
     // boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( model, aligner, BOX_SIZE, BCEConstants.BOX_COLOR, { top: 180 } );
+    var boxesNode = new BoxesNode( model, aligner, BOX_SIZE, BCEConstants.BOX_COLOR,
+      viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
+      { top: 180 } );
     this.addChild( boxesNode );
 
     // bar charts, above boxes
@@ -83,7 +91,10 @@ define( function( require ) {
 
     // Reset All button
     this.addChild( new ResetAllButton( {
-      listener: model.reset.bind( model ),
+      listener: function() {
+        model.reset();
+        viewProperties.reset();
+      },
       right: this.layoutBounds.right - 20,
       centerY: equationChoiceNode.centerY,
       scale: 0.8

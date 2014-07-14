@@ -25,10 +25,12 @@ define( function( require ) {
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Dimension2} boxSize
    * @param {String} boxColor fill color of the boxes
+   * @param {Property<Boolean>} reactantsBoxExpandedProperty
+   * @param {Property<Boolean>} productsBoxExpandedProperty
    * @param {Object} options
    * @constructor
    */
-  function BoxesNode( model, aligner, boxSize, boxColor, options ) {
+  function BoxesNode( model, aligner, boxSize, boxColor, reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
 
     var self = this;
     Node.call( this );
@@ -38,7 +40,7 @@ define( function( require ) {
     this.balancedHighlightEnabled = true;
 
     // boxes
-    this.reactantsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, model.leftBoxOpenProperty, {
+    this.reactantsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, reactantsBoxExpandedProperty, {
       fill: boxColor,
       title: reactantsString,
       boxWidth: boxSize.width,
@@ -48,7 +50,7 @@ define( function( require ) {
     } );
     this.addChild( this.reactantsBoxNode );
 
-    this.productsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, model.rightBoxOpenProperty, {
+    this.productsBoxNode = new BoxNode( model.COEFFICENTS_RANGE, productsBoxExpandedProperty, {
       fill: boxColor,
       title: productsString,
       boxWidth: boxSize.width,

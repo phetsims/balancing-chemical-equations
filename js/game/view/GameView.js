@@ -32,6 +32,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Text = require( 'SCENERY/nodes/Text' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
   // strings
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
@@ -52,8 +53,14 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
 
+    this.viewProperties = new PropertySet( {
+      soundEnabled: true,
+      reactantsBoxExpanded: true,
+      productsBoxExpanded: true
+    } );
+
     this.model = model;
-    this.audioPlayer = new GameAudioPlayer( model.soundEnabledProperty );
+    this.audioPlayer = new GameAudioPlayer( this.viewProperties.soundEnabledProperty );
     this.aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // Add a root node where all of the game-related nodes will live.
@@ -61,7 +68,7 @@ define( function( require ) {
     this.addChild( this.rootNode );
 
     // main nodes, start and game
-    this.levelSelectionNode = new LevelSelectionNode( this.model, this.layoutBounds );
+    this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds );
     this.gamePlayNode = new Node();
 
     // Scoreboard bar at the top of the screen
@@ -87,7 +94,9 @@ define( function( require ) {
     this.gamePlayNode.addChild( scoreboard );
 
     // boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( model, this.aligner, BOX_SIZE, BCEConstants.BOX_COLOR, { y: scoreboard.bottom + 15 } );
+    this.boxesNode = new BoxesNode( model, this.aligner, BOX_SIZE, BCEConstants.BOX_COLOR,
+      this.viewProperties.reactantsBoxExpandedProperty, this.viewProperties.productsBoxExpandedProperty,
+      { y: scoreboard.bottom + 15 } );
     this.gamePlayNode.addChild( this.boxesNode );
 
     // Equation
@@ -218,6 +227,8 @@ define( function( require ) {
     },
 
     initStartGame: function() {
+      this.viewProperties.reactantsBoxExpandedProperty.reset();
+      this.viewProperties.productsBoxExpandedProperty.reset();
       this.rootNode.removeAllChildren();
       this.rootNode.addChild( this.gamePlayNode );
       this.model.startGame();

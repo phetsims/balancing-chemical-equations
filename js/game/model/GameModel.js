@@ -70,10 +70,7 @@ define( function( require ) {
       currentEquationIndex: 0, // index of the current equation that the user is working on
       balancedRepresentation: null, // which representation to use in the "Not Balanced" popup
       isNewBestTime: false, // is the time for this game a new best time?
-      soundEnabled: true,
-      timerEnabled: false,
-      leftBoxOpen: true,
-      rightBoxOpen: true
+      timerEnabled: false
     } );
 
     this.equations = []; // array of Equation
@@ -221,8 +218,6 @@ define( function( require ) {
      */
     newGame: function() {
       this.state = this.states.LEVEL_SELECTION;
-      this.leftBoxOpenProperty.reset();
-      this.rightBoxOpenProperty.reset();
       this.timer.restart();
     },
 
