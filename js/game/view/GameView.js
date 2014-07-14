@@ -66,9 +66,13 @@ define( function( require ) {
     this.rootNode = new Node();
     this.addChild( this.rootNode );
 
-    // main nodes, start and game
-    this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds );
-    this.gamePlayNode = new Node();
+    // level-selection interface
+    this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds, { visible: false } );
+    this.rootNode.addChild( this.levelSelectionNode );
+
+    // game-play interface, all the UI elements for a challenge
+    this.gamePlayNode = new Node( { visible: false } );
+    this.rootNode.addChild( this.gamePlayNode );
 
     // Scoreboard bar at the top of the screen
     var scoreboard = new ScoreboardBar(
@@ -219,15 +223,15 @@ define( function( require ) {
     },
 
     initLevelSelection: function() {
-      this.rootNode.removeAllChildren();
-      this.rootNode.addChild( this.levelSelectionNode );
+      this.gamePlayNode.visible = false;
+      this.levelSelectionNode.visible = true;
     },
 
     initStartGame: function() {
       this.viewProperties.reactantsBoxExpandedProperty.reset();
       this.viewProperties.productsBoxExpandedProperty.reset();
-      this.rootNode.removeAllChildren();
-      this.rootNode.addChild( this.gamePlayNode );
+      this.levelSelectionNode.visible = false;
+      this.gamePlayNode.visible = true;
       this.model.startGame();
     },
 
@@ -256,7 +260,8 @@ define( function( require ) {
 
     initLevelCompleted: function() {
       var self = this;
-      this.rootNode.removeAllChildren();
+
+      this.levelSelectionNode.visible = this.gamePlayNode.visible = false;
 
       // game reward, shown for perfect score (or with 'reward' query parameter)
       if ( this.model.isPerfectScore() || BCEQueryParameters.REWARD ) {
@@ -269,14 +274,18 @@ define( function( require ) {
 
       // Add the dialog node that indicates that the level has been completed.
       var numberOfEquations = this.model.getNumberOfEquations( this.model.level );
-      this.rootNode.addChild( new LevelCompletedNode( this.model.level, this.model.points, this.model.getPerfectScore( this.model.level ),
+      var levelCompletedNode = new LevelCompletedNode( this.model.level, this.model.points, this.model.getPerfectScore( this.model.level ),
         numberOfEquations, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
-        // continueFunction
+        // function called when 'Continue' button is pressed
         function() {
+          // remove the reward, if we have one
           if ( self.rewardNode ) {
             self.rootNode.removeChild( self.rewardNode );
             self.rewardNode = null;
           }
+          // remove the level-completed dialog
+          self.rootNode.removeChild( levelCompletedNode );
+          // go back to the level-selection screen
           self.model.state = self.model.states.LEVEL_SELECTION;
         },
         {
@@ -286,7 +295,8 @@ define( function( require ) {
           centerY: this.layoutBounds.centerY,
           levelVisible: false
         }
-      ) );
+      );
+      this.rootNode.addChild( levelCompletedNode );
 
       // Play the appropriate audio feedback.
       if ( this.model.isPerfectScore() ) {

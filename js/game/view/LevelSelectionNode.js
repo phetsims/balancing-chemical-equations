@@ -65,9 +65,10 @@ define( function( require ) {
    * @param {GameModel} model
    * @param {PropertySet} viewProperties
    * @param {Bounds2} layoutBounds
+   * @param {*} options
    * @constructor
    */
-  function LevelSelectionNode( model, viewProperties, layoutBounds ) {
+  function LevelSelectionNode( model, viewProperties, layoutBounds, options ) {
 
     Node.call( this );
 
@@ -109,6 +110,8 @@ define( function( require ) {
       bottom: layoutBounds.bottom - BUTTON_MARGIN
     } );
     this.addChild( resetButton );
+
+    this.mutate( options );
   }
 
   return inherit( Node, LevelSelectionNode );
