@@ -113,8 +113,8 @@ define( function( require ) {
       this.timer.restart();
 
       // initialize properties
-      this.currentEquation = this.equations [this.currentEquationIndex ];
       this.currentEquationIndex = 0;
+      this.currentEquation = this.equations[ this.currentEquationIndex ];
       this.numberOfEquations = this.equations.length;
       this.points = 0;
       this.state = this.states.CHECK;

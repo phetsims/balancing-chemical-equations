@@ -1,3 +1,4 @@
+7/14/14 fix in GameModel.startGame: reset currentEquationIndex before using it to choose currentEquation
 7/14/14 #29 move Next, Try Again, and Show Answer buttons into game feedback dialog (when appropriate), remove from play area
 7/14/14 #76 replace complicated game popup types (5 files) with a single type, GameFeedbackDialog
 7/14/14 #69 use visible instead of add/removeChild to transition between level-selection and game-play interfaces
