@@ -26,6 +26,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var VStrut = require( 'SUN/VStrut' );
 
   // strings
   var balancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balanced' );
@@ -34,34 +35,80 @@ define( function( require ) {
   var notSimplifiedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/notSimplified' );
   var pattern0PointsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0points' );
   var showWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showWhy' );
+  var nextString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/next' );
+  var tryAgainString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tryAgain' );
+  var showAnswerString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showAnswer' );
+
+  // constants
+  var TEXT_FONT = new PhetFont( 18 );
+  var STATE_BUTTON_FONT = new PhetFont( 20 );
+  var STATE_BUTTON_FILL = 'yellow';
+  var WHY_BUTTON_FONT = new PhetFont( 16 );
+  var WHY_BUTTON_FILL = '#d9d9d9';
+  var ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
 
   /**
+   * Creates a text button that performs a model state change when pressed.
+   * @param {String} label
+   * @param {function} modelFunction model function that performs the state change
+   * @returns {TextPushButton}
+   */
+  var createStateChangeButton = function( label, modelFunction ) {
+    return new TextPushButton( label, {
+      font: STATE_BUTTON_FONT,
+      baseColor: STATE_BUTTON_FILL,
+      listener: function() {
+        modelFunction();
+      }
+    } );
+  };
+
+  /**
+   * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
    * @param {Equation} equation
-   * @param {HorizontalAligner} aligner
    * @param {BalancedRepresentation} balancedRepresentation
-   * @param {Number} points
+   * @param {HorizontalAligner} aligner
+   * @returns {Node}
+   */
+  var createBalancedRepresentation = function( equation, balancedRepresentation, aligner ) {
+    var balancedRepresentationNode;
+    if ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
+      balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );
+    }
+    else if ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
+      balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
+    }
+    else {
+      throw new Error( 'unsupported balancedRepresentation: ' + balancedRepresentation );
+    }
+    balancedRepresentationNode.setScaleMagnitude( 0.65 ); // issue #29, shrink size so that it doesn't cover so much of the screen
+    return balancedRepresentationNode;
+  };
+
+  /**
+   * @param {GameModel} model
+   * @param {HorizontalAligner} aligner
    * @param {*} options
    * @constructor
    */
-  function GameFeedbackDialog( equation, aligner, balancedRepresentation, points, options ) {
+  function GameFeedbackDialog( model, aligner, options ) {
 
-    var self = this;
-    
     options = _.extend( {
       fill: '#c1d8fe',
-      xMargin: 25,
+      xMargin: 40,
       yMargin: 10,
       cornerRadius: 0,
       hBoxSpacing: 0,
-      vBoxSpacing: 5,
-      buttonFill: '#d9d9d9',
-      buttonFont: new PhetFont( 20 ),
-      textFont: new PhetFont( 18 ),
+      vBoxSpacing: 7,
       shadowXOffset: 5,
       shadowYOffset: 5
     }, options );
 
-    var textOptions = { font: options.textFont };
+    var self = this;
+    var equation = model.currentEquation;
+    var balancedRepresentation = model.balancedRepresentation;
+    var points = model.currentPoints;
+    var textOptions = { font: TEXT_FONT };
 
     // happy/sad face
     var faceNode = new FaceNode( 75 );
@@ -69,15 +116,22 @@ define( function( require ) {
 
     var content;
     if ( equation.balancedAndSimplified ) {
-      // balanced and simplified: happy face with 'balanced' and number of points below it.
+      // balanced and simplified
       content = new VBox( {
         children: [
+          // happy face
           faceNode,
+          // check mark + 'balanced'
           new HBox( {
             children: [ BCEConstants.CORRECT_ICON, new Text( balancedString, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
-          new Text( StringUtils.format( pattern0PointsString, points ), textOptions )
+          // points awarded
+          new Text( StringUtils.format( pattern0PointsString, points ), { font: new PhetFont( { size: 24, weight: 'bold' } ) } ),
+          // space
+          new VStrut( ACTION_AREA_Y_SPACING ),
+          // Next button
+          createStateChangeButton( nextString, model.next.bind( model ) )
         ],
         spacing: options.vBoxSpacing
       } );
@@ -86,39 +140,36 @@ define( function( require ) {
       // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
       content = new VBox( {
         children: [
+          // happy face
           faceNode,
+          // check mark + 'balanced'
           new HBox( {
             children: [ BCEConstants.CORRECT_ICON, new Text( balancedString, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
+          // red X + 'not simplified'
           new HBox( {
             children: [ BCEConstants.INCORRECT_ICON, new Text( notSimplifiedString, textOptions ) ],
             spacing: options.hBoxSpacing
-          } )
+          } ),
+          // space
+          new VStrut( ACTION_AREA_Y_SPACING ),
+          // Try Again or Show Answer button
+          ( model.state === model.states.TRY_AGAIN )
+            ? createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) )
+            : createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) )
         ],
         spacing: options.vBoxSpacing
       } );
     }
     else {
-      // not balanced: sad face with 'not balanced' and 'Show/Hide Why' button below it
+      // not balanced
 
-      // representation of "balanced", becomes visible when you press 'Show Why'
-      var balancedRepresentationNode;
-      if ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
-        balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );
-      }
-      else if ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
-        balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
-      }
-      else {
-        throw new Error( 'unsupported balancedRepresentation: ' + balancedRepresentation );
-      }
-      balancedRepresentationNode.setScaleMagnitude( 0.65 ); // issue #29, shrink size so that it doesn't cover so much of the screen
+      var saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
+      var balancedRepresentationNode = createBalancedRepresentation( equation, balancedRepresentation, aligner );
 
-      // buttons
-      var saveCenterX;
+      // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
       var showWhyButton = new TextPushButton( showWhyString, {
-        // 'Show Why' button exposes one of the 'balanced' representations to explain why it's not balanced
         listener: function() {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
@@ -126,12 +177,13 @@ define( function( require ) {
           content.addChild( balancedRepresentationNode );
           self.centerX = saveCenterX;
         },
-        font: options.buttonFont,
-        baseColor: options.buttonFill,
+        font: WHY_BUTTON_FONT,
+        baseColor: WHY_BUTTON_FILL,
         visible: true
       } );
+
+      // 'Hide Why' button, hides the 'balanced' representation
       var hideWhyButton = new TextPushButton( hideWhyString, {
-        // 'Hide Why' button hides the 'balanced' representation
         listener: function() {
           showWhyButton.visible = true;
           hideWhyButton.visible = false;
@@ -139,16 +191,17 @@ define( function( require ) {
           content.removeChild( balancedRepresentationNode );
           self.centerX = saveCenterX;
         },
-        font: options.buttonFont,
-        baseColor: options.buttonFill,
+        font: WHY_BUTTON_FONT,
+        baseColor: WHY_BUTTON_FILL,
         visible: !showWhyButton.visible,
         center: showWhyButton.center
       } );
-      var buttonsParent = new Node( { children: [ showWhyButton, hideWhyButton ] } );
 
       content = new VBox( {
         children: [
+          // sad face
           faceNode,
+          // red X + 'not balanced'
           new HBox( {
             children: [
               BCEConstants.INCORRECT_ICON,
@@ -156,7 +209,14 @@ define( function( require ) {
             ],
             spacing: options.hBoxSpacing
           } ),
-          buttonsParent
+          // space
+          new VStrut( ACTION_AREA_Y_SPACING ),
+          // Try Again or Show Answer button
+          ( model.state === model.states.TRY_AGAIN )
+            ? createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) )
+            : createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) ),
+          // Show/Hide Why buttons
+          new Node( { children: [ showWhyButton, hideWhyButton ] } )
         ],
         spacing: options.vBoxSpacing
       } );

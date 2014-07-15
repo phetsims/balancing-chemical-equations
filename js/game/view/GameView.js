@@ -32,8 +32,6 @@ define( function( require ) {
   // strings
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
   var nextString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/next' );
-  var tryAgainString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tryAgain' );
-  var showAnswerString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showAnswer' );
 
   // Constants
   var BOX_SIZE = new Dimension2( 285, 340 );
@@ -121,19 +119,9 @@ define( function( require ) {
         self.model.next();
       }
     } ) );
-    this.tryAgainButton = new TextPushButton( tryAgainString, _.extend( BUTTONS_OPTIONS, {
-      listener: function() {
-        self.model.tryAgain();
-      }
-    } ) );
-    this.showAnswerButton = new TextPushButton( showAnswerString, _.extend( BUTTONS_OPTIONS, {
-      listener: function() {
-        self.model.showAnswer();
-      }
-    } ) );
 
     // scale buttons uniformly to fit the horizontal space between the boxes, see issue #68
-    var buttonsParent = new Node( { children: [ this.checkButton, this.nextButton, this.tryAgainButton, this.showAnswerButton ] } );
+    var buttonsParent = new Node( { children: [ this.checkButton, this.nextButton ] } );
     buttonsParent.setScaleMagnitude( Math.min( 1, 0.85 * BOX_X_SPACING / buttonsParent.width ) );
     buttonsParent.centerX = this.layoutBounds.centerX;
     buttonsParent.bottom = this.boxesNode.bottom;
@@ -194,10 +182,12 @@ define( function( require ) {
 
       // skips the current equation
       var skipButton = new TextPushButton( 'Skip', {
-        font: new PhetFont( 12 ),
+        font: new PhetFont( 10 ),
+        baseColor: 'red',
+        textFill: 'white',
         listener: model.next.bind( model ), // equivalent to 'Next'
-        centerX: buttonsParent.centerX,
-        bottom: buttonsParent.top - 8
+        left: this.layoutBounds.left + 4,
+        bottom: this.layoutBounds.bottom - 2
       } );
       this.gamePlayNode.addChild( skipButton );
     }
@@ -225,25 +215,28 @@ define( function( require ) {
     },
 
     initCheck: function() {
-      this.setBalancedHighlightEnabled( false );
-      this.setButtonNodeVisible( this.checkButton );
+      this.checkButton.visible = true;
+      this.nextButton.visible = false;
       this.setFeedbackDialogVisible( false );
+      this.setBalancedHighlightEnabled( false );
     },
 
     initTryAgain: function() {
-      this.setButtonNodeVisible( this.tryAgainButton );
+      this.checkButton.visible = false;
       this.setFeedbackDialogVisible( true );
     },
 
     initShowAnswer: function() {
-      this.setButtonNodeVisible( this.showAnswerButton );
+      this.checkButton.visible = false;
       this.setFeedbackDialogVisible( true );
     },
 
     initNext: function() {
+      var correct = this.model.currentEquation.balancedAndSimplified;
+      this.nextButton.visible = ( !correct );
+      this.checkButton.visible = false;
+      this.setFeedbackDialogVisible( correct );
       this.setBalancedHighlightEnabled( true );
-      this.setButtonNodeVisible( this.nextButton );
-      this.setFeedbackDialogVisible( this.model.currentEquation.balancedAndSimplified );
       this.model.currentEquation.balance(); // show the correct answer
     },
 
@@ -306,20 +299,6 @@ define( function( require ) {
       this.boxesNode.setBalancedHighlightEnabled( enabled );
     },
 
-    /*
-     * Make one of the buttons visible.
-     * Visibility of the buttons is mutually exclusive.
-     */
-    setButtonNodeVisible: function( buttonNode ) {
-      // hide all button nodes
-      this.checkButton.setVisible( false );
-      this.tryAgainButton.setVisible( false );
-      this.showAnswerButton.setVisible( false );
-      this.nextButton.setVisible( false );
-      // make one visible
-      buttonNode.setVisible( true );
-    },
-
     playGuessAudio: function() {
       if ( this.model.currentEquation.balancedAndSimplified ) {
         this.audioPlayer.correctAnswer();
@@ -340,7 +319,7 @@ define( function( require ) {
         this.feedbackDialog = null;
       }
       if ( visible ) {
-        this.feedbackDialog = new GameFeedbackDialog( this.model.currentEquation, this.aligner, this.model.balancedRepresentation, this.model.currentPoints,
+        this.feedbackDialog = new GameFeedbackDialog( this.model, this.aligner,
           { centerX: this.layoutBounds.centerX, top: this.boxesNode.top + 10 } );
         this.gamePlayNode.addChild( this.feedbackDialog ); // visible and in front
       }
