@@ -56,10 +56,11 @@ define( function( require ) {
       { font: new PhetFont( { size: 18, weight: 'bold' } ), center: collapsedBoxNode.center } ) );
 
     // expand/collapse button
-    var expandCollapseButton = new ExpandCollapseButton( options.buttonLength, expandedProperty );
+    var expandCollapseButton = new ExpandCollapseButton( options.buttonLength, expandedProperty, {
+      right: expandedBoxNode.right - options.xMargin,
+      top: expandedBoxNode.top + options.yMargin
+    } );
     expandCollapseButton.touchArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 10, 10 ) );
-    expandCollapseButton.right = expandedBoxNode.right - options.xMargin;
-    expandCollapseButton.y = options.yMargin;
 
     // expand/collapse the box
     expandedProperty.link( function( expanded ) {
