@@ -57,7 +57,7 @@ define( function( require ) {
     this.addChild( this.notEqualsSignNode );
     this.notEqualsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
 
-    //if coefficient changes
+    // if coefficients change ...
     var coefficientsObserver = function() {
       self.updateNode();
     };

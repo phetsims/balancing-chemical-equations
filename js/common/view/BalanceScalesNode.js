@@ -39,7 +39,7 @@ define( function( require ) {
     this.equationProperty = equationProperty;
     this.aligner = aligner;
 
-    //if coefficient changes
+    // if coefficients change ...
     var coefficientsObserver = function() {
       self.updateNode();
     };
