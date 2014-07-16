@@ -52,11 +52,11 @@ define( function( require ) {
 
     this.addChild( new FulcrumNode( element, FULCRUM_SIZE, FULCRUM_FILL ) );
 
-    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS ); // @private
+    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { transformBounds: true /* issue #77 */ } ); // @private
     this.addChild( this.beamNode );
     this.beamNode.bottom = 0;
 
-    this.atomPilesParentNode = new Node(); // @private
+    this.atomPilesParentNode = new Node( { transformBounds: true /* issue #77 */ } ); // @private
     this.addChild( this.atomPilesParentNode );
 
     this.mutate( options );

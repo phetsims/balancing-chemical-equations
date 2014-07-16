@@ -19,8 +19,9 @@ define( function( require ) {
    * @param {Number} beamThickness
    * @constructor
    */
-  function BeamNode( beamLength, beamThickness ) {
-    Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, {fill: 'black', stroke: 'black'} );
+  function BeamNode( beamLength, beamThickness, options ) {
+    options = _.extend( {fill: 'black', stroke: 'black'}, options );
+    Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, options );
   }
 
   return inherit( Rectangle, BeamNode, {
