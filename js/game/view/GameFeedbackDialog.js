@@ -64,6 +64,22 @@ define( function( require ) {
   };
 
   /**
+   * Creates a button that is appropriate for the current state of the model.
+   * @param {GameModel} model
+   * @returns {*}
+   */
+  var createButtonForState = function( model ) {
+    var button = null;
+    if ( model.state === model.states.TRY_AGAIN ) {
+       button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) );
+    }
+    else if ( model.state === model.states.SHOW_ANSWER ) {
+       button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) );
+    }
+    return button;
+  };
+
+  /**
    * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
    * @param {Equation} equation
    * @param {BalancedRepresentation} balancedRepresentation
@@ -155,9 +171,7 @@ define( function( require ) {
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Try Again or Show Answer button
-          ( model.state === model.states.TRY_AGAIN ) ?
-          createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) ) :
-          createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) )
+          createButtonForState( model )
         ],
         spacing: options.vBoxSpacing
       } );
@@ -212,9 +226,7 @@ define( function( require ) {
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Try Again or Show Answer button
-          ( model.state === model.states.TRY_AGAIN ) ?
-          createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) ) :
-          createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) ),
+          createButtonForState( model ),
           // Show/Hide Why buttons
           new Node( { children: [ showWhyButton, hideWhyButton ] } )
         ],
