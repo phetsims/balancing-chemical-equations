@@ -3,10 +3,10 @@
 /**
  * Factory that creates a game.
  * A game is a set of equations to be balanced.
- * The equations are chosen from a "pool", and each game level has its own pool.
+ * The equations are chosen from a 'pool', and each game level has its own pool.
  * <p>
- * Equations are instantiated by calling their constructors because we need new equations
- * for each game, and we need to be able to exclude some types of equations
+ * Equations are instantiated by calling factory functions.
+ * We need new equations for each game, and we need to be able to exclude some types of equations
  * during the equation selection process.
  *
  * @author Vasily Shakhov (mlearner.com)
@@ -186,12 +186,12 @@ define( function( require ) {
   inherit( Object, RandomStrategy, {
 
     /**
-     * Randomly selects a specified number of Equation constructors from the pool.
+     * Randomly selects a specified number of Equation factory functions from the pool.
      * @private
      * @param {number} numberOfEquations
-     * @returns { [{function}] } array of Equation constructors
+     * @returns { [{function}] } array of Equation factory functions
      */
-    getEquationConstructors: function( numberOfEquations ) {
+    getEquationFactoryFunctions: function( numberOfEquations ) {
 
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
@@ -289,15 +289,15 @@ define( function( require ) {
      */
     createEquations: function( level ) {
 
-      // Get an array of Equation constructors.
-      var equationConstructors = BCEQueryParameters.PLAY_ALL ?
+      // Get an array of Equation factory functions.
+      var factoryFunctions = BCEQueryParameters.PLAY_ALL ?
                                  _.clone( POOLS[level] ) :
-                                 STRATEGIES[level].getEquationConstructors( EQUATIONS_PER_GAME );
+                                 STRATEGIES[level].getEquationFactoryFunctions( EQUATIONS_PER_GAME );
 
       // Instantiate one instance of each Equation type.
       var equations = [];
-      equationConstructors.forEach( function( equationConstructor ) {
-        equations.push( equationConstructor() );
+      factoryFunctions.forEach( function( factoryFunction ) {
+        equations.push( factoryFunction() );
       } );
       return equations;
     }
