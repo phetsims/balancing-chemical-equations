@@ -76,9 +76,8 @@ define( function( require ) {
     },
 
     /**
-     * Updates one side of the equation.
-     * This layout algorithm depends on the fact that all terms contain at least 1 capital letter.
-     * This allows us to align the baselines of HTML-formatted text.
+     * Rebuilds one side of the equation.
+     *
      * @param {EquationTerm} terms array
      * @param {Number} xOffsets array for terms
      * @param {Number} minX minimal possible x for equation
@@ -89,7 +88,7 @@ define( function( require ) {
       var plusNode;
       var termNode;
       var minSeparation = 15;
-      var tempNodes = []; //contains all nodes for position adjustment if needed
+      var tempNodes = []; // contains all nodes for position adjustment if needed
 
       for ( var i = 0; i < terms.length; i++ ) {
         // term
@@ -97,7 +96,7 @@ define( function( require ) {
         this.termsParent.addChild( termNode );
         termNode.center = new Vector2( xOffsets[i], 0 );
 
-        //if node over previous plusNode move node to the right
+        // if node over previous plusNode move node to the right
         if ( i > 0 ) {
           if ( termNode.bounds.minX - minSeparation < tempNodes[tempNodes.length - 1].bounds.maxX ) {
             termNode.x += tempNodes[tempNodes.length - 1].bounds.maxX - (termNode.bounds.minX - minSeparation);
@@ -112,7 +111,7 @@ define( function( require ) {
           plusNode.centerY = termNode.centerY;
           tempNodes.push( plusNode );
 
-          //if previous node over plusNode move node to the left
+          // if previous node over plusNode move node to the left
           if ( termNode.bounds.maxX + minSeparation > plusNode.bounds.minX ) {
             termNode.x = termNode.x - (termNode.bounds.maxX + minSeparation - plusNode.bounds.minX);
           }
@@ -120,9 +119,9 @@ define( function( require ) {
       }
 
       var dx;
-      //check if equation fits minX
-      if ( tempNodes[0].bounds.minX < minX ) { //adjust all terms to the right
-        var rightBound = minX; //current right bound of passed terms, if term.minX<rightBound move term to the right
+      // check if equation fits minX
+      if ( tempNodes[0].bounds.minX < minX ) { // adjust all terms to the right
+        var rightBound = minX; // current right bound of passed terms, if term.minX<rightBound move term to the right
         tempNodes.forEach( function( term ) {
           dx = Math.max( 0, rightBound - term.bounds.minX );
           term.x += dx;
@@ -130,9 +129,9 @@ define( function( require ) {
         } );
       }
 
-      //check if equation fits maxX. I have not found any equation that needs this, for consistency and future needs
-      if ( tempNodes[tempNodes.length - 1].bounds.maxX > maxX ) { //adjust all terms to the left
-        var leftBound = maxX; //current left bound of passed terms, if term.maxX>leftBound move term to the left
+      // check if equation fits maxX. I have not found any equation that needs this, for consistency and future needs
+      if ( tempNodes[tempNodes.length - 1].bounds.maxX > maxX ) { // adjust all terms to the left
+        var leftBound = maxX; // current left bound of passed terms, if term.maxX > leftBound, move term to the left
         for ( i = tempNodes[tempNodes.length - 1]; i > -1; i-- ) {
           var term = tempNodes[i];
           dx = Math.max( 0, term.bounds.maxX - leftBound );
