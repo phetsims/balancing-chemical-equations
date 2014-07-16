@@ -5,6 +5,7 @@
  * Left box is for the reactants, right box is for the products.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';

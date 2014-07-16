@@ -46,7 +46,7 @@ define( function( require ) {
     this.termsParent = new Node(); // @private
     this.addChild( this.termsParent );
 
-    // if coefficients changes
+    // if coefficients change ...
     var coefficientsObserver = function() {
       self.rightArrowNode.setHighlighted( equationProperty.get().balanced && self.balancedHighlightEnabled );
     };

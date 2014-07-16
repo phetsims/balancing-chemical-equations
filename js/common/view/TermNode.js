@@ -5,6 +5,7 @@
  * The coefficient may or may not be editable.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';

@@ -4,6 +4,7 @@
  * A box that shows the number of molecules indicated by the equation's user coefficients.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
