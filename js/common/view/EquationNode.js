@@ -27,23 +27,23 @@ define( function( require ) {
   function EquationNode( equationProperty, coefficientRange, aligner, options ) {
 
     options = _.extend( { fontSize: 32 }, options );
-    this.fontSize = options.fontSize;
+    this.fontSize = options.fontSize; // @private
 
     var self = this;
     Node.call( this );
 
-    this.coefficientRange = coefficientRange;
-    this.balancedHighlightEnabled = true;
-    this.aligner = aligner;
-    this.equationProperty = equationProperty;
+    this.coefficientRange = coefficientRange; // @private
+    this.balancedHighlightEnabled = true; // @private
+    this.aligner = aligner; // @private
+    this.equationProperty = equationProperty; // @private
 
     // arrow node, in a fixed location
-    this.rightArrowNode = new RightArrowNode( equationProperty.get().balanced );
+    this.rightArrowNode = new RightArrowNode( equationProperty.get().balanced ); // @private
     this.addChild( this.rightArrowNode );
     this.rightArrowNode.centerX = this.aligner.getScreenCenterX();
 
     // the parent for all equation terms and the "+" signs
-    this.termsParent = new Node();
+    this.termsParent = new Node(); // @private
     this.addChild( this.termsParent );
 
     // if coefficients changes

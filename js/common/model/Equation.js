@@ -101,6 +101,7 @@ define( function( require ) {
      * same integer multiple of the term's balanced coefficient.  If the integer
      * multiple is 1, then the term is "balanced and simplified" (balanced with
      * lowest possible coefficients).
+     * @private
      */
     updateBalanced: function() {
 

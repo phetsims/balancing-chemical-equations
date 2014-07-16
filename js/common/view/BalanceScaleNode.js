@@ -44,7 +44,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    this.element = element;
+    this.element = element; // @private
     this.leftNumberOfAtoms = leftNumberOfAtoms; // @private
     this.rightNumberOfAtoms = rightNumberOfAtoms; // @private
 

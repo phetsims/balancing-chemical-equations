@@ -36,8 +36,8 @@ define( function( require ) {
     var self = this;
     Node.call( this );
 
-    this.equationProperty = equationProperty;
-    this.aligner = aligner;
+    this.equationProperty = equationProperty; // @private
+    this.aligner = aligner; // @private
 
     // if coefficients change ...
     var coefficientsObserver = function() {
