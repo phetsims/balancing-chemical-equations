@@ -119,7 +119,7 @@ define( function( require ) {
       }
 
       var dx;
-      // check if equation fits minX
+      // check if equation fits minX (eg, C2H5OH + 3O2 -> 2CO2 + 3H2O)
       if ( tempNodes[0].bounds.minX < minX ) { // adjust all terms to the right
         var rightBound = minX; // current right bound of passed terms, if term.minX<rightBound move term to the right
         tempNodes.forEach( function( term ) {
@@ -129,7 +129,7 @@ define( function( require ) {
         } );
       }
 
-      // check if equation fits maxX. I have not found any equation that needs this, for consistency and future needs
+      // check if equation fits maxX (eg, CH3OH -> CO + 2H2)
       if ( tempNodes[tempNodes.length - 1].bounds.maxX > maxX ) { // adjust all terms to the left
         var leftBound = maxX; // current left bound of passed terms, if term.maxX > leftBound, move term to the left
         for ( i = tempNodes[tempNodes.length - 1]; i > -1; i-- ) {
