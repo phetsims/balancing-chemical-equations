@@ -149,7 +149,7 @@ define( function( require ) {
      * The order of atoms will be the same order that they are encountered in the reactant terms.
      * For example, if the left-hand side of the equation is CH4 + O2, then the order of atoms
      * will be [C,H,O].
-     * @return {Number}
+     * @return {[AtomCount]}
      */
     getAtomCounts: function() {
       var atomCounts = []; //array of AtomCounts
