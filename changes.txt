@@ -1,3 +1,4 @@
+7/16/14 clean up vertical positioning of BarChartsNode
 7/16/14 move happy-face logic into BCEFaceNode
 7/16/14 clean up vertical positioning of BalanceScalesNode
 7/16/14 clean up BoxNode and BoxesNode

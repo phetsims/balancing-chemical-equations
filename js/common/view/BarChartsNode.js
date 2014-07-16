@@ -26,15 +26,14 @@ define( function( require ) {
   /**
    * @param {Property} equationProperty the equation that the scales are representing
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Number} maxY - max bottom y position of node
+   * @param {*} options
    * @constructor
    */
-  function BarChartsNode( equationProperty, aligner, maxY ) {
+  function BarChartsNode( equationProperty, aligner, options ) {
 
     var self = this;
     Node.call( this );
 
-    this.maxY = maxY || 0;
     this.aligner = aligner;
     this.equationProperty = equationProperty;
 
@@ -68,6 +67,8 @@ define( function( require ) {
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, BarChartsNode, {
@@ -87,20 +88,22 @@ define( function( require ) {
 
     /**
      * Updates this node's entire geometry and layout
+     * @private
      */
     updateNode: function() {
       if ( this.visible ) {
         this.updateChart( this.reactantsChartParent, true /* isReactants */ );
         this.updateChart( this.productsChartParent, false /* isReactants */ );
         this.updateEqualitySign();
-        this.setMaxY();
       }
     },
 
     /**
-     * Updates single chart
+     * Updates single chart (reactants or products).
+     * @private
      */
     updateChart: function( parentNode, isReactants ) {
+
       parentNode.removeAllChildren();
       var x = 0;
       var atomCounts = this.equationProperty.get().getAtomCounts();
@@ -117,19 +120,13 @@ define( function( require ) {
 
     /**
      * Updates equality and nonEquality signs
+     * @private
      */
     updateEqualitySign: function() {
-      this.equalsSignNode.setVisible( this.equationProperty.get().balanced );
-      this.notEqualsSignNode.setVisible( !this.equalsSignNode.visible );
+      this.equalsSignNode.visible = this.equationProperty.get().balanced;
+      this.notEqualsSignNode.visible = !this.equalsSignNode.visible;
       // highlight
       this.equalsSignNode.fill = ( this.equationProperty.get().balanced ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
-    },
-
-    /**
-     * Sets bottom of this node to max value
-     */
-    setMaxY: function() {
-      this.bottom = this.maxY;
     }
   } );
 } );

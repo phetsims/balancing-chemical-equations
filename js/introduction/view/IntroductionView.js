@@ -63,7 +63,7 @@ define( function( require ) {
     this.addChild( boxesNode );
 
     // bar charts, above boxes
-    var barChartsNode = new BarChartsNode( model.equationProperty, aligner, boxesNode.top - 10 /* maxY */ );
+    var barChartsNode = new BarChartsNode( model.equationProperty, aligner, { bottom: boxesNode.top - 10  } );
     this.addChild( barChartsNode );
 
     // balance scales, above boxes
