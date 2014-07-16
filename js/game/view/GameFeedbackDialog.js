@@ -155,9 +155,9 @@ define( function( require ) {
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Try Again or Show Answer button
-          ( model.state === model.states.TRY_AGAIN )
-            ? createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) )
-            : createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) )
+          ( model.state === model.states.TRY_AGAIN ) ?
+          createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) ) :
+          createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) )
         ],
         spacing: options.vBoxSpacing
       } );
@@ -212,9 +212,9 @@ define( function( require ) {
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Try Again or Show Answer button
-          ( model.state === model.states.TRY_AGAIN )
-            ? createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) )
-            : createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) ),
+          ( model.state === model.states.TRY_AGAIN ) ?
+          createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) ) :
+          createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) ),
           // Show/Hide Why buttons
           new Node( { children: [ showWhyButton, hideWhyButton ] } )
         ],
