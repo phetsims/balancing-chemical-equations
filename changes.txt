@@ -1,3 +1,4 @@
+7/16/14 move utility for counting atoms from Equation to AtomCount
 7/16/14 delete Equation.createName, specify names in IntroductionModel
 7/16/14 inherit(Object,AtomCount)
 7/16/14 make Equation.setAtomCounts private static

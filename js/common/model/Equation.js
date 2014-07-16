@@ -10,6 +10,7 @@
  * An equation is "balanced and simplified" when it is balanced and N=1.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -50,56 +51,6 @@ define( function( require ) {
       self.coefficientsSum = coefficientsSum;
     } );
   }
-
-  /**
-   * Some of our visual representations of "balanced" (ie, balance scales and bar charts)
-   * compare the number of atoms on the left and right side of the equation.
-   *
-   * This algorithm supports those representations by computing the atom counts.
-   * It examines a collection of terms in the equation (either reactants or products),
-   * examines those terms' molecules, and counts the number of each atom type.
-   * The atomCounts argument is modified, so that it contains the counts for the
-   * specified terms.
-   *
-   * This is a brute force algorithm, but our number of terms is always small,
-   * and this is easy to implement and understand.
-   *
-   * @param {[AtomCount]} atomCounts
-   * @param {[EquationTerm]} terms
-   * @param {boolean} isReactants true if the terms are the reactants, false if they are the products
-   */
-  var setAtomCounts = function( atomCounts, terms, isReactants ) {
-    terms.forEach( function( term ) {
-      term.molecule.atoms.forEach( function( atom ) {
-
-        var found = false;
-        for ( var i = 0; i < atomCounts.length; i++ ) {
-          var atomCount = atomCounts[i];
-          // add to an existing count
-          if ( atomCount.element === atom.element ) {
-            if ( isReactants ) {
-              atomCount.reactantsCount += term.userCoefficient;
-            }
-            else {
-              atomCount.productsCount += term.userCoefficient;
-            }
-            found = true;
-            break;
-          }
-        }
-
-        // if no existing count was found, create one.
-        if ( !found ) {
-          if ( isReactants ) {
-            atomCounts.push( new AtomCount( atom.element, term.userCoefficient, 0 ) );
-          }
-          else {
-            atomCounts.push( new AtomCount( atom.element, 0, term.userCoefficient ) );
-          }
-        }
-      } );
-    } );
-  };
 
   return inherit( PropertySet, Equation, {
 
@@ -165,16 +116,13 @@ define( function( require ) {
 
     /**
      * Returns a count of each type of atom, based on the user coefficients.
-     * The order of atoms will be the same order that they are encountered in the reactant terms.
-     * For example, if the left-hand side of the equation is CH4 + O2, then the order of atoms
-     * will be [C,H,O].
+     * See AtomCount.countAtoms for details.
+     *
+     * @param {Equation} equation
      * @return {[AtomCount]}
      */
     getAtomCounts: function() {
-      var atomCounts = [];
-      setAtomCounts( atomCounts, this.reactants, true /* isReactants */ );
-      setAtomCounts( atomCounts, this.products, false /* isReactants */ );
-      return atomCounts;
+      return AtomCount.countAtoms( this );
     },
 
     /**
