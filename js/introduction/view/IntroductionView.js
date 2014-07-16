@@ -67,7 +67,7 @@ define( function( require ) {
     this.addChild( barChartsNode );
 
     // balance scales, above boxes
-    var balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, boxesNode.top - 10 /* maxY */ );
+    var balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, { bottom: boxesNode.top - 10  } );
     this.addChild( balanceScalesNode );
 
     // smiley face, top center, shown when equation is balanced

@@ -28,16 +28,15 @@ define( function( require ) {
   /**
    * @param {Property<Equation>} equationProperty the equation that the scales are representing
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Number} maxY - max bottom y position of node
+   * @param {*} options
    * @constructor
    */
-  function BalanceScalesNode( equationProperty, aligner, maxY ) {
+  function BalanceScalesNode( equationProperty, aligner, options ) {
 
     var self = this;
     Node.call( this );
 
     this.equationProperty = equationProperty;
-    this.maxY = maxY || 0;
     this.aligner = aligner;
 
     //if coefficient changes
@@ -50,8 +49,9 @@ define( function( require ) {
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
       self.centerX = self.aligner.getScreenCenterX();
-      self.bottom = self.maxY;
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, BalanceScalesNode, {
@@ -67,7 +67,6 @@ define( function( require ) {
       if ( !wasVisible && visible ) {
         this.updateNode();
         this.centerX = this.aligner.getScreenCenterX();
-        this.bottom = this.maxY;
       }
     },
 
