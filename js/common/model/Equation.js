@@ -171,7 +171,7 @@ define( function( require ) {
      * @return {[AtomCount]}
      */
     getAtomCounts: function() {
-      var atomCounts = []; //array of AtomCounts
+      var atomCounts = [];
       setAtomCounts( atomCounts, this.reactants, true /* isReactants */ );
       setAtomCounts( atomCounts, this.products, false /* isReactants */ );
       return atomCounts;
