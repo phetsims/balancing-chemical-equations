@@ -17,9 +17,6 @@ define( function( require ) {
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
-  // strings
-  var combustMethaneString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
-
   /**
    * Convenience constructor.
    *
@@ -42,7 +39,7 @@ define( function( require ) {
 
     // 2 H2O -> 2 H2 + O2
     create_CH4_2O2_CO2_2H2O: function() {
-      return new DisplacementEquation( 1, MoleculeFactory.CH4(), 2, MoleculeFactory.O2(), 1, MoleculeFactory.CO2(), 2, MoleculeFactory.H2O(), { name: combustMethaneString } );
+      return new DisplacementEquation( 1, MoleculeFactory.CH4(), 2, MoleculeFactory.O2(), 1, MoleculeFactory.CO2(), 2, MoleculeFactory.H2O() );
     },
 
     // 2 C + 2 H2O -> CH4 + CO2

@@ -17,9 +17,6 @@ define( function( require ) {
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
-  // strings
-  var separateWaterString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
-
   /**
    * Convenience constructor.
    *
@@ -40,7 +37,7 @@ define( function( require ) {
 
     // 2 H2O -> 2 H2 + O2
     create_2H2O_2H2_O2: function() {
-      return new DecompositionEquation( 2, MoleculeFactory.H2O(), 2, MoleculeFactory.H2(), 1, MoleculeFactory.O2(), { name: separateWaterString } );
+      return new DecompositionEquation( 2, MoleculeFactory.H2O(), 2, MoleculeFactory.H2(), 1, MoleculeFactory.O2() );
     },
 
     // 2 HCl -> H2 + Cl2

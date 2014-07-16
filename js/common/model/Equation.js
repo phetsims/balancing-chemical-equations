@@ -20,47 +20,15 @@ define( function( require ) {
   var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
 
   /**
-   * Creates a plaintext string that shows the equation formula.
-   * Used for equations that don't have a more general name (eg, "Make Ammonia").
-   *
-   * @param {[EquationTerm]} reactants
-   * @param {[EquationTerm]} products
-   * @return {String}
-   */
-  var createName = function( reactants, products ) {
-    var string = '';
-    for ( var i = 0; i < reactants.length; i++ ) {
-      string += reactants[i].balancedCoefficient;
-      string += ' ';
-      string += reactants[i].molecule.symbol;
-      if ( i < reactants.length - 1 ) {
-        string += ' + ';
-      }
-    }
-    string += ' \u2192 '; // right arrow
-    for ( i = 0; i < products.length; i++ ) {
-      string += products[i].balancedCoefficient;
-      string += ' ';
-      string += products[i].molecule.symbol;
-      if ( i < products.length - 1 ) {
-        string += ' + ';
-      }
-    }
-    return string;
-  };
-
-  /**
    * @param {[EquationTerm]} reactants terms on the left side of the equation
    * @param {[EquationTerm]} products terms on the right side of the equation
-   * @param {*} options
    * @constructor
    */
-  function Equation( reactants, products, options ) {
+  function Equation( reactants, products ) {
     var self = this;
 
     this.reactants = reactants;
     this.products = products;
-    this.name = ( options && options.name ) || createName( reactants, products );
 
     PropertySet.call( this, {
       balanced: false,

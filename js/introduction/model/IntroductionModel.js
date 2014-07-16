@@ -17,6 +17,11 @@ define( function( require ) {
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
   var Range = require( 'DOT/Range' );
 
+  // strings
+  var combustMethaneString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
+  var makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
+  var separateWaterString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
+
   /**
    * @constructor
    */
@@ -24,15 +29,18 @@ define( function( require ) {
 
     this.COEFFICENTS_RANGE = new Range( 0, 3 ); // Range of possible equation coefficients
 
-    // list of possible equations
-    this.equations = [
-      SynthesisEquation.create_N2_3H2_2NH3(),
-      DecompositionEquation.create_2H2O_2H2_O2(),
-      DisplacementEquation.create_CH4_2O2_CO2_2H2O()
+    /*
+     * Choices available in the 'Introduction' screen.
+     * The contract for a choice is: { equation: {Equation}, label: {String} }
+     */
+    this.choices = [
+      { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: makeAmmoniaString },
+      { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: separateWaterString },
+      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: combustMethaneString }
     ];
 
     PropertySet.call( this, {
-      equation: this.equations[0] // the equation that is selected
+      equation: this.choices[0].equation // the equation that is selected
     } );
   }
 

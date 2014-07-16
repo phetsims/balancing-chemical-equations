@@ -18,9 +18,6 @@ define( function( require ) {
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
-  // strings
-  var makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
-
   /**
    * Convenience constructor.
    *
@@ -76,7 +73,7 @@ define( function( require ) {
 
     // N2 + 3 H2 -> 2 NH3
     create_N2_3H2_2NH3: function() {
-      return new SynthesisEquation( 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2(), 2, MoleculeFactory.NH3(), { name: makeAmmoniaString } );
+      return new SynthesisEquation( 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2(), 2, MoleculeFactory.NH3() );
     },
 
     // 2 N2 + O2 -> 2 N2O

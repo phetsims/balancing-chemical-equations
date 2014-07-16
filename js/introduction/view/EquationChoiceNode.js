@@ -25,11 +25,11 @@ define( function( require ) {
   /**
    * @param {number} screenWidth
    * @param {Property<Equation>} equationProperty
-   * @param {[Equation]} equations
+   * @param {[{ equation: {Equation}, label: {String} }]} choices
    * @param {Object} options
    * @constructor
    */
-  function EquationChoiceNode( screenWidth, equationProperty, equations, options ) {
+  function EquationChoiceNode( screenWidth, equationProperty, choices, options ) {
 
     Node.call( this );
 
@@ -38,8 +38,8 @@ define( function( require ) {
 
     // radio buttons, one for each equation, arranged horizontally
     var radioButtons = [];
-    equations.forEach( function( equation ) {
-       radioButtons.push( new AquaRadioButton( equationProperty, equation, new Text( equation.name, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS ) );
+    choices.forEach( function( choice ) {
+       radioButtons.push( new AquaRadioButton( equationProperty, choice.equation, new Text( choice.label, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS ) );
     } );
     this.addChild( new HBox( {
       children: radioButtons,
