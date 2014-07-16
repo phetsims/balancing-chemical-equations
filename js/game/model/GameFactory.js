@@ -185,6 +185,12 @@ define( function( require ) {
 
   inherit( Object, RandomStrategy, {
 
+    /**
+     * Randomly selects a specified number of Equation constructors from the pool.
+     * @private
+     * @param {number} numberOfEquations
+     * @returns { [{function}] } array of Equation constructors
+     */
     getEquationConstructors: function( numberOfEquations ) {
 
       // operate on a copy of the pool, so that we can prune the pool as we select equations
@@ -237,8 +243,8 @@ define( function( require ) {
 
         // if the selected equation has exclusions, remove them from the pool
         var excludedEquations;
-        //trying to find excluded equations from comparing equationClass with DisplacementEquation[keys in exclusions]
-        //if functions the same - we've found key and exclusions[key] target excluded list
+        // trying to find excluded equations from comparing equationClass with DisplacementEquation[keys in exclusions]
+        // if functions the same - we've found key and exclusions[key] target excluded list
         for ( var exclusionClassName in this.exclusions ) {
           if ( this.exclusions.hasOwnProperty( exclusionClassName ) ) {
             if ( DisplacementEquation[exclusionClassName] === equationClass ) {
@@ -258,9 +264,9 @@ define( function( require ) {
 
   // strategies for selecting equations, indexed by game level
   var STRATEGIES = [
-    new RandomStrategy( LEVEL1_POOL, false ), //level 1
-    new RandomStrategy( LEVEL2_POOL, true ), //level 2
-    new RandomStrategy( LEVEL3_POOL, true, { exclusions: LEVEL3_EXCLUSIONS } ) //level 3
+    new RandomStrategy( LEVEL1_POOL, false ),
+    new RandomStrategy( LEVEL2_POOL, true ),
+    new RandomStrategy( LEVEL3_POOL, true, { exclusions: LEVEL3_EXCLUSIONS } )
   ];
 
   return {
@@ -282,12 +288,16 @@ define( function( require ) {
      * @return [Equation]
      */
     createEquations: function( level ) {
-      var equations = [];
+
+      // Get an array of Equation constructors.
       var equationConstructors = BCEQueryParameters.PLAY_ALL ?
                                  _.clone( POOLS[level] ) :
                                  STRATEGIES[level].getEquationConstructors( EQUATIONS_PER_GAME );
-      equationConstructors.forEach( function( equationClass ) {
-        equations.push( equationClass() );
+
+      // Instantiate one instance of each Equation type.
+      var equations = [];
+      equationConstructors.forEach( function( equationConstructor ) {
+        equations.push( equationConstructor() );
       } );
       return equations;
     }
