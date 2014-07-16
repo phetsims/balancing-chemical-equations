@@ -3,7 +3,6 @@
 /**
  * Fulcrum on which the scale balances.
  * Labeled with the atom symbol.
- * Origin is at the tip of the fulcrum.
  *
  * @author Vasily Shakhov (mlearner.com)
  */
