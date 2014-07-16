@@ -29,32 +29,24 @@ define( function( require ) {
       xSpacing: 4
     }, options );
 
-    Node.call( this );
-
     // coefficient picker
-    this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
+    var coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
       color: 'black',
       xMargin: 8,
       yMargin: 0,
       touchAreaExpandX: 30,
       font: new PhetFont( options.fontSize )
     } );
-    this.addChild( this.coefficientNode );
 
-    // symbol
-    this.subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
-    this.symbolNode = new SubSupText( term.molecule.symbol, this.subSupOptions );
-    this.addChild( this.symbolNode );
+    // symbol, non-subscript part of the symbol is vertically centered on the picker
+    var subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
+    var symbolNode = new SubSupText( term.molecule.symbol, subSupOptions );
+    symbolNode.left = coefficientNode.right + options.xSpacing;
+    symbolNode.centerY = coefficientNode.centerY + ( symbolNode.height - new SubSupText( 'H', subSupOptions ).height )/2;
 
-    this.symbolNode.left = this.coefficientNode.right + options.xSpacing;
-    // vertically center the non-subscript part of the symbol on the picker
-    this.symbolNode.centerY = this.coefficientNode.centerY + ( this.symbolNode.height - new SubSupText( 'H', this.subSupOptions ).height )/2;
+    options.children = [ coefficientNode, symbolNode ];
+    Node.call( this, options );
   }
 
-  return inherit( Node, TermNode, {
-
-    setEditable: function( editable ) {
-      this.coefficientNode.pickable = editable;
-    }
-  } );
+  return inherit( Node, TermNode );
 } );

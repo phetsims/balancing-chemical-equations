@@ -130,7 +130,8 @@ define( function( require ) {
     // Monitor the game state and update the view accordingly.
     model.stateProperty.link( function( state ) {
 
-      self.equationNode.setEditable( state === self.model.states.CHECK );
+      // interactivity enabled only when the 'Check' button is visible
+      self.equationNode.pickable = ( state === self.model.states.CHECK );
 
       // call an initializer to setup the game for the state
       var states = model.states;

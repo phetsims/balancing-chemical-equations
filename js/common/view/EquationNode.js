@@ -36,7 +36,6 @@ define( function( require ) {
     this.balancedHighlightEnabled = true;
     this.aligner = aligner;
     this.equationProperty = equationProperty;
-    this.termNodes = [];
 
     // arrow node, in a fixed location
     this.rightArrowNode = new RightArrowNode( equationProperty.get().balanced );
@@ -70,7 +69,6 @@ define( function( require ) {
     updateNode: function() {
 
       this.termsParent.removeAllChildren();
-      this.termNodes = [];
 
       var equation = this.equationProperty.get();
       this.updateSideOfEquation( equation.reactants, this.aligner.getReactantXOffsets( equation ), this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
@@ -96,7 +94,6 @@ define( function( require ) {
       for ( var i = 0; i < terms.length; i++ ) {
         // term
         termNode = new TermNode( this.coefficientRange, terms[i], { fontSize: this.fontSize } );
-        this.termNodes.push( termNode );
         this.termsParent.addChild( termNode );
         termNode.center = new Vector2( xOffsets[i], 0 );
 
@@ -158,19 +155,6 @@ define( function( require ) {
       if ( enabled !== this.balancedHighlightEnabled ) {
         this.balancedHighlightEnabled = enabled;
         this.rightArrowNode.setHighlighted( this.equationProperty.get().balanced && this.balancedHighlightEnabled );
-      }
-    },
-
-    /**
-     * Controls whether the coefficients are editable.
-     * @param editable
-     */
-    setEditable: function( editable ) {
-      if ( editable !== this.editable ) {
-        this.editable = editable;
-        this.termNodes.forEach( function( termNode ) {
-          termNode.setEditable( editable );
-        } );
       }
     }
   } );

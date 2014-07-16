@@ -1,3 +1,4 @@
+7/14/14 simplify how equation interactivity is disabled in the game, use pickable:false
 7/14/14 #77 balance scale: specify {transformBounds:true} for beam and pile of atoms, so that bounds are accurate for layout
 7/14/14 #29 factor out duplicate code in GameFeedbackDialog
 # 1.0.0-dev.9 7/15/14
