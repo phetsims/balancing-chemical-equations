@@ -88,15 +88,15 @@ define( function( require ) {
 
       this.termNodes = {};
 
-      var yMargin = 0;
-      var rowHeight = ( this.boxHeight - ( 2 * yMargin ) ) / this.coefficientRange.max;
+      var Y_MARGIN = 0;
+      var rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientRange.max;
 
       // for each term ...
       for ( var i = 0; i < terms.length; i++ ) {
 
         var moleculeNodes = []; // the nodes for this term
         var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
-        var y = this.boxHeight - yMargin - ( rowHeight / 2 );
+        var y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
 
         // create the max number of molecules for each term
         for ( var j = 0; j < this.coefficientRange.max; j++ ) {
