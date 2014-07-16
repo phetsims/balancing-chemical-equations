@@ -65,6 +65,7 @@ define( function( require ) {
 
     /**
      * Rebuilds the left and right sides of the equation.
+     * @private
      */
     updateNode: function() {
 
@@ -78,6 +79,7 @@ define( function( require ) {
     /**
      * Rebuilds one side of the equation.
      *
+     * @private
      * @param {EquationTerm} terms array
      * @param {Number} xOffsets array for terms
      * @param {Number} minX minimal possible x for equation
