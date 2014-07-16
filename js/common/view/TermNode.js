@@ -20,6 +20,7 @@ define( function( require ) {
   /**
    * @param {DOT.Range} coefficientRange
    * @param {EquationTerm} term
+   * @param {*} options
    * @constructor
    */
   function TermNode( coefficientRange, term, options ) {
