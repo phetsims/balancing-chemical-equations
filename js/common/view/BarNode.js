@@ -27,11 +27,9 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // constants
-  var MAX_NUMBER_OF_ATOMS = 12;
+  var MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
   var MAX_BAR_SIZE = new Dimension2( 40, 60 );
   var ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
-  var STROKE = 1.5;
-  var STROKE_COLOR = 'black';
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the bar
@@ -41,23 +39,20 @@ define( function( require ) {
    */
   function BarNode( element, numberOfAtoms, options ) {
 
-    this.element = element;
-    this.numberOfAtoms = numberOfAtoms;
-
     // number
-    var numberNode = new Text( String( this.numberOfAtoms ), {font: new PhetFont( 18 )} );
+    var numberNode = new Text( String( numberOfAtoms ), {font: new PhetFont( 18 )} );
 
     // bar
-    var bar;
+    var barNode;
     var barOptions = {
       fill: element.color,
-      stroke: STROKE_COLOR,
-      lineWidth: STROKE
+      stroke: 'black',
+      lineWidth: 1.5
     };
     if ( numberOfAtoms <= MAX_NUMBER_OF_ATOMS ) {
       // standard bar
-      var height = MAX_BAR_SIZE.height * ( this.numberOfAtoms / MAX_NUMBER_OF_ATOMS );
-      bar = new Rectangle( 0, 0, MAX_BAR_SIZE.width, height, barOptions );
+      var height = MAX_BAR_SIZE.height * ( numberOfAtoms / MAX_NUMBER_OF_ATOMS );
+      barNode = new Rectangle( 0, 0, MAX_BAR_SIZE.width, height, barOptions );
     }
     else {
       // bar with upward-pointing arrow, path is specified clockwise from arrow tip.
@@ -70,25 +65,19 @@ define( function( require ) {
         .lineTo( -MAX_BAR_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
         .lineTo( -ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
         .close();
-      bar = new Path( barShape, barOptions );
+      barNode = new Path( barShape, barOptions );
     }
 
-    // symbol
+    // atom symbol
     var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
 
-    // image
-    var image = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
-    image.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
+    // atom icon
+    var iconNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+    iconNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
 
-    // symbol and image
-    var symbolHBox = new HBox( {children: [image, symbolNode], spacing: 3} );
-
-    options = _.extend( {
-      children: [numberNode, bar, symbolHBox]
-    }, options );
-
+    options.children = [ numberNode, barNode, new HBox( {children: [iconNode, symbolNode], spacing: 3} ) ];
+    options.bottom = 0;
     VBox.call( this, options );
-    this.bottom = 0;
   }
 
   return inherit( VBox, BarNode );
