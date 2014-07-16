@@ -1,3 +1,4 @@
+7/16/14 game: order equations in pools so that layout special-cases are at the beginning of the pools, to simplify testing
 7/16/14 move utility for counting atoms from Equation to AtomCount
 7/16/14 delete Equation.createName, specify names in IntroductionModel
 7/16/14 inherit(Object,AtomCount)

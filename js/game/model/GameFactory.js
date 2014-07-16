@@ -26,11 +26,14 @@ define( function( require ) {
 
   // Level 1 equation pool
   var LEVEL1_POOL = [
-    DecompositionEquation.create_PCl5_PCl3_Cl2, // this is the largest molecule, put it first to simplify layout testing
+    // this is the largest molecule, put it first to simplify layout testing
+    DecompositionEquation.create_PCl5_PCl3_Cl2,
+    // this equation requires maxX adjustment in EquationNode, put it here to simplify layout testing
+    DecompositionEquation.create_CH3OH_CO_2H2,
+    SynthesisEquation.create_CH2O_H2_CH3OH,
     SynthesisEquation.create_2H2_O2_2H2O,
     SynthesisEquation.create_H2_F2_2HF,
     DecompositionEquation.create_2HCl_H2_Cl2,
-    DecompositionEquation.create_CH3OH_CO_2H2,
     SynthesisEquation.create_CH2O_H2_CH3OH,
     DecompositionEquation.create_C2H6_C2H4_H2,
     SynthesisEquation.create_C2H2_2H2_C2H6,
@@ -66,8 +69,10 @@ define( function( require ) {
 
   // Level 3 equation pool
   var LEVEL3_POOL = [
-    DisplacementEquation.create_C2H5OH_3O2_2CO2_3H2O, // this is the longest equation, put it first to simplify layout testing
-    DisplacementEquation.create_2CO2_3H2O_C2H5OH_3O2, // this is the reverse of the previous equation
+    // this is the longest equation, requires minX adjustment in EquationNode, put it first to simplify layout testing
+    DisplacementEquation.create_C2H5OH_3O2_2CO2_3H2O,
+    // this is the reverse of the previous equation
+    DisplacementEquation.create_2CO2_3H2O_C2H5OH_3O2,
     DisplacementEquation.create_2C2H6_7O2_4CO2_6H2O,
     DisplacementEquation.create_4CO2_6H2O_2C2H6_7O2,
     DisplacementEquation.create_2C2H2_5O2_4CO2_2H2O,
