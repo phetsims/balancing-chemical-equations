@@ -34,26 +34,29 @@ define( function( require ) {
     var self = this;
     Node.call( this );
 
-    this.aligner = aligner;
-    this.equationProperty = equationProperty;
+    this.equationProperty = equationProperty; // @private
+    this.aligner = aligner; // @private
 
-    this.reactantsChartParent = new Node();
-    this.addChild( this.reactantsChartParent );
+    // parent for all reactant bars
+    this.reactantBarsParent = new Node(); // @private
+    this.addChild( this.reactantBarsParent );
 
-    this.productsChartParent = new Node();
-    this.addChild( this.productsChartParent );
+    // parent for all product bars
+    this.productBarsParent = new Node(); // @private
+    this.addChild( this.productBarsParent );
 
     var textOptions = {
       font: new PhetFont( 80 ),
-      stroke: 'black',
-      fill: BCEConstants.UNBALANCED_COLOR
+      stroke: 'black'
     };
 
-    this.equalsSignNode = new Text( '\u003D', textOptions );
+    // =
+    this.equalsSignNode = new Text( '\u003D', _.extend( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) ); // @private
     this.addChild( this.equalsSignNode );
     this.equalsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
 
-    this.notEqualsSignNode = new Text( '\u2260', textOptions );
+    // !=
+    this.notEqualsSignNode = new Text( '\u2260', _.extend( { fill: BCEConstants.UNBALANCED_COLOR }, textOptions ) ); // @private
     this.addChild( this.notEqualsSignNode );
     this.notEqualsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
 
@@ -92,17 +95,17 @@ define( function( require ) {
      */
     updateNode: function() {
       if ( this.visible ) {
-        this.updateChart( this.reactantsChartParent, true /* isReactants */ );
-        this.updateChart( this.productsChartParent, false /* isReactants */ );
+        this.updateBars( this.reactantBarsParent, true /* isReactants */ );
+        this.updateBars( this.productBarsParent, false /* isReactants */ );
         this.updateEqualitySign();
       }
     },
 
     /**
-     * Updates single chart (reactants or products).
+     * Updates one set of bars (reactants or products).
      * @private
      */
-    updateChart: function( parentNode, isReactants ) {
+    updateBars: function( parentNode, isReactants ) {
 
       parentNode.removeAllChildren();
       var x = 0;
@@ -126,7 +129,6 @@ define( function( require ) {
       var balanced = this.equationProperty.get().balanced;
       this.notEqualsSignNode.visible = !balanced;
       this.equalsSignNode.visible = balanced;
-      this.equalsSignNode.fill = ( balanced ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
     }
   } );
 } );

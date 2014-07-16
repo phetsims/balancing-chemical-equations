@@ -1,3 +1,4 @@
+7/16/14 doc and renaming in BarChartsNode
 7/16/14 clean up vertical positioning of BarChartsNode
 7/16/14 move happy-face logic into BCEFaceNode
 7/16/14 clean up vertical positioning of BalanceScalesNode
