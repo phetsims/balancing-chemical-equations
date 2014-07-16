@@ -123,10 +123,10 @@ define( function( require ) {
      * @private
      */
     updateEqualitySign: function() {
-      this.equalsSignNode.visible = this.equationProperty.get().balanced;
-      this.notEqualsSignNode.visible = !this.equalsSignNode.visible;
-      // highlight
-      this.equalsSignNode.fill = ( this.equationProperty.get().balanced ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
+      var balanced = this.equationProperty.get().balanced;
+      this.notEqualsSignNode.visible = !balanced;
+      this.equalsSignNode.visible = balanced;
+      this.equalsSignNode.fill = ( balanced ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR );
     }
   } );
 } );
