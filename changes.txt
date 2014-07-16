@@ -1,3 +1,4 @@
+7/16/14 inherit(Object,AtomCount)
 7/16/14 make Equation.setAtomCounts private static
 7/16/14 doc and renaming in BarChartsNode
 7/16/14 clean up vertical positioning of BarChartsNode

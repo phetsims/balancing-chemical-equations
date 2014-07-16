@@ -10,6 +10,9 @@
 define( function() {
   'use strict';
 
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
   /**
    * @param {NITROGLYCERIN.Element} element
    * @param {Number} reactantsCount
@@ -22,5 +25,5 @@ define( function() {
     this.productsCount = productsCount;
   };
 
-  return AtomCount;
+  return inherit( Object, AtomCount );
 } );
