@@ -72,6 +72,7 @@ define( function( require ) {
 
     /**
      * Updates this node's entire geometry and layout.
+     * @private
      */
     updateNode: function() {
       if ( this.visible ) {
