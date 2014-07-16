@@ -20,7 +20,6 @@ define( function( require ) {
   var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var Vector2 = require( 'DOT/Vector2' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -28,7 +27,6 @@ define( function( require ) {
 
   // constants
   var FULCRUM_SIZE = new Dimension2( 60, 45 );
-  var FULCRUM_FILL = new LinearGradient( 0, 0, 0, FULCRUM_SIZE.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' );
   var BEAM_LENGTH = 205;
   var BEAM_THICKNESS = 6;
   var NUMBER_OF_TILT_ANGLES = 6;
@@ -50,7 +48,7 @@ define( function( require ) {
     this.leftNumberOfAtoms = leftNumberOfAtoms; // @private
     this.rightNumberOfAtoms = rightNumberOfAtoms; // @private
 
-    this.addChild( new FulcrumNode( element, FULCRUM_SIZE, FULCRUM_FILL ) );
+    this.addChild( new FulcrumNode( element, FULCRUM_SIZE ) );
 
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { transformBounds: true /* issue #77 */ } ); // @private
     this.addChild( this.beamNode );

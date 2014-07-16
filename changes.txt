@@ -1,8 +1,9 @@
-7/14/14 simplify how equation interactivity is disabled in the game, use pickable:false
-7/14/14 #77 balance scale: specify {transformBounds:true} for beam and pile of atoms, so that bounds are accurate for layout
-7/14/14 #29 factor out duplicate code in GameFeedbackDialog
+7/16/14 clean up FulcrumNode
+7/16/14 simplify how equation interactivity is disabled in the game, use pickable:false
+7/16/14 #77 balance scale: specify {transformBounds:true} for beam and pile of atoms, so that bounds are accurate for layout
+7/15/14 #29 factor out duplicate code in GameFeedbackDialog
 # 1.0.0-dev.9 7/15/14
-7/14/14 #77 add debug code for shown bounds of the 'balance scales' representation
+7/15/14 #77 add debug code for shown bounds of the 'balance scales' representation
 7/14/14 fix in GameModel.startGame: reset currentEquationIndex before using it to choose currentEquation
 7/14/14 #29 move Next, Try Again, and Show Answer buttons into game feedback dialog (when appropriate), remove from play area
 7/14/14 #76 replace complicated game popup types (5 files) with a single type, GameFeedbackDialog

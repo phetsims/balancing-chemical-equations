@@ -17,31 +17,37 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   /**
    * @param {NITROGLYCERIN.Element} element to show
    * @param {DOT.Dimension2} fulcrumSize width and height
-   * @param {String} fulcrumFill color of filling
+   * @param {*} options
    * @constructor
    */
-  function FulcrumNode( element, fulcrumSize, fulcrumFill ) {
+  function FulcrumNode( element, fulcrumSize, options ) {
 
-    Node.call( this );
+    options = _.extend( {
+      fill: new LinearGradient( 0, 0, 0, fulcrumSize.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' ),
+      font: new PhetFont( 22 )
+    }, options );
 
-    // start at tip and move clockwise
-    var triangle = new Path( new Shape()
+    // triangle, start at tip and move clockwise
+    var triangleNode = new Path( new Shape()
         .moveTo( 0, 0 )
         .lineTo( fulcrumSize.width / 2, fulcrumSize.height )
         .lineTo( -fulcrumSize.width / 2, fulcrumSize.height )
         .close(),
-      { fill: fulcrumFill, lineWidth: 1, stroke: 'black' }
+      { fill: options.fill, lineWidth: 1, stroke: 'black' }
     );
-    this.addChild( triangle );
 
-    var text = new Text( element.symbol,
-      { font: new PhetFont( 22 ), centerX: 0, centerY: this.centerY + 8 }
+    // atom symbol, centered in triangle
+    var symbolNode = new Text( element.symbol,
+      { font: options.font, centerX: triangleNode.centerX, centerY: triangleNode.centerY + 8 }
     );
-    this.addChild( text );
+
+    options.children = [ triangleNode, symbolNode ];
+    Node.call( this, options );
   }
 
   return inherit( Node, FulcrumNode );
