@@ -37,7 +37,7 @@ define( function( require ) {
 
   return inherit( Equation, DisplacementEquation, {}, {
 
-    // 2 H2O -> 2 H2 + O2
+    // CH4 + 2 O2 -> CO2 + 2 H2O
     create_CH4_2O2_CO2_2H2O: function() {
       return new DisplacementEquation( 1, MoleculeFactory.CH4(), 2, MoleculeFactory.O2(), 1, MoleculeFactory.CO2(), 2, MoleculeFactory.H2O() );
     },
