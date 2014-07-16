@@ -19,23 +19,14 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
-  //constants
-  var TITLE_FONT = new PhetFont( 18 );
-
   /**
    * @param {DOT.Range} coefficientRange range of the coefficients
-   * @param {Property} expandedProperty is Box open property
-   * @param {Object} options
+   * @param {Property} expandedProperty controls whether the box is expanded or collapsed
+   * @param {*} options
    * @constructor
    */
   function BoxNode( coefficientRange, expandedProperty, options ) {
 
-    var self = this;
-    this.coefficientRange = coefficientRange;
-
-    Node.call( this, options );
-
-    //box options
     options = _.extend( {
       buttonLength: 15,
       xMargin: 5,
@@ -48,80 +39,87 @@ define( function( require ) {
       boxHeight: 100
     }, options );
 
-    this.boxHeight = options.boxHeight;
+    this.boxHeight = options.boxHeight; // @private
+    this.coefficientRange = coefficientRange; // @private
+    this.termNodes = {}; // @private molecule nodes for each term, key: term.molecule.symbol, value: [{Node}]
 
-    // title
-    this.titleNode = new Rectangle( 0, 0, options.boxWidth, options.buttonLength + 2 * options.yMargin, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
-    this.addChild( this.titleNode );
-    this.titleNode.addChild( new Text( options.title, {
-      font: TITLE_FONT,
-      fontWeight: 'bold',
-      centerY: this.titleNode.centerY,
-      centerX: this.titleNode.centerX
-    } ) );
+    // expanded box shows molecules
+    var expandedBoxNode = new Rectangle( 0, 0, options.boxWidth, options.boxHeight,
+      { fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke } );
+    this.moleculesParent = new Node(); // @private parent for all molecule nodes
+    expandedBoxNode.addChild( this.moleculesParent );
 
-    // content
-    this.contentNode = new Rectangle( 0, 0, options.boxWidth, options.boxHeight, {fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke} );
-    this.addChild( this.contentNode );
+    // collapsed box shows the title
+    var collapsedBoxNode = new Rectangle( 0, 0, options.boxWidth, options.buttonLength + 2 * options.yMargin,
+      { fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke } );
+    collapsedBoxNode.addChild( new Text( options.title,
+      { font: new PhetFont( { size: 18, weight: 'bold' } ), center: collapsedBoxNode.center } ) );
 
     // expand/collapse button
-    var button = new ExpandCollapseButton( options.buttonLength, expandedProperty );
-    button.touchArea = Shape.bounds( button.localBounds.dilatedXY( 10, 10 ) );
-    this.addChild( button );
-    button.right = this.width - options.xMargin;
-    button.y = options.yMargin;
+    var expandCollapseButton = new ExpandCollapseButton( options.buttonLength, expandedProperty );
+    expandCollapseButton.touchArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 10, 10 ) );
+    expandCollapseButton.right = expandedBoxNode.right - options.xMargin;
+    expandCollapseButton.y = options.yMargin;
 
-    // show/hide title and contentNode
-    expandedProperty.link( function( isOpen ) {
-      self.titleNode.setVisible( !isOpen );
-      self.contentNode.setVisible( isOpen );
+    // expand/collapse the box
+    expandedProperty.link( function( expanded ) {
+      expandedBoxNode.visible = expanded;
+      collapsedBoxNode.visible = !expanded;
     } );
+
+    options.children = [ collapsedBoxNode, expandedBoxNode, expandCollapseButton ];
+    Node.call( this, options );
   }
 
   return inherit( Node, BoxNode, {
 
     /**
      * Creates molecules in the boxes for one set of terms (reactants or products).
+     * The maximum number of molecules are created, and then we make the correct
+     * number of molecules visible in updateMolecules.
+     *
      * @param {EquationTerm} terms array
-     * @param {Number} xOffsets array of offsets for terms
+     * @param {[Number]} xOffsets array of offsets for terms
      */
     createMolecules: function( terms, xOffsets ) {
-      var moleculeNodes; //array of all molecule images for every term
-      this.termNodes = {}; //contains moleculeNodes with key term.molecule.symbol
-      this.contentNode.removeAllChildren();
+
+      this.moleculesParent.removeAllChildren();
+
+      this.termNodes = {};
+
       var yMargin = 0;
       var rowHeight = ( this.boxHeight - ( 2 * yMargin ) ) / this.coefficientRange.max;
 
+      // for each term ...
       for ( var i = 0; i < terms.length; i++ ) {
-        moleculeNodes = [];
+
+        var moleculeNodes = []; // the nodes for this term
         var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
         var y = this.boxHeight - yMargin - ( rowHeight / 2 );
+
+        // create the max number of molecules for each term
         for ( var j = 0; j < this.coefficientRange.max; j++ ) {
           var moleculeNode = new MoleculeNodeConstructor( BCEConstants.ATOM_OPTIONS );
           moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
-          this.contentNode.addChild( moleculeNode );
+          this.moleculesParent.addChild( moleculeNode );
           moleculeNode.center = new Vector2( xOffsets[i] - this.x, y );
           y -= rowHeight;
           moleculeNodes.push( moleculeNode );
         }
 
-        this.termNodes[terms[i].molecule.symbol] = moleculeNodes;
+        this.termNodes[ terms[i].molecule.symbol ] = moleculeNodes;
       }
     },
 
     /**
-     * Updates molecule visibility
-     * @param {EquationTerm} terms array
+     * Updates visibility of molecules to match the current coefficients.
+     * @param {[EquationTerm]} terms
      */
-    updateMolecules: function( terms ) {
-      var isVisible = function( moleculePosition, userCoefficient ) {
-        return moleculePosition < userCoefficient;
-      };
-
+    updateVisibility: function( terms ) {
       for ( var i = 0; i < terms.length; i++ ) {
-        var moleculeNodes = this.termNodes[terms[i].molecule.symbol];
+        var moleculeNodes = this.termNodes[ terms[i].molecule.symbol ];
         for ( var j = 0; j < this.coefficientRange.max; j++ ) {
-          moleculeNodes[j].visible = isVisible( j, terms[i].userCoefficient );
+          moleculeNodes[j].visible = ( j < terms[i].userCoefficient );
         }
       }
     }
