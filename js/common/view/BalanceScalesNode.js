@@ -19,6 +19,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
+
+  // constants
+  var DEBUG_BOUNDS = true; // if true and running in 'dev' mode, draw the bounds of each scale with a 'red' stroke
 
   /**
    * @param {Property<Equation>} equationProperty the equation that the scales are representing
@@ -82,6 +87,9 @@ define( function( require ) {
         atomCounts.forEach( function( atomCount ) {
           var scaleNode = new BalanceScaleNode( atomCount.element, atomCount.reactantsCount, atomCount.productsCount, highlighted, {x: x} );
           self.addChild( scaleNode );
+          if ( DEBUG_BOUNDS && BCEQueryParameters.DEV ) {
+            self.addChild( new Rectangle( scaleNode.bounds.minX, scaleNode.bounds.minY, scaleNode.bounds.width, scaleNode.bounds.height, { stroke: 'red' } ) );
+          }
           x += dx;
         } );
       }
