@@ -22,6 +22,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @param {Property} equationProperty the equation that the scales are representing
@@ -113,7 +114,7 @@ define( function( require ) {
 
       atomCounts.forEach( function( atomCount ) {
         var count = ( isReactants ? atomCount.reactantsCount : atomCount.productsCount );
-        var barNode = new BarNode( atomCount.element, count, {x: x} );
+        var barNode = new BarNode( atomCount.element, new Property( count ), {x: x} );
         parentNode.addChild( barNode );
         x = barNode.bounds.maxX + 50;
       } );

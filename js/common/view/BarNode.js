@@ -9,6 +9,7 @@
  * Origin is at the bottom center of the bar.
  *
  * @author Vasily Shakhov(mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -33,40 +34,19 @@ define( function( require ) {
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the bar
-   * @param {Number} numberOfAtoms number of elements
+   * @param {Property<Number>} numberOfAtomsProperty number of elements
    * @param {Object} options
    * @constructor
    */
-  function BarNode( element, numberOfAtoms, options ) {
+  function BarNode( element, numberOfAtomsProperty, options ) {
 
-    // number
-    var numberNode = new Text( String( numberOfAtoms ), {font: new PhetFont( 18 )} );
+    this.numberOfAtomsProperty = numberOfAtomsProperty;
 
-    // bar
-    var barNode;
-    var barOptions = {
-      fill: element.color,
-      stroke: 'black',
-      lineWidth: 1.5
-    };
-    if ( numberOfAtoms <= MAX_NUMBER_OF_ATOMS ) {
-      // standard bar
-      var height = MAX_BAR_SIZE.height * ( numberOfAtoms / MAX_NUMBER_OF_ATOMS );
-      barNode = new Rectangle( 0, 0, MAX_BAR_SIZE.width, height, barOptions );
-    }
-    else {
-      // bar with upward-pointing arrow, path is specified clockwise from arrow tip.
-      var barShape = new Shape()
-        .moveTo( 0, -MAX_BAR_SIZE.height )
-        .lineTo( ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
-        .lineTo( MAX_BAR_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
-        .lineTo( MAX_BAR_SIZE.width / 2, 0 )
-        .lineTo( -MAX_BAR_SIZE.width / 2, 0 )
-        .lineTo( -MAX_BAR_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
-        .lineTo( -ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
-        .close();
-      barNode = new Path( barShape, barOptions );
-    }
+    // @private number of atoms
+    this.numberNode = new Text( '?', {font: new PhetFont( 18 )} );
+
+    // @private bar
+    this.barNode = new Path( null, { fill: element.color, stroke: 'black', lineWidth: 1.5 } );
 
     // atom symbol
     var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
@@ -75,10 +55,45 @@ define( function( require ) {
     var iconNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
     iconNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
 
-    options.children = [ numberNode, barNode, new HBox( {children: [iconNode, symbolNode], spacing: 3} ) ];
+    // when the number of atoms changes ...
+    numberOfAtomsProperty.link( this.update.bind( this ) );
+
+    options.children = [ this.numberNode, this.barNode, new HBox( {children: [iconNode, symbolNode], spacing: 3} ) ];
     options.bottom = 0;
     VBox.call( this, options );
   }
 
-  return inherit( VBox, BarNode );
+  return inherit( VBox, BarNode, {
+
+    // @private
+    update: function() {
+
+      var numberOfAtoms = this.numberOfAtomsProperty.get();
+
+      // number of atoms
+      this.numberNode.text = numberOfAtoms + '';
+
+      // bar
+      var barShape;
+      if ( numberOfAtoms <= MAX_NUMBER_OF_ATOMS ) {
+        // rectangular bar
+        var height = MAX_BAR_SIZE.height * ( numberOfAtoms / MAX_NUMBER_OF_ATOMS );
+        barShape = Shape.rect( 0, -height, MAX_BAR_SIZE.width, height );
+      }
+      else {
+        // bar with upward-pointing arrow, path is specified clockwise from arrow tip.
+        barShape = new Shape()
+          .moveTo( 0, -MAX_BAR_SIZE.height )
+          .lineTo( ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+          .lineTo( MAX_BAR_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+          .lineTo( MAX_BAR_SIZE.width / 2, 0 )
+          .lineTo( -MAX_BAR_SIZE.width / 2, 0 )
+          .lineTo( -MAX_BAR_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+          .lineTo( -ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
+          .close();
+      }
+      this.barNode.setShape( barShape );
+      this.barNode.visible = ( numberOfAtoms > 0 );
+    }
+  } );
 } );
