@@ -38,9 +38,10 @@ define( function( require ) {
 
     // Wire observer to current equation.
     var self = this;
+    var balancedObserver = self.updateHighlight.bind( self );
     equationProperty.link( function( newEquation, oldEquation ) {
-      if ( oldEquation ) { oldEquation.balancedProperty.unlink( self.updateHighlight.bind( self ) ); }
-      newEquation.balancedProperty.link( self.updateHighlight.bind( self ) );
+      if ( oldEquation ) { oldEquation.balancedProperty.unlink( balancedObserver ); }
+      newEquation.balancedProperty.link( balancedObserver );
     } );
   }
 
