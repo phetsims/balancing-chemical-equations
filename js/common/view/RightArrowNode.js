@@ -1,7 +1,8 @@
 // Copyright 2002-2014, University of Colorado
 
 /**
- * A fancy arrow node, points to the right, highlights when the equation is balanced.
+ * An arrow that points left to right, from reactants to products.
+ * Highlights when the equation is balanced.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
