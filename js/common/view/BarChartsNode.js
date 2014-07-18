@@ -71,29 +71,33 @@ define( function( require ) {
      */
     updateNode: function() {
       if ( this.visible ) {
-        this.updateBars( this.reactantBarsParent, true /* isReactants */ );
-        this.updateBars( this.productBarsParent, false /* isReactants */ );
+        var atomCounts = this.equationProperty.get().getAtomCounts();
+        this.updateBars( this.reactantBarsParent, atomCounts, function( atomCount ) { return atomCount.reactantsCount }, this.aligner.getReactantsBoxCenterX() );
+        this.updateBars( this.productBarsParent, atomCounts, function( atomCount ) { return atomCount.productsCount }, this.aligner.getProductsBoxCenterX() );
       }
     },
 
     /**
      * Updates one set of bars (reactants or products).
+     * @param {Node} parentNode
+     * @param {[AtomCount]} atomCounts counts of each atom in the equation
+     * @param {Function} getCount 1 parameter {AtomCount}, return {Number}, either the reactants or products count
+     * @param {Number} centerX centerX of the chart
      * @private
      */
-    updateBars: function( parentNode, isReactants ) {
+    updateBars: function( parentNode, atomCounts, getCount, centerX ) {
 
       parentNode.removeAllChildren();
-      var x = 0;
-      var atomCounts = this.equationProperty.get().getAtomCounts();
+      var left = 0;
 
       atomCounts.forEach( function( atomCount ) {
-        var count = ( isReactants ? atomCount.reactantsCount : atomCount.productsCount );
-        var barNode = new BarNode( atomCount.element, new Property( count ), {x: x} );
+        var count = getCount( atomCount );
+        var barNode = new BarNode( atomCount.element, new Property( count ), { left: left } );
         parentNode.addChild( barNode );
-        x = barNode.bounds.maxX + 50;
+        left = barNode.right + 50;
       } );
 
-      parentNode.centerX = isReactants ? this.aligner.getReactantsBoxCenterX() : this.aligner.getProductsBoxCenterX();
+      parentNode.centerX = centerX;
     }
   } );
 } );

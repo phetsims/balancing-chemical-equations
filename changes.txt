@@ -1,3 +1,4 @@
+7/18/14 #69 eliminate unnecessary computation of atom counts in BarChartsNode, clean up
 7/18/14 add horizontal strut to BarNode, to prevent things from shifting horizontally when #atoms is zero vs non-zero
 7/18/14 #69 move responsibility for observing Equation.balanced into EqualityOperatorNode
 7/18/14 #69 move responsibility for observing equation terms into BoxNode
