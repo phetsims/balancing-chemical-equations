@@ -18,10 +18,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BarNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarNode' );
+  var EqualityOperatorNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EqualityOperatorNode' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var Property = require( 'AXON/Property' );
 
   /**
@@ -32,33 +30,17 @@ define( function( require ) {
    */
   function BarChartsNode( equationProperty, aligner, options ) {
 
-    Node.call( this );
+    options = _.extend( {}, options );
 
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
 
-    // parent for all reactant bars
     this.reactantBarsParent = new Node(); // @private
-    this.addChild( this.reactantBarsParent );
-
-    // parent for all product bars
     this.productBarsParent = new Node(); // @private
-    this.addChild( this.productBarsParent );
+    var equalityOperatorNode = new EqualityOperatorNode( equationProperty, { center: new Vector2( aligner.getScreenCenterX(), -40 ) } ); // @private
 
-    var textOptions = {
-      font: new PhetFont( 80 ),
-      stroke: 'black'
-    };
-
-    // =
-    this.equalsSignNode = new Text( '\u003D', _.extend( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) ); // @private
-    this.addChild( this.equalsSignNode );
-    this.equalsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
-
-    // !=
-    this.notEqualsSignNode = new Text( '\u2260', _.extend( { fill: BCEConstants.UNBALANCED_COLOR }, textOptions ) ); // @private
-    this.addChild( this.notEqualsSignNode );
-    this.notEqualsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
+    options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
+    Node.call( this, options );
 
     // Wire coefficients observer to current equation.
     var coefficientsObserver = this.updateNode.bind( this );
@@ -66,8 +48,6 @@ define( function( require ) {
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
-
-    this.mutate( options );
   }
 
   return inherit( Node, BarChartsNode, {
@@ -93,7 +73,6 @@ define( function( require ) {
       if ( this.visible ) {
         this.updateBars( this.reactantBarsParent, true /* isReactants */ );
         this.updateBars( this.productBarsParent, false /* isReactants */ );
-        this.updateEqualitySign();
       }
     },
 
@@ -115,16 +94,6 @@ define( function( require ) {
       } );
 
       parentNode.centerX = isReactants ? this.aligner.getReactantsBoxCenterX() : this.aligner.getProductsBoxCenterX();
-    },
-
-    /**
-     * Updates equality and nonEquality signs
-     * @private
-     */
-    updateEqualitySign: function() {
-      var balanced = this.equationProperty.get().balanced;
-      this.notEqualsSignNode.visible = !balanced;
-      this.equalsSignNode.visible = balanced;
     }
   } );
 } );
