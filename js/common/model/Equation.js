@@ -175,6 +175,38 @@ define( function( require ) {
         string += ( i < this.products.length - 1 ) ? ' + ' : '';
       }
       return string;
+    },
+
+    /**
+     * String value of an equation, shows balanced coefficients, for debugging.
+     * @return {String}
+     */
+    toString: function() {
+      var string = '';
+      // reactants
+      for ( var i = 0; i < this.reactants.length; i++ ) {
+        string += this.reactants[i].balancedCoefficient;
+        string += ' ';
+        string += this.reactants[i].molecule.symbol;
+        if ( i < this.reactants.length - 1 ) {
+          string += ' + ';
+        }
+      }
+      // right arrow
+      string += ' \u2192 ';
+      // products
+      for ( i = 0; i < this.products.length; i++ ) {
+        string += this.products[i].balancedCoefficient;
+        string += ' ';
+        string += this.products[i].molecule.symbol;
+        if ( i < this.products.length - 1 ) {
+          string += ' + ';
+        }
+      }
+      // strip out HTML tags to improve readability
+      string = string.replace( /<sub>/g, '' );
+      string = string.replace( /<\/sub>/g, '' );
+      return string;
     }
   } );
 } );

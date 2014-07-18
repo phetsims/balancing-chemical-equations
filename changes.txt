@@ -1,3 +1,4 @@
+7/18/14 add Equation.toString to make inspection easier in debugger
 7/18/14 #69 BarNode: fix vertical position whenever bar changes, wire up to numberOfAtomsProperty after VBox.call
 7/18/14 #69 eliminate unnecessary computation of atom counts in BarChartsNode, clean up
 7/18/14 add horizontal strut to BarNode, to prevent things from shifting horizontally when #atoms is zero vs non-zero
