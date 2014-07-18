@@ -25,10 +25,12 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
+  var HStrut = require( 'SUN/HStrut' );
 
   // constants
   var MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
   var MAX_BAR_SIZE = new Dimension2( 40, 60 );
+  var BAR_LINE_WIDTH = 1.5;
   var ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
 
   /**
@@ -45,7 +47,7 @@ define( function( require ) {
     this.numberNode = new Text( '?', {font: new PhetFont( 18 )} );
 
     // @private bar
-    this.barNode = new Path( null, { fill: element.color, stroke: 'black', lineWidth: 1.5 } );
+    this.barNode = new Path( null, { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
 
     // atom symbol
     var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
@@ -54,10 +56,13 @@ define( function( require ) {
     var iconNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
     iconNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
 
+    // horizontal strut, to prevent resizing
+    var hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
+
     // when the number of atoms changes ...
     numberOfAtomsProperty.link( this.update.bind( this ) );
 
-    options.children = [ this.numberNode, this.barNode, new HBox( {children: [iconNode, symbolNode], spacing: 3} ) ];
+    options.children = [ hStrut, this.numberNode, this.barNode, new HBox( {children: [ iconNode, symbolNode ], spacing: 3 } ) ];
     options.bottom = 0;
     VBox.call( this, options );
   }
