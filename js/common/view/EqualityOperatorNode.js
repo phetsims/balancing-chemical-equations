@@ -29,6 +29,7 @@ define( function( require ) {
       stroke: 'black'
     };
 
+    // nodes
     var equalsSignNode = new Text( '\u003D',
       _.extend( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) );
     var notEqualsSignNode = new Text( '\u2260',
@@ -37,6 +38,7 @@ define( function( require ) {
     options.children = [ equalsSignNode, notEqualsSignNode ];
     Node.call( this, options );
 
+    // show the correct operator, based on whether the equation is balanced
     var balancedObserver = function( balanced ) {
       equalsSignNode.visible = balanced;
       notEqualsSignNode.visible = !balanced;
