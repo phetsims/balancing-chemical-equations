@@ -80,7 +80,7 @@ define( function( require ) {
       atomsInRow--;
       if ( atomsInRow > 0 ) {
         // continue with current row
-        x = atomNode.bounds.maxX;
+        x = atomNode.right;
       }
       else if ( row < ATOMS_IN_PILE_BASE - 1 ) {
         // move to next row in current triangular pile
