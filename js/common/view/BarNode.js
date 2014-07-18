@@ -59,12 +59,11 @@ define( function( require ) {
     // horizontal strut, to prevent resizing
     var hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
+    options.children = [ hStrut, this.numberNode, this.barNode, new HBox( {children: [ iconNode, symbolNode ], spacing: 3 } ) ];
+    VBox.call( this, options );
+
     // when the number of atoms changes ...
     numberOfAtomsProperty.link( this.update.bind( this ) );
-
-    options.children = [ hStrut, this.numberNode, this.barNode, new HBox( {children: [ iconNode, symbolNode ], spacing: 3 } ) ];
-    options.bottom = 0;
-    VBox.call( this, options );
   }
 
   return inherit( VBox, BarNode, {
@@ -98,6 +97,8 @@ define( function( require ) {
       }
       this.barNode.setShape( barShape );
       this.barNode.visible = ( numberOfAtoms > 0 );
+
+      this.bottom = 0;
     }
   } );
 } );
