@@ -41,7 +41,7 @@ define( function( require ) {
    */
   function BarNode( element, numberOfAtomsProperty, options ) {
 
-    this.numberOfAtomsProperty = numberOfAtomsProperty;
+    this.numberOfAtomsProperty = numberOfAtomsProperty; // @private
 
     // @private number of atoms
     this.numberNode = new Text( '?', {font: new PhetFont( 18 )} );
