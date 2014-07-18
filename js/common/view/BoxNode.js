@@ -21,12 +21,17 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   /**
+   * @param {Property<Equation>} equationProperty
+   * @param {function} getTerms 1 parameter {Equation}, gets the terms that this box will display
+   * @param {function} getXOffset 1 parameter {Equation}, gets the x-offsets for each term
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {Property} expandedProperty controls whether the box is expanded or collapsed
    * @param {*} options
    * @constructor
    */
-  function BoxNode( coefficientRange, expandedProperty, options ) {
+  function BoxNode( equationProperty, getTerms, getXOffsets, coefficientRange, expandedProperty, options ) {
+
+    var self = this;
 
     options = _.extend( {
       buttonLength: 15,
@@ -71,6 +76,21 @@ define( function( require ) {
 
     options.children = [ collapsedBoxNode, expandedBoxNode, expandCollapseButton ];
     Node.call( this, options );
+
+    // update visible molecules to match the coefficients
+    var coefficientsObserver = function() {
+      self.updateVisibility( getTerms( equationProperty.get() ) );
+    };
+
+    equationProperty.link( function( newEquation, oldEquation ) {
+
+      // populate the box with molecules for the current equation
+      self.createMolecules( getTerms( newEquation ), getXOffsets( newEquation ) );
+
+      // wire up coefficients observer to current equation
+      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+      newEquation.addCoefficientsObserver( coefficientsObserver );
+    } );
   }
 
   return inherit( Node, BoxNode, {
@@ -79,9 +99,9 @@ define( function( require ) {
      * Creates molecules in the boxes for one set of terms (reactants or products).
      * The maximum number of molecules are created, and then we make the correct
      * number of molecules visible in updateMolecules.
-     *
      * @param {EquationTerm} terms array
      * @param {[Number]} xOffsets array of offsets for terms
+     * @private
      */
     createMolecules: function( terms, xOffsets ) {
 
@@ -116,6 +136,7 @@ define( function( require ) {
     /**
      * Updates visibility of molecules to match the current coefficients.
      * @param {[EquationTerm]} terms
+     * @private
      */
     updateVisibility: function( terms ) {
       for ( var i = 0; i < terms.length; i++ ) {

@@ -1,3 +1,4 @@
+7/18/14 #69 move responsibility for observing equation terms into BoxNode
 7/18/14 clean up wiring of coefficients observer
 7/18/14 move responsibility for observing Equation.balanced into RightArrowNode
 7/18/14 wire BCEFaceNode to Equation.balancedProperty instead of coefficients

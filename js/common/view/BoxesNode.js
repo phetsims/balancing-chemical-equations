@@ -34,53 +34,39 @@ define( function( require ) {
    */
   function BoxesNode( equationProperty, coefficientsRange, aligner, boxSize, boxColor, reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
 
-    var self = this;
-    Node.call( this );
+    // reactants box, on the left
+    var reactantsBoxNode = new BoxNode( equationProperty,
+      function( equation ) { return equation.reactants; },
+      function( equation ) { return aligner.getReactantXOffsets( equation ); },
+      coefficientsRange,
+      reactantsBoxExpandedProperty,
+      {
+        fill: boxColor,
+        title: reactantsString,
+        boxWidth: boxSize.width,
+        boxHeight: boxSize.height,
+        x: aligner.getReactantsBoxLeft(),
+        y: 0
+      } );
 
-    this.equationProperty = equationProperty; // @private
-    this.balancedHighlightEnabled = true;  // @private
+    // products box, on the right
+    var productsBoxNode = new BoxNode( equationProperty,
+      function( equation ) { return equation.products; },
+      function( equation ) { return aligner.getProductXOffsets( equation ); },
+      coefficientsRange,
+      productsBoxExpandedProperty,
+      {
+        fill: boxColor,
+        title: productsString,
+        boxWidth: boxSize.width,
+        boxHeight: boxSize.height,
+        x: aligner.getProductsBoxLeft(),
+        y: 0
+      } );
 
-    // boxes
-    var reactantsBoxNode = new BoxNode( coefficientsRange, reactantsBoxExpandedProperty, {
-      fill: boxColor,
-      title: reactantsString,
-      boxWidth: boxSize.width,
-      boxHeight: boxSize.height,
-      x: aligner.getReactantsBoxLeft(),
-      y: 0
-    } );
-
-    var productsBoxNode = new BoxNode( coefficientsRange, productsBoxExpandedProperty, {
-      fill: boxColor,
-      title: productsString,
-      boxWidth: boxSize.width,
-      boxHeight: boxSize.height,
-      x: aligner.getProductsBoxLeft(),
-      y: 0
-    } );
-
-    // @private right-pointing arrow
+    // @private right-pointing arrow, in the middle
     this.arrowNode = new RightArrowNode( equationProperty,
       { center: new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 ) } );
-
-    // when equation coefficients change ...
-    var coefficientsObserver = function() {
-      var equation = self.equationProperty.get();
-      reactantsBoxNode.updateVisibility( equation.reactants );
-      productsBoxNode.updateVisibility( equation.products );
-    };
-
-    // when the equation changes ...
-    equationProperty.link( function( newEquation, oldEquation ) {
-
-      // create molecules for the new equation
-      reactantsBoxNode.createMolecules( newEquation.reactants, aligner.getReactantXOffsets( newEquation ) );
-      productsBoxNode.createMolecules( newEquation.products, aligner.getProductXOffsets( newEquation ) );
-
-      // wire up coefficients observer
-      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
-      newEquation.addCoefficientsObserver( coefficientsObserver );
-    } );
 
     options.children = [ reactantsBoxNode, productsBoxNode, this.arrowNode ];
     Node.call( this, options );
