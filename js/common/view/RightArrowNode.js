@@ -17,12 +17,7 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   // constants
-  var TAIL_LOCATION = new Vector2( 0, 0 );
-  var TIP_LOCATION = new Vector2( 75, 0 );
-  var HEAD_HEIGHT = 30;
-  var HEAD_WIDTH = 35;
-  var TAIL_WIDTH = 15;
-  var SCALE = 0.95;
+  var ARROW_LENGTH = 70;
 
   /**
    * @param {Property<Equation>} equationProperty
@@ -32,16 +27,15 @@ define( function( require ) {
   function RightArrowNode( equationProperty, options ) {
 
     options = _.extend( {
-      tailWidth: TAIL_WIDTH,
-      headWidth: HEAD_WIDTH,
-      headHeight: HEAD_HEIGHT,
-      scale: SCALE
+      tailWidth: 15,
+      headWidth: 35,
+      headHeight: 30
     }, options );
 
     this.equationProperty = equationProperty; // @private
     this._highlightEnabled = true; // @private
 
-    ArrowNode.call( this, TAIL_LOCATION.x, TAIL_LOCATION.y, TIP_LOCATION.x, TIP_LOCATION.y, options );
+    ArrowNode.call( this, 0, 0, ARROW_LENGTH, 0, options );
 
     // Wire observer to current equation.
     var self = this;
