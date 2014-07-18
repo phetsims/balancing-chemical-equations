@@ -41,22 +41,17 @@ define( function( require ) {
    */
   function BalanceScaleNode( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, options ) {
 
-    Node.call( this );
-
     this.element = element; // @private
     this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
     this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
 
-    this.addChild( new FulcrumNode( element, FULCRUM_SIZE ) );
-
-    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { transformBounds: true /* issue #77 */ } ); // @private
-    this.addChild( this.beamNode );
-    this.beamNode.bottom = 0;
-
+    // nodes
+    var fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
+    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { bottom: 0, transformBounds: true /* issue #77 */ } ); // @private
     this.atomPilesParentNode = new Node( { transformBounds: true /* issue #77 */ } ); // @private
-    this.addChild( this.atomPilesParentNode );
 
-    this.mutate( options );
+    options.children = [ fulcrumNode, this.beamNode, this.atomPilesParentNode ];
+    Node.call( this, options );
 
     this.updateNode();
   }
