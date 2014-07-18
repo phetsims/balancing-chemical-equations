@@ -98,16 +98,16 @@ define( function( require ) {
 
       var countProperties = {}; // clear the map
 
-      var left = 0;
+      var barCenterX = 0;
       for ( var i = 0; i < atomCounts.length; i++ ) {
         var atomCount = atomCounts[i];
         // populate the map
         var countProperty = new Property( getCount( atomCount ) );
         countProperties[atomCount.element.symbol] = countProperty;
         // add a bar node
-        var barNode = new BarNode( atomCount.element, countProperty, { left: left } );
+        var barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
         parentNode.addChild( barNode );
-        left = barNode.right + 50;
+        barCenterX = barNode.centerX + 90;
       }
 
       parentNode.centerX = centerX;

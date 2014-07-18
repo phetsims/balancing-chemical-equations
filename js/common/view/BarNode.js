@@ -60,10 +60,12 @@ define( function( require ) {
     var hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
     options.children = [ hStrut, this.numberNode, this.barNode, new HBox( {children: [ iconNode, symbolNode ], spacing: 3 } ) ];
-    VBox.call( this, options );
+    VBox.call( this );
 
     // when the number of atoms changes ...
     numberOfAtomsProperty.link( this.update.bind( this ) );
+
+    this.mutate( options );
   }
 
   return inherit( VBox, BarNode, {
