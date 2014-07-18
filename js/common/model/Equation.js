@@ -95,11 +95,12 @@ define( function( require ) {
      */
     addCoefficientsObserver: function( observer ) {
       this.reactants.forEach( function( reactant ) {
-        reactant.userCoefficientProperty.link( observer );
+        reactant.userCoefficientProperty.lazyLink( observer );
       } );
       this.products.forEach( function( product ) {
-        product.userCoefficientProperty.link( observer );
+        product.userCoefficientProperty.lazyLink( observer );
       } );
+      observer();
     },
 
     /**

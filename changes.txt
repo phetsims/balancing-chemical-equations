@@ -1,3 +1,4 @@
+7/18/14 #78 Equation: don't call observer until it has been added to all coefficients
 7/16/14 #69 make BarNode mutable (but not used yet in BarChartsNode)
 7/16/14 game: order equations in pools so that layout special-cases are at the beginning of the pools, to simplify testing
 7/16/14 move utility for counting atoms from Equation to AtomCount
