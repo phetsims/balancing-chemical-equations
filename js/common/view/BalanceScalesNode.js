@@ -21,6 +21,7 @@ define( function( require ) {
   var BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var DEBUG_BOUNDS = true; // if true and running in 'dev' mode, draw the bounds of each scale with a 'red' stroke
@@ -80,9 +81,8 @@ define( function( require ) {
         var xSpacing = 32;
         var dx = BalanceScaleNode.getBeamLength() + xSpacing;
         var x = 0;
-        var highlighted = this.equationProperty.get().balanced;
         atomCounts.forEach( function( atomCount ) {
-          var scaleNode = new BalanceScaleNode( atomCount.element, atomCount.reactantsCount, atomCount.productsCount, highlighted, {x: x} );
+          var scaleNode = new BalanceScaleNode( atomCount.element, new Property( atomCount.reactantsCount ), new Property( atomCount.productsCount ), { x: x } );
           self.addChild( scaleNode );
           if ( DEBUG_BOUNDS && BCEQueryParameters.DEV ) {
             self.addChild( new Rectangle( scaleNode.bounds.minX, scaleNode.bounds.minY, scaleNode.bounds.width, scaleNode.bounds.height, { stroke: 'red' } ) );

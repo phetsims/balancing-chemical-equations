@@ -34,19 +34,18 @@ define( function( require ) {
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
-   * @param {Number} leftNumberOfAtoms
-   * @param {Number} rightNumberOfAtoms
-   * @param {Boolean} highlighted whether the beam is highlighted (used to indicate whether the scale is balanaced)
+   * @param {Property<Number>} leftNumberOfAtomsProperty
+   * @param {Property<Number>} rightNumberOfAtomsProperty
    * @param {Object} options
    * @constructor
    */
-  function BalanceScaleNode( element, leftNumberOfAtoms, rightNumberOfAtoms, highlighted, options ) {
+  function BalanceScaleNode( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, options ) {
 
     Node.call( this );
 
     this.element = element; // @private
-    this.leftNumberOfAtoms = leftNumberOfAtoms; // @private
-    this.rightNumberOfAtoms = rightNumberOfAtoms; // @private
+    this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
+    this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
 
     this.addChild( new FulcrumNode( element, FULCRUM_SIZE ) );
 
@@ -59,7 +58,6 @@ define( function( require ) {
 
     this.mutate( options );
 
-    this.setHighlighted( highlighted );
     this.updateNode();
   }
 
@@ -111,14 +109,6 @@ define( function( require ) {
   return inherit( Node, BalanceScaleNode, {
 
     /**
-     * set highlighting of the beam, use to indicate whether the scale is balanced.
-     * @param {Boolean} highlighted
-     */
-    setHighlighted: function( highlighted ) {
-      this.beamNode.setHighlighted( highlighted );
-    },
-
-    /**
      * Places piles of atoms on the ends of the beam, with a count of the number of
      * atoms above each pile.  Then rotates the beam and stuff on it to indicate the
      * relative balance between the left and right piles.
@@ -129,10 +119,14 @@ define( function( require ) {
       // all dynamic stuff is above the beam, and is children of atomPilesParentNode
       this.atomPilesParentNode.removeAllChildren();
 
+      var leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
+      var rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
+      this.beamNode.setHighlighted( leftNumberOfAtoms === rightNumberOfAtoms );
+
       // left pile of atoms, centered on left-half of beam width number
-      var leftPileChildren = [new Text( this.leftNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
-      if ( this.leftNumberOfAtoms > 0 ) {
-        leftPileChildren.push( createAtomPile( this.leftNumberOfAtoms, this.element ) );
+      var leftPileChildren = [new Text( leftNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
+      if ( leftNumberOfAtoms > 0 ) {
+        leftPileChildren.push( createAtomPile( leftNumberOfAtoms, this.element ) );
       }
 
       var leftPileNode = new VBox( {
@@ -144,9 +138,9 @@ define( function( require ) {
       this.atomPilesParentNode.addChild( leftPileNode );
 
       // right pile of atoms, centered on left-half of beam width number
-      var rightPileChildren = [new Text( this.rightNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
-      if ( this.rightNumberOfAtoms > 0 ) {
-        rightPileChildren.push( createAtomPile( this.rightNumberOfAtoms, this.element ) );
+      var rightPileChildren = [new Text( rightNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
+      if ( rightNumberOfAtoms > 0 ) {
+        rightPileChildren.push( createAtomPile( rightNumberOfAtoms, this.element ) );
       }
 
       var rightPileNode = new VBox( {
@@ -159,7 +153,7 @@ define( function( require ) {
 
       // rotate beam and piles on fulcrum
       var maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
-      var difference = this.rightNumberOfAtoms - this.leftNumberOfAtoms;
+      var difference = rightNumberOfAtoms - leftNumberOfAtoms;
       var angle = 0;
       if ( Math.abs( difference ) >= NUMBER_OF_TILT_ANGLES ) {
         // max tilt
