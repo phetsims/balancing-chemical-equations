@@ -39,14 +39,11 @@ define( function( require ) {
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
 
-    // if coefficients change ...
-    var coefficientsObserver = function() {
-      self.updateNode();
-    };
-
-    // if the equation changes...
+    var coefficientsObserver = this.updateNode.bind( this );
     equationProperty.link( function( newEquation, oldEquation ) {
+      // Wire coefficients observer to current equation.
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+      // center on the screen
       newEquation.addCoefficientsObserver( coefficientsObserver );
       self.centerX = self.aligner.getScreenCenterX();
     } );

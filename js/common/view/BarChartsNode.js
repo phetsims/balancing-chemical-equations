@@ -61,12 +61,8 @@ define( function( require ) {
     this.addChild( this.notEqualsSignNode );
     this.notEqualsSignNode.center = new Vector2( aligner.getScreenCenterX(), -40 );
 
-    // if coefficients change ...
-    var coefficientsObserver = function() {
-      self.updateNode();
-    };
-
-    // if the equation changes...
+    // Wire coefficients observer to current equation.
+    var coefficientsObserver = this.updateNode.bind( this );
     equationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
