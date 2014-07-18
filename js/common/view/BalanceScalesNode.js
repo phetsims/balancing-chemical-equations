@@ -78,8 +78,7 @@ define( function( require ) {
 
         this.removeAllChildren();
         var atomCounts = this.equationProperty.get().getAtomCounts();
-        var xSpacing = 32;
-        var dx = BalanceScaleNode.getBeamLength() + xSpacing;
+        var dx = 237; // determined by visual inspection
         var x = 0;
         atomCounts.forEach( function( atomCount ) {
           var scaleNode = new BalanceScaleNode( atomCount.element, new Property( atomCount.reactantsCount ), new Property( atomCount.productsCount ), { x: x } );

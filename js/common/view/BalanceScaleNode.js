@@ -162,13 +162,5 @@ define( function( require ) {
       this.beamNode.setRotation( angle );
       this.atomPilesParentNode.setRotation( angle );
     }
-  }, {
-    /**
-     * @static
-     * @return {Number} length of beam
-     */
-    getBeamLength: function() {
-      return BEAM_LENGTH;
-    }
   } );
 } );
