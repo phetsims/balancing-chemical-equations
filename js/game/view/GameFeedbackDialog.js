@@ -180,7 +180,7 @@ define( function( require ) {
       // not balanced
 
       var saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
-      var balancedRepresentationNode = createBalancedRepresentation( equation, balancedRepresentation, aligner );
+      var balancedRepresentationNode = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
       var showWhyButton = new TextPushButton( showWhyString, {
@@ -188,6 +188,9 @@ define( function( require ) {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
           saveCenterX = self.centerX;
+          if ( !balancedRepresentationNode ) {
+            balancedRepresentationNode = createBalancedRepresentation( equation, balancedRepresentation, aligner );
+          }
           content.addChild( balancedRepresentationNode );
           self.centerX = saveCenterX;
         },

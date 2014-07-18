@@ -1,3 +1,4 @@
+7/18/14 #69 defer creation of 'Show Why' content until the button is pressed
 7/18/14 #79 fix horizontal layout of bars that have arrows at top
 7/18/14 #69 update numberOfAtomProperty instead of rebuilding bars when equation coefficients change
 7/18/14 add Equation.toString to make inspection easier in debugger
