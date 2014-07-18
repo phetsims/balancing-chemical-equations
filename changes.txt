@@ -1,3 +1,4 @@
+7/18/14 move responsibility for observing Equation.balanced into RightArrowNode
 7/18/14 wire BCEFaceNode to Equation.balancedProperty instead of coefficients
 7/18/14 #78 Equation: don't call observer until it has been added to all coefficients
 7/16/14 #69 make BarNode mutable (but not used yet in BarChartsNode)

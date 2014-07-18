@@ -60,15 +60,14 @@ define( function( require ) {
     } );
 
     // @private right-pointing arrow
-    this.arrowNode = new RightArrowNode( equationProperty.get().balanced );
-    this.arrowNode.center = new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 );
+    this.arrowNode = new RightArrowNode( equationProperty,
+      { center: new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 ) } );
 
     // when equation coefficients change ...
     var coefficientsObserver = function() {
       var equation = self.equationProperty.get();
       reactantsBoxNode.updateVisibility( equation.reactants );
       productsBoxNode.updateVisibility( equation.products );
-      self.arrowNode.setHighlighted( equation.balanced && self.balancedHighlightEnabled );
     };
 
     // when the equation changes ...
@@ -96,10 +95,7 @@ define( function( require ) {
      * @param enabled
      */
     setBalancedHighlightEnabled: function( enabled ) {
-      if ( enabled !== this.balancedHighlightEnabled ) {
-        this.balancedHighlightEnabled = enabled;
-        this.arrowNode.setHighlighted( enabled && this.equationProperty.get().balanced );
-      }
+      this.arrowNode.highlightEnabled = enabled;
     }
   } );
 } );

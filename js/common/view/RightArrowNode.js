@@ -1,9 +1,10 @@
 // Copyright 2002-2014, University of Colorado
 
 /**
- * A fancy arrow node, points to the right, for use in equations.
+ * A fancy arrow node, points to the right, highlights when the equation is balanced.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -23,24 +24,44 @@ define( function( require ) {
   var SCALE = 0.95;
 
   /**
-   * @param {Boolean} highlighted if arrow highlighted
+   * @param {Property<Equation>} equationProperty
+   * @param {*} options
    * @constructor
    */
-  function RightArrowNode( highlighted ) {
-    ArrowNode.call( this, TAIL_LOCATION.x, TAIL_LOCATION.y, TIP_LOCATION.x, TIP_LOCATION.y, {
+  function RightArrowNode( equationProperty, options ) {
+
+    options = _.extend( {
       tailWidth: TAIL_WIDTH,
       headWidth: HEAD_WIDTH,
       headHeight: HEAD_HEIGHT,
       scale: SCALE
-    } );
+    }, options );
 
-    this.setHighlighted( highlighted );
+    this.equationProperty = equationProperty; // @private
+    this._highlightEnabled = true; // @private
+
+    ArrowNode.call( this, TAIL_LOCATION.x, TAIL_LOCATION.y, TIP_LOCATION.x, TIP_LOCATION.y, options );
+
+    // Wire observer to current equation.
+    var self = this;
+    equationProperty.link( function( newEquation, oldEquation ) {
+      if ( oldEquation ) { oldEquation.balancedProperty.unlink( self.updateHighlight.bind( self ) ); }
+      newEquation.balancedProperty.link( self.updateHighlight.bind( self ) );
+    } );
   }
 
   return inherit( ArrowNode, RightArrowNode, {
 
-    setHighlighted: function( highlighted ) {
-      this.fill = highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
-    }
+    // @private Highlights the arrow if the equation is balanced.
+    updateHighlight: function() {
+      this.fill = ( this.equationProperty.get().balanced && this._highlightEnabled ) ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
+    },
+
+    set highlightEnabled( value ) {
+      this._highlightEnabled = value;
+      this.updateHighlight();
+    },
+
+    get highlightEnabled() { return this._highlightEnabled; }
   } );
 } );
