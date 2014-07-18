@@ -32,7 +32,6 @@ define( function( require ) {
    */
   function BarChartsNode( equationProperty, aligner, options ) {
 
-    var self = this;
     Node.call( this );
 
     this.equationProperty = equationProperty; // @private
