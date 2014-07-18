@@ -23,8 +23,8 @@ define( function( require ) {
     };
 
     equationProperty.link( function( newEquation, oldEquation ) {
-      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( updateFace ); }
-      newEquation.addCoefficientsObserver( updateFace );
+      if ( oldEquation ) { oldEquation.balancedProperty.unlink( updateFace ); }
+      newEquation.balancedProperty.link( updateFace );
     } );
   }
 
