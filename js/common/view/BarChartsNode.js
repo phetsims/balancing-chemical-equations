@@ -10,6 +10,7 @@
  * implementation.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -32,8 +33,11 @@ define( function( require ) {
 
     options = _.extend( {}, options );
 
+    var self = this;
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
+    this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
+    this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of thed element
 
     this.reactantBarsParent = new Node(); // @private
     this.productBarsParent = new Node(); // @private
@@ -43,8 +47,9 @@ define( function( require ) {
     Node.call( this, options );
 
     // Wire coefficients observer to current equation.
-    var coefficientsObserver = this.updateNode.bind( this );
+    var coefficientsObserver = this.updateCounts.bind( this );
     equationProperty.link( function( newEquation, oldEquation ) {
+      self.updateNode();
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
@@ -61,7 +66,7 @@ define( function( require ) {
       var wasVisible = this.visible;
       Node.prototype.setVisible.call( this, visible );
       if ( !wasVisible && visible ) {
-         this.updateNode();
+        this.updateNode();
       }
     },
 
@@ -72,8 +77,9 @@ define( function( require ) {
     updateNode: function() {
       if ( this.visible ) {
         var atomCounts = this.equationProperty.get().getAtomCounts();
-        this.updateBars( this.reactantBarsParent, atomCounts, function( atomCount ) { return atomCount.reactantsCount }, this.aligner.getReactantsBoxCenterX() );
-        this.updateBars( this.productBarsParent, atomCounts, function( atomCount ) { return atomCount.productsCount }, this.aligner.getProductsBoxCenterX() );
+        this.reactantCountProperties = this.updateBars( this.reactantBarsParent, atomCounts, function( atomCount ) { return atomCount.reactantsCount }, this.aligner.getReactantsBoxCenterX() );
+        this.productCountProperties = this.updateBars( this.productBarsParent, atomCounts, function( atomCount ) { return atomCount.productsCount }, this.aligner.getProductsBoxCenterX() );
+        this.updateCounts();
       }
     },
 
@@ -83,21 +89,45 @@ define( function( require ) {
      * @param {[AtomCount]} atomCounts counts of each atom in the equation
      * @param {Function} getCount 1 parameter {AtomCount}, return {Number}, either the reactants or products count
      * @param {Number} centerX centerX of the chart
+     * @param {*} map of {String} Element.symbol to {Property<Number>} number of atoms of that element
      * @private
      */
     updateBars: function( parentNode, atomCounts, getCount, centerX ) {
 
-      parentNode.removeAllChildren();
-      var left = 0;
+      parentNode.removeAllChildren(); // remove all the bar nodes
 
-      atomCounts.forEach( function( atomCount ) {
-        var count = getCount( atomCount );
-        var barNode = new BarNode( atomCount.element, new Property( count ), { left: left } );
+      var countProperties = {}; // clear the map
+
+      var left = 0;
+      for ( var i = 0; i < atomCounts.length; i++ ) {
+        var atomCount = atomCounts[i];
+        // populate the map
+        var countProperty = new Property( getCount( atomCount ) );
+        countProperties[atomCount.element.symbol] = countProperty;
+        // add a bar node
+        var barNode = new BarNode( atomCount.element, countProperty, { left: left } );
         parentNode.addChild( barNode );
         left = barNode.right + 50;
-      } );
+      }
 
       parentNode.centerX = centerX;
+
+      return countProperties;
+    },
+
+    /**
+     * Updates the atom counts for each bar.
+     * @private
+     */
+    updateCounts: function() {
+      if ( this.visible ) {
+        var atomCounts = this.equationProperty.get().getAtomCounts();
+        for ( var i = 0; i < atomCounts.length; i++ ) {
+          var atomCount = atomCounts[i];
+          this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
+          this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
+        }
+      }
     }
   } );
 } );
