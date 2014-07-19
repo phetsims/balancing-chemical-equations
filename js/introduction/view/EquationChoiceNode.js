@@ -39,11 +39,13 @@ define( function( require ) {
     // radio buttons, one for each equation, arranged horizontally
     var radioButtons = [];
     choices.forEach( function( choice ) {
-       radioButtons.push( new AquaRadioButton( equationProperty, choice.equation, new Text( choice.label, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS ) );
+      var radioButton = new AquaRadioButton( equationProperty, choice.equation, new Text( choice.label, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
+      radioButton.touchArea = radioButton.localBounds.dilatedXY( 10, 15 );  // determined by visual inspection
+      radioButtons.push( radioButton );
     } );
     this.addChild( new HBox( {
       children: radioButtons,
-      spacing: 20,
+      spacing: 30,
       align: 'left',
       left: 50,
       centerY: BAR_HEIGHT / 2

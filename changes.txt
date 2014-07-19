@@ -1,3 +1,4 @@
+7/18/14 #80 expand touchArea for radio buttons in Introduction screen
 7/18/14 #69 clean up BalanceScaleNode constructor
 7/18/14 #69 pass properties to BalanceScaleNode for number of atoms on each side of the scale (properties not observed yet)
 7/18/14 #69 defer creation of 'Show Why' content until the button is pressed
