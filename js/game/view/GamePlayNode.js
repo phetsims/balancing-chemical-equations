@@ -134,24 +134,18 @@ define( function( require ) {
     }
 
     model.stateProperty.link( function( state ) {
-
       var states = model.states;
-
-      // equation interactivity enabled only when the 'Check' button is visible
-      self.equationNode.pickable = ( state === states.CHECK );
-      self.checkButton.visible = ( state === states.CHECK );
-
-      // if correct, the 'Next' button is in the game feedback dialog
-      self.nextButton.visible = ( state === states.NEXT && !self.model.currentEquation.balancedAndSimplified );
-
-      // feedback dialog
-      self.setFeedbackDialogVisible( state === states.TRY_AGAIN ||
-                                     state === states.SHOW_ANSWER ||
-                                     ( state === states.NEXT && self.model.currentEquation.balancedAndSimplified ) );
-
-      self.setBalancedHighlightEnabled( state === states.NEXT );
-      if ( state === states.NEXT ) {
-        self.model.currentEquation.balance(); // show the correct answer
+      if ( state === states.CHECK ) {
+        self.initCheck();
+      }
+      else if ( state === states.TRY_AGAIN ) {
+        self.initTryAgain();
+      }
+      else if ( state === states.SHOW_ANSWER ) {
+        self.initShowAnswer();
+      }
+      else if ( state === states.NEXT ) {
+        self.initNext();
       }
     } );
 
@@ -168,6 +162,41 @@ define( function( require ) {
   }
 
   return inherit( Node, GamePlayNode, {
+
+    // @private
+    initCheck: function() {
+      this.equationNode.pickable = true;
+      this.checkButton.visible = true;
+      this.nextButton.visible = false;
+      this.setFeedbackDialogVisible( false );
+      this.setBalancedHighlightEnabled( false );
+    },
+
+     // @private
+    initTryAgain: function() {
+      this.equationNode.pickable = false;
+      this.checkButton.visible = this.nextButton.visible = false;
+      this.setFeedbackDialogVisible( true );
+      this.setBalancedHighlightEnabled( false );
+    },
+
+     // @private
+    initShowAnswer: function() {
+      this.equationNode.pickable = false;
+      this.checkButton.visible = this.nextButton.visible = false;
+      this.setFeedbackDialogVisible( true );
+      this.setBalancedHighlightEnabled( false );
+    },
+
+     // @private
+    initNext: function() {
+      this.equationNode.pickable = false;
+      this.checkButton.visible = false;
+      this.nextButton.visible = !this.model.currentEquation.balancedAndSimplified; // 'Next' button is in the game feedback dialog
+      this.setFeedbackDialogVisible( this.model.currentEquation.balancedAndSimplified );
+      this.setBalancedHighlightEnabled( true );
+      this.model.currentEquation.balance(); // show the correct answer (do this last!)
+    },
 
     /*
      * Turns on/off the highlighting feature that indicates whether the equation is balanced.

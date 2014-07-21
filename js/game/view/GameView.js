@@ -79,6 +79,7 @@ define( function( require ) {
     },
 
     initStartGame: function() {
+      console.log( 'initStartGame' );//XXX
       if ( !this.gamePlayNode ) {
         this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer, this.layoutBounds );
         this.rootNode.addChild( this.gamePlayNode );
