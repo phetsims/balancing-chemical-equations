@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @param {Property<Equation>} equationProperty
    * @param {function} getTerms 1 parameter {Equation}, gets the terms that this box will display
-   * @param {function} getXOffset 1 parameter {Equation}, gets the x-offsets for each term
+   * @param {function} getXOffsets 1 parameter {Equation}, gets the x-offsets for each term
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {Property} expandedProperty controls whether the box is expanded or collapsed
    * @param {*} options
