@@ -1,3 +1,4 @@
+7/21/14 #81 BoxNode: add molecules on demand, use visibility to display the correct number of molecules
 7/21/14 #82 clean up of GamePlayNode and GameView
 7/21/14 #82 factor out GamePlayNode, create it on demand (when first level-selection is made)
 7/21/14 #82 optimize start up: initialize 'bar charts' and 'balance scales' representations on demand

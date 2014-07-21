@@ -79,13 +79,13 @@ define( function( require ) {
 
     // update visible molecules to match the coefficients
     var coefficientsObserver = function() {
-      self.updateVisibility( getTerms( equationProperty.get() ) );
+      self.updateCounts( getTerms( equationProperty.get() ), getXOffsets( equationProperty.get() ) );
     };
 
     equationProperty.link( function( newEquation, oldEquation ) {
 
-      // populate the box with molecules for the current equation
-      self.createMolecules( getTerms( newEquation ), getXOffsets( newEquation ) );
+      // updates the node for molecules of the current equation
+      self.updateNode( getTerms( newEquation ), getXOffsets( newEquation ) );
 
       // wire up coefficients observer to current equation
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
@@ -97,52 +97,63 @@ define( function( require ) {
 
     /**
      * Creates molecules in the boxes for one set of terms (reactants or products).
-     * The maximum number of molecules are created, and then we make the correct
-     * number of molecules visible in updateMolecules.
+     * To improve performance:
+     * - Molecules are created as needed.
+     * - Molecules are never removed; they remain as children for the lifetime of this node.
+     * - The visibility of molecules is adjusted to show the correct number of molecules.
+     *
      * @param {EquationTerm} terms array
      * @param {[Number]} xOffsets array of offsets for terms
      * @private
      */
-    createMolecules: function( terms, xOffsets ) {
+    updateNode: function( terms, xOffsets ) {
 
+      // remove all molecule nodes
       this.moleculesParent.removeAllChildren();
 
+      // clear the map
       this.termNodes = {};
-
-      var Y_MARGIN = 0;
-      var rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientRange.max;
-
-      // for each term ...
       for ( var i = 0; i < terms.length; i++ ) {
-
-        var moleculeNodes = []; // the nodes for this term
-        var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
-        var y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
-
-        // create the max number of molecules for each term
-        for ( var j = 0; j < this.coefficientRange.max; j++ ) {
-          var moleculeNode = new MoleculeNodeConstructor( BCEConstants.ATOM_OPTIONS );
-          moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
-          this.moleculesParent.addChild( moleculeNode );
-          moleculeNode.center = new Vector2( xOffsets[i] - this.x, y );
-          y -= rowHeight;
-          moleculeNodes.push( moleculeNode );
-        }
-
-        this.termNodes[ terms[i].molecule.symbol ] = moleculeNodes;
+        this.termNodes[ terms[i].molecule.symbol ] = [];
       }
+
+      this.updateCounts( terms, xOffsets );
     },
 
     /**
      * Updates visibility of molecules to match the current coefficients.
+     *
      * @param {[EquationTerm]} terms
+     * @param {[Number]} xOffsets array of offsets for terms
      * @private
      */
-    updateVisibility: function( terms ) {
+    updateCounts: function( terms, xOffsets ) {
+
+      var Y_MARGIN = 0;
+      var rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientRange.max;
+
       for ( var i = 0; i < terms.length; i++ ) {
+
         var moleculeNodes = this.termNodes[ terms[i].molecule.symbol ];
-        for ( var j = 0; j < this.coefficientRange.max; j++ ) {
-          moleculeNodes[j].visible = ( j < terms[i].userCoefficient );
+        var userCoefficient = terms[i].userCoefficient;
+        var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
+        var y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
+
+        for ( var j = 0; j < Math.max( userCoefficient, moleculeNodes.length ); j++ ) {
+          if ( j < moleculeNodes.length ) {
+            // set visibility of a molecule that already exists
+            moleculeNodes[j].visible = ( j < userCoefficient );
+          }
+          else {
+            // add a molecule node
+            var moleculeNode = new MoleculeNodeConstructor( BCEConstants.ATOM_OPTIONS );
+            moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
+            this.moleculesParent.addChild( moleculeNode );
+            moleculeNode.center = new Vector2( xOffsets[i] - this.x, y );
+
+            moleculeNodes.push( moleculeNode );
+          }
+          y -= rowHeight;
         }
       }
     }
