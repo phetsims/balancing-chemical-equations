@@ -23,9 +23,6 @@ define( function( require ) {
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var Property = require( 'AXON/Property' );
 
-  // constants
-  var DEBUG_BOUNDS = true; // if true and running in 'dev' mode, draw the bounds of each scale with a 'red' stroke
-
   /**
    * @param {Property<Equation>} equationProperty the equation that the scales are representing
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
@@ -39,14 +36,15 @@ define( function( require ) {
 
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
+    this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
+    this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of the element
 
-    var coefficientsObserver = this.updateNode.bind( this );
+    // Wire coefficients observer to current equation.
+    var coefficientsObserver = this.updateCounts.bind( this );
     equationProperty.link( function( newEquation, oldEquation ) {
-      // Wire coefficients observer to current equation.
+      self.updateNode();
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
-      // center on the screen
       newEquation.addCoefficientsObserver( coefficientsObserver );
-      self.centerX = self.aligner.getScreenCenterX();
     } );
 
     this.mutate( options );
@@ -64,7 +62,6 @@ define( function( require ) {
       Node.prototype.setVisible.call( this, visible );
       if ( !wasVisible && visible ) {
         this.updateNode();
-        this.centerX = this.aligner.getScreenCenterX();
       }
     },
 
@@ -74,21 +71,49 @@ define( function( require ) {
      */
     updateNode: function() {
       if ( this.visible ) {
-        var self = this;
 
+        // remove all nodes and clear the maps
         this.removeAllChildren();
-        var atomCounts = this.equationProperty.get().getAtomCounts();
-        var dx = 237; // determined by visual inspection
+        this.reactantCountProperties = {};
+        this.productCountProperties = {};
+
+        var atomCounts = this.equationProperty.get().getAtomCounts(); // [AtomCount]
+        var dx = 237; // horizontal space between scale centers, determined by visual inspection
         var x = 0;
-        atomCounts.forEach( function( atomCount ) {
-          var scaleNode = new BalanceScaleNode( atomCount.element, new Property( atomCount.reactantsCount ), new Property( atomCount.productsCount ),
-            self.equationProperty.get().balancedProperty, { x: x } );
-          self.addChild( scaleNode );
-          if ( DEBUG_BOUNDS && BCEQueryParameters.DEV ) {
-            self.addChild( new Rectangle( scaleNode.bounds.minX, scaleNode.bounds.minY, scaleNode.bounds.width, scaleNode.bounds.height, { stroke: 'red' } ) );
-          }
+        for ( var i = 0; i < atomCounts.length; i++ ) {
+
+          var atomCount = atomCounts[i];
+
+          // populate the maps
+          var leftCountProperty = new Property( atomCount.reactantsCount );
+          var rightCountProperty = new Property( atomCount.productsCount );
+          this.reactantCountProperties[ atomCount.element.symbol ] = leftCountProperty;
+          this.productCountProperties[ atomCount.element.symbol ] = rightCountProperty;
+
+          // add a scale node
+          var scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.get().balancedProperty, { x: x } );
+          this.addChild( scaleNode );
+
           x += dx;
-        } );
+        }
+
+        this.centerX = this.aligner.getScreenCenterX();
+        this.updateCounts();
+      }
+    },
+
+    /**
+     * Updates the atom counts for each scale.
+     * @private
+     */
+    updateCounts: function() {
+      if ( this.visible ) {
+        var atomCounts = this.equationProperty.get().getAtomCounts();
+        for ( var i = 0; i < atomCounts.length; i++ ) {
+          var atomCount = atomCounts[i];
+          this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
+          this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
+        }
       }
     }
   } );

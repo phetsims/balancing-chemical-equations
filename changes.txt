@@ -1,3 +1,4 @@
+7/21/14 #69 rebuild scales only when equation changes, otherwise update counts for each scale
 7/21/14 #69 reuse everything except atoms in BalanceScaleNode
 7/21/14 #69 handle highlighting correctly in BalanceScaleNode
 7/20/14 #70 add AACT to credits

@@ -36,8 +36,8 @@ define( function( require ) {
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
-   * @param {Property<Number>} leftNumberOfAtomsProperty
-   * @param {Property<Number>} rightNumberOfAtomsProperty
+   * @param {Property<Number>} leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
+   * @param {Property<Number>} rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
    * @param {Property<Boolean>} highlightedProperty
    * @param {Object} options
    * @constructor
@@ -162,7 +162,9 @@ define( function( require ) {
         this.rightPileParent.addChild( createAtomPile( rightNumberOfAtoms, this.element ) );
       }
 
-      // position piles on beam
+      // position piles on beam, in neutral orientation
+      this.beamNode.setRotation( 0 );
+      this.pilesParent.setRotation( 0 );
       this.leftVBox.centerX = this.beamNode.left + 0.25 * this.beamNode.width;
       this.rightVBox.centerX = this.beamNode.right - 0.25 * this.beamNode.width;
       this.leftVBox.bottom = this.rightVBox.bottom = this.beamNode.top + 1;
