@@ -54,26 +54,29 @@ define( function( require ) {
     var fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { bottom: 0, transformBounds: true /* issue #77 */ } ); // @private
 
-    // parent for both piles, to simplify rotation
-    this.pilesParent = new Node( { transformBounds: true /* issue #77 */ } ); // @private
-
     // left pile
     this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
-    this.leftPileParent = new Node();
+    this.leftPileNode = new Node(); // @private
+    // @private
     this.leftVBox = new VBox( {
-      children: [ this.leftCountNode, this.leftPileParent ],
+      children: [ this.leftCountNode, this.leftPileNode ],
       spacing: VBOX_SPACING
     } );
-    this.pilesParent.addChild( this.leftVBox );
 
     // right pile
     this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
-    this.rightPileParent = new Node();
+    this.rightPileNode = new Node(); // @private
+    // @private
     this.rightVBox = new VBox( {
-      children: [ this.rightCountNode, this.rightPileParent ],
+      children: [ this.rightCountNode, this.rightPileNode ],
       spacing: VBOX_SPACING
     } );
-    this.pilesParent.addChild( this.rightVBox );
+
+    // parent for both piles, to simplify rotation
+    this.pilesParent = new Node( {
+      children: [ this.leftVBox, this.rightVBox ],
+      transformBounds: true /* see issue #77 */
+    } ); // @private
 
     options.children = [ fulcrumNode, this.beamNode, this.pilesParent ];
     Node.call( this, options );
@@ -91,35 +94,50 @@ define( function( require ) {
   }
 
   /**
-   * Creates a triangular pile of atoms.
+   * Updates a triangular pile of atoms.
    * Atoms are populated one row at a time, starting from the base of the triangle and working up.
-   * Origin is at the lower-left corner of the pile.
+   * To improve performance:
+   * - Atoms are added to the pile as needed.
+   * - Atoms are never removed from the pile; they stay in the pile for the lifetime of this node.
+   * - The visibility of atoms is adjusted to show the correct number of atoms.
    *
-   * @param {number} numberOfAtoms
+   * @param {Node} pileNode pile that will be modified
+   * @param {number} numberOfAtoms number of atoms that will be visible in the pile
    * @param {Element} element
-   * @return {Node} node with atoms
    */
-  var createAtomPile = function( numberOfAtoms, element ) {
-    var parent = new Node();
-    var atomsInRow = ATOMS_IN_PILE_BASE;
-    var row = 0;
-    var pile = 0;
+  var updatePile = function( pileNode, numberOfAtoms, element ) {
+
+    var nodesInPile = pileNode.getChildrenCount(); // how many atom nodes are currently in the pile
+    var pile = 0; // which pile we're working on, layered back-to-front, offset left-to-right
+    var row = 0; // the row number, bottom row is zero
+    var atomsInRow = 0; // number of atoms that have been added to the current row
     var x = 0;
     var y = 0;
+
     for ( var i = 0; i < numberOfAtoms; i++ ) {
-      var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
-      atomNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
-      parent.addChild( atomNode );
-      atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
-      atomsInRow--;
-      if ( atomsInRow > 0 ) {
+
+      if ( i < nodesInPile ) {
+        // set visibility of an atom that's already in the pile
+        pileNode.getChildAt( i ).visible = ( i < numberOfAtoms );
+      }
+      else {
+        // add an atom node
+        var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+        atomNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
+        pileNode.addChild( atomNode );
+        atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
+      }
+
+      // determine position of next atom
+      atomsInRow++;
+      if ( atomsInRow < ATOMS_IN_PILE_BASE - row ) {
         // continue with current row
         x = atomNode.right;
       }
       else if ( row < ATOMS_IN_PILE_BASE - 1 ) {
         // move to next row in current triangular pile
         row++;
-        atomsInRow = ATOMS_IN_PILE_BASE - row;
+        atomsInRow = 0;
         x = ( pile + row ) * ( atomNode.width / 2 );
         y = -( row * 0.85 * atomNode.height );
       }
@@ -127,12 +145,11 @@ define( function( require ) {
         // start a new pile, offset from the previous pile
         row = 0;
         pile++;
-        atomsInRow = ATOMS_IN_PILE_BASE;
+        atomsInRow = 0;
         x = pile * ( atomNode.width / 2 );
         y = 0;
       }
     }
-    return parent;
   };
 
   return inherit( Node, BalanceScaleNode, {
@@ -149,17 +166,17 @@ define( function( require ) {
       var rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
 
       // rebuild left pile
-      this.leftPileParent.removeAllChildren();
+      this.leftPileNode.removeAllChildren();
       this.leftCountNode.text = leftNumberOfAtoms;
       if ( leftNumberOfAtoms > 0 ) {
-        this.leftPileParent.addChild( createAtomPile( leftNumberOfAtoms, this.element ) );
+        updatePile( this.leftPileNode, leftNumberOfAtoms, this.element );
       }
 
       // rebuild right pile
-      this.rightPileParent.removeAllChildren();
+      this.rightPileNode.removeAllChildren();
       this.rightCountNode.text = rightNumberOfAtoms;
       if ( rightNumberOfAtoms > 0 ) {
-        this.rightPileParent.addChild( createAtomPile( rightNumberOfAtoms, this.element ) );
+        updatePile( this.rightPileNode, rightNumberOfAtoms, this.element );
       }
 
       // position piles on beam, in neutral orientation
