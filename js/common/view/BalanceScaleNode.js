@@ -31,6 +31,7 @@ define( function( require ) {
   var BEAM_THICKNESS = 6;
   var NUMBER_OF_TILT_ANGLES = 6;
   var ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
+  var TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
@@ -52,6 +53,8 @@ define( function( require ) {
     var fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { bottom: 0, transformBounds: true /* issue #77 */ } ); // @private
     this.atomPilesParentNode = new Node( { transformBounds: true /* issue #77 */ } ); // @private
+    this.leftTextNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS );
+    this.rightTextNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS );
 
     options.children = [ fulcrumNode, this.beamNode, this.atomPilesParentNode ];
     Node.call( this, options );
@@ -125,11 +128,11 @@ define( function( require ) {
       var rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
 
       // left pile of atoms, centered on left-half of beam width number
-      var leftPileChildren = [new Text( leftNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
+      this.leftTextNode.text = leftNumberOfAtoms;
+      var leftPileChildren = [ this.leftTextNode ];
       if ( leftNumberOfAtoms > 0 ) {
         leftPileChildren.push( createAtomPile( leftNumberOfAtoms, this.element ) );
       }
-
       var leftPileNode = new VBox( {
         children: leftPileChildren,
         spacing: 5,
@@ -139,11 +142,11 @@ define( function( require ) {
       this.atomPilesParentNode.addChild( leftPileNode );
 
       // right pile of atoms, centered on left-half of beam width number
-      var rightPileChildren = [new Text( rightNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
+      this.rightTextNode.text = rightNumberOfAtoms;
+      var rightPileChildren = [ this.rightTextNode ];
       if ( rightNumberOfAtoms > 0 ) {
         rightPileChildren.push( createAtomPile( rightNumberOfAtoms, this.element ) );
       }
-
       var rightPileNode = new VBox( {
         children: rightPileChildren,
         spacing: 5,
