@@ -12,8 +12,10 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var GameFeedbackDialog = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameFeedbackDialog' );
+  var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -25,13 +27,26 @@ define( function( require ) {
   var checkString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/check' );
   var nextString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/next' );
 
-  function GamePlayNode( model, viewProperties, audioPlayer, layoutBounds, aligner, boxSize, boxXSpacing, options ) {
+  // constants
+  var BOX_SIZE = new Dimension2( 285, 340 );
+  var BOX_X_SPACING = 140; // horizontal spacing between boxes
+
+  /**
+   * @param {GameModel} model
+   * @param {PropertySet} viewProperties
+   * @param {GameAudioPlayer} audioPlayer
+   * @param {Bounds2} layoutBounds layout bounds of the parent ScreenView
+   * @param {HorizontalAligner} aligner
+   * @param {*} options
+   * @constructor
+   */
+  function GamePlayNode( model, viewProperties, audioPlayer, layoutBounds, options ) {
 
     var self = this;
     this.model = model; // @private
     this.audioPlayer = audioPlayer; // @private
-    this.aligner = aligner; // @private
     this.layoutBounds = layoutBounds; // @private
+    this.aligner = new HorizontalAligner( layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING ); // @private
     this.feedbackDialog = null; // @private game feedback dialog, created on demand
 
     Node.call( this );
@@ -59,7 +74,7 @@ define( function( require ) {
 
     // @private boxes that show molecules corresponding to the equation coefficients
     this.boxesNode = new BoxesNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, this.aligner,
-      boxSize, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
+      BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { y: scoreboard.bottom + 15 } );
     this.addChild( this.boxesNode );
 
@@ -90,7 +105,7 @@ define( function( require ) {
 
     // scale buttons uniformly to fit the horizontal space between the boxes, see issue #68
     var buttonsParent = new Node( { children: [ this.checkButton, this.nextButton ] } );
-    buttonsParent.setScaleMagnitude( Math.min( 1, 0.85 * boxXSpacing / buttonsParent.width ) );
+    buttonsParent.setScaleMagnitude( Math.min( 1, 0.85 * BOX_X_SPACING / buttonsParent.width ) );
     buttonsParent.centerX = this.layoutBounds.centerX;
     buttonsParent.bottom = this.boxesNode.bottom;
     this.addChild( buttonsParent );

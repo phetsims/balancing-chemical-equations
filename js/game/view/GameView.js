@@ -12,20 +12,14 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   var GamePlayNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GamePlayNode' );
-  var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var LevelSelectionNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/LevelSelectionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ScreenView = require( 'JOIST/ScreenView' );
-
-  // Constants
-  var BOX_SIZE = new Dimension2( 285, 340 );
-  var BOX_X_SPACING = 140; // horizontal spacing between boxes
 
   /**
    * @param {GameModel} model
@@ -45,7 +39,6 @@ define( function( require ) {
 
     this.model = model;
     this.audioPlayer = new GameAudioPlayer( this.viewProperties.soundEnabledProperty );
-    this.aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();
@@ -55,7 +48,7 @@ define( function( require ) {
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds, { visible: false } );
     this.rootNode.addChild( this.levelSelectionNode );
 
-    // game-play interface, all the UI elements for a challenge, created on demand
+    // game-play interface, created on demand
     this.gamePlayNode = null;
 
     // Call an initializer to set up the game for the state.
@@ -87,7 +80,7 @@ define( function( require ) {
 
     initStartGame: function() {
       if ( !this.gamePlayNode ) {
-        this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer, this.layoutBounds, this.aligner, BOX_SIZE, BOX_X_SPACING );
+        this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer, this.layoutBounds );
         this.rootNode.addChild( this.gamePlayNode );
       }
       this.viewProperties.reactantsBoxExpandedProperty.reset();
