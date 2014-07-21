@@ -13,23 +13,24 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  var BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BeamNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var FulcrumNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/FulcrumNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BeamNode' );
-  var FulcrumNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/FulcrumNode' );
-  var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var Vector2 = require( 'DOT/Vector2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var FULCRUM_SIZE = new Dimension2( 60, 45 );
   var BEAM_LENGTH = 205;
   var BEAM_THICKNESS = 6;
   var NUMBER_OF_TILT_ANGLES = 6;
+  var VBOX_SPACING = 5;
   var ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
   var TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
 
@@ -49,20 +50,43 @@ define( function( require ) {
     this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
     this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
 
-    // nodes
+    // fulcrum & beam
     var fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { bottom: 0, transformBounds: true /* issue #77 */ } ); // @private
-    this.atomPilesParentNode = new Node( { transformBounds: true /* issue #77 */ } ); // @private
-    this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS );
-    this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS );
 
-    options.children = [ fulcrumNode, this.beamNode, this.atomPilesParentNode ];
+    // parent for both piles, to simplify rotation
+    this.pilesParent = new Node( { transformBounds: true /* issue #77 */ } ); // @private
+
+    // left pile
+    this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+    this.leftPileParent = new Node();
+    this.leftVBox = new VBox( {
+      children: [ this.leftCountNode, this.leftPileParent ],
+      spacing: VBOX_SPACING
+    } );
+    this.pilesParent.addChild( this.leftVBox );
+
+    // right pile
+    this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+    this.rightPileParent = new Node();
+    this.rightVBox = new VBox( {
+      children: [ this.rightCountNode, this.rightPileParent ],
+      spacing: VBOX_SPACING
+    } );
+    this.pilesParent.addChild( this.rightVBox );
+
+    options.children = [ fulcrumNode, this.beamNode, this.pilesParent ];
     Node.call( this, options );
 
+    // highlight the beam
     highlightedProperty.link( function( highlighted ) {
       self.beamNode.setHighlighted( highlighted );
     } );
 
+    // update piles
+    var updateNodeBind = this.updateNode.bind( this );
+    leftNumberOfAtomsProperty.lazyLink( updateNodeBind );
+    rightNumberOfAtomsProperty.lazyLink( updateNodeBind );
     this.updateNode();
   }
 
@@ -121,39 +145,27 @@ define( function( require ) {
      */
     updateNode: function() {
 
-      // all dynamic stuff is above the beam, and is children of atomPilesParentNode
-      this.atomPilesParentNode.removeAllChildren();
-
       var leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
       var rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
 
-      // number and left pile of atoms, centered on left-half of beam
+      // rebuild left pile
+      this.leftPileParent.removeAllChildren();
       this.leftCountNode.text = leftNumberOfAtoms;
-      var leftPileChildren = [ this.leftCountNode ];
       if ( leftNumberOfAtoms > 0 ) {
-        leftPileChildren.push( createAtomPile( leftNumberOfAtoms, this.element ) );
+        this.leftPileParent.addChild( createAtomPile( leftNumberOfAtoms, this.element ) );
       }
-      var leftPileNode = new VBox( {
-        children: leftPileChildren,
-        spacing: 5,
-        centerX: -0.25 * BEAM_LENGTH,
-        bottom: -1 - BEAM_THICKNESS / 2
-      } );
-      this.atomPilesParentNode.addChild( leftPileNode );
 
-      // number and right pile of atoms, centered on left-half of beam with number
+      // rebuild right pile
+      this.rightPileParent.removeAllChildren();
       this.rightCountNode.text = rightNumberOfAtoms;
-      var rightPileChildren = [ this.rightCountNode ];
       if ( rightNumberOfAtoms > 0 ) {
-        rightPileChildren.push( createAtomPile( rightNumberOfAtoms, this.element ) );
+        this.rightPileParent.addChild( createAtomPile( rightNumberOfAtoms, this.element ) );
       }
-      var rightPileNode = new VBox( {
-        children: rightPileChildren,
-        spacing: 5,
-        centerX: 0.25 * BEAM_LENGTH,
-        bottom: -1 - BEAM_THICKNESS / 2
-      } );
-      this.atomPilesParentNode.addChild( rightPileNode );
+
+      // position piles on beam
+      this.leftVBox.centerX = this.beamNode.left + 0.25 * this.beamNode.width;
+      this.rightVBox.centerX = this.beamNode.right - 0.25 * this.beamNode.width;
+      this.leftVBox.bottom = this.rightVBox.bottom = this.beamNode.top + 1;
 
       // rotate beam and piles on fulcrum
       var maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
@@ -169,7 +181,7 @@ define( function( require ) {
         angle = difference * ( maxAngle / NUMBER_OF_TILT_ANGLES );
       }
       this.beamNode.setRotation( angle );
-      this.atomPilesParentNode.setRotation( angle );
+      this.pilesParent.setRotation( angle );
     }
   } );
 } );
