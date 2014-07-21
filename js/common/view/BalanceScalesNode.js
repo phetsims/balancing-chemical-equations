@@ -81,7 +81,8 @@ define( function( require ) {
         var dx = 237; // determined by visual inspection
         var x = 0;
         atomCounts.forEach( function( atomCount ) {
-          var scaleNode = new BalanceScaleNode( atomCount.element, new Property( atomCount.reactantsCount ), new Property( atomCount.productsCount ), { x: x } );
+          var scaleNode = new BalanceScaleNode( atomCount.element, new Property( atomCount.reactantsCount ), new Property( atomCount.productsCount ),
+            self.equationProperty.get().balancedProperty, { x: x } );
           self.addChild( scaleNode );
           if ( DEBUG_BOUNDS && BCEQueryParameters.DEV ) {
             self.addChild( new Rectangle( scaleNode.bounds.minX, scaleNode.bounds.minY, scaleNode.bounds.width, scaleNode.bounds.height, { stroke: 'red' } ) );

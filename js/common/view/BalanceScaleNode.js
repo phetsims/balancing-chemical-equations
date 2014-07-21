@@ -36,10 +36,13 @@ define( function( require ) {
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
    * @param {Property<Number>} leftNumberOfAtomsProperty
    * @param {Property<Number>} rightNumberOfAtomsProperty
+   * @param {Property<Boolean>} highlightedProperty
    * @param {Object} options
    * @constructor
    */
-  function BalanceScaleNode( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, options ) {
+  function BalanceScaleNode( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, highlightedProperty, options ) {
+
+    var self = this;
 
     this.element = element; // @private
     this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
@@ -52,6 +55,10 @@ define( function( require ) {
 
     options.children = [ fulcrumNode, this.beamNode, this.atomPilesParentNode ];
     Node.call( this, options );
+
+    highlightedProperty.link( function( highlighted ) {
+      self.beamNode.setHighlighted( highlighted );
+    } );
 
     this.updateNode();
   }
@@ -116,7 +123,6 @@ define( function( require ) {
 
       var leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
       var rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
-      this.beamNode.setHighlighted( leftNumberOfAtoms === rightNumberOfAtoms );
 
       // left pile of atoms, centered on left-half of beam width number
       var leftPileChildren = [new Text( leftNumberOfAtoms, {font: new PhetFont( 18 ), fill: 'black'} )];
