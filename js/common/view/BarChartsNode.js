@@ -37,7 +37,7 @@ define( function( require ) {
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
     this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
-    this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of thed element
+    this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of the element
 
     this.reactantBarsParent = new Node(); // @private
     this.productBarsParent = new Node(); // @private
