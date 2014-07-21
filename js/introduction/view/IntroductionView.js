@@ -63,11 +63,13 @@ define( function( require ) {
     this.addChild( boxesNode );
 
     // bar charts, above boxes
-    var barChartsNode = new BarChartsNode( model.equationProperty, aligner, { bottom: boxesNode.top - 10  } );
+    var barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
+      bottom: boxesNode.top - 10, visible: viewProperties.balancedRepresentationProperty.get() === BalancedRepresentation.BAR_CHARTS  } );
     this.addChild( barChartsNode );
 
     // balance scales, above boxes
-    var balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, { bottom: boxesNode.top - 10  } );
+    var balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner,
+      { bottom: boxesNode.top - 10, visible: viewProperties.balancedRepresentationProperty.get() === BalancedRepresentation.BALANCE_SCALES  } );
     this.addChild( balanceScalesNode );
 
     // smiley face, top center, shown when equation is balanced

@@ -1,3 +1,4 @@
+7/21/14 #82 optimize start up: initialize 'bar charts' and 'balance scales' representations on demand
 # 1.0.0-dev.10 7/21/14
 7/21/14 #69 BalanceScaleNode: optimization fixes, refactoring and cleanup
 7/21/14 #69 BalanceScaleNode: create atoms on demand, use visibility to display the correct number of atoms

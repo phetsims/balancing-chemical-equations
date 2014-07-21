@@ -29,13 +29,19 @@ define( function( require ) {
    */
   function BalanceScalesNode( equationProperty, aligner, options ) {
 
+    options = _.extend( {
+        bottom: 0
+    }, options );
+
     var self = this;
-    Node.call( this );
 
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
+    this.constantBottom = options.bottom; // @private
     this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
     this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of the element
+
+    Node.call( this, options );
 
     // Wire coefficients observer to current equation.
     var coefficientsObserver = this.updateCounts.bind( this );
@@ -44,8 +50,6 @@ define( function( require ) {
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
-
-    this.mutate( options );
   }
 
   return inherit( Node, BalanceScalesNode, {
@@ -96,6 +100,7 @@ define( function( require ) {
         }
 
         this.centerX = this.aligner.getScreenCenterX();
+        this.bottom = this.constantBottom;
         this.updateCounts();
       }
     },
