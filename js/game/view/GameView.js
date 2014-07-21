@@ -9,26 +9,19 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
-  var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-  var GameFeedbackDialog = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameFeedbackDialog' );
-  var LevelSelectionNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/LevelSelectionNode' );
-  var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
-  var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
+  var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   var GamePlayNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GamePlayNode' );
+  var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
+  var LevelSelectionNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/LevelSelectionNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var ScreenView = require( 'JOIST/ScreenView' );
 
   // Constants
   var BOX_SIZE = new Dimension2( 285, 340 );
