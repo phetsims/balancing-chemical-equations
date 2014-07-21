@@ -133,6 +133,7 @@ define( function( require ) {
       this.addChild( skipButton );
     }
 
+    // Call an initializer to set up the game for the state.
     model.stateProperty.link( function( state ) {
       var states = model.states;
       if ( state === states.CHECK ) {
