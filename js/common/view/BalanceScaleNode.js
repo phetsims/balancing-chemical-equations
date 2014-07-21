@@ -30,7 +30,7 @@ define( function( require ) {
   var BEAM_LENGTH = 205;
   var BEAM_THICKNESS = 6;
   var NUMBER_OF_TILT_ANGLES = 6;
-  var VBOX_SPACING = 5;
+  var COUNT_Y_SPACING = 3;
   var ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
   var TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
 
@@ -52,29 +52,22 @@ define( function( require ) {
 
     // fulcrum & beam
     var fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
-    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, { bottom: 0, transformBounds: true /* issue #77 */ } ); // @private
+    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
+      bottom: 0,
+      transformBounds: true /* see issue #77 */
+    } ); // @private
 
-    // left pile
-    this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+    // left pile & count
     this.leftPileNode = new Node(); // @private
-    // @private
-    this.leftVBox = new VBox( {
-      children: [ this.leftCountNode, this.leftPileNode ],
-      spacing: VBOX_SPACING
-    } );
+    this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
 
-    // right pile
-    this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+    // right pile & count
     this.rightPileNode = new Node(); // @private
-    // @private
-    this.rightVBox = new VBox( {
-      children: [ this.rightCountNode, this.rightPileNode ],
-      spacing: VBOX_SPACING
-    } );
+    this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
 
     // parent for both piles, to simplify rotation
     this.pilesParent = new Node( {
-      children: [ this.leftVBox, this.rightVBox ],
+      children: [ this.leftPileNode, this.leftCountNode, this.rightPileNode, this.rightCountNode ],
       transformBounds: true /* see issue #77 */
     } ); // @private
 
@@ -101,11 +94,14 @@ define( function( require ) {
    * - Atoms are never removed from the pile; they stay in the pile for the lifetime of this node.
    * - The visibility of atoms is adjusted to show the correct number of atoms.
    *
-   * @param {Node} pileNode pile that will be modified
-   * @param {number} numberOfAtoms number of atoms that will be visible in the pile
    * @param {Element} element
+   * @param {number} numberOfAtoms number of atoms that will be visible in the pile
+   * @param {Node} pileNode pile that will be modified
+   * @param {Node} countNode displays numberOfAtoms
+   * @param {Number} pileCenterX x-coordinate of the pile's center, relative to the beam
+   * @param {Number} beamTop y-coordinate of the beam's top
    */
-  var updatePile = function( pileNode, numberOfAtoms, element ) {
+  var updatePile = function( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop) {
 
     var nodesInPile = pileNode.getChildrenCount(); // how many atom nodes are currently in the pile
     var pile = 0; // which pile we're working on, layered back-to-front, offset left-to-right
@@ -113,16 +109,18 @@ define( function( require ) {
     var atomsInRow = 0; // number of atoms that have been added to the current row
     var x = 0;
     var y = 0;
+    var atomNode;
 
-    for ( var i = 0; i < numberOfAtoms; i++ ) {
+    for ( var i = 0; i < Math.max( nodesInPile, numberOfAtoms ); i++ ) {
 
       if ( i < nodesInPile ) {
         // set visibility of an atom that's already in the pile
-        pileNode.getChildAt( i ).visible = ( i < numberOfAtoms );
+        atomNode = pileNode.getChildAt( i );
+        atomNode.visible = ( i < numberOfAtoms );
       }
       else {
         // add an atom node
-        var atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+        atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
         atomNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
         pileNode.addChild( atomNode );
         atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );
@@ -150,6 +148,23 @@ define( function( require ) {
         y = 0;
       }
     }
+
+    // count display
+    countNode.text = numberOfAtoms;
+
+    // layout
+    if ( pileNode.visibleBounds.isEmpty() ) {
+      // pile is empty, just deal with count
+      countNode.centerX = pileCenterX;
+      countNode.bottom = beamTop - COUNT_Y_SPACING;
+    }
+    else {
+      // account for invisible atoms in the pile
+      pileNode.centerX = pileCenterX + ( pileNode.width - pileNode.visibleBounds.width ) / 2;
+      pileNode.bottom = beamTop + 1;
+      countNode.centerX = pileCenterX;
+      countNode.bottom = pileNode.visibleBounds.top - COUNT_Y_SPACING;
+    }
   };
 
   return inherit( Node, BalanceScaleNode, {
@@ -162,29 +177,16 @@ define( function( require ) {
      */
     updateNode: function() {
 
+      // update piles on beam in neutral orientation
+      this.beamNode.setRotation( 0 );
+      this.pilesParent.setRotation( 0 );
+
       var leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
       var rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
 
-      // rebuild left pile
-      this.leftPileNode.removeAllChildren();
-      this.leftCountNode.text = leftNumberOfAtoms;
-      if ( leftNumberOfAtoms > 0 ) {
-        updatePile( this.leftPileNode, leftNumberOfAtoms, this.element );
-      }
-
-      // rebuild right pile
-      this.rightPileNode.removeAllChildren();
-      this.rightCountNode.text = rightNumberOfAtoms;
-      if ( rightNumberOfAtoms > 0 ) {
-        updatePile( this.rightPileNode, rightNumberOfAtoms, this.element );
-      }
-
-      // position piles on beam, in neutral orientation
-      this.beamNode.setRotation( 0 );
-      this.pilesParent.setRotation( 0 );
-      this.leftVBox.centerX = this.beamNode.left + 0.25 * this.beamNode.width;
-      this.rightVBox.centerX = this.beamNode.right - 0.25 * this.beamNode.width;
-      this.leftVBox.bottom = this.rightVBox.bottom = this.beamNode.top + 1;
+      // update piles
+      updatePile( this.element, leftNumberOfAtoms, this.leftPileNode, this.leftCountNode, this.beamNode.left + 0.25 * this.beamNode.width, this.beamNode.top );
+      updatePile( this.element, rightNumberOfAtoms, this.rightPileNode, this.rightCountNode, this.beamNode.right - 0.25 * this.beamNode.width, this.beamNode.top );
 
       // rotate beam and piles on fulcrum
       var maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
