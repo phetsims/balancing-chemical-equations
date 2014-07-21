@@ -79,7 +79,6 @@ define( function( require ) {
     },
 
     initStartGame: function() {
-      console.log( 'initStartGame' );//XXX
       if ( !this.gamePlayNode ) {
         this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer, this.layoutBounds );
         this.rootNode.addChild( this.gamePlayNode );
@@ -108,7 +107,7 @@ define( function( require ) {
       // Add the dialog node that indicates that the level has been completed.
       var numberOfEquations = this.model.getNumberOfEquations( this.model.level );
       var levelCompletedNode = new LevelCompletedNode( this.model.level, this.model.points, this.model.getPerfectScore( this.model.level ),
-        numberOfEquations, this.model.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
+        numberOfEquations, this.viewProperties.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
         // function called when 'Continue' button is pressed
         function() {
           // remove the reward, if we have one
