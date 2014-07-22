@@ -1,3 +1,4 @@
+7/22/14 #83 fix IntroductionModel.reset
 7/21/14 fix level-completed dialog so that it shows time when timer is enabled
 # 1.0.0-dev.11 7/21/14
 7/21/14 #82 bug fixes to GamePlayNode

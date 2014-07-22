@@ -49,8 +49,8 @@ define( function( require ) {
     // @override
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.equations.forEach( function( equation ) {
-        equation.reset();
+      this.choices.forEach( function( choice ) {
+        choice.equation.reset();
       } );
     }
   } );
