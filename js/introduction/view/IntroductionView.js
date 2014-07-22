@@ -51,16 +51,16 @@ define( function( require ) {
     // aligner for equation
     var aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
-    // 'Tools' combo box, at upper-right
-    var comboBoxParent = new Node();
-    this.addChild( new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
-      { right: this.layoutBounds.right - 15, top: this.layoutBounds.top + 15 } ) );
-
     // boxes that show molecules corresponding to the equation coefficients
     var boxesNode = new BoxesNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner,
       BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { top: 180 } );
     this.addChild( boxesNode );
+
+    // 'Tools' combo box, at upper-right
+    var comboBoxParent = new Node();
+    this.addChild( new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
+      { right: boxesNode.right, top: this.layoutBounds.top + 15 } ) );
 
     // bar charts, above boxes
     var barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
