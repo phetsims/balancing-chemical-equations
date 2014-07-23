@@ -201,16 +201,16 @@ define( function( require ) {
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
 
-      var equationConstructors = [];
+      var factoryFunctions = [];
       for ( var i = 0; i < numberOfEquations; i++ ) {
 
         // randomly select an equation
         var randomIndex = Math.floor( Math.random() * poolCopy.length );
-        var equationClass = poolCopy[randomIndex];
+        var factoryFunction = poolCopy[randomIndex];
 
         // If the first equation isn't supposed to contain any "big" molecules,
         // then find an equation in the pool that has no big molecules.
-        if ( i === 0 && !this.firstBigMolecule && equationClass().hasBigMolecule() ) {
+        if ( i === 0 && !this.firstBigMolecule && factoryFunction().hasBigMolecule() ) {
 
           // start the search at a random index
           var startIndex = Math.floor( Math.random() * poolCopy.length );
@@ -219,9 +219,9 @@ define( function( require ) {
           while ( !done ) {
 
             // next equation in the pool
-            equationClass = poolCopy.get( index );
+            factoryFunction = poolCopy.get( index );
 
-            if ( !equationClass().hasBigMolecule() ) {
+            if ( !factoryFunction().hasBigMolecule() ) {
               done = true; // success, this equation has no big molecules
             }
             else {
@@ -241,29 +241,29 @@ define( function( require ) {
         }
 
         // add the equation to the game
-        equationConstructors.push( equationClass );
+        factoryFunctions.push( factoryFunction );
 
         // remove the equation from the pool so it won't be selected again
-        poolCopy.splice( poolCopy.indexOf( equationClass ), 1 );
+        poolCopy.splice( poolCopy.indexOf( factoryFunction ), 1 );
 
         // if the selected equation has exclusions, remove them from the pool
         var excludedEquations;
-        // trying to find excluded equations from comparing equationClass with DisplacementEquation[keys in exclusions]
+        // trying to find excluded equations from comparing factoryFunction with DisplacementEquation[keys in exclusions]
         // if functions the same - we've found key and exclusions[key] target excluded list
-        for ( var exclusionClassName in this.exclusions ) {
-          if ( this.exclusions.hasOwnProperty( exclusionClassName ) ) {
-            if ( DisplacementEquation[exclusionClassName] === equationClass ) {
-              excludedEquations = this.exclusions[ exclusionClassName];
+        for ( var functionName in this.exclusions ) {
+          if ( this.exclusions.hasOwnProperty( functionName ) ) {
+            if ( DisplacementEquation[functionName] === factoryFunction ) {
+              excludedEquations = this.exclusions[ functionName];
             }
           }
         }
         if ( excludedEquations !== undefined ) {
-          _.remove( poolCopy, function( equationClass ) {
-            return excludedEquations.indexOf( equationClass ) !== -1;
+          _.remove( poolCopy, function( factoryFunction ) {
+            return excludedEquations.indexOf( factoryFunction ) !== -1;
           }, this );
         }
       }
-      return equationConstructors;
+      return factoryFunctions;
     }
   } );
 
