@@ -47,7 +47,7 @@ define( function( require ) {
     this.numberNode = new Text( '?', {font: new PhetFont( 18 )} );
 
     // @private bar
-    this.barNode = new Path( null, { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
+    this.barNode = new Path( Shape.rect( 0, 0, 1, 1 ), { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
 
     // atom symbol
     var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
@@ -60,12 +60,10 @@ define( function( require ) {
     var hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
     options.children = [ hStrut, this.numberNode, this.barNode, new HBox( {children: [ iconNode, symbolNode ], spacing: 3 } ) ];
-    VBox.call( this );
+    VBox.call( this, options );
 
     // when the number of atoms changes ...
     numberOfAtomsProperty.link( this.update.bind( this ) );
-
-    this.mutate( options );
   }
 
   return inherit( VBox, BarNode, {

@@ -1,6 +1,5 @@
 // Copyright 2002-2014, University of Colorado
 
-
 /**
  * Visual representation of an equation as a set of balance scales, one for each atom type.
  * The left side of each scale is the reactants, the right side is the products.
@@ -41,7 +40,7 @@ define( function( require ) {
     this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
     this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of the element
 
-    Node.call( this, options );
+    Node.call( this );
 
     // Wire coefficients observer to current equation.
     var coefficientsObserver = this.updateCounts.bind( this );
@@ -50,6 +49,8 @@ define( function( require ) {
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, BalanceScalesNode, {

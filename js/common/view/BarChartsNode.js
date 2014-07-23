@@ -44,7 +44,7 @@ define( function( require ) {
     var equalityOperatorNode = new EqualityOperatorNode( equationProperty, { center: new Vector2( aligner.getScreenCenterX(), -40 ) } ); // @private
 
     options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
-    Node.call( this, options );
+    Node.call( this );
 
     // Wire coefficients observer to current equation.
     var coefficientsObserver = this.updateCounts.bind( this );
@@ -53,6 +53,8 @@ define( function( require ) {
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Node, BarChartsNode, {

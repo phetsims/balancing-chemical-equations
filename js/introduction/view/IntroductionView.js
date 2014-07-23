@@ -62,16 +62,6 @@ define( function( require ) {
     this.addChild( new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
       { right: boxesNode.right, top: this.layoutBounds.top + 15 } ) );
 
-    // bar charts, above boxes
-    var barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
-      bottom: boxesNode.top - 10, visible: viewProperties.balancedRepresentationProperty.get() === BalancedRepresentation.BAR_CHARTS  } );
-    this.addChild( barChartsNode );
-
-    // balance scales, above boxes
-    var balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner,
-      { bottom: boxesNode.top - 10, visible: viewProperties.balancedRepresentationProperty.get() === BalancedRepresentation.BALANCE_SCALES  } );
-    this.addChild( balanceScalesNode );
-
     // smiley face, top center, shown when equation is balanced
     var faceNode = new BCEFaceNode( model.equationProperty, { centerX: this.layoutBounds.centerX, top: 15 } );
     this.addChild( faceNode );
@@ -94,13 +84,35 @@ define( function( require ) {
       scale: 0.8
     } ) );
 
+    // Show the selected 'balanced' representation, create nodes on demand.
+    var balancedParent = new Node(); // to maintain rendering order for combo box
+    this.addChild( balancedParent );
+    var barChartsNode, balanceScalesNode;
+    viewProperties.balancedRepresentationProperty.link( function( balancedRepresentation ) {
+
+      // bar chart
+      if ( !barChartsNode && balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
+        barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
+          bottom: boxesNode.top - 10 } );
+        balancedParent.addChild( barChartsNode );
+      }
+      if ( barChartsNode ) {
+        barChartsNode.visible = ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS );
+      }
+
+      // balance scales
+      if ( !balanceScalesNode && balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
+        balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner,
+          { bottom: boxesNode.top - 10 } );
+        balancedParent.addChild( balanceScalesNode );
+      }
+      if ( balanceScalesNode ) {
+        balanceScalesNode.visible = ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES );
+      }
+    } );
+
     // add this last, so that combo box list is on top of everything else
     this.addChild( comboBoxParent );
-
-    viewProperties.balancedRepresentationProperty.link( function( balancedRepresentation ) {
-      barChartsNode.setVisible( balancedRepresentation === BalancedRepresentation.BAR_CHARTS );
-      balanceScalesNode.setVisible( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES );
-    } );
 
     // show the answer when running in dev mode, bottom center
     if ( BCEQueryParameters.DEV ) {
