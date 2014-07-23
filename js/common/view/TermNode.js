@@ -38,7 +38,9 @@ define( function( require ) {
       xMargin: 8,
       yMargin: 0,
       touchAreaExpandX: 30,
-      font: new PhetFont( options.fontSize )
+      font: new PhetFont( options.fontSize ),
+      timerDelay: 400, // ms until the picker starts to fire continuously
+      intervalDelay: 400 // ms between value change while firing continuously
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker

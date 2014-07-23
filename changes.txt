@@ -1,3 +1,5 @@
+7/23/14 #86 increase firing interval for pickers from 100ms to 400ms
+7/23/14 pick up fix for pickers in scenery-phet#65, they would sometimes not fire when pressed
 # 1.0.0-dev.13 7/23/14
 7/23/14 #50 fix exclusions feature in game, add debug output (enabled via 'console' query parameter)
 7/23/14 #85 instantiate bar charts and balances scales on demand, ensure that their bounds are never empty to prevent 'Martix was suspicious' assertion failure
