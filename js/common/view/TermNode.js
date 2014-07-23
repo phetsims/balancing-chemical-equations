@@ -33,7 +33,8 @@ define( function( require ) {
 
     // coefficient picker
     var coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
-      color: 'black',
+      color: 'rgb(50,50,50)',
+      activatedColor: 'black',
       xMargin: 8,
       yMargin: 0,
       touchAreaExpandX: 30,

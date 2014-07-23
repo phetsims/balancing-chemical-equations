@@ -1,3 +1,4 @@
+7/23/14 #84 use different shades of 'black' to differentiate between 'over' and 'activated' for pickers
 # 1.0.0-dev.12 7/22/14
 7/22/14 Intro: right-align Tools combo box with products box
 7/22/14 #83 fix IntroductionModel.reset
