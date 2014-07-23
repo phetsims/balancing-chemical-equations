@@ -39,7 +39,7 @@ define( function( require ) {
    */
   var getXOffsets = function( terms, boxWidth, boxLeft, alignment ) {
 
-    assert && assert( alignment === 'left' || alignment === 'right ' );
+    assert && assert( alignment === 'left' || alignment === 'right' );
 
     var numberOfTerms = terms.length;
     var xOffsets = [];
