@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Base class for all chemical equations.
+ * Base type for all chemical equations.
  * A chemical equation has 2 sets of terms, reactants and products.
  * During the chemical reaction represented by the equation, reactants are transformed into products.
  * <p/>
