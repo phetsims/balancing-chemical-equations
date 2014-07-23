@@ -10,6 +10,7 @@
  * during the equation selection process.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -179,13 +180,18 @@ define( function( require ) {
    *
    * @param {[constructor]} pool which equation pool to use
    * @param {boolean} firstBigMolecule specifies whether it's OK if the first equation in the set contains a "big" molecule
-   * @param {*} exclusions optional exclusions, see LEVEL3_EXCLUSIONS for doc
+   * @param {*} options
    * @constructor
    */
-  var RandomStrategy = function( pool, firstBigMolecule, exclusions ) {
+  var RandomStrategy = function( pool, firstBigMolecule, options ) {
+
+    options = _.extend( {
+       exclusions: {} // see LEVEL3_EXCLUSIONS for doc
+    }, options );
+
     this.pool = pool;
     this.firstBigMolecule = firstBigMolecule;  // can the first equation in the set contain a "big" molecule?
-    this.exclusions = exclusions || {};
+    this.exclusions = options.exclusions;
   };
 
   inherit( Object, RandomStrategy, {
@@ -198,11 +204,17 @@ define( function( require ) {
      */
     getEquationFactoryFunctions: function( numberOfEquations ) {
 
+      if ( BCEQueryParameters.CONSOLE ) {
+        console.log( 'GameFactory: choosing challenges...' );
+      }
+
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
 
       var factoryFunctions = [];
       for ( var i = 0; i < numberOfEquations; i++ ) {
+
+        assert && assert( poolCopy.length > 0 );
 
         // randomly select an equation
         var randomIndex = Math.floor( Math.random() * poolCopy.length );
@@ -242,30 +254,36 @@ define( function( require ) {
 
         // add the equation to the game
         factoryFunctions.push( factoryFunction );
+        if ( BCEQueryParameters.CONSOLE ) {
+          console.log( '+ chose ' + factoryFunction().toString() );
+        }
 
         // remove the equation from the pool so it won't be selected again
         poolCopy.splice( poolCopy.indexOf( factoryFunction ), 1 );
 
         // if the selected equation has exclusions, remove them from the pool
-        var excludedEquations;
-        // trying to find excluded equations from comparing factoryFunction with DisplacementEquation[keys in exclusions]
-        // if functions the same - we've found key and exclusions[key] target excluded list
         for ( var functionName in this.exclusions ) {
-          if ( this.exclusions.hasOwnProperty( functionName ) ) {
-            if ( DisplacementEquation[functionName] === factoryFunction ) {
-              excludedEquations = this.exclusions[ functionName];
+          if ( DisplacementEquation[functionName] === factoryFunction ) {
+            var excludedFunctions = this.exclusions[ functionName];
+            for ( var j = 0; j < excludedFunctions.length; j++ ) {
+              var excludedFunction = excludedFunctions[j];
+              var index = poolCopy.indexOf( excludedFunction );
+              if ( index !== -1 ) {
+                poolCopy.splice( index, 1 );
+                if ( BCEQueryParameters.CONSOLE ) {
+                  console.log( '- excluded ' + excludedFunction().toString() );
+                }
+              }
             }
+            break; // assumes that all exclusions are in 1 entry
           }
         }
-        if ( excludedEquations !== undefined ) {
-          _.remove( poolCopy, function( factoryFunction ) {
-            return excludedEquations.indexOf( factoryFunction ) !== -1;
-          }, this );
-        }
       }
+
+      assert && assert( factoryFunctions.length === numberOfEquations );
       return factoryFunctions;
     }
-  } );
+  });
 
   // strategies for selecting equations, indexed by game level
   var STRATEGIES = [

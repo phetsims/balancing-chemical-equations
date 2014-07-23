@@ -18,6 +18,9 @@ define( function( require ) {
     PLAY_ALL: getQueryParameter( 'playAll' ) || false,
 
     // show the game reward regardless of score
-    REWARD: getQueryParameter( 'reward' ) || false
+    REWARD: getQueryParameter( 'reward' ) || false,
+
+    // enables console output for debugging
+    CONSOLE: getQueryParameter( 'console' ) || false
   };
 } );
