@@ -267,9 +267,9 @@ define( function( require ) {
             var excludedFunctions = this.exclusions[ functionName];
             for ( var j = 0; j < excludedFunctions.length; j++ ) {
               var excludedFunction = excludedFunctions[j];
-              var index = poolCopy.indexOf( excludedFunction );
-              if ( index !== -1 ) {
-                poolCopy.splice( index, 1 );
+              var excludedIndex = poolCopy.indexOf( excludedFunction );
+              if ( excludedIndex !== -1 ) {
+                poolCopy.splice( excludedIndex, 1 );
                 if ( BCEQueryParameters.CONSOLE ) {
                   console.log( '- excluded ' + excludedFunction().toString() );
                 }
