@@ -66,7 +66,8 @@ define( function( require ) {
       right: expandedBoxNode.right - options.xMargin,
       top: expandedBoxNode.top + options.yMargin
     } );
-    expandCollapseButton.touchArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 10, 10 ) );
+    expandCollapseButton.mouseArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 10, 10 ) );
+    expandCollapseButton.touchArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 20, 20 ) );
 
     // expand/collapse the box
     expandedProperty.link( function( expanded ) {
