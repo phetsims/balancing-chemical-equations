@@ -40,7 +40,7 @@ define( function( require ) {
       touchAreaExpandX: 30,
       font: new PhetFont( options.fontSize ),
       timerDelay: 400, // ms until the picker starts to fire continuously
-      intervalDelay: 400 // ms between value change while firing continuously
+      intervalDelay: 200 // ms between value change while firing continuously
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
