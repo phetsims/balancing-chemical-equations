@@ -1,3 +1,4 @@
+7/24/14 check in dependencies.json for 1.0.0-rc.1
 # 1.0.0-rc.1 7/24/14
 7/24/14 created 1.0 branch
 7/24/14 #91 for balance scales, use special x-spacing for the 2-fulcrum case in the Introduction screen

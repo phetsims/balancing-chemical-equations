@@ -1,0 +1,71 @@
+{
+  "chipper": {
+    "sha": "a70478047e72540d937907951d184c8d874543a3",
+    "branch": "master"
+  },
+  "vibe": {
+    "sha": "1df0fd08d6c312b628e8f2006f8c7466d0ab1d7f",
+    "branch": "master"
+  },
+  "vegas": {
+    "sha": "661a2f2428c3394f9247410bf7c6fcf1ae77bcdc",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "2ee466c320f754de1e75969a89ddcfddc5b27810",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "ec7cac5271e9f85e7ee7afae1d321d0ebb73f096",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "804142be295567e29b838140cd652ccdef8e8fa0",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "8bda55c75f6b86f243f5d7bff77542ed54a9e4df",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "effdd0c6e3a26eccb3da1a35e675eb5fa85e806a",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "9ce862130e848a817d1f1c9fd749af5d97a376ef",
+    "branch": "master"
+  },
+  "nitroglycerin": {
+    "sha": "53ec50a4c9ad9658966a3c6ea0536275d6a717ac",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "4500a24ddc452c624ad1f47c749ec38d500d779e",
+    "branch": "master"
+  },
+  "joist": {
+    "sha": "00cb01d91108e45c5c188d24167845edaf7cdea0",
+    "branch": "master"
+  },
+  "brand": {
+    "sha": "8be52066aa533f58f118abd34d73f2609c844d48",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "bd88cd7e2d2be78665ad1d28eff77ddd97784f27",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "bc26794f7a888443d9317b7c84b86a1a16a678bd",
+    "branch": "master"
+  },
+  "assert": {
+    "sha": "e4595f5eae375c15fa9aaba9511c52dbc1b0f2c6",
+    "branch": "master"
+  },
+  "balancing-chemical-equations": {
+    "sha": "cd281f8da934d68638a2a7b5a33728674b92858a",
+    "branch": "1.0"
+  },
+  "comment": "# balancing-chemical-equations 1.0.0-rc.1 Thu Jul 24 2014 22:45:09 GMT-0600 (MDT)"
+}
