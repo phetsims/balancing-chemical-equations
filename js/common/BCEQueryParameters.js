@@ -20,7 +20,7 @@ define( function( require ) {
     // show the game reward regardless of score
     REWARD: getQueryParameter( 'reward' ) || false,
 
-    // enables console output for debugging
+    // enables console output for debugging, particularly useful for the Game screen
     CONSOLE: getQueryParameter( 'console' ) || false
   };
 } );
