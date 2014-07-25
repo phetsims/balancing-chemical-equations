@@ -21,7 +21,7 @@ define( function( require ) {
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
 
   // strings
-  var balancingGameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancingGame' );
+  var gameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/game' );
 
   // creates the icon for this screen: a smiley face to the right of up/down arrows
   var createScreenIcon = function() {
@@ -63,7 +63,7 @@ define( function( require ) {
    */
   function GameScreen() {
     Screen.call( this,
-      balancingGameTitleString,
+      gameTitleString,
       createScreenIcon(),
       function() { return new GameModel(); },
       function( model ) { return new GameView( model ); },
