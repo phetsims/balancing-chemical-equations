@@ -1,3 +1,4 @@
+7/24/14 #91 add an option to BalanceScalesNode to specify the horizontal spacing between fulcrum tips
 7/24/14 #88 rename 'Balancing Game' screen to 'Game'
 # 1.0.0-dev.15 7/24/14
 7/24/14 #86 decrease 'fire continuous' interval to 200ms for pickers
