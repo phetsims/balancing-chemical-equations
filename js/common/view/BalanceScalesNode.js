@@ -30,7 +30,8 @@ define( function( require ) {
 
     options = _.extend( {
       bottom: 0,
-      xSpacing: 237 // horizontal spacing between the tips of the fulcrums
+      fulcrumSpacing: 237, // horizontal spacing between the tips of the fulcrums
+      dualFulcrumSpacing: 237 // horizontal spacing when we have 2 scales, see issue #91
     }, options );
 
     var self = this;
@@ -40,7 +41,8 @@ define( function( require ) {
     this.constantBottom = options.bottom; // @private
     this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
     this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of the element
-    this.xSpacing = options.xSpacing; // @private horizontal spacing between the tips of the fulcrums
+    this.fulcrumSpacing = options.fulcrumSpacing; // @private
+    this.dualFulcrumSpacing = options.dualFulcrumSpacing; // @private
 
     Node.call( this );
 
@@ -83,6 +85,7 @@ define( function( require ) {
         this.productCountProperties = {};
 
         var atomCounts = this.equationProperty.get().getAtomCounts(); // [AtomCount]
+        var fulcrumSpacing = ( atomCounts.length === 2 ) ? this.dualFulcrumSpacing : this.fulcrumSpacing;
         var x = 0;
         for ( var i = 0; i < atomCounts.length; i++ ) {
 
@@ -98,7 +101,7 @@ define( function( require ) {
           var scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.get().balancedProperty, { x: x } );
           this.addChild( scaleNode );
 
-          x += this.xSpacing;
+          x += fulcrumSpacing;
         }
 
         this.centerX = this.aligner.getScreenCenterX();

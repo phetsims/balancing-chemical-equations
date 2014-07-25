@@ -103,7 +103,7 @@ define( function( require ) {
       // balance scales
       if ( !balanceScalesNode && balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
         balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner,
-          { bottom: boxesNode.top - 10 } );
+          { bottom: boxesNode.top - 10, dualFulcrumSpacing: 325 } );  // use special spacing for 2 fulcrums, see issue #91
         balancedParent.addChild( balanceScalesNode );
       }
       if ( balanceScalesNode ) {

@@ -1,3 +1,4 @@
+7/24/14 #91 for balance scales, use special x-spacing for the 2-fulcrum case in the Introduction screen
 7/24/14 #91 add an option to BalanceScalesNode to specify the horizontal spacing between fulcrum tips
 7/24/14 #88 rename 'Balancing Game' screen to 'Game'
 # 1.0.0-dev.15 7/24/14
