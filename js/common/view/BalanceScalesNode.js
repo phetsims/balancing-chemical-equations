@@ -29,7 +29,7 @@ define( function( require ) {
   function BalanceScalesNode( equationProperty, aligner, options ) {
 
     options = _.extend( {
-        bottom: 0
+      bottom: 0
     }, options );
 
     var self = this;
