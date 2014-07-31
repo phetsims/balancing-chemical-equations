@@ -1,3 +1,4 @@
+7/31/14 #94 thumbnail for website
 7/30/14 check in .ai files for icons in 'Tools' combo box
 7/24/14 created 1.0 branch
 7/24/14 #91 for balance scales, use special x-spacing for the 2-fulcrum case in the Introduction screen
