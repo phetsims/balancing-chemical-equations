@@ -62,7 +62,8 @@ define( function( require ) {
       { font: new PhetFont( { size: 18, weight: 'bold' } ), center: collapsedBoxNode.center } ) );
 
     // expand/collapse button
-    var expandCollapseButton = new ExpandCollapseButton( options.buttonLength, expandedProperty, {
+    var expandCollapseButton = new ExpandCollapseButton( expandedProperty, {
+      sideLength: options.buttonLength,
       right: expandedBoxNode.right - options.xMargin,
       top: expandedBoxNode.top + options.yMargin
     } );
