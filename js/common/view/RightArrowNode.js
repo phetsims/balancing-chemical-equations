@@ -20,7 +20,7 @@ define( function( require ) {
 
   /**
    * @param {Property<Equation>} equationProperty
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function RightArrowNode( equationProperty, options ) {

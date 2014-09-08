@@ -180,7 +180,7 @@ define( function( require ) {
    *
    * @param {[constructor]} pool which equation pool to use
    * @param {boolean} firstBigMolecule specifies whether it's OK if the first equation in the set contains a "big" molecule
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   var RandomStrategy = function( pool, firstBigMolecule, options ) {

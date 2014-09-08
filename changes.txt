@@ -1,3 +1,4 @@
+9/8/14 use {Object} instead of {*} as type expression for options param
 7/31/14 #94 thumbnail for website
 7/30/14 check in .ai files for icons in 'Tools' combo box
 7/24/14 created 1.0 branch

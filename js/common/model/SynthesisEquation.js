@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {Molecule} reactant2
    * @param {Number} p1 balanced coefficient for product1
    * @param {Molecule} product1
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function SynthesisEquation( r1, reactant1, r2, reactant2, p1, product1, options ) {

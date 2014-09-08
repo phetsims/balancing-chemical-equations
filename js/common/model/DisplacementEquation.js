@@ -28,7 +28,7 @@ define( function( require ) {
    * @param {Molecule} product1
    * @param {Number} p2 balanced coefficient for product2
    * @param {Molecule} product2
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function DisplacementEquation( r1, reactant1, r2, reactant2, p1, product1, p2, product2, options ) {

@@ -18,7 +18,7 @@ define( function( require ) {
   /**
    * @param {Number} balancedCoefficient balanced coefficient for molecule
    * @param {Molecule} molecule
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function EquationTerm( balancedCoefficient, molecule, options ) {
