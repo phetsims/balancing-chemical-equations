@@ -65,7 +65,7 @@ define( function( require ) {
    * @param {GameModel} model
    * @param {PropertySet} viewProperties
    * @param {Bounds2} layoutBounds
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function LevelSelectionNode( model, viewProperties, layoutBounds, options ) {

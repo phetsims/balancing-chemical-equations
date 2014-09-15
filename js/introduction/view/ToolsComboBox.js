@@ -31,7 +31,7 @@ define( function( require ) {
   /**
    * @param {Property<BalancedRepresentation>} balanceRepresentationProperty
    * @param {Node} parentNode node that will be used as the list's parent, use this to ensuring that the list is in front of everything else
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function ToolsComboBox( balanceRepresentationProperty, parentNode, options ) {

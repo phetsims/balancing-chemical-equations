@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @param {Property<Equation>} equationProperty the equation that the scales are representing
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function BalanceScalesNode( equationProperty, aligner, options ) {

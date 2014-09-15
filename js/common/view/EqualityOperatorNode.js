@@ -17,7 +17,7 @@ define( function( require ) {
 
   /**
    * @param {Property<Equation>} equationProperty
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function EqualityOperatorNode( equationProperty, options ) {

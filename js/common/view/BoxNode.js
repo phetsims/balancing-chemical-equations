@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {function} getXOffsets 1 parameter {Equation}, gets the x-offsets for each term
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {Property} expandedProperty controls whether the box is expanded or collapsed
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function BoxNode( equationProperty, getTerms, getXOffsets, coefficientRange, expandedProperty, options ) {

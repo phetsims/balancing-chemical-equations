@@ -38,7 +38,7 @@ define( function( require ) {
    * @param {Property<Number>} leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
    * @param {Property<Number>} rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
    * @param {Property<Boolean>} highlightedProperty
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function BalanceScaleNode( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, highlightedProperty, options ) {

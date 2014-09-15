@@ -104,7 +104,7 @@ define( function( require ) {
   /**
    * @param {GameModel} model
    * @param {HorizontalAligner} aligner
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function GameFeedbackDialog( model, aligner, options ) {

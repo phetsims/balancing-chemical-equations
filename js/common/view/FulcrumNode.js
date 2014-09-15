@@ -21,7 +21,7 @@ define( function( require ) {
   /**
    * @param {NITROGLYCERIN.Element} element to show
    * @param {DOT.Dimension2} fulcrumSize width and height
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function FulcrumNode( element, fulcrumSize, options ) {

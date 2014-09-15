@@ -29,7 +29,7 @@ define( function( require ) {
    * @param {String} boxColor fill color of the boxes
    * @param {Property<Boolean>} reactantsBoxExpandedProperty
    * @param {Property<Boolean>} productsBoxExpandedProperty
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function BoxesNode( equationProperty, coefficientsRange, aligner, boxSize, boxColor, reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {

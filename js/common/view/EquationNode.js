@@ -21,7 +21,7 @@ define( function( require ) {
    * @param {Property<Equation>} equationProperty
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function EquationNode( equationProperty, coefficientRange, aligner, options ) {

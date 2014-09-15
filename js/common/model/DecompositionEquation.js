@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Molecule} product1
    * @param {Number} p2 balanced coefficient for product2
    * @param {Molecule} product2
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function DecompositionEquation( r1, reactant1, p1, product1, p2, product2, options ) {

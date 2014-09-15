@@ -37,7 +37,7 @@ define( function( require ) {
    * @param {GameAudioPlayer} audioPlayer
    * @param {Bounds2} layoutBounds layout bounds of the parent ScreenView
    * @param {HorizontalAligner} aligner
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function GamePlayNode( model, viewProperties, audioPlayer, layoutBounds, options ) {
