@@ -16,8 +16,8 @@ define( function() {
 
   /**
    * @param {NITROGLYCERIN.Element} element
-   * @param {Number} reactantsCount
-   * @param {Number} productsCount
+   * @param {number} reactantsCount
+   * @param {number} productsCount
    * @constructor
    */
   var AtomCount = function( element, reactantsCount, productsCount ) {

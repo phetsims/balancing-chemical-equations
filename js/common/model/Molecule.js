@@ -14,7 +14,7 @@ define( function( require ) {
 
   /**
    * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
-   * @param {String} symbolText html string
+   * @param {string} symbolText html string
    * @param {[NITROGLYCERIN.Element]} elements
    * @constructor
    */
@@ -34,7 +34,7 @@ define( function( require ) {
     /**
      * Any molecule with more than 5 atoms is considered "big".
      * This affects degree of difficulty in the Game.
-     * @return {Boolean}
+     * @return {boolean}
      */
     isBig: function() {
       return this.atoms.length > 5;

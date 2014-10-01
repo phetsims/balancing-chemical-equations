@@ -21,7 +21,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   /**
-   * @param {Property<Equation>} equationProperty the equation that the scales are representing
+   * @param {Property.<Equation>} equationProperty the equation that the scales are representing
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Object} [options]
    * @constructor
@@ -39,8 +39,8 @@ define( function( require ) {
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
     this.constantBottom = options.bottom; // @private
-    this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
-    this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of the element
+    this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
+    this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
     this.fulcrumSpacing = options.fulcrumSpacing; // @private
     this.dualFulcrumSpacing = options.dualFulcrumSpacing; // @private
 

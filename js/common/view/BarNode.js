@@ -35,7 +35,7 @@ define( function( require ) {
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the bar
-   * @param {Property<Number>} numberOfAtomsProperty number of elements
+   * @param {Property.<number>} numberOfAtomsProperty number of elements
    * @param {Object} [options]
    * @constructor
    */

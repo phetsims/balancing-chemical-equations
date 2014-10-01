@@ -36,8 +36,8 @@ define( function( require ) {
     var self = this;
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
-    this.reactantCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} count of the element
-    this.productCountProperties = {}; // @private maps {String} Element.symbol to {Property<Number>} counts of the element
+    this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
+    this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
 
     this.reactantBarsParent = new Node(); // @private
     this.productBarsParent = new Node(); // @private
@@ -89,9 +89,9 @@ define( function( require ) {
      * Updates one set of bars (reactants or products).
      * @param {Node} parentNode
      * @param {[AtomCount]} atomCounts counts of each atom in the equation
-     * @param {Function} getCount 1 parameter {AtomCount}, return {Number}, either the reactants or products count
-     * @param {Number} centerX centerX of the chart
-     * @param {*} map of {String} Element.symbol to {Property<Number>} number of atoms of that element
+     * @param {function} getCount 1 parameter {AtomCount}, return {number}, either the reactants or products count
+     * @param {number} centerX centerX of the chart
+     * @param {*} map of {string} Element.symbol to {Property.<number>} number of atoms of that element
      * @private
      */
     updateBars: function( parentNode, atomCounts, getCount, centerX ) {

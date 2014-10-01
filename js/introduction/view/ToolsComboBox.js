@@ -29,7 +29,7 @@ define( function( require ) {
   var FONT = new PhetFont( 22 );
 
   /**
-   * @param {Property<BalancedRepresentation>} balanceRepresentationProperty
+   * @param {Property.<BalancedRepresentation>} balanceRepresentationProperty
    * @param {Node} parentNode node that will be used as the list's parent, use this to ensuring that the list is in front of everything else
    * @param {Object} [options]
    * @constructor

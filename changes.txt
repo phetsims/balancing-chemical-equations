@@ -1,3 +1,4 @@
+10/1/14 use new JSdoc conventions for @param
 9/8/14 use {Object} instead of {*} as type expression for options param
 7/31/14 #94 thumbnail for website
 7/30/14 check in .ai files for icons in 'Tools' combo box

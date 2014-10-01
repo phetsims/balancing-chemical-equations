@@ -129,7 +129,7 @@ define( function( require ) {
     /**
      * Does this equation contain at least one "big" molecule?
      * This affects degree of difficulty in the Game.
-     * @return {Boolean}
+     * @return {boolean}
      */
     hasBigMolecule: function() {
       this.reactants.forEach( function( reactant ) {
@@ -179,7 +179,7 @@ define( function( require ) {
 
     /**
      * String value of an equation, shows balanced coefficients, for debugging.
-     * @return {String}
+     * @return {string}
      */
     toString: function() {
       var string = '';

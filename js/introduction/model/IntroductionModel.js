@@ -31,7 +31,7 @@ define( function( require ) {
 
     /*
      * Choices available in the 'Introduction' screen.
-     * The contract for a choice is: { equation: {Equation}, label: {String} }
+     * The contract for a choice is: { equation: {Equation}, label: {string} }
      */
     this.choices = [
       { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: makeAmmoniaString },

@@ -17,9 +17,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {Number} screenWidth screen width
+   * @param {number} screenWidth screen width
    * @param {DOT.Dimension2} boxWidth size of one of the 2 boxes (both boxes are assumed to be the same size)
-   * @param {Number} boxSeparation horizontal separation between the left and right boxes
+   * @param {number} boxSeparation horizontal separation between the left and right boxes
    * @constructor
    */
   function HorizontalAligner( screenWidth, boxWidth, boxXSpacing ) {
@@ -32,8 +32,8 @@ define( function( require ) {
    * Gets the x offsets for a set of terms.
    * The box is divided up into columns and terms are centered in the columns.
    * @param terms
-   * @param {Number} boxWidth
-   * @param {Number} boxLeft left edge of box
+   * @param {number} boxWidth
+   * @param {number} boxLeft left edge of box
    * @param alignment alignment for single term, 'left' or 'right'
    * @returns [{number}] x offset for each term
    */

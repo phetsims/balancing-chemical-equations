@@ -18,7 +18,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {Property<Equation>} equationProperty
+   * @param {Property.<Equation>} equationProperty
    * @param {DOT.Range} coefficientRange range of the coefficients
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Object} [options]
@@ -73,9 +73,9 @@ define( function( require ) {
      *
      * @private
      * @param {EquationTerm} terms array
-     * @param {Number} xOffsets array for terms
-     * @param {Number} minX minimal possible x for equation
-     * @param {Number} maxX maximum possible x for equation
+     * @param {number} xOffsets array for terms
+     * @param {number} minX minimal possible x for equation
+     * @param {number} maxX maximum possible x for equation
      */
     updateSideOfEquation: function( terms, xOffsets, minX, maxX ) {
 

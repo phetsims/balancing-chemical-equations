@@ -22,13 +22,13 @@ define( function( require ) {
   var productsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/products' );
 
   /**
-   * @param {Property<Equation>} equationProperty the equation displayed in the boxes
+   * @param {Property.<Equation>} equationProperty the equation displayed in the boxes
    * @param {Range} coefficientsRange
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Dimension2} boxSize
-   * @param {String} boxColor fill color of the boxes
-   * @param {Property<Boolean>} reactantsBoxExpandedProperty
-   * @param {Property<Boolean>} productsBoxExpandedProperty
+   * @param {string} boxColor fill color of the boxes
+   * @param {Property.<boolean>} reactantsBoxExpandedProperty
+   * @param {Property.<boolean>} productsBoxExpandedProperty
    * @param {Object} [options]
    * @constructor
    */

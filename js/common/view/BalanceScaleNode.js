@@ -35,9 +35,9 @@ define( function( require ) {
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
-   * @param {Property<Number>} leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
-   * @param {Property<Number>} rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
-   * @param {Property<Boolean>} highlightedProperty
+   * @param {Property.<number>} leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
+   * @param {Property.<number>} rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
+   * @param {Property.<boolean>} highlightedProperty
    * @param {Object} [options]
    * @constructor
    */
@@ -97,8 +97,8 @@ define( function( require ) {
    * @param {number} numberOfAtoms number of atoms that will be visible in the pile
    * @param {Node} pileNode pile that will be modified
    * @param {Node} countNode displays numberOfAtoms
-   * @param {Number} pileCenterX x-coordinate of the pile's center, relative to the beam
-   * @param {Number} beamTop y-coordinate of the beam's top
+   * @param {number} pileCenterX x-coordinate of the pile's center, relative to the beam
+   * @param {number} beamTop y-coordinate of the beam's top
    */
   var updatePile = function( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop) {
 

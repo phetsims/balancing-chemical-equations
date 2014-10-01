@@ -15,8 +15,8 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   /**
-   * @param {Number} beamLength
-   * @param {Number} beamThickness
+   * @param {number} beamLength
+   * @param {number} beamThickness
    * @constructor
    */
   function BeamNode( beamLength, beamThickness, options ) {

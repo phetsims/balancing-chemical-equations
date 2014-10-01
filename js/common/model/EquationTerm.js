@@ -16,7 +16,7 @@ define( function( require ) {
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
 
   /**
-   * @param {Number} balancedCoefficient balanced coefficient for molecule
+   * @param {number} balancedCoefficient balanced coefficient for molecule
    * @param {Molecule} molecule
    * @param {Object} [options]
    * @constructor

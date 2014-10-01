@@ -204,7 +204,7 @@ define( function( require ) {
      * A perfect score is obtained when the user balances every equation correctly on the first attempt.
      *
      * @param level
-     * @return {Number}
+     * @return {number}
      */
     getPerfectScore: function( level ) {
       return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
@@ -215,7 +215,7 @@ define( function( require ) {
      * This can be called at any time during the game, but can't possibly
      * return true until the game has been completed.
      *
-     * @return {Boolean}
+     * @return {boolean}
      */
     isPerfectScore: function() {
       return this.points === this.getPerfectScore( this.level );

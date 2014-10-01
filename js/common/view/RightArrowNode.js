@@ -19,7 +19,7 @@ define( function( require ) {
   var ARROW_LENGTH = 70;
 
   /**
-   * @param {Property<Equation>} equationProperty
+   * @param {Property.<Equation>} equationProperty
    * @param {Object} [options]
    * @constructor
    */

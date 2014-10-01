@@ -49,7 +49,7 @@ define( function( require ) {
 
   /**
    * Creates a text button that performs a model state change when pressed.
-   * @param {String} label
+   * @param {string} label
    * @param {function} modelFunction model function that performs the state change
    * @returns {TextPushButton}
    */

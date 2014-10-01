@@ -21,7 +21,7 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
 
   /**
-   * @param {Property<Equation>} equationProperty
+   * @param {Property.<Equation>} equationProperty
    * @param {function} getTerms 1 parameter {Equation}, gets the terms that this box will display
    * @param {function} getXOffsets 1 parameter {Equation}, gets the x-offsets for each term
    * @param {DOT.Range} coefficientRange range of the coefficients
