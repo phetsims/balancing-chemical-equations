@@ -85,6 +85,7 @@ define( function( require ) {
 
     // buttons: Check, Next
     var BUTTONS_OPTIONS = {
+      font: new PhetFont( 20 ),
       baseColor: 'yellow',
       centerX: 0,
       bottom: this.boxesNode.bottom
