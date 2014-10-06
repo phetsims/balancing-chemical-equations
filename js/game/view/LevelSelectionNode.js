@@ -13,11 +13,11 @@ define( function( require ) {
   var LevelStartButton = require( 'VEGAS/LevelStartButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var TimerToggleButton = require( 'SCENERY_PHET/TimerToggleButton' );
+  var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );

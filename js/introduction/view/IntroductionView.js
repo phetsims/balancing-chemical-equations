@@ -22,7 +22,7 @@ define( function( require ) {
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var BCEFaceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BCEFaceNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
