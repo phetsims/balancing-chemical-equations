@@ -56,7 +56,6 @@ define( function( require ) {
       model.getPerfectScore( level ),
       {
         baseColor: '#d9ebff',
-        iconToProgressIndicatorYSpace: 10,
         buttonWidth: 155,
         buttonHeight: 155
       } );
