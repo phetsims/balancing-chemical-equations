@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var LevelStartButton = require( 'VEGAS/LevelStartButton' );
+  var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -38,14 +38,14 @@ define( function( require ) {
   var BUTTON_MARGIN = 20;
 
   // Creates a level selection button
-  var createLevelStartButton = function( level, model ) {
+  var createLevelSelectionButton = function( level, model ) {
 
     // 'Level N' centered above icon
     var label = new Text( StringUtils.format( pattern_0level, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
     var image = new levelImagesConstructors[level]( _.extend( { centerX: label.centerX, top: label.bottom + 20, scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
-    return new LevelStartButton(
+    return new LevelSelectionButton(
       icon,
       model.getNumberOfEquations( level ),
       function() {
@@ -55,7 +55,8 @@ define( function( require ) {
       model.bestScores[ level ],
       model.getPerfectScore( level ),
       {
-        backgroundColor: '#f0ffcb',
+        baseColor: '#d9ebff',
+        iconToProgressIndicatorYSpace: 10,
         buttonWidth: 155,
         buttonHeight: 155
       } );
@@ -75,7 +76,7 @@ define( function( require ) {
     // buttons
     var buttons = [];
     for ( var level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
-      buttons.push( createLevelStartButton( level, model ) );
+      buttons.push( createLevelSelectionButton( level, model ) );
     }
     var buttonsParent = new HBox( {
       children: buttons,
