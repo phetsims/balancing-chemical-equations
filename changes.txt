@@ -1,3 +1,4 @@
+11/4/14 port doc/model.txt
 10/2014 use new LevelSelectionButton in Game
 10/1/14 use new JSdoc conventions for @param
 9/8/14 use {Object} instead of {*} as type expression for options param
