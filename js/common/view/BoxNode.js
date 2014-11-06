@@ -148,7 +148,7 @@ define( function( require ) {
           }
           else {
             // add a molecule node
-            var moleculeNode = new MoleculeNodeConstructor( BCEConstants.ATOM_OPTIONS );
+            var moleculeNode = new MoleculeNodeConstructor( { atomOptions: BCEConstants.ATOM_OPTIONS } );
             moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
             this.moleculesParent.addChild( moleculeNode );
             moleculeNode.center = new Vector2( xOffsets[i] - this.x, y );
