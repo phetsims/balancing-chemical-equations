@@ -15,7 +15,7 @@ define( function( require ) {
   /**
    * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
    * @param {string} symbolText html string
-   * @param {[NITROGLYCERIN.Element]} elements
+   * @param {NITROGLYCERIN.Element[]} elements
    * @constructor
    */
   function Molecule( nodeConstructor, symbolText, elements ) {

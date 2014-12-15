@@ -178,7 +178,7 @@ define( function( require ) {
    * Selects a random set from a pool of equations, with no duplicates.
    * Selection of an equation may cause other equations to be excluded from the pool.
    *
-   * @param {[constructor]} pool which equation pool to use
+   * @param {function[]} pool which equation pool to use
    * @param {boolean} firstBigMolecule specifies whether it's OK if the first equation in the set contains a "big" molecule
    * @param {Object} [options]
    * @constructor

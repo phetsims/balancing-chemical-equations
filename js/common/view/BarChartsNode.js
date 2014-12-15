@@ -88,7 +88,7 @@ define( function( require ) {
     /**
      * Updates one set of bars (reactants or products).
      * @param {Node} parentNode
-     * @param {[AtomCount]} atomCounts counts of each atom in the equation
+     * @param {AtomCount[]} atomCounts counts of each atom in the equation
      * @param {function} getCount 1 parameter {AtomCount}, return {number}, either the reactants or products count
      * @param {number} centerX centerX of the chart
      * @param {*} map of {string} Element.symbol to {Property.<number>} number of atoms of that element

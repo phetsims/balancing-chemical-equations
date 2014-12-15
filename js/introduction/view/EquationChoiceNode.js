@@ -25,7 +25,7 @@ define( function( require ) {
   /**
    * @param {number} screenWidth
    * @param {Property.<Equation>} equationProperty
-   * @param {[{ equation: {Equation}, label: {string} }]} choices
+   * @param {{ equation: {Equation}, label: {string} }[]} choices
    * @param {Object} [options]
    * @constructor
    */

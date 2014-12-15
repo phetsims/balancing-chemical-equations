@@ -21,8 +21,8 @@ define( function( require ) {
   var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
 
   /**
-   * @param {[EquationTerm]} reactants terms on the left side of the equation
-   * @param {[EquationTerm]} products terms on the right side of the equation
+   * @param {EquationTerm[]} reactants terms on the left side of the equation
+   * @param {EquationTerm[]} products terms on the right side of the equation
    * @constructor
    */
   function Equation( reactants, products ) {
@@ -120,7 +120,7 @@ define( function( require ) {
      * See AtomCount.countAtoms for details.
      *
      * @param {Equation} equation
-     * @return {[AtomCount]}
+     * @return {AtomCount[]}
      */
     getAtomCounts: function() {
       return AtomCount.countAtoms( this );

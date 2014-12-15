@@ -39,8 +39,8 @@ define( function() {
    * This is a brute force algorithm, but our number of terms is always small,
    * and this is easy to implement and understand.
    *
-   * @param {[AtomCount]} atomCounts
-   * @param {[EquationTerm]} terms
+   * @param {AtomCount[]} atomCounts
+   * @param {EquationTerm[]} terms
    * @param {boolean} isReactants true if the terms are the reactants, false if they are the products
    */
   var appendToCounts = function( atomCounts, terms, isReactants ) {
@@ -84,7 +84,7 @@ define( function() {
    * will be [C,H,O].
    *
    * @param {Equation} equation
-   * @return {[AtomCount]}
+   * @return {AtomCount[]}
    */
   AtomCount.countAtoms = function( equation ) {
     var atomCounts = [];
