@@ -28,7 +28,7 @@ define( function( require ) {
   function GameView( model ) {
 
     var self = this;
-    ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
+    ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
 
     this.viewProperties = new PropertySet( {
       soundEnabled: true,

@@ -9,11 +9,13 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ShadowText = require( 'SCENERY_PHET/ShadowText' );
 
   return Object.freeze( {
-    RENDERER: 'svg',
+    SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
     UNBALANCED_COLOR: 'rgb(46,107,178)',
     BALANCED_HIGHLIGHT_COLOR: 'yellow',
     INTRODUCTION_CANVAS_BACKGROUND: '#d9ebff',

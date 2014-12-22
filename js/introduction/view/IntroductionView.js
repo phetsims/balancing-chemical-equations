@@ -40,7 +40,7 @@ define( function( require ) {
   function IntroductionView( model ) {
 
     var self = this;
-    ScreenView.call( this, {renderer: BCEConstants.RENDERER} );
+    ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
 
     var viewProperties = new PropertySet( {
       reactantsBoxExpanded: true,
