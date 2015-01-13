@@ -31,7 +31,7 @@ define( function( require ) {
    * @constructor
    */
   function SynthesisEquation( r1, reactant1, r2, reactant2, p1, product1, options ) {
-    Equation.call( this, [new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 )], [ new EquationTerm( p1, product1 )], options );
+    Equation.call( this, [ new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 ) ], [ new EquationTerm( p1, product1 ) ], options );
   }
 
   return inherit( Equation, SynthesisEquation, {}, {

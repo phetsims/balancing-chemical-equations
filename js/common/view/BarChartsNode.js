@@ -102,10 +102,10 @@ define( function( require ) {
 
       var barCenterX = 0;
       for ( var i = 0; i < atomCounts.length; i++ ) {
-        var atomCount = atomCounts[i];
+        var atomCount = atomCounts[ i ];
         // populate the map
         var countProperty = new Property( getCount( atomCount ) );
-        countProperties[atomCount.element.symbol] = countProperty;
+        countProperties[ atomCount.element.symbol ] = countProperty;
         // add a bar node
         var barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
         parentNode.addChild( barNode );
@@ -125,7 +125,7 @@ define( function( require ) {
       if ( this.visible ) {
         var atomCounts = this.equationProperty.get().getAtomCounts();
         for ( var i = 0; i < atomCounts.length; i++ ) {
-          var atomCount = atomCounts[i];
+          var atomCount = atomCounts[ i ];
           this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
           this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
         }

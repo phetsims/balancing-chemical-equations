@@ -21,7 +21,7 @@ define( function( require ) {
   var BAR_HEIGHT = 50; //height of control node
   var TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
   var RADIO_BUTTON_OPTIONS = { radius: 8 };
-  
+
   /**
    * @param {number} screenWidth
    * @param {Property.<Equation>} equationProperty

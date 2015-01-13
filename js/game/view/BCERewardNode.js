@@ -125,7 +125,7 @@ define( function( require ) {
    */
   function BCERewardNode( level ) {
     assert && assert( level >= 0 && level < NODES.length );
-    RewardNode.call( this, { nodes: RewardNode.createRandomNodes( NODES[level], NUMBER_OF_NODES ) } );
+    RewardNode.call( this, { nodes: RewardNode.createRandomNodes( NODES[ level ], NUMBER_OF_NODES ) } );
   }
 
   return inherit( RewardNode, BCERewardNode );

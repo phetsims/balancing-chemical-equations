@@ -71,10 +71,10 @@ define( function( require ) {
   var createButtonForState = function( model ) {
     var button = null;
     if ( model.state === model.states.TRY_AGAIN ) {
-       button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) );
+      button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) );
     }
     else if ( model.state === model.states.SHOW_ANSWER ) {
-       button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) );
+      button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) );
     }
     return button;
   };

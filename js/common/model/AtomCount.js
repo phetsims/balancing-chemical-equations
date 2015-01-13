@@ -49,7 +49,7 @@ define( function() {
 
         var found = false;
         for ( var i = 0; i < atomCounts.length; i++ ) {
-          var atomCount = atomCounts[i];
+          var atomCount = atomCounts[ i ];
           // add to an existing count
           if ( atomCount.element === atom.element ) {
             if ( isReactants ) {

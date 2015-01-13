@@ -186,7 +186,7 @@ define( function( require ) {
   var RandomStrategy = function( pool, firstBigMolecule, options ) {
 
     options = _.extend( {
-       exclusions: {} // see LEVEL3_EXCLUSIONS for doc
+      exclusions: {} // see LEVEL3_EXCLUSIONS for doc
     }, options );
 
     this.pool = pool;
@@ -218,7 +218,7 @@ define( function( require ) {
 
         // randomly select an equation
         var randomIndex = Math.floor( Math.random() * poolCopy.length );
-        var factoryFunction = poolCopy[randomIndex];
+        var factoryFunction = poolCopy[ randomIndex ];
 
         // If the first equation isn't supposed to contain any "big" molecules,
         // then find an equation in the pool that has no big molecules.
@@ -263,10 +263,10 @@ define( function( require ) {
 
         // if the selected equation has exclusions, remove them from the pool
         for ( var functionName in this.exclusions ) {
-          if ( DisplacementEquation[functionName] === factoryFunction ) {
-            var excludedFunctions = this.exclusions[ functionName];
+          if ( DisplacementEquation[ functionName ] === factoryFunction ) {
+            var excludedFunctions = this.exclusions[ functionName ];
             for ( var j = 0; j < excludedFunctions.length; j++ ) {
-              var excludedFunction = excludedFunctions[j];
+              var excludedFunction = excludedFunctions[ j ];
               var excludedIndex = poolCopy.indexOf( excludedFunction );
               if ( excludedIndex !== -1 ) {
                 poolCopy.splice( excludedIndex, 1 );
@@ -283,7 +283,7 @@ define( function( require ) {
       assert && assert( factoryFunctions.length === numberOfEquations );
       return factoryFunctions;
     }
-  });
+  } );
 
   // strategies for selecting equations, indexed by game level
   var STRATEGIES = [
@@ -301,7 +301,7 @@ define( function( require ) {
      * @returns {Window.length|*}
      */
     getNumberOfEquations: function( level ) {
-      return BCEQueryParameters.PLAY_ALL ? POOLS[level].length : EQUATIONS_PER_GAME;
+      return BCEQueryParameters.PLAY_ALL ? POOLS[ level ].length : EQUATIONS_PER_GAME;
     },
 
     /**
@@ -314,8 +314,8 @@ define( function( require ) {
 
       // Get an array of Equation factory functions.
       var factoryFunctions = BCEQueryParameters.PLAY_ALL ?
-                                 _.clone( POOLS[level] ) :
-                                 STRATEGIES[level].getEquationFactoryFunctions( EQUATIONS_PER_GAME );
+                             _.clone( POOLS[ level ] ) :
+                             STRATEGIES[ level ].getEquationFactoryFunctions( EQUATIONS_PER_GAME );
 
       // Instantiate one instance of each Equation type.
       var equations = [];

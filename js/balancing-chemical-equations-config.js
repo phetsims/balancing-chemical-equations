@@ -6,7 +6,7 @@
  */
 require.config( {
 
-  deps: ['balancing-chemical-equations-main'],
+  deps: [ 'balancing-chemical-equations-main' ],
 
   paths: {
 

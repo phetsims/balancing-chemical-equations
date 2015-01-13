@@ -15,7 +15,7 @@ define( function( require ) {
   // strings
   var simTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.name' );
 
-  var screens = [new IntroductionScreen(), new GameScreen()];
+  var screens = [ new IntroductionScreen(), new GameScreen() ];
 
   var simOptions = {
     credits: {

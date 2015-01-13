@@ -93,7 +93,8 @@ define( function( require ) {
       // bar chart
       if ( !barChartsNode && balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
         barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
-          bottom: boxesNode.top - 10 } );
+          bottom: boxesNode.top - 10
+        } );
         balancedParent.addChild( barChartsNode );
       }
       if ( barChartsNode ) {

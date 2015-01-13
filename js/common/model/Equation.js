@@ -75,7 +75,7 @@ define( function( require ) {
     updateBalanced: function() {
 
       // Get integer multiplier from the first reactant term.
-      var multiplier = this.reactants[0].userCoefficient / this.reactants[0].balancedCoefficient;
+      var multiplier = this.reactants[ 0 ].userCoefficient / this.reactants[ 0 ].balancedCoefficient;
       var balanced = ( multiplier > 0 );
 
       // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
@@ -166,12 +166,12 @@ define( function( require ) {
     getCoefficientsString: function() {
       var string = '';
       for ( var i = 0; i < this.reactants.length; i++ ) {
-        string += this.reactants[i].balancedCoefficient;
+        string += this.reactants[ i ].balancedCoefficient;
         string += ( i < this.reactants.length - 1 ) ? ' + ' : ' ';
       }
       string += '\u2192 '; // right arrow
       for ( i = 0; i < this.products.length; i++ ) {
-        string += this.products[i].balancedCoefficient;
+        string += this.products[ i ].balancedCoefficient;
         string += ( i < this.products.length - 1 ) ? ' + ' : '';
       }
       return string;
@@ -185,9 +185,9 @@ define( function( require ) {
       var string = '';
       // reactants
       for ( var i = 0; i < this.reactants.length; i++ ) {
-        string += this.reactants[i].balancedCoefficient;
+        string += this.reactants[ i ].balancedCoefficient;
         string += ' ';
-        string += this.reactants[i].molecule.symbol;
+        string += this.reactants[ i ].molecule.symbol;
         if ( i < this.reactants.length - 1 ) {
           string += ' + ';
         }
@@ -196,9 +196,9 @@ define( function( require ) {
       string += ' \u2192 ';
       // products
       for ( i = 0; i < this.products.length; i++ ) {
-        string += this.products[i].balancedCoefficient;
+        string += this.products[ i ].balancedCoefficient;
         string += ' ';
-        string += this.products[i].molecule.symbol;
+        string += this.products[ i ].molecule.symbol;
         if ( i < this.products.length - 1 ) {
           string += ' + ';
         }

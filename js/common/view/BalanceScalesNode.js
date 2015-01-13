@@ -89,7 +89,7 @@ define( function( require ) {
         var x = 0;
         for ( var i = 0; i < atomCounts.length; i++ ) {
 
-          var atomCount = atomCounts[i];
+          var atomCount = atomCounts[ i ];
 
           // populate the maps
           var leftCountProperty = new Property( atomCount.reactantsCount );
@@ -118,7 +118,7 @@ define( function( require ) {
       if ( this.visible ) {
         var atomCounts = this.equationProperty.get().getAtomCounts();
         for ( var i = 0; i < atomCounts.length; i++ ) {
-          var atomCount = atomCounts[i];
+          var atomCount = atomCounts[ i ];
           this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
           this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
         }

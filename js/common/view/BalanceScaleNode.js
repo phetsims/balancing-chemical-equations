@@ -100,7 +100,7 @@ define( function( require ) {
    * @param {number} pileCenterX x-coordinate of the pile's center, relative to the beam
    * @param {number} beamTop y-coordinate of the beam's top
    */
-  var updatePile = function( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop) {
+  var updatePile = function( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop ) {
 
     var nodesInPile = pileNode.getChildrenCount(); // how many atom nodes are currently in the pile
     var pile = 0; // which pile we're working on, layered back-to-front, offset left-to-right

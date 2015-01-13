@@ -65,7 +65,7 @@ define( function( require ) {
     var expandCollapseButton = new ExpandCollapseButton( expandedProperty, {
       sideLength: options.buttonLength,
       right: expandedBoxNode.right - options.xMargin,
-      top: expandedBoxNode.top + options.yMargin
+      top:   expandedBoxNode.top + options.yMargin
     } );
     expandCollapseButton.mouseArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 10, 10 ) );
     expandCollapseButton.touchArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 20, 20 ) );
@@ -116,7 +116,7 @@ define( function( require ) {
       // clear the map
       this.termNodes = {};
       for ( var i = 0; i < terms.length; i++ ) {
-        this.termNodes[ terms[i].molecule.symbol ] = [];
+        this.termNodes[ terms[ i ].molecule.symbol ] = [];
       }
 
       this.updateCounts( terms, xOffsets );
@@ -136,22 +136,22 @@ define( function( require ) {
 
       for ( var i = 0; i < terms.length; i++ ) {
 
-        var moleculeNodes = this.termNodes[ terms[i].molecule.symbol ];
-        var userCoefficient = terms[i].userCoefficient;
-        var MoleculeNodeConstructor = terms[i].molecule.nodeConstructor;
+        var moleculeNodes = this.termNodes[ terms[ i ].molecule.symbol ];
+        var userCoefficient = terms[ i ].userCoefficient;
+        var MoleculeNodeConstructor = terms[ i ].molecule.nodeConstructor;
         var y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
 
         for ( var j = 0; j < Math.max( userCoefficient, moleculeNodes.length ); j++ ) {
           if ( j < moleculeNodes.length ) {
             // set visibility of a molecule that already exists
-            moleculeNodes[j].visible = ( j < userCoefficient );
+            moleculeNodes[ j ].visible = ( j < userCoefficient );
           }
           else {
             // add a molecule node
             var moleculeNode = new MoleculeNodeConstructor( { atomOptions: BCEConstants.ATOM_OPTIONS } );
             moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
             this.moleculesParent.addChild( moleculeNode );
-            moleculeNode.center = new Vector2( xOffsets[i] - this.x, y );
+            moleculeNode.center = new Vector2( xOffsets[ i ] - this.x, y );
 
             moleculeNodes.push( moleculeNode );
           }

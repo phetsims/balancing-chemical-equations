@@ -128,7 +128,7 @@ define( function( require ) {
         baseColor: 'red',
         textFill: 'white',
         listener: model.next.bind( model ), // equivalent to 'Next'
-        left: this.layoutBounds.left + 4,
+        left:   this.layoutBounds.left + 4,
         bottom: this.layoutBounds.bottom - 2
       } );
       this.addChild( skipButton );
@@ -174,7 +174,7 @@ define( function( require ) {
       this.setBalancedHighlightEnabled( false );
     },
 
-     // @private
+    // @private
     initTryAgain: function() {
       this.equationNode.pickable = false;
       this.checkButton.visible = this.nextButton.visible = false;
@@ -182,7 +182,7 @@ define( function( require ) {
       this.setBalancedHighlightEnabled( false );
     },
 
-     // @private
+    // @private
     initShowAnswer: function() {
       this.equationNode.pickable = false;
       this.checkButton.visible = this.nextButton.visible = false;
@@ -190,7 +190,7 @@ define( function( require ) {
       this.setBalancedHighlightEnabled( false );
     },
 
-     // @private
+    // @private
     initNext: function() {
       this.equationNode.pickable = false;
       this.checkButton.visible = false;

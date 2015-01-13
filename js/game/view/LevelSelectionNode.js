@@ -42,7 +42,11 @@ define( function( require ) {
 
     // 'Level N' centered above icon
     var label = new Text( StringUtils.format( pattern_0level, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
-    var image = new levelImagesConstructors[level]( _.extend( { centerX: label.centerX, top: label.bottom + 20, scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+    var image = new levelImagesConstructors[ level ]( _.extend( {
+      centerX: label.centerX,
+      top: label.bottom + 20,
+      scale: 2
+    }, BCEConstants.ATOM_OPTIONS ) );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
     return new LevelSelectionButton(
@@ -95,9 +99,15 @@ define( function( require ) {
 
     // Timer and Sound controls, lower left
     var toggleOptions = { stroke: 'black', cornerRadius: 10 };
-    var soundToggleButton = new SoundToggleButton( viewProperties.soundEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: layoutBounds.bottom - BUTTON_MARGIN} ) );
+    var soundToggleButton = new SoundToggleButton( viewProperties.soundEnabledProperty, _.extend( toggleOptions, {
+      x: BUTTON_MARGIN,
+      bottom: layoutBounds.bottom - BUTTON_MARGIN
+    } ) );
     this.addChild( soundToggleButton );
-    var timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, _.extend( toggleOptions, {x: BUTTON_MARGIN, bottom: soundToggleButton.top - BUTTON_MARGIN / 2} ) );
+    var timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, _.extend( toggleOptions, {
+      x: BUTTON_MARGIN,
+      bottom: soundToggleButton.top - BUTTON_MARGIN / 2
+    } ) );
     this.addChild( timerToggleButton );
 
     // Reset All button, lower right

@@ -40,7 +40,7 @@ define( function( require ) {
     ];
 
     PropertySet.call( this, {
-      equation: this.choices[0].equation // the equation that is selected
+      equation: this.choices[ 0 ].equation // the equation that is selected
     } );
   }
 

@@ -47,7 +47,7 @@ define( function( require ) {
     var subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
     var symbolNode = new SubSupText( term.molecule.symbol, subSupOptions );
     symbolNode.left = coefficientNode.right + options.xSpacing;
-    symbolNode.centerY = coefficientNode.centerY + ( symbolNode.height - new SubSupText( 'H', subSupOptions ).height )/2;
+    symbolNode.centerY = coefficientNode.centerY + ( symbolNode.height - new SubSupText( 'H', subSupOptions ).height ) / 2;
 
     options.children = [ coefficientNode, symbolNode ];
     Node.call( this, options );

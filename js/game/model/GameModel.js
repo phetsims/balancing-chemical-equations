@@ -79,8 +79,8 @@ define( function( require ) {
     this.bestTimes = [];// best times in ms, indexed by level
     this.bestScores = []; // best scores, indexed by level
     for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
-      this.bestTimes[i] = new Property( 0 );
-      this.bestScores[i] = new Property( 0 );
+      this.bestTimes[ i ] = new Property( 0 );
+      this.bestScores[ i ] = new Property( 0 );
     }
   }
 
@@ -163,15 +163,15 @@ define( function( require ) {
     endGame: function() {
       this.timer.stop();
       //check for new best score
-      if ( this.points > this.bestScores[this.level].get() ) {
-        this.bestScores[this.level].set( this.points );
+      if ( this.points > this.bestScores[ this.level ].get() ) {
+        this.bestScores[ this.level ].set( this.points );
       }
 
       // check for new best time
-      var previousBestTime = this.bestTimes[this.level].get();
+      var previousBestTime = this.bestTimes[ this.level ].get();
       if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
         this.isNewBestTime = true;
-        this.bestTimes[this.level].set( this.timer.elapsedTime );
+        this.bestTimes[ this.level ].set( this.timer.elapsedTime );
       }
     },
 
@@ -236,9 +236,9 @@ define( function( require ) {
       if ( this.currentEquationIndex < this.equations.length - 1 ) {
         this.attempts = 0;
         this.currentPoints = 0;
-        this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[this.level]();
+        this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.level ]();
         this.currentEquationIndex++;
-        this.currentEquation = this.equations[this.currentEquationIndex];
+        this.currentEquation = this.equations[ this.currentEquationIndex ];
         this.state = this.states.CHECK;
       }
       else {

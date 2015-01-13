@@ -49,10 +49,10 @@ define( function( require ) {
        * and the single term is centered in the column that corresponds to alignment.
        */
       if ( alignment === 'left' ) {
-        xOffsets[0] = boxLeft + ( 0.25 * boxWidth );
+        xOffsets[ 0 ] = boxLeft + ( 0.25 * boxWidth );
       }
       else {
-        xOffsets[0] = boxLeft + ( 0.75 * boxWidth );
+        xOffsets[ 0 ] = boxLeft + ( 0.75 * boxWidth );
       }
     }
     else {
@@ -63,7 +63,7 @@ define( function( require ) {
       var columnWidth = boxWidth / numberOfTerms;
       var x = boxLeft + columnWidth / 2;
       for ( var i = 0; i < numberOfTerms; i++ ) {
-        xOffsets[i] = x;
+        xOffsets[ i ] = x;
         x += columnWidth;
       }
     }

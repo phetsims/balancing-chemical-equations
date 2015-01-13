@@ -44,13 +44,13 @@ define( function( require ) {
     this.numberOfAtomsProperty = numberOfAtomsProperty; // @private
 
     // @private number of atoms
-    this.numberNode = new Text( '?', {font: new PhetFont( 18 )} );
+    this.numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
 
     // @private bar
     this.barNode = new Path( Shape.rect( 0, 0, 1, 1 ), { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
 
     // atom symbol
-    var symbolNode = new Text( element.symbol, {font: new PhetFont( 24 )} );
+    var symbolNode = new Text( element.symbol, { font: new PhetFont( 24 ) } );
 
     // atom icon
     var iconNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
@@ -59,7 +59,7 @@ define( function( require ) {
     // horizontal strut, to prevent resizing
     var hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
-    options.children = [ hStrut, this.numberNode, this.barNode, new HBox( {children: [ iconNode, symbolNode ], spacing: 3 } ) ];
+    options.children = [ hStrut, this.numberNode, this.barNode, new HBox( { children: [ iconNode, symbolNode ], spacing: 3 } ) ];
     VBox.call( this, options );
 
     // when the number of atoms changes ...

@@ -20,7 +20,7 @@ define( function( require ) {
    * @constructor
    */
   function BeamNode( beamLength, beamThickness, options ) {
-    options = _.extend( {fill: 'black', stroke: 'black'}, options );
+    options = _.extend( { fill: 'black', stroke: 'black' }, options );
     Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, options );
   }
 
