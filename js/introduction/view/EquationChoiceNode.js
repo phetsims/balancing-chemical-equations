@@ -46,7 +46,6 @@ define( function( require ) {
     this.addChild( new HBox( {
       children: radioButtons,
       spacing: 30,
-      align: 'left',
       left: 50,
       centerY: BAR_HEIGHT / 2
     } ) );
