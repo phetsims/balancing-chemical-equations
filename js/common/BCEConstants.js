@@ -15,7 +15,7 @@ define( function( require ) {
   var ShadowText = require( 'SCENERY_PHET/ShadowText' );
 
   return Object.freeze( {
-    SCREEN_VIEW_OPTIONS: { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
+    SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
     UNBALANCED_COLOR: 'rgb(46,107,178)',
     BALANCED_HIGHLIGHT_COLOR: 'yellow',
     INTRODUCTION_CANVAS_BACKGROUND: '#d9ebff',
