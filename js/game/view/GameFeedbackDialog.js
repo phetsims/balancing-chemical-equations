@@ -26,7 +26,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var VStrut = require( 'SUN/VStrut' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
   var balancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balanced' );

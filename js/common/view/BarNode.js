@@ -25,7 +25,7 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var HStrut = require( 'SUN/HStrut' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
 
   // constants
   var MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
