@@ -51,12 +51,14 @@ define( function( require ) {
    * Creates a text button that performs a model state change when pressed.
    * @param {string} label
    * @param {function} modelFunction model function that performs the state change
+   * @param {number} maxWidth
    * @returns {TextPushButton}
    */
-  var createStateChangeButton = function( label, modelFunction ) {
+  var createStateChangeButton = function( label, modelFunction, maxWidth ) {
     return new TextPushButton( label, {
       font: STATE_BUTTON_FONT,
       baseColor: STATE_BUTTON_FILL,
+      maxWidth: maxWidth,
       listener: function() {
         modelFunction();
       }
@@ -66,15 +68,16 @@ define( function( require ) {
   /**
    * Creates a button that is appropriate for the current state of the model.
    * @param {GameModel} model
+   * @param {number} maxWidth
    * @returns {*}
    */
-  var createButtonForState = function( model ) {
+  var createButtonForState = function( model, maxWidth ) {
     var button = null;
     if ( model.state === model.states.TRY_AGAIN ) {
-      button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ) );
+      button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ), maxWidth );
     }
     else if ( model.state === model.states.SHOW_ANSWER ) {
-      button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ) );
+      button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ), maxWidth );
     }
     return button;
   };
@@ -124,7 +127,8 @@ define( function( require ) {
     var equation = model.currentEquation;
     var balancedRepresentation = model.balancedRepresentation;
     var points = model.currentPoints;
-    var textOptions = { font: TEXT_FONT };
+    var maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements
+    var textOptions = { font: TEXT_FONT, maxWidth: maxWidth };
 
     // happy/sad face
     var faceNode = new FaceNode( 75 );
@@ -143,11 +147,11 @@ define( function( require ) {
             spacing: options.hBoxSpacing
           } ),
           // points awarded
-          new Text( StringUtils.format( pattern0PointsString, points ), { font: new PhetFont( { size: 24, weight: 'bold' } ) } ),
+          new Text( StringUtils.format( pattern0PointsString, points ), { font: new PhetFont( { size: 24, weight: 'bold' } ), maxWidth: maxWidth } ),
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Next button
-          createStateChangeButton( nextString, model.next.bind( model ) )
+          createStateChangeButton( nextString, model.next.bind( model ), maxWidth )
         ],
         spacing: options.vBoxSpacing
       } );
@@ -171,7 +175,7 @@ define( function( require ) {
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Try Again or Show Answer button
-          createButtonForState( model )
+          createButtonForState( model, maxWidth )
         ],
         spacing: options.vBoxSpacing
       } );
@@ -196,7 +200,8 @@ define( function( require ) {
         },
         font: WHY_BUTTON_FONT,
         baseColor: WHY_BUTTON_FILL,
-        visible: true
+        visible: true,
+        maxWidth: maxWidth
       } );
 
       // 'Hide Why' button, hides the 'balanced' representation
@@ -211,7 +216,8 @@ define( function( require ) {
         font: WHY_BUTTON_FONT,
         baseColor: WHY_BUTTON_FILL,
         visible: !showWhyButton.visible,
-        center: showWhyButton.center
+        center: showWhyButton.center,
+        maxWidth: maxWidth
       } );
 
       content = new VBox( {
@@ -229,7 +235,7 @@ define( function( require ) {
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Try Again or Show Answer button
-          createButtonForState( model ),
+          createButtonForState( model, maxWidth ),
           // Show/Hide Why buttons
           new Node( { children: [ showWhyButton, hideWhyButton ] } )
         ],

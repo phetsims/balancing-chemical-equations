@@ -92,6 +92,8 @@ define( function( require ) {
       return getXOffsets( equation.products, this.boxWidth, boxLeft, 'left' );
     },
 
+    getScreenWidth: function() { return this.screenWidth; },
+
     getScreenLeft: function() { return 0; },
 
     getScreenRight: function() { return this.screenWidth; },
