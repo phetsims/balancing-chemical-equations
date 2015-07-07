@@ -40,15 +40,20 @@ define( function( require ) {
       buttonCornerRadius: 0,
       listCornerRadius: 0,
       itemYMargin: 0,
-      itemXMargin: 3
+      itemXMargin: 3,
+      maxWidth: 600
     }, options );
 
     // options that cannot be specified by client
-    options.labelNode = new Text( toolsString, { font: FONT, fontWeight: 'bold' } );
+    options.labelNode = new Text( toolsString, {
+      font: FONT,
+      fontWeight: 'bold',
+      maxWidth: 200
+    } );
 
     var items = [
       // 'None'
-      ComboBox.createItem( new Text( noneString, { font: FONT } ), BalancedRepresentation.NONE ),
+      ComboBox.createItem( new Text( noneString, { font: FONT, maxWidth: 200 } ), BalancedRepresentation.NONE ),
       // scales
       ComboBox.createItem( new Image( scalesImage, { scale: 0.375 } ), BalancedRepresentation.BALANCE_SCALES ),
       // bar charts

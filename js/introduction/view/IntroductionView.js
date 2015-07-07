@@ -60,7 +60,7 @@ define( function( require ) {
     // 'Tools' combo box, at upper-right
     var comboBoxParent = new Node();
     this.addChild( new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
-      { right: boxesNode.right, top: this.layoutBounds.top + 15 } ) );
+      { right: this.layoutBounds.right - 45, top: this.layoutBounds.top + 15 } ) );
 
     // smiley face, top center, shown when equation is balanced
     var faceNode = new BCEFaceNode( model.equationProperty, { centerX: this.layoutBounds.centerX, top: 15 } );
