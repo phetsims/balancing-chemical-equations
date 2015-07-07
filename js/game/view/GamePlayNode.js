@@ -105,8 +105,10 @@ define( function( require ) {
     } ) );
 
     // scale buttons uniformly to fit the horizontal space between the boxes, see issue #68
-    var buttonsParent = new Node( { children: [ this.checkButton, this.nextButton ] } );
-    buttonsParent.setScaleMagnitude( Math.min( 1, 0.85 * BOX_X_SPACING / buttonsParent.width ) );
+    var buttonsParent = new Node( {
+      maxWidth: 0.85 * BOX_X_SPACING,
+      children: [ this.checkButton, this.nextButton ]
+    } );
     buttonsParent.centerX = this.layoutBounds.centerX;
     buttonsParent.bottom = this.boxesNode.bottom;
     this.addChild( buttonsParent );
