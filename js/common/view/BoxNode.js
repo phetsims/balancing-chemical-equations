@@ -56,10 +56,16 @@ define( function( require ) {
     expandedBoxNode.addChild( this.moleculesParent );
 
     // collapsed box shows the title
-    var collapsedBoxNode = new Rectangle( 0, 0, options.boxWidth, options.buttonLength + 2 * options.yMargin,
-      { fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke } );
-    collapsedBoxNode.addChild( new Text( options.title,
-      { font: new PhetFont( { size: 18, weight: 'bold' } ), center: collapsedBoxNode.center } ) );
+    var collapsedBoxNode = new Rectangle( 0, 0, options.boxWidth, options.buttonLength + 2 * options.yMargin, {
+      fill: options.fill,
+      lineWidth: options.lineWidth,
+      stroke: options.stroke
+    } );
+    collapsedBoxNode.addChild( new Text( options.title, {
+      font: new PhetFont( { size: 18, weight: 'bold' } ),
+      center: collapsedBoxNode.center,
+      maxWidth: 0.75 * options.boxWidth  // constrain width for i18n
+    } ) );
 
     // expand/collapse button
     var expandCollapseButton = new ExpandCollapseButton( expandedProperty, {
