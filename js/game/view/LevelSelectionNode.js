@@ -93,7 +93,8 @@ define( function( require ) {
     var title = new Text( chooseYourLevelString, {
       font: new PhetFont( 36 ),
       centerX: layoutBounds.centerX,
-      centerY: buttonsParent.top / 2
+      centerY: buttonsParent.top / 2,
+      maxWidth: 0.85 * layoutBounds.width // constrain width for i18n
     } );
     this.addChild( title );
 
