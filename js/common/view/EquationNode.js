@@ -41,8 +41,9 @@ define( function( require ) {
     this.arrowNode = new RightArrowNode( equationProperty, { centerX: this.aligner.getScreenCenterX() } ); // @private
     this.addChild( this.arrowNode );
 
-    // the parent for all equation terms and the "+" signs
-    this.termsParent = new Node(); // @private
+    this.terms = []; // the set of TermNodes in the equation
+
+    this.termsParent = new Node(); // @private the parent for all terms and the "+" operators
     this.addChild( this.termsParent );
 
     // if the equation changes...
@@ -61,6 +62,7 @@ define( function( require ) {
      */
     updateNode: function() {
 
+      this.terms.length = 0;
       this.termsParent.removeAllChildren();
 
       var equation = this.equationProperty.get();
@@ -87,6 +89,7 @@ define( function( require ) {
       for ( var i = 0; i < terms.length; i++ ) {
         // term
         termNode = new TermNode( this.coefficientRange, terms[ i ], { fontSize: this.fontSize } );
+        this.terms.push( termNode );
         this.termsParent.addChild( termNode );
         termNode.center = new Vector2( xOffsets[ i ], 0 );
 
@@ -146,6 +149,16 @@ define( function( require ) {
      */
     setBalancedHighlightEnabled: function( enabled ) {
       this.arrowNode.highlightEnabled = enabled;
+    },
+
+    /**
+     * Enables or disabled each TermNode in the equation.
+     * @param {boolean} enabled
+     */
+    setEnabled: function( enabled ) {
+      for ( var i = 0; i < this.terms.length; i++ ) {
+        this.terms[ i ].setEnabled( enabled );
+      }
     }
   } );
 } );

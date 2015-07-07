@@ -31,8 +31,8 @@ define( function( require ) {
       xSpacing: 4
     }, options );
 
-    // coefficient picker
-    var coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
+    // @private coefficient picker
+    this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
       color: 'rgb(50,50,50)',
       activatedColor: 'black',
       xMargin: 8,
@@ -46,12 +46,22 @@ define( function( require ) {
     // symbol, non-subscript part of the symbol is vertically centered on the picker
     var subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
     var symbolNode = new SubSupText( term.molecule.symbol, subSupOptions );
-    symbolNode.left = coefficientNode.right + options.xSpacing;
-    symbolNode.centerY = coefficientNode.centerY + ( symbolNode.height - new SubSupText( 'H', subSupOptions ).height ) / 2;
+    symbolNode.left = this.coefficientNode.right + options.xSpacing;
+    symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new SubSupText( 'H', subSupOptions ).height ) / 2;
 
-    options.children = [ coefficientNode, symbolNode ];
+    options.children = [ this.coefficientNode, symbolNode ];
     Node.call( this, options );
   }
 
-  return inherit( Node, TermNode );
+  return inherit( Node, TermNode, {
+
+    /**
+     * When a term is disabled, it is not pickable and the arrows on its picker are hidden.
+     * @param enabled
+     */
+    setEnabled: function( enabled ) {
+      this.pickable = enabled;
+      this.coefficientNode.setArrowsVisible( enabled );
+    }
+  } );
 } );

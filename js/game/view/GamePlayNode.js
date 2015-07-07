@@ -169,7 +169,7 @@ define( function( require ) {
 
     // @private
     initCheck: function() {
-      this.equationNode.pickable = true;
+      this.equationNode.setEnabled( true );
       this.checkButton.visible = true;
       this.nextButton.visible = false;
       this.setFeedbackDialogVisible( false );
@@ -178,7 +178,7 @@ define( function( require ) {
 
     // @private
     initTryAgain: function() {
-      this.equationNode.pickable = false;
+      this.equationNode.setEnabled( false );
       this.checkButton.visible = this.nextButton.visible = false;
       this.setFeedbackDialogVisible( true );
       this.setBalancedHighlightEnabled( false );
@@ -186,7 +186,7 @@ define( function( require ) {
 
     // @private
     initShowAnswer: function() {
-      this.equationNode.pickable = false;
+      this.equationNode.setEnabled( false );
       this.checkButton.visible = this.nextButton.visible = false;
       this.setFeedbackDialogVisible( true );
       this.setBalancedHighlightEnabled( false );
@@ -194,7 +194,7 @@ define( function( require ) {
 
     // @private
     initNext: function() {
-      this.equationNode.pickable = false;
+      this.equationNode.setEnabled( false );
       this.checkButton.visible = false;
       this.nextButton.visible = !this.model.currentEquation.balancedAndSimplified; // 'Next' button is in the game feedback dialog
       this.setFeedbackDialogVisible( this.model.currentEquation.balancedAndSimplified );
