@@ -104,7 +104,7 @@ define( function( require ) {
       }
     } ) );
 
-    // constrain buttons to fit the horizontal space between the boxes, see issue #68
+    // constrain buttons to fit the horizontal space between the boxes
     var buttonsParent = new Node( {
       maxWidth: 0.85 * BOX_X_SPACING,
       children: [ this.checkButton, this.nextButton ]
