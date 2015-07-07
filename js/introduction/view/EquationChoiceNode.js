@@ -47,7 +47,8 @@ define( function( require ) {
       children: radioButtons,
       spacing: 30,
       left: 50,
-      centerY: BAR_HEIGHT / 2
+      centerY: BAR_HEIGHT / 2,
+      maxWidth: 0.8 * screenWidth
     } ) );
 
     this.mutate( options );
