@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.1.0-dev.1 Tue Jul 07 2015 17:59:55 GMT-0600 (MDT)",
+  "comment": "# balancing-chemical-equations 1.1.0-dev.2 Wed Jul 08 2015 16:00:06 GMT-0600 (MDT)",
   "assert": {
     "sha": "858e65ac477bf1861883ce06eed56d9fdefa5027",
     "branch": "master"
@@ -9,15 +9,15 @@
     "branch": "master"
   },
   "balancing-chemical-equations": {
-    "sha": "8e688c190ed78eac7932478a6d7030b19733d483",
+    "sha": "033924e215798d7ab629d8cad2f99ebc23a0d965",
     "branch": "master"
   },
   "brand": {
-    "sha": "18176b2e089fa2739fc342ad619f4ae39ae56959",
+    "sha": "4f2e72652272550f99d69b4344d70b9e426d20c7",
     "branch": "phet"
   },
   "chipper": {
-    "sha": "ad70c22727177f2e2018e156d71e76126d320cb4",
+    "sha": "8ac613ef9c0a7aa6acc7e082afdbe63a23d73c17",
     "branch": "master"
   },
   "dot": {
@@ -25,11 +25,11 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "4717bef57b2de3c601324eb618c9a71c2df4064a",
+    "sha": "436697a308a815ccfcb4b2b76177018b572af14a",
     "branch": "master"
   },
   "kite": {
-    "sha": "6a46e847321af03e39f8b5df1ef4024ea9d5b591",
+    "sha": "7c4096a15d7a2732acf02573f838c0b645b9b0df",
     "branch": "master"
   },
   "nitroglycerin": {
@@ -45,11 +45,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "86b715caca582145a52d728feabc77b55f30592b",
+    "sha": "150f5ac20b3f8cd21d535e4f5599b27930e8443c",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "8e9226fa41592b09a528bd972da040816a1755ff",
+    "sha": "9846118769ccad04e22ed5de4e667ea306903713",
     "branch": "master"
   },
   "sherpa": {
