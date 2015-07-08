@@ -1,0 +1,71 @@
+{
+  "comment": "# balancing-chemical-equations 1.1.0-dev.1 Tue Jul 07 2015 17:59:55 GMT-0600 (MDT)",
+  "assert": {
+    "sha": "858e65ac477bf1861883ce06eed56d9fdefa5027",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "f4996f9d182deb1b9e799c9ec6282bf8dcfa43bc",
+    "branch": "master"
+  },
+  "balancing-chemical-equations": {
+    "sha": "8e688c190ed78eac7932478a6d7030b19733d483",
+    "branch": "master"
+  },
+  "brand": {
+    "sha": "18176b2e089fa2739fc342ad619f4ae39ae56959",
+    "branch": "phet"
+  },
+  "chipper": {
+    "sha": "ad70c22727177f2e2018e156d71e76126d320cb4",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "d19258b9bcd0b83abc8c214edf2ca4fe4e7503b0",
+    "branch": "master"
+  },
+  "joist": {
+    "sha": "4717bef57b2de3c601324eb618c9a71c2df4064a",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "6a46e847321af03e39f8b5df1ef4024ea9d5b591",
+    "branch": "master"
+  },
+  "nitroglycerin": {
+    "sha": "c6f79ce4664a1120a8d1d2393d5d48f9b72d4bc9",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "8e31808c67a23066b43fbbd2080784daa44433c2",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "89a44d2cefd4b66f031f7f3fc30c0578a3130b5e",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "86b715caca582145a52d728feabc77b55f30592b",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "8e9226fa41592b09a528bd972da040816a1755ff",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "75a3c42e9ce2f715d7123bf01cf62beddf690454",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "21b0c9a4ed62927fd77ef8c08dfb3b4f7cf01179",
+    "branch": "master"
+  },
+  "vegas": {
+    "sha": "117bbea86d01c65982b72046de5cc3223f33fd4f",
+    "branch": "master"
+  },
+  "vibe": {
+    "sha": "e0930e48a36fe605cd1bf411a531e1067d1c0b5e",
+    "branch": "master"
+  }
+}
