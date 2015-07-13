@@ -20,7 +20,7 @@ define( function( require ) {
   var simOptions = {
     credits: {
       leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
-      softwareDevelopment: 'Chris Malley',
+      softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Julia Chamberlain, Patricia Loeblein, Emily B. Moore,\nRobert Parson, Ariel Paul, Kathy Perkins',
       thanks: '\u2022 Conversion of this simulation to HTML5 was funded in part by\nthe American Association of Chemistry Teachers (AACT).\n' +
               '\u2022 Thanks to Mobile Learner Labs for working with the PhET\ndevelopment team to convert this simulation to HTML5.'
