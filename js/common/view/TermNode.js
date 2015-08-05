@@ -34,7 +34,7 @@ define( function( require ) {
     // @private coefficient picker
     this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
       color: 'rgb(50,50,50)',
-      activatedColor: 'black',
+      pressedColor: 'black',
       xMargin: 8,
       yMargin: 0,
       touchAreaExpandX: 30,
