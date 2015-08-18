@@ -2,14 +2,6 @@
   "name": "balancing-chemical-equations",
   "version": "1.1.0-dev.2",
   "license": "GPLv3",
-  "requirejsNamespace": "BALANCING_CHEMICAL_EQUATIONS",
-  "simTitleStringKey": "BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.name",
-  "phetLibs": [
-    "balancing-chemical-equations",
-    "nitroglycerin",
-    "vegas",
-    "vibe"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/balancing-chemical-equations.git"
@@ -20,5 +12,15 @@
     "grunt-contrib-jshint": "~0.6.4",
     "uglify-js": "~2.4.0",
     "requirejs": "~2.1.8"
+  },
+  "phet": {
+    "requirejsNamespace": "BALANCING_CHEMICAL_EQUATIONS",
+    "simTitleStringKey": "BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.name",
+    "phetLibs": [
+      "balancing-chemical-equations",
+      "nitroglycerin",
+      "vegas",
+      "vibe"
+    ]
   }
 }
