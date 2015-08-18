@@ -17,7 +17,6 @@
     "requirejsNamespace": "BALANCING_CHEMICAL_EQUATIONS",
     "simTitleStringKey": "BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.name",
     "phetLibs": [
-      "balancing-chemical-equations",
       "nitroglycerin",
       "vegas",
       "vibe"
