@@ -21,9 +21,11 @@ define( function( require ) {
   function Molecule( nodeConstructor, symbolText, elements ) {
     var self = this;
 
+    // @public
     this.nodeConstructor = nodeConstructor;
     this.symbol = symbolText;
     this.atoms = [];
+
     elements.forEach( function( element ) {
       self.atoms.push( new Atom( element ) );
     } );
@@ -35,6 +37,7 @@ define( function( require ) {
      * Any molecule with more than 5 atoms is considered "big".
      * This affects degree of difficulty in the Game.
      * @return {boolean}
+     * @public
      */
     isBig: function() {
       return this.atoms.length > 5;

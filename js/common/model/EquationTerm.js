@@ -32,11 +32,11 @@ define( function( require ) {
       options.initialCoefficient = balancedCoefficient;
     }
 
-    this.molecule = molecule;
-    this.balancedCoefficient = balancedCoefficient;
+    this.molecule = molecule; // @public
+    this.balancedCoefficient = balancedCoefficient; // @public
 
     PropertySet.call( this, {
-      userCoefficient: options.initialCoefficient
+      userCoefficient: options.initialCoefficient // @public
     } );
   }
 

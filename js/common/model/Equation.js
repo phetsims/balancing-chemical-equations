@@ -28,15 +28,17 @@ define( function( require ) {
   function Equation( reactants, products ) {
     var self = this;
 
-    this.reactants = reactants;
-    this.products = products;
+    this.reactants = reactants; // @public
+    this.products = products; // @public
 
     PropertySet.call( this, {
+
+      // @public
       balanced: false,
       coefficientsSum: 0
     } );
 
-    this.balancedAndSimplified = false; // balanced with the lowest possible coefficients
+    this.balancedAndSimplified = false; // @public balanced with the lowest possible coefficients
 
     this.addCoefficientsObserver( self.updateBalanced.bind( self ) );
 
@@ -54,7 +56,7 @@ define( function( require ) {
 
   return inherit( PropertySet, Equation, {
 
-    // @override
+    // @override @public
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.reactants.forEach( function( reactant ) {
@@ -92,6 +94,7 @@ define( function( require ) {
 
     /**
      * Convenience method for adding an observer to all coefficients.
+     * @public
      */
     addCoefficientsObserver: function( observer ) {
       this.reactants.forEach( function( reactant ) {
@@ -105,6 +108,7 @@ define( function( require ) {
 
     /**
      * Convenience method for removing an observer from all coefficients.
+     * @public
      */
     removeCoefficientsObserver: function( observer ) {
       this.reactants.forEach( function( reactant ) {
@@ -121,6 +125,7 @@ define( function( require ) {
      *
      * @param {Equation} equation
      * @return {AtomCount[]}
+     * @public
      */
     getAtomCounts: function() {
       return AtomCount.countAtoms( this );
@@ -130,6 +135,7 @@ define( function( require ) {
      * Does this equation contain at least one "big" molecule?
      * This affects degree of difficulty in the Game.
      * @return {boolean}
+     * @public
      */
     hasBigMolecule: function() {
       this.reactants.forEach( function( reactant ) {
@@ -148,6 +154,7 @@ define( function( require ) {
     /**
      * Balances the equation by copying the balanced coefficient value to
      * the user coefficient value for each term in the equation.
+     * @public
      */
     balance: function() {
       this.reactants.forEach( function( term ) {
@@ -162,6 +169,7 @@ define( function( require ) {
      * Gets a string that shows just the coefficients of the equations.
      * This is used to show game answers when running in 'dev' mode.
      * @returns {string}
+     * @public
      */
     getCoefficientsString: function() {
       var string = '';
@@ -180,6 +188,7 @@ define( function( require ) {
     /**
      * String value of an equation, shows balanced coefficients, for debugging.
      * @return {string}
+     * @public
      */
     toString: function() {
       var string = '';
