@@ -201,6 +201,7 @@ define( function( require ) {
      * @private
      * @param {number} numberOfEquations
      * @returns { [{function}] } array of Equation factory functions
+     * @public
      */
     getEquationFactoryFunctions: function( numberOfEquations ) {
 

@@ -76,6 +76,7 @@ define( function( require ) {
      * Gets the offsets for an equation's reactant terms.
      * Reactants are on the left-hand side of the equation.
      * @param equation
+     * @public
      */
     getReactantXOffsets: function( equation ) {
       var boxLeft = this.screenWidth / 2 - this.boxWidth - this.boxXSpacing / 2;
@@ -86,40 +87,51 @@ define( function( require ) {
      * Gets the offsets for an equation's product terms.
      * Products are on the right-hand side of the equation.
      * @param equation
+     * @public
      */
     getProductXOffsets: function( equation ) {
       var boxLeft = this.screenWidth / 2 + this.boxXSpacing / 2;
       return getXOffsets( equation.products, this.boxWidth, boxLeft, 'left' );
     },
 
+    // @public
     getScreenWidth: function() { return this.screenWidth; },
 
+    // @public
     getScreenLeft: function() { return 0; },
 
+    // @public
     getScreenRight: function() { return this.screenWidth; },
 
+    // @public
     getScreenCenterX: function() { return this.screenWidth / 2; },
 
+    // @public
     getReactantsBoxLeft: function() {
       return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth;
     },
 
+    // @public
     getProductsBoxLeft: function() {
       return this.getScreenCenterX() + this.boxXSpacing / 2;
     },
 
+    // @public
     getReactantsBoxRight: function() {
       return this.getScreenCenterX() - this.boxXSpacing / 2;
     },
 
+    // @public
     getProductsBoxRight: function() {
       return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth;
     },
 
+    // @public
     getReactantsBoxCenterX: function() {
       return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth / 2;
     },
 
+    // @public
     getProductsBoxCenterX: function() {
       return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth / 2;
     }

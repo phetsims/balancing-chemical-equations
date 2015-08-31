@@ -41,6 +41,7 @@ define( function( require ) {
     var self = this;
 
     /*
+     * @public
      * The set of game states.
      * For lack of better names, the state names correspond to the main action that
      * the user can take in that state.  For example. the CHECK state is where the user
@@ -56,12 +57,13 @@ define( function( require ) {
       LEVEL_COMPLETED: 'LevelCompleted' //reward node
     };
 
-    // constants
+    // @public (read-only) constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
 
-    // properties
     PropertySet.call( this, {
+
+      // @public
       state: self.states.LEVEL_SELECTION,
       level: 0, // level of the current game
       points: 0, // how many points the user has earned for the current game
@@ -70,14 +72,14 @@ define( function( require ) {
       currentEquationIndex: 0 // index of the current challenge that the user is working on
     } );
 
-    this.equations = []; // array of Equation
-    this.timer = new GameTimer();
+    this.equations = []; // @public array of Equation
+    this.timer = new GameTimer(); // @public
     this.attempts = 0; // @private how many attempts the user has made at solving the current challenge
-    this.currentPoints = 0; // how many points were earned for the current challenge
-    this.balancedRepresentation = null; // which representation to use in the "Not Balanced" popup
-    this.isNewBestTime = false; // is the time for this game a new best time?
-    this.bestTimes = [];// best times in ms, indexed by level
-    this.bestScores = []; // best scores, indexed by level
+    this.currentPoints = 0; // @public how many points were earned for the current challenge
+    this.balancedRepresentation = null; // @public which representation to use in the "Not Balanced" popup
+    this.isNewBestTime = false; // @public is the time for this game a new best time?
+    this.bestTimes = [];// @public best times in ms, indexed by level
+    this.bestScores = []; // @public best scores, indexed by level
     for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
       this.bestTimes[ i ] = new Property( 0 );
       this.bestScores[ i ] = new Property( 0 );
@@ -86,7 +88,7 @@ define( function( require ) {
 
   return inherit( PropertySet, GameModel, {
 
-    // @override
+    // @override @public
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.bestTimes.forEach( function( bestTimeProperty ) {
@@ -99,6 +101,7 @@ define( function( require ) {
 
     /**
      * Called when the user presses a level-selection button.
+     * @public
      */
     startGame: function() {
 
@@ -122,6 +125,7 @@ define( function( require ) {
 
     /**
      * Called when the user presses the "Check" button.
+     * @public
      */
     check: function() {
       this.attempts++;
@@ -177,6 +181,7 @@ define( function( require ) {
 
     /**
      * Called when the user presses the "Try Again" button.
+     * @public
      */
     tryAgain: function() {
       this.state = this.states.CHECK;
@@ -184,6 +189,7 @@ define( function( require ) {
 
     /**
      * Called when the user presses the "Show Answer" button.
+     * @public
      */
     showAnswer: function() {
       this.state = this.states.NEXT;
@@ -194,6 +200,7 @@ define( function( require ) {
      *
      * @param level
      * @returns {*}
+     * @public
      */
     getNumberOfEquations: function( level ) {
       return GameFactory.getNumberOfEquations( level );
@@ -205,6 +212,7 @@ define( function( require ) {
      *
      * @param level
      * @return {number}
+     * @public
      */
     getPerfectScore: function( level ) {
       return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
@@ -216,6 +224,7 @@ define( function( require ) {
      * return true until the game has been completed.
      *
      * @return {boolean}
+     * @public
      */
     isPerfectScore: function() {
       return this.points === this.getPerfectScore( this.level );
@@ -223,6 +232,7 @@ define( function( require ) {
 
     /**
      * Called when the user presses the "Start Over" button.
+     * @public
      */
     newGame: function() {
       this.state = this.states.LEVEL_SELECTION;
@@ -231,6 +241,7 @@ define( function( require ) {
 
     /**
      * Called when the user presses the "Next" button.
+     * @public
      */
     next: function() {
       if ( this.currentEquationIndex < this.equations.length - 1 ) {

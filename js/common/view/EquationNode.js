@@ -37,11 +37,11 @@ define( function( require ) {
     this.aligner = aligner; // @private
     this.equationProperty = equationProperty; // @private
 
-    // arrow node, in a fixed location
+    // @private arrow node, in a fixed location
     this.arrowNode = new RightArrowNode( equationProperty, { centerX: this.aligner.getScreenCenterX() } ); // @private
     this.addChild( this.arrowNode );
 
-    this.terms = []; // the set of TermNodes in the equation
+    this.terms = []; // @private the set of TermNodes in the equation
 
     this.termsParent = new Node(); // @private the parent for all terms and the "+" operators
     this.addChild( this.termsParent );
@@ -73,11 +73,11 @@ define( function( require ) {
     /**
      * Rebuilds one side of the equation.
      *
-     * @private
      * @param {EquationTerm} terms array
      * @param {number} xOffsets array for terms
      * @param {number} minX minimal possible x for equation
      * @param {number} maxX maximum possible x for equation
+     * @private
      */
     updateSideOfEquation: function( terms, xOffsets, minX, maxX ) {
 
@@ -146,6 +146,7 @@ define( function( require ) {
      * This is enabled by default, but we want to disable in the Game until the user presses the "Check" button.
      *
      * @param enabled
+     * @public
      */
     setBalancedHighlightEnabled: function( enabled ) {
       this.arrowNode.highlightEnabled = enabled;
@@ -154,6 +155,7 @@ define( function( require ) {
     /**
      * Enables or disabled each TermNode in the equation.
      * @param {boolean} enabled
+     * @public
      */
     setEnabled: function( enabled ) {
       for ( var i = 0; i < this.terms.length; i++ ) {

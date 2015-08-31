@@ -27,9 +27,10 @@ define( function( require ) {
    */
   function IntroductionModel() {
 
-    this.COEFFICENTS_RANGE = new Range( 0, 3 ); // Range of possible equation coefficients
+    this.COEFFICENTS_RANGE = new Range( 0, 3 ); // @public (read-only) Range of possible equation coefficients
 
     /*
+     * @public
      * Choices available in the 'Introduction' screen.
      * The contract for a choice is: { equation: {Equation}, label: {string} }
      */
@@ -40,13 +41,13 @@ define( function( require ) {
     ];
 
     PropertySet.call( this, {
-      equation: this.choices[ 0 ].equation // the equation that is selected
+      equation: this.choices[ 0 ].equation // @public the equation that is selected
     } );
   }
 
   return inherit( PropertySet, IntroductionModel, {
 
-    // @override
+    // @override @public
     reset: function() {
       PropertySet.prototype.reset.call( this );
       this.choices.forEach( function( choice ) {

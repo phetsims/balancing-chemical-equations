@@ -63,6 +63,7 @@ define( function( require ) {
      * Update the node when it becomes visible.
      * @param visible
      * @override
+     * @public
      */
     setVisible: function( visible ) {
       var wasVisible = this.visible;

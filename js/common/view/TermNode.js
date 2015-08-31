@@ -58,6 +58,7 @@ define( function( require ) {
     /**
      * When a term is disabled, it is not pickable and the arrows on its picker are hidden.
      * @param enabled
+     * @public
      */
     setEnabled: function( enabled ) {
       this.pickable = enabled;

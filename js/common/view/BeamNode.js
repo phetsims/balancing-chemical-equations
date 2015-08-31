@@ -26,6 +26,7 @@ define( function( require ) {
 
   return inherit( Rectangle, BeamNode, {
 
+    // @public
     setHighlighted: function( highlighted ) {
       this.fill = highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : 'black';
       this.lineWidth = highlighted ? 1 : 0;

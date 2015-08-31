@@ -49,12 +49,14 @@ define( function( require ) {
     this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
     this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
 
-    // fulcrum & beam
+    // fulcrum
     var fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
+
+    // @private beam
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
       bottom: 0,
       transformBounds: true /* see issue #77 */
-    } ); // @private
+    } );
 
     // left pile & count
     this.leftPileNode = new Node(); // @private
@@ -64,11 +66,11 @@ define( function( require ) {
     this.rightPileNode = new Node(); // @private
     this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
 
-    // parent for both piles, to simplify rotation
+    // @private parent for both piles, to simplify rotation
     this.pilesParent = new Node( {
       children: [ this.leftPileNode, this.leftCountNode, this.rightPileNode, this.rightCountNode ],
       transformBounds: true /* see issue #77 */
-    } ); // @private
+    } );
 
     options.children = [ fulcrumNode, this.beamNode, this.pilesParent ];
     Node.call( this, options );

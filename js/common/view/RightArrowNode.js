@@ -52,11 +52,13 @@ define( function( require ) {
       this.fill = ( this.equationProperty.get().balanced && this._highlightEnabled ) ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
     },
 
+    // @public
     set highlightEnabled( value ) {
       this._highlightEnabled = value;
       this.updateHighlight();
     },
 
+    // @public
     get highlightEnabled() { return this._highlightEnabled; }
   } );
 } );

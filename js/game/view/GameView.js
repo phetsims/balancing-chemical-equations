@@ -30,6 +30,7 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
 
+    // @public
     this.viewProperties = new PropertySet( {
       soundEnabled: true,
       timerEnabled: false,
@@ -37,18 +38,18 @@ define( function( require ) {
       productsBoxExpanded: true
     } );
 
-    this.model = model;
-    this.audioPlayer = new GameAudioPlayer( this.viewProperties.soundEnabledProperty );
+    this.model = model; // @public
+    this.audioPlayer = new GameAudioPlayer( this.viewProperties.soundEnabledProperty ); // @public
 
-    // Add a root node where all of the game-related nodes will live.
+    // @private Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();
     this.addChild( this.rootNode );
 
-    // level-selection interface
+    // @private level-selection interface
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds, { visible: false } );
     this.rootNode.addChild( this.levelSelectionNode );
 
-    // game-play interface, created on demand
+    // @private game-play interface, created on demand
     this.gamePlayNode = null;
 
     // Call an initializer to set up the game for the state.
@@ -67,17 +68,20 @@ define( function( require ) {
 
   return inherit( ScreenView, GameView, {
 
+    // @public
     step: function( dt ) {
       if ( this.rewardNode ) {
         this.rewardNode.step( dt );
       }
     },
 
+    // @private
     initLevelSelection: function() {
       if ( this.gamePlayNode ) { this.gamePlayNode.visible = false; }
       this.levelSelectionNode.visible = true;
     },
 
+    // @private
     initStartGame: function() {
       if ( !this.gamePlayNode ) {
         this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer, this.layoutBounds );
@@ -90,6 +94,7 @@ define( function( require ) {
       this.model.startGame();
     },
 
+    // @private
     initLevelCompleted: function() {
       var self = this;
 

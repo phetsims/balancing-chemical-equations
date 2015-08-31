@@ -79,6 +79,7 @@ define( function( require ) {
      * When enabled, the arrow between the boxes will light up when the equation is balanced.
      * This is enabled by default, but we want to disable in the Game until the user presses the "Check" button.
      * @param enabled
+     * @public
      */
     setBalancedHighlightEnabled: function( enabled ) {
       this.arrowNode.highlightEnabled = enabled;
