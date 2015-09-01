@@ -21,7 +21,7 @@ define( function( require ) {
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
-  var BCEFaceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BCEFaceNode' );
+  var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -63,8 +63,15 @@ define( function( require ) {
       { right: this.layoutBounds.right - 45, top: this.layoutBounds.top + 15 } ) );
 
     // smiley face, top center, shown when equation is balanced
-    var faceNode = new BCEFaceNode( model.equationProperty, { centerX: this.layoutBounds.centerX, top: 15 } );
+    var faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
     this.addChild( faceNode );
+    var updateFace = function() {
+      faceNode.visible = model.equationProperty.get().balanced;
+    };
+    model.equationProperty.link( function( newEquation, oldEquation ) {
+      if ( oldEquation ) { oldEquation.balancedProperty.unlink( updateFace ); }
+      newEquation.balancedProperty.link( updateFace );
+    } );
 
     // interactive equation
     this.addChild( new EquationNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner, { top: boxesNode.bottom + 20 } ) );
