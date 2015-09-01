@@ -62,7 +62,6 @@ define( function( require ) {
 
   return inherit( Node, EquationChoiceNode, {
 
-    // @public
-    dispose: function() { this.disposeEquationChoiceNode(); }
+    // No dispose function needed, this type persists for the lifetime of the sim.
   } );
 } );

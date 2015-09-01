@@ -125,6 +125,9 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Node, LevelSelectionNode );
+  return inherit( Node, LevelSelectionNode, {
+
+    // No dispose function needed, this type persists for the lifetime of the sim.
+  } );
 } );
 

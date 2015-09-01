@@ -68,6 +68,8 @@ define( function( require ) {
 
   return inherit( ScreenView, GameView, {
 
+    // No dispose function needed, this type persists for the lifetime of the sim.
+
     // @public
     step: function( dt ) {
       if ( this.rewardNode ) {
