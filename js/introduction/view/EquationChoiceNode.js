@@ -51,8 +51,18 @@ define( function( require ) {
       maxWidth: 0.8 * screenWidth
     } ) );
 
+    this.disposeEquationChoiceNode = function() {
+      radioButtons.forEach( function( radioButton ) {
+        radioButton.dispose();
+      } );
+    };
+
     this.mutate( options );
   }
 
-  return inherit( Node, EquationChoiceNode );
+  return inherit( Node, EquationChoiceNode, {
+
+    // @public
+    dispose: function() { this.disposeEquationChoiceNode(); }
+  } );
 } );
