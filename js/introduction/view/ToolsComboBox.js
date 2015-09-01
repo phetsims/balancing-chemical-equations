@@ -63,5 +63,8 @@ define( function( require ) {
     ComboBox.call( this, items, balanceRepresentationProperty, parentNode, options );
   }
 
-  return inherit( ComboBox, ToolsComboBox );
+  return inherit( ComboBox, ToolsComboBox, {
+
+    // Supertype implements dispose, but we don't need to call it, this type persists for the lifetime of the sim.
+  } );
 } );
