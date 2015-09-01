@@ -26,7 +26,6 @@ define( function( require ) {
    * @constructor
    */
   function Equation( reactants, products ) {
-    console.log( 'Equation.ctor' );//XXX
     var self = this;
 
     this.reactants = reactants; // @public
