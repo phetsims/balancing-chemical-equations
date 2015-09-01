@@ -170,6 +170,8 @@ define( function( require ) {
 
   return inherit( Node, BalanceScaleNode, {
 
+    //TODO #96 dispose needed, created each time 'Scales' is selected from combo box
+
     /**
      * Places piles of atoms on the ends of the beam, with a count of the number of
      * atoms above each pile.  Then rotates the beam and stuff on it to indicate the

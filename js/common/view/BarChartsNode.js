@@ -59,6 +59,8 @@ define( function( require ) {
 
   return inherit( Node, BarChartsNode, {
 
+    // No dispose needed, instance of this type persist for lifetime of the sim.
+
     /**
      * Update the node when it becomes visible.
      * @param visible
@@ -96,6 +98,8 @@ define( function( require ) {
      * @private
      */
     updateBars: function( parentNode, atomCounts, getCount, centerX ) {
+
+      //TODO #96 call dispose for BarNode before removeAllChildren
 
       parentNode.removeAllChildren(); // remove all the bar nodes
 

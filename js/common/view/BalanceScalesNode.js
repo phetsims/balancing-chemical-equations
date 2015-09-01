@@ -59,6 +59,8 @@ define( function( require ) {
 
   return inherit( Node, BalanceScalesNode, {
 
+    // No dispose needed, instance of this type persist for lifetime of the sim.
+
     /**
      * Update the node when it becomes visible.
      * @param visible
@@ -79,6 +81,8 @@ define( function( require ) {
      */
     updateNode: function() {
       if ( this.visible ) {
+
+        //TODO #96 call dispose for each BalanceScaleNode before removeAllChildren
 
         // remove all nodes and clear the maps
         this.removeAllChildren();

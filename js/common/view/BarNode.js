@@ -68,6 +68,8 @@ define( function( require ) {
 
   return inherit( VBox, BarNode, {
 
+     //TODO #96 dispose needed, created each time 'Bars' is selected from combo box
+
     // @private
     update: function() {
 
