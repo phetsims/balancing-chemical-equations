@@ -26,6 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function Equation( reactants, products ) {
+    console.log( 'Equation.ctor' );//XXX
     var self = this;
 
     this.reactants = reactants; // @public
@@ -55,6 +56,8 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Equation, {
+
+    //TODO #96 does this type need a dispose function? Game creates 5 of these when level selection button is pressed.
 
     // @override @public
     reset: function() {
