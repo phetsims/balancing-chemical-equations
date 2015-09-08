@@ -41,8 +41,6 @@ define( function( require ) {
    */
   function BarNode( element, numberOfAtomsProperty, options ) {
 
-    console.log( 'BarNode.ctor' );//XXX
-
     var thisNode = this;
 
     // number of atoms
