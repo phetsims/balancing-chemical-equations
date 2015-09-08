@@ -41,13 +41,15 @@ define( function( require ) {
    */
   function BarNode( element, numberOfAtomsProperty, options ) {
 
-    this.numberOfAtomsProperty = numberOfAtomsProperty; // @private
+    console.log( 'BarNode.ctor' );//XXX
 
-    // @private number of atoms
-    this.numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
+    var thisNode = this;
 
-    // @private bar
-    this.barNode = new Path( Shape.rect( 0, 0, 1, 1 ), { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
+    // number of atoms
+    var numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
+
+    // bar
+    var barNode = new Path( Shape.rect( 0, 0, 1, 1 ), { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
 
     // atom symbol
     var symbolNode = new Text( element.symbol, { font: new PhetFont( 24 ) } );
@@ -59,24 +61,13 @@ define( function( require ) {
     // horizontal strut, to prevent resizing
     var hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
-    options.children = [ hStrut, this.numberNode, this.barNode, new HBox( { children: [ iconNode, symbolNode ], spacing: 3 } ) ];
+    options.children = [ hStrut, numberNode, barNode, new HBox( { children: [ iconNode, symbolNode ], spacing: 3 } ) ];
     VBox.call( this, options );
 
-    // when the number of atoms changes ...
-    numberOfAtomsProperty.link( this.update.bind( this ) );
-  }
-
-  return inherit( VBox, BarNode, {
-
-     //TODO #96 dispose needed, created each time 'Bars' is selected from combo box
-
-    // @private
-    update: function() {
-
-      var numberOfAtoms = this.numberOfAtomsProperty.get();
+    var numberOfAtomsListener = function( numberOfAtoms ) {
 
       // number of atoms
-      this.numberNode.text = numberOfAtoms + '';
+      numberNode.text = numberOfAtoms + '';
 
       // bar
       var barShape;
@@ -97,10 +88,27 @@ define( function( require ) {
           .lineTo( -ARROW_SIZE.width / 2, -( MAX_BAR_SIZE.height - ARROW_SIZE.height ) )
           .close();
       }
-      this.barNode.setShape( barShape );
-      this.barNode.visible = ( numberOfAtoms > 0 );
+      barNode.setShape( barShape );
+      barNode.visible = ( numberOfAtoms > 0 );
 
-      this.bottom = 0;
+      thisNode.bottom = 0;
+    };
+
+    // when the number of atoms changes ...
+    numberOfAtomsProperty.link( numberOfAtomsListener );
+
+    // @private
+    this.disposeBarNode = function() {
+      numberOfAtomsProperty.unlink( numberOfAtomsListener );
+    };
+  }
+
+  return inherit( VBox, BarNode, {
+
+    dispose: function() {
+      console.log( 'BarNode.dispose' );//XXX
+      this.disposeBarNode();
     }
   } );
+
 } );
