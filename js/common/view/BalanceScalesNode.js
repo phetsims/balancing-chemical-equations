@@ -82,7 +82,12 @@ define( function( require ) {
     updateNode: function() {
       if ( this.visible ) {
 
-        //TODO #96 call dispose for each BalanceScaleNode before removeAllChildren
+        // dispose of children before calling removeAllChildren
+        this.getChildren().forEach( function( child ) {
+          if ( child.dispose ) {
+            child.dispose();
+          }
+        } );
 
         // remove all nodes and clear the maps
         this.removeAllChildren();

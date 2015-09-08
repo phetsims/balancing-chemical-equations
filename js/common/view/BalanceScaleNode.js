@@ -76,15 +76,23 @@ define( function( require ) {
     Node.call( this, options );
 
     // highlight the beam
-    highlightedProperty.link( function( highlighted ) {
+    var highlightObserver = function( highlighted ) {
       self.beamNode.setHighlighted( highlighted );
-    } );
+    };
+    highlightedProperty.link( highlightObserver );
 
     // update piles
     var updateNodeBind = this.updateNode.bind( this );
     leftNumberOfAtomsProperty.lazyLink( updateNodeBind );
     rightNumberOfAtomsProperty.lazyLink( updateNodeBind );
     this.updateNode();
+
+    // unlink from Properties
+    this.balanceScaleNodeDispose = function() {
+      highlightedProperty.unlink( highlightObserver );
+      leftNumberOfAtomsProperty.unlink( updateNodeBind );
+      rightNumberOfAtomsProperty.unlink( updateNodeBind );
+    }
   }
 
   /**
@@ -170,7 +178,9 @@ define( function( require ) {
 
   return inherit( Node, BalanceScaleNode, {
 
-    //TODO #96 dispose needed, created each time 'Scales' is selected from combo box
+    dispose: function() {
+       this.balanceScaleNodeDispose();
+    },
 
     /**
      * Places piles of atoms on the ends of the beam, with a count of the number of
