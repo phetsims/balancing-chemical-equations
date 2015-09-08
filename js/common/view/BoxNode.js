@@ -103,6 +103,8 @@ define( function( require ) {
 
   return inherit( Node, BoxNode, {
 
+    // No dispose needed, instances of this type persist for lifetime of the sim.
+
     /**
      * Creates molecules in the boxes for one set of terms (reactants or products).
      * To improve performance:
