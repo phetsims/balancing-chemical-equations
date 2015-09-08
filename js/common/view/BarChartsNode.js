@@ -99,12 +99,11 @@ define( function( require ) {
      */
     updateBars: function( parentNode, atomCounts, getCount, centerX ) {
 
-      // dispose of BarNode instances
-      var children = parentNode.getChildren();
-      children.forEach( function( child ) {
-         if ( child instanceof BarNode ) {
-           child.dispose();
-         }
+      // dispose of children before calling removeAllChildren
+      parentNode.getChildren().forEach( function( child ) {
+        if ( child.dispose() ) {
+          child.dispose();
+        }
       } );
 
       parentNode.removeAllChildren(); // remove all the bar nodes

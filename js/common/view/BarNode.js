@@ -104,7 +104,6 @@ define( function( require ) {
   return inherit( VBox, BarNode, {
 
     dispose: function() {
-      console.log( 'BarNode.dispose' );//XXX
       this.disposeBarNode();
     }
   } );
