@@ -64,6 +64,7 @@ define( function( require ) {
      */
     updateNode: function() {
 
+      //TODO #96 need to call dispose for all existing TermNode before termsParent.removeAllChildren
       this.terms.length = 0;
       this.termsParent.removeAllChildren();
 

@@ -55,6 +55,8 @@ define( function( require ) {
 
   return inherit( Node, TermNode, {
 
+    //TODO #96 needs a dispose function, created when switching equations in "Intro" screen and switching challenges in "Game" screen
+
     /**
      * When a term is disabled, it is not pickable and the arrows on its picker are hidden.
      * @param enabled
