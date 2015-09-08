@@ -47,6 +47,8 @@ define( function( require ) {
 
   return inherit( ArrowNode, RightArrowNode, {
 
+    // No dispose needed, instances of this type persist for lifetime of the sim.
+
     // @private Highlights the arrow if the equation is balanced.
     updateHighlight: function() {
       this.fill = ( this.equationProperty.get().balanced && this._highlightEnabled ) ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
