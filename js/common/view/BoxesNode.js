@@ -74,6 +74,8 @@ define( function( require ) {
 
   return inherit( Node, BoxesNode, {
 
+    // No dispose needed, instances of this type persist for lifetime of the sim.
+
     /**
      * Enables or disables the highlighting feature.
      * When enabled, the arrow between the boxes will light up when the equation is balanced.
