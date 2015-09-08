@@ -56,6 +56,8 @@ define( function( require ) {
 
   return inherit( Node, EquationNode, {
 
+    // No dispose needed, instances of this type persist for lifetime of the sim.
+
     /**
      * Rebuilds the left and right sides of the equation.
      * @private
