@@ -62,6 +62,6 @@ define( function( require ) {
 
   return inherit( Node, EquationChoiceNode, {
 
-    // No dispose function needed, this type persists for the lifetime of the sim.
+    // No dispose needed, instances of this type persist for lifetime of the sim.
   } );
 } );
