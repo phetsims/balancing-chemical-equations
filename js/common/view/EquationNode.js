@@ -64,7 +64,10 @@ define( function( require ) {
      */
     updateNode: function() {
 
-      //TODO #96 need to call dispose for all existing TermNode before termsParent.removeAllChildren
+      // dispose of existing instances of TermNode
+      this.terms.forEach( function( termNode ) {
+          termNode.dispose();
+      } );
       this.terms.length = 0;
       this.termsParent.removeAllChildren();
 
