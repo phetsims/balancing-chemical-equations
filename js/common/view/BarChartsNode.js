@@ -59,7 +59,7 @@ define( function( require ) {
 
   return inherit( Node, BarChartsNode, {
 
-    // No dispose needed, instance of this type persist for lifetime of the sim.
+    // No dispose needed, instances of this type persist for lifetime of the sim.
 
     /**
      * Update the node when it becomes visible.
