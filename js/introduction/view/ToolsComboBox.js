@@ -19,7 +19,7 @@ define( function( require ) {
 
   // images
   var chartsImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/charts.png' );
-  var scalesImage = require( 'image!BALANCING_CHEMICAL_EQUATIONS/scales.png' );
+  var scalesImage = require( 'mipmap!BALANCING_CHEMICAL_EQUATIONS/scales.png' );
 
   // strings
   var toolsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tools' );
@@ -55,7 +55,7 @@ define( function( require ) {
       // 'None'
       ComboBox.createItem( new Text( noneString, { font: FONT, maxWidth: 200 } ), BalancedRepresentation.NONE ),
       // scales
-      ComboBox.createItem( new Image( scalesImage, { scale: 0.375 } ), BalancedRepresentation.BALANCE_SCALES ),
+      ComboBox.createItem( new Image( scalesImage, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
       // bar charts
       ComboBox.createItem( new Image( chartsImage, { scale: 0.375 } ), BalancedRepresentation.BAR_CHARTS )
     ];
