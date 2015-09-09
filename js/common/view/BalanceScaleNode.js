@@ -92,7 +92,7 @@ define( function( require ) {
       highlightedProperty.unlink( highlightObserver );
       leftNumberOfAtomsProperty.unlink( updateNodeBind );
       rightNumberOfAtomsProperty.unlink( updateNodeBind );
-    }
+    };
   }
 
   /**
