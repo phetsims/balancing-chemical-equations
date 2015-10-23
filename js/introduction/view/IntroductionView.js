@@ -94,7 +94,8 @@ define( function( require ) {
     // Show the selected 'balanced' representation, create nodes on demand.
     var balancedParent = new Node(); // to maintain rendering order for combo box
     this.addChild( balancedParent );
-    var barChartsNode, balanceScalesNode;
+    var barChartsNode;
+    var balanceScalesNode;
     viewProperties.balancedRepresentationProperty.link( function( balancedRepresentation ) {
 
       // bar chart
