@@ -21,7 +21,7 @@ define( function( require ) {
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
 
   // strings
-  var gameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/game' );
+  var gameTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.game' );
 
   // creates the icon for this screen: a smiley face to the right of up/down arrows
   var createScreenIcon = function() {

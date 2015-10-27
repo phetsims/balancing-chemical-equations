@@ -27,7 +27,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   // strings
-  var introductionTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/introduction' );
+  var introductionTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.introduction' );
 
   // creates the icon for this screen: an equation above a balance beam
   var createScreenIcon = function() {

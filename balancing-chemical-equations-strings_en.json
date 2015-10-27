@@ -5,13 +5,13 @@
   "balanced": {
     "value": "balanced"
   },
-  "introduction": {
+  "screen.introduction": {
     "value": "Introduction"
   },
   "separateWater": {
     "value": "Separate Water"
   },
-  "game": {
+  "screen.game": {
     "value": "Game"
   },
   "hideWhy": {
