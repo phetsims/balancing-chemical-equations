@@ -132,7 +132,8 @@ define( function( require ) {
           starDiameter: Math.min( 60, 300 / numberOfEquations ),
           centerX: this.layoutBounds.centerX,
           centerY: this.layoutBounds.centerY,
-          levelVisible: false
+          levelVisible: false,
+          maxWidth: 0.85 * this.layoutBounds.width // constrain width for i18n
         }
       );
       this.rootNode.addChild( levelCompletedNode );
