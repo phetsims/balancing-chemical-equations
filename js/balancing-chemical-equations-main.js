@@ -13,7 +13,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.title' );
+  var balancingChemicalEquationsTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.title' );
 
   var screens = [ new IntroductionScreen(), new GameScreen() ];
 
@@ -29,6 +29,6 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    new Sim( simTitleString, screens, simOptions ).start();
+    new Sim( balancingChemicalEquationsTitleString, screens, simOptions ).start();
   } );
 } );
