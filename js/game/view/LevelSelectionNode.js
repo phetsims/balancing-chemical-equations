@@ -32,7 +32,7 @@ define( function( require ) {
 
   // strings
   var chooseYourLevelString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/chooseYourLevel' );
-  var pattern_0level = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0level' );
+  var pattern0LevelString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern0LevelString' );
 
   // constants
   var BUTTON_MARGIN = 20;
@@ -41,7 +41,7 @@ define( function( require ) {
   var createLevelSelectionButton = function( level, model ) {
 
     // 'Level N' centered above icon
-    var label = new Text( StringUtils.format( pattern_0level, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
+    var label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
     var image = new levelImagesConstructors[ level ]( _.extend( {
       centerX: label.centerX,
       top: label.bottom + 20,
