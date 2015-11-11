@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var Element = require( 'NITROGLYCERIN/Element' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
@@ -127,6 +128,8 @@ define( function( require ) {
     assert && assert( level >= 0 && level < NODES.length );
     RewardNode.call( this, { nodes: RewardNode.createRandomNodes( NODES[ level ], NUMBER_OF_NODES ) } );
   }
+
+  balancingChemicalEquations.register( 'BCERewardNode', BCERewardNode );
 
   return inherit( RewardNode, BCERewardNode );
 } );

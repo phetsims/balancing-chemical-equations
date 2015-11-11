@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -48,6 +49,8 @@ define( function( require ) {
       newEquation.balancedProperty.link( balancedObserver );
     } );
   }
+
+  balancingChemicalEquations.register( 'EqualityOperatorNode', EqualityOperatorNode );
 
   return inherit( Node, EqualityOperatorNode, {
 

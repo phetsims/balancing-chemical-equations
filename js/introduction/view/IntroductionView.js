@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -133,6 +134,8 @@ define( function( require ) {
       } );
     }
   }
+
+  balancingChemicalEquations.register( 'IntroductionView', IntroductionView );
 
   return inherit( ScreenView, IntroductionView );
 } );

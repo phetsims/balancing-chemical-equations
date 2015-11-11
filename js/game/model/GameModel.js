@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
@@ -85,6 +86,8 @@ define( function( require ) {
       this.bestScores[ i ] = new Property( 0 );
     }
   }
+
+  balancingChemicalEquations.register( 'GameModel', GameModel );
 
   return inherit( PropertySet, GameModel, {
 

@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
@@ -53,8 +54,11 @@ define( function( require ) {
     Node.call( this, options );
   }
 
+  balancingChemicalEquations.register( 'TermNode', TermNode );
+
   return inherit( Node, TermNode, {
 
+    // @public
     dispose: function() {
       this.coefficientNode.dispose();
     },

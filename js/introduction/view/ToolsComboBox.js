@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ComboBox = require( 'SUN/ComboBox' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -62,6 +63,8 @@ define( function( require ) {
 
     ComboBox.call( this, items, balanceRepresentationProperty, parentNode, options );
   }
+
+  balancingChemicalEquations.register( 'ToolsComboBox', ToolsComboBox );
 
   return inherit( ComboBox, ToolsComboBox, {
 

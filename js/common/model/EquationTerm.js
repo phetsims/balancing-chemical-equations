@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
@@ -39,6 +40,8 @@ define( function( require ) {
       userCoefficient: options.initialCoefficient // @public
     } );
   }
+
+  balancingChemicalEquations.register( 'EquationTerm', EquationTerm );
 
   return inherit( PropertySet, EquationTerm );
 } );

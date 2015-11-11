@@ -15,6 +15,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -101,8 +102,11 @@ define( function( require ) {
     };
   }
 
+  balancingChemicalEquations.register( 'BarNode', BarNode );
+
   return inherit( VBox, BarNode, {
 
+    // @public
     dispose: function() {
       this.disposeBarNode();
     }

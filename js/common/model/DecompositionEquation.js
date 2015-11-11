@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/Equation' );
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
@@ -33,7 +34,11 @@ define( function( require ) {
     Equation.call( this, [ new EquationTerm( r1, reactant1 ) ], [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 ) ], options );
   }
 
+  balancingChemicalEquations.register( 'DecompositionEquation', DecompositionEquation );
+
   return inherit( Equation, DecompositionEquation, {}, {
+
+    // @static @public
 
     // 2 H2O -> 2 H2 + O2
     create_2H2O_2H2_O2: function() {

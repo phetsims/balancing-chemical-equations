@@ -5,12 +5,19 @@
  *
  * @author Vasily Shakhov (Mlearner)
  */
-define( function() {
+define( function( require ) {
   'use strict';
 
-  return Object.freeze( {
+  // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+
+  var BalancedRepresentation = Object.freeze( {
     'NONE': 'NONE',
     'BALANCE_SCALES': 'BALANCE_SCALES',
     'BAR_CHARTS': 'BAR_CHARTS'
   } );
+
+  balancingChemicalEquations.register( 'BalancedRepresentation', BalancedRepresentation );
+
+  return BalancedRepresentation;
 } );

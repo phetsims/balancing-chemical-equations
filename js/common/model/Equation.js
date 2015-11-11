@@ -16,6 +16,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
@@ -53,6 +54,8 @@ define( function( require ) {
       self.coefficientsSum = coefficientsSum;
     } );
   }
+
+  balancingChemicalEquations.register( 'Equation', Equation );
 
   return inherit( PropertySet, Equation, {
 

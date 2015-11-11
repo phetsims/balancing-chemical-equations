@@ -8,10 +8,11 @@
  * @author Vasily Shakhov
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function() {
+define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -25,6 +26,8 @@ define( function() {
     this.reactantsCount = reactantsCount; // @public
     this.productsCount = productsCount; // @public
   };
+
+  balancingChemicalEquations.register( 'AtomCount', AtomCount );
 
   /**
    * Some of our visual representations of 'balanced' (ie, balance scales and bar charts)

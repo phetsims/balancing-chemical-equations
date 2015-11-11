@@ -8,9 +8,12 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+
   var getQueryParameter = phet.chipper.getQueryParameter;
 
-  return {
+  var BCEQueryParameters = {
     // enabled developer-only features
     DEV:      getQueryParameter( 'dev' ) || false,
 
@@ -23,4 +26,8 @@ define( function( require ) {
     // enables console output for debugging, particularly useful for the Game screen
     CONSOLE:  getQueryParameter( 'console' ) || false
   };
+
+  balancingChemicalEquations.register( 'BCEQueryParameters', BCEQueryParameters );
+
+  return BCEQueryParameters;
 } );

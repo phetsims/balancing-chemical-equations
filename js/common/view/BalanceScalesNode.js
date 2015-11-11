@@ -15,6 +15,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
@@ -56,6 +57,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );
 
   return inherit( Node, BalanceScalesNode, {
 

@@ -10,11 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ShadowText = require( 'SCENERY_PHET/ShadowText' );
 
-  return Object.freeze( {
+  var BCEConstants = Object.freeze( {
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
     UNBALANCED_COLOR: 'rgb(46,107,178)',
     BALANCED_HIGHLIGHT_COLOR: 'yellow',
@@ -26,4 +27,8 @@ define( function( require ) {
     CORRECT_ICON: new ShadowText( '\u2713', { fill: 'rgb(251,247,0)', font: new PhetFont( 40 ) } ), // heavy-ballot check mark
     INCORRECT_ICON: new ShadowText( '\u2718', { fill: 'rgb(252,104,0)', font: new PhetFont( 40 ) } ) // big X
   } );
+
+  balancingChemicalEquations.register( 'BCEConstants', BCEConstants );
+
+  return BCEConstants;
 } );

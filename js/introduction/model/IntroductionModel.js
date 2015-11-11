@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
@@ -44,6 +45,8 @@ define( function( require ) {
       equation: this.choices[ 0 ].equation // @public the equation that is selected
     } );
   }
+
+  balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
 
   return inherit( PropertySet, IntroductionModel, {
 

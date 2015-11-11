@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroductionModel = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/IntroductionModel' );
   var IntroductionView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionView' );
@@ -101,6 +102,8 @@ define( function( require ) {
       }
     );
   };
+
+  balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );
 
   return inherit( Screen, IntroductionScreen );
 } );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var GameModel = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameModel' );
   var GameView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameView' );
@@ -72,6 +73,8 @@ define( function( require ) {
       }
     );
   }
+
+  balancingChemicalEquations.register( 'GameScreen', GameScreen );
 
   return inherit( Screen, GameScreen );
 } );

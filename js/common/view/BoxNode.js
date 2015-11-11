@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -100,6 +101,8 @@ define( function( require ) {
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
   }
+
+  balancingChemicalEquations.register( 'BoxNode', BoxNode );
 
   return inherit( Node, BoxNode, {
 

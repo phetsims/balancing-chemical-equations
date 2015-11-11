@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Atom = require( 'NITROGLYCERIN/Atom' );
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -30,6 +31,8 @@ define( function( require ) {
       self.atoms.push( new Atom( element ) );
     } );
   }
+
+  balancingChemicalEquations.register( 'Molecule', Molecule );
 
   return inherit( Object, Molecule, {
 

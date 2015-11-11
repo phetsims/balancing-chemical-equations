@@ -14,6 +14,7 @@ define( function( require ) {
 
   // modules
   var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BeamNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -94,6 +95,8 @@ define( function( require ) {
       rightNumberOfAtomsProperty.unlink( updateNodeBind );
     };
   }
+
+  balancingChemicalEquations.register( 'BalanceScaleNode', BalanceScaleNode );
 
   /**
    * Updates a triangular pile of atoms.
@@ -178,6 +181,7 @@ define( function( require ) {
 
   return inherit( Node, BalanceScaleNode, {
 
+    // @public
     dispose: function() {
        this.balanceScaleNodeDispose();
     },

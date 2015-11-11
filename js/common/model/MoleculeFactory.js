@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var Element = require( 'NITROGLYCERIN/Element' );
   var Molecule = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/Molecule' );
   var CH4Node = require( 'NITROGLYCERIN/nodes/CH4Node' );
@@ -46,7 +47,7 @@ define( function( require ) {
   var OF2Node = require( 'NITROGLYCERIN/nodes/OF2Node' );
   var C2H5OHNode = require( 'NITROGLYCERIN/nodes/C2H5OHNode' );
 
-  return {
+  var MoleculeFactory = {
 
     C: function() {
       return new Molecule( CNode, 'C', [ Element.C ] );
@@ -184,4 +185,8 @@ define( function( require ) {
       return new Molecule( SO2Node, 'SO<sub>2</sub>', [ Element.S, Element.O, Element.O ] );
     }
   };
+
+  balancingChemicalEquations.register( 'MoleculeFactory', MoleculeFactory );
+
+  return MoleculeFactory;
 } );

@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/Equation' );
   var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
@@ -33,6 +34,8 @@ define( function( require ) {
   function SynthesisEquation( r1, reactant1, r2, reactant2, p1, product1, options ) {
     Equation.call( this, [ new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 ) ], [ new EquationTerm( p1, product1 ) ], options );
   }
+
+  balancingChemicalEquations.register( 'SynthesisEquation', SynthesisEquation );
 
   return inherit( Equation, SynthesisEquation, {}, {
 

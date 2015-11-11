@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -59,6 +60,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  balancingChemicalEquations.register( 'EquationChoiceNode', EquationChoiceNode );
 
   return inherit( Node, EquationChoiceNode, {
 

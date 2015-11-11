@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -27,6 +28,8 @@ define( function( require ) {
     this.boxWidth = boxWidth; // @private
     this.boxXSpacing = boxXSpacing; // @private
   }
+
+  balancingChemicalEquations.register( 'HorizontalAligner', HorizontalAligner );
 
   /**
    * Gets the x offsets for a set of terms.

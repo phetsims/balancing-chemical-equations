@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
@@ -257,6 +258,8 @@ define( function( require ) {
     options.children = [ shadowNode, panel ];
     Node.call( this, options );
   }
+
+  balancingChemicalEquations.register( 'GameFeedbackDialog', GameFeedbackDialog );
 
   return inherit( Panel, GameFeedbackDialog );
 } );

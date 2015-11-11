@@ -16,6 +16,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
   var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
@@ -293,7 +294,7 @@ define( function( require ) {
     new RandomStrategy( LEVEL3_POOL, true, { exclusions: LEVEL3_EXCLUSIONS } )
   ];
 
-  return {
+  var GameFactory = {
 
     /**
      * Gets the number of equations for a level.
@@ -326,4 +327,8 @@ define( function( require ) {
       return equations;
     }
   };
+
+  balancingChemicalEquations.register( 'GameFactory', GameFactory );
+
+  return GameFactory;
 } );
