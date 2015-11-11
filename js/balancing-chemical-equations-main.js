@@ -7,8 +7,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var IntroductionScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/IntroductionScreen' );
   var GameScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/game/GameScreen' );
+  var IntroductionScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/IntroductionScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 

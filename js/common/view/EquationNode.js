@@ -13,9 +13,9 @@ define( function( require ) {
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
   var TermNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/TermNode' );
-  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**

@@ -11,10 +11,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // constants
   var ARROW_LENGTH = 70;

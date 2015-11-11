@@ -10,16 +10,16 @@ define( function( require ) {
 
   // modules
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var GameModel = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameModel' );
   var GameView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameView' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var Screen = require( 'JOIST/Screen' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Screen = require( 'JOIST/Screen' );
   var Shape = require( 'KITE/Shape' );
-  var FaceNode = require( 'SCENERY_PHET/FaceNode' );
 
   // strings
   var screenGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.game' );
