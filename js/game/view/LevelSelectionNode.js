@@ -39,7 +39,7 @@ define( function( require ) {
   var BUTTON_MARGIN = 20;
 
   // Creates a level selection button
-  var createLevelSelectionButton = function( level, model ) {
+  var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty ) {
 
     // 'Level N' centered above icon
     var label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
@@ -57,12 +57,14 @@ define( function( require ) {
         model.level = level;
         model.state = model.states.START_GAME;
       },
-      model.bestScores[ level ],
+      model.bestScoreProperties[ level ],
       model.getPerfectScore( level ),
       {
         baseColor: '#d9ebff',
         buttonWidth: 155,
-        buttonHeight: 155
+        buttonHeight: 155,
+        bestTimeProperty: model.bestTimeProperties[ level ],
+        bestTimeVisibleProperty: bestTimeVisibleProperty
       } );
   };
 
@@ -80,7 +82,7 @@ define( function( require ) {
     // buttons
     var buttons = [];
     for ( var level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
-      buttons.push( createLevelSelectionButton( level, model ) );
+      buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty ) );
     }
     var buttonsParent = new HBox( {
       children: buttons,
