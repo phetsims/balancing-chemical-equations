@@ -79,11 +79,12 @@ define( function( require ) {
     this.currentPoints = 0; // @public how many points were earned for the current challenge
     this.balancedRepresentation = null; // @public which representation to use in the "Not Balanced" popup
     this.isNewBestTime = false; // @public is the time for this game a new best time?
-    this.bestTimes = [];// @public best times in ms, indexed by level
-    this.bestScores = []; // @public best scores, indexed by level
+
+    this.bestTimeProperties = [];// @public {Property.<number>[]} best times in ms, indexed by level
+    this.bestScoreProperties = []; // @public {Property.<number>[]} best scores, indexed by level
     for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
-      this.bestTimes[ i ] = new Property( 0 );
-      this.bestScores[ i ] = new Property( 0 );
+      this.bestTimeProperties[ i ] = new Property( 0 );
+      this.bestScoreProperties[ i ] = new Property( 0 );
     }
   }
 
@@ -94,10 +95,10 @@ define( function( require ) {
     // @override @public
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.bestTimes.forEach( function( bestTimeProperty ) {
+      this.bestTimeProperties.forEach( function( bestTimeProperty ) {
         bestTimeProperty.reset();
       } );
-      this.bestScores.forEach( function( bestScoreProperty ) {
+      this.bestScoreProperties.forEach( function( bestScoreProperty ) {
         bestScoreProperty.reset();
       } );
     },
@@ -170,15 +171,15 @@ define( function( require ) {
     endGame: function() {
       this.timer.stop();
       //check for new best score
-      if ( this.points > this.bestScores[ this.level ].get() ) {
-        this.bestScores[ this.level ].set( this.points );
+      if ( this.points > this.bestScoreProperties[ this.level ].get() ) {
+        this.bestScoreProperties[ this.level ].set( this.points );
       }
 
       // check for new best time
-      var previousBestTime = this.bestTimes[ this.level ].get();
+      var previousBestTime = this.bestTimeProperties[ this.level ].get();
       if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
         this.isNewBestTime = true;
-        this.bestTimes[ this.level ].set( this.timer.elapsedTime );
+        this.bestTimeProperties[ this.level ].set( this.timer.elapsedTime );
       }
     },
 

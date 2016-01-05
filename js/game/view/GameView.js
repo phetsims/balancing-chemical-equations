@@ -112,7 +112,7 @@ define( function( require ) {
       }
 
       // bestTime on level, must be null to not show in popup
-      var bestTimeOnThisLevel = this.model.bestTimes[ this.model.level ].get() === 0 ? null : this.model.bestTimes[ this.model.level ].get();
+      var bestTimeOnThisLevel = this.model.bestTimeProperties[ this.model.level ].get() === 0 ? null : this.model.bestTimeProperties[ this.model.level ].get();
 
       // Add the dialog node that indicates that the level has been completed.
       var numberOfEquations = this.model.getNumberOfEquations( this.model.level );
