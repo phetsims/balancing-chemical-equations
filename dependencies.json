@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.1.0-rc.1 Sat Dec 12 2015 18:00:52 GMT-0700 (MST)",
+  "comment": "# balancing-chemical-equations 1.1.0-rc.2 Thu Jan 07 2016 13:18:16 GMT-0700 (MST)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "aeaec9111e1d49e81c547c261ee91112931352c4",
+    "sha": "95936e67fd8f5227774038145a2e490c24910569",
     "branch": "1.1"
   },
   "brand": {
@@ -34,7 +34,7 @@
   },
   "nitroglycerin": {
     "sha": "ef8c55a2b61db794e3725f3d21165ab5ab1ce6f9",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "73a034c676ee7b14b99aeeb1e7aad79f579b91b1",
