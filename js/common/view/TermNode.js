@@ -38,7 +38,7 @@ define( function( require ) {
       pressedColor: 'black',
       xMargin: 8,
       yMargin: 0,
-      touchAreaExpandX: 30,
+      touchAreaXDilation: 30,
       font: new PhetFont( options.fontSize ),
       timerDelay: 400, // ms until the picker starts to fire continuously
       timerInterval: 200 // ms between value change while firing continuously
