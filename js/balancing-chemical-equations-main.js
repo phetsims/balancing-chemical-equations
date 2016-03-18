@@ -15,8 +15,6 @@ define( function( require ) {
   // strings
   var balancingChemicalEquationsTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.title' );
 
-  var screens = [ new IntroductionScreen(), new GameScreen() ];
-
   var simOptions = {
     credits: {
       leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
@@ -29,6 +27,10 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
+    var screens = [
+      new IntroductionScreen(),
+      new GameScreen()
+    ];
     new Sim( balancingChemicalEquationsTitleString, screens, simOptions ).start();
   } );
 } );
