@@ -123,6 +123,7 @@ define( function( require ) {
           // remove the reward, if we have one
           if ( self.rewardNode ) {
             self.rootNode.removeChild( self.rewardNode );
+            self.rewardNode.dispose();
             self.rewardNode = null;
           }
           // remove the level-completed dialog
