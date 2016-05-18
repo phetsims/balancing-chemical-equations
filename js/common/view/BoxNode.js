@@ -116,7 +116,7 @@ define( function( require ) {
      * - The visibility of molecules is adjusted to show the correct number of molecules.
      *
      * @param {EquationTerm} terms array
-     * @param {Number[]} xOffsets array of offsets for terms
+     * @param {number[]} xOffsets array of offsets for terms
      * @private
      */
     updateNode: function( terms, xOffsets ) {
@@ -137,7 +137,7 @@ define( function( require ) {
      * Updates visibility of molecules to match the current coefficients.
      *
      * @param {EquationTerm[]} terms
-     * @param {Number[]} xOffsets array of offsets for terms
+     * @param {number[]} xOffsets array of offsets for terms
      * @private
      */
     updateCounts: function( terms, xOffsets ) {
