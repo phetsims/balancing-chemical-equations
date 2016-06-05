@@ -42,12 +42,11 @@ define( function( require ) {
   var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty ) {
 
     // 'Level N' centered above icon
-    var label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), { font: new PhetFont( 14 ), fontWeight: 'bold' } );
-    var image = new levelImagesConstructors[ level ]( _.extend( {
-      centerX: label.centerX,
-      top: label.bottom + 20,
-      scale: 2
-    }, BCEConstants.ATOM_OPTIONS ) );
+    var image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+    var label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), {
+      font: new PhetFont( { size: 14, weight: 'bold' } ),
+      maxWidth: image.width
+    } );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
     return new LevelSelectionButton(
