@@ -219,7 +219,7 @@ define( function( require ) {
         assert && assert( poolCopy.length > 0 );
 
         // randomly select an equation
-        var randomIndex = Math.floor( Math.random() * poolCopy.length );
+        var randomIndex = phet.joist.random.nextInt( poolCopy.length );
         var factoryFunction = poolCopy[ randomIndex ];
 
         // If the first equation isn't supposed to contain any "big" molecules,
@@ -227,7 +227,7 @@ define( function( require ) {
         if ( i === 0 && !this.firstBigMolecule && factoryFunction().hasBigMolecule() ) {
 
           // start the search at a random index
-          var startIndex = Math.floor( Math.random() * poolCopy.length );
+          var startIndex = phet.joist.random.nextInt( poolCopy.length );
           var index = startIndex;
           var done = false;
           while ( !done ) {

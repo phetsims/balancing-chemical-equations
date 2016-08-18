@@ -27,7 +27,7 @@ define( function( require ) {
   var BALANCED_REPRESENTATION_STRATEGIES = [
     function() { return BalancedRepresentation.BALANCE_SCALES; }, //level 1
     function() {  //level 2
-      return Math.random() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS;
+      return phet.joist.random.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS;
     },
     function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
   ];
