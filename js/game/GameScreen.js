@@ -24,6 +24,25 @@ define( function( require ) {
   // strings
   var screenGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.game' );
 
+  /**
+   * @constructor
+   */
+  function GameScreen() {
+
+    var options = {
+      name: screenGameString,
+      backgroundColor: BCEConstants.GAME_CANVAS_BACKGROUND,
+      homeScreenIcon: createScreenIcon()
+    };
+
+    Screen.call( this,
+      function() { return new GameModel(); },
+      function( model ) { return new GameView( model ); },
+      options );
+  }
+
+  balancingChemicalEquations.register( 'GameScreen', GameScreen );
+
   // creates the icon for this screen: a smiley face to the right of up/down arrows
   var createScreenIcon = function() {
 
@@ -58,23 +77,6 @@ define( function( require ) {
     contentNode.center = background.center;
     return new Node( { children: [ background, contentNode ] } );
   };
-
-  /**
-   * @constructor
-   */
-  function GameScreen() {
-    Screen.call( this,
-      screenGameString,
-      createScreenIcon(),
-      function() { return new GameModel(); },
-      function( model ) { return new GameView( model ); },
-      {
-        backgroundColor: BCEConstants.GAME_CANVAS_BACKGROUND
-      }
-    );
-  }
-
-  balancingChemicalEquations.register( 'GameScreen', GameScreen );
 
   return inherit( Screen, GameScreen );
 } );

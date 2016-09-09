@@ -30,6 +30,25 @@ define( function( require ) {
   // strings
   var screenIntroductionString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.introduction' );
 
+  /**
+   * @constructor
+   */
+  var IntroductionScreen = function() {
+
+    var options = {
+      name: screenIntroductionString,
+      backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND,
+      homeScreenIcon: createScreenIcon()
+    };
+
+    Screen.call( this,
+      function() { return new IntroductionModel(); },
+      function( model ) { return new IntroductionView( model ); },
+      options );
+  };
+
+  balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );
+
   // creates the icon for this screen: an equation above a balance beam
   var createScreenIcon = function() {
 
@@ -86,24 +105,6 @@ define( function( require ) {
 
     return new Node( { children: [ background, contentNode ] } );
   };
-
-  /**
-   * @constructor
-   */
-
-  var IntroductionScreen = function() {
-    Screen.call( this,
-      screenIntroductionString,
-      createScreenIcon(),
-      function() { return new IntroductionModel(); },
-      function( model ) { return new IntroductionView( model ); },
-      {
-        backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND
-      }
-    );
-  };
-
-  balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );
 
   return inherit( Screen, IntroductionScreen );
 } );
