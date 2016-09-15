@@ -42,7 +42,7 @@ define( function( require ) {
    */
   function BarNode( element, numberOfAtomsProperty, options ) {
 
-    var thisNode = this;
+    var self = this;
 
     // number of atoms
     var numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
@@ -90,7 +90,7 @@ define( function( require ) {
       barNode.setShape( barShape );
       barNode.visible = ( numberOfAtoms > 0 );
 
-      thisNode.bottom = 0;
+      self.bottom = 0;
     };
 
     // when the number of atoms changes ...
