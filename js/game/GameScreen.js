@@ -52,8 +52,8 @@ define( function( require ) {
     var arrowYSpacing = 10;
 
     // background rectangle
-    var width = Screen.HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.HOME_SCREEN_ICON_SIZE.height;
+    var width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+    var height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
     var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
     // face
