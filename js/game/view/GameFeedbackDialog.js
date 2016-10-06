@@ -133,7 +133,7 @@ define( function( require ) {
 
     // happy/sad face
     var faceNode = new FaceNode( 75 );
-    if ( !equation.balanced ) { faceNode.frown(); }
+    if ( !equation.balancedProperty.get() ) { faceNode.frown(); }
 
     var content;
     if ( equation.balancedAndSimplified ) {
@@ -157,7 +157,7 @@ define( function( require ) {
         spacing: options.vBoxSpacing
       } );
     }
-    else if ( equation.balanced ) {
+    else if ( equation.balancedProperty.get() ) {
       // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
       content = new VBox( {
         children: [

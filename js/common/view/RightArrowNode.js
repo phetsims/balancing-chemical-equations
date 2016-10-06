@@ -54,7 +54,8 @@ define( function( require ) {
 
     // @private Highlights the arrow if the equation is balanced.
     updateHighlight: function() {
-      this.fill = ( this.equationProperty.get().balanced && this._highlightEnabled ) ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
+      this.fill = ( this.equationProperty.get().balancedProperty.get() && this._highlightEnabled )
+        ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
     },
 
     // @public

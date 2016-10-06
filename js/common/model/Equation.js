@@ -19,7 +19,7 @@ define( function( require ) {
   var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @param {EquationTerm[]} reactants terms on the left side of the equation
@@ -32,12 +32,9 @@ define( function( require ) {
     this.reactants = reactants; // @public
     this.products = products; // @public
 
-    PropertySet.call( this, {
-
-      // @public
-      balanced: false,
-      coefficientsSum: 0
-    } );
+    // @public
+    this.balancedProperty = new Property( false );
+    this.coefficientsSumProperty = new Property( 0 );
 
     this.balancedAndSimplified = false; // @public balanced with the lowest possible coefficients
 
@@ -51,22 +48,26 @@ define( function( require ) {
       };
       self.reactants.forEach( addCoefficients );
       self.products.forEach( addCoefficients );
-      self.coefficientsSum = coefficientsSum;
+      self.coefficientsSumProperty.set( coefficientsSum );
     } );
   }
 
   balancingChemicalEquations.register( 'Equation', Equation );
 
-  return inherit( PropertySet, Equation, {
+  return inherit( Object, Equation, {
 
     //TODO #96 does this type need a dispose function? Game creates 5 of these when level selection button is pressed.
 
     // @override @public
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
+      this.balancedProperty.reset();
+      this.coefficientsSumProperty.reset();
+
       this.reactants.forEach( function( reactant ) {
         reactant.reset();
       } );
+
       this.products.forEach( function( product ) {
         product.reset();
       } );
@@ -94,7 +95,7 @@ define( function( require ) {
       } );
 
       this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific value first
-      this.balanced = balanced;
+      this.balancedProperty.set( balanced );
     },
 
     /**
