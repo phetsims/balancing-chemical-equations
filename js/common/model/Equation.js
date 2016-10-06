@@ -58,7 +58,7 @@ define( function( require ) {
 
     //TODO #96 does this type need a dispose function? Game creates 5 of these when level selection button is pressed.
 
-    // @override @public
+    // @public
     reset: function() {
 
       this.balancedProperty.reset();
