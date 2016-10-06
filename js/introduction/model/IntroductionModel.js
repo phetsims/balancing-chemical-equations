@@ -49,7 +49,7 @@ define( function( require ) {
 
   return inherit( Object, IntroductionModel, {
 
-    // @override @public
+    // @public
     reset: function() {
       this.equationProperty.reset();
       this.choices.forEach( function( choice ) {
