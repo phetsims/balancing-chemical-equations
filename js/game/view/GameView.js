@@ -15,11 +15,11 @@ define( function( require ) {
   var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
   var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   var GamePlayNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GamePlayNode' );
+  var GameViewProperties = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameViewProperties' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   var LevelSelectionNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/LevelSelectionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
@@ -31,13 +31,8 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
 
-    // @public
-    this.viewProperties = new PropertySet( {
-      soundEnabled: true,
-      timerEnabled: false,
-      reactantsBoxExpanded: true,
-      productsBoxExpanded: true
-    } );
+    // @public view-specific Properties
+    this.viewProperties = new GameViewProperties();
 
     this.model = model; // @public
     this.audioPlayer = new GameAudioPlayer( this.viewProperties.soundEnabledProperty ); // @public
