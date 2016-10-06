@@ -14,7 +14,7 @@ define( function( require ) {
   var DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
@@ -41,18 +41,17 @@ define( function( require ) {
       { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: combustMethaneString }
     ];
 
-    PropertySet.call( this, {
-      equation: this.choices[ 0 ].equation // @public the equation that is selected
-    } );
+    // @public the equation that is selected
+    this.equationProperty = new Property( this.choices[ 0 ].equation );
   }
 
   balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
 
-  return inherit( PropertySet, IntroductionModel, {
+  return inherit( Object, IntroductionModel, {
 
     // @override @public
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.equationProperty.reset();
       this.choices.forEach( function( choice ) {
         choice.equation.reset();
       } );
