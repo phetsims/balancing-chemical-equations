@@ -96,22 +96,24 @@ define( function( require ) {
 
     // @private
     initLevelCompleted: function() {
+
       var self = this;
+      var level = this.model.levelProperty.get();
 
       this.levelSelectionNode.visible = this.gamePlayNode.visible = false;
 
       // game reward, shown for perfect score (or with 'reward' query parameter)
       if ( this.model.isPerfectScore() || BCEQueryParameters.REWARD ) {
-        this.rewardNode = new BCERewardNode( this.model.level );
+        this.rewardNode = new BCERewardNode( level );
         this.rootNode.addChild( this.rewardNode );
       }
 
       // bestTime on level, must be null to not show in popup
-      var bestTimeOnThisLevel = this.model.bestTimeProperties[ this.model.level ].get() === 0 ? null : this.model.bestTimeProperties[ this.model.level ].get();
+      var bestTimeOnThisLevel = this.model.bestTimeProperties[ level ].get() === 0 ? null : this.model.bestTimeProperties[ level ].get();
 
       // Add the dialog node that indicates that the level has been completed.
-      var numberOfEquations = this.model.getNumberOfEquations( this.model.level );
-      var levelCompletedNode = new LevelCompletedNode( this.model.level, this.model.points, this.model.getPerfectScore( this.model.level ),
+      var numberOfEquations = this.model.getNumberOfEquations( level );
+      var levelCompletedNode = new LevelCompletedNode( level, this.model.pointsProperty.get(), this.model.getPerfectScore( level ),
         numberOfEquations, this.viewProperties.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
         // function called when 'Continue' button is pressed
         function() {
@@ -124,7 +126,7 @@ define( function( require ) {
           // remove the level-completed dialog
           self.rootNode.removeChild( levelCompletedNode );
           // go back to the level-selection screen
-          self.model.state = self.model.states.LEVEL_SELECTION;
+          self.model.stateProperty.set(  self.model.states.LEVEL_SELECTION );
         },
         {
           // LevelCompletedNode options

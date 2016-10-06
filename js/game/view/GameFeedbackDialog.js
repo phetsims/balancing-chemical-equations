@@ -74,10 +74,10 @@ define( function( require ) {
    */
   var createButtonForState = function( model, maxWidth ) {
     var button = null;
-    if ( model.state === model.states.TRY_AGAIN ) {
+    if ( model.stateProperty.get() === model.states.TRY_AGAIN ) {
       button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ), maxWidth );
     }
-    else if ( model.state === model.states.SHOW_ANSWER ) {
+    else if ( model.stateProperty.get() === model.states.SHOW_ANSWER ) {
       button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ), maxWidth );
     }
     return button;
@@ -125,7 +125,7 @@ define( function( require ) {
     }, options );
 
     var self = this;
-    var equation = model.currentEquation;
+    var equation = model.currentEquationProperty.get();
     var balancedRepresentation = model.balancedRepresentation;
     var points = model.currentPoints;
     var maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements

@@ -15,7 +15,6 @@ define( function( require ) {
   var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
@@ -62,16 +61,13 @@ define( function( require ) {
     this.COEFFICENTS_RANGE = new RangeWithValue( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new RangeWithValue( 0, 2 ); // Levels 1-2-3, counting from 0
 
-    PropertySet.call( this, {
-
-      // @public
-      state: self.states.LEVEL_SELECTION,
-      level: 0, // level of the current game
-      points: 0, // how many points the user has earned for the current game
-      numberOfEquations: 0, // number of challenges in the current game
-      currentEquation: SynthesisEquation.create_N2_3H2_2NH3(), // any non-null {Equation} will do here
-      currentEquationIndex: 0 // index of the current challenge that the user is working on
-    } );
+    // @public
+    this.stateProperty = new Property( self.states.LEVEL_SELECTION );
+    this.levelProperty = new Property( 0 ); // level of the current game
+    this.pointsProperty = new Property( 0 ); // how many points the user has earned for the current game
+    this.numberOfEquationsProperty = new Property( 0 ); // number of challenges in the current game
+    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() ); // any non-null {Equation} will do here
+    this.currentEquationIndexProperty = new Property( 0 ); // index of the current challenge that the user is working on
 
     this.equations = []; // @public array of Equation
     this.timer = new GameTimer(); // @public
@@ -90,14 +86,23 @@ define( function( require ) {
 
   balancingChemicalEquations.register( 'GameModel', GameModel );
 
-  return inherit( PropertySet, GameModel, {
+  return inherit( Object, GameModel, {
 
-    // @override @public
+    // @public
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
+      // Properties
+      this.stateProperty.reset();
+      this.levelProperty.reset();
+      this.pointsProperty.reset();
+      this.numberOfEquationsProperty.reset();
+      this.currentEquationProperty.reset();
+      this.currentEquationIndexProperty.reset();
+
       this.bestTimeProperties.forEach( function( bestTimeProperty ) {
         bestTimeProperty.reset();
       } );
+
       this.bestScoreProperties.forEach( function( bestScoreProperty ) {
         bestScoreProperty.reset();
       } );
@@ -109,22 +114,24 @@ define( function( require ) {
      */
     startGame: function() {
 
+      var level = this.levelProperty.get();
+
       // create a set of challenges
-      this.equations = GameFactory.createEquations( this.level );
+      this.equations = GameFactory.createEquations( level );
 
       // initialize simple fields
       this.attempts = 0;
       this.currentPoints = 0;
       this.isNewBestTime = false;
-      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.level ]();
+      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ level ]();
       this.timer.restart();
 
       // initialize properties
-      this.currentEquationIndex = 0;
-      this.currentEquation = this.equations[ this.currentEquationIndex ];
-      this.numberOfEquations = this.equations.length;
-      this.points = 0;
-      this.state = this.states.CHECK;
+      this.currentEquationIndexProperty.set( 0 );
+      this.currentEquationProperty.set( this.equations[ this.currentEquationIndexProperty.get() ] );
+      this.numberOfEquationsProperty.set( this.equations.length );
+      this.pointsProperty.set( 0 );
+      this.stateProperty.set( this.states.CHECK );
     },
 
     /**
@@ -134,7 +141,7 @@ define( function( require ) {
     check: function() {
       this.attempts++;
 
-      if ( this.currentEquation.balancedAndSimplified ) {
+      if ( this.currentEquationProperty.get().balancedAndSimplified ) {
         // award points
         if ( this.attempts === 1 ) {
           this.currentPoints = POINTS_FIRST_ATTEMPT;
@@ -146,21 +153,21 @@ define( function( require ) {
         else {
           this.currentPoints = 0;
         }
-        this.points += this.currentPoints;
-        this.state = this.states.NEXT;
+        this.pointsProperty.set( this.pointsProperty.get() + this.currentPoints );
+        this.stateProperty.set( this.states.NEXT );
 
-        if ( this.currentEquationIndex === this.equations.length - 1 ) {
+        if ( this.currentEquationIndexProperty.get() === this.equations.length - 1 ) {
           this.endGame();
         }
       }
       else if ( this.attempts < 2 ) {
-        this.state = this.states.TRY_AGAIN;
+        this.stateProperty.set( this.states.TRY_AGAIN );
       }
       else {
-        if ( this.currentEquationIndex === this.equations.length - 1 ) {
+        if ( this.currentEquationIndexProperty.get() === this.equations.length - 1 ) {
           this.endGame();
         }
-        this.state = this.states.SHOW_ANSWER;
+        this.stateProperty.set( this.states.SHOW_ANSWER );
       }
     },
 
@@ -169,17 +176,22 @@ define( function( require ) {
      * @private
      */
     endGame: function() {
+
       this.timer.stop();
+
+      var level = this.levelProperty.get();
+      var points = this.pointsProperty.get();
+
       //check for new best score
-      if ( this.points > this.bestScoreProperties[ this.level ].get() ) {
-        this.bestScoreProperties[ this.level ].set( this.points );
+      if ( points > this.bestScoreProperties[ level ].get() ) {
+        this.bestScoreProperties[ level ].set( points );
       }
 
       // check for new best time
-      var previousBestTime = this.bestTimeProperties[ this.level ].get();
+      var previousBestTime = this.bestTimeProperties[ level ].get();
       if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
         this.isNewBestTime = true;
-        this.bestTimeProperties[ this.level ].set( this.timer.elapsedTime );
+        this.bestTimeProperties[ level ].set( this.timer.elapsedTime );
       }
     },
 
@@ -188,7 +200,7 @@ define( function( require ) {
      * @public
      */
     tryAgain: function() {
-      this.state = this.states.CHECK;
+      this.stateProperty.set( this.states.CHECK );
     },
 
     /**
@@ -196,7 +208,7 @@ define( function( require ) {
      * @public
      */
     showAnswer: function() {
-      this.state = this.states.NEXT;
+      this.stateProperty.set( this.states.NEXT );
     },
 
     /**
@@ -231,7 +243,7 @@ define( function( require ) {
      * @public
      */
     isPerfectScore: function() {
-      return this.points === this.getPerfectScore( this.level );
+      return this.pointsProperty.get() === this.getPerfectScore( this.levelProperty.get() );
     },
 
     /**
@@ -239,7 +251,7 @@ define( function( require ) {
      * @public
      */
     newGame: function() {
-      this.state = this.states.LEVEL_SELECTION;
+      this.stateProperty.set( this.states.LEVEL_SELECTION );
       this.timer.restart();
     },
 
@@ -248,16 +260,16 @@ define( function( require ) {
      * @public
      */
     next: function() {
-      if ( this.currentEquationIndex < this.equations.length - 1 ) {
+      if ( this.currentEquationIndexProperty.get() < this.equations.length - 1 ) {
         this.attempts = 0;
         this.currentPoints = 0;
-        this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.level ]();
-        this.currentEquationIndex++;
-        this.currentEquation = this.equations[ this.currentEquationIndex ];
-        this.state = this.states.CHECK;
+        this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.get() ]();
+        this.currentEquationIndexProperty.set( this.currentEquationIndexProperty.get() + 1 );
+        this.currentEquationProperty.set( this.equations[ this.currentEquationIndexProperty.get() ] );
+        this.stateProperty.set( this.states.CHECK );
       }
       else {
-        this.state = this.states.LEVEL_COMPLETED;
+        this.stateProperty.set( this.states.LEVEL_COMPLETED );
       }
     }
   } );

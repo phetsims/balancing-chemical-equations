@@ -199,12 +199,15 @@ define( function( require ) {
 
     // @private
     initNext: function() {
+
       this.equationNode.setEnabled( false );
       this.checkButton.visible = false;
-      this.nextButton.visible = !this.model.currentEquation.balancedAndSimplified; // 'Next' button is in the game feedback dialog
-      this.setFeedbackDialogVisible( this.model.currentEquation.balancedAndSimplified );
+
+      var currentEquation = this.model.currentEquationProperty.get();
+      this.nextButton.visible = !currentEquation.balancedAndSimplified; // 'Next' button is in the game feedback dialog
+      this.setFeedbackDialogVisible( currentEquation.balancedAndSimplified );
       this.setBalancedHighlightEnabled( true );
-      this.model.currentEquation.balance(); // show the correct answer (do this last!)
+      currentEquation.balance(); // show the correct answer (do this last!)
     },
 
     /*
@@ -223,7 +226,7 @@ define( function( require ) {
      * @private
      */
     playGuessAudio: function() {
-      if ( this.model.currentEquation.balancedAndSimplified ) {
+      if ( this.model.currentEquationProperty.get().balancedAndSimplified ) {
         this.audioPlayer.correctAnswer();
       }
       else {

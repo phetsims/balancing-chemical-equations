@@ -53,8 +53,8 @@ define( function( require ) {
       icon,
       model.getNumberOfEquations( level ),
       function() {
-        model.level = level;
-        model.state = model.states.START_GAME;
+        model.levelProperty.set( level );
+        model.stateProperty.set( model.states.START_GAME );
       },
       model.bestScoreProperties[ level ],
       model.getPerfectScore( level ),
