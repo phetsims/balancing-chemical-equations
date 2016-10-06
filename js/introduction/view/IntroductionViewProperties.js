@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * View-specific Properties
+ * View-specific Properties for the 'Introduction' screen
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
