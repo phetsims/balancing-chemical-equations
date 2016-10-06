@@ -22,9 +22,9 @@ define( function( require ) {
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var IntroductionViewProperties = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionViewProperties' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -43,11 +43,8 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
 
-    var viewProperties = new PropertySet( {
-      reactantsBoxExpanded: true,
-      productsBoxExpanded: true,
-      balancedRepresentation: BalancedRepresentation.NONE
-    } );
+    // view-specific Properties
+    var viewProperties = new IntroductionViewProperties();
 
     // aligner for equation
     var aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
