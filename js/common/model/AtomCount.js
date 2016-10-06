@@ -56,10 +56,10 @@ define( function( require ) {
           // add to an existing count
           if ( atomCount.element === atom.element ) {
             if ( isReactants ) {
-              atomCount.reactantsCount += term.userCoefficient;
+              atomCount.reactantsCount += term.userCoefficientProperty.get();
             }
             else {
-              atomCount.productsCount += term.userCoefficient;
+              atomCount.productsCount += term.userCoefficientProperty.get();
             }
             found = true;
             break;
@@ -69,10 +69,10 @@ define( function( require ) {
         // if no existing count was found, create one.
         if ( !found ) {
           if ( isReactants ) {
-            atomCounts.push( new AtomCount( atom.element, term.userCoefficient, 0 ) );
+            atomCounts.push( new AtomCount( atom.element, term.userCoefficientProperty.get(), 0 ) );
           }
           else {
-            atomCounts.push( new AtomCount( atom.element, 0, term.userCoefficient ) );
+            atomCounts.push( new AtomCount( atom.element, 0, term.userCoefficientProperty.get() ) );
           }
         }
       } );

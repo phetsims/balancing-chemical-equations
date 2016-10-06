@@ -83,15 +83,15 @@ define( function( require ) {
     updateBalanced: function() {
 
       // Get integer multiplier from the first reactant term.
-      var multiplier = this.reactants[ 0 ].userCoefficient / this.reactants[ 0 ].balancedCoefficient;
+      var multiplier = this.reactants[ 0 ].userCoefficientProperty.get() / this.reactants[ 0 ].balancedCoefficient;
       var balanced = ( multiplier > 0 );
 
       // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
       this.reactants.forEach( function( reactant ) {
-        balanced = balanced && ( reactant.userCoefficient === multiplier * reactant.balancedCoefficient );
+        balanced = balanced && ( reactant.userCoefficientProperty.get() === multiplier * reactant.balancedCoefficient );
       } );
       this.products.forEach( function( product ) {
-        balanced = balanced && ( product.userCoefficient === multiplier * product.balancedCoefficient );
+        balanced = balanced && ( product.userCoefficientProperty.get() === multiplier * product.balancedCoefficient );
       } );
 
       this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific value first
@@ -164,10 +164,10 @@ define( function( require ) {
      */
     balance: function() {
       this.reactants.forEach( function( term ) {
-        term.userCoefficient = term.balancedCoefficient;
+        term.userCoefficientProperty.set( term.balancedCoefficient );
       } );
       this.products.forEach( function( term ) {
-        term.userCoefficient = term.balancedCoefficient;
+        term.userCoefficientProperty.set( term.balancedCoefficient );
       } );
     },
 

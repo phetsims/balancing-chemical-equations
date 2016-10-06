@@ -148,7 +148,7 @@ define( function( require ) {
       for ( var i = 0; i < terms.length; i++ ) {
 
         var moleculeNodes = this.termNodes[ terms[ i ].molecule.symbol ];
-        var userCoefficient = terms[ i ].userCoefficient;
+        var userCoefficient = terms[ i ].userCoefficientProperty.get();
         var MoleculeNodeConstructor = terms[ i ].molecule.nodeConstructor;
         var y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
 
