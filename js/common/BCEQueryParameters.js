@@ -20,10 +20,7 @@ define( function( require ) {
     playAll: { type: 'flag' },
 
     // show the game reward regardless of score
-    showReward: { type: 'flag' },
-
-    // enables console output for debugging, particularly useful for the Game screen
-    log: { type: 'flag' }
+    showReward: { type: 'flag' }
   } );
 
   balancingChemicalEquations.register( 'BCEQueryParameters', BCEQueryParameters );
