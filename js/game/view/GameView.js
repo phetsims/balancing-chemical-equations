@@ -103,7 +103,7 @@ define( function( require ) {
       this.levelSelectionNode.visible = this.gamePlayNode.visible = false;
 
       // game reward, shown for perfect score (or with 'reward' query parameter)
-      if ( this.model.isPerfectScore() || BCEQueryParameters.REWARD ) {
+      if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
         this.rewardNode = new BCERewardNode( level );
         this.rootNode.addChild( this.rewardNode );
       }

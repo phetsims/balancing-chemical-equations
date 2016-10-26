@@ -29,7 +29,7 @@ define( function( require ) {
     }, options );
 
     // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
-    if ( BCEQueryParameters.PLAY_ALL ) {
+    if ( BCEQueryParameters.playAll ) {
       options.initialCoefficient = balancedCoefficient;
     }
 

@@ -122,7 +122,7 @@ define( function( require ) {
     this.addChild( comboBoxParent );
 
     // show the answer when running in dev mode, bottom center
-    if ( BCEQueryParameters.DEV ) {
+    if ( BCEQueryParameters.dev ) {
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
       this.addChild( answerNode );
       model.equationProperty.link( function( equation ) {

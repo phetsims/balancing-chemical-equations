@@ -11,22 +11,20 @@ define( function( require ) {
   // modules
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
 
-  var getQueryParameter = phet.chipper.getQueryParameter;
+  var BCEQueryParameters = QueryStringMachine.getAll( {
 
-  var BCEQueryParameters = {
-
-    // enabled developer-only features
-    DEV: getQueryParameter( 'dev' ) || false,
+    // enables developer-only features
+    dev: { type: 'flag' },
 
     // play all challenges for each level of the game, to get 100% test coverage
-    PLAY_ALL: getQueryParameter( 'playAll' ) || false,
+    playAll: { type: 'flag' },
 
     // show the game reward regardless of score
-    REWARD: getQueryParameter( 'reward' ) || false,
+    showReward: { type: 'flag' },
 
     // enables console output for debugging, particularly useful for the Game screen
-    CONSOLE: getQueryParameter( 'console' ) || false
-  };
+    log: { type: 'flag' }
+  } );
 
   balancingChemicalEquations.register( 'BCEQueryParameters', BCEQueryParameters );
 

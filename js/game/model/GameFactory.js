@@ -206,9 +206,7 @@ define( function( require ) {
      */
     getEquationFactoryFunctions: function( numberOfEquations ) {
 
-      if ( BCEQueryParameters.CONSOLE ) {
-        console.log( 'GameFactory: choosing challenges...' );
-      }
+      balancingChemicalEquations.log && balancingChemicalEquations.log( 'GameFactory: choosing challenges...' );
 
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
@@ -256,9 +254,7 @@ define( function( require ) {
 
         // add the equation to the game
         factoryFunctions.push( factoryFunction );
-        if ( BCEQueryParameters.CONSOLE ) {
-          console.log( '+ chose ' + factoryFunction().toString() );
-        }
+        balancingChemicalEquations.log && balancingChemicalEquations.log( '+ chose ' + factoryFunction().toString() );
 
         // remove the equation from the pool so it won't be selected again
         poolCopy.splice( poolCopy.indexOf( factoryFunction ), 1 );
@@ -272,9 +268,7 @@ define( function( require ) {
               var excludedIndex = poolCopy.indexOf( excludedFunction );
               if ( excludedIndex !== -1 ) {
                 poolCopy.splice( excludedIndex, 1 );
-                if ( BCEQueryParameters.CONSOLE ) {
-                  console.log( '- excluded ' + excludedFunction().toString() );
-                }
+                balancingChemicalEquations.log && balancingChemicalEquations.log( '- excluded ' + excludedFunction().toString() );
               }
             }
             break; // assumes that all exclusions are in 1 entry
@@ -303,7 +297,7 @@ define( function( require ) {
      * @returns {Window.length|*}
      */
     getNumberOfEquations: function( level ) {
-      return BCEQueryParameters.PLAY_ALL ? POOLS[ level ].length : EQUATIONS_PER_GAME;
+      return BCEQueryParameters.playAll ? POOLS[ level ].length : EQUATIONS_PER_GAME;
     },
 
     /**
@@ -315,7 +309,7 @@ define( function( require ) {
     createEquations: function( level ) {
 
       // Get an array of Equation factory functions.
-      var factoryFunctions = BCEQueryParameters.PLAY_ALL ?
+      var factoryFunctions = BCEQueryParameters.playAll ?
                              _.clone( POOLS[ level ] ) :
                              STRATEGIES[ level ].getEquationFactoryFunctions( EQUATIONS_PER_GAME );
 
