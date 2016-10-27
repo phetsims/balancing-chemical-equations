@@ -206,7 +206,7 @@ define( function( require ) {
      */
     getEquationFactoryFunctions: function( numberOfEquations ) {
 
-      balancingChemicalEquations.log && balancingChemicalEquations.log( 'GameFactory: choosing challenges...' );
+      BCEQueryParameters.log && console.log( 'GameFactory: choosing challenges...' );
 
       // operate on a copy of the pool, so that we can prune the pool as we select equations
       var poolCopy = _.clone( this.pool );
@@ -254,7 +254,7 @@ define( function( require ) {
 
         // add the equation to the game
         factoryFunctions.push( factoryFunction );
-        balancingChemicalEquations.log && balancingChemicalEquations.log( '+ chose ' + factoryFunction().toString() );
+        BCEQueryParameters.log && console.log( '+ chose ' + factoryFunction().toString() );
 
         // remove the equation from the pool so it won't be selected again
         poolCopy.splice( poolCopy.indexOf( factoryFunction ), 1 );
@@ -268,7 +268,7 @@ define( function( require ) {
               var excludedIndex = poolCopy.indexOf( excludedFunction );
               if ( excludedIndex !== -1 ) {
                 poolCopy.splice( excludedIndex, 1 );
-                balancingChemicalEquations.log && balancingChemicalEquations.log( '- excluded ' + excludedFunction().toString() );
+                BCEQueryParameters.log && console.log( '- excluded ' + excludedFunction().toString() );
               }
             }
             break; // assumes that all exclusions are in 1 entry
