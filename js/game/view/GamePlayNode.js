@@ -115,7 +115,7 @@ define( function( require ) {
     this.addChild( buttonsParent );
 
     // developer stuff
-    if ( BCEQueryParameters.dev ) {
+    if ( BCEQueryParameters.showAnswers ) {
 
       // display correct coefficient at bottom center of the screen
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );

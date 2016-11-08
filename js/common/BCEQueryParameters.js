@@ -13,8 +13,8 @@ define( function( require ) {
 
   var BCEQueryParameters = QueryStringMachine.getAll( {
 
-    // enables developer-only features
-    dev: { type: 'flag' },
+    // shows answers, just below the reaction arrow in both screens
+    showAnswers: { type: 'flag' },
 
     // play all challenges for each level of the game, to get 100% test coverage
     playAll: { type: 'flag' },
