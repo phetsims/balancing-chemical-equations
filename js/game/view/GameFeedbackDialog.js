@@ -252,7 +252,7 @@ define( function( require ) {
     var updateShadow = function() {
       shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height, options.cornerRadius, options.cornerRadius );
     };
-    content.addEventListener( 'bounds', updateShadow ); // resize shadow when panel changes size
+    content.on( 'bounds', updateShadow ); // resize shadow when panel changes size
     updateShadow();
 
     options.children = [ shadowNode, panel ];
