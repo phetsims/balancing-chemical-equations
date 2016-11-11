@@ -248,9 +248,12 @@ define( function( require ) {
     var panel = new Panel( content, options );
 
     // shadow
-    var shadowNode = new Rectangle( 0, 0, 1, 1, { fill: 'rgba(80,80,80,0.12)' } );
+    var shadowNode = new Rectangle( 0, 0, 1, 1, {
+      fill: 'rgba(80,80,80,0.12)',
+      cornerRadius: options.cornerRadius
+    } );
     var updateShadow = function() {
-      shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height, options.cornerRadius, options.cornerRadius );
+      shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height );
     };
     content.on( 'bounds', updateShadow ); // resize shadow when panel changes size
     updateShadow();
