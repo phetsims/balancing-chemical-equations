@@ -38,35 +38,6 @@ define( function( require ) {
   // constants
   var BUTTON_MARGIN = 20;
 
-  // Creates a level selection button
-  var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty ) {
-
-    // 'Level N' centered above icon
-    var image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
-    var label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), {
-      font: new PhetFont( { size: 14, weight: 'bold' } ),
-      maxWidth: image.width
-    } );
-    var icon = new VBox( { children: [ label, image ], spacing: 10 } );
-
-    return new LevelSelectionButton(
-      icon,
-      model.getNumberOfEquations( level ),
-      function() {
-        model.levelProperty.set( level );
-        model.stateProperty.set( model.states.START_GAME );
-      },
-      model.bestScoreProperties[ level ],
-      model.getPerfectScore( level ),
-      {
-        baseColor: '#d9ebff',
-        buttonWidth: 155,
-        buttonHeight: 155,
-        bestTimeProperty: model.bestTimeProperties[ level ],
-        bestTimeVisibleProperty: bestTimeVisibleProperty
-      } );
-  };
-
   /**
    * @param {GameModel} model
    * @param {PropertySet} viewProperties
@@ -128,6 +99,42 @@ define( function( require ) {
   }
 
   balancingChemicalEquations.register( 'LevelSelectionNode', LevelSelectionNode );
+
+  /**
+   * Creates a level selection button
+   *
+   * @param {number} level
+   * @param {GameModel} model
+   * @param {Property.<number>} bestTimeVisibleProperty
+   * @returns {LevelSelectionButton}
+   */
+  var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty ) {
+
+    // 'Level N' centered above icon
+    var image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+    var label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), {
+      font: new PhetFont( { size: 14, weight: 'bold' } ),
+      maxWidth: image.width
+    } );
+    var icon = new VBox( { children: [ label, image ], spacing: 10 } );
+
+    return new LevelSelectionButton(
+      icon,
+      model.getNumberOfEquations( level ),
+      function() {
+        model.levelProperty.set( level );
+        model.stateProperty.set( model.states.START_GAME );
+      },
+      model.bestScoreProperties[ level ],
+      model.getPerfectScore( level ),
+      {
+        baseColor: '#d9ebff',
+        buttonWidth: 155,
+        buttonHeight: 155,
+        bestTimeProperty: model.bestTimeProperties[ level ],
+        bestTimeVisibleProperty: bestTimeVisibleProperty
+      } );
+  };
 
   return inherit( Node, LevelSelectionNode, {
 
