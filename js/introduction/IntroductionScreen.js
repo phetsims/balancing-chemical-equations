@@ -26,6 +26,8 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenIntroductionString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.introduction' );
@@ -37,7 +39,7 @@ define( function( require ) {
 
     var options = {
       name: screenIntroductionString,
-      backgroundColor: BCEConstants.INTRODUCTION_CANVAS_BACKGROUND,
+      backgroundColorProperty: new Property( Color.toColor( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ) ),
       homeScreenIcon: createScreenIcon()
     };
 
