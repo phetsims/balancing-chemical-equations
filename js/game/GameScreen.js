@@ -17,11 +17,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
   var Shape = require( 'KITE/Shape' );
-  var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.game' );
@@ -33,7 +32,7 @@ define( function( require ) {
 
     var options = {
       name: screenGameString,
-      backgroundColorProperty: new Property( Color.toColor( BCEConstants.GAME_CANVAS_BACKGROUND ) ),
+      backgroundColorProperty: new Property( BCEConstants.GAME_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };
 

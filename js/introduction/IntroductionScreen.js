@@ -22,12 +22,11 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenIntroductionString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.introduction' );
@@ -39,7 +38,7 @@ define( function( require ) {
 
     var options = {
       name: screenIntroductionString,
-      backgroundColorProperty: new Property( Color.toColor( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ) ),
+      backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };
 
