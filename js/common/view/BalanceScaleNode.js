@@ -184,6 +184,7 @@ define( function( require ) {
     // @public
     dispose: function() {
        this.balanceScaleNodeDispose();
+       Node.prototype.dispose.call( this );
     },
 
     /**

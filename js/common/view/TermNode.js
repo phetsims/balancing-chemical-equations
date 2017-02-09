@@ -61,6 +61,7 @@ define( function( require ) {
     // @public
     dispose: function() {
       this.coefficientNode.dispose();
+      Node.prototype.dispose.call( this );
     },
 
     /**

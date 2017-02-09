@@ -109,6 +109,7 @@ define( function( require ) {
     // @public
     dispose: function() {
       this.disposeBarNode();
+      VBox.prototype.dispose.call( this );
     }
   } );
 
