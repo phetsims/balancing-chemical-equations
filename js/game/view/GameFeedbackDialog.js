@@ -118,7 +118,7 @@ define( function( require ) {
       xMargin: 40,
       yMargin: 10,
       cornerRadius: 0,
-      hBoxSpacing: 0,
+      hBoxSpacing: 5,
       vBoxSpacing: 7,
       shadowXOffset: 5,
       shadowYOffset: 5
