@@ -1,11 +1,11 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * A bar that displays some number of atoms for a specified atom.
  * The bar is capable of displaying some maximum number of atoms.
  * If the number of atoms exceeds that maximum, then an upward-pointing
  * arrow appears at the top of the bar.
- * <p>
+ *
  * Origin is at the bottom center of the bar.
  *
  * @author Vasily Shakhov(mlearner.com)

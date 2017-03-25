@@ -1,10 +1,10 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Factory that creates a game.
  * A game is a set of equations to be balanced.
  * The equations are chosen from a 'pool', and each game level has its own pool.
- * <p>
+ *
  * Equations are instantiated by calling factory functions.
  * We need new equations for each game, and we need to be able to exclude some types of equations
  * during the equation selection process.

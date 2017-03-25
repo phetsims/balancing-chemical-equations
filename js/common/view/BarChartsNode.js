@@ -1,9 +1,9 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * Visual representation of an equation as a pair of bar charts, for left and right side of equation.
  * An indicator between the charts (equals or not equals) indicates whether they are balanced.
- * <p>
+ *
  * This implementation is very brute force, just about everything is recreated each time
  * a coefficient is changed in the equations.  But we have a small number of coefficients,
  * and nothing else is happening in the sim.  So we're trading efficiency for simplicity of
