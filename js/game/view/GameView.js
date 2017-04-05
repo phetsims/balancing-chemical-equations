@@ -114,7 +114,9 @@ define( function( require ) {
       // Add the dialog node that indicates that the level has been completed.
       var numberOfEquations = this.model.getNumberOfEquations( level );
       var levelCompletedNode = new LevelCompletedNode( level, this.model.pointsProperty.get(), this.model.getPerfectScore( level ),
-        numberOfEquations, this.viewProperties.timerEnabled, this.model.timer.elapsedTime, bestTimeOnThisLevel, this.model.isNewBestTime,
+        numberOfEquations, this.viewProperties.timerEnabledProperty.value,
+        this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
+
         // function called when 'Continue' button is pressed
         function() {
           // remove the reward, if we have one

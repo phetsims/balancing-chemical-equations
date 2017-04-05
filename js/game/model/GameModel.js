@@ -189,9 +189,9 @@ define( function( require ) {
 
       // check for new best time
       var previousBestTime = this.bestTimeProperties[ level ].get();
-      if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTime < previousBestTime ) ) {
+      if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
         this.isNewBestTime = true;
-        this.bestTimeProperties[ level ].set( this.timer.elapsedTime );
+        this.bestTimeProperties[ level ].set( this.timer.elapsedTimeProperty.value );
       }
     },
 
