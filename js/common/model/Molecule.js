@@ -39,7 +39,7 @@ define( function( require ) {
     /**
      * Any molecule with more than 5 atoms is considered "big".
      * This affects degree of difficulty in the Game.
-     * @return {boolean}
+     * @returns {boolean}
      * @public
      */
     isBig: function() {

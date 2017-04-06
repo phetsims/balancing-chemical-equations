@@ -87,7 +87,7 @@ define( function( require ) {
    * will be [C,H,O].
    *
    * @param {Equation} equation
-   * @return {AtomCount[]}
+   * @returns {AtomCount[]}
    */
   AtomCount.countAtoms = function( equation ) {
     var atomCounts = [];

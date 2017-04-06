@@ -130,7 +130,7 @@ define( function( require ) {
      * See AtomCount.countAtoms for details.
      *
      * @param {Equation} equation
-     * @return {AtomCount[]}
+     * @returns {AtomCount[]}
      * @public
      */
     getAtomCounts: function() {
@@ -140,7 +140,7 @@ define( function( require ) {
     /**
      * Does this equation contain at least one "big" molecule?
      * This affects degree of difficulty in the Game.
-     * @return {boolean}
+     * @returns {boolean}
      * @public
      */
     hasBigMolecule: function() {
@@ -193,7 +193,7 @@ define( function( require ) {
 
     /**
      * String value of an equation, shows balanced coefficients, for debugging.
-     * @return {string}
+     * @returns {string}
      * @public
      */
     toString: function() {
