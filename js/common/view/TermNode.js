@@ -45,7 +45,7 @@ define( function( require ) {
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
-    var subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1 };
+    var subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1, maxWidth: 75 };
     var symbolNode = new SubSupText( term.molecule.symbol, subSupOptions );
     symbolNode.left = this.coefficientNode.right + options.xSpacing;
     symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new SubSupText( 'H', subSupOptions ).height ) / 2;
