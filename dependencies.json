@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.1.9-rc.1 Thu Apr 13 2017 16:54:46 GMT-0600 (MDT)",
+  "comment": "# balancing-chemical-equations 1.1.9-rc.1 Thu Apr 13 2017 17:38:28 GMT-0600 (MDT)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "b8df72f348ccc923577f46624943c42ab4002096",
+    "sha": "508f54c799e06d25a5a63e2daa0180cfd5ec3e8b",
     "branch": "1.1"
   },
   "brand": {
@@ -25,8 +25,8 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "153ba264a759089e7eff2dd56fb386df7b4188e9",
-    "branch": "HEAD"
+    "sha": "fba708de9c8e9094fdcd86b5d1eb748c402850ab",
+    "branch": "balancing-chemical-equations-1.1"
   },
   "kite": {
     "sha": "84e84bcaef87ea4be58ad08d4b61fb6fa591088d",
