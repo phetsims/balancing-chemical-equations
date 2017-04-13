@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.1.8 Thu Apr 13 2017 15:49:47 GMT-0600 (MDT)",
+  "comment": "# balancing-chemical-equations 1.1.8 Thu Apr 13 2017 16:28:50 GMT-0600 (MDT)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "HEAD"
@@ -9,12 +9,12 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "db5e9cf41ef6e4d240baad8a368557bc8f0eaafe",
+    "sha": "6df2230b645dcfe0e6f4587171fe6e430166c9db",
     "branch": "1.1"
   },
   "brand": {
     "sha": "de7a1dc2882f754d4411cc5edc36f9efb6a77dc7",
-    "branch": "balancing-chemical-equations-1.1"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "6735d2658be491a8cdd413633df35dfe56c14797",
@@ -42,7 +42,7 @@
   },
   "phetcommon": {
     "sha": "de2453fad4afcdfe3a6de97668ad5b4186877bb7",
-    "branch": "balancing-chemical-equations-1.1"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "98428866174e137c6c15b526be96dd6fcecd9921",
@@ -69,7 +69,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "40a281829dd0273ab17c882b97910e4c0490be69",
-    "branch": "HEAD"
+    "sha": "8a6284991f0fc29095f472bd79d724d683f1b61c",
+    "branch": "balancing-chemical-equations-1.1"
   }
 }
