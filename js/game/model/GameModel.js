@@ -215,7 +215,7 @@ define( function( require ) {
      * Gets the number of equations for a specified level.
      *
      * @param level
-     * @returns {*}
+     * @returns {number}
      * @public
      */
     getNumberOfEquations: function( level ) {

@@ -70,7 +70,7 @@ define( function( require ) {
    * Creates a button that is appropriate for the current state of the model.
    * @param {GameModel} model
    * @param {number} maxWidth
-   * @returns {*}
+   * @returns {TextPushButton}
    */
   var createButtonForState = function( model, maxWidth ) {
     var button = null;
