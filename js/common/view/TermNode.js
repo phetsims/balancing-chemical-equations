@@ -17,7 +17,7 @@ define( function( require ) {
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
 
   /**
    * @param {DOT.Range} coefficientRange
@@ -46,9 +46,9 @@ define( function( require ) {
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
     var subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1, maxWidth: 75 };
-    var symbolNode = new SubSupText( term.molecule.symbol, subSupOptions );
+    var symbolNode = new RichText( term.molecule.symbol, subSupOptions );
     symbolNode.left = this.coefficientNode.right + options.xSpacing;
-    symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new SubSupText( 'H', subSupOptions ).height ) / 2;
+    symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new RichText( 'H', subSupOptions ).height ) / 2;
 
     options.children = [ this.coefficientNode, symbolNode ];
     Node.call( this, options );
