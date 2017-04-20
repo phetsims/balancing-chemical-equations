@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 
 /**
  * A collection of constants that configure global properties.
@@ -23,7 +23,7 @@ define( function( require ) {
     BOX_COLOR: 'white',
     ATOM_OPTIONS: { stroke: 'black', lineWidth: 0.5 },
     MOLECULE_SCALE_FACTOR: 0.74, // scale all molecules by scaleFactor to fit design
-    CORRECT_ICON: new FontAwesomeNode( 'check_without_box', { fill: 'rgb(251,247,0)' } ), // check mark
+    CORRECT_ICON: new FontAwesomeNode( 'check_without_box', { fill: 'rgb( 0, 180, 0 )' } ), // check mark
     INCORRECT_ICON: new FontAwesomeNode( 'times', { fill: 'rgb(252,104,0)' } ) // X
   } );
 
