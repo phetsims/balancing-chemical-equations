@@ -17,7 +17,7 @@ define( function( require ) {
   var Element = require( 'NITROGLYCERIN/Element' );
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroductionModel = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/IntroductionModel' );
-  var IntroductionView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionView' );
+  var IntroductionScreenView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionScreenView' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -44,7 +44,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new IntroductionModel(); },
-      function( model ) { return new IntroductionView( model ); },
+      function( model ) { return new IntroductionScreenView( model ); },
       options );
   };
 

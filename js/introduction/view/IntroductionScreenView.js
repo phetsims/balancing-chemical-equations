@@ -38,7 +38,7 @@ define( function( require ) {
    * @param {IntroductionModel} model
    * @constructor
    */
-  function IntroductionView( model ) {
+  function IntroductionScreenView( model ) {
 
     var self = this;
     ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
@@ -132,7 +132,7 @@ define( function( require ) {
     }
   }
 
-  balancingChemicalEquations.register( 'IntroductionView', IntroductionView );
+  balancingChemicalEquations.register( 'IntroductionScreenView', IntroductionScreenView );
 
-  return inherit( ScreenView, IntroductionView );
+  return inherit( ScreenView, IntroductionScreenView );
 } );

@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {GameModel} model
    * @constructor
    */
-  function GameView( model ) {
+  function GameScreenView( model ) {
 
     var self = this;
     ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
@@ -62,9 +62,9 @@ define( function( require ) {
     } );
   }
 
-  balancingChemicalEquations.register( 'GameView', GameView );
+  balancingChemicalEquations.register( 'GameScreenView', GameScreenView );
 
-  return inherit( ScreenView, GameView, {
+  return inherit( ScreenView, GameScreenView, {
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
 

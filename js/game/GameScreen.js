@@ -13,7 +13,7 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var GameModel = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameModel' );
-  var GameView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameView' );
+  var GameScreenView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -38,7 +38,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new GameModel(); },
-      function( model ) { return new GameView( model ); },
+      function( model ) { return new GameScreenView( model ); },
       options );
   }
 
