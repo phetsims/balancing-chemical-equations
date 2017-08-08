@@ -17,7 +17,7 @@ define( function( require ) {
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
-  var RichText = require( 'SCENERY_PHET/RichText' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
 
   /**
    * @param {DOT.Range} coefficientRange
