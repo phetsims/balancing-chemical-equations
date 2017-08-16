@@ -21,10 +21,8 @@ define( function( require ) {
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Julia Chamberlain, Patricia Loeblein, Emily B. Moore. Robert Parson, Ariel Paul, Kathy Perkins',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan. Oliver Orejola, Benjamin Roberts, Bryan Yoelin',
-      thanks: '\u2022 Conversion of this simulation to HTML5 was funded in part b. the American Association ' +
-              'of Chemistry Teachers (AACT). <br>' +
-              '\u2022 Thanks to Mobile Learner Labs for working with the PhE. development team to convert this ' +
-              'simulation to HTML5.'
+      thanks: '\u2022 Conversion of this simulation to HTML5 was funded in part by the American Association of Chemistry Teachers (AACT).<br>' +
+              '\u2022 Thanks to Mobile Learner Labs for working with the PhE. development team to convert this simulation to HTML5.'
     }
   };
 
