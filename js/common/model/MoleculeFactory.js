@@ -22,11 +22,11 @@ define( function( require ) {
   var CH2ONode = require( 'NITROGLYCERIN/nodes/CH2ONode' );
   var CH3OHNode = require( 'NITROGLYCERIN/nodes/CH3OHNode' );
   var CH4Node = require( 'NITROGLYCERIN/nodes/CH4Node' );
+  var Cl2Node = require( 'NITROGLYCERIN/nodes/Cl2Node' );
   var CNode = require( 'NITROGLYCERIN/nodes/CNode' );
   var CO2Node = require( 'NITROGLYCERIN/nodes/CO2Node' );
   var CONode = require( 'NITROGLYCERIN/nodes/CONode' );
   var CS2Node = require( 'NITROGLYCERIN/nodes/CS2Node' );
-  var Cl2Node = require( 'NITROGLYCERIN/nodes/Cl2Node' );
   var F2Node = require( 'NITROGLYCERIN/nodes/F2Node' );
   var H2Node = require( 'NITROGLYCERIN/nodes/H2Node' );
   var H2ONode = require( 'NITROGLYCERIN/nodes/H2ONode' );

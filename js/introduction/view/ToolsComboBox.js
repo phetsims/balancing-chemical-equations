@@ -23,8 +23,8 @@ define( function( require ) {
   var scalesImage = require( 'mipmap!BALANCING_CHEMICAL_EQUATIONS/scales.png' );
 
   // strings
-  var toolsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tools' );
   var noneString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/none' );
+  var toolsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tools' );
 
   // constants
   var FONT = new PhetFont( 22 );

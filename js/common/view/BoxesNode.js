@@ -19,8 +19,8 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var reactantsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/reactants' );
   var productsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/products' );
+  var reactantsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/reactants' );
 
   /**
    * @param {Property.<Equation>} equationProperty the equation displayed in the boxes

@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
+  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -32,13 +32,13 @@ define( function( require ) {
   // strings
   var balancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balanced' );
   var hideWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/hideWhy' );
+  var nextString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/next' );
   var notBalancedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/notBalanced' );
   var notSimplifiedString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/notSimplified' );
   var pattern0PointsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0points' );
-  var showWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showWhy' );
-  var nextString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/next' );
-  var tryAgainString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tryAgain' );
   var showAnswerString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showAnswer' );
+  var showWhyString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/showWhy' );
+  var tryAgainString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tryAgain' );
 
   // constants
   var TEXT_FONT = new PhetFont( 18 );
