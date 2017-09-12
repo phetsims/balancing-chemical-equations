@@ -20,7 +20,7 @@ define( function( require ) {
   /**
    * @param {number} screenWidth screen width
    * @param {DOT.Dimension2} boxWidth size of one of the 2 boxes (both boxes are assumed to be the same size)
-   * @param {number} boxSeparation horizontal separation between the left and right boxes
+   * @param {number} boxXSpacing horizontal separation between the left and right boxes
    * @constructor
    */
   function HorizontalAligner( screenWidth, boxWidth, boxXSpacing ) {
