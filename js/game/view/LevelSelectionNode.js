@@ -40,7 +40,7 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
-   * @param {PropertySet} viewProperties
+   * @param {GameViewProperties} viewProperties
    * @param {Bounds2} layoutBounds
    * @param {Object} [options]
    * @constructor

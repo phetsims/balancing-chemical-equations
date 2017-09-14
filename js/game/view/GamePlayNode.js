@@ -34,7 +34,7 @@ define( function( require ) {
 
   /**
    * @param {GameModel} model
-   * @param {PropertySet} viewProperties
+   * @param {GameViewProperties} viewProperties
    * @param {GameAudioPlayer} audioPlayer
    * @param {Bounds2} layoutBounds layout bounds of the parent ScreenView
    * @param {HorizontalAligner} aligner
