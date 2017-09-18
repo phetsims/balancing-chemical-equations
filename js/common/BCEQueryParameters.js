@@ -20,13 +20,19 @@ define( function( require ) {
     playAll: { type: 'flag' },
 
     // show the game reward regardless of score
-    showReward: { type: 'flag' },
-
-    // enables console logging
-    log: { type: 'flag' }
+    showReward: { type: 'flag' }
   } );
 
   balancingChemicalEquations.register( 'BCEQueryParameters', BCEQueryParameters );
+
+  // log the values of all sim-specific query parameters
+  if ( phet.log ) {
+    for ( var property in BCEQueryParameters ) {
+      if ( BCEQueryParameters.hasOwnProperty( property ) ) {
+        phet.log( property + '=' + BCEQueryParameters[ property ] );
+      }
+    }
+  }
 
   return BCEQueryParameters;
 } );
