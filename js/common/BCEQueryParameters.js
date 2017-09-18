@@ -26,13 +26,7 @@ define( function( require ) {
   balancingChemicalEquations.register( 'BCEQueryParameters', BCEQueryParameters );
 
   // log the values of all sim-specific query parameters
-  if ( phet.log ) {
-    for ( var property in BCEQueryParameters ) {
-      if ( BCEQueryParameters.hasOwnProperty( property ) ) {
-        phet.log( property + '=' + BCEQueryParameters[ property ] );
-      }
-    }
-  }
+  phet.log && phet.log( 'query parameters: ' + JSON.stringify( BCEQueryParameters, null, 2 ) );
 
   return BCEQueryParameters;
 } );
