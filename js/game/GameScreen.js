@@ -39,7 +39,8 @@ define( function( require ) {
     Screen.call( this,
       function() { return new GameModel(); },
       function( model ) { return new GameScreenView( model ); },
-      options );
+      options
+    );
   }
 
   balancingChemicalEquations.register( 'GameScreen', GameScreen );
