@@ -13,7 +13,7 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LevelSelectionItemNode = require( 'VEGAS/LevelSelectionItemNode' );
+  var LevelSelectionItemNodeDeprecated = require( 'VEGAS/LevelSelectionItemNodeDeprecated' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -52,7 +52,7 @@ define( function( require ) {
     // buttons
     var buttons = [];
     for ( var level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
-      buttons.push( createLevelSelectionItemNode( level, model, viewProperties.timerEnabledProperty ) );
+      buttons.push( createLevelSelectionItemNodeDeprecated( level, model, viewProperties.timerEnabledProperty ) );
     }
     var buttonsParent = new HBox( {
       children: buttons,
@@ -106,9 +106,9 @@ define( function( require ) {
    * @param {number} level
    * @param {GameModel} model
    * @param {Property.<number>} bestTimeVisibleProperty
-   * @returns {LevelSelectionItemNode}
+   * @returns {LevelSelectionItemNodeDeprecated}
    */
-  var createLevelSelectionItemNode = function( level, model, bestTimeVisibleProperty ) {
+  var createLevelSelectionItemNodeDeprecated = function( level, model, bestTimeVisibleProperty ) {
 
     // 'Level N' centered above icon
     var image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
@@ -118,7 +118,7 @@ define( function( require ) {
     } );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
-    return new LevelSelectionItemNode(
+    return new LevelSelectionItemNodeDeprecated(
       icon,
       model.getNumberOfEquations( level ),
       function() {
