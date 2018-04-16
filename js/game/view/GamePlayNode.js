@@ -32,6 +32,8 @@ define( function( require ) {
   // constants
   var BOX_SIZE = new Dimension2( 285, 340 );
   var BOX_X_SPACING = 140; // horizontal spacing between boxes
+  var STATUS_BAR_FONT = new PhetFont( 14 );
+  var STATUS_BAR_TEXT_FILL = 'white';
 
   /**
    * @param {GameModel} model
@@ -55,8 +57,8 @@ define( function( require ) {
 
     // score display
     var scoreDisplay = new ScoreDisplayLabeledNumber( model.pointsProperty, {
-      font: new PhetFont( 14 ),
-      fill: 'white'
+      font: STATUS_BAR_FONT,
+      fill: STATUS_BAR_TEXT_FILL
     } );
 
     // status bar
@@ -66,8 +68,8 @@ define( function( require ) {
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
       timerEnabledProperty: viewProperties.timerEnabledProperty,
-      font: new PhetFont( 14 ),
-      textFill: 'white',
+      font: STATUS_BAR_FONT,
+      textFill: STATUS_BAR_TEXT_FILL,
       barFill: 'rgb( 49, 117, 202 )',
       xMargin: 30,
       yMargin: 4,
