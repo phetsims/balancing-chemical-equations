@@ -32,8 +32,6 @@ define( function( require ) {
   // constants
   var BOX_SIZE = new Dimension2( 285, 340 );
   var BOX_X_SPACING = 140; // horizontal spacing between boxes
-  var STATUS_BAR_FONT = new PhetFont( 14 );
-  var STATUS_BAR_TEXT_FILL = 'white';
 
   /**
    * @param {GameModel} model
@@ -55,21 +53,16 @@ define( function( require ) {
 
     Node.call( this );
 
-    // score display
-    var scoreDisplay = new ScoreDisplayLabeledNumber( model.pointsProperty, {
-      font: STATUS_BAR_FONT,
-      fill: STATUS_BAR_TEXT_FILL
-    } );
-
     // status bar
-    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, scoreDisplay, {
+    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
+      scoreDisplayConstructor: ScoreDisplayLabeledNumber,
       levelProperty: model.levelProperty,
       challengeIndexProperty: model.currentEquationIndexProperty,
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
       timerEnabledProperty: viewProperties.timerEnabledProperty,
-      font: STATUS_BAR_FONT,
-      textFill: STATUS_BAR_TEXT_FILL,
+      font: new PhetFont( 14 ),
+      textFill: 'white',
       barFill: 'rgb( 49, 117, 202 )',
       xMargin: 30,
       yMargin: 4,
