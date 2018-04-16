@@ -13,11 +13,12 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LevelSelectionItemNode = require( 'VEGAS/LevelSelectionItemNode' );
+  var LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ScoreDisplayStars = require( 'VEGAS/ScoreDisplayStars' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -52,7 +53,7 @@ define( function( require ) {
     // buttons
     var buttons = [];
     for ( var level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
-      buttons.push( createLevelSelectionItemNode( level, model, viewProperties.timerEnabledProperty ) );
+      buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty ) );
     }
     var buttonsParent = new HBox( {
       children: buttons,
@@ -106,9 +107,9 @@ define( function( require ) {
    * @param {number} level
    * @param {GameModel} model
    * @param {Property.<number>} bestTimeVisibleProperty
-   * @returns {LevelSelectionItemNode}
+   * @returns {LevelSelectionButton}
    */
-  var createLevelSelectionItemNode = function( level, model, bestTimeVisibleProperty ) {
+  var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty ) {
 
     // 'Level N' centered above icon
     var image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
@@ -118,22 +119,23 @@ define( function( require ) {
     } );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
-    return new LevelSelectionItemNode(
-      icon,
-      model.getNumberOfEquations( level ),
-      function() {
+    // score display
+    var scoreDisplay = new ScoreDisplayStars( model.bestScoreProperties[ level ], {
+      numberOfStars: model.getNumberOfEquations( level ),
+      perfectScore: model.getPerfectScore( level )
+    } );
+
+    return new LevelSelectionButton( icon, scoreDisplay, {
+      baseColor: '#d9ebff',
+      buttonWidth: 155,
+      buttonHeight: 155,
+      bestTimeProperty: model.bestTimeProperties[ level ],
+      bestTimeVisibleProperty: bestTimeVisibleProperty,
+      listener: function() {
         model.levelProperty.set( level );
         model.stateProperty.set( model.states.START_GAME );
-      },
-      model.bestScoreProperties[ level ],
-      model.getPerfectScore( level ),
-      {
-        baseColor: '#d9ebff',
-        buttonWidth: 155,
-        buttonHeight: 155,
-        bestTimeProperty: model.bestTimeProperties[ level ],
-        bestTimeVisibleProperty: bestTimeVisibleProperty
-      } );
+      }
+    } );
   };
 
   return inherit( Node, LevelSelectionNode, {
