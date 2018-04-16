@@ -119,18 +119,17 @@ define( function( require ) {
     } );
     var icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
-    // score display
-    var scoreDisplay = new ScoreDisplayStars( model.bestScoreProperties[ level ], {
-      numberOfStars: model.getNumberOfEquations( level ),
-      perfectScore: model.getPerfectScore( level )
-    } );
-
-    return new LevelSelectionButton( icon, scoreDisplay, {
+    return new LevelSelectionButton( icon, model.bestScoreProperties[ level ], {
       baseColor: '#d9ebff',
       buttonWidth: 155,
       buttonHeight: 155,
       bestTimeProperty: model.bestTimeProperties[ level ],
       bestTimeVisibleProperty: bestTimeVisibleProperty,
+      scoreDisplayConstructor: ScoreDisplayStars,
+      scoreDisplayOptions: {
+        numberOfStars: model.getNumberOfEquations( level ),
+        perfectScore: model.getPerfectScore( level )
+      },
       listener: function() {
         model.levelProperty.set( level );
         model.stateProperty.set( model.states.START_GAME );
