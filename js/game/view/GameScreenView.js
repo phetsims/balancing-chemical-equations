@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Scene graph for the 'Balancing game' screen.
@@ -84,7 +84,8 @@ define( function( require ) {
     // @private
     initStartGame: function() {
       if ( !this.gamePlayNode ) {
-        this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer, this.layoutBounds );
+        this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
+          this.layoutBounds, this.visibleBoundsProperty );
         this.rootNode.addChild( this.gamePlayNode );
       }
       this.viewProperties.reactantsBoxExpandedProperty.reset();

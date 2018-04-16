@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Node that contains all of the user-interface elements related to playing game challenges.
@@ -15,12 +15,13 @@ define( function( require ) {
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
+  var FiniteStatusBar = require( 'VEGAS/FiniteStatusBar' );
   var GameFeedbackDialog = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameFeedbackDialog' );
   var HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var ScoreboardBar = require( 'VEGAS/ScoreboardBar' );
+  var ScoreDisplayLabeledNumber = require( 'VEGAS/ScoreDisplayLabeledNumber' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
@@ -37,11 +38,11 @@ define( function( require ) {
    * @param {GameViewProperties} viewProperties
    * @param {GameAudioPlayer} audioPlayer
    * @param {Bounds2} layoutBounds layout bounds of the parent ScreenView
-   * @param {HorizontalAligner} aligner
+   * @param {Property.<Bounds2>} visibleBoundsProperty of the parent ScreenView
    * @param {Object} [options]
    * @constructor
    */
-  function GamePlayNode( model, viewProperties, audioPlayer, layoutBounds, options ) {
+  function GamePlayNode( model, viewProperties, audioPlayer, layoutBounds, visibleBoundsProperty, options ) {
 
     var self = this;
     this.model = model; // @private
@@ -52,37 +53,44 @@ define( function( require ) {
 
     Node.call( this );
 
-    // scoreboard
-    var scoreboard = new ScoreboardBar(
-      layoutBounds.width,
-      model.currentEquationIndexProperty,
-      model.numberOfEquationsProperty,
-      model.levelProperty,
-      model.pointsProperty,
-      model.timer.elapsedTimeProperty,
-      viewProperties.timerEnabledProperty,
-      self.model.newGame.bind( self.model ),
-      {
-        font: new PhetFont( 14 ),
-        yMargin: 5,
-        leftMargin: 30,
-        rightMargin: 30,
-        centerX: this.layoutBounds.centerX,
-        top: this.layoutBounds.top
+    // score display
+    var scoreDisplay = new ScoreDisplayLabeledNumber( model.pointsProperty, {
+      font: new PhetFont( 14 ),
+      fill: 'white'
+    } );
+
+    // status bar
+    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, scoreDisplay, {
+      levelProperty: model.levelProperty,
+      challengeIndexProperty: model.currentEquationIndexProperty,
+      numberOfChallengesProperty: model.numberOfEquationsProperty,
+      elapsedTimeProperty: model.timer.elapsedTimeProperty,
+      timerEnabledProperty: viewProperties.timerEnabledProperty,
+      font: new PhetFont( 14 ),
+      textFill: 'white',
+      barFill: 'rgb( 49, 117, 202 )',
+      xMargin: 30,
+      yMargin: 4,
+      startOverButtonOptions: {
+        baseColor: 'rgb( 229, 243, 255 )',
+        textFill: 'black',
+        listener: self.model.newGame.bind( self.model ),
+        xMargin: 10,
+        yMargin: 5
       }
-    );
-    this.addChild( scoreboard );
+    } );
+    this.addChild( statusBar );
 
     // @private boxes that show molecules corresponding to the equation coefficients
     this.boxesNode = new BoxesNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, this.aligner,
       BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
-      { y: scoreboard.bottom + 15 } );
+      { y: statusBar.bottom + 15 } );
     this.addChild( this.boxesNode );
 
     // @private equation
     this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner );
     this.addChild( this.equationNode );
-    this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.boxesNode.bottom ) / 2;
+    this.equationNode.centerY = this.layoutBounds.height - (this.layoutBounds.height - this.boxesNode.bottom) / 2;
 
     // buttons: Check, Next
     var BUTTONS_OPTIONS = {
@@ -131,7 +139,7 @@ define( function( require ) {
         baseColor: 'red',
         textFill: 'white',
         listener: model.next.bind( model ), // equivalent to 'Next'
-        left:   this.layoutBounds.left + 4,
+        left: this.layoutBounds.left + 4,
         bottom: this.layoutBounds.bottom - 2
       } );
       this.addChild( skipButton );
@@ -156,7 +164,7 @@ define( function( require ) {
 
     // Disable 'Check' button when all coefficients are zero.
     var coefficientsSumObserver = function( coefficientsSum ) {
-      self.checkButton.enabled = ( coefficientsSum > 0 );
+      self.checkButton.enabled = (coefficientsSum > 0);
     };
     model.currentEquationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) { oldEquation.coefficientsSumProperty.unlink( coefficientsSumObserver ); }
