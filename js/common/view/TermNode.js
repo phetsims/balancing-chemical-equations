@@ -45,10 +45,10 @@ define( function( require ) {
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
-    var subSupOptions = { font: new PhetFont( options.fontSize ), supScale: 1, maxWidth: 75 };
-    var symbolNode = new RichText( term.molecule.symbol, subSupOptions );
+    var richTextOptions = { font: new PhetFont( options.fontSize ), supScale: 1, maxWidth: 75 };
+    var symbolNode = new RichText( term.molecule.symbol, richTextOptions );
     symbolNode.left = this.coefficientNode.right + options.xSpacing;
-    symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new RichText( 'H', subSupOptions ).height ) / 2;
+    symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new RichText( 'H', richTextOptions ).height ) / 2;
 
     options.children = [ this.coefficientNode, symbolNode ];
     Node.call( this, options );
