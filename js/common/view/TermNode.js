@@ -45,7 +45,7 @@ define( function( require ) {
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
-    var richTextOptions = { font: new PhetFont( options.fontSize ), maxWidth: 75 };
+    var richTextOptions = { font: new PhetFont( options.fontSize ) };
     var symbolNode = new RichText( term.molecule.symbol, richTextOptions );
     symbolNode.left = this.coefficientNode.right + options.xSpacing;
     symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new RichText( 'H', richTextOptions ).height ) / 2;
