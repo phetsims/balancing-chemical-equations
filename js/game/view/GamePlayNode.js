@@ -13,6 +13,7 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var EquationNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EquationNode' );
   var FiniteStatusBar = require( 'VEGAS/FiniteStatusBar' );
@@ -56,7 +57,9 @@ define( function( require ) {
     // status bar
     var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
       scoreDisplayConstructor: ScoreDisplayLabeledNumber,
-      levelProperty: model.levelProperty,
+
+      // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #127.
+      levelProperty: new DerivedProperty( [ model.levelProperty ], function( level ) { return level + 1; } ),
       challengeIndexProperty: model.currentEquationIndexProperty,
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
