@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -121,7 +120,7 @@ define( function( require ) {
     this.addChild( buttonsParent );
 
     // developer stuff
-    if ( BCEQueryParameters.showAnswers ) {
+    if ( phet.chipper.queryParameters.showAnswers ) {
 
       // display correct coefficient at bottom center of the screen
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );

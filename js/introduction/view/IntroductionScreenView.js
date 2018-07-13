@@ -14,7 +14,6 @@ define( function( require ) {
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var BoxesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxesNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var EquationChoiceNode = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/EquationChoiceNode' );
@@ -122,7 +121,7 @@ define( function( require ) {
     this.addChild( comboBoxParent );
 
     // show the answer when running in dev mode, bottom center
-    if ( BCEQueryParameters.showAnswers ) {
+    if ( phet.chipper.queryParameters.showAnswers ) {
       var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
       this.addChild( answerNode );
       model.equationProperty.link( function( equation ) {
