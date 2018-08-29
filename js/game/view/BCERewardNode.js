@@ -3,7 +3,7 @@
 /**
  * Game reward for this simulations.
  *
- * @author Chris Malley
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
