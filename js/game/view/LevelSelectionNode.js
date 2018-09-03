@@ -43,17 +43,18 @@ define( function( require ) {
    * @param {GameModel} model
    * @param {GameViewProperties} viewProperties
    * @param {Bounds2} layoutBounds
+   * @param {function(number:level)} startGame
    * @param {Object} [options]
    * @constructor
    */
-  function LevelSelectionNode( model, viewProperties, layoutBounds, options ) {
+  function LevelSelectionNode( model, viewProperties, layoutBounds, startGame, options ) {
 
     Node.call( this );
 
     // buttons
     var buttons = [];
     for ( var level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
-      buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty ) );
+      buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty, startGame ) );
     }
     var buttonsParent = new HBox( {
       children: buttons,
@@ -107,9 +108,10 @@ define( function( require ) {
    * @param {number} level
    * @param {GameModel} model
    * @param {Property.<number>} bestTimeVisibleProperty
+   * @param {function(number:level)} startGame
    * @returns {LevelSelectionButton}
    */
-  var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty ) {
+  var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty, startGame ) {
 
     // 'Level N' centered above icon
     var image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
@@ -131,8 +133,7 @@ define( function( require ) {
         perfectScore: model.getPerfectScore( level )
       },
       listener: function() {
-        model.levelProperty.set( level );
-        model.stateProperty.set( model.states.START_GAME );
+        startGame( level );
       }
     } );
   };

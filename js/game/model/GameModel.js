@@ -49,7 +49,6 @@ define( function( require ) {
      */
     this.states = {
       LEVEL_SELECTION: 'LevelSelection', //level selection screen
-      START_GAME: 'StartGame', //intermediate state, needed for initialize game view
       CHECK: 'Check',
       TRY_AGAIN: 'TryAgain',
       SHOW_ANSWER: 'ShowAnswer',
@@ -62,9 +61,7 @@ define( function( require ) {
     this.LEVELS_RANGE = new RangeWithValue( 0, 2 ); // Levels 1-2-3, counting from 0
 
     // @public
-    this.stateProperty = new Property( self.states.LEVEL_SELECTION, {
-      reentrant: true
-    } );
+    this.stateProperty = new Property( self.states.LEVEL_SELECTION );
     this.levelProperty = new Property( 0 ); // level of the current game
     this.pointsProperty = new Property( 0 ); // how many points the user has earned for the current game
     this.numberOfEquationsProperty = new Property( 0 ); // number of challenges in the current game

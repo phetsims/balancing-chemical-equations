@@ -42,7 +42,8 @@ define( function( require ) {
     this.addChild( this.rootNode );
 
     // @private level-selection interface
-    this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds, { visible: false } );
+    this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
+      this.initStartGame.bind( this ), { visible: false } );
     this.rootNode.addChild( this.levelSelectionNode );
 
     // @private game-play interface, created on demand
@@ -52,9 +53,6 @@ define( function( require ) {
     model.stateProperty.link( function( state ) {
       if ( state === model.states.LEVEL_SELECTION ) {
         self.initLevelSelection();
-      }
-      else if ( state === model.states.START_GAME ) {
-        self.initStartGame();
       }
       else if ( state === model.states.LEVEL_COMPLETED ) {
         self.initLevelCompleted();
@@ -81,8 +79,13 @@ define( function( require ) {
       this.levelSelectionNode.visible = true;
     },
 
-    // @private
-    initStartGame: function() {
+    /**
+     * Performs initialization to start a game for a specified level.
+     * @param {number} level
+     * @private
+     */
+    initStartGame: function( level ) {
+      this.model.levelProperty.set( level );
       if ( !this.gamePlayNode ) {
         this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
           this.layoutBounds, this.visibleBoundsProperty );
