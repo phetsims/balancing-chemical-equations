@@ -15,7 +15,7 @@ define( function( require ) {
   var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
   // constants
@@ -57,8 +57,8 @@ define( function( require ) {
     };
 
     // @public (read-only) constants
-    this.COEFFICENTS_RANGE = new RangeWithValue( 0, 7 ); // Range of possible equation coefficients
-    this.LEVELS_RANGE = new RangeWithValue( 0, 2 ); // Levels 1-2-3, counting from 0
+    this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
+    this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
 
     // @public
     this.stateProperty = new Property( self.states.LEVEL_SELECTION );

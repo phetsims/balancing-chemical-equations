@@ -15,7 +15,7 @@ define( function( require ) {
   var DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
   // strings
@@ -28,7 +28,7 @@ define( function( require ) {
    */
   function IntroductionModel() {
 
-    this.COEFFICENTS_RANGE = new RangeWithValue( 0, 3 ); // @public (read-only) Range of possible equation coefficients
+    this.COEFFICENTS_RANGE = new Range( 0, 3 ); // @public (read-only) Range of possible equation coefficients
 
     /*
      * @public
