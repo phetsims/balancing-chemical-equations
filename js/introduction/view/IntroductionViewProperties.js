@@ -11,8 +11,9 @@ define( function( require ) {
   // modules
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var StringProperty = require( 'AXON/StringProperty' );
 
   /**
    * @constructor
@@ -20,9 +21,9 @@ define( function( require ) {
   function IntroductionViewProperties() {
 
     // @public
-    this.reactantsBoxExpandedProperty = new Property( true );
-    this.productsBoxExpandedProperty = new Property( true );
-    this.balancedRepresentationProperty = new Property( BalancedRepresentation.NONE );
+    this.reactantsBoxExpandedProperty = new BooleanProperty( true );
+    this.productsBoxExpandedProperty = new BooleanProperty( true );
+    this.balancedRepresentationProperty = new StringProperty( BalancedRepresentation.NONE );
   }
 
   balancingChemicalEquations.register( 'IntroductionViewProperties', IntroductionViewProperties );

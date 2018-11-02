@@ -19,7 +19,7 @@ define( function( require ) {
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
    * @param {Property.<Equation>} equationProperty the equation that the scales are representing
@@ -105,8 +105,8 @@ define( function( require ) {
           var atomCount = atomCounts[ i ];
 
           // populate the maps
-          var leftCountProperty = new Property( atomCount.reactantsCount );
-          var rightCountProperty = new Property( atomCount.productsCount );
+          var leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
+          var rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
           this.reactantCountProperties[ atomCount.element.symbol ] = leftCountProperty;
           this.productCountProperties[ atomCount.element.symbol ] = rightCountProperty;
 

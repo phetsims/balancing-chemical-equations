@@ -14,7 +14,7 @@ define( function( require ) {
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
    * @param {number} balancedCoefficient balanced coefficient for molecule
@@ -35,7 +35,9 @@ define( function( require ) {
 
     this.molecule = molecule; // @public
     this.balancedCoefficient = balancedCoefficient; // @public
-    this.userCoefficientProperty = new Property( options.initialCoefficient ); // @public
+    this.userCoefficientProperty = new NumberProperty( options.initialCoefficient, {
+      numberType: 'Integer'
+    } ); // @public
   }
 
   balancingChemicalEquations.register( 'EquationTerm', EquationTerm );

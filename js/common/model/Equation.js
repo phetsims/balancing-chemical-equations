@@ -18,8 +18,9 @@ define( function( require ) {
   // modules
   var AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
    * @param {EquationTerm[]} reactants terms on the left side of the equation
@@ -33,8 +34,8 @@ define( function( require ) {
     this.products = products; // @public
 
     // @public
-    this.balancedProperty = new Property( false );
-    this.coefficientsSumProperty = new Property( 0 );
+    this.balancedProperty = new BooleanProperty( false );
+    this.coefficientsSumProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     this.balancedAndSimplified = false; // @public balanced with the lowest possible coefficients
 

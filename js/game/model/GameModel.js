@@ -14,8 +14,10 @@ define( function( require ) {
   var GameFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameFactory' );
   var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
+  var StringProperty = require( 'AXON/StringProperty' );
   var SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
   // constants
@@ -61,12 +63,17 @@ define( function( require ) {
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
 
     // @public
-    this.stateProperty = new Property( self.states.LEVEL_SELECTION );
-    this.levelProperty = new Property( 0 ); // level of the current game
-    this.pointsProperty = new Property( 0 ); // how many points the user has earned for the current game
-    this.numberOfEquationsProperty = new Property( 0 ); // number of challenges in the current game
-    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() ); // any non-null {Equation} will do here
-    this.currentEquationIndexProperty = new Property( 0 ); // index of the current challenge that the user is working on
+    this.stateProperty = new StringProperty( self.states.LEVEL_SELECTION );
+    // level of the current game
+    this.levelProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+    // how many points the user has earned for the current game
+    this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+    // number of challenges in the current game
+    this.numberOfEquationsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+    // any non-null {Equation} will do here
+    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() );
+    // index of the current challenge that the user is working on
+    this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     this.equations = []; // @public array of Equation
     this.timer = new GameTimer(); // @public
@@ -78,8 +85,8 @@ define( function( require ) {
     this.bestTimeProperties = [];// @public {Property.<number>[]} best times in ms, indexed by level
     this.bestScoreProperties = []; // @public {Property.<number>[]} best scores, indexed by level
     for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
-      this.bestTimeProperties[ i ] = new Property( 0 );
-      this.bestScoreProperties[ i ] = new Property( 0 );
+      this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
+      this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
     }
   }
 

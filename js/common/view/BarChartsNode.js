@@ -21,7 +21,7 @@ define( function( require ) {
   var EqualityOperatorNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EqualityOperatorNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -117,7 +117,7 @@ define( function( require ) {
       for ( var i = 0; i < atomCounts.length; i++ ) {
         var atomCount = atomCounts[ i ];
         // populate the map
-        var countProperty = new Property( getCount( atomCount ) );
+        var countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
         countProperties[ atomCount.element.symbol ] = countProperty;
         // add a bar node
         var barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
