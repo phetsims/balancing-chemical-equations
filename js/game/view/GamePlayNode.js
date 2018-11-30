@@ -67,7 +67,7 @@ define( function( require ) {
       textFill: 'white',
       barFill: 'rgb( 49, 117, 202 )',
       xMargin: 30,
-      yMargin: 4,
+      yMargin: 5,
       startOverButtonOptions: {
         baseColor: 'rgb( 229, 243, 255 )',
         textFill: 'black',
