@@ -10,14 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AccordionBox = require( 'SUN/AccordionBox' );
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -26,65 +25,74 @@ define( function( require ) {
    * @param {function} getTerms 1 parameter {Equation}, gets the terms that this box will display
    * @param {function} getXOffsets 1 parameter {Equation}, gets the x-offsets for each term
    * @param {DOT.Range} coefficientRange range of the coefficients
-   * @param {Property} expandedProperty controls whether the box is expanded or collapsed
+   * @param {string} titleString
    * @param {Object} [options]
    * @constructor
    */
-  function BoxNode( equationProperty, getTerms, getXOffsets, coefficientRange, expandedProperty, options ) {
+  function BoxNode( equationProperty, getTerms, getXOffsets, coefficientRange, titleString, options ) {
 
     var self = this;
 
     options = _.extend( {
-      buttonLength: 15,
-      xMargin: 5,
-      yMargin: 5,
+
+      boxWidth: 100,
+      boxHeight: 100,
+
+      // AccordionBox options
+      titleAlignX: 'center',
+      resize: false,
       fill: 'white',
       stroke: 'black',
       lineWidth: 1,
-      title: '',
-      boxWidth: 100,
-      boxHeight: 100
+      cornerRadius: 0,
+      buttonAlign: 'right',
+      buttonLength: 15,
+      buttonXMargin: 5,
+      buttonYMargin: 5,
+      showTitleWhenExpanded: false,
+      titleBarExpandCollapse: false,
+      titleXMargin: 0,
+      titleXSpacing: 0,
+      buttonTouchAreaXDilation: 20,
+      buttonTouchAreaYDilation: 20,
+      buttonMouseAreaXDilation: 10,
+      buttonMouseAreaYDilation: 10,
+      contentXMargin: 0,
+      contentYMargin: 0,
+      contentXSpacing: 0,
+      contentYSpacing: 0,
+      contentAlign: 'left'
+
     }, options );
+
+    assert && assert( !options.titleNode, 'BoxNode sets titleNode' );
+    options.titleNode = new Text( titleString, {
+      font: new PhetFont( { size: 18, weight: 'bold' } ),
+      maxWidth: 0.75 * options.boxWidth
+    } );
 
     this.boxHeight = options.boxHeight; // @private
     this.coefficientRange = coefficientRange; // @private
     this.termNodes = {}; // @private molecule nodes for each term, key: term.molecule.symbol, value: [{Node}]
 
-    // expanded box shows molecules
-    var expandedBoxNode = new Rectangle( 0, 0, options.boxWidth, options.boxHeight,
-      { fill: options.fill, lineWidth: options.lineWidth, stroke: options.stroke } );
-    this.moleculesParent = new Node(); // @private parent for all molecule nodes
-    expandedBoxNode.addChild( this.moleculesParent );
+    // Content will be placed to the left of expand/collapse button, so contentWidth is only part of boxWidth.
+    // See https://github.com/phetsims/balancing-chemical-equations/issues/125
+    assert && assert( options.showTitleWhenExpanded === false && options.titleAlignX === 'center',
+      'computation of contentWidth is dependent on specific option values' );
+    var contentWidth = options.boxWidth - options.buttonLength - options.buttonXMargin;
 
-    // collapsed box shows the title
-    var collapsedBoxNode = new Rectangle( 0, 0, options.boxWidth, options.buttonLength + 2 * options.yMargin, {
-      fill: options.fill,
-      lineWidth: options.lineWidth,
-      stroke: options.stroke
-    } );
-    collapsedBoxNode.addChild( new Text( options.title, {
-      font: new PhetFont( { size: 18, weight: 'bold' } ),
-      center: collapsedBoxNode.center,
-      maxWidth: 0.75 * options.boxWidth  // constrain width for i18n
-    } ) );
+    // constant-sized rectangle
+    var contentNode = new Rectangle( 0, 0, contentWidth, options.boxHeight, {
 
-    // expand/collapse button
-    var expandCollapseButton = new ExpandCollapseButton( expandedProperty, {
-      sideLength: options.buttonLength,
-      right: expandedBoxNode.right - options.xMargin,
-      top:   expandedBoxNode.top + options.yMargin
-    } );
-    expandCollapseButton.mouseArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 10, 10 ) );
-    expandCollapseButton.touchArea = Shape.bounds( expandCollapseButton.localBounds.dilatedXY( 20, 20 ) );
-
-    // expand/collapse the box
-    expandedProperty.link( function( expanded ) {
-      expandedBoxNode.visible = expanded;
-      collapsedBoxNode.visible = !expanded;
+      // With ?dev query parameter, put a red stroke around the content, for debugging layout of #125
+      stroke: phet.chipper.queryParameters.dev ? 'red' : null
     } );
 
-    options.children = [ collapsedBoxNode, expandedBoxNode, expandCollapseButton ];
-    Node.call( this, options );
+    // @private parent for all molecule nodes
+    this.moleculesParent = new Node();
+    contentNode.addChild( this.moleculesParent );
+
+    AccordionBox.call( this, contentNode, options );
 
     // update visible molecules to match the coefficients
     var coefficientsObserver = function() {
@@ -104,7 +112,7 @@ define( function( require ) {
 
   balancingChemicalEquations.register( 'BoxNode', BoxNode );
 
-  return inherit( Node, BoxNode, {
+  return inherit( AccordionBox, BoxNode, {
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
 

@@ -128,7 +128,7 @@ define( function( require ) {
         // add a bar node
         var barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
         parentNode.addChild( barNode );
-        barCenterX = barNode.centerX + 90;
+        barCenterX = barNode.centerX + 100;
       }
 
       parentNode.centerX = centerX;

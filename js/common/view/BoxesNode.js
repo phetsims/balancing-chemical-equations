@@ -33,17 +33,17 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function BoxesNode( equationProperty, coefficientsRange, aligner, boxSize, boxColor, reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
+  function BoxesNode( equationProperty, coefficientsRange, aligner, boxSize, boxColor,
+                      reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
 
     // reactants box, on the left
     var reactantsBoxNode = new BoxNode( equationProperty,
       function( equation ) { return equation.reactants; },
       function( equation ) { return aligner.getReactantXOffsets( equation ); },
       coefficientsRange,
-      reactantsBoxExpandedProperty,
-      {
+      reactantsString, {
+        expandedProperty: reactantsBoxExpandedProperty,
         fill: boxColor,
-        title: reactantsString,
         boxWidth: boxSize.width,
         boxHeight: boxSize.height,
         x: aligner.getReactantsBoxLeft(),
@@ -55,10 +55,9 @@ define( function( require ) {
       function( equation ) { return equation.products; },
       function( equation ) { return aligner.getProductXOffsets( equation ); },
       coefficientsRange,
-      productsBoxExpandedProperty,
-      {
+      productsString, {
+        expandedProperty: productsBoxExpandedProperty,
         fill: boxColor,
-        title: productsString,
         boxWidth: boxSize.width,
         boxHeight: boxSize.height,
         x: aligner.getProductsBoxLeft(),
