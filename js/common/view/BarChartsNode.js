@@ -42,7 +42,11 @@ define( function( require ) {
 
     this.reactantBarsParent = new Node(); // @private
     this.productBarsParent = new Node(); // @private
-    var equalityOperatorNode = new EqualityOperatorNode( equationProperty, { center: new Vector2( aligner.getScreenCenterX(), -40 ) } ); // @private
+
+    // @private
+    var equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
+      center: new Vector2( aligner.getScreenCenterX(), -40 )
+    } );
 
     options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
     Node.call( this );
