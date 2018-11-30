@@ -85,8 +85,10 @@ define( function( require ) {
     updateNode: function() {
       if ( this.visible ) {
         var atomCounts = this.equationProperty.get().getAtomCounts();
-        this.reactantCountProperties = this.updateBars( this.reactantBarsParent, atomCounts, function( atomCount ) { return atomCount.reactantsCount; }, this.aligner.getReactantsBoxCenterX() );
-        this.productCountProperties = this.updateBars( this.productBarsParent, atomCounts, function( atomCount ) { return atomCount.productsCount; }, this.aligner.getProductsBoxCenterX() );
+        this.reactantCountProperties = this.updateBars( this.reactantBarsParent, atomCounts,
+          function( atomCount ) { return atomCount.reactantsCount; }, this.aligner.getReactantsBoxCenterX() );
+        this.productCountProperties = this.updateBars( this.productBarsParent, atomCounts,
+          function( atomCount ) { return atomCount.productsCount; }, this.aligner.getProductsBoxCenterX() );
         this.updateCounts();
       }
     },
