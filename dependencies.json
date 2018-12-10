@@ -1,103 +1,103 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.0-rc.0 Mon Dec 10 2018 14:12:28 GMT-0700 (MST)",
+  "comment": "# balancing-chemical-equations 1.2.0-rc.1 Mon Dec 10 2018 14:18:58 GMT-0700 (MST)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
     "sha": "73e761ec58a4890a17a5b7fd3d02be0ed32e217c",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "0ac20c5fa490855d7a8f75671368ad76a4fce6e2",
+    "sha": "9e0cd1ebc1afd02448ac813ad113a659993880d2",
     "branch": "1.2"
   },
   "brand": {
     "sha": "1fd6682e452ae55e0bd27b95376fd2c626b16d6e",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "d1c4844e598fae6c9429b2bab0f677ecfd911a51",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "266d3b7a2e9131071db77afa45da8440f1e82e9b",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "joist": {
     "sha": "5a013a4623d6006cbf83d58aeb2ce1a89982fc65",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "f3e96e5be87a05857884be53454161de1600d65d",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "nitroglycerin": {
     "sha": "ccaab9cd4d647ed55e03a813b801af4f05ad94df",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "422275fd139cd82dfcbd1e4a3e3eb1465498a859",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io": {
     "sha": "a267fdb1d385979e37ebd8e6b3d843a00e8e7d6a",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrapper-classroom-activity": {
     "sha": "5dea7f543b7410dd2e9de02e602ab9f2fe897706",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrapper-hookes-law-energy": {
     "sha": "b42eaef724b2c898d7d9d75ec3844158c947d963",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrapper-lab-book": {
     "sha": "b884e9c15b63b2a6094522a649f93e3fdad0928d",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrappers": {
     "sha": "29569397cc3804cff32013dbb47a1b77fbd8b8d9",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "869b25613e25f39455d71bc321b581502c4658df",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "query-string-machine": {
     "sha": "e4f9e8e82de2f73f3009ef628f023616806d7467",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "80afaf2f0217dda06bb223716b5ca7612d0d1f91",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "3bcbf3573c1f8568ff543c256375501171dcd90a",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "2134a0d14822df87c4f4e4ec6dc19acb23ff1de3",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "d8dfa60b10fbe288b27c579f1a911a80b2ca8836",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "tambo": {
     "sha": "ee53ff03181cb023f96be339d414b45e3c893ebd",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "tandem": {
     "sha": "c7a56e2e760ab2e8cba1f515916b08fdb69e35e8",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "vegas": {
     "sha": "9b35cba0f7b13214462c7130e0378c53da9a69bd",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "vibe": {
     "sha": "474ae7648c9d36400907c59236ddb04dac8cc1bc",
-    "branch": "master"
+    "branch": "HEAD"
   }
 }
