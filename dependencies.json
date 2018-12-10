@@ -1,23 +1,23 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.0-dev.4 Thu Nov 29 2018 19:00:05 GMT-0700 (MST)",
+  "comment": "# balancing-chemical-equations 1.2.0-rc.0 Mon Dec 10 2018 14:12:28 GMT-0700 (MST)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
   },
   "axon": {
-    "sha": "61dd41f7a4db8c9f7e831bf7c2af624c8fc1c17a",
+    "sha": "73e761ec58a4890a17a5b7fd3d02be0ed32e217c",
     "branch": "master"
   },
   "balancing-chemical-equations": {
-    "sha": "738bb2c85b998d40e410e9604b15e09ad2b832fc",
-    "branch": "master"
+    "sha": "0ac20c5fa490855d7a8f75671368ad76a4fce6e2",
+    "branch": "1.2"
   },
   "brand": {
     "sha": "1fd6682e452ae55e0bd27b95376fd2c626b16d6e",
     "branch": "master"
   },
   "chipper": {
-    "sha": "0097c5acd715d88dd12201b2d52690068afa3f0c",
+    "sha": "d1c4844e598fae6c9429b2bab0f677ecfd911a51",
     "branch": "master"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "ae7668f7857d54617a7515551f9aeecb491bae45",
+    "sha": "5a013a4623d6006cbf83d58aeb2ce1a89982fc65",
     "branch": "master"
   },
   "kite": {
@@ -37,11 +37,11 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "2e54db083eb309bcb4b7cec0bd650c53a19156df",
+    "sha": "422275fd139cd82dfcbd1e4a3e3eb1465498a859",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "87ee0b5532f980bb3dd4a205bcb6b755b4d7c0ce",
+    "sha": "a267fdb1d385979e37ebd8e6b3d843a00e8e7d6a",
     "branch": "master"
   },
   "phet-io-wrapper-classroom-activity": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "f37a37e33782fa078aa984c0cd1a4de4730593e5",
+    "sha": "29569397cc3804cff32013dbb47a1b77fbd8b8d9",
     "branch": "master"
   },
   "phetcommon": {
@@ -65,15 +65,15 @@
     "branch": "master"
   },
   "query-string-machine": {
-    "sha": "c4d4a81e62cde792bd872f1a5b55813fe2a9c3fc",
+    "sha": "e4f9e8e82de2f73f3009ef628f023616806d7467",
     "branch": "master"
   },
   "scenery": {
-    "sha": "4618d52aa951a2966d5ac95a4223d296c19b1e29",
+    "sha": "80afaf2f0217dda06bb223716b5ca7612d0d1f91",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "e5fa975a29cf7f9f01db34472eea36961b1c5c1d",
+    "sha": "3bcbf3573c1f8568ff543c256375501171dcd90a",
     "branch": "master"
   },
   "sherpa": {
@@ -81,15 +81,15 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "31b65ddaeb9cfe49c99968c79952b6ce42ef1f97",
+    "sha": "d8dfa60b10fbe288b27c579f1a911a80b2ca8836",
     "branch": "master"
   },
   "tambo": {
-    "sha": "9b56e6cdfeeaa32dc56f0e3ea6819a2cc59f6615",
+    "sha": "ee53ff03181cb023f96be339d414b45e3c893ebd",
     "branch": "master"
   },
   "tandem": {
-    "sha": "4eac40d9be35b99be6cd37160cc70a0a6e6c5459",
+    "sha": "c7a56e2e760ab2e8cba1f515916b08fdb69e35e8",
     "branch": "master"
   },
   "vegas": {
