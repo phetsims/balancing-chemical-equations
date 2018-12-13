@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Game feedback dialog. Presents different information based on whether the equation
@@ -14,8 +14,8 @@ define( function( require ) {
   var BalanceScalesNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScalesNode' );
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var BarChartsNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarChartsNode' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var FaceNode = require( 'SCENERY_PHET/FaceNode' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -137,6 +137,7 @@ define( function( require ) {
 
     var content;
     if ( equation.balancedAndSimplified ) {
+
       // balanced and simplified
       content = new VBox( {
         children: [
@@ -144,7 +145,7 @@ define( function( require ) {
           faceNode,
           // check mark + 'balanced'
           new HBox( {
-            children: [ BCEConstants.CORRECT_ICON, new Text( balancedString, textOptions ) ],
+            children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
           // points awarded
@@ -158,20 +159,27 @@ define( function( require ) {
       } );
     }
     else if ( equation.balancedProperty.get() ) {
+
       // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
       content = new VBox( {
         children: [
           // happy face
           faceNode,
-          // check mark + 'balanced'
-          new HBox( {
-            children: [ BCEConstants.CORRECT_ICON, new Text( balancedString, textOptions ) ],
-            spacing: options.hBoxSpacing
-          } ),
-          // red X + 'not simplified'
-          new HBox( {
-            children: [ BCEConstants.INCORRECT_ICON, new Text( notSimplifiedString, textOptions ) ],
-            spacing: options.hBoxSpacing
+          new VBox( {
+            align: 'left',
+            spacing: 3,
+            children: [
+              // check mark + 'balanced'
+              new HBox( {
+                children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
+                spacing: options.hBoxSpacing
+              } ),
+              // red X + 'not simplified'
+              new HBox( {
+                children: [ createIncorrectIcon(), new Text( notSimplifiedString, textOptions ) ],
+                spacing: options.hBoxSpacing
+              } )
+            ]
           } ),
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
@@ -182,8 +190,8 @@ define( function( require ) {
       } );
     }
     else {
-      // not balanced
 
+      // not balanced
       var saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
       var balancedRepresentationNode = null; // create on demand
 
@@ -227,10 +235,7 @@ define( function( require ) {
           faceNode,
           // red X + 'not balanced'
           new HBox( {
-            children: [
-              BCEConstants.INCORRECT_ICON,
-              new Text( notBalancedString, textOptions )
-            ],
+            children: [ createIncorrectIcon(), new Text( notBalancedString, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
           // space
@@ -263,6 +268,22 @@ define( function( require ) {
   }
 
   balancingChemicalEquations.register( 'GameFeedbackDialog', GameFeedbackDialog );
+
+  /**
+   * Creates the icon for a correct answer, a green check mark.
+   * @returns {Node}
+   */
+  function createCorrectIcon() {
+    return new FontAwesomeNode( 'check', { fill: 'rgb( 0, 180, 0 )' } );
+  }
+
+  /**
+   * Creates the icon for an incorrect answer, a red 'X'.
+   * @returns {Node}
+   */
+  function createIncorrectIcon() {
+    return new FontAwesomeNode( 'times', { fill: 'rgb(252,104,0)' } );
+  }
 
   return inherit( Panel, GameFeedbackDialog );
 } );
