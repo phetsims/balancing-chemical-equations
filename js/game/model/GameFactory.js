@@ -304,7 +304,7 @@ define( function( require ) {
      * Creates a set of equations to be used in the game.
      * If 'playAll' query parameter is defined, return all equations for the level.
      * @param level
-     * @return [Equation]
+     * @returns {Equation}
      */
     createEquations: function( level ) {
 
