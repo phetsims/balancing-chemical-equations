@@ -49,12 +49,12 @@ define( function( require ) {
     options.labelNode = new Text( toolsString, {
       font: FONT,
       fontWeight: 'bold',
-      maxWidth: 200
+      maxWidth: 100
     } );
 
     var items = [
       // 'None'
-      ComboBox.createItem( new Text( noneString, { font: FONT, maxWidth: 200 } ), BalancedRepresentation.NONE ),
+      ComboBox.createItem( new Text( noneString, { font: FONT, maxWidth: 100 } ), BalancedRepresentation.NONE ),
       // scales
       ComboBox.createItem( new Image( scalesImage, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
       // bar charts
