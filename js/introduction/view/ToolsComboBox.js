@@ -39,9 +39,9 @@ define( function( require ) {
   function ToolsComboBox( balanceRepresentationProperty, parentNode, options ) {
 
     options = _.extend( {
-      cornerRadius: 0,
       xMargin: 12,
       yMargin: 12,
+      cornerRadius: 4,
       arrowHeight: 13,
       maxWidth: 600
     }, options );
