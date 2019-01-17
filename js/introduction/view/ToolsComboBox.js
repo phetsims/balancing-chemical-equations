@@ -13,6 +13,7 @@ define( function( require ) {
   var BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
   var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -39,8 +40,8 @@ define( function( require ) {
 
     options = _.extend( {
       cornerRadius: 0,
-      xMargin: 13,
-      yMargin: 4,
+      xMargin: 12,
+      yMargin: 12,
       arrowHeight: 13,
       maxWidth: 600
     }, options );
@@ -54,11 +55,11 @@ define( function( require ) {
 
     var items = [
       // 'None'
-      ComboBox.createItem( new Text( noneString, { font: FONT, maxWidth: 100 } ), BalancedRepresentation.NONE ),
+      new ComboBoxItem( new Text( noneString, { font: FONT, maxWidth: 100 } ), BalancedRepresentation.NONE ),
       // scales
-      ComboBox.createItem( new Image( scalesImage, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
+      new ComboBoxItem( new Image( scalesImage, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
       // bar charts
-      ComboBox.createItem( new Image( chartsImage, { scale: 0.375 } ), BalancedRepresentation.BAR_CHARTS )
+      new ComboBoxItem( new Image( chartsImage, { scale: 0.375 } ), BalancedRepresentation.BAR_CHARTS )
     ];
 
     ComboBox.call( this, items, balanceRepresentationProperty, parentNode, options );
