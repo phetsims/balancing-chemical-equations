@@ -46,22 +46,23 @@ define( function( require ) {
       lineWidth: 1,
       cornerRadius: 0,
       buttonAlign: 'right',
-      buttonLength: 15,
       buttonXMargin: 5,
       buttonYMargin: 5,
       showTitleWhenExpanded: false,
       titleXMargin: 0,
       titleXSpacing: 0,
-      buttonTouchAreaXDilation: 20,
-      buttonTouchAreaYDilation: 20,
-      buttonMouseAreaXDilation: 10,
-      buttonMouseAreaYDilation: 10,
       contentXMargin: 0,
       contentYMargin: 0,
       contentXSpacing: 0,
       contentYSpacing: 0,
-      contentAlign: 'left'
-
+      contentAlign: 'left',
+      expandCollapseButtonOptions: {
+        sideLength: 15,
+        touchAreaXDilation: 20,
+        touchAreaYDilation: 20,
+        mouseAreaXDilation: 10,
+        mouseAreaYDilation: 10
+      }
     }, options );
 
     assert && assert( !options.titleNode, 'BoxNode sets titleNode' );
@@ -78,7 +79,7 @@ define( function( require ) {
     // See https://github.com/phetsims/balancing-chemical-equations/issues/125
     assert && assert( options.showTitleWhenExpanded === false && options.titleAlignX === 'center',
       'computation of contentWidth is dependent on specific option values' );
-    var contentWidth = options.boxWidth - options.buttonLength - options.buttonXMargin;
+    var contentWidth = options.boxWidth - options.expandCollapseButtonOptions.sideLength - options.buttonXMargin;
 
     // constant-sized rectangle
     var contentNode = new Rectangle( 0, 0, contentWidth, options.boxHeight, {
