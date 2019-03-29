@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.1-rc.1 Thu Mar 28 2019 13:46:05 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# balancing-chemical-equations 1.2.1-rc.1 Thu Mar 28 2019 22:40:58 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -9,16 +9,16 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "9039d2af2eb01cb94b74c52f03ccb9f89fe36b8d",
+    "sha": "04d6b2cad316c167853d468d604845ef33ec1c79",
     "branch": "1.2"
   },
   "brand": {
-    "sha": "d62aa1404354b4ad61fc9ce514c00ec076122131",
-    "branch": "HEAD"
+    "sha": "3f351ed1f322f73b80a447177fd08971687d4ab4",
+    "branch": "balancing-chemical-equations-1.2"
   },
   "chipper": {
     "sha": "da1f15087a2ddb96b01d9a47a3f633f8cd60edd1",
-    "branch": "balancing-chemical-equations-1.2"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "266d3b7a2e9131071db77afa45da8440f1e82e9b",
