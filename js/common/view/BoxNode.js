@@ -49,6 +49,7 @@ define( function( require ) {
       buttonXMargin: 5,
       buttonYMargin: 5,
       showTitleWhenExpanded: false,
+      titleBarExpandCollapse: false,
       titleXMargin: 0,
       titleXSpacing: 0,
       contentXMargin: 0,
