@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.2 Wed Apr 24 2019 14:23:57 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# balancing-chemical-equations 1.2.2 Fri May 24 2019 14:23:58 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "20c3a8ed4a13418cc33e7801d574a6398ca1a4f0",
+    "sha": "149bc79158d35d86a3350b14c37fca1e531a2a13",
     "branch": "1.2"
   },
   "brand": {
@@ -17,8 +17,8 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "b9f1a54a647376a601eb4749a075014a5ba39944",
-    "branch": "HEAD"
+    "sha": "3c20eef3ee94e44a719d360e8225f12da4eb315d",
+    "branch": "balancing-chemical-equations-1.2"
   },
   "dot": {
     "sha": "266d3b7a2e9131071db77afa45da8440f1e82e9b",
@@ -42,18 +42,6 @@
   },
   "phet-io": {
     "sha": "a267fdb1d385979e37ebd8e6b3d843a00e8e7d6a",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-classroom-activity": {
-    "sha": "5dea7f543b7410dd2e9de02e602ab9f2fe897706",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-hookes-law-energy": {
-    "sha": "b42eaef724b2c898d7d9d75ec3844158c947d963",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-lab-book": {
-    "sha": "b884e9c15b63b2a6094522a649f93e3fdad0928d",
     "branch": "HEAD"
   },
   "phet-io-wrappers": {
