@@ -13,7 +13,7 @@ define( function( require ) {
   var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   var BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   var BCERewardNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/BCERewardNode' );
-  var GameAudioPlayerOld = require( 'VEGAS/GameAudioPlayerOld' );
+  var GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   var GamePlayNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GamePlayNode' );
   var GameViewProperties = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameViewProperties' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -35,7 +35,7 @@ define( function( require ) {
     this.viewProperties = new GameViewProperties();
 
     this.model = model; // @public
-    this.audioPlayer = new GameAudioPlayerOld( this.viewProperties.soundEnabledProperty ); // @public
+    this.audioPlayer = new GameAudioPlayer(); // @public
 
     // @private Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();

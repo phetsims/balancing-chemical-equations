@@ -19,7 +19,6 @@ define( function( require ) {
   function GameViewProperties() {
 
     // @public
-    this.soundEnabledProperty = new BooleanProperty( true );
     this.timerEnabledProperty = new BooleanProperty( false );
     this.reactantsBoxExpandedProperty = new BooleanProperty( true );
     this.productsBoxExpandedProperty = new BooleanProperty( true );
@@ -31,7 +30,6 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      this.soundEnabledProperty.reset();
       this.timerEnabledProperty.reset();
       this.reactantsBoxExpandedProperty.reset();
       this.productsBoxExpandedProperty.reset();

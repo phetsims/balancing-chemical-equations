@@ -1,7 +1,7 @@
 // Copyright 2014-2018, University of Colorado Boulder
 
 /**
- * Controls for selecting a level and adjusting various game settings (sound, timer, ...)
+ * Controls for selecting a level and adjusting various game settings, such as whether the timer is enabled
  *
  * @author Vasily Shakhov (mlearner.com)
  */
@@ -19,7 +19,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScoreDisplayStars = require( 'VEGAS/ScoreDisplayStars' );
-  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TimerToggleButton = require( 'SCENERY_PHET/buttons/TimerToggleButton' );
@@ -73,16 +72,11 @@ define( function( require ) {
     } );
     this.addChild( title );
 
-    // Timer and Sound controls, lower left
+    // timer control, lower left
     var toggleOptions = { stroke: 'black', cornerRadius: 10 };
-    var soundToggleButton = new SoundToggleButton( viewProperties.soundEnabledProperty, _.extend( toggleOptions, {
-      x: BUTTON_MARGIN,
-      bottom: layoutBounds.bottom - BUTTON_MARGIN
-    } ) );
-    this.addChild( soundToggleButton );
     var timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, _.extend( toggleOptions, {
       x: BUTTON_MARGIN,
-      bottom: soundToggleButton.top - BUTTON_MARGIN / 2
+      bottom: layoutBounds.bottom - BUTTON_MARGIN
     } ) );
     this.addChild( timerToggleButton );
 
