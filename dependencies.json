@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.5 Mon Aug 05 2019 14:34:22 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# balancing-chemical-equations 1.2.5 Mon Aug 19 2019 12:39:31 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "6ef637bd80e80ce91a6e6775b31d959e48e09f08",
+    "sha": "3017c21da0b22ee5b4b071c47d8448e0d276fc3f",
     "branch": "1.2"
   },
   "brand": {
@@ -25,8 +25,8 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "e69bcb23541540bc354f16cfe6101833157ed2d3",
-    "branch": "HEAD"
+    "sha": "02b2c743a01b389caa21411d1ce22dc6f6c85d3d",
+    "branch": "balancing-chemical-equations-1.2"
   },
   "kite": {
     "sha": "f3e96e5be87a05857884be53454161de1600d65d",
@@ -61,12 +61,12 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "80afaf2f0217dda06bb223716b5ca7612d0d1f91",
-    "branch": "HEAD"
+    "sha": "823671fb378c2d3809eecd6e863981cbb5fcb097",
+    "branch": "balancing-chemical-equations-1.2"
   },
   "scenery-phet": {
-    "sha": "3bcbf3573c1f8568ff543c256375501171dcd90a",
-    "branch": "HEAD"
+    "sha": "7d4100874e8013776230079bd5185c245dd16423",
+    "branch": "balancing-chemical-equations-1.2"
   },
   "sherpa": {
     "sha": "2134a0d14822df87c4f4e4ec6dc19acb23ff1de3",
