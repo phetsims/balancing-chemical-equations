@@ -25,7 +25,7 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // images, ordered by level
-  var levelImagesConstructors = [
+  const levelImagesConstructors = [
     MoleculeFactory.HCl().nodeConstructor,
     MoleculeFactory.H2O().nodeConstructor,
     MoleculeFactory.NH3().nodeConstructor
@@ -36,7 +36,7 @@ define( require => {
   const pattern0LevelString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/pattern_0level' );
 
   // constants
-  var BUTTON_MARGIN = 20;
+  const BUTTON_MARGIN = 20;
 
   /**
    * @param {GameModel} model
@@ -51,11 +51,11 @@ define( require => {
     Node.call( this );
 
     // buttons
-    var buttons = [];
-    for ( var level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
+    const buttons = [];
+    for ( let level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
       buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty, startGame ) );
     }
-    var buttonsParent = new HBox( {
+    const buttonsParent = new HBox( {
       children: buttons,
       spacing: 50,
       resize: false,
@@ -64,7 +64,7 @@ define( require => {
     this.addChild( buttonsParent );
 
     // title
-    var title = new Text( chooseYourLevelString, {
+    const title = new Text( chooseYourLevelString, {
       font: new PhetFont( 36 ),
       centerX: layoutBounds.centerX,
       centerY: buttonsParent.top / 2,
@@ -73,15 +73,15 @@ define( require => {
     this.addChild( title );
 
     // timer control, lower left
-    var toggleOptions = { stroke: 'black', cornerRadius: 10 };
-    var timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, _.extend( toggleOptions, {
+    const toggleOptions = { stroke: 'black', cornerRadius: 10 };
+    const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, _.extend( toggleOptions, {
       x: BUTTON_MARGIN,
       bottom: layoutBounds.bottom - BUTTON_MARGIN
     } ) );
     this.addChild( timerToggleButton );
 
     // Reset All button, lower right
-    var resetButton = new ResetAllButton( {
+    const resetButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         viewProperties.reset();
@@ -108,12 +108,12 @@ define( require => {
   var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty, startGame ) {
 
     // 'Level N' centered above icon
-    var image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
-    var label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), {
+    const image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+    const label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), {
       font: new PhetFont( { size: 14, weight: 'bold' } ),
       maxWidth: image.width
     } );
-    var icon = new VBox( { children: [ label, image ], spacing: 10 } );
+    const icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
     return new LevelSelectionButton( icon, model.bestScoreProperties[ level ], {
       baseColor: '#d9ebff',

@@ -55,12 +55,12 @@ define( require => {
   const SO3Node = require( 'NITROGLYCERIN/nodes/SO3Node' );
 
   // constants
-  var NUMBER_OF_NODES = 150;
-  var ATOM_OPTIONS = BCEConstants.ATOM_OPTIONS;
-  var MOLECULE_OPTIONS = { atomOptions: BCEConstants.ATOM_OPTIONS };
+  const NUMBER_OF_NODES = 150;
+  const ATOM_OPTIONS = BCEConstants.ATOM_OPTIONS;
+  const MOLECULE_OPTIONS = { atomOptions: BCEConstants.ATOM_OPTIONS };
 
   // nodes used in reward, indexed by game level
-  var NODES = [
+  const NODES = [
 
     // level 1: atoms
     [

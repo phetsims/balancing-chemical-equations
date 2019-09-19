@@ -40,12 +40,12 @@ define( require => {
    * @param alignment alignment for single term, 'left' or 'right'
    * @returns [{number}] x offset for each term
    */
-  var getXOffsets = function( terms, boxWidth, boxLeft, alignment ) {
+  const getXOffsets = function( terms, boxWidth, boxLeft, alignment ) {
 
     assert && assert( alignment === 'left' || alignment === 'right' );
 
-    var numberOfTerms = terms.length;
-    var xOffsets = [];
+    const numberOfTerms = terms.length;
+    const xOffsets = [];
     if ( numberOfTerms === 1 ) {
       /*
        * In the special case of 1 term, the box is divided into 2 columns,
@@ -63,9 +63,9 @@ define( require => {
        * In the general case of N terms, the box is divided into N columns,
        * and one term is centered in each column.
        */
-      var columnWidth = boxWidth / numberOfTerms;
-      var x = boxLeft + columnWidth / 2;
-      for ( var i = 0; i < numberOfTerms; i++ ) {
+      const columnWidth = boxWidth / numberOfTerms;
+      let x = boxLeft + columnWidth / 2;
+      for ( let i = 0; i < numberOfTerms; i++ ) {
         xOffsets[ i ] = x;
         x += columnWidth;
       }
@@ -82,7 +82,7 @@ define( require => {
      * @public
      */
     getReactantXOffsets: function( equation ) {
-      var boxLeft = this.screenWidth / 2 - this.boxWidth - this.boxXSpacing / 2;
+      const boxLeft = this.screenWidth / 2 - this.boxWidth - this.boxXSpacing / 2;
       return getXOffsets( equation.reactants, this.boxWidth, boxLeft, 'right' );
     },
 
@@ -93,7 +93,7 @@ define( require => {
      * @public
      */
     getProductXOffsets: function( equation ) {
-      var boxLeft = this.screenWidth / 2 + this.boxXSpacing / 2;
+      const boxLeft = this.screenWidth / 2 + this.boxXSpacing / 2;
       return getXOffsets( equation.products, this.boxWidth, boxLeft, 'left' );
     },
 

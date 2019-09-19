@@ -34,9 +34,9 @@ define( require => {
   /**
    * @constructor
    */
-  var IntroductionScreen = function() {
+  const IntroductionScreen = function() {
 
-    var options = {
+    const options = {
       name: screenIntroductionString,
       backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
@@ -54,42 +54,42 @@ define( require => {
   var createScreenIcon = function() {
 
     // background rectangle
-    var width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+    const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
+    const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
     // equation: X + Y -> XY
-    var textOptions = { font: new PhetFont( { size: 24, weight: 'bold' } ) };
-    var xPlusYText = new Text( 'X + Y', textOptions );
-    var xyText = new Text( 'XY', textOptions );
-    var arrowLength = 25;
-    var arrowNode = new ArrowNode( 0, 0, arrowLength, 0, { stroke: null, headWidth: 15 } );
-    var equationNode = new Node( { children: [ xPlusYText, arrowNode, xyText ] } );
-    var equationXSpacing = 5;
+    const textOptions = { font: new PhetFont( { size: 24, weight: 'bold' } ) };
+    const xPlusYText = new Text( 'X + Y', textOptions );
+    const xyText = new Text( 'XY', textOptions );
+    const arrowLength = 25;
+    const arrowNode = new ArrowNode( 0, 0, arrowLength, 0, { stroke: null, headWidth: 15 } );
+    const equationNode = new Node( { children: [ xPlusYText, arrowNode, xyText ] } );
+    const equationXSpacing = 5;
     arrowNode.left = xPlusYText.right + equationXSpacing;
     arrowNode.centerY = xPlusYText.centerY;
     xyText.left = arrowNode.right + equationXSpacing;
 
     // balance beam, in horizontal (balanced) orientation
-    var beamNode = new Rectangle( 0, 0, equationNode.width, 10, { fill: 'yellow', stroke: 'black', lineWidth: 0.25 } );
+    const beamNode = new Rectangle( 0, 0, equationNode.width, 10, { fill: 'yellow', stroke: 'black', lineWidth: 0.25 } );
     beamNode.left = equationNode.left;
     beamNode.top = equationNode.bottom + 25;
 
     // fulcrum, centered below balance beam
-    var fulcrumWidth = 0.25 * beamNode.width;
-    var fulcrumHeight = 20;
-    var fulcrumFill = new LinearGradient( 0, 0, 0, fulcrumHeight ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' );
-    var fulcrumNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( fulcrumWidth / 2, fulcrumHeight ).lineTo( -fulcrumWidth / 2, fulcrumHeight ).close(),
+    const fulcrumWidth = 0.25 * beamNode.width;
+    const fulcrumHeight = 20;
+    const fulcrumFill = new LinearGradient( 0, 0, 0, fulcrumHeight ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' );
+    const fulcrumNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( fulcrumWidth / 2, fulcrumHeight ).lineTo( -fulcrumWidth / 2, fulcrumHeight ).close(),
       { fill: fulcrumFill, stroke: 'black', lineWidth: 0.25 } );
     fulcrumNode.centerX = beamNode.centerX;
     fulcrumNode.top = beamNode.bottom;
 
     // atoms, left to right (this is brute force, but is unlikely to change)
-    var atomsXMargin = 10;
-    var atom1 = new AtomNode( Element.O );
-    var atom2 = new AtomNode( Element.O );
-    var atom3 = new AtomNode( Element.O );
-    var atom4 = new AtomNode( Element.O );
+    const atomsXMargin = 10;
+    const atom1 = new AtomNode( Element.O );
+    const atom2 = new AtomNode( Element.O );
+    const atom3 = new AtomNode( Element.O );
+    const atom4 = new AtomNode( Element.O );
     // all atoms are on top of the beam
     atom1.bottom = atom2.bottom = atom3.bottom = atom4.bottom = beamNode.top;
     // atoms on the left of the beam
@@ -100,7 +100,7 @@ define( require => {
     atom3.right = atom4.left;
 
     // scale to fit, center in background
-    var contentNode = new Node( { children: [ equationNode, beamNode, fulcrumNode, atom1, atom2, atom3, atom4 ] } );
+    const contentNode = new Node( { children: [ equationNode, beamNode, fulcrumNode, atom1, atom2, atom3, atom4 ] } );
     contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
     contentNode.center = background.center;
 

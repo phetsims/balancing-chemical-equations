@@ -49,7 +49,7 @@ define( require => {
   const SO2Node = require( 'NITROGLYCERIN/nodes/SO2Node' );
   const SO3Node = require( 'NITROGLYCERIN/nodes/SO3Node' );
 
-  var MoleculeFactory = {
+  const MoleculeFactory = {
 
     C: function() {
       return new Molecule( CNode, 'C', [ Element.C ] );

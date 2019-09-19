@@ -30,7 +30,7 @@ define( require => {
    */
   function GameScreen() {
 
-    var options = {
+    const options = {
       name: screenGameString,
       backgroundColorProperty: new Property( BCEConstants.GAME_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
@@ -49,23 +49,23 @@ define( require => {
   var createScreenIcon = function() {
 
     // constants
-    var faceDiameter = 200;
-    var arrowXSpacing = 25;
-    var arrowYSpacing = 10;
+    const faceDiameter = 200;
+    const arrowXSpacing = 25;
+    const arrowYSpacing = 10;
 
     // background rectangle
-    var width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+    const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
+    const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
     // face
-    var faceNode = new FaceNode( faceDiameter, { headStroke: 'black', headLineWidth: 4 } );
+    const faceNode = new FaceNode( faceDiameter, { headStroke: 'black', headLineWidth: 4 } );
 
     // up/down arrows
-    var arrowOptions = { fill: 'black' };
-    var arrowSize = 0.4 * ( faceNode.height - arrowYSpacing );
-    var upArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize / 2, arrowSize ).lineTo( -arrowSize / 2, arrowSize ).close(), arrowOptions );
-    var downArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize / 2, -arrowSize ).lineTo( -arrowSize / 2, -arrowSize ).close(), arrowOptions );
+    const arrowOptions = { fill: 'black' };
+    const arrowSize = 0.4 * ( faceNode.height - arrowYSpacing );
+    const upArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize / 2, arrowSize ).lineTo( -arrowSize / 2, arrowSize ).close(), arrowOptions );
+    const downArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize / 2, -arrowSize ).lineTo( -arrowSize / 2, -arrowSize ).close(), arrowOptions );
 
     // layout, arrows to left of face
     upArrowNode.right = faceNode.left - arrowXSpacing;
@@ -74,7 +74,7 @@ define( require => {
     downArrowNode.top = faceNode.centerY + arrowYSpacing;
 
     // scale to fit, center in background
-    var contentNode = new Node( { children: [ faceNode, upArrowNode, downArrowNode ] } );
+    const contentNode = new Node( { children: [ faceNode, upArrowNode, downArrowNode ] } );
     contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
     contentNode.center = background.center;
     return new Node( { children: [ background, contentNode ] } );

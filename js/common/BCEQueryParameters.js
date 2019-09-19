@@ -11,7 +11,7 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
 
-  var BCEQueryParameters = QueryStringMachine.getAll( {
+  const BCEQueryParameters = QueryStringMachine.getAll( {
 
     // play all challenges for each level of the game, to get 100% test coverage
     playAll: { type: 'flag' },

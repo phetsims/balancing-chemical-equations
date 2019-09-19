@@ -30,8 +30,8 @@ define( require => {
   const nextString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/next' );
 
   // constants
-  var BOX_SIZE = new Dimension2( 285, 340 );
-  var BOX_X_SPACING = 140; // horizontal spacing between boxes
+  const BOX_SIZE = new Dimension2( 285, 340 );
+  const BOX_X_SPACING = 140; // horizontal spacing between boxes
 
   /**
    * @param {GameModel} model
@@ -44,7 +44,7 @@ define( require => {
    */
   function GamePlayNode( model, viewProperties, audioPlayer, layoutBounds, visibleBoundsProperty, options ) {
 
-    var self = this;
+    const self = this;
     this.model = model; // @private
     this.audioPlayer = audioPlayer; // @private
     this.layoutBounds = layoutBounds; // @private
@@ -54,7 +54,7 @@ define( require => {
     Node.call( this );
 
     // status bar
-    var statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
+    const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
       scoreDisplayConstructor: ScoreDisplayLabeledNumber,
 
       // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #127.
@@ -90,7 +90,7 @@ define( require => {
     this.equationNode.centerY = this.layoutBounds.height - (this.layoutBounds.height - this.boxesNode.bottom) / 2;
 
     // buttons: Check, Next
-    var BUTTONS_OPTIONS = {
+    const BUTTONS_OPTIONS = {
       font: new PhetFont( 20 ),
       baseColor: 'yellow',
       centerX: 0,
@@ -111,7 +111,7 @@ define( require => {
     } ) );
 
     // constrain buttons to fit the horizontal space between the boxes
-    var buttonsParent = new Node( {
+    const buttonsParent = new Node( {
       maxWidth: 0.85 * BOX_X_SPACING,
       children: [ this.checkButton, this.nextButton ]
     } );
@@ -123,7 +123,7 @@ define( require => {
     if ( phet.chipper.queryParameters.showAnswers ) {
 
       // display correct coefficient at bottom center of the screen
-      var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
+      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
       this.addChild( answerNode );
       this.model.currentEquationProperty.link( function( equation ) {
         answerNode.text = equation.getCoefficientsString();
@@ -131,7 +131,7 @@ define( require => {
       } );
 
       // skips the current equation
-      var skipButton = new TextPushButton( 'Skip', {
+      const skipButton = new TextPushButton( 'Skip', {
         font: new PhetFont( 10 ),
         baseColor: 'red',
         textFill: 'white',
@@ -144,7 +144,7 @@ define( require => {
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( function( state ) {
-      var states = model.states;
+      const states = model.states;
       if ( state === states.CHECK ) {
         self.initCheck();
       }
@@ -160,7 +160,7 @@ define( require => {
     } );
 
     // Disable 'Check' button when all coefficients are zero.
-    var coefficientsSumObserver = function( coefficientsSum ) {
+    const coefficientsSumObserver = function( coefficientsSum ) {
       self.checkButton.enabled = (coefficientsSum > 0);
     };
     model.currentEquationProperty.link( function( newEquation, oldEquation ) {
@@ -208,7 +208,7 @@ define( require => {
       this.equationNode.setEnabled( false );
       this.checkButton.visible = false;
 
-      var currentEquation = this.model.currentEquationProperty.get();
+      const currentEquation = this.model.currentEquationProperty.get();
       this.nextButton.visible = !currentEquation.balancedAndSimplified; // 'Next' button is in the game feedback dialog
       this.setFeedbackDialogVisible( currentEquation.balancedAndSimplified );
       this.setBalancedHighlightEnabled( true );

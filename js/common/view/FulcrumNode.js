@@ -33,7 +33,7 @@ define( require => {
     }, options );
 
     // triangle, start at tip and move clockwise
-    var triangleNode = new Path( new Shape()
+    const triangleNode = new Path( new Shape()
         .moveTo( 0, 0 )
         .lineTo( fulcrumSize.width / 2, fulcrumSize.height )
         .lineTo( -fulcrumSize.width / 2, fulcrumSize.height )
@@ -42,7 +42,7 @@ define( require => {
     );
 
     // atom symbol, centered in triangle
-    var symbolNode = new Text( element.symbol,
+    const symbolNode = new Text( element.symbol,
       { font: options.font, centerX: triangleNode.centerX, centerY: triangleNode.centerY + 8 }
     );
 

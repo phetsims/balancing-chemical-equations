@@ -30,7 +30,7 @@ define( require => {
     options = _.extend( { fontSize: 32 }, options );
     this.fontSize = options.fontSize; // @private
 
-    var self = this;
+    const self = this;
     Node.call( this );
 
     this.coefficientRange = coefficientRange; // @private
@@ -74,7 +74,7 @@ define( require => {
       this.terms.length = 0;
       this.termsParent.removeAllChildren();
 
-      var equation = this.equationProperty.get();
+      const equation = this.equationProperty.get();
       this.updateSideOfEquation( equation.reactants, this.aligner.getReactantXOffsets( equation ), this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
       this.updateSideOfEquation( equation.products, this.aligner.getProductXOffsets( equation ), this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
     },
@@ -90,10 +90,10 @@ define( require => {
      */
     updateSideOfEquation: function( terms, xOffsets, minX, maxX ) {
 
-      var plusNode;
-      var termNode;
-      var minSeparation = 15;
-      var tempNodes = []; // contains all nodes for position adjustment if needed
+      let plusNode;
+      let termNode;
+      const minSeparation = 15;
+      const tempNodes = []; // contains all nodes for position adjustment if needed
 
       for ( var i = 0; i < terms.length; i++ ) {
         // term
@@ -124,10 +124,10 @@ define( require => {
         }
       }
 
-      var dx;
+      let dx;
       // check if equation fits minX (eg, C2H5OH + 3O2 -> 2CO2 + 3H2O)
       if ( tempNodes[ 0 ].bounds.minX < minX ) { // adjust all terms to the right
-        var rightBound = minX; // current right bound of passed terms, if term.minX<rightBound move term to the right
+        let rightBound = minX; // current right bound of passed terms, if term.minX<rightBound move term to the right
         tempNodes.forEach( function( term ) {
           dx = Math.max( 0, rightBound - term.bounds.minX );
           term.x += dx;
@@ -137,9 +137,9 @@ define( require => {
 
       // check if equation fits maxX (eg, CH3OH -> CO + 2H2)
       if ( tempNodes[ tempNodes.length - 1 ].bounds.maxX > maxX ) { // adjust all terms to the left
-        var leftBound = maxX; // current left bound of passed terms, if term.maxX > leftBound, move term to the left
+        let leftBound = maxX; // current left bound of passed terms, if term.maxX > leftBound, move term to the left
         for ( i = tempNodes[ tempNodes.length - 1 ]; i > -1; i-- ) {
-          var term = tempNodes[ i ];
+          const term = tempNodes[ i ];
           dx = Math.max( 0, term.bounds.maxX - leftBound );
           term.x -= dx;
           leftBound = term.bounds.minX - minSeparation;
@@ -167,7 +167,7 @@ define( require => {
      * @public
      */
     setEnabled: function( enabled ) {
-      for ( var i = 0; i < this.terms.length; i++ ) {
+      for ( let i = 0; i < this.terms.length; i++ ) {
         this.terms[ i ].setEnabled( enabled );
       }
     }

@@ -34,7 +34,7 @@ define( require => {
 
     options = _.extend( {}, options );
 
-    var self = this;
+    const self = this;
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
     this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
@@ -44,7 +44,7 @@ define( require => {
     this.productBarsParent = new Node(); // @private
 
     // @private
-    var equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
+    const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
       center: new Vector2( aligner.getScreenCenterX(), -40 )
     } );
 
@@ -52,7 +52,7 @@ define( require => {
     Node.call( this );
 
     // Wire coefficients observer to current equation.
-    var coefficientsObserver = this.updateCounts.bind( this );
+    const coefficientsObserver = this.updateCounts.bind( this );
     equationProperty.link( function( newEquation, oldEquation ) {
       self.updateNode();
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
@@ -75,7 +75,7 @@ define( require => {
      * @public
      */
     setVisible: function( visible ) {
-      var wasVisible = this.visible;
+      const wasVisible = this.visible;
       Node.prototype.setVisible.call( this, visible );
       if ( !wasVisible && visible ) {
         this.updateNode();
@@ -88,7 +88,7 @@ define( require => {
      */
     updateNode: function() {
       if ( this.visible ) {
-        var atomCounts = this.equationProperty.get().getAtomCounts();
+        const atomCounts = this.equationProperty.get().getAtomCounts();
         this.reactantCountProperties = this.updateBars( this.reactantBarsParent, atomCounts,
           function( atomCount ) { return atomCount.reactantsCount; }, this.aligner.getReactantsBoxCenterX() );
         this.productCountProperties = this.updateBars( this.productBarsParent, atomCounts,
@@ -117,16 +117,16 @@ define( require => {
 
       parentNode.removeAllChildren(); // remove all the bar nodes
 
-      var countProperties = {}; // clear the map
+      const countProperties = {}; // clear the map
 
-      var barCenterX = 0;
-      for ( var i = 0; i < atomCounts.length; i++ ) {
-        var atomCount = atomCounts[ i ];
+      let barCenterX = 0;
+      for ( let i = 0; i < atomCounts.length; i++ ) {
+        const atomCount = atomCounts[ i ];
         // populate the map
-        var countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
+        const countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
         countProperties[ atomCount.element.symbol ] = countProperty;
         // add a bar node
-        var barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
+        const barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
         parentNode.addChild( barNode );
         barCenterX = barNode.centerX + 100;
       }
@@ -142,9 +142,9 @@ define( require => {
      */
     updateCounts: function() {
       if ( this.visible ) {
-        var atomCounts = this.equationProperty.get().getAtomCounts();
-        for ( var i = 0; i < atomCounts.length; i++ ) {
-          var atomCount = atomCounts[ i ];
+        const atomCounts = this.equationProperty.get().getAtomCounts();
+        for ( let i = 0; i < atomCounts.length; i++ ) {
+          const atomCount = atomCounts[ i ];
           this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
           this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
         }

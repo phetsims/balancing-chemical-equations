@@ -25,22 +25,22 @@ define( require => {
    * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
    * This is a map from level to strategy.
    */
-  var BALANCED_REPRESENTATION_STRATEGIES = [
+  const BALANCED_REPRESENTATION_STRATEGIES = [
     function() { return BalancedRepresentation.BALANCE_SCALES; }, //level 1
     function() {  //level 2
       return phet.joist.random.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS;
     },
     function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
   ];
-  var POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
-  var POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
+  const POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
+  const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
   /**
    * @constructor
    */
   function GameModel() {
 
-    var self = this;
+    const self = this;
 
     /*
      * @public
@@ -84,7 +84,7 @@ define( require => {
 
     this.bestTimeProperties = [];// @public {Property.<number>[]} best times in ms, indexed by level
     this.bestScoreProperties = []; // @public {Property.<number>[]} best scores, indexed by level
-    for ( var i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
+    for ( let i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
       this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
       this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
     }
@@ -120,7 +120,7 @@ define( require => {
      */
     startGame: function() {
 
-      var level = this.levelProperty.get();
+      const level = this.levelProperty.get();
 
       // create a set of challenges
       this.equations = GameFactory.createEquations( level );
@@ -185,8 +185,8 @@ define( require => {
 
       this.timer.stop();
 
-      var level = this.levelProperty.get();
-      var points = this.pointsProperty.get();
+      const level = this.levelProperty.get();
+      const points = this.pointsProperty.get();
 
       //check for new best score
       if ( points > this.bestScoreProperties[ level ].get() ) {
@@ -194,7 +194,7 @@ define( require => {
       }
 
       // check for new best time
-      var previousBestTime = this.bestTimeProperties[ level ].get();
+      const previousBestTime = this.bestTimeProperties[ level ].get();
       if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
         this.isNewBestTime = true;
         this.bestTimeProperties[ level ].set( this.timer.elapsedTimeProperty.value );

@@ -30,8 +30,8 @@ define( require => {
   const ToolsComboBox = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/ToolsComboBox' );
 
   // constants
-  var BOX_SIZE = new Dimension2( 285, 145 );
-  var BOX_X_SPACING = 110; // horizontal spacing between boxes
+  const BOX_SIZE = new Dimension2( 285, 145 );
+  const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
   /**
    * @param {IntroductionModel} model
@@ -39,30 +39,30 @@ define( require => {
    */
   function IntroductionScreenView( model ) {
 
-    var self = this;
+    const self = this;
     ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
 
     // view-specific Properties
-    var viewProperties = new IntroductionViewProperties();
+    const viewProperties = new IntroductionViewProperties();
 
     // aligner for equation
-    var aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
+    const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // boxes that show molecules corresponding to the equation coefficients
-    var boxesNode = new BoxesNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner,
+    const boxesNode = new BoxesNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner,
       BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { top: 180 } );
     this.addChild( boxesNode );
 
     // 'Tools' combo box, at upper-right
-    var comboBoxParent = new Node();
+    const comboBoxParent = new Node();
     this.addChild( new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
       { right: this.layoutBounds.right - 45, top: this.layoutBounds.top + 15 } ) );
 
     // smiley face, top center, shown when equation is balanced
-    var faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
+    const faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
     this.addChild( faceNode );
-    var updateFace = function() {
+    const updateFace = function() {
       faceNode.visible = model.equationProperty.get().balancedProperty.get();
     };
     model.equationProperty.link( function( newEquation, oldEquation ) {
@@ -74,7 +74,7 @@ define( require => {
     this.addChild( new EquationNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
-    var equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, { bottom: this.layoutBounds.bottom - 10 } );
+    const equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, { bottom: this.layoutBounds.bottom - 10 } );
     this.addChild( equationChoiceNode );
 
     // Reset All button
@@ -89,10 +89,10 @@ define( require => {
     } ) );
 
     // Show the selected 'balanced' representation, create nodes on demand.
-    var balancedParent = new Node(); // to maintain rendering order for combo box
+    const balancedParent = new Node(); // to maintain rendering order for combo box
     this.addChild( balancedParent );
-    var barChartsNode;
-    var balanceScalesNode;
+    let barChartsNode;
+    let balanceScalesNode;
     viewProperties.balancedRepresentationProperty.link( function( balancedRepresentation ) {
 
       // bar chart
@@ -122,7 +122,7 @@ define( require => {
 
     // show the answer when running in dev mode, bottom center
     if ( phet.chipper.queryParameters.showAnswers ) {
-      var answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
+      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
       this.addChild( answerNode );
       model.equationProperty.link( function( equation ) {
         answerNode.text = equation.getCoefficientsString();

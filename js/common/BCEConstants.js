@@ -13,7 +13,7 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const Bounds2 = require( 'DOT/Bounds2' );
 
-  var BCEConstants = Object.freeze( {
+  const BCEConstants = Object.freeze( {
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 768, 504 ) },
     UNBALANCED_COLOR: 'rgb(46,107,178)',
     BALANCED_HIGHLIGHT_COLOR: 'yellow',

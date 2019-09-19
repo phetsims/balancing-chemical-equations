@@ -35,7 +35,7 @@ define( require => {
       dualFulcrumSpacing: 237 // horizontal spacing when we have 2 scales, see issue #91
     }, options );
 
-    var self = this;
+    const self = this;
 
     this.equationProperty = equationProperty; // @private
     this.aligner = aligner; // @private
@@ -48,7 +48,7 @@ define( require => {
     Node.call( this );
 
     // Wire coefficients observer to current equation.
-    var coefficientsObserver = this.updateCounts.bind( this );
+    const coefficientsObserver = this.updateCounts.bind( this );
     equationProperty.link( function( newEquation, oldEquation ) {
       self.updateNode();
       if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
@@ -71,7 +71,7 @@ define( require => {
      * @public
      */
     setVisible: function( visible ) {
-      var wasVisible = this.visible;
+      const wasVisible = this.visible;
       Node.prototype.setVisible.call( this, visible );
       if ( !wasVisible && visible ) {
         this.updateNode();
@@ -97,21 +97,21 @@ define( require => {
         this.reactantCountProperties = {};
         this.productCountProperties = {};
 
-        var atomCounts = this.equationProperty.get().getAtomCounts(); // [AtomCount]
-        var fulcrumSpacing = ( atomCounts.length === 2 ) ? this.dualFulcrumSpacing : this.fulcrumSpacing;
-        var x = 0;
-        for ( var i = 0; i < atomCounts.length; i++ ) {
+        const atomCounts = this.equationProperty.get().getAtomCounts(); // [AtomCount]
+        const fulcrumSpacing = ( atomCounts.length === 2 ) ? this.dualFulcrumSpacing : this.fulcrumSpacing;
+        let x = 0;
+        for ( let i = 0; i < atomCounts.length; i++ ) {
 
-          var atomCount = atomCounts[ i ];
+          const atomCount = atomCounts[ i ];
 
           // populate the maps
-          var leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
-          var rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
+          const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
+          const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
           this.reactantCountProperties[ atomCount.element.symbol ] = leftCountProperty;
           this.productCountProperties[ atomCount.element.symbol ] = rightCountProperty;
 
           // add a scale node
-          var scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.get().balancedProperty, { x: x } );
+          const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.get().balancedProperty, { x: x } );
           this.addChild( scaleNode );
 
           x += fulcrumSpacing;
@@ -129,9 +129,9 @@ define( require => {
      */
     updateCounts: function() {
       if ( this.visible ) {
-        var atomCounts = this.equationProperty.get().getAtomCounts();
-        for ( var i = 0; i < atomCounts.length; i++ ) {
-          var atomCount = atomCounts[ i ];
+        const atomCounts = this.equationProperty.get().getAtomCounts();
+        for ( let i = 0; i < atomCounts.length; i++ ) {
+          const atomCount = atomCounts[ i ];
           this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
           this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
         }

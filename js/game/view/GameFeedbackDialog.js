@@ -41,12 +41,12 @@ define( require => {
   const tryAgainString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/tryAgain' );
 
   // constants
-  var TEXT_FONT = new PhetFont( 18 );
-  var STATE_BUTTON_FONT = new PhetFont( 20 );
-  var STATE_BUTTON_FILL = 'yellow';
-  var WHY_BUTTON_FONT = new PhetFont( 16 );
-  var WHY_BUTTON_FILL = '#d9d9d9';
-  var ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
+  const TEXT_FONT = new PhetFont( 18 );
+  const STATE_BUTTON_FONT = new PhetFont( 20 );
+  const STATE_BUTTON_FILL = 'yellow';
+  const WHY_BUTTON_FONT = new PhetFont( 16 );
+  const WHY_BUTTON_FILL = '#d9d9d9';
+  const ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
 
   /**
    * Creates a text button that performs a model state change when pressed.
@@ -55,7 +55,7 @@ define( require => {
    * @param {number} maxWidth
    * @returns {TextPushButton}
    */
-  var createStateChangeButton = function( label, modelFunction, maxWidth ) {
+  const createStateChangeButton = function( label, modelFunction, maxWidth ) {
     return new TextPushButton( label, {
       font: STATE_BUTTON_FONT,
       baseColor: STATE_BUTTON_FILL,
@@ -72,8 +72,8 @@ define( require => {
    * @param {number} maxWidth
    * @returns {TextPushButton}
    */
-  var createButtonForState = function( model, maxWidth ) {
-    var button = null;
+  const createButtonForState = function( model, maxWidth ) {
+    let button = null;
     if ( model.stateProperty.get() === model.states.TRY_AGAIN ) {
       button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ), maxWidth );
     }
@@ -90,8 +90,8 @@ define( require => {
    * @param {HorizontalAligner} aligner
    * @returns {Node}
    */
-  var createBalancedRepresentation = function( equation, balancedRepresentation, aligner ) {
-    var balancedRepresentationNode;
+  const createBalancedRepresentation = function( equation, balancedRepresentation, aligner ) {
+    let balancedRepresentationNode;
     if ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
       balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );
     }
@@ -124,18 +124,18 @@ define( require => {
       shadowYOffset: 5
     }, options );
 
-    var self = this;
-    var equation = model.currentEquationProperty.get();
-    var balancedRepresentation = model.balancedRepresentation;
-    var points = model.currentPoints;
-    var maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements
-    var textOptions = { font: TEXT_FONT, maxWidth: maxWidth };
+    const self = this;
+    const equation = model.currentEquationProperty.get();
+    const balancedRepresentation = model.balancedRepresentation;
+    const points = model.currentPoints;
+    const maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements
+    const textOptions = { font: TEXT_FONT, maxWidth: maxWidth };
 
     // happy/sad face
-    var faceNode = new FaceNode( 75 );
+    const faceNode = new FaceNode( 75 );
     if ( !equation.balancedProperty.get() ) { faceNode.frown(); }
 
-    var content;
+    let content;
     if ( equation.balancedAndSimplified ) {
 
       // balanced and simplified
@@ -192,8 +192,8 @@ define( require => {
     else {
 
       // not balanced
-      var saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
-      var balancedRepresentationNode = null; // create on demand
+      let saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
+      let balancedRepresentationNode = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
       var showWhyButton = new TextPushButton( showWhyString, {
@@ -250,14 +250,14 @@ define( require => {
     }
 
     // panel, which will resize dynamically
-    var panel = new Panel( content, options );
+    const panel = new Panel( content, options );
 
     // shadow
-    var shadowNode = new Rectangle( 0, 0, 1, 1, {
+    const shadowNode = new Rectangle( 0, 0, 1, 1, {
       fill: 'rgba(80,80,80,0.12)',
       cornerRadius: options.cornerRadius
     } );
-    var updateShadow = function() {
+    const updateShadow = function() {
       shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height );
     };
     content.on( 'bounds', updateShadow ); // resize shadow when panel changes size

@@ -17,7 +17,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
 
   // constants
-  var ARROW_LENGTH = 70;
+  const ARROW_LENGTH = 70;
 
   /**
    * @param {Property.<Equation>} equationProperty
@@ -38,8 +38,8 @@ define( require => {
     ArrowNode.call( this, 0, 0, ARROW_LENGTH, 0, options );
 
     // Wire observer to current equation.
-    var self = this;
-    var balancedObserver = self.updateHighlight.bind( self );
+    const self = this;
+    const balancedObserver = self.updateHighlight.bind( self );
     equationProperty.link( function( newEquation, oldEquation ) {
       if ( oldEquation ) { oldEquation.balancedProperty.unlink( balancedObserver ); }
       newEquation.balancedProperty.link( balancedObserver );

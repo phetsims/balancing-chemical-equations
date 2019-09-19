@@ -11,7 +11,7 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
 
-  var BalancedRepresentation = Object.freeze( {
+  const BalancedRepresentation = Object.freeze( {
     'NONE': 'NONE',
     'BALANCE_SCALES': 'BALANCE_SCALES',
     'BAR_CHARTS': 'BAR_CHARTS'

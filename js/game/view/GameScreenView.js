@@ -28,7 +28,7 @@ define( require => {
    */
   function GameScreenView( model ) {
 
-    var self = this;
+    const self = this;
     ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
 
     // @public view-specific Properties
@@ -101,8 +101,8 @@ define( require => {
     // @private
     initLevelCompleted: function() {
 
-      var self = this;
-      var level = this.model.levelProperty.get();
+      const self = this;
+      const level = this.model.levelProperty.get();
 
       this.levelSelectionNode.visible = this.gamePlayNode.visible = false;
 
@@ -113,10 +113,10 @@ define( require => {
       }
 
       // bestTime on level, must be null to not show in popup
-      var bestTimeOnThisLevel = this.model.bestTimeProperties[ level ].get() === 0 ? null : this.model.bestTimeProperties[ level ].get();
+      const bestTimeOnThisLevel = this.model.bestTimeProperties[ level ].get() === 0 ? null : this.model.bestTimeProperties[ level ].get();
 
       // Add the dialog node that indicates that the level has been completed.
-      var numberOfEquations = this.model.getNumberOfEquations( level );
+      const numberOfEquations = this.model.getNumberOfEquations( level );
       var levelCompletedNode = new LevelCompletedNode( level + 1, this.model.pointsProperty.get(), this.model.getPerfectScore( level ),
         numberOfEquations, this.viewProperties.timerEnabledProperty.value,
         this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,

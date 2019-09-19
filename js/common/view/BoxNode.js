@@ -31,7 +31,7 @@ define( require => {
    */
   function BoxNode( equationProperty, getTerms, getXOffsets, coefficientRange, titleString, options ) {
 
-    var self = this;
+    const self = this;
 
     options = _.extend( {
 
@@ -80,10 +80,10 @@ define( require => {
     // See https://github.com/phetsims/balancing-chemical-equations/issues/125
     assert && assert( options.showTitleWhenExpanded === false && options.titleAlignX === 'center',
       'computation of contentWidth is dependent on specific option values' );
-    var contentWidth = options.boxWidth - options.expandCollapseButtonOptions.sideLength - options.buttonXMargin;
+    const contentWidth = options.boxWidth - options.expandCollapseButtonOptions.sideLength - options.buttonXMargin;
 
     // constant-sized rectangle
-    var contentNode = new Rectangle( 0, 0, contentWidth, options.boxHeight, {
+    const contentNode = new Rectangle( 0, 0, contentWidth, options.boxHeight, {
 
       // With ?dev query parameter, put a red stroke around the content, for debugging layout of #125
       stroke: phet.chipper.queryParameters.dev ? 'red' : null
@@ -96,7 +96,7 @@ define( require => {
     AccordionBox.call( this, contentNode, options );
 
     // update visible molecules to match the coefficients
-    var coefficientsObserver = function() {
+    const coefficientsObserver = function() {
       self.updateCounts( getTerms( equationProperty.get() ), getXOffsets( equationProperty.get() ) );
     };
 
@@ -135,7 +135,7 @@ define( require => {
 
       // clear the map
       this.termNodes = {};
-      for ( var i = 0; i < terms.length; i++ ) {
+      for ( let i = 0; i < terms.length; i++ ) {
         this.termNodes[ terms[ i ].molecule.symbol ] = [];
       }
 
@@ -151,24 +151,24 @@ define( require => {
      */
     updateCounts: function( terms, xOffsets ) {
 
-      var Y_MARGIN = 0;
-      var rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientRange.max;
+      const Y_MARGIN = 0;
+      const rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientRange.max;
 
-      for ( var i = 0; i < terms.length; i++ ) {
+      for ( let i = 0; i < terms.length; i++ ) {
 
-        var moleculeNodes = this.termNodes[ terms[ i ].molecule.symbol ];
-        var userCoefficient = terms[ i ].userCoefficientProperty.get();
-        var MoleculeNodeConstructor = terms[ i ].molecule.nodeConstructor;
-        var y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
+        const moleculeNodes = this.termNodes[ terms[ i ].molecule.symbol ];
+        const userCoefficient = terms[ i ].userCoefficientProperty.get();
+        const MoleculeNodeConstructor = terms[ i ].molecule.nodeConstructor;
+        let y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
 
-        for ( var j = 0; j < Math.max( userCoefficient, moleculeNodes.length ); j++ ) {
+        for ( let j = 0; j < Math.max( userCoefficient, moleculeNodes.length ); j++ ) {
           if ( j < moleculeNodes.length ) {
             // set visibility of a molecule that already exists
             moleculeNodes[ j ].visible = ( j < userCoefficient );
           }
           else {
             // add a molecule node
-            var moleculeNode = new MoleculeNodeConstructor( { atomOptions: BCEConstants.ATOM_OPTIONS } );
+            const moleculeNode = new MoleculeNodeConstructor( { atomOptions: BCEConstants.ATOM_OPTIONS } );
             moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
             this.moleculesParent.addChild( moleculeNode );
             moleculeNode.center = new Vector2( xOffsets[ i ] - this.x, y );

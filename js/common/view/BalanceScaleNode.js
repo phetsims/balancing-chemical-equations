@@ -26,13 +26,13 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var FULCRUM_SIZE = new Dimension2( 60, 45 );
-  var BEAM_LENGTH = 205;
-  var BEAM_THICKNESS = 6;
-  var NUMBER_OF_TILT_ANGLES = 6;
-  var COUNT_Y_SPACING = 3;
-  var ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
-  var TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
+  const FULCRUM_SIZE = new Dimension2( 60, 45 );
+  const BEAM_LENGTH = 205;
+  const BEAM_THICKNESS = 6;
+  const NUMBER_OF_TILT_ANGLES = 6;
+  const COUNT_Y_SPACING = 3;
+  const ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
+  const TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
@@ -44,14 +44,14 @@ define( require => {
    */
   function BalanceScaleNode( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, highlightedProperty, options ) {
 
-    var self = this;
+    const self = this;
 
     this.element = element; // @private
     this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
     this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
 
     // fulcrum
-    var fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
+    const fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
 
     // @private beam
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
@@ -77,13 +77,13 @@ define( require => {
     Node.call( this, options );
 
     // highlight the beam
-    var highlightObserver = function( highlighted ) {
+    const highlightObserver = function( highlighted ) {
       self.beamNode.setHighlighted( highlighted );
     };
     highlightedProperty.link( highlightObserver );
 
     // update piles
-    var updateNodeBind = this.updateNode.bind( this );
+    const updateNodeBind = this.updateNode.bind( this );
     leftNumberOfAtomsProperty.lazyLink( updateNodeBind );
     rightNumberOfAtomsProperty.lazyLink( updateNodeBind );
     this.updateNode();
@@ -113,17 +113,17 @@ define( require => {
    * @param {number} pileCenterX x-coordinate of the pile's center, relative to the beam
    * @param {number} beamTop y-coordinate of the beam's top
    */
-  var updatePile = function( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop ) {
+  const updatePile = function( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop ) {
 
-    var nodesInPile = pileNode.getChildrenCount(); // how many atom nodes are currently in the pile
-    var pile = 0; // which pile we're working on, layered back-to-front, offset left-to-right
-    var row = 0; // the row number, bottom row is zero
-    var atomsInRow = 0; // number of atoms that have been added to the current row
-    var x = 0;
-    var y = 0;
-    var atomNode;
+    const nodesInPile = pileNode.getChildrenCount(); // how many atom nodes are currently in the pile
+    let pile = 0; // which pile we're working on, layered back-to-front, offset left-to-right
+    let row = 0; // the row number, bottom row is zero
+    let atomsInRow = 0; // number of atoms that have been added to the current row
+    let x = 0;
+    let y = 0;
+    let atomNode;
 
-    for ( var i = 0; i < Math.max( nodesInPile, numberOfAtoms ); i++ ) {
+    for ( let i = 0; i < Math.max( nodesInPile, numberOfAtoms ); i++ ) {
 
       if ( i < nodesInPile ) {
         // set visibility of an atom that's already in the pile
@@ -199,20 +199,20 @@ define( require => {
       this.beamNode.setRotation( 0 );
       this.pilesParent.setRotation( 0 );
 
-      var leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
-      var rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
+      const leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
+      const rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
 
       // update piles
       updatePile( this.element, leftNumberOfAtoms, this.leftPileNode, this.leftCountNode, this.beamNode.left + 0.25 * this.beamNode.width, this.beamNode.top );
       updatePile( this.element, rightNumberOfAtoms, this.rightPileNode, this.rightCountNode, this.beamNode.right - 0.25 * this.beamNode.width, this.beamNode.top );
 
       // rotate beam and piles on fulcrum
-      var maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
-      var difference = rightNumberOfAtoms - leftNumberOfAtoms;
-      var angle = 0;
+      const maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
+      const difference = rightNumberOfAtoms - leftNumberOfAtoms;
+      let angle = 0;
       if ( Math.abs( difference ) >= NUMBER_OF_TILT_ANGLES ) {
         // max tilt
-        var sign = Math.abs( difference ) / difference;
+        const sign = Math.abs( difference ) / difference;
         angle = sign * maxAngle;
       }
       else {

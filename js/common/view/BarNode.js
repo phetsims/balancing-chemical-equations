@@ -29,10 +29,10 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  var MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
-  var MAX_BAR_SIZE = new Dimension2( 40, 60 );
-  var BAR_LINE_WIDTH = 1.5;
-  var ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
+  const MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
+  const MAX_BAR_SIZE = new Dimension2( 40, 60 );
+  const BAR_LINE_WIDTH = 1.5;
+  const ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the bar
@@ -42,37 +42,37 @@ define( require => {
    */
   function BarNode( element, numberOfAtomsProperty, options ) {
 
-    var self = this;
+    const self = this;
 
     // number of atoms
-    var numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
+    const numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
 
     // bar
-    var barNode = new Path( Shape.rect( 0, 0, 1, 1 ), { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
+    const barNode = new Path( Shape.rect( 0, 0, 1, 1 ), { fill: element.color, stroke: 'black', lineWidth: BAR_LINE_WIDTH } );
 
     // atom symbol
-    var symbolNode = new Text( element.symbol, { font: new PhetFont( 24 ) } );
+    const symbolNode = new Text( element.symbol, { font: new PhetFont( 24 ) } );
 
     // atom icon
-    var iconNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+    const iconNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
     iconNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
 
     // horizontal strut, to prevent resizing
-    var hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
+    const hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
     options.children = [ hStrut, numberNode, barNode, new HBox( { children: [ iconNode, symbolNode ], spacing: 3 } ) ];
     VBox.call( this, options );
 
-    var numberOfAtomsListener = function( numberOfAtoms ) {
+    const numberOfAtomsListener = function( numberOfAtoms ) {
 
       // number of atoms
       numberNode.text = numberOfAtoms + '';
 
       // bar
-      var barShape;
+      let barShape;
       if ( numberOfAtoms <= MAX_NUMBER_OF_ATOMS ) {
         // rectangular bar
-        var height = MAX_BAR_SIZE.height * ( numberOfAtoms / MAX_NUMBER_OF_ATOMS );
+        const height = MAX_BAR_SIZE.height * ( numberOfAtoms / MAX_NUMBER_OF_ATOMS );
         barShape = Shape.rect( 0, -height, MAX_BAR_SIZE.width, height );
       }
       else {

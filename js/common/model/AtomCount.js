@@ -21,7 +21,7 @@ define( require => {
    * @param {number} productsCount
    * @constructor
    */
-  var AtomCount = function( element, reactantsCount, productsCount ) {
+  const AtomCount = function( element, reactantsCount, productsCount ) {
     this.element = element; // @public the element that describes the atom's chemical properties
     this.reactantsCount = reactantsCount; // @public
     this.productsCount = productsCount; // @public
@@ -46,13 +46,13 @@ define( require => {
    * @param {EquationTerm[]} terms
    * @param {boolean} isReactants true if the terms are the reactants, false if they are the products
    */
-  var appendToCounts = function( atomCounts, terms, isReactants ) {
+  const appendToCounts = function( atomCounts, terms, isReactants ) {
     terms.forEach( function( term ) {
       term.molecule.atoms.forEach( function( atom ) {
 
-        var found = false;
-        for ( var i = 0; i < atomCounts.length; i++ ) {
-          var atomCount = atomCounts[ i ];
+        let found = false;
+        for ( let i = 0; i < atomCounts.length; i++ ) {
+          const atomCount = atomCounts[ i ];
           // add to an existing count
           if ( atomCount.element === atom.element ) {
             if ( isReactants ) {
@@ -90,7 +90,7 @@ define( require => {
    * @returns {AtomCount[]}
    */
   AtomCount.countAtoms = function( equation ) {
-    var atomCounts = [];
+    const atomCounts = [];
     appendToCounts( atomCounts, equation.reactants, true /* isReactants */ );
     appendToCounts( atomCounts, equation.products, false /* isReactants */ );
     return atomCounts;

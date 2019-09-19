@@ -15,7 +15,7 @@ define( require => {
   // strings
   const balancingChemicalEquationsTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
@@ -28,7 +28,7 @@ define( require => {
   };
 
   SimLauncher.launch( function() {
-    var screens = [
+    const screens = [
       new IntroductionScreen(),
       new GameScreen()
     ];

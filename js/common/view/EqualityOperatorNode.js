@@ -25,22 +25,22 @@ define( require => {
 
     options = _.extend( {}, options );
 
-    var textOptions = {
+    const textOptions = {
       font: new PhetFont( 80 ),
       stroke: 'black'
     };
 
     // nodes
-    var equalsSignNode = new Text( '\u003D',
+    const equalsSignNode = new Text( '\u003D',
       _.extend( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) );
-    var notEqualsSignNode = new Text( '\u2260',
+    const notEqualsSignNode = new Text( '\u2260',
       _.extend( { fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center }, textOptions ) );
 
     options.children = [ equalsSignNode, notEqualsSignNode ];
     Node.call( this, options );
 
     // show the correct operator, based on whether the equation is balanced
-    var balancedObserver = function( balanced ) {
+    const balancedObserver = function( balanced ) {
       equalsSignNode.visible = balanced;
       notEqualsSignNode.visible = !balanced;
     };

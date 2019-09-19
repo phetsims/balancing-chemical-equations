@@ -19,9 +19,9 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var BAR_HEIGHT = 50; //height of control node
-  var TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
-  var RADIO_BUTTON_OPTIONS = { radius: 8 };
+  const BAR_HEIGHT = 50; //height of control node
+  const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
+  const RADIO_BUTTON_OPTIONS = { radius: 8 };
 
   /**
    * @param {number} screenWidth
@@ -38,9 +38,9 @@ define( require => {
     this.addChild( new Rectangle( 0, 0, 4 * screenWidth, BAR_HEIGHT, { fill: '#3376c4', centerX: screenWidth / 2 } ) );
 
     // radio buttons, one for each equation, arranged horizontally
-    var radioButtons = [];
+    const radioButtons = [];
     choices.forEach( function( choice ) {
-      var radioButton = new AquaRadioButton( equationProperty, choice.equation, new Text( choice.label, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
+      const radioButton = new AquaRadioButton( equationProperty, choice.equation, new Text( choice.label, TEXT_OPTIONS ), RADIO_BUTTON_OPTIONS );
       radioButton.touchArea = radioButton.localBounds.dilatedXY( 10, 15 );  // determined by visual inspection
       radioButtons.push( radioButton );
     } );

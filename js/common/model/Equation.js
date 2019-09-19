@@ -28,7 +28,7 @@ define( require => {
    * @constructor
    */
   function Equation( reactants, products ) {
-    var self = this;
+    const self = this;
 
     this.reactants = reactants; // @public
     this.products = products; // @public
@@ -43,8 +43,8 @@ define( require => {
 
     // keep a sum of all coefficients, so we know when the sum is non-zero
     this.addCoefficientsObserver( function() {
-      var coefficientsSum = 0;
-      var addCoefficients = function( equationTerm ) {
+      let coefficientsSum = 0;
+      const addCoefficients = function( equationTerm ) {
         coefficientsSum += equationTerm.userCoefficientProperty.get();
       };
       self.reactants.forEach( addCoefficients );
@@ -84,8 +84,8 @@ define( require => {
     updateBalanced: function() {
 
       // Get integer multiplier from the first reactant term.
-      var multiplier = this.reactants[ 0 ].userCoefficientProperty.get() / this.reactants[ 0 ].balancedCoefficient;
-      var balanced = ( multiplier > 0 );
+      const multiplier = this.reactants[ 0 ].userCoefficientProperty.get() / this.reactants[ 0 ].balancedCoefficient;
+      let balanced = ( multiplier > 0 );
 
       // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
       this.reactants.forEach( function( reactant ) {
@@ -179,7 +179,7 @@ define( require => {
      * @public
      */
     getCoefficientsString: function() {
-      var string = '';
+      let string = '';
       for ( var i = 0; i < this.reactants.length; i++ ) {
         string += this.reactants[ i ].balancedCoefficient;
         string += ( i < this.reactants.length - 1 ) ? ' + ' : ' ';
@@ -198,7 +198,7 @@ define( require => {
      * @public
      */
     toString: function() {
-      var string = '';
+      let string = '';
       // reactants
       for ( var i = 0; i < this.reactants.length; i++ ) {
         string += this.reactants[ i ].balancedCoefficient;

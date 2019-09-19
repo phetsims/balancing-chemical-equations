@@ -20,7 +20,7 @@ define( require => {
    * @constructor
    */
   function Molecule( nodeConstructor, symbolText, elements ) {
-    var self = this;
+    const self = this;
 
     // @public
     this.nodeConstructor = nodeConstructor;

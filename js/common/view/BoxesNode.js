@@ -37,7 +37,7 @@ define( require => {
                       reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
 
     // reactants box, on the left
-    var reactantsBoxNode = new BoxNode( equationProperty,
+    const reactantsBoxNode = new BoxNode( equationProperty,
       function( equation ) { return equation.reactants; },
       function( equation ) { return aligner.getReactantXOffsets( equation ); },
       coefficientsRange,
@@ -51,7 +51,7 @@ define( require => {
       } );
 
     // products box, on the right
-    var productsBoxNode = new BoxNode( equationProperty,
+    const productsBoxNode = new BoxNode( equationProperty,
       function( equation ) { return equation.products; },
       function( equation ) { return aligner.getProductXOffsets( equation ); },
       coefficientsRange,

@@ -24,10 +24,10 @@ define( require => {
   const SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
   // constants
-  var EQUATIONS_PER_GAME = 5;
+  const EQUATIONS_PER_GAME = 5;
 
   // Level 1 equation pool
-  var LEVEL1_POOL = [
+  const LEVEL1_POOL = [
     // this is the largest molecule, put it first to simplify layout testing
     DecompositionEquation.create_PCl5_PCl3_Cl2,
     // this equation requires maxX adjustment in EquationNode, put it here to simplify layout testing
@@ -55,7 +55,7 @@ define( require => {
   ];
 
   // Level 2 equation pool
-  var LEVEL2_POOL = [
+  const LEVEL2_POOL = [
     DisplacementEquation.create_2C_2H2O_CH4_CO2,
     DisplacementEquation.create_CH4_H2O_3H2_CO,
     DisplacementEquation.create_CH4_2O2_CO2_2H2O,
@@ -70,7 +70,7 @@ define( require => {
   ];
 
   // Level 3 equation pool
-  var LEVEL3_POOL = [
+  const LEVEL3_POOL = [
     // this is the longest equation, requires minX adjustment in EquationNode, put it first to simplify layout testing
     DisplacementEquation.create_C2H5OH_3O2_2CO2_3H2O,
     // this is the reverse of the previous equation
@@ -90,7 +90,7 @@ define( require => {
   ];
 
   // all pools, indexed by level
-  var POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
+  const POOLS = [ LEVEL1_POOL, LEVEL2_POOL, LEVEL3_POOL ];
 
   /*
    *  Level 3 exclusions map
@@ -102,7 +102,7 @@ define( require => {
    *  the rules kept changing, I implemented this general solution, whereby a list of exclusions
    *  can be specified for each equation.
    */
-  var LEVEL3_EXCLUSIONS = {
+  const LEVEL3_EXCLUSIONS = {
     create_2C2H6_7O2_4CO2_6H2O: [
       DisplacementEquation.create_4CO2_6H2O_2C2H6_7O2, /* reverse equation */
       DisplacementEquation.create_2C2H2_5O2_4CO2_2H2O
@@ -184,7 +184,7 @@ define( require => {
    * @param {Object} [options]
    * @constructor
    */
-  var RandomStrategy = function( pool, firstBigMolecule, options ) {
+  const RandomStrategy = function( pool, firstBigMolecule, options ) {
 
     options = _.extend( {
       exclusions: {} // see LEVEL3_EXCLUSIONS for doc
@@ -209,25 +209,25 @@ define( require => {
       BCEQueryParameters.log && console.log( 'GameFactory: choosing challenges...' );
 
       // operate on a copy of the pool, so that we can prune the pool as we select equations
-      var poolCopy = _.clone( this.pool );
+      const poolCopy = _.clone( this.pool );
 
-      var factoryFunctions = [];
-      for ( var i = 0; i < numberOfEquations; i++ ) {
+      const factoryFunctions = [];
+      for ( let i = 0; i < numberOfEquations; i++ ) {
 
         assert && assert( poolCopy.length > 0 );
 
         // randomly select an equation
-        var randomIndex = phet.joist.random.nextInt( poolCopy.length );
-        var factoryFunction = poolCopy[ randomIndex ];
+        const randomIndex = phet.joist.random.nextInt( poolCopy.length );
+        let factoryFunction = poolCopy[ randomIndex ];
 
         // If the first equation isn't supposed to contain any "big" molecules,
         // then find an equation in the pool that has no big molecules.
         if ( i === 0 && !this.firstBigMolecule && factoryFunction().hasBigMolecule() ) {
 
           // start the search at a random index
-          var startIndex = phet.joist.random.nextInt( poolCopy.length );
-          var index = startIndex;
-          var done = false;
+          const startIndex = phet.joist.random.nextInt( poolCopy.length );
+          let index = startIndex;
+          let done = false;
           while ( !done ) {
 
             // next equation in the pool
@@ -260,12 +260,12 @@ define( require => {
         poolCopy.splice( poolCopy.indexOf( factoryFunction ), 1 );
 
         // if the selected equation has exclusions, remove them from the pool
-        for ( var functionName in this.exclusions ) {
+        for ( const functionName in this.exclusions ) {
           if ( DisplacementEquation[ functionName ] === factoryFunction ) {
-            var excludedFunctions = this.exclusions[ functionName ];
-            for ( var j = 0; j < excludedFunctions.length; j++ ) {
-              var excludedFunction = excludedFunctions[ j ];
-              var excludedIndex = poolCopy.indexOf( excludedFunction );
+            const excludedFunctions = this.exclusions[ functionName ];
+            for ( let j = 0; j < excludedFunctions.length; j++ ) {
+              const excludedFunction = excludedFunctions[ j ];
+              const excludedIndex = poolCopy.indexOf( excludedFunction );
               if ( excludedIndex !== -1 ) {
                 poolCopy.splice( excludedIndex, 1 );
                 BCEQueryParameters.log && console.log( '- excluded ' + excludedFunction().toString() );
@@ -282,13 +282,13 @@ define( require => {
   } );
 
   // strategies for selecting equations, indexed by game level
-  var STRATEGIES = [
+  const STRATEGIES = [
     new RandomStrategy( LEVEL1_POOL, false ),
     new RandomStrategy( LEVEL2_POOL, true ),
     new RandomStrategy( LEVEL3_POOL, true, { exclusions: LEVEL3_EXCLUSIONS } )
   ];
 
-  var GameFactory = {
+  const GameFactory = {
 
     /**
      * Gets the number of equations for a level.
@@ -309,12 +309,12 @@ define( require => {
     createEquations: function( level ) {
 
       // Get an array of Equation factory functions.
-      var factoryFunctions = BCEQueryParameters.playAll ?
+      const factoryFunctions = BCEQueryParameters.playAll ?
                              _.clone( POOLS[ level ] ) :
                              STRATEGIES[ level ].getEquationFactoryFunctions( EQUATIONS_PER_GAME );
 
       // Instantiate one instance of each Equation type.
-      var equations = [];
+      const equations = [];
       factoryFunctions.forEach( function( factoryFunction ) {
         equations.push( factoryFunction() );
       } );
