@@ -5,25 +5,25 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var FaceNode = require( 'SCENERY_PHET/FaceNode' );
-  var GameModel = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameModel' );
-  var GameScreenView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameScreenView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Screen = require( 'JOIST/Screen' );
-  var Shape = require( 'KITE/Shape' );
+  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  const FaceNode = require( 'SCENERY_PHET/FaceNode' );
+  const GameModel = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameModel' );
+  const GameScreenView = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameScreenView' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Property = require( 'AXON/Property' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Screen = require( 'JOIST/Screen' );
+  const Shape = require( 'KITE/Shape' );
 
   // strings
-  var screenGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.game' );
+  const screenGameString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.game' );
 
   /**
    * @constructor

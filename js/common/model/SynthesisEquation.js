@@ -9,15 +9,15 @@
  * @author Vasily Shakhov (mlearner.com)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/Equation' );
-  var EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
+  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  const Equation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/Equation' );
+  const EquationTerm = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/EquationTerm' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
 
   /**
    * Convenience constructor.

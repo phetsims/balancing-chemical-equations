@@ -5,13 +5,13 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Atom = require( 'NITROGLYCERIN/Atom' );
-  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const Atom = require( 'NITROGLYCERIN/Atom' );
+  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN

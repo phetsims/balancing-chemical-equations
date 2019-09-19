@@ -9,21 +9,21 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
-  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  var BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BeamNode' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var FulcrumNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/FulcrumNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const AtomNode = require( 'NITROGLYCERIN/nodes/AtomNode' );
+  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
+  const BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BeamNode' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const FulcrumNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/FulcrumNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var FULCRUM_SIZE = new Dimension2( 60, 45 );

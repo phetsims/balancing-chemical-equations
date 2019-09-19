@@ -6,17 +6,17 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
-  var TermNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/TermNode' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  const RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
+  const TermNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/TermNode' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Property.<Equation>} equationProperty

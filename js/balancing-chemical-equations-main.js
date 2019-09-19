@@ -3,17 +3,17 @@
 /**
  * Main entry point for the 'Balancing Chemical Equations' sim.
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var GameScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/game/GameScreen' );
-  var IntroductionScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/IntroductionScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
+  const GameScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/game/GameScreen' );
+  const IntroductionScreen = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/IntroductionScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var balancingChemicalEquationsTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.title' );
+  const balancingChemicalEquationsTitleString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/balancing-chemical-equations.title' );
 
   var simOptions = {
     credits: {
