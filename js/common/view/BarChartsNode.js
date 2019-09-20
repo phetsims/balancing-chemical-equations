@@ -1,4 +1,4 @@
-// Copyright 2014-2018, University of Colorado Boulder
+// Copyright 2014-2019, University of Colorado Boulder
 
 /**
  * Visual representation of an equation as a pair of bar charts, for left and right side of equation.
