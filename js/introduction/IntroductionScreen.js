@@ -91,7 +91,10 @@ define( require => {
     const atom3 = new AtomNode( Element.O );
     const atom4 = new AtomNode( Element.O );
     // all atoms are on top of the beam
-    atom1.bottom = atom2.bottom = atom3.bottom = atom4.bottom = beamNode.top;
+    atom1.bottom = beamNode.top;
+    atom2.bottom = beamNode.top;
+    atom3.bottom = beamNode.top;
+    atom4.bottom = beamNode.top;
     // atoms on the left of the beam
     atom1.left = beamNode.left + atomsXMargin;
     atom2.left = atom1.right;
