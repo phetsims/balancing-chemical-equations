@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.8 Thu Oct 03 2019 09:47:47 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# balancing-chemical-equations 1.2.8 Mon Oct 14 2019 12:38:35 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "331e8084521cd7931716e03fc47d99e7af841160",
+    "sha": "d24a812f7edcb878ce674dba1e8888a38535ef71",
     "branch": "1.2"
   },
   "brand": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phet-core": {
-    "sha": "422275fd139cd82dfcbd1e4a3e3eb1465498a859",
-    "branch": "HEAD"
+    "sha": "5d9bb44c3c03a3fe76f6d0dc5810f23b1e5e97a0",
+    "branch": "balancing-chemical-equations-1.2"
   },
   "phet-io": {
     "sha": "a267fdb1d385979e37ebd8e6b3d843a00e8e7d6a",
@@ -89,7 +89,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "474ae7648c9d36400907c59236ddb04dac8cc1bc",
-    "branch": "HEAD"
+    "sha": "1bcdc334cc1f9cf8bfa4ac8712622a540da4c274",
+    "branch": "balancing-chemical-equations-1.2"
   }
 }
