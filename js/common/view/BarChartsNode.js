@@ -20,6 +20,7 @@ define( require => {
   const BarNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarNode' );
   const EqualityOperatorNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EqualityOperatorNode' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -32,7 +33,7 @@ define( require => {
    */
   function BarChartsNode( equationProperty, aligner, options ) {
 
-    options = _.extend( {}, options );
+    options = merge( {}, options );
 
     const self = this;
     this.equationProperty = equationProperty; // @private

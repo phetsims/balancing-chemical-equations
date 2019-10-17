@@ -14,6 +14,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
+  const merge = require( 'PHET_CORE/merge' );
   const MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -74,7 +75,7 @@ define( require => {
 
     // timer control, lower left
     const toggleOptions = { stroke: 'black', cornerRadius: 10 };
-    const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, _.extend( toggleOptions, {
+    const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, merge( toggleOptions, {
       x: BUTTON_MARGIN,
       bottom: layoutBounds.bottom - BUTTON_MARGIN
     } ) );
@@ -108,7 +109,7 @@ define( require => {
   var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty, startGame ) {
 
     // 'Level N' centered above icon
-    const image = new levelImagesConstructors[ level ]( _.extend( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+    const image = new levelImagesConstructors[ level ]( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
     const label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), {
       font: new PhetFont( { size: 14, weight: 'bold' } ),
       maxWidth: image.width

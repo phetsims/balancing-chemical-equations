@@ -15,6 +15,7 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
 
   // constants
   const ARROW_LENGTH = 70;
@@ -26,7 +27,7 @@ define( require => {
    */
   function RightArrowNode( equationProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       tailWidth: 15,
       headWidth: 35,
       headHeight: 30

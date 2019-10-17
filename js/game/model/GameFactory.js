@@ -21,6 +21,7 @@ define( require => {
   const DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   const DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
   // constants
@@ -186,7 +187,7 @@ define( require => {
    */
   const RandomStrategy = function( pool, firstBigMolecule, options ) {
 
-    options = _.extend( {
+    options = merge( {
       exclusions: {} // see LEVEL3_EXCLUSIONS for doc
     }, options );
 

@@ -12,6 +12,7 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -23,7 +24,7 @@ define( require => {
    */
   function EqualityOperatorNode( equationProperty, options ) {
 
-    options = _.extend( {}, options );
+    options = merge( {}, options );
 
     const textOptions = {
       font: new PhetFont( 80 ),
@@ -32,9 +33,9 @@ define( require => {
 
     // nodes
     const equalsSignNode = new Text( '\u003D',
-      _.extend( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) );
+      merge( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) );
     const notEqualsSignNode = new Text( '\u2260',
-      _.extend( { fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center }, textOptions ) );
+      merge( { fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center }, textOptions ) );
 
     options.children = [ equalsSignNode, notEqualsSignNode ];
     Node.call( this, options );

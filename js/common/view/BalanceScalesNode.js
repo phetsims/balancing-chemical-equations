@@ -18,6 +18,7 @@ define( require => {
   const BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberProperty = require( 'AXON/NumberProperty' );
 
@@ -29,7 +30,7 @@ define( require => {
    */
   function BalanceScalesNode( equationProperty, aligner, options ) {
 
-    options = _.extend( {
+    options = merge( {
       bottom: 0,
       fulcrumSpacing: 237, // horizontal spacing between the tips of the fulcrums
       dualFulcrumSpacing: 237 // horizontal spacing when we have 2 scales, see issue #91

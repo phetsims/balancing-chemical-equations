@@ -13,6 +13,7 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -27,7 +28,7 @@ define( require => {
    */
   function TermNode( coefficientRange, term, options ) {
 
-    options = _.extend( {
+    options = merge( {
       fontSize: 32,
       xSpacing: 4
     }, options );

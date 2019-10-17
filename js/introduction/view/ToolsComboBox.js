@@ -15,6 +15,7 @@ define( require => {
   const ComboBox = require( 'SUN/ComboBox' );
   const ComboBoxItem = require( 'SUN/ComboBoxItem' );
   const Image = require( 'SCENERY/nodes/Image' );
+  const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
 
@@ -39,7 +40,7 @@ define( require => {
      */
     constructor( balanceRepresentationProperty, parentNode, options ) {
 
-      options = _.extend( {
+      options = merge( {
         xMargin: 10,
         yMargin: 5,
         cornerRadius: 4,

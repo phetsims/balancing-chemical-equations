@@ -18,6 +18,7 @@ define( require => {
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -113,7 +114,7 @@ define( require => {
    */
   function GameFeedbackDialog( model, aligner, options ) {
 
-    options = _.extend( {
+    options = merge( {
       fill: '#c1d8fe',
       xMargin: 40,
       yMargin: 10,

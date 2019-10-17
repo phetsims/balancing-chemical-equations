@@ -14,6 +14,7 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
@@ -24,7 +25,7 @@ define( require => {
    */
   function EquationTerm( balancedCoefficient, molecule, options ) {
 
-    options = _.extend( {
+    options = merge( {
       initialCoefficient: 0 // initial value of the coefficient
     }, options );
 

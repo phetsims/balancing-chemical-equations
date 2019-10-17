@@ -19,6 +19,7 @@ define( require => {
   const GameFeedbackDialog = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameFeedbackDialog' );
   const HorizontalAligner = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/HorizontalAligner' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const ScoreDisplayLabeledNumber = require( 'VEGAS/ScoreDisplayLabeledNumber' );
@@ -97,14 +98,14 @@ define( require => {
       bottom: this.boxesNode.bottom
     };
     // @private
-    this.checkButton = new TextPushButton( checkString, _.extend( BUTTONS_OPTIONS, {
+    this.checkButton = new TextPushButton( checkString, merge( BUTTONS_OPTIONS, {
       listener: function() {
         self.playGuessAudio();
         self.model.check();
       }
     } ) );
     // @private
-    this.nextButton = new TextPushButton( nextString, _.extend( BUTTONS_OPTIONS, {
+    this.nextButton = new TextPushButton( nextString, merge( BUTTONS_OPTIONS, {
       listener: function() {
         self.model.next();
       }

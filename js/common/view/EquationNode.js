@@ -12,6 +12,7 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PlusNode = require( 'SCENERY_PHET/PlusNode' );
   const RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
@@ -27,7 +28,7 @@ define( require => {
    */
   function EquationNode( equationProperty, coefficientRange, aligner, options ) {
 
-    options = _.extend( { fontSize: 32 }, options );
+    options = merge( { fontSize: 32 }, options );
     this.fontSize = options.fontSize; // @private
 
     const self = this;

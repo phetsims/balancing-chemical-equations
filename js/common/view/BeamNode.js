@@ -13,6 +13,7 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
@@ -21,7 +22,7 @@ define( require => {
    * @constructor
    */
   function BeamNode( beamLength, beamThickness, options ) {
-    options = _.extend( { fill: 'black', stroke: 'black' }, options );
+    options = merge( { fill: 'black', stroke: 'black' }, options );
     Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, options );
   }
 
