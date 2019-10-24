@@ -50,63 +50,6 @@ define( require => {
   const ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
 
   /**
-   * Creates a text button that performs a model state change when pressed.
-   * @param {string} label
-   * @param {function} modelFunction model function that performs the state change
-   * @param {number} maxWidth
-   * @returns {TextPushButton}
-   */
-  const createStateChangeButton = function( label, modelFunction, maxWidth ) {
-    return new TextPushButton( label, {
-      font: STATE_BUTTON_FONT,
-      baseColor: STATE_BUTTON_FILL,
-      maxWidth: maxWidth,
-      listener: function() {
-        modelFunction();
-      }
-    } );
-  };
-
-  /**
-   * Creates a button that is appropriate for the current state of the model.
-   * @param {GameModel} model
-   * @param {number} maxWidth
-   * @returns {TextPushButton}
-   */
-  const createButtonForState = function( model, maxWidth ) {
-    let button = null;
-    if ( model.stateProperty.get() === model.states.TRY_AGAIN ) {
-      button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ), maxWidth );
-    }
-    else if ( model.stateProperty.get() === model.states.SHOW_ANSWER ) {
-      button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ), maxWidth );
-    }
-    return button;
-  };
-
-  /**
-   * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
-   * @param {Equation} equation
-   * @param {BalancedRepresentation} balancedRepresentation
-   * @param {HorizontalAligner} aligner
-   * @returns {Node}
-   */
-  const createBalancedRepresentation = function( equation, balancedRepresentation, aligner ) {
-    let balancedRepresentationNode;
-    if ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
-      balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );
-    }
-    else if ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
-      balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
-    }
-    else {
-      throw new Error( 'unsupported balancedRepresentation: ' + balancedRepresentation );
-    }
-    balancedRepresentationNode.setScaleMagnitude( 0.65 ); // issue #29, shrink size so that it doesn't cover so much of the screen
-    return balancedRepresentationNode;
-  };
-
-  /**
    * @param {GameModel} model
    * @param {HorizontalAligner} aligner
    * @param {Object} [options]
@@ -150,7 +93,12 @@ define( require => {
             spacing: options.hBoxSpacing
           } ),
           // points awarded
-          new Text( StringUtils.format( pattern0PointsString, points ), { font: new PhetFont( { size: 24, weight: 'bold' } ), maxWidth: maxWidth } ),
+          new Text( StringUtils.format( pattern0PointsString, points ), {
+            font: new PhetFont( {
+              size: 24,
+              weight: 'bold'
+            } ), maxWidth: maxWidth
+          } ),
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
           // Next button
@@ -284,6 +232,63 @@ define( require => {
    */
   function createIncorrectIcon() {
     return new FontAwesomeNode( 'times', { fill: 'rgb(252,104,0)' } );
+  }
+
+  /**
+   * Creates a text button that performs a model state change when pressed.
+   * @param {string} label
+   * @param {function} modelFunction model function that performs the state change
+   * @param {number} maxWidth
+   * @returns {TextPushButton}
+   */
+  function createStateChangeButton( label, modelFunction, maxWidth ) {
+    return new TextPushButton( label, {
+      font: STATE_BUTTON_FONT,
+      baseColor: STATE_BUTTON_FILL,
+      maxWidth: maxWidth,
+      listener: function() {
+        modelFunction();
+      }
+    } );
+  }
+
+  /**
+   * Creates a button that is appropriate for the current state of the model.
+   * @param {GameModel} model
+   * @param {number} maxWidth
+   * @returns {TextPushButton}
+   */
+  function createButtonForState( model, maxWidth ) {
+    let button = null;
+    if ( model.stateProperty.get() === model.states.TRY_AGAIN ) {
+      button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ), maxWidth );
+    }
+    else if ( model.stateProperty.get() === model.states.SHOW_ANSWER ) {
+      button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ), maxWidth );
+    }
+    return button;
+  }
+
+  /**
+   * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
+   * @param {Equation} equation
+   * @param {BalancedRepresentation} balancedRepresentation
+   * @param {HorizontalAligner} aligner
+   * @returns {Node}
+   */
+  function createBalancedRepresentation( equation, balancedRepresentation, aligner ) {
+    let balancedRepresentationNode;
+    if ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
+      balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );
+    }
+    else if ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
+      balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
+    }
+    else {
+      throw new Error( 'unsupported balancedRepresentation: ' + balancedRepresentation );
+    }
+    balancedRepresentationNode.setScaleMagnitude( 0.65 ); // issue #29, shrink size so that it doesn't cover so much of the screen
+    return balancedRepresentationNode;
   }
 
   return inherit( Panel, GameFeedbackDialog );
