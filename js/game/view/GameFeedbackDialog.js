@@ -85,13 +85,16 @@ define( require => {
       // balanced and simplified
       content = new VBox( {
         children: [
+
           // happy face
           faceNode,
+
           // check mark + 'balanced'
           new HBox( {
             children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
+
           // points awarded
           new Text( StringUtils.format( pattern0PointsString, points ), {
             font: new PhetFont( {
@@ -99,8 +102,10 @@ define( require => {
               weight: 'bold'
             } ), maxWidth: maxWidth
           } ),
+
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
+
           // Next button
           createStateChangeButton( nextString, model.next.bind( model ), maxWidth )
         ],
@@ -112,17 +117,20 @@ define( require => {
       // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
       content = new VBox( {
         children: [
+
           // happy face
           faceNode,
           new VBox( {
             align: 'left',
             spacing: 3,
             children: [
+
               // check mark + 'balanced'
               new HBox( {
                 children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
                 spacing: options.hBoxSpacing
               } ),
+
               // red X + 'not simplified'
               new HBox( {
                 children: [ createIncorrectIcon(), new Text( notSimplifiedString, textOptions ) ],
@@ -130,8 +138,10 @@ define( require => {
               } )
             ]
           } ),
+          
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
+
           // Try Again or Show Answer button
           createButtonForState( model, maxWidth )
         ],
@@ -180,17 +190,22 @@ define( require => {
 
       content = new VBox( {
         children: [
+
           // sad face
           faceNode,
+
           // red X + 'not balanced'
           new HBox( {
             children: [ createIncorrectIcon(), new Text( notBalancedString, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
+
           // space
           new VStrut( ACTION_AREA_Y_SPACING ),
+
           // Try Again or Show Answer button
           createButtonForState( model, maxWidth ),
+
           // Show/Hide Why buttons
           new Node( { children: [ showWhyButton, hideWhyButton ] } )
         ],
