@@ -57,7 +57,7 @@ define( require => {
 
   return inherit( Object, Equation, {
 
-    //TODO #96 does this type need a dispose function? Game creates 5 of these when level selection button is pressed.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/142 is dispose needed?
 
     // @public
     reset: function() {
