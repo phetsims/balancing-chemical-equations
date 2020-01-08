@@ -39,7 +39,7 @@ define( require => {
     this.aligner = aligner; // @private
     this.equationProperty = equationProperty; // @private
 
-    // @private arrow node, in a fixed location
+    // @private arrow node, at a fixed position
     this.arrowNode = new RightArrowNode( equationProperty, { centerX: this.aligner.getScreenCenterX() } ); // @private
     this.addChild( this.arrowNode );
 
