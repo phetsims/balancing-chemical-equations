@@ -47,7 +47,7 @@ define( require => {
     // radio button group, horizontally layout
     const radioButtonGroup = new HorizontalAquaRadioButtonGroup( equationProperty, radioButtonItems, {
       radioButtonOptions: { radius: 8 },
-      touchAreaDilation: 15,
+      touchAreaYDilation: 15,
       spacing: 30,
       left: 50,
       centerY: BAR_HEIGHT / 2,
