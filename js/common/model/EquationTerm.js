@@ -13,41 +13,39 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
 
-  /**
-   * @param {number} balancedCoefficient balanced coefficient for molecule
-   * @param {Molecule} molecule
-   * @param {Object} [options]
-   * @constructor
-   */
-  function EquationTerm( balancedCoefficient, molecule, options ) {
+  class EquationTerm {
 
-    options = merge( {
-      initialCoefficient: 0 // initial value of the coefficient
-    }, options );
+    /**
+     * @param {number} balancedCoefficient balanced coefficient for molecule
+     * @param {Molecule} molecule
+     * @param {Object} [options]
+     */
+    constructor( balancedCoefficient, molecule, options ) {
 
-    // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
-    if ( BCEQueryParameters.playAll ) {
-      options.initialCoefficient = balancedCoefficient;
+      options = merge( {
+        initialCoefficient: 0 // initial value of the coefficient
+      }, options );
+
+      // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
+      if ( BCEQueryParameters.playAll ) {
+        options.initialCoefficient = balancedCoefficient;
+      }
+
+      this.molecule = molecule; // @public
+      this.balancedCoefficient = balancedCoefficient; // @public
+      this.userCoefficientProperty = new NumberProperty( options.initialCoefficient, {
+        numberType: 'Integer'
+      } ); // @public
     }
-
-    this.molecule = molecule; // @public
-    this.balancedCoefficient = balancedCoefficient; // @public
-    this.userCoefficientProperty = new NumberProperty( options.initialCoefficient, {
-      numberType: 'Integer'
-    } ); // @public
-  }
-
-  balancingChemicalEquations.register( 'EquationTerm', EquationTerm );
-
-  return inherit( Object, EquationTerm, {
 
     // @public
-    reset: function() {
+    reset() {
       this.userCoefficientProperty.reset();
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'EquationTerm', EquationTerm );
 } );

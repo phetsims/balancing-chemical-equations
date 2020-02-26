@@ -15,7 +15,6 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   const Element = require( 'NITROGLYCERIN/Element' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const IntroductionModel = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/model/IntroductionModel' );
   const IntroductionScreenView = require( 'BALANCING_CHEMICAL_EQUATIONS/introduction/view/IntroductionScreenView' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -31,27 +30,26 @@ define( require => {
   // strings
   const screenIntroductionString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/screen.introduction' );
 
-  /**
-   * @constructor
-   */
-  const IntroductionScreen = function() {
+  class IntroductionScreen extends Screen {
 
-    const options = {
-      name: screenIntroductionString,
-      backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
-      homeScreenIcon: createScreenIcon()
-    };
+    constructor() {
 
-    Screen.call( this,
-      function() { return new IntroductionModel(); },
-      function( model ) { return new IntroductionScreenView( model ); },
-      options );
-  };
+      const options = {
+        name: screenIntroductionString,
+        backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
+        homeScreenIcon: createScreenIcon()
+      };
 
-  balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );
+      super(
+        () => new IntroductionModel(),
+        model => new IntroductionScreenView( model ),
+        options
+      );
+    }
+  }
 
   // creates the icon for this screen: an equation above a balance beam
-  var createScreenIcon = function() {
+  function createScreenIcon() {
 
     // background rectangle
     const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
@@ -108,7 +106,7 @@ define( require => {
     contentNode.center = background.center;
 
     return new Node( { children: [ background, contentNode ] } );
-  };
+  }
 
-  return inherit( Screen, IntroductionScreen );
+  return balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );
 } );

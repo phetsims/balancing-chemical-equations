@@ -13,7 +13,6 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   const DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
@@ -23,38 +22,35 @@ define( require => {
   const makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
   const separateWaterString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
 
-  /**
-   * @constructor
-   */
-  function IntroductionModel() {
+  class IntroductionModel {
 
-    this.COEFFICENTS_RANGE = new Range( 0, 3 ); // @public (read-only) Range of possible equation coefficients
+    constructor() {
 
-    /*
-     * @public
-     * Choices available in the 'Introduction' screen.
-     * The contract for a choice is: { equation: {Equation}, label: {string} }
-     */
-    this.choices = [
-      { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: makeAmmoniaString },
-      { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: separateWaterString },
-      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: combustMethaneString }
-    ];
+      this.COEFFICENTS_RANGE = new Range( 0, 3 ); // @public (read-only) Range of possible equation coefficients
 
-    // @public the equation that is selected
-    this.equationProperty = new Property( this.choices[ 0 ].equation );
-  }
+      /*
+       * @public
+       * Choices available in the 'Introduction' screen.
+       * The contract for a choice is: { equation: {Equation}, label: {string} }
+       */
+      this.choices = [
+        { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: makeAmmoniaString },
+        { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: separateWaterString },
+        { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: combustMethaneString }
+      ];
 
-  balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
-
-  return inherit( Object, IntroductionModel, {
+      // @public the equation that is selected
+      this.equationProperty = new Property( this.choices[ 0 ].equation );
+    }
 
     // @public
-    reset: function() {
+    reset() {
       this.equationProperty.reset();
       this.choices.forEach( function( choice ) {
         choice.equation.reset();
       } );
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
 } );

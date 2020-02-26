@@ -13,21 +13,38 @@ define( require => {
 
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   * @param {NITROGLYCERIN.Element} element
-   * @param {number} reactantsCount
-   * @param {number} productsCount
-   * @constructor
-   */
-  const AtomCount = function( element, reactantsCount, productsCount ) {
-    this.element = element; // @public the element that describes the atom's chemical properties
-    this.reactantsCount = reactantsCount; // @public
-    this.productsCount = productsCount; // @public
-  };
+  class AtomCount {
 
-  balancingChemicalEquations.register( 'AtomCount', AtomCount );
+    /**
+     * @param {NITROGLYCERIN.Element} element
+     * @param {number} reactantsCount
+     * @param {number} productsCount
+     */
+    constructor( element, reactantsCount, productsCount ) {
+      this.element = element; // @public the element that describes the atom's chemical properties
+      this.reactantsCount = reactantsCount; // @public
+      this.productsCount = productsCount; // @public
+    }
+
+    /**
+     * Returns a count of each type of atom, based on the user coefficients.
+     * The order of atoms will be the same order that they are encountered in the terms, left to right.
+     * For example, if the equation is CH4 + 2 O2 -> CO2 + 2 H2O, then the order of atoms
+     * will be [C,H,O].
+     *
+     * @param {Equation} equation
+     * @returns {AtomCount[]}
+     * @public
+     * @static
+     */
+    static countAtoms( equation ) {
+      const atomCounts = [];
+      appendToCounts( atomCounts, equation.reactants, true /* isReactants */ );
+      appendToCounts( atomCounts, equation.products, false /* isReactants */ );
+      return atomCounts;
+    }
+  }
 
   /**
    * Some of our visual representations of 'balanced' (ie, balance scales and bar charts)
@@ -80,21 +97,5 @@ define( require => {
     return atomCounts;
   };
 
-  /**
-   * Returns a count of each type of atom, based on the user coefficients.
-   * The order of atoms will be the same order that they are encountered in the terms, left to right.
-   * For example, if the equation is CH4 + 2 O2 -> CO2 + 2 H2O, then the order of atoms
-   * will be [C,H,O].
-   *
-   * @param {Equation} equation
-   * @returns {AtomCount[]}
-   */
-  AtomCount.countAtoms = function( equation ) {
-    const atomCounts = [];
-    appendToCounts( atomCounts, equation.reactants, true /* isReactants */ );
-    appendToCounts( atomCounts, equation.products, false /* isReactants */ );
-    return atomCounts;
-  };
-
-  return inherit( Object, AtomCount );
+  return balancingChemicalEquations.register( 'AtomCount', AtomCount );
 } );

@@ -17,7 +17,5 @@ define( require => {
     'BAR_CHARTS': 'BAR_CHARTS'
   } );
 
-  balancingChemicalEquations.register( 'BalancedRepresentation', BalancedRepresentation );
-
-  return BalancedRepresentation;
+  return balancingChemicalEquations.register( 'BalancedRepresentation', BalancedRepresentation );
 } );

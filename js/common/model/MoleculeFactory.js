@@ -188,7 +188,5 @@ define( require => {
     }
   };
 
-  balancingChemicalEquations.register( 'MoleculeFactory', MoleculeFactory );
-
-  return MoleculeFactory;
+  return balancingChemicalEquations.register( 'MoleculeFactory', MoleculeFactory );
 } );

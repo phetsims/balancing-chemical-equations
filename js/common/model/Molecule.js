@@ -11,30 +11,23 @@ define( require => {
   // modules
   const Atom = require( 'NITROGLYCERIN/Atom' );
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
-   * @param {string} symbolText html string
-   * @param {NITROGLYCERIN.Element[]} elements
-   * @constructor
-   */
-  function Molecule( nodeConstructor, symbolText, elements ) {
-    const self = this;
+  class Molecule {
 
-    // @public
-    this.nodeConstructor = nodeConstructor;
-    this.symbol = symbolText;
-    this.atoms = [];
+    /**
+     * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
+     * @param {string} symbolText html string
+     * @param {NITROGLYCERIN.Element[]} elements
+     */
+    constructor( nodeConstructor, symbolText, elements ) {
 
-    elements.forEach( function( element ) {
-      self.atoms.push( new Atom( element ) );
-    } );
-  }
+      // @public
+      this.nodeConstructor = nodeConstructor;
+      this.symbol = symbolText;
+      this.atoms = [];
 
-  balancingChemicalEquations.register( 'Molecule', Molecule );
-
-  return inherit( Object, Molecule, {
+      elements.forEach( element => this.atoms.push( new Atom( element ) ) );
+    }
 
     /**
      * Any molecule with more than 5 atoms is considered "big".
@@ -42,8 +35,10 @@ define( require => {
      * @returns {boolean}
      * @public
      */
-    isBig: function() {
+    isBig() {
       return this.atoms.length > 5;
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'Molecule', Molecule );
 } );

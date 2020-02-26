@@ -19,60 +19,51 @@ define( require => {
   const AtomCount = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/AtomCount' );
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const NumberProperty = require( 'AXON/NumberProperty' );
 
-  /**
-   * @param {EquationTerm[]} reactants terms on the left side of the equation
-   * @param {EquationTerm[]} products terms on the right side of the equation
-   * @constructor
-   */
-  function Equation( reactants, products ) {
-    const self = this;
+  class Equation {
 
-    this.reactants = reactants; // @public
-    this.products = products; // @public
+    /**
+     * @param {EquationTerm[]} reactants terms on the left side of the equation
+     * @param {EquationTerm[]} products terms on the right side of the equation
+     */
+    constructor( reactants, products ) {
 
-    // @public
-    this.balancedProperty = new BooleanProperty( false );
-    this.coefficientsSumProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+      // @public
+      this.reactants = reactants;
+      this.products = products;
 
-    this.balancedAndSimplified = false; // @public balanced with the lowest possible coefficients
+      // @public
+      this.balancedProperty = new BooleanProperty( false );
+      this.coefficientsSumProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    this.addCoefficientsObserver( self.updateBalanced.bind( self ) );
+      this.balancedAndSimplified = false; // @public balanced with the lowest possible coefficients
 
-    // keep a sum of all coefficients, so we know when the sum is non-zero
-    this.addCoefficientsObserver( function() {
-      let coefficientsSum = 0;
-      const addCoefficients = function( equationTerm ) {
-        coefficientsSum += equationTerm.userCoefficientProperty.get();
-      };
-      self.reactants.forEach( addCoefficients );
-      self.products.forEach( addCoefficients );
-      self.coefficientsSumProperty.set( coefficientsSum );
-    } );
-  }
+      this.addCoefficientsObserver( this.updateBalanced.bind( this ) );
 
-  balancingChemicalEquations.register( 'Equation', Equation );
-
-  return inherit( Object, Equation, {
+      // keep a sum of all coefficients, so we know when the sum is non-zero
+      this.addCoefficientsObserver( () => {
+        let coefficientsSum = 0;
+        const addCoefficients = equationTerm => {
+          coefficientsSum += equationTerm.userCoefficientProperty.get();
+        };
+        this.reactants.forEach( addCoefficients );
+        this.products.forEach( addCoefficients );
+        this.coefficientsSumProperty.set( coefficientsSum );
+      } );
+    }
 
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/142 is dispose needed?
 
     // @public
-    reset: function() {
+    reset() {
 
       this.balancedProperty.reset();
       this.coefficientsSumProperty.reset();
 
-      this.reactants.forEach( function( reactant ) {
-        reactant.reset();
-      } );
-
-      this.products.forEach( function( product ) {
-        product.reset();
-      } );
-    },
+      this.reactants.forEach( reactant => reactant.reset() );
+      this.products.forEach( product => product.reset() );
+    }
 
     /**
      * An equation is balanced if all of its terms have a coefficient that is the
@@ -81,62 +72,52 @@ define( require => {
      * lowest possible coefficients).
      * @private
      */
-    updateBalanced: function() {
+    updateBalanced() {
 
       // Get integer multiplier from the first reactant term.
       const multiplier = this.reactants[ 0 ].userCoefficientProperty.get() / this.reactants[ 0 ].balancedCoefficient;
       let balanced = ( multiplier > 0 );
 
       // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
-      this.reactants.forEach( function( reactant ) {
+      this.reactants.forEach( reactant => {
         balanced = balanced && ( reactant.userCoefficientProperty.get() === multiplier * reactant.balancedCoefficient );
       } );
-      this.products.forEach( function( product ) {
+      this.products.forEach( product => {
         balanced = balanced && ( product.userCoefficientProperty.get() === multiplier * product.balancedCoefficient );
       } );
 
       this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific value first
       this.balancedProperty.set( balanced );
-    },
+    }
 
     /**
      * Convenience method for adding an observer to all coefficients.
      * @public
      */
-    addCoefficientsObserver: function( observer ) {
-      this.reactants.forEach( function( reactant ) {
-        reactant.userCoefficientProperty.lazyLink( observer );
-      } );
-      this.products.forEach( function( product ) {
-        product.userCoefficientProperty.lazyLink( observer );
-      } );
+    addCoefficientsObserver( observer ) {
+      this.reactants.forEach( reactant => reactant.userCoefficientProperty.lazyLink( observer ) );
+      this.products.forEach( product => product.userCoefficientProperty.lazyLink( observer ) );
       observer();
-    },
+    }
 
     /**
      * Convenience method for removing an observer from all coefficients.
      * @public
      */
-    removeCoefficientsObserver: function( observer ) {
-      this.reactants.forEach( function( reactant ) {
-        reactant.userCoefficientProperty.unlink( observer );
-      } );
-      this.products.forEach( function( product ) {
-        product.userCoefficientProperty.unlink( observer );
-      } );
-    },
+    removeCoefficientsObserver( observer ) {
+      this.reactants.forEach( reactant => reactant.userCoefficientProperty.unlink( observer ) );
+      this.products.forEach( product => product.userCoefficientProperty.unlink( observer ) );
+    }
 
     /**
      * Returns a count of each type of atom, based on the user coefficients.
      * See AtomCount.countAtoms for details.
-     *
-     * @param {Equation} equation
      * @returns {AtomCount[]}
      * @public
      */
-    getAtomCounts: function() {
+    getAtomCounts() {
       return AtomCount.countAtoms( this );
-    },
+    }
 
     /**
      * Does this equation contain at least one "big" molecule?
@@ -144,33 +125,29 @@ define( require => {
      * @returns {boolean}
      * @public
      */
-    hasBigMolecule: function() {
-      this.reactants.forEach( function( reactant ) {
+    hasBigMolecule() {
+      this.reactants.forEach( reactant => {
         if ( reactant.molecule.isBig() ) {
           return true;
         }
       } );
-      this.products.forEach( function( product ) {
+      this.products.forEach( product => {
         if ( product.molecule.isBig() ) {
           return true;
         }
       } );
       return false;
-    },
+    }
 
     /**
      * Balances the equation by copying the balanced coefficient value to
      * the user coefficient value for each term in the equation.
      * @public
      */
-    balance: function() {
-      this.reactants.forEach( function( term ) {
-        term.userCoefficientProperty.set( term.balancedCoefficient );
-      } );
-      this.products.forEach( function( term ) {
-        term.userCoefficientProperty.set( term.balancedCoefficient );
-      } );
-    },
+    balance() {
+      this.reactants.forEach( term => term.userCoefficientProperty.set( term.balancedCoefficient ) );
+      this.products.forEach( term => term.userCoefficientProperty.set( term.balancedCoefficient ) );
+    }
 
     /**
      * Gets a string that shows just the coefficients of the equations.
@@ -178,7 +155,7 @@ define( require => {
      * @returns {string}
      * @public
      */
-    getCoefficientsString: function() {
+    getCoefficientsString() {
       let string = '';
       for ( var i = 0; i < this.reactants.length; i++ ) {
         string += this.reactants[ i ].balancedCoefficient;
@@ -190,15 +167,16 @@ define( require => {
         string += ( i < this.products.length - 1 ) ? ' + ' : '';
       }
       return string;
-    },
+    }
 
     /**
      * String value of an equation, shows balanced coefficients, for debugging.
      * @returns {string}
      * @public
      */
-    toString: function() {
+    toString() {
       let string = '';
+
       // reactants
       for ( var i = 0; i < this.reactants.length; i++ ) {
         string += this.reactants[ i ].balancedCoefficient;
@@ -208,8 +186,10 @@ define( require => {
           string += ' + ';
         }
       }
+
       // right arrow
       string += ' \u2192 ';
+
       // products
       for ( i = 0; i < this.products.length; i++ ) {
         string += this.products[ i ].balancedCoefficient;
@@ -219,10 +199,14 @@ define( require => {
           string += ' + ';
         }
       }
+
       // strip out HTML tags to improve readability
       string = string.replace( /<sub>/g, '' );
       string = string.replace( /<\/sub>/g, '' );
+
       return string;
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'Equation', Equation );
 } );

@@ -24,7 +24,5 @@ define( require => {
     MOLECULE_SCALE_FACTOR: 0.74 // scale all molecules by scaleFactor to fit design
   } );
 
-  balancingChemicalEquations.register( 'BCEConstants', BCEConstants );
-
-  return BCEConstants;
+  return balancingChemicalEquations.register( 'BCEConstants', BCEConstants );
 } );
