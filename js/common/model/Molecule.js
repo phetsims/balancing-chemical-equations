@@ -5,40 +5,37 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Atom = require( 'NITROGLYCERIN/Atom' );
-  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+import Atom from '../../../../nitroglycerin/js/Atom.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-  class Molecule {
+class Molecule {
 
-    /**
-     * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
-     * @param {string} symbolText html string
-     * @param {NITROGLYCERIN.Element[]} elements
-     */
-    constructor( nodeConstructor, symbolText, elements ) {
+  /**
+   * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
+   * @param {string} symbolText html string
+   * @param {NITROGLYCERIN.Element[]} elements
+   */
+  constructor( nodeConstructor, symbolText, elements ) {
 
-      // @public
-      this.nodeConstructor = nodeConstructor;
-      this.symbol = symbolText;
-      this.atoms = [];
+    // @public
+    this.nodeConstructor = nodeConstructor;
+    this.symbol = symbolText;
+    this.atoms = [];
 
-      elements.forEach( element => this.atoms.push( new Atom( element ) ) );
-    }
-
-    /**
-     * Any molecule with more than 5 atoms is considered "big".
-     * This affects degree of difficulty in the Game.
-     * @returns {boolean}
-     * @public
-     */
-    isBig() {
-      return this.atoms.length > 5;
-    }
+    elements.forEach( element => this.atoms.push( new Atom( element ) ) );
   }
 
-  return balancingChemicalEquations.register( 'Molecule', Molecule );
-} );
+  /**
+   * Any molecule with more than 5 atoms is considered "big".
+   * This affects degree of difficulty in the Game.
+   * @returns {boolean}
+   * @public
+   */
+  isBig() {
+    return this.atoms.length > 5;
+  }
+}
+
+balancingChemicalEquations.register( 'Molecule', Molecule );
+export default Molecule;

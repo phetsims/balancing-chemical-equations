@@ -5,32 +5,29 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BalancedRepresentation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/BalancedRepresentation' );
-  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const StringProperty = require( 'AXON/StringProperty' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 
-  class IntroductionViewProperties {
+class IntroductionViewProperties {
 
-    constructor() {
-
-      // @public
-      this.reactantsBoxExpandedProperty = new BooleanProperty( true );
-      this.productsBoxExpandedProperty = new BooleanProperty( true );
-      this.balancedRepresentationProperty = new StringProperty( BalancedRepresentation.NONE );
-    }
+  constructor() {
 
     // @public
-    reset() {
-      this.reactantsBoxExpandedProperty.reset();
-      this.productsBoxExpandedProperty.reset();
-      this.balancedRepresentationProperty.reset();
-    }
+    this.reactantsBoxExpandedProperty = new BooleanProperty( true );
+    this.productsBoxExpandedProperty = new BooleanProperty( true );
+    this.balancedRepresentationProperty = new StringProperty( BalancedRepresentation.NONE );
   }
 
-  return balancingChemicalEquations.register( 'IntroductionViewProperties', IntroductionViewProperties );
-} );
+  // @public
+  reset() {
+    this.reactantsBoxExpandedProperty.reset();
+    this.productsBoxExpandedProperty.reset();
+    this.balancedRepresentationProperty.reset();
+  }
+}
+
+balancingChemicalEquations.register( 'IntroductionViewProperties', IntroductionViewProperties );
+export default IntroductionViewProperties;

@@ -7,45 +7,42 @@
  *
  * @author Vasily Shakhov (mlearner.com)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
-  const merge = require( 'PHET_CORE/merge' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BCEQueryParameters from '../BCEQueryParameters.js';
 
-  class EquationTerm {
+class EquationTerm {
 
-    /**
-     * @param {number} balancedCoefficient balanced coefficient for molecule
-     * @param {Molecule} molecule
-     * @param {Object} [options]
-     */
-    constructor( balancedCoefficient, molecule, options ) {
+  /**
+   * @param {number} balancedCoefficient balanced coefficient for molecule
+   * @param {Molecule} molecule
+   * @param {Object} [options]
+   */
+  constructor( balancedCoefficient, molecule, options ) {
 
-      options = merge( {
-        initialCoefficient: 0 // initial value of the coefficient
-      }, options );
+    options = merge( {
+      initialCoefficient: 0 // initial value of the coefficient
+    }, options );
 
-      // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
-      if ( BCEQueryParameters.playAll ) {
-        options.initialCoefficient = balancedCoefficient;
-      }
-
-      this.molecule = molecule; // @public
-      this.balancedCoefficient = balancedCoefficient; // @public
-      this.userCoefficientProperty = new NumberProperty( options.initialCoefficient, {
-        numberType: 'Integer'
-      } ); // @public
+    // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
+    if ( BCEQueryParameters.playAll ) {
+      options.initialCoefficient = balancedCoefficient;
     }
 
-    // @public
-    reset() {
-      this.userCoefficientProperty.reset();
-    }
+    this.molecule = molecule; // @public
+    this.balancedCoefficient = balancedCoefficient; // @public
+    this.userCoefficientProperty = new NumberProperty( options.initialCoefficient, {
+      numberType: 'Integer'
+    } ); // @public
   }
 
-  return balancingChemicalEquations.register( 'EquationTerm', EquationTerm );
-} );
+  // @public
+  reset() {
+    this.userCoefficientProperty.reset();
+  }
+}
+
+balancingChemicalEquations.register( 'EquationTerm', EquationTerm );
+export default EquationTerm;

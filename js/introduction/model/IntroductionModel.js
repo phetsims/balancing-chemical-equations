@@ -6,51 +6,48 @@
  *
  * @author Vasily Shakhov (MLearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
-  const DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
-  const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
-  const SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
+import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
+import balancingChemicalEquationsStrings from '../../balancing-chemical-equations-strings.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import DecompositionEquation from '../../common/model/DecompositionEquation.js';
+import DisplacementEquation from '../../common/model/DisplacementEquation.js';
+import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 
-  // strings
-  const combustMethaneString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/combustMethane' );
-  const makeAmmoniaString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/makeAmmonia' );
-  const separateWaterString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/separateWater' );
+const combustMethaneString = balancingChemicalEquationsStrings.combustMethane;
+const makeAmmoniaString = balancingChemicalEquationsStrings.makeAmmonia;
+const separateWaterString = balancingChemicalEquationsStrings.separateWater;
 
-  class IntroductionModel {
+class IntroductionModel {
 
-    constructor() {
+  constructor() {
 
-      this.COEFFICENTS_RANGE = new Range( 0, 3 ); // @public (read-only) Range of possible equation coefficients
+    this.COEFFICENTS_RANGE = new Range( 0, 3 ); // @public (read-only) Range of possible equation coefficients
 
-      /*
-       * @public
-       * Choices available in the 'Introduction' screen.
-       * The contract for a choice is: { equation: {Equation}, label: {string} }
-       */
-      this.choices = [
-        { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: makeAmmoniaString },
-        { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: separateWaterString },
-        { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: combustMethaneString }
-      ];
+    /*
+     * @public
+     * Choices available in the 'Introduction' screen.
+     * The contract for a choice is: { equation: {Equation}, label: {string} }
+     */
+    this.choices = [
+      { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: makeAmmoniaString },
+      { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: separateWaterString },
+      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: combustMethaneString }
+    ];
 
-      // @public the equation that is selected
-      this.equationProperty = new Property( this.choices[ 0 ].equation );
-    }
-
-    // @public
-    reset() {
-      this.equationProperty.reset();
-      this.choices.forEach( function( choice ) {
-        choice.equation.reset();
-      } );
-    }
+    // @public the equation that is selected
+    this.equationProperty = new Property( this.choices[ 0 ].equation );
   }
 
-  return balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
-} );
+  // @public
+  reset() {
+    this.equationProperty.reset();
+    this.choices.forEach( function( choice ) {
+      choice.equation.reset();
+    } );
+  }
+}
+
+balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
+export default IntroductionModel;

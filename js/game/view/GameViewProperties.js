@@ -5,30 +5,27 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-  class GameViewProperties {
+class GameViewProperties {
 
-    constructor() {
-
-      // @public
-      this.timerEnabledProperty = new BooleanProperty( false );
-      this.reactantsBoxExpandedProperty = new BooleanProperty( true );
-      this.productsBoxExpandedProperty = new BooleanProperty( true );
-    }
+  constructor() {
 
     // @public
-    reset() {
-      this.timerEnabledProperty.reset();
-      this.reactantsBoxExpandedProperty.reset();
-      this.productsBoxExpandedProperty.reset();
-    }
+    this.timerEnabledProperty = new BooleanProperty( false );
+    this.reactantsBoxExpandedProperty = new BooleanProperty( true );
+    this.productsBoxExpandedProperty = new BooleanProperty( true );
   }
 
-  return balancingChemicalEquations.register( 'GameViewProperties', GameViewProperties );
-} );
+  // @public
+  reset() {
+    this.timerEnabledProperty.reset();
+    this.reactantsBoxExpandedProperty.reset();
+    this.productsBoxExpandedProperty.reset();
+  }
+}
+
+balancingChemicalEquations.register( 'GameViewProperties', GameViewProperties );
+export default GameViewProperties;

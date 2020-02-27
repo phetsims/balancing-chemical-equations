@@ -12,152 +12,149 @@
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const BarNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarNode' );
-  const EqualityOperatorNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EqualityOperatorNode' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const Vector2 = require( 'DOT/Vector2' );
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BarNode from './BarNode.js';
+import EqualityOperatorNode from './EqualityOperatorNode.js';
 
-  class BarChartsNode extends Node {
+class BarChartsNode extends Node {
 
-    /**
-     * @param {Property} equationProperty the equation that the scales are representing
-     * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-     * @param {Object} [options]
-     */
-    constructor( equationProperty, aligner, options ) {
+  /**
+   * @param {Property} equationProperty the equation that the scales are representing
+   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param {Object} [options]
+   */
+  constructor( equationProperty, aligner, options ) {
 
-      options = merge( {}, options );
+    options = merge( {}, options );
 
-      super();
+    super();
 
-      this.equationProperty = equationProperty; // @private
-      this.aligner = aligner; // @private
-      this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
-      this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
+    this.equationProperty = equationProperty; // @private
+    this.aligner = aligner; // @private
+    this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
+    this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
 
-      this.reactantBarsParent = new Node(); // @private
-      this.productBarsParent = new Node(); // @private
+    this.reactantBarsParent = new Node(); // @private
+    this.productBarsParent = new Node(); // @private
 
-      // @private
-      const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
-        center: new Vector2( aligner.getScreenCenterX(), -40 )
-      } );
+    // @private
+    const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
+      center: new Vector2( aligner.getScreenCenterX(), -40 )
+    } );
 
-      options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
+    options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
 
-      // Wire coefficients observer to current equation.
-      const coefficientsObserver = this.updateCounts.bind( this );
-      equationProperty.link( ( newEquation, oldEquation ) => {
-        this.updateNode();
-        if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
-        newEquation.addCoefficientsObserver( coefficientsObserver );
-      } );
+    // Wire coefficients observer to current equation.
+    const coefficientsObserver = this.updateCounts.bind( this );
+    equationProperty.link( ( newEquation, oldEquation ) => {
+      this.updateNode();
+      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+      newEquation.addCoefficientsObserver( coefficientsObserver );
+    } );
 
-      this.mutate( options );
-    }
+    this.mutate( options );
+  }
 
-    // No dispose needed, instances of this type persist for lifetime of the sim.
+  // No dispose needed, instances of this type persist for lifetime of the sim.
 
-    /**
-     * Update the node when it becomes visible.
-     * @param visible
-     * @override
-     * @public
-     */
-    setVisible( visible ) {
-      const wasVisible = this.visible;
-      super.setVisible( visible );
-      if ( !wasVisible && visible ) {
-        this.updateNode();
-      }
-    }
-
-    /**
-     * Updates this node's entire geometry and layout
-     * @private
-     */
-    updateNode() {
-      if ( this.visible ) {
-        const atomCounts = this.equationProperty.get().getAtomCounts();
-
-        this.reactantCountProperties = this.updateBars(
-          this.reactantBarsParent,
-          atomCounts,
-          atomCount => atomCount.reactantsCount,
-          this.aligner.getReactantsBoxCenterX()
-        );
-
-        this.productCountProperties = this.updateBars(
-          this.productBarsParent,
-          atomCounts,
-          atomCount => atomCount.productsCount,
-          this.aligner.getProductsBoxCenterX()
-        );
-
-        this.updateCounts();
-      }
-    }
-
-    /**
-     * Updates one set of bars (reactants or products).
-     * @param {Node} parentNode
-     * @param {AtomCount[]} atomCounts counts of each atom in the equation
-     * @param {function} getCount 1 parameter {AtomCount}, return {number}, either the reactants or products count
-     * @param {number} centerX centerX of the chart
-     * @private
-     */
-    updateBars( parentNode, atomCounts, getCount, centerX ) {
-
-      // dispose of children before calling removeAllChildren
-      parentNode.getChildren().forEach( child => {
-        if ( child.dispose() ) {
-          child.dispose();
-        }
-      } );
-
-      parentNode.removeAllChildren(); // remove all the bar nodes
-
-      const countProperties = {}; // clear the map
-
-      let barCenterX = 0;
-      for ( let i = 0; i < atomCounts.length; i++ ) {
-        const atomCount = atomCounts[ i ];
-        // populate the map
-        const countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
-        countProperties[ atomCount.element.symbol ] = countProperty;
-        // add a bar node
-        const barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
-        parentNode.addChild( barNode );
-        barCenterX = barNode.centerX + 100;
-      }
-
-      parentNode.centerX = centerX;
-
-      return countProperties;
-    }
-
-    /**
-     * Updates the atom counts for each bar.
-     * @private
-     */
-    updateCounts() {
-      if ( this.visible ) {
-        const atomCounts = this.equationProperty.get().getAtomCounts();
-        for ( let i = 0; i < atomCounts.length; i++ ) {
-          const atomCount = atomCounts[ i ];
-          this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
-          this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
-        }
-      }
+  /**
+   * Update the node when it becomes visible.
+   * @param visible
+   * @override
+   * @public
+   */
+  setVisible( visible ) {
+    const wasVisible = this.visible;
+    super.setVisible( visible );
+    if ( !wasVisible && visible ) {
+      this.updateNode();
     }
   }
 
-  return balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );
-} );
+  /**
+   * Updates this node's entire geometry and layout
+   * @private
+   */
+  updateNode() {
+    if ( this.visible ) {
+      const atomCounts = this.equationProperty.get().getAtomCounts();
+
+      this.reactantCountProperties = this.updateBars(
+        this.reactantBarsParent,
+        atomCounts,
+        atomCount => atomCount.reactantsCount,
+        this.aligner.getReactantsBoxCenterX()
+      );
+
+      this.productCountProperties = this.updateBars(
+        this.productBarsParent,
+        atomCounts,
+        atomCount => atomCount.productsCount,
+        this.aligner.getProductsBoxCenterX()
+      );
+
+      this.updateCounts();
+    }
+  }
+
+  /**
+   * Updates one set of bars (reactants or products).
+   * @param {Node} parentNode
+   * @param {AtomCount[]} atomCounts counts of each atom in the equation
+   * @param {function} getCount 1 parameter {AtomCount}, return {number}, either the reactants or products count
+   * @param {number} centerX centerX of the chart
+   * @private
+   */
+  updateBars( parentNode, atomCounts, getCount, centerX ) {
+
+    // dispose of children before calling removeAllChildren
+    parentNode.getChildren().forEach( child => {
+      if ( child.dispose() ) {
+        child.dispose();
+      }
+    } );
+
+    parentNode.removeAllChildren(); // remove all the bar nodes
+
+    const countProperties = {}; // clear the map
+
+    let barCenterX = 0;
+    for ( let i = 0; i < atomCounts.length; i++ ) {
+      const atomCount = atomCounts[ i ];
+      // populate the map
+      const countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
+      countProperties[ atomCount.element.symbol ] = countProperty;
+      // add a bar node
+      const barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
+      parentNode.addChild( barNode );
+      barCenterX = barNode.centerX + 100;
+    }
+
+    parentNode.centerX = centerX;
+
+    return countProperties;
+  }
+
+  /**
+   * Updates the atom counts for each bar.
+   * @private
+   */
+  updateCounts() {
+    if ( this.visible ) {
+      const atomCounts = this.equationProperty.get().getAtomCounts();
+      for ( let i = 0; i < atomCounts.length; i++ ) {
+        const atomCount = atomCounts[ i ];
+        this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
+        this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
+      }
+    }
+  }
+}
+
+balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );
+export default BarChartsNode;

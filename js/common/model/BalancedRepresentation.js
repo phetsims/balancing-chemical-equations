@@ -5,17 +5,14 @@
  *
  * @author Vasily Shakhov (Mlearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-  const BalancedRepresentation = Object.freeze( {
-    'NONE': 'NONE',
-    'BALANCE_SCALES': 'BALANCE_SCALES',
-    'BAR_CHARTS': 'BAR_CHARTS'
-  } );
-
-  return balancingChemicalEquations.register( 'BalancedRepresentation', BalancedRepresentation );
+const BalancedRepresentation = Object.freeze( {
+  'NONE': 'NONE',
+  'BALANCE_SCALES': 'BALANCE_SCALES',
+  'BAR_CHARTS': 'BAR_CHARTS'
 } );
+
+balancingChemicalEquations.register( 'BalancedRepresentation', BalancedRepresentation );
+export default BalancedRepresentation;
