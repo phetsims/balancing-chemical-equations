@@ -12,7 +12,6 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const LevelSelectionButton = require( 'VEGAS/LevelSelectionButton' );
   const merge = require( 'PHET_CORE/merge' );
   const MoleculeFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/MoleculeFactory' );
@@ -39,63 +38,65 @@ define( require => {
   // constants
   const BUTTON_MARGIN = 20;
 
-  /**
-   * @param {GameModel} model
-   * @param {GameViewProperties} viewProperties
-   * @param {Bounds2} layoutBounds
-   * @param {function(number:level)} startGame
-   * @param {Object} [options]
-   * @constructor
-   */
-  function LevelSelectionNode( model, viewProperties, layoutBounds, startGame, options ) {
+  class LevelSelectionNode extends Node {
 
-    Node.call( this );
+    /**
+     * @param {GameModel} model
+     * @param {GameViewProperties} viewProperties
+     * @param {Bounds2} layoutBounds
+     * @param {function(number:level)} startGame
+     * @param {Object} [options]
+     */
+    constructor( model, viewProperties, layoutBounds, startGame, options ) {
 
-    // buttons
-    const buttons = [];
-    for ( let level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
-      buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty, startGame ) );
+      super();
+
+      // buttons
+      const buttons = [];
+      for ( let level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
+        buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty, startGame ) );
+      }
+      const buttonsParent = new HBox( {
+        children: buttons,
+        spacing: 50,
+        resize: false,
+        center: layoutBounds.center
+      } );
+      this.addChild( buttonsParent );
+
+      // title
+      const title = new Text( chooseYourLevelString, {
+        font: new PhetFont( 36 ),
+        centerX: layoutBounds.centerX,
+        centerY: buttonsParent.top / 2,
+        maxWidth: 0.85 * layoutBounds.width // constrain width for i18n
+      } );
+      this.addChild( title );
+
+      // timer control, lower left
+      const toggleOptions = { stroke: 'black', cornerRadius: 10 };
+      const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, merge( toggleOptions, {
+        x: BUTTON_MARGIN,
+        bottom: layoutBounds.bottom - BUTTON_MARGIN
+      } ) );
+      this.addChild( timerToggleButton );
+
+      // Reset All button, lower right
+      const resetButton = new ResetAllButton( {
+        listener: function() {
+          model.reset();
+          viewProperties.reset();
+        },
+        right: layoutBounds.right - BUTTON_MARGIN,
+        bottom: layoutBounds.bottom - BUTTON_MARGIN
+      } );
+      this.addChild( resetButton );
+
+      this.mutate( options );
     }
-    const buttonsParent = new HBox( {
-      children: buttons,
-      spacing: 50,
-      resize: false,
-      center: layoutBounds.center
-    } );
-    this.addChild( buttonsParent );
 
-    // title
-    const title = new Text( chooseYourLevelString, {
-      font: new PhetFont( 36 ),
-      centerX: layoutBounds.centerX,
-      centerY: buttonsParent.top / 2,
-      maxWidth: 0.85 * layoutBounds.width // constrain width for i18n
-    } );
-    this.addChild( title );
-
-    // timer control, lower left
-    const toggleOptions = { stroke: 'black', cornerRadius: 10 };
-    const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, merge( toggleOptions, {
-      x: BUTTON_MARGIN,
-      bottom: layoutBounds.bottom - BUTTON_MARGIN
-    } ) );
-    this.addChild( timerToggleButton );
-
-    // Reset All button, lower right
-    const resetButton = new ResetAllButton( {
-      listener: function() {
-        model.reset();
-        viewProperties.reset();
-      },
-      right: layoutBounds.right - BUTTON_MARGIN,
-      bottom: layoutBounds.bottom - BUTTON_MARGIN
-    } );
-    this.addChild( resetButton );
-
-    this.mutate( options );
+    // No dispose needed, instances of this type persist for lifetime of the sim.
   }
-
-  balancingChemicalEquations.register( 'LevelSelectionNode', LevelSelectionNode );
 
   /**
    * Creates a level selection button
@@ -106,7 +107,7 @@ define( require => {
    * @param {function(number:level)} startGame
    * @returns {LevelSelectionButton}
    */
-  var createLevelSelectionButton = function( level, model, bestTimeVisibleProperty, startGame ) {
+  function createLevelSelectionButton( level, model, bestTimeVisibleProperty, startGame ) {
 
     // 'Level N' centered above icon
     const image = new levelImagesConstructors[ level ]( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
@@ -131,11 +132,8 @@ define( require => {
         startGame( level );
       }
     } );
-  };
+  }
 
-  return inherit( Node, LevelSelectionNode, {
-
-    // No dispose needed, instances of this type persist for lifetime of the sim.
-  } );
+  return balancingChemicalEquations.register( 'LevelSelectionNode', LevelSelectionNode );
 } );
 

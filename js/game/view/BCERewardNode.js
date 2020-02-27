@@ -1,7 +1,7 @@
 // Copyright 2014-2019, University of Colorado Boulder
 
 /**
- * Game reward for this simulations.
+ * Game reward for this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,6 @@ define( require => {
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
   const Element = require( 'NITROGLYCERIN/Element' );
   const FaceNode = require( 'SCENERY_PHET/FaceNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const RewardNode = require( 'VEGAS/RewardNode' );
   const StarNode = require( 'SCENERY_PHET/StarNode' );
 
@@ -120,16 +119,16 @@ define( require => {
     ]
   ];
 
-  /**
-   * @param {number} level game level
-   * @constructor
-   */
-  function BCERewardNode( level ) {
-    assert && assert( level >= 0 && level < NODES.length );
-    RewardNode.call( this, { nodes: RewardNode.createRandomNodes( NODES[ level ], NUMBER_OF_NODES ) } );
+  class BCERewardNode extends RewardNode {
+
+    /**
+     * @param {number} level game level
+     */
+    constructor( level ) {
+      assert && assert( level >= 0 && level < NODES.length );
+      super( { nodes: RewardNode.createRandomNodes( NODES[ level ], NUMBER_OF_NODES ) } );
+    }
   }
 
-  balancingChemicalEquations.register( 'BCERewardNode', BCERewardNode );
-
-  return inherit( RewardNode, BCERewardNode );
+  return balancingChemicalEquations.register( 'BCERewardNode', BCERewardNode );
 } );

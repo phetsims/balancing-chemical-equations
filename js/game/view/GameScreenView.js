@@ -16,75 +16,70 @@ define( require => {
   const GameAudioPlayer = require( 'VEGAS/GameAudioPlayer' );
   const GamePlayNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GamePlayNode' );
   const GameViewProperties = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/GameViewProperties' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const LevelCompletedNode = require( 'VEGAS/LevelCompletedNode' );
   const LevelSelectionNode = require( 'BALANCING_CHEMICAL_EQUATIONS/game/view/LevelSelectionNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const ScreenView = require( 'JOIST/ScreenView' );
 
-  /**
-   * @param {GameModel} model
-   * @constructor
-   */
-  function GameScreenView( model ) {
+  class GameScreenView extends ScreenView {
 
-    const self = this;
-    ScreenView.call( this, BCEConstants.SCREEN_VIEW_OPTIONS );
+    /**
+     * @param {GameModel} model
+     */
+    constructor( model ) {
 
-    // @public view-specific Properties
-    this.viewProperties = new GameViewProperties();
+      super( BCEConstants.SCREEN_VIEW_OPTIONS );
 
-    this.model = model; // @public
-    this.audioPlayer = new GameAudioPlayer(); // @public
+      // @public view-specific Properties
+      this.viewProperties = new GameViewProperties();
 
-    // @private Add a root node where all of the game-related nodes will live.
-    this.rootNode = new Node();
-    this.addChild( this.rootNode );
+      this.model = model; // @public
+      this.audioPlayer = new GameAudioPlayer(); // @public
 
-    // @private level-selection interface
-    this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
-      this.initStartGame.bind( this ), { visible: false } );
-    this.rootNode.addChild( this.levelSelectionNode );
+      // @private Add a root node where all of the game-related nodes will live.
+      this.rootNode = new Node();
+      this.addChild( this.rootNode );
 
-    // @private game-play interface, created on demand
-    this.gamePlayNode = null;
+      // @private level-selection interface
+      this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
+        this.initStartGame.bind( this ), { visible: false } );
+      this.rootNode.addChild( this.levelSelectionNode );
 
-    // Call an initializer to set up the game for the state.
-    model.stateProperty.link( function( state ) {
-      if ( state === model.states.LEVEL_SELECTION ) {
-        self.initLevelSelection();
-      }
-      else if ( state === model.states.LEVEL_COMPLETED ) {
-        self.initLevelCompleted();
-      }
-    } );
-  }
+      // @private game-play interface, created on demand
+      this.gamePlayNode = null;
 
-  balancingChemicalEquations.register( 'GameScreenView', GameScreenView );
-
-  return inherit( ScreenView, GameScreenView, {
+      // Call an initializer to set up the game for the state.
+      model.stateProperty.link( state => {
+        if ( state === model.states.LEVEL_SELECTION ) {
+          this.initLevelSelection();
+        }
+        else if ( state === model.states.LEVEL_COMPLETED ) {
+          this.initLevelCompleted();
+        }
+      } );
+    }
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
 
     // @public
-    step: function( dt ) {
+    step( dt ) {
       if ( this.rewardNode ) {
         this.rewardNode.step( dt );
       }
-    },
+    }
 
     // @private
-    initLevelSelection: function() {
+    initLevelSelection() {
       if ( this.gamePlayNode ) { this.gamePlayNode.visible = false; }
       this.levelSelectionNode.visible = true;
-    },
+    }
 
     /**
      * Performs initialization to start a game for a specified level.
      * @param {number} level
      * @private
      */
-    initStartGame: function( level ) {
+    initStartGame( level ) {
       this.model.levelProperty.set( level );
       if ( !this.gamePlayNode ) {
         this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
@@ -96,10 +91,10 @@ define( require => {
       this.levelSelectionNode.visible = false;
       this.gamePlayNode.visible = true;
       this.model.startGame();
-    },
+    }
 
     // @private
-    initLevelCompleted: function() {
+    initLevelCompleted() {
 
       const self = this;
       const level = this.model.levelProperty.get();
@@ -132,7 +127,7 @@ define( require => {
           // remove the level-completed dialog
           self.rootNode.removeChild( levelCompletedNode );
           // go back to the level-selection screen
-          self.model.stateProperty.set(  self.model.states.LEVEL_SELECTION );
+          self.model.stateProperty.set( self.model.states.LEVEL_SELECTION );
         },
         {
           // LevelCompletedNode options
@@ -153,6 +148,7 @@ define( require => {
         this.audioPlayer.gameOverImperfectScore();
       }
     }
-  } );
-} )
-;
+  }
+
+  return balancingChemicalEquations.register( 'GameScreenView', GameScreenView );
+} );

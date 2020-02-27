@@ -11,28 +11,24 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   * @constructor
-   */
-  function GameViewProperties() {
+  class GameViewProperties {
 
-    // @public
-    this.timerEnabledProperty = new BooleanProperty( false );
-    this.reactantsBoxExpandedProperty = new BooleanProperty( true );
-    this.productsBoxExpandedProperty = new BooleanProperty( true );
-  }
+    constructor() {
 
-  balancingChemicalEquations.register( 'GameViewProperties', GameViewProperties );
-
-  return inherit( Object, GameViewProperties, {
+      // @public
+      this.timerEnabledProperty = new BooleanProperty( false );
+      this.reactantsBoxExpandedProperty = new BooleanProperty( true );
+      this.productsBoxExpandedProperty = new BooleanProperty( true );
+    }
 
     // @public
-    reset: function() {
+    reset() {
       this.timerEnabledProperty.reset();
       this.reactantsBoxExpandedProperty.reset();
       this.productsBoxExpandedProperty.reset();
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'GameViewProperties', GameViewProperties );
 } );

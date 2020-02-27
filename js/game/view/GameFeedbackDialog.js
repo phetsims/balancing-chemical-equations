@@ -17,7 +17,6 @@ define( require => {
   const FaceNode = require( 'SCENERY_PHET/FaceNode' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -49,189 +48,188 @@ define( require => {
   const WHY_BUTTON_FILL = '#d9d9d9';
   const ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
 
-  /**
-   * @param {GameModel} model
-   * @param {HorizontalAligner} aligner
-   * @param {Object} [options]
-   * @constructor
-   */
-  function GameFeedbackDialog( model, aligner, options ) {
+  class GameFeedbackDialog extends Node {
 
-    options = merge( {
-      fill: '#c1d8fe',
-      xMargin: 40,
-      yMargin: 10,
-      cornerRadius: 0,
-      hBoxSpacing: 5,
-      vBoxSpacing: 7,
-      shadowXOffset: 5,
-      shadowYOffset: 5
-    }, options );
+    /**
+     * @param {GameModel} model
+     * @param {HorizontalAligner} aligner
+     * @param {Object} [options]
+     */
+    constructor( model, aligner, options ) {
 
-    const self = this;
-    const equation = model.currentEquationProperty.get();
-    const balancedRepresentation = model.balancedRepresentation;
-    const points = model.currentPoints;
-    const maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements
-    const textOptions = { font: TEXT_FONT, maxWidth: maxWidth };
+      options = merge( {
+        fill: '#c1d8fe',
+        xMargin: 40,
+        yMargin: 10,
+        cornerRadius: 0,
+        hBoxSpacing: 5,
+        vBoxSpacing: 7,
+        shadowXOffset: 5,
+        shadowYOffset: 5
+      }, options );
 
-    // happy/sad face
-    const faceNode = new FaceNode( 75 );
-    if ( !equation.balancedProperty.get() ) { faceNode.frown(); }
+      const equation = model.currentEquationProperty.get();
+      const balancedRepresentation = model.balancedRepresentation;
+      const points = model.currentPoints;
+      const maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements
+      const textOptions = { font: TEXT_FONT, maxWidth: maxWidth };
 
-    let content;
-    if ( equation.balancedAndSimplified ) {
+      // happy/sad face
+      const faceNode = new FaceNode( 75 );
+      if ( !equation.balancedProperty.get() ) { faceNode.frown(); }
 
-      // balanced and simplified
-      content = new VBox( {
-        children: [
+      let content;
+      if ( equation.balancedAndSimplified ) {
 
-          // happy face
-          faceNode,
+        // balanced and simplified
+        content = new VBox( {
+          children: [
 
-          // check mark + 'balanced'
-          new HBox( {
-            children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
-            spacing: options.hBoxSpacing
-          } ),
+            // happy face
+            faceNode,
 
-          // points awarded
-          new Text( StringUtils.format( pattern0PointsString, points ), {
-            font: new PhetFont( {
-              size: 24,
-              weight: 'bold'
-            } ), maxWidth: maxWidth
-          } ),
+            // check mark + 'balanced'
+            new HBox( {
+              children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
+              spacing: options.hBoxSpacing
+            } ),
 
-          // space
-          new VStrut( ACTION_AREA_Y_SPACING ),
+            // points awarded
+            new Text( StringUtils.format( pattern0PointsString, points ), {
+              font: new PhetFont( {
+                size: 24,
+                weight: 'bold'
+              } ), maxWidth: maxWidth
+            } ),
 
-          // Next button
-          createStateChangeButton( nextString, model.next.bind( model ), maxWidth )
-        ],
-        spacing: options.vBoxSpacing
+            // space
+            new VStrut( ACTION_AREA_Y_SPACING ),
+
+            // Next button
+            createStateChangeButton( nextString, model.next.bind( model ), maxWidth )
+          ],
+          spacing: options.vBoxSpacing
+        } );
+      }
+      else if ( equation.balancedProperty.get() ) {
+
+        // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
+        content = new VBox( {
+          children: [
+
+            // happy face
+            faceNode,
+            new VBox( {
+              align: 'left',
+              spacing: 3,
+              children: [
+
+                // check mark + 'balanced'
+                new HBox( {
+                  children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
+                  spacing: options.hBoxSpacing
+                } ),
+
+                // red X + 'not simplified'
+                new HBox( {
+                  children: [ createIncorrectIcon(), new Text( notSimplifiedString, textOptions ) ],
+                  spacing: options.hBoxSpacing
+                } )
+              ]
+            } ),
+
+            // space
+            new VStrut( ACTION_AREA_Y_SPACING ),
+
+            // Try Again or Show Answer button
+            createButtonForState( model, maxWidth )
+          ],
+          spacing: options.vBoxSpacing
+        } );
+      }
+      else {
+
+        // not balanced
+        let saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
+        let balancedRepresentationNode = null; // create on demand
+
+        // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
+        var showWhyButton = new TextPushButton( showWhyString, {
+          listener: () => {
+            showWhyButton.visible = false;
+            hideWhyButton.visible = true;
+            saveCenterX = this.centerX;
+            if ( !balancedRepresentationNode ) {
+              balancedRepresentationNode = createBalancedRepresentation( equation, balancedRepresentation, aligner );
+            }
+            content.addChild( balancedRepresentationNode );
+            this.centerX = saveCenterX;
+          },
+          font: WHY_BUTTON_FONT,
+          baseColor: WHY_BUTTON_FILL,
+          visible: true,
+          maxWidth: maxWidth
+        } );
+
+        // 'Hide Why' button, hides the 'balanced' representation
+        var hideWhyButton = new TextPushButton( hideWhyString, {
+          listener: () => {
+            showWhyButton.visible = true;
+            hideWhyButton.visible = false;
+            saveCenterX = this.centerX;
+            content.removeChild( balancedRepresentationNode );
+            this.centerX = saveCenterX;
+          },
+          font: WHY_BUTTON_FONT,
+          baseColor: WHY_BUTTON_FILL,
+          visible: !showWhyButton.visible,
+          center: showWhyButton.center,
+          maxWidth: maxWidth
+        } );
+
+        content = new VBox( {
+          children: [
+
+            // sad face
+            faceNode,
+
+            // red X + 'not balanced'
+            new HBox( {
+              children: [ createIncorrectIcon(), new Text( notBalancedString, textOptions ) ],
+              spacing: options.hBoxSpacing
+            } ),
+
+            // space
+            new VStrut( ACTION_AREA_Y_SPACING ),
+
+            // Try Again or Show Answer button
+            createButtonForState( model, maxWidth ),
+
+            // Show/Hide Why buttons
+            new Node( { children: [ showWhyButton, hideWhyButton ] } )
+          ],
+          spacing: options.vBoxSpacing
+        } );
+      }
+
+      // panel, which will resize dynamically
+      const panel = new Panel( content, options );
+
+      // shadow
+      const shadowNode = new Rectangle( 0, 0, 1, 1, {
+        fill: 'rgba( 80, 80, 80, 0.12 )',
+        cornerRadius: options.cornerRadius
       } );
+      const updateShadow = () => {
+        shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height );
+      };
+      content.on( 'bounds', updateShadow ); // resize shadow when panel changes size
+      updateShadow();
+
+      options.children = [ shadowNode, panel ];
+      super( options );
     }
-    else if ( equation.balancedProperty.get() ) {
-
-      // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
-      content = new VBox( {
-        children: [
-
-          // happy face
-          faceNode,
-          new VBox( {
-            align: 'left',
-            spacing: 3,
-            children: [
-
-              // check mark + 'balanced'
-              new HBox( {
-                children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
-                spacing: options.hBoxSpacing
-              } ),
-
-              // red X + 'not simplified'
-              new HBox( {
-                children: [ createIncorrectIcon(), new Text( notSimplifiedString, textOptions ) ],
-                spacing: options.hBoxSpacing
-              } )
-            ]
-          } ),
-          
-          // space
-          new VStrut( ACTION_AREA_Y_SPACING ),
-
-          // Try Again or Show Answer button
-          createButtonForState( model, maxWidth )
-        ],
-        spacing: options.vBoxSpacing
-      } );
-    }
-    else {
-
-      // not balanced
-      let saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
-      let balancedRepresentationNode = null; // create on demand
-
-      // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
-      var showWhyButton = new TextPushButton( showWhyString, {
-        listener: function() {
-          showWhyButton.visible = false;
-          hideWhyButton.visible = true;
-          saveCenterX = self.centerX;
-          if ( !balancedRepresentationNode ) {
-            balancedRepresentationNode = createBalancedRepresentation( equation, balancedRepresentation, aligner );
-          }
-          content.addChild( balancedRepresentationNode );
-          self.centerX = saveCenterX;
-        },
-        font: WHY_BUTTON_FONT,
-        baseColor: WHY_BUTTON_FILL,
-        visible: true,
-        maxWidth: maxWidth
-      } );
-
-      // 'Hide Why' button, hides the 'balanced' representation
-      var hideWhyButton = new TextPushButton( hideWhyString, {
-        listener: function() {
-          showWhyButton.visible = true;
-          hideWhyButton.visible = false;
-          saveCenterX = self.centerX;
-          content.removeChild( balancedRepresentationNode );
-          self.centerX = saveCenterX;
-        },
-        font: WHY_BUTTON_FONT,
-        baseColor: WHY_BUTTON_FILL,
-        visible: !showWhyButton.visible,
-        center: showWhyButton.center,
-        maxWidth: maxWidth
-      } );
-
-      content = new VBox( {
-        children: [
-
-          // sad face
-          faceNode,
-
-          // red X + 'not balanced'
-          new HBox( {
-            children: [ createIncorrectIcon(), new Text( notBalancedString, textOptions ) ],
-            spacing: options.hBoxSpacing
-          } ),
-
-          // space
-          new VStrut( ACTION_AREA_Y_SPACING ),
-
-          // Try Again or Show Answer button
-          createButtonForState( model, maxWidth ),
-
-          // Show/Hide Why buttons
-          new Node( { children: [ showWhyButton, hideWhyButton ] } )
-        ],
-        spacing: options.vBoxSpacing
-      } );
-    }
-
-    // panel, which will resize dynamically
-    const panel = new Panel( content, options );
-
-    // shadow
-    const shadowNode = new Rectangle( 0, 0, 1, 1, {
-      fill: 'rgba(80,80,80,0.12)',
-      cornerRadius: options.cornerRadius
-    } );
-    const updateShadow = function() {
-      shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height );
-    };
-    content.on( 'bounds', updateShadow ); // resize shadow when panel changes size
-    updateShadow();
-
-    options.children = [ shadowNode, panel ];
-    Node.call( this, options );
   }
-
-  balancingChemicalEquations.register( 'GameFeedbackDialog', GameFeedbackDialog );
 
   /**
    * Creates the icon for a correct answer, a green check mark.
@@ -306,5 +304,5 @@ define( require => {
     return balancedRepresentationNode;
   }
 
-  return inherit( Panel, GameFeedbackDialog );
+  return balancingChemicalEquations.register( 'GameFeedbackDialog', GameFeedbackDialog );
 } );
