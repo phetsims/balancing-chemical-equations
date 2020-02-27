@@ -17,51 +17,45 @@ define( require => {
   // modules
   const BalanceScaleNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BalanceScaleNode' );
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberProperty = require( 'AXON/NumberProperty' );
 
-  /**
-   * @param {Property.<Equation>} equationProperty the equation that the scales are representing
-   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Object} [options]
-   * @constructor
-   */
-  function BalanceScalesNode( equationProperty, aligner, options ) {
+  class BalanceScalesNode extends Node {
 
-    options = merge( {
-      bottom: 0,
-      fulcrumSpacing: 237, // horizontal spacing between the tips of the fulcrums
-      dualFulcrumSpacing: 237 // horizontal spacing when we have 2 scales, see issue #91
-    }, options );
+    /**
+     * @param {Property.<Equation>} equationProperty the equation that the scales are representing
+     * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+     * @param {Object} [options]
+     */
+    constructor( equationProperty, aligner, options ) {
 
-    const self = this;
+      options = merge( {
+        bottom: 0,
+        fulcrumSpacing: 237, // horizontal spacing between the tips of the fulcrums
+        dualFulcrumSpacing: 237 // horizontal spacing when we have 2 scales, see issue #91
+      }, options );
 
-    this.equationProperty = equationProperty; // @private
-    this.aligner = aligner; // @private
-    this.constantBottom = options.bottom; // @private
-    this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
-    this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
-    this.fulcrumSpacing = options.fulcrumSpacing; // @private
-    this.dualFulcrumSpacing = options.dualFulcrumSpacing; // @private
+      super();
 
-    Node.call( this );
+      this.equationProperty = equationProperty; // @private
+      this.aligner = aligner; // @private
+      this.constantBottom = options.bottom; // @private
+      this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
+      this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
+      this.fulcrumSpacing = options.fulcrumSpacing; // @private
+      this.dualFulcrumSpacing = options.dualFulcrumSpacing; // @private
 
-    // Wire coefficients observer to current equation.
-    const coefficientsObserver = this.updateCounts.bind( this );
-    equationProperty.link( function( newEquation, oldEquation ) {
-      self.updateNode();
-      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
-      newEquation.addCoefficientsObserver( coefficientsObserver );
-    } );
+      // Wire coefficients observer to current equation.
+      const coefficientsObserver = this.updateCounts.bind( this );
+      equationProperty.link( ( newEquation, oldEquation ) => {
+        this.updateNode();
+        if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+        newEquation.addCoefficientsObserver( coefficientsObserver );
+      } );
 
-    this.mutate( options );
-  }
-
-  balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );
-
-  return inherit( Node, BalanceScalesNode, {
+      this.mutate( options );
+    }
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
 
@@ -71,23 +65,23 @@ define( require => {
      * @override
      * @public
      */
-    setVisible: function( visible ) {
+    setVisible( visible ) {
       const wasVisible = this.visible;
-      Node.prototype.setVisible.call( this, visible );
+      super.setVisible( visible );
       if ( !wasVisible && visible ) {
         this.updateNode();
       }
-    },
+    }
 
     /**
      * Updates this node's entire geometry and layout.
      * @private
      */
-    updateNode: function() {
+    updateNode() {
       if ( this.visible ) {
 
         // dispose of children before calling removeAllChildren
-        this.getChildren().forEach( function( child ) {
+        this.getChildren().forEach( child => {
           if ( child.dispose ) {
             child.dispose();
           }
@@ -122,13 +116,13 @@ define( require => {
         this.bottom = this.constantBottom;
         this.updateCounts();
       }
-    },
+    }
 
     /**
      * Updates the atom counts for each scale.
      * @private
      */
-    updateCounts: function() {
+    updateCounts() {
       if ( this.visible ) {
         const atomCounts = this.equationProperty.get().getAtomCounts();
         for ( let i = 0; i < atomCounts.length; i++ ) {
@@ -138,5 +132,7 @@ define( require => {
         }
       }
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );
 } );

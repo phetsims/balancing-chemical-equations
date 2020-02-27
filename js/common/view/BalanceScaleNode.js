@@ -19,7 +19,6 @@ define( require => {
   const BeamNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BeamNode' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const FulcrumNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/FulcrumNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -34,69 +33,109 @@ define( require => {
   const ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
   const TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
 
-  /**
-   * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
-   * @param {Property.<number>} leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
-   * @param {Property.<number>} rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
-   * @param {Property.<boolean>} highlightedProperty
-   * @param {Object} [options]
-   * @constructor
-   */
-  function BalanceScaleNode( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, highlightedProperty, options ) {
+  class BalanceScaleNode extends Node {
 
-    const self = this;
+    /**
+     * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
+     * @param {Property.<number>} leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
+     * @param {Property.<number>} rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
+     * @param {Property.<boolean>} highlightedProperty
+     * @param {Object} [options]
+     */
+    constructor( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, highlightedProperty, options ) {
 
-    this.element = element; // @private
-    this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
-    this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
+      super();
 
-    // fulcrum
-    const fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
+      this.element = element; // @private
+      this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
+      this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
 
-    // @private beam
-    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
-      bottom: 0,
-      transformBounds: true /* see issue #77 */
-    } );
+      // fulcrum
+      const fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
 
-    // left pile & count
-    this.leftPileNode = new Node(); // @private
-    this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+      // @private beam
+      this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
+        bottom: 0,
+        transformBounds: true /* see issue #77 */
+      } );
 
-    // right pile & count
-    this.rightPileNode = new Node(); // @private
-    this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+      // left pile & count
+      this.leftPileNode = new Node(); // @private
+      this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
 
-    // @private parent for both piles, to simplify rotation
-    this.pilesParent = new Node( {
-      children: [ this.leftPileNode, this.leftCountNode, this.rightPileNode, this.rightCountNode ],
-      transformBounds: true /* see issue #77 */
-    } );
+      // right pile & count
+      this.rightPileNode = new Node(); // @private
+      this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
 
-    options.children = [ fulcrumNode, this.beamNode, this.pilesParent ];
-    Node.call( this, options );
+      // @private parent for both piles, to simplify rotation
+      this.pilesParent = new Node( {
+        children: [ this.leftPileNode, this.leftCountNode, this.rightPileNode, this.rightCountNode ],
+        transformBounds: true /* see issue #77 */
+      } );
 
-    // highlight the beam
-    const highlightObserver = function( highlighted ) {
-      self.beamNode.setHighlighted( highlighted );
-    };
-    highlightedProperty.link( highlightObserver );
+      options.children = [ fulcrumNode, this.beamNode, this.pilesParent ];
+      this.mutate( options );
 
-    // update piles
-    const updateNodeBind = this.updateNode.bind( this );
-    leftNumberOfAtomsProperty.lazyLink( updateNodeBind );
-    rightNumberOfAtomsProperty.lazyLink( updateNodeBind );
-    this.updateNode();
+      // highlight the beam
+      const highlightObserver = highlighted => this.beamNode.setHighlighted( highlighted );
+      highlightedProperty.link( highlightObserver );
 
-    // unlink from Properties
-    this.balanceScaleNodeDispose = function() {
-      highlightedProperty.unlink( highlightObserver );
-      leftNumberOfAtomsProperty.unlink( updateNodeBind );
-      rightNumberOfAtomsProperty.unlink( updateNodeBind );
-    };
+      // update piles
+      const updateNodeBind = this.updateNode.bind( this );
+      leftNumberOfAtomsProperty.lazyLink( updateNodeBind );
+      rightNumberOfAtomsProperty.lazyLink( updateNodeBind );
+      this.updateNode();
+
+      // unlink from Properties
+      this.balanceScaleNodeDispose = () => {
+        highlightedProperty.unlink( highlightObserver );
+        leftNumberOfAtomsProperty.unlink( updateNodeBind );
+        rightNumberOfAtomsProperty.unlink( updateNodeBind );
+      };
+    }
+
+    // @public
+    dispose() {
+      this.balanceScaleNodeDispose();
+      super.dispose();
+    }
+
+    /**
+     * Places piles of atoms on the ends of the beam, with a count of the number of
+     * atoms above each pile.  Then rotates the beam and stuff on it to indicate the
+     * relative balance between the left and right piles.
+     * @private
+     */
+    updateNode() {
+
+      // update piles on beam in neutral orientation
+      this.beamNode.setRotation( 0 );
+      this.pilesParent.setRotation( 0 );
+
+      const leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
+      const rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
+
+      // update piles
+      updatePile( this.element, leftNumberOfAtoms, this.leftPileNode, this.leftCountNode, this.beamNode.left + 0.25 * this.beamNode.width, this.beamNode.top );
+      updatePile( this.element, rightNumberOfAtoms, this.rightPileNode, this.rightCountNode, this.beamNode.right - 0.25 * this.beamNode.width, this.beamNode.top );
+
+      // rotate beam and piles on fulcrum
+      const maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
+      const difference = rightNumberOfAtoms - leftNumberOfAtoms;
+      let angle = 0;
+      if ( Math.abs( difference ) >= NUMBER_OF_TILT_ANGLES ) {
+        // max tilt
+        const sign = Math.abs( difference ) / difference;
+        angle = sign * maxAngle;
+      }
+      else {
+        // partial tilt
+        angle = difference * ( maxAngle / NUMBER_OF_TILT_ANGLES );
+      }
+      this.beamNode.setRotation( angle );
+      this.pilesParent.setRotation( angle );
+    }
   }
-
-  balancingChemicalEquations.register( 'BalanceScaleNode', BalanceScaleNode );
 
   /**
    * Updates a triangular pile of atoms.
@@ -113,7 +152,7 @@ define( require => {
    * @param {number} pileCenterX x-coordinate of the pile's center, relative to the beam
    * @param {number} beamTop y-coordinate of the beam's top
    */
-  const updatePile = function( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop ) {
+  function updatePile( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop ) {
 
     const nodesInPile = pileNode.getChildrenCount(); // how many atom nodes are currently in the pile
     let pile = 0; // which pile we're working on, layered back-to-front, offset left-to-right
@@ -177,50 +216,7 @@ define( require => {
       countNode.centerX = pileCenterX;
       countNode.bottom = pileNode.visibleBounds.top - COUNT_Y_SPACING;
     }
-  };
+  }
 
-  return inherit( Node, BalanceScaleNode, {
-
-    // @public
-    dispose: function() {
-       this.balanceScaleNodeDispose();
-       Node.prototype.dispose.call( this );
-    },
-
-    /**
-     * Places piles of atoms on the ends of the beam, with a count of the number of
-     * atoms above each pile.  Then rotates the beam and stuff on it to indicate the
-     * relative balance between the left and right piles.
-     * @private
-     */
-    updateNode: function() {
-
-      // update piles on beam in neutral orientation
-      this.beamNode.setRotation( 0 );
-      this.pilesParent.setRotation( 0 );
-
-      const leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
-      const rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
-
-      // update piles
-      updatePile( this.element, leftNumberOfAtoms, this.leftPileNode, this.leftCountNode, this.beamNode.left + 0.25 * this.beamNode.width, this.beamNode.top );
-      updatePile( this.element, rightNumberOfAtoms, this.rightPileNode, this.rightCountNode, this.beamNode.right - 0.25 * this.beamNode.width, this.beamNode.top );
-
-      // rotate beam and piles on fulcrum
-      const maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
-      const difference = rightNumberOfAtoms - leftNumberOfAtoms;
-      let angle = 0;
-      if ( Math.abs( difference ) >= NUMBER_OF_TILT_ANGLES ) {
-        // max tilt
-        const sign = Math.abs( difference ) / difference;
-        angle = sign * maxAngle;
-      }
-      else {
-        // partial tilt
-        angle = difference * ( maxAngle / NUMBER_OF_TILT_ANGLES );
-      }
-      this.beamNode.setRotation( angle );
-      this.pilesParent.setRotation( angle );
-    }
-  } );
+  return balancingChemicalEquations.register( 'BalanceScaleNode', BalanceScaleNode );
 } );

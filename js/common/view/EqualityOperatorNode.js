@@ -11,50 +11,48 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
 
-  /**
-   * @param {Property.<Equation>} equationProperty
-   * @param {Object} [options]
-   * @constructor
-   */
-  function EqualityOperatorNode( equationProperty, options ) {
+  class EqualityOperatorNode extends Node {
 
-    options = merge( {}, options );
+    /**
+     * @param {Property.<Equation>} equationProperty
+     * @param {Object} [options]
+     */
+    constructor( equationProperty, options ) {
 
-    const textOptions = {
-      font: new PhetFont( 80 ),
-      stroke: 'black'
-    };
+      options = merge( {}, options );
 
-    // nodes
-    const equalsSignNode = new Text( '\u003D',
-      merge( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) );
-    const notEqualsSignNode = new Text( '\u2260',
-      merge( { fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center }, textOptions ) );
+      const textOptions = {
+        font: new PhetFont( 80 ),
+        stroke: 'black'
+      };
 
-    options.children = [ equalsSignNode, notEqualsSignNode ];
-    Node.call( this, options );
+      // nodes
+      const equalsSignNode = new Text( '\u003D',
+        merge( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) );
+      const notEqualsSignNode = new Text( '\u2260',
+        merge( { fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center }, textOptions ) );
 
-    // show the correct operator, based on whether the equation is balanced
-    const balancedObserver = function( balanced ) {
-      equalsSignNode.visible = balanced;
-      notEqualsSignNode.visible = !balanced;
-    };
-    equationProperty.link( function( newEquation, oldEquation ) {
-      if ( oldEquation ) { oldEquation.balancedProperty.unlink( balancedObserver ); }
-      newEquation.balancedProperty.link( balancedObserver );
-    } );
-  }
+      options.children = [ equalsSignNode, notEqualsSignNode ];
+      super( options );
 
-  balancingChemicalEquations.register( 'EqualityOperatorNode', EqualityOperatorNode );
-
-  return inherit( Node, EqualityOperatorNode, {
+      // show the correct operator, based on whether the equation is balanced
+      const balancedObserver = function( balanced ) {
+        equalsSignNode.visible = balanced;
+        notEqualsSignNode.visible = !balanced;
+      };
+      equationProperty.link( function( newEquation, oldEquation ) {
+        if ( oldEquation ) { oldEquation.balancedProperty.unlink( balancedObserver ); }
+        newEquation.balancedProperty.link( balancedObserver );
+      } );
+    }
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'EqualityOperatorNode', EqualityOperatorNode );
 } );

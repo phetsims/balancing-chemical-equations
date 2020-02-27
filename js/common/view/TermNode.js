@@ -12,7 +12,6 @@ define( require => {
 
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
@@ -20,59 +19,61 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const RichText = require( 'SCENERY/nodes/RichText' );
 
-  /**
-   * @param {DOT.Range} coefficientRange
-   * @param {EquationTerm} term
-   * @param {Object} [options]
-   * @constructor
-   */
-  function TermNode( coefficientRange, term, options ) {
+  class TermNode extends Node {
 
-    options = merge( {
-      fontSize: 32,
-      xSpacing: 4
-    }, options );
+    /**
+     * @param {DOT.Range} coefficientRange
+     * @param {EquationTerm} term
+     * @param {Object} [options]
+     */
+    constructor( coefficientRange, term, options ) {
 
-    // @private coefficient picker
-    this.coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
-      color: 'rgb(50,50,50)',
-      pressedColor: 'black',
-      xMargin: 8,
-      yMargin: 0,
-      touchAreaXDilation: 30,
-      font: new PhetFont( options.fontSize ),
-      timerDelay: 400, // ms until the picker starts to fire continuously
-      timerInterval: 200 // ms between value change while firing continuously
-    } );
+      options = merge( {
+        fontSize: 32,
+        xSpacing: 4
+      }, options );
 
-    // symbol, non-subscript part of the symbol is vertically centered on the picker
-    const richTextOptions = { font: new PhetFont( options.fontSize ) };
-    const symbolNode = new RichText( term.molecule.symbol, richTextOptions );
-    symbolNode.left = this.coefficientNode.right + options.xSpacing;
-    symbolNode.centerY = this.coefficientNode.centerY + ( symbolNode.height - new RichText( 'H', richTextOptions ).height ) / 2;
+      // coefficient picker
+      const coefficientNode = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
+        color: 'rgb(50,50,50)',
+        pressedColor: 'black',
+        xMargin: 8,
+        yMargin: 0,
+        touchAreaXDilation: 30,
+        font: new PhetFont( options.fontSize ),
+        timerDelay: 400, // ms until the picker starts to fire continuously
+        timerInterval: 200 // ms between value change while firing continuously
+      } );
 
-    options.children = [ this.coefficientNode, symbolNode ];
-    Node.call( this, options );
-  }
+      // symbol, non-subscript part of the symbol is vertically centered on the picker
+      const richTextOptions = { font: new PhetFont( options.fontSize ) };
+      const symbolNode = new RichText( term.molecule.symbol, richTextOptions );
+      symbolNode.left = coefficientNode.right + options.xSpacing;
+      symbolNode.centerY = coefficientNode.centerY + ( symbolNode.height - new RichText( 'H', richTextOptions ).height ) / 2;
 
-  balancingChemicalEquations.register( 'TermNode', TermNode );
+      options.children = [ coefficientNode, symbolNode ];
+      super( options );
 
-  return inherit( Node, TermNode, {
+      // @private
+      this.coefficientNode = coefficientNode;
+    }
 
     // @public
-    dispose: function() {
+    dispose() {
       this.coefficientNode.dispose();
-      Node.prototype.dispose.call( this );
-    },
+      super.dispose();
+    }
 
     /**
      * When a term is disabled, it is not pickable and the arrows on its picker are hidden.
      * @param enabled
      * @public
      */
-    setEnabled: function( enabled ) {
+    setEnabled( enabled ) {
       this.pickable = enabled;
       this.coefficientNode.setArrowsVisible( enabled );
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'TermNode', TermNode );
 } );

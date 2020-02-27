@@ -11,7 +11,6 @@ define( require => {
 
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -20,38 +19,38 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
 
-  /**
-   * @param {NITROGLYCERIN.Element} element to show
-   * @param {DOT.Dimension2} fulcrumSize width and height
-   * @param {Object} [options]
-   * @constructor
-   */
-  function FulcrumNode( element, fulcrumSize, options ) {
+  class FulcrumNode extends Node {
 
-    options = merge( {
-      fill: new LinearGradient( 0, 0, 0, fulcrumSize.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' ),
-      font: new PhetFont( 22 )
-    }, options );
+    /**
+     * @param {NITROGLYCERIN.Element} element to show
+     * @param {DOT.Dimension2} fulcrumSize width and height
+     * @param {Object} [options]
+     */
+    constructor( element, fulcrumSize, options ) {
 
-    // triangle, start at tip and move clockwise
-    const triangleNode = new Path( new Shape()
-        .moveTo( 0, 0 )
-        .lineTo( fulcrumSize.width / 2, fulcrumSize.height )
-        .lineTo( -fulcrumSize.width / 2, fulcrumSize.height )
-        .close(),
-      { fill: options.fill, lineWidth: 1, stroke: 'black' }
-    );
+      options = merge( {
+        fill: new LinearGradient( 0, 0, 0, fulcrumSize.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' ),
+        font: new PhetFont( 22 )
+      }, options );
 
-    // atom symbol, centered in triangle
-    const symbolNode = new Text( element.symbol,
-      { font: options.font, centerX: triangleNode.centerX, centerY: triangleNode.centerY + 8 }
-    );
+      // triangle, start at tip and move clockwise
+      const triangleNode = new Path( new Shape()
+          .moveTo( 0, 0 )
+          .lineTo( fulcrumSize.width / 2, fulcrumSize.height )
+          .lineTo( -fulcrumSize.width / 2, fulcrumSize.height )
+          .close(),
+        { fill: options.fill, lineWidth: 1, stroke: 'black' }
+      );
 
-    options.children = [ triangleNode, symbolNode ];
-    Node.call( this, options );
+      // atom symbol, centered in triangle
+      const symbolNode = new Text( element.symbol,
+        { font: options.font, centerX: triangleNode.centerX, centerY: triangleNode.centerY + 8 }
+      );
+
+      options.children = [ triangleNode, symbolNode ];
+      super( options );
+    }
   }
 
-  balancingChemicalEquations.register( 'FulcrumNode', FulcrumNode );
-
-  return inherit( Node, FulcrumNode );
+  return balancingChemicalEquations.register( 'FulcrumNode', FulcrumNode );
 } );

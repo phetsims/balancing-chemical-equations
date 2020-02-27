@@ -13,7 +13,6 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BoxNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BoxNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const RightArrowNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/RightArrowNode' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -22,59 +21,60 @@ define( require => {
   const productsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/products' );
   const reactantsString = require( 'string!BALANCING_CHEMICAL_EQUATIONS/reactants' );
 
-  /**
-   * @param {Property.<Equation>} equationProperty the equation displayed in the boxes
-   * @param {Range} coefficientsRange
-   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Dimension2} boxSize
-   * @param {string} boxColor fill color of the boxes
-   * @param {Property.<boolean>} reactantsBoxExpandedProperty
-   * @param {Property.<boolean>} productsBoxExpandedProperty
-   * @param {Object} [options]
-   * @constructor
-   */
-  function BoxesNode( equationProperty, coefficientsRange, aligner, boxSize, boxColor,
-                      reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
+  class BoxesNode extends Node {
 
-    // reactants box, on the left
-    const reactantsBoxNode = new BoxNode( equationProperty,
-      function( equation ) { return equation.reactants; },
-      function( equation ) { return aligner.getReactantXOffsets( equation ); },
-      coefficientsRange,
-      reactantsString, {
-        expandedProperty: reactantsBoxExpandedProperty,
-        fill: boxColor,
-        boxWidth: boxSize.width,
-        boxHeight: boxSize.height,
-        x: aligner.getReactantsBoxLeft(),
-        y: 0
+    /**
+     * @param {Property.<Equation>} equationProperty the equation displayed in the boxes
+     * @param {Range} coefficientsRange
+     * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+     * @param {Dimension2} boxSize
+     * @param {string} boxColor fill color of the boxes
+     * @param {Property.<boolean>} reactantsBoxExpandedProperty
+     * @param {Property.<boolean>} productsBoxExpandedProperty
+     * @param {Object} [options]
+     */
+    constructor( equationProperty, coefficientsRange, aligner, boxSize, boxColor,
+                 reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
+
+      // reactants box, on the left
+      const reactantsBoxNode = new BoxNode( equationProperty,
+        function( equation ) { return equation.reactants; },
+        function( equation ) { return aligner.getReactantXOffsets( equation ); },
+        coefficientsRange,
+        reactantsString, {
+          expandedProperty: reactantsBoxExpandedProperty,
+          fill: boxColor,
+          boxWidth: boxSize.width,
+          boxHeight: boxSize.height,
+          x: aligner.getReactantsBoxLeft(),
+          y: 0
+        } );
+
+      // products box, on the right
+      const productsBoxNode = new BoxNode( equationProperty,
+        function( equation ) { return equation.products; },
+        function( equation ) { return aligner.getProductXOffsets( equation ); },
+        coefficientsRange,
+        productsString, {
+          expandedProperty: productsBoxExpandedProperty,
+          fill: boxColor,
+          boxWidth: boxSize.width,
+          boxHeight: boxSize.height,
+          x: aligner.getProductsBoxLeft(),
+          y: 0
+        } );
+
+      // right-pointing arrow, in the middle
+      const arrowNode = new RightArrowNode( equationProperty, {
+        center: new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 )
       } );
 
-    // products box, on the right
-    const productsBoxNode = new BoxNode( equationProperty,
-      function( equation ) { return equation.products; },
-      function( equation ) { return aligner.getProductXOffsets( equation ); },
-      coefficientsRange,
-      productsString, {
-        expandedProperty: productsBoxExpandedProperty,
-        fill: boxColor,
-        boxWidth: boxSize.width,
-        boxHeight: boxSize.height,
-        x: aligner.getProductsBoxLeft(),
-        y: 0
-      } );
+      options.children = [ reactantsBoxNode, productsBoxNode, arrowNode ];
+      super( options );
 
-    // @private right-pointing arrow, in the middle
-    this.arrowNode = new RightArrowNode( equationProperty,
-      { center: new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 ) } );
-
-    options.children = [ reactantsBoxNode, productsBoxNode, this.arrowNode ];
-    Node.call( this, options );
-  }
-
-  balancingChemicalEquations.register( 'BoxesNode', BoxesNode );
-
-  return inherit( Node, BoxesNode, {
+      // private
+      this.arrowNode = arrowNode;
+    }
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
 
@@ -85,8 +85,10 @@ define( require => {
      * @param enabled
      * @public
      */
-    setBalancedHighlightEnabled: function( enabled ) {
+    setBalancedHighlightEnabled( enabled ) {
       this.arrowNode.highlightEnabled = enabled;
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'BoxesNode', BoxesNode );
 } );

@@ -12,28 +12,31 @@ define( require => {
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BCEConstants = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEConstants' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  /**
-   * @param {number} beamLength
-   * @param {number} beamThickness
-   * @constructor
-   */
-  function BeamNode( beamLength, beamThickness, options ) {
-    options = merge( { fill: 'black', stroke: 'black' }, options );
-    Rectangle.call( this, -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, options );
-  }
+  class BeamNode extends Rectangle {
 
-  balancingChemicalEquations.register( 'BeamNode', BeamNode );
+    /**
+     * @param {number} beamLength
+     * @param {number} beamThickness
+     */
+    constructor( beamLength, beamThickness, options ) {
 
-  return inherit( Rectangle, BeamNode, {
+      options = merge( {
+        fill: 'black',
+        stroke: 'black'
+      }, options );
+
+      super( -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, options );
+    }
 
     // @public
-    setHighlighted: function( highlighted ) {
+    setHighlighted( highlighted ) {
       this.fill = highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : 'black';
       this.lineWidth = highlighted ? 1 : 0;
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'BeamNode', BeamNode );
 } );

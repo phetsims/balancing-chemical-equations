@@ -19,53 +19,49 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const BarNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/BarNode' );
   const EqualityOperatorNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/EqualityOperatorNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * @param {Property} equationProperty the equation that the scales are representing
-   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Object} [options]
-   * @constructor
-   */
-  function BarChartsNode( equationProperty, aligner, options ) {
+  class BarChartsNode extends Node {
 
-    options = merge( {}, options );
+    /**
+     * @param {Property} equationProperty the equation that the scales are representing
+     * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+     * @param {Object} [options]
+     */
+    constructor( equationProperty, aligner, options ) {
 
-    const self = this;
-    this.equationProperty = equationProperty; // @private
-    this.aligner = aligner; // @private
-    this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
-    this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
+      options = merge( {}, options );
 
-    this.reactantBarsParent = new Node(); // @private
-    this.productBarsParent = new Node(); // @private
+      super();
 
-    // @private
-    const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
-      center: new Vector2( aligner.getScreenCenterX(), -40 )
-    } );
+      this.equationProperty = equationProperty; // @private
+      this.aligner = aligner; // @private
+      this.reactantCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} count of the element
+      this.productCountProperties = {}; // @private maps {string} Element.symbol to {Property.<number>} counts of the element
 
-    options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
-    Node.call( this );
+      this.reactantBarsParent = new Node(); // @private
+      this.productBarsParent = new Node(); // @private
 
-    // Wire coefficients observer to current equation.
-    const coefficientsObserver = this.updateCounts.bind( this );
-    equationProperty.link( function( newEquation, oldEquation ) {
-      self.updateNode();
-      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
-      newEquation.addCoefficientsObserver( coefficientsObserver );
-    } );
+      // @private
+      const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
+        center: new Vector2( aligner.getScreenCenterX(), -40 )
+      } );
 
-    this.mutate( options );
-  }
+      options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
 
-  balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );
+      // Wire coefficients observer to current equation.
+      const coefficientsObserver = this.updateCounts.bind( this );
+      equationProperty.link( ( newEquation, oldEquation ) => {
+        this.updateNode();
+        if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+        newEquation.addCoefficientsObserver( coefficientsObserver );
+      } );
 
-  return inherit( Node, BarChartsNode, {
+      this.mutate( options );
+    }
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
 
@@ -75,28 +71,39 @@ define( require => {
      * @override
      * @public
      */
-    setVisible: function( visible ) {
+    setVisible( visible ) {
       const wasVisible = this.visible;
-      Node.prototype.setVisible.call( this, visible );
+      super.setVisible( visible );
       if ( !wasVisible && visible ) {
         this.updateNode();
       }
-    },
+    }
 
     /**
      * Updates this node's entire geometry and layout
      * @private
      */
-    updateNode: function() {
+    updateNode() {
       if ( this.visible ) {
         const atomCounts = this.equationProperty.get().getAtomCounts();
-        this.reactantCountProperties = this.updateBars( this.reactantBarsParent, atomCounts,
-          function( atomCount ) { return atomCount.reactantsCount; }, this.aligner.getReactantsBoxCenterX() );
-        this.productCountProperties = this.updateBars( this.productBarsParent, atomCounts,
-          function( atomCount ) { return atomCount.productsCount; }, this.aligner.getProductsBoxCenterX() );
+
+        this.reactantCountProperties = this.updateBars(
+          this.reactantBarsParent,
+          atomCounts,
+          atomCount => atomCount.reactantsCount,
+          this.aligner.getReactantsBoxCenterX()
+        );
+
+        this.productCountProperties = this.updateBars(
+          this.productBarsParent,
+          atomCounts,
+          atomCount => atomCount.productsCount,
+          this.aligner.getProductsBoxCenterX()
+        );
+
         this.updateCounts();
       }
-    },
+    }
 
     /**
      * Updates one set of bars (reactants or products).
@@ -104,13 +111,12 @@ define( require => {
      * @param {AtomCount[]} atomCounts counts of each atom in the equation
      * @param {function} getCount 1 parameter {AtomCount}, return {number}, either the reactants or products count
      * @param {number} centerX centerX of the chart
-     * @param {*} map of {string} Element.symbol to {Property.<number>} number of atoms of that element
      * @private
      */
-    updateBars: function( parentNode, atomCounts, getCount, centerX ) {
+    updateBars( parentNode, atomCounts, getCount, centerX ) {
 
       // dispose of children before calling removeAllChildren
-      parentNode.getChildren().forEach( function( child ) {
+      parentNode.getChildren().forEach( child => {
         if ( child.dispose() ) {
           child.dispose();
         }
@@ -135,13 +141,13 @@ define( require => {
       parentNode.centerX = centerX;
 
       return countProperties;
-    },
+    }
 
     /**
      * Updates the atom counts for each bar.
      * @private
      */
-    updateCounts: function() {
+    updateCounts() {
       if ( this.visible ) {
         const atomCounts = this.equationProperty.get().getAtomCounts();
         for ( let i = 0; i < atomCounts.length; i++ ) {
@@ -151,5 +157,7 @@ define( require => {
         }
       }
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );
 } );

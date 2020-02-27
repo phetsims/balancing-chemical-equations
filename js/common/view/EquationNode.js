@@ -11,7 +11,6 @@ define( require => {
 
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PlusNode = require( 'SCENERY_PHET/PlusNode' );
@@ -19,46 +18,39 @@ define( require => {
   const TermNode = require( 'BALANCING_CHEMICAL_EQUATIONS/common/view/TermNode' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * @param {Property.<Equation>} equationProperty
-   * @param {DOT.Range} coefficientRange range of the coefficients
-   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Object} [options]
-   * @constructor
-   */
-  function EquationNode( equationProperty, coefficientRange, aligner, options ) {
+  class EquationNode extends Node {
+    /**
+     * @param {Property.<Equation>} equationProperty
+     * @param {DOT.Range} coefficientRange range of the coefficients
+     * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
+     * @param {Object} [options]
+     */
+    constructor( equationProperty, coefficientRange, aligner, options ) {
 
-    options = merge( { fontSize: 32 }, options );
-    this.fontSize = options.fontSize; // @private
+      options = merge( { fontSize: 32 }, options );
 
-    const self = this;
-    Node.call( this );
+      super();
 
-    this.coefficientRange = coefficientRange; // @private
-    this.balancedHighlightEnabled = true; // @private
-    this.aligner = aligner; // @private
-    this.equationProperty = equationProperty; // @private
+      this.fontSize = options.fontSize; // @private
+      this.coefficientRange = coefficientRange; // @private
+      this.balancedHighlightEnabled = true; // @private
+      this.aligner = aligner; // @private
+      this.equationProperty = equationProperty; // @private
 
-    // @private arrow node, at a fixed position
-    this.arrowNode = new RightArrowNode( equationProperty, { centerX: this.aligner.getScreenCenterX() } ); // @private
-    this.addChild( this.arrowNode );
+      // @private arrow node, at a fixed position
+      this.arrowNode = new RightArrowNode( equationProperty, { centerX: this.aligner.getScreenCenterX() } ); // @private
+      this.addChild( this.arrowNode );
 
-    this.terms = []; // @private the set of TermNodes in the equation
+      this.terms = []; // @private the set of TermNodes in the equation
 
-    this.termsParent = new Node(); // @private the parent for all terms and the "+" operators
-    this.addChild( this.termsParent );
+      this.termsParent = new Node(); // @private the parent for all terms and the "+" operators
+      this.addChild( this.termsParent );
 
-    // if the equation changes...
-    equationProperty.link( function( newEquation, oldEquation ) {
-      self.updateNode();
-    } );
+      // if the equation changes...
+      equationProperty.link( ( newEquation, oldEquation ) => this.updateNode() );
 
-    this.mutate( options );
-  }
-
-  balancingChemicalEquations.register( 'EquationNode', EquationNode );
-
-  return inherit( Node, EquationNode, {
+      this.mutate( options );
+    }
 
     // No dispose needed, instances of this type persist for lifetime of the sim.
 
@@ -66,19 +58,19 @@ define( require => {
      * Rebuilds the left and right sides of the equation.
      * @private
      */
-    updateNode: function() {
+    updateNode() {
 
       // dispose of existing instances of TermNode
-      this.terms.forEach( function( termNode ) {
-          termNode.dispose();
-      } );
+      this.terms.forEach( termNode => termNode.dispose() );
       this.terms.length = 0;
       this.termsParent.removeAllChildren();
 
       const equation = this.equationProperty.get();
-      this.updateSideOfEquation( equation.reactants, this.aligner.getReactantXOffsets( equation ), this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
-      this.updateSideOfEquation( equation.products, this.aligner.getProductXOffsets( equation ), this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
-    },
+      this.updateSideOfEquation( equation.reactants, this.aligner.getReactantXOffsets( equation ),
+        this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
+      this.updateSideOfEquation( equation.products, this.aligner.getProductXOffsets( equation ),
+        this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
+    }
 
     /**
      * Rebuilds one side of the equation.
@@ -89,7 +81,7 @@ define( require => {
      * @param {number} maxX maximum possible x for equation
      * @private
      */
-    updateSideOfEquation: function( terms, xOffsets, minX, maxX ) {
+    updateSideOfEquation( terms, xOffsets, minX, maxX ) {
 
       let plusNode;
       let termNode;
@@ -148,7 +140,7 @@ define( require => {
       }
 
       this.arrowNode.centerY = termNode.centerY;
-    },
+    }
 
     /**
      * Enables or disables the highlighting feature.
@@ -158,19 +150,21 @@ define( require => {
      * @param enabled
      * @public
      */
-    setBalancedHighlightEnabled: function( enabled ) {
+    setBalancedHighlightEnabled( enabled ) {
       this.arrowNode.highlightEnabled = enabled;
-    },
+    }
 
     /**
      * Enables or disabled each TermNode in the equation.
      * @param {boolean} enabled
      * @public
      */
-    setEnabled: function( enabled ) {
+    setEnabled( enabled ) {
       for ( let i = 0; i < this.terms.length; i++ ) {
         this.terms[ i ].setEnabled( enabled );
       }
     }
-  } );
+  }
+
+ return balancingChemicalEquations.register( 'EquationNode', EquationNode );
 } );

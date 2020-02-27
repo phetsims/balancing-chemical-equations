@@ -15,21 +15,84 @@ define( require => {
 
   // modules
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
-  const inherit = require( 'PHET_CORE/inherit' );
 
-  /**
-   * @param {number} screenWidth screen width
-   * @param {DOT.Dimension2} boxWidth size of one of the 2 boxes (both boxes are assumed to be the same size)
-   * @param {number} boxXSpacing horizontal separation between the left and right boxes
-   * @constructor
-   */
-  function HorizontalAligner( screenWidth, boxWidth, boxXSpacing ) {
-    this.screenWidth = screenWidth; // @private
-    this.boxWidth = boxWidth; // @private
-    this.boxXSpacing = boxXSpacing; // @private
+  class HorizontalAligner {
+
+    /**
+     * @param {number} screenWidth screen width
+     * @param {DOT.Dimension2} boxWidth size of one of the 2 boxes (both boxes are assumed to be the same size)
+     * @param {number} boxXSpacing horizontal separation between the left and right boxes
+     */
+    constructor( screenWidth, boxWidth, boxXSpacing ) {
+      this.screenWidth = screenWidth; // @private
+      this.boxWidth = boxWidth; // @private
+      this.boxXSpacing = boxXSpacing; // @private
+    }
+
+    /**
+     * Gets the offsets for an equation's reactant terms.
+     * Reactants are on the left-hand side of the equation.
+     * @param equation
+     * @public
+     */
+    getReactantXOffsets( equation ) {
+      const boxLeft = this.screenWidth / 2 - this.boxWidth - this.boxXSpacing / 2;
+      return getXOffsets( equation.reactants, this.boxWidth, boxLeft, 'right' );
+    }
+
+    /**
+     * Gets the offsets for an equation's product terms.
+     * Products are on the right-hand side of the equation.
+     * @param equation
+     * @public
+     */
+    getProductXOffsets( equation ) {
+      const boxLeft = this.screenWidth / 2 + this.boxXSpacing / 2;
+      return getXOffsets( equation.products, this.boxWidth, boxLeft, 'left' );
+    }
+
+    // @public
+    getScreenWidth() { return this.screenWidth; }
+
+    // @public
+    getScreenLeft() { return 0; }
+
+    // @public
+    getScreenRight() { return this.screenWidth; }
+
+    // @public
+    getScreenCenterX() { return this.screenWidth / 2; }
+
+    // @public
+    getReactantsBoxLeft() {
+      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth;
+    }
+
+    // @public
+    getProductsBoxLeft() {
+      return this.getScreenCenterX() + this.boxXSpacing / 2;
+    }
+
+    // @public
+    getReactantsBoxRight() {
+      return this.getScreenCenterX() - this.boxXSpacing / 2;
+    }
+
+    // @public
+    getProductsBoxRight() {
+      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth;
+    }
+
+    // @public
+    getReactantsBoxCenterX() {
+      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth / 2;
+    }
+
+    // @public
+    getProductsBoxCenterX() {
+      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth / 2;
+    }
   }
-
-  balancingChemicalEquations.register( 'HorizontalAligner', HorizontalAligner );
 
   /**
    * Gets the x offsets for a set of terms.
@@ -40,7 +103,7 @@ define( require => {
    * @param alignment alignment for single term, 'left' or 'right'
    * @returns [{number}] x offset for each term
    */
-  const getXOffsets = function( terms, boxWidth, boxLeft, alignment ) {
+  function getXOffsets( terms, boxWidth, boxLeft, alignment ) {
 
     assert && assert( alignment === 'left' || alignment === 'right' );
 
@@ -71,72 +134,7 @@ define( require => {
       }
     }
     return xOffsets;
-  };
+  }
 
-  return inherit( Object, HorizontalAligner, {
-
-    /**
-     * Gets the offsets for an equation's reactant terms.
-     * Reactants are on the left-hand side of the equation.
-     * @param equation
-     * @public
-     */
-    getReactantXOffsets: function( equation ) {
-      const boxLeft = this.screenWidth / 2 - this.boxWidth - this.boxXSpacing / 2;
-      return getXOffsets( equation.reactants, this.boxWidth, boxLeft, 'right' );
-    },
-
-    /**
-     * Gets the offsets for an equation's product terms.
-     * Products are on the right-hand side of the equation.
-     * @param equation
-     * @public
-     */
-    getProductXOffsets: function( equation ) {
-      const boxLeft = this.screenWidth / 2 + this.boxXSpacing / 2;
-      return getXOffsets( equation.products, this.boxWidth, boxLeft, 'left' );
-    },
-
-    // @public
-    getScreenWidth: function() { return this.screenWidth; },
-
-    // @public
-    getScreenLeft: function() { return 0; },
-
-    // @public
-    getScreenRight: function() { return this.screenWidth; },
-
-    // @public
-    getScreenCenterX: function() { return this.screenWidth / 2; },
-
-    // @public
-    getReactantsBoxLeft: function() {
-      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth;
-    },
-
-    // @public
-    getProductsBoxLeft: function() {
-      return this.getScreenCenterX() + this.boxXSpacing / 2;
-    },
-
-    // @public
-    getReactantsBoxRight: function() {
-      return this.getScreenCenterX() - this.boxXSpacing / 2;
-    },
-
-    // @public
-    getProductsBoxRight: function() {
-      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth;
-    },
-
-    // @public
-    getReactantsBoxCenterX: function() {
-      return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth / 2;
-    },
-
-    // @public
-    getProductsBoxCenterX: function() {
-      return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth / 2;
-    }
-  } );
+  return balancingChemicalEquations.register( 'HorizontalAligner', HorizontalAligner );
 } );
