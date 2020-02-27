@@ -13,7 +13,6 @@ define( require => {
   const balancingChemicalEquations = require( 'BALANCING_CHEMICAL_EQUATIONS/balancingChemicalEquations' );
   const GameFactory = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/GameFactory' );
   const GameTimer = require( 'VEGAS/GameTimer' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
@@ -26,99 +25,88 @@ define( require => {
    * This is a map from level to strategy.
    */
   const BALANCED_REPRESENTATION_STRATEGIES = [
-    function() { return BalancedRepresentation.BALANCE_SCALES; }, //level 1
-    function() {  //level 2
-      return phet.joist.random.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS;
-    },
-    function() { return BalancedRepresentation.BAR_CHARTS; } // level 3
+
+    // level 1
+    () => BalancedRepresentation.BALANCE_SCALES,
+
+    //level 2
+    () => phet.joist.random.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS,
+
+    // level 3
+    () => BalancedRepresentation.BAR_CHARTS
   ];
   const POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
   const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
-  /**
-   * @constructor
-   */
-  function GameModel() {
+  class GameModel {
 
-    const self = this;
+    constructor() {
 
-    /*
-     * @public
-     * The set of game states.
-     * For lack of better names, the state names correspond to the main action that
-     * the user can take in that state.  For example. the CHECK state is where the user
-     * can enter coefficients and press the "Check" button to check their answer.
-     */
-    this.states = {
-      LEVEL_SELECTION: 'LevelSelection', //level selection screen
-      CHECK: 'Check',
-      TRY_AGAIN: 'TryAgain',
-      SHOW_ANSWER: 'ShowAnswer',
-      NEXT: 'Next',
-      LEVEL_COMPLETED: 'LevelCompleted' //reward node
-    };
+      /*
+       * @public
+       * The set of game states.
+       * For lack of better names, the state names correspond to the main action that
+       * the user can take in that state.  For example. the CHECK state is where the user
+       * can enter coefficients and press the "Check" button to check their answer.
+       */
+      this.states = {
+        LEVEL_SELECTION: 'LevelSelection', //level selection screen
+        CHECK: 'Check',
+        TRY_AGAIN: 'TryAgain',
+        SHOW_ANSWER: 'ShowAnswer',
+        NEXT: 'Next',
+        LEVEL_COMPLETED: 'LevelCompleted' //reward node
+      };
 
-    // @public (read-only) constants
-    this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
-    this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
+      // @public (read-only) constants
+      this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
+      this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
 
-    // @public
-    this.stateProperty = new StringProperty( self.states.LEVEL_SELECTION );
-    // level of the current game
-    this.levelProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-    // how many points the user has earned for the current game
-    this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-    // number of challenges in the current game
-    this.numberOfEquationsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-    // any non-null {Equation} will do here
-    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() );
-    // index of the current challenge that the user is working on
-    this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+      // @public
+      this.stateProperty = new StringProperty( this.states.LEVEL_SELECTION );
+      // level of the current game
+      this.levelProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+      // how many points the user has earned for the current game
+      this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+      // number of challenges in the current game
+      this.numberOfEquationsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+      // any non-null {Equation} will do here
+      this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() );
+      // index of the current challenge that the user is working on
+      this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    this.equations = []; // @public array of Equation
-    this.timer = new GameTimer(); // @public
-    this.attempts = 0; // @private how many attempts the user has made at solving the current challenge
-    this.currentPoints = 0; // @public how many points were earned for the current challenge
-    this.balancedRepresentation = null; // @public which representation to use in the "Not Balanced" popup
-    this.isNewBestTime = false; // @public is the time for this game a new best time?
+      this.equations = []; // @public array of Equation
+      this.timer = new GameTimer(); // @public
+      this.attempts = 0; // @private how many attempts the user has made at solving the current challenge
+      this.currentPoints = 0; // @public how many points were earned for the current challenge
+      this.balancedRepresentation = null; // @public which representation to use in the "Not Balanced" popup
+      this.isNewBestTime = false; // @public is the time for this game a new best time?
 
-    this.bestTimeProperties = [];// @public {Property.<number>[]} best times in ms, indexed by level
-    this.bestScoreProperties = []; // @public {Property.<number>[]} best scores, indexed by level
-    for ( let i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
-      this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
-      this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
+      this.bestTimeProperties = [];// @public {Property.<number>[]} best times in ms, indexed by level
+      this.bestScoreProperties = []; // @public {Property.<number>[]} best scores, indexed by level
+      for ( let i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
+        this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
+        this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
+      }
     }
-  }
-
-  balancingChemicalEquations.register( 'GameModel', GameModel );
-
-  return inherit( Object, GameModel, {
 
     // @public
-    reset: function() {
-
-      // Properties
+    reset() {
       this.stateProperty.reset();
       this.levelProperty.reset();
       this.pointsProperty.reset();
       this.numberOfEquationsProperty.reset();
       this.currentEquationProperty.reset();
       this.currentEquationIndexProperty.reset();
-
-      this.bestTimeProperties.forEach( function( bestTimeProperty ) {
-        bestTimeProperty.reset();
-      } );
-
-      this.bestScoreProperties.forEach( function( bestScoreProperty ) {
-        bestScoreProperty.reset();
-      } );
-    },
+      this.bestTimeProperties.forEach( bestTimeProperty => bestTimeProperty.reset() );
+      this.bestScoreProperties.forEach( bestScoreProperty => bestScoreProperty.reset() );
+    }
 
     /**
      * Called when the user presses a level-selection button.
      * @public
      */
-    startGame: function() {
+    startGame() {
 
       const level = this.levelProperty.get();
 
@@ -138,13 +126,13 @@ define( require => {
       this.numberOfEquationsProperty.set( this.equations.length );
       this.pointsProperty.set( 0 );
       this.stateProperty.set( this.states.CHECK );
-    },
+    }
 
     /**
      * Called when the user presses the "Check" button.
      * @public
      */
-    check: function() {
+    check() {
       this.attempts++;
 
       if ( this.currentEquationProperty.get().balancedAndSimplified ) {
@@ -175,13 +163,13 @@ define( require => {
         }
         this.stateProperty.set( this.states.SHOW_ANSWER );
       }
-    },
+    }
 
     /**
      * When a game ends, stop the timer and (if perfect score) set the new best time.
      * @private
      */
-    endGame: function() {
+    endGame() {
 
       this.timer.stop();
 
@@ -199,73 +187,70 @@ define( require => {
         this.isNewBestTime = true;
         this.bestTimeProperties[ level ].set( this.timer.elapsedTimeProperty.value );
       }
-    },
+    }
 
     /**
      * Called when the user presses the "Try Again" button.
      * @public
      */
-    tryAgain: function() {
+    tryAgain() {
       this.stateProperty.set( this.states.CHECK );
-    },
+    }
 
     /**
      * Called when the user presses the "Show Answer" button.
      * @public
      */
-    showAnswer: function() {
+    showAnswer() {
       this.stateProperty.set( this.states.NEXT );
-    },
+    }
 
     /**
      * Gets the number of equations for a specified level.
-     *
      * @param level
      * @returns {number}
      * @public
      */
-    getNumberOfEquations: function( level ) {
+    getNumberOfEquations( level ) {
       return GameFactory.getNumberOfEquations( level );
-    },
+    }
 
     /**
      * Gets the number of points in a perfect score for a specified level.
      * A perfect score is obtained when the user balances every equation correctly on the first attempt.
-     *
      * @param level
      * @returns {number}
      * @public
      */
-    getPerfectScore: function( level ) {
+    getPerfectScore( level ) {
       return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
-    },
+    }
 
     /**
      * Is the current score a perfect score?
      * This can be called at any time during the game, but can't possibly
      * return true until the game has been completed.
-     *
      * @returns {boolean}
      * @public
      */
-    isPerfectScore: function() {
+    isPerfectScore() {
       return this.pointsProperty.get() === this.getPerfectScore( this.levelProperty.get() );
-    },
+    }
 
     /**
      * Called when the user presses the "Start Over" button.
      * @public
      */
-    newGame: function() {
+    newGame() {
       this.stateProperty.set( this.states.LEVEL_SELECTION );
       this.timer.restart();
-    },
+    }
 
     /**
      * Called when the user presses the "Next" button.
      * @public
      */
-    next: function() {
+    next() {
       if ( this.currentEquationIndexProperty.get() < this.equations.length - 1 ) {
         this.attempts = 0;
         this.currentPoints = 0;
@@ -278,5 +263,7 @@ define( require => {
         this.stateProperty.set( this.states.LEVEL_COMPLETED );
       }
     }
-  } );
+  }
+
+  return balancingChemicalEquations.register( 'GameModel', GameModel );
 } );

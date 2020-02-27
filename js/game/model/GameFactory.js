@@ -20,8 +20,7 @@ define( require => {
   const BCEQueryParameters = require( 'BALANCING_CHEMICAL_EQUATIONS/common/BCEQueryParameters' );
   const DecompositionEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DecompositionEquation' );
   const DisplacementEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/DisplacementEquation' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
+  const RandomStrategy = require( 'BALANCING_CHEMICAL_EQUATIONS/game/model/RandomStrategy' );
   const SynthesisEquation = require( 'BALANCING_CHEMICAL_EQUATIONS/common/model/SynthesisEquation' );
 
   // constants
@@ -176,112 +175,6 @@ define( require => {
     ]
   };
 
-  /**
-   * Selects a random set from a pool of equations, with no duplicates.
-   * Selection of an equation may cause other equations to be excluded from the pool.
-   *
-   * @param {function[]} pool which equation pool to use
-   * @param {boolean} firstBigMolecule specifies whether it's OK if the first equation in the set contains a "big" molecule
-   * @param {Object} [options]
-   * @constructor
-   */
-  const RandomStrategy = function( pool, firstBigMolecule, options ) {
-
-    options = merge( {
-      exclusions: {} // see LEVEL3_EXCLUSIONS for doc
-    }, options );
-
-    this.pool = pool;
-    this.firstBigMolecule = firstBigMolecule;  // can the first equation in the set contain a "big" molecule?
-    this.exclusions = options.exclusions;
-  };
-
-  inherit( Object, RandomStrategy, {
-
-    /**
-     * Randomly selects a specified number of Equation factory functions from the pool.
-     * @private
-     * @param {number} numberOfEquations
-     * @returns { [{function}] } array of Equation factory functions
-     * @public
-     */
-    getEquationFactoryFunctions: function( numberOfEquations ) {
-
-      BCEQueryParameters.log && console.log( 'GameFactory: choosing challenges...' );
-
-      // operate on a copy of the pool, so that we can prune the pool as we select equations
-      const poolCopy = _.clone( this.pool );
-
-      const factoryFunctions = [];
-      for ( let i = 0; i < numberOfEquations; i++ ) {
-
-        assert && assert( poolCopy.length > 0 );
-
-        // randomly select an equation
-        const randomIndex = phet.joist.random.nextInt( poolCopy.length );
-        let factoryFunction = poolCopy[ randomIndex ];
-
-        // If the first equation isn't supposed to contain any "big" molecules,
-        // then find an equation in the pool that has no big molecules.
-        if ( i === 0 && !this.firstBigMolecule && factoryFunction().hasBigMolecule() ) {
-
-          // start the search at a random index
-          const startIndex = phet.joist.random.nextInt( poolCopy.length );
-          let index = startIndex;
-          let done = false;
-          while ( !done ) {
-
-            // next equation in the pool
-            factoryFunction = poolCopy.get( index );
-
-            if ( !factoryFunction().hasBigMolecule() ) {
-              done = true; // success, this equation has no big molecules
-            }
-            else {
-              // increment index to point to next in pool
-              index++;
-              if ( index > poolCopy.size() - 1 ) {
-                index = 0;
-              }
-
-              // give up if we've examined all equations in the pool
-              if ( index === startIndex ) {
-                done = true;
-                throw new Error( 'first equation contains big molecules because we ran out of equations' );
-              }
-            }
-          }
-        }
-
-        // add the equation to the game
-        factoryFunctions.push( factoryFunction );
-        BCEQueryParameters.log && console.log( '+ chose ' + factoryFunction().toString() );
-
-        // remove the equation from the pool so it won't be selected again
-        poolCopy.splice( poolCopy.indexOf( factoryFunction ), 1 );
-
-        // if the selected equation has exclusions, remove them from the pool
-        for ( const functionName in this.exclusions ) {
-          if ( DisplacementEquation[ functionName ] === factoryFunction ) {
-            const excludedFunctions = this.exclusions[ functionName ];
-            for ( let j = 0; j < excludedFunctions.length; j++ ) {
-              const excludedFunction = excludedFunctions[ j ];
-              const excludedIndex = poolCopy.indexOf( excludedFunction );
-              if ( excludedIndex !== -1 ) {
-                poolCopy.splice( excludedIndex, 1 );
-                BCEQueryParameters.log && console.log( '- excluded ' + excludedFunction().toString() );
-              }
-            }
-            break; // assumes that all exclusions are in 1 entry
-          }
-        }
-      }
-
-      assert && assert( factoryFunctions.length === numberOfEquations );
-      return factoryFunctions;
-    }
-  } );
-
   // strategies for selecting equations, indexed by game level
   const STRATEGIES = [
     new RandomStrategy( LEVEL1_POOL, false ),
@@ -294,7 +187,7 @@ define( require => {
     /**
      * Gets the number of equations for a level.
      * If we're playing all equations for testing purposes, return the entire pool length.
-     * @param level
+     * @param {number} level
      * @returns {Window.length|*}
      */
     getNumberOfEquations: function( level ) {
@@ -304,7 +197,7 @@ define( require => {
     /**
      * Creates a set of equations to be used in the game.
      * If 'playAll' query parameter is defined, return all equations for the level.
-     * @param level
+     * @param {number} level
      * @returns {Equation}
      */
     createEquations: function( level ) {
@@ -316,14 +209,10 @@ define( require => {
 
       // Instantiate one instance of each Equation type.
       const equations = [];
-      factoryFunctions.forEach( function( factoryFunction ) {
-        equations.push( factoryFunction() );
-      } );
+      factoryFunctions.forEach( factoryFunction => equations.push( factoryFunction() ) );
       return equations;
     }
   };
 
-  balancingChemicalEquations.register( 'GameFactory', GameFactory );
-
-  return GameFactory;
+  return balancingChemicalEquations.register( 'GameFactory', GameFactory );
 } );
