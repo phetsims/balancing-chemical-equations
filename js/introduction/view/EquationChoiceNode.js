@@ -37,7 +37,7 @@ class EquationChoiceNode extends Node {
 
     // radio button descriptions, one button for each equation
     const radioButtonItems = [];
-    choices.forEach( function( choice ) {
+    choices.forEach( choice => {
       radioButtonItems.push( {
         node: new Text( choice.label, TEXT_OPTIONS ),
         value: choice.equation
@@ -55,7 +55,7 @@ class EquationChoiceNode extends Node {
     } );
     this.addChild( radioButtonGroup );
 
-    this.disposeEquationChoiceNode = function() {
+    this.disposeEquationChoiceNode = () => {
       radioButtonGroup.dispose();
     };
 

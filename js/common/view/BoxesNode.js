@@ -35,8 +35,8 @@ class BoxesNode extends Node {
 
     // reactants box, on the left
     const reactantsBoxNode = new BoxNode( equationProperty,
-      function( equation ) { return equation.reactants; },
-      function( equation ) { return aligner.getReactantXOffsets( equation ); },
+      equation => equation.reactants,
+      equation => aligner.getReactantXOffsets( equation ),
       coefficientsRange,
       reactantsString, {
         expandedProperty: reactantsBoxExpandedProperty,
@@ -49,8 +49,8 @@ class BoxesNode extends Node {
 
     // products box, on the right
     const productsBoxNode = new BoxNode( equationProperty,
-      function( equation ) { return equation.products; },
-      function( equation ) { return aligner.getProductXOffsets( equation ); },
+      equation => equation.products,
+      equation => aligner.getProductXOffsets( equation ),
       coefficientsRange,
       productsString, {
         expandedProperty: productsBoxExpandedProperty,

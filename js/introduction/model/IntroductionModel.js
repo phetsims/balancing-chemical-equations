@@ -43,9 +43,7 @@ class IntroductionModel {
   // @public
   reset() {
     this.equationProperty.reset();
-    this.choices.forEach( function( choice ) {
-      choice.equation.reset();
-    } );
+    this.choices.forEach( choice => choice.equation.reset() );
   }
 }
 

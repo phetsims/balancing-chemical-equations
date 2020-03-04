@@ -256,9 +256,7 @@ function createStateChangeButton( label, modelFunction, maxWidth ) {
     font: STATE_BUTTON_FONT,
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
-    listener: function() {
-      modelFunction();
-    }
+    listener: () => modelFunction()
   } );
 }
 

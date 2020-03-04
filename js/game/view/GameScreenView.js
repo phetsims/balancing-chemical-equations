@@ -93,7 +93,6 @@ class GameScreenView extends ScreenView {
   // @private
   initLevelCompleted() {
 
-    const self = this;
     const level = this.model.levelProperty.get();
 
     this.levelSelectionNode.visible = this.gamePlayNode.visible = false;
@@ -114,17 +113,17 @@ class GameScreenView extends ScreenView {
       this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
 
       // function called when 'Continue' button is pressed
-      function() {
+      () => {
         // remove the reward, if we have one
-        if ( self.rewardNode ) {
-          self.rootNode.removeChild( self.rewardNode );
-          self.rewardNode.dispose();
-          self.rewardNode = null;
+        if ( this.rewardNode ) {
+          this.rootNode.removeChild( this.rewardNode );
+          this.rewardNode.dispose();
+          this.rewardNode = null;
         }
         // remove the level-completed dialog
-        self.rootNode.removeChild( levelCompletedNode );
+        this.rootNode.removeChild( levelCompletedNode );
         // go back to the level-selection screen
-        self.model.stateProperty.set( self.model.states.LEVEL_SELECTION );
+        this.model.stateProperty.set( this.model.states.LEVEL_SELECTION );
       },
       {
         // LevelCompletedNode options

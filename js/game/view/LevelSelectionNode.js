@@ -80,7 +80,7 @@ class LevelSelectionNode extends Node {
 
     // Reset All button, lower right
     const resetButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
         viewProperties.reset();
       },
@@ -125,9 +125,7 @@ function createLevelSelectionButton( level, model, bestTimeVisibleProperty, star
       numberOfStars: model.getNumberOfEquations( level ),
       perfectScore: model.getPerfectScore( level )
     },
-    listener: function() {
-      startGame( level );
-    }
+    listener: () => startGame( level )
   } );
 }
 

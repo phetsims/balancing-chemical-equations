@@ -99,7 +99,7 @@ class BarNode extends VBox {
     numberOfAtomsProperty.link( numberOfAtomsListener );
 
     // @private
-    this.disposeBarNode = function() {
+    this.disposeBarNode = () => {
       numberOfAtomsProperty.unlink( numberOfAtomsListener );
     };
   }

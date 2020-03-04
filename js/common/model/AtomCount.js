@@ -60,9 +60,9 @@ class AtomCount {
  * @param {EquationTerm[]} terms
  * @param {boolean} isReactants true if the terms are the reactants, false if they are the products
  */
-const appendToCounts = function( atomCounts, terms, isReactants ) {
-  terms.forEach( function( term ) {
-    term.molecule.atoms.forEach( function( atom ) {
+function appendToCounts( atomCounts, terms, isReactants ) {
+  terms.forEach( term => {
+    term.molecule.atoms.forEach( atom => {
 
       let found = false;
       for ( let i = 0; i < atomCounts.length; i++ ) {
@@ -92,7 +92,7 @@ const appendToCounts = function( atomCounts, terms, isReactants ) {
     } );
   } );
   return atomCounts;
-};
+}
 
 balancingChemicalEquations.register( 'AtomCount', AtomCount );
 export default AtomCount;

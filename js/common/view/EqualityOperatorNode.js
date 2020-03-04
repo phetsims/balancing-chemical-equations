@@ -38,11 +38,11 @@ class EqualityOperatorNode extends Node {
     super( options );
 
     // show the correct operator, based on whether the equation is balanced
-    const balancedObserver = function( balanced ) {
+    const balancedObserver = balanced => {
       equalsSignNode.visible = balanced;
       notEqualsSignNode.visible = !balanced;
     };
-    equationProperty.link( function( newEquation, oldEquation ) {
+    equationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) { oldEquation.balancedProperty.unlink( balancedObserver ); }
       newEquation.balancedProperty.link( balancedObserver );
     } );
