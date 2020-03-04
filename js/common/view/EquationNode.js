@@ -85,7 +85,7 @@ class EquationNode extends Node {
     const minSeparation = 15;
     const tempNodes = []; // contains all nodes for position adjustment if needed
 
-    for ( var i = 0; i < terms.length; i++ ) {
+    for ( let i = 0; i < terms.length; i++ ) {
       // term
       termNode = new TermNode( this.coefficientRange, terms[ i ], { fontSize: this.fontSize } );
       this.terms.push( termNode );
@@ -128,7 +128,7 @@ class EquationNode extends Node {
     // check if equation fits maxX (eg, CH3OH -> CO + 2H2)
     if ( tempNodes[ tempNodes.length - 1 ].bounds.maxX > maxX ) { // adjust all terms to the left
       let leftBound = maxX; // current left bound of passed terms, if term.maxX > leftBound, move term to the left
-      for ( i = tempNodes[ tempNodes.length - 1 ]; i > -1; i-- ) {
+      for ( let i = tempNodes[ tempNodes.length - 1 ]; i > -1; i-- ) {
         const term = tempNodes[ i ];
         dx = Math.max( 0, term.bounds.maxX - leftBound );
         term.x -= dx;

@@ -108,7 +108,7 @@ class GameScreenView extends ScreenView {
 
     // Add the dialog node that indicates that the level has been completed.
     const numberOfEquations = this.model.getNumberOfEquations( level );
-    var levelCompletedNode = new LevelCompletedNode( level + 1, this.model.pointsProperty.get(), this.model.getPerfectScore( level ),
+    const levelCompletedNode = new LevelCompletedNode( level + 1, this.model.pointsProperty.get(), this.model.getPerfectScore( level ),
       numberOfEquations, this.viewProperties.timerEnabledProperty.value,
       this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
 

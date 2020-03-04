@@ -154,12 +154,12 @@ class Equation {
    */
   getCoefficientsString() {
     let string = '';
-    for ( var i = 0; i < this.reactants.length; i++ ) {
+    for ( let i = 0; i < this.reactants.length; i++ ) {
       string += this.reactants[ i ].balancedCoefficient;
       string += ( i < this.reactants.length - 1 ) ? ' + ' : ' ';
     }
     string += '\u2192 '; // right arrow
-    for ( i = 0; i < this.products.length; i++ ) {
+    for ( let i = 0; i < this.products.length; i++ ) {
       string += this.products[ i ].balancedCoefficient;
       string += ( i < this.products.length - 1 ) ? ' + ' : '';
     }
@@ -175,7 +175,7 @@ class Equation {
     let string = '';
 
     // reactants
-    for ( var i = 0; i < this.reactants.length; i++ ) {
+    for ( let i = 0; i < this.reactants.length; i++ ) {
       string += this.reactants[ i ].balancedCoefficient;
       string += ' ';
       string += this.reactants[ i ].molecule.symbol;
@@ -188,7 +188,7 @@ class Equation {
     string += ' \u2192 ';
 
     // products
-    for ( i = 0; i < this.products.length; i++ ) {
+    for ( let i = 0; i < this.products.length; i++ ) {
       string += this.products[ i ].balancedCoefficient;
       string += ' ';
       string += this.products[ i ].molecule.symbol;

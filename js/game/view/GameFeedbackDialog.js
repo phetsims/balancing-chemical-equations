@@ -151,7 +151,7 @@ class GameFeedbackDialog extends Node {
       let balancedRepresentationNode = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
-      var showWhyButton = new TextPushButton( showWhyString, {
+      const showWhyButton = new TextPushButton( showWhyString, {
         listener: () => {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
@@ -169,7 +169,7 @@ class GameFeedbackDialog extends Node {
       } );
 
       // 'Hide Why' button, hides the 'balanced' representation
-      var hideWhyButton = new TextPushButton( hideWhyString, {
+      const hideWhyButton = new TextPushButton( hideWhyString, {
         listener: () => {
           showWhyButton.visible = true;
           hideWhyButton.visible = false;
