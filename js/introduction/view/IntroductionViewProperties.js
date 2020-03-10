@@ -7,7 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 
@@ -18,7 +18,7 @@ class IntroductionViewProperties {
     // @public
     this.reactantsBoxExpandedProperty = new BooleanProperty( true );
     this.productsBoxExpandedProperty = new BooleanProperty( true );
-    this.balancedRepresentationProperty = new StringProperty( BalancedRepresentation.NONE );
+    this.balancedRepresentationProperty = new EnumerationProperty( BalancedRepresentation, BalancedRepresentation.NONE );
   }
 
   // @public

@@ -293,7 +293,7 @@ function createBalancedRepresentation( equation, balancedRepresentation, aligner
     balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
   }
   else {
-    throw new Error( 'unsupported balancedRepresentation: ' + balancedRepresentation );
+    throw new Error( 'unsupported balancedRepresentation: ' + balancedRepresentation.name );
   }
   balancedRepresentationNode.setScaleMagnitude( 0.65 ); // issue #29, shrink size so that it doesn't cover so much of the screen
   return balancedRepresentationNode;
