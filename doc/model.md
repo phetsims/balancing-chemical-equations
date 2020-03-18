@@ -1,4 +1,4 @@
-Description of the model used in "Balancing Chemical Equations"
+# Balancing Chemical Equations - model description
 
 This simulation contains equations for reactions that have 2 reactants
 and 1 or 2 products, or 1 reactant and 2 products.
