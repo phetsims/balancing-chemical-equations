@@ -13,7 +13,7 @@ import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Path from '../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
-import balancingChemicalEquationsStrings from '../balancing-chemical-equations-strings.js';
+import balancingChemicalEquationsStrings from '../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BCEConstants from '../common/BCEConstants.js';
 import GameModel from './model/GameModel.js';

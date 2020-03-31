@@ -17,7 +17,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
-import balancingChemicalEquationsStrings from '../../balancing-chemical-equations-strings.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import MoleculeFactory from '../../common/model/MoleculeFactory.js';

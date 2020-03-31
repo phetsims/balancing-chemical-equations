@@ -6,7 +6,7 @@
 
 import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
-import balancingChemicalEquationsStrings from './balancing-chemical-equations-strings.js';
+import balancingChemicalEquationsStrings from './balancingChemicalEquationsStrings.js';
 import GameScreen from './game/GameScreen.js';
 import IntroductionScreen from './introduction/IntroductionScreen.js';
 

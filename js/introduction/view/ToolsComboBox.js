@@ -15,7 +15,7 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import chartsImage from '../../../images/charts_png.js';
 import scalesImage from '../../../mipmaps/scales_png.js';
-import balancingChemicalEquationsStrings from '../../balancing-chemical-equations-strings.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 

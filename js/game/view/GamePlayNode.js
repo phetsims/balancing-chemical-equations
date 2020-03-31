@@ -15,7 +15,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
-import balancingChemicalEquationsStrings from '../../balancing-chemical-equations-strings.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BoxesNode from '../../common/view/BoxesNode.js';

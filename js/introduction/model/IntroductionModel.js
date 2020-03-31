@@ -9,7 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import balancingChemicalEquationsStrings from '../../balancing-chemical-equations-strings.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import DecompositionEquation from '../../common/model/DecompositionEquation.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';

@@ -21,7 +21,7 @@ import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
-import balancingChemicalEquationsStrings from '../../balancing-chemical-equations-strings.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
