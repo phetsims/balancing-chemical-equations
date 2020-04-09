@@ -220,7 +220,7 @@ class GameFeedbackDialog extends Node {
     const updateShadow = () => {
       shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height );
     };
-    content.on( 'bounds', updateShadow ); // resize shadow when panel changes size
+    content.boundsProperty.lazyLink( updateShadow ); // resize shadow when panel changes size
     updateShadow();
 
     options.children = [ shadowNode, panel ];
