@@ -15,6 +15,7 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import AtomNode from '../../../../nitroglycerin/js/nodes/AtomNode.js';
+import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
@@ -38,6 +39,9 @@ class BarNode extends VBox {
    * @param {Object} [options]
    */
   constructor( element, numberOfAtomsProperty, options ) {
+    options = merge( {
+      excludeInvisibleChildrenFromBounds: false
+    }, options );
 
     // number of atoms
     const numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
