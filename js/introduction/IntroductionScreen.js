@@ -9,6 +9,7 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Shape from '../../../kite/js/Shape.js';
 import Element from '../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../nitroglycerin/js/nodes/AtomNode.js';
@@ -19,8 +20,8 @@ import Path from '../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../scenery/js/util/LinearGradient.js';
-import balancingChemicalEquationsStrings from '../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
+import balancingChemicalEquationsStrings from '../balancingChemicalEquationsStrings.js';
 import BCEConstants from '../common/BCEConstants.js';
 import IntroductionModel from './model/IntroductionModel.js';
 import IntroductionScreenView from './view/IntroductionScreenView.js';
@@ -45,7 +46,10 @@ class IntroductionScreen extends Screen {
   }
 }
 
-// creates the icon for this screen: an equation above a balance beam
+/**
+ * Creates the icon for this screen: an equation above a balance beam
+ * @returns {ScreenIcon}
+ */
 function createScreenIcon() {
 
   // background rectangle
@@ -102,7 +106,9 @@ function createScreenIcon() {
   contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
   contentNode.center = background.center;
 
-  return new Node( { children: [ background, contentNode ] } );
+  const iconNode = new Node( { children: [ background, contentNode ] } );
+
+  return new ScreenIcon( iconNode );
 }
 
 balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );

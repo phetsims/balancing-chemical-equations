@@ -8,13 +8,14 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Shape from '../../../kite/js/Shape.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Path from '../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
-import balancingChemicalEquationsStrings from '../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
+import balancingChemicalEquationsStrings from '../balancingChemicalEquationsStrings.js';
 import BCEConstants from '../common/BCEConstants.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
@@ -39,7 +40,10 @@ class GameScreen extends Screen {
   }
 }
 
-// creates the icon for this screen: a smiley face to the right of up/down arrows
+/**
+ * Creates the icon for this screen: a smiley face to the right of up/down arrows.
+ * @returns {ScreenIcon}
+ */
 function createScreenIcon() {
 
   // constants
@@ -71,7 +75,10 @@ function createScreenIcon() {
   const contentNode = new Node( { children: [ faceNode, upArrowNode, downArrowNode ] } );
   contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
   contentNode.center = background.center;
-  return new Node( { children: [ background, contentNode ] } );
+
+  const iconNode = new Node( { children: [ background, contentNode ] } );
+
+  return new ScreenIcon( iconNode );
 }
 
 balancingChemicalEquations.register( 'GameScreen', GameScreen );
