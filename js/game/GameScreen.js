@@ -78,7 +78,10 @@ function createScreenIcon() {
 
   const iconNode = new Node( { children: [ background, contentNode ] } );
 
-  return new ScreenIcon( iconNode );
+  return new ScreenIcon( iconNode, {
+    maxIconWidthProportion: 1,
+    maxIconHeightProportion: 1
+  } );
 }
 
 balancingChemicalEquations.register( 'GameScreen', GameScreen );
