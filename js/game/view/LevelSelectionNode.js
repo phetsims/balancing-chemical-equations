@@ -17,8 +17,8 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import MoleculeFactory from '../../common/model/MoleculeFactory.js';
 
@@ -28,9 +28,6 @@ const levelImagesConstructors = [
   MoleculeFactory.H2O().nodeConstructor,
   MoleculeFactory.NH3().nodeConstructor
 ];
-
-const chooseYourLevelString = balancingChemicalEquationsStrings.chooseYourLevel;
-const pattern0LevelString = balancingChemicalEquationsStrings.pattern_0level;
 
 // constants
 const BUTTON_MARGIN = 20;
@@ -62,7 +59,7 @@ class LevelSelectionNode extends Node {
     this.addChild( buttonsParent );
 
     // title
-    const title = new Text( chooseYourLevelString, {
+    const title = new Text( balancingChemicalEquationsStrings.chooseYourLevel, {
       font: new PhetFont( 36 ),
       centerX: layoutBounds.centerX,
       centerY: buttonsParent.top / 2,
@@ -108,7 +105,7 @@ function createLevelSelectionButton( level, model, bestTimeVisibleProperty, star
 
   // 'Level N' centered above icon
   const image = new levelImagesConstructors[ level ]( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
-  const label = new Text( StringUtils.format( pattern0LevelString, level + 1 ), {
+  const label = new Text( StringUtils.format( balancingChemicalEquationsStrings.pattern_0level, level + 1 ), {
     font: new PhetFont( { size: 14, weight: 'bold' } ),
     maxWidth: image.width
   } );

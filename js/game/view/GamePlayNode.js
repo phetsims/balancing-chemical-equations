@@ -15,16 +15,13 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameFeedbackDialog from './GameFeedbackDialog.js';
-
-const checkString = balancingChemicalEquationsStrings.check;
-const nextString = balancingChemicalEquationsStrings.next;
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 340 );
@@ -94,14 +91,14 @@ class GamePlayNode extends Node {
       bottom: this.boxesNode.bottom
     };
     // @private
-    this.checkButton = new TextPushButton( checkString, merge( BUTTONS_OPTIONS, {
+    this.checkButton = new TextPushButton( balancingChemicalEquationsStrings.check, merge( BUTTONS_OPTIONS, {
       listener: () => {
         this.playGuessAudio();
         this.model.check();
       }
     } ) );
     // @private
-    this.nextButton = new TextPushButton( nextString, merge( BUTTONS_OPTIONS, {
+    this.nextButton = new TextPushButton( balancingChemicalEquationsStrings.next, merge( BUTTONS_OPTIONS, {
       listener: () => {
         this.model.next();
       }

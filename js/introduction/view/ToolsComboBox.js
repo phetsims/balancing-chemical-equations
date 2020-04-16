@@ -15,12 +15,9 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import chartsImage from '../../../images/charts_png.js';
 import scalesImage from '../../../mipmaps/scales_png.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
-
-const noneString = balancingChemicalEquationsStrings.none;
-const toolsString = balancingChemicalEquationsStrings.tools;
 
 // constants
 const FONT = new PhetFont( 22 );
@@ -43,7 +40,7 @@ class ToolsComboBox extends ComboBox {
     }, options );
 
     // options that cannot be specified by client
-    options.labelNode = new Text( toolsString, {
+    options.labelNode = new Text( balancingChemicalEquationsStrings.tools, {
       font: FONT,
       fontWeight: 'bold',
       maxWidth: 100
@@ -51,7 +48,7 @@ class ToolsComboBox extends ComboBox {
 
     const items = [
       // 'None'
-      new ComboBoxItem( new Text( noneString, { font: FONT, maxWidth: 100 } ), BalancedRepresentation.NONE ),
+      new ComboBoxItem( new Text( balancingChemicalEquationsStrings.none, { font: FONT, maxWidth: 100 } ), BalancedRepresentation.NONE ),
       // scales
       new ComboBoxItem( new Image( scalesImage, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
       // bar charts

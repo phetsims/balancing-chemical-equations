@@ -26,14 +26,12 @@ import BCEConstants from '../common/BCEConstants.js';
 import IntroductionModel from './model/IntroductionModel.js';
 import IntroductionScreenView from './view/IntroductionScreenView.js';
 
-const screenIntroductionString = balancingChemicalEquationsStrings.screen.introduction;
-
 class IntroductionScreen extends Screen {
 
   constructor() {
 
     const options = {
-      name: screenIntroductionString,
+      name: balancingChemicalEquationsStrings.screen.introduction,
       backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };

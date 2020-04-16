@@ -20,14 +20,12 @@ import BCEConstants from '../common/BCEConstants.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
-const screenGameString = balancingChemicalEquationsStrings.screen.game;
-
 class GameScreen extends Screen {
 
   constructor() {
 
     const options = {
-      name: screenGameString,
+      name: balancingChemicalEquationsStrings.screen.game,
       backgroundColorProperty: new Property( BCEConstants.GAME_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };

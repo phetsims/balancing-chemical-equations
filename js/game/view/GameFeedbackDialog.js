@@ -21,21 +21,11 @@ import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
-
-const balancedString = balancingChemicalEquationsStrings.balanced;
-const hideWhyString = balancingChemicalEquationsStrings.hideWhy;
-const nextString = balancingChemicalEquationsStrings.next;
-const notBalancedString = balancingChemicalEquationsStrings.notBalanced;
-const notSimplifiedString = balancingChemicalEquationsStrings.notSimplified;
-const pattern0PointsString = balancingChemicalEquationsStrings.pattern_0points;
-const showAnswerString = balancingChemicalEquationsStrings.showAnswer;
-const showWhyString = balancingChemicalEquationsStrings.showWhy;
-const tryAgainString = balancingChemicalEquationsStrings.tryAgain;
 
 // constants
 const TEXT_FONT = new PhetFont( 18 );
@@ -87,12 +77,12 @@ class GameFeedbackDialog extends Node {
 
           // check mark + 'balanced'
           new HBox( {
-            children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
+            children: [ createCorrectIcon(), new Text( balancingChemicalEquationsStrings.balanced, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
 
           // points awarded
-          new Text( StringUtils.format( pattern0PointsString, points ), {
+          new Text( StringUtils.format( balancingChemicalEquationsStrings.pattern_0points, points ), {
             font: new PhetFont( {
               size: 24,
               weight: 'bold'
@@ -103,7 +93,7 @@ class GameFeedbackDialog extends Node {
           new VStrut( ACTION_AREA_Y_SPACING ),
 
           // Next button
-          createStateChangeButton( nextString, model.next.bind( model ), maxWidth )
+          createStateChangeButton( balancingChemicalEquationsStrings.next, model.next.bind( model ), maxWidth )
         ],
         spacing: options.vBoxSpacing
       } );
@@ -123,13 +113,13 @@ class GameFeedbackDialog extends Node {
 
               // check mark + 'balanced'
               new HBox( {
-                children: [ createCorrectIcon(), new Text( balancedString, textOptions ) ],
+                children: [ createCorrectIcon(), new Text( balancingChemicalEquationsStrings.balanced, textOptions ) ],
                 spacing: options.hBoxSpacing
               } ),
 
               // red X + 'not simplified'
               new HBox( {
-                children: [ createIncorrectIcon(), new Text( notSimplifiedString, textOptions ) ],
+                children: [ createIncorrectIcon(), new Text( balancingChemicalEquationsStrings.notSimplified, textOptions ) ],
                 spacing: options.hBoxSpacing
               } )
             ]
@@ -151,7 +141,7 @@ class GameFeedbackDialog extends Node {
       let balancedRepresentationNode = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
-      const showWhyButton = new TextPushButton( showWhyString, {
+      const showWhyButton = new TextPushButton( balancingChemicalEquationsStrings.showWhy, {
         listener: () => {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
@@ -169,7 +159,7 @@ class GameFeedbackDialog extends Node {
       } );
 
       // 'Hide Why' button, hides the 'balanced' representation
-      const hideWhyButton = new TextPushButton( hideWhyString, {
+      const hideWhyButton = new TextPushButton( balancingChemicalEquationsStrings.hideWhy, {
         listener: () => {
           showWhyButton.visible = true;
           hideWhyButton.visible = false;
@@ -192,7 +182,7 @@ class GameFeedbackDialog extends Node {
 
           // red X + 'not balanced'
           new HBox( {
-            children: [ createIncorrectIcon(), new Text( notBalancedString, textOptions ) ],
+            children: [ createIncorrectIcon(), new Text( balancingChemicalEquationsStrings.notBalanced, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
 
@@ -269,10 +259,10 @@ function createStateChangeButton( label, modelFunction, maxWidth ) {
 function createButtonForState( model, maxWidth ) {
   let button = null;
   if ( model.stateProperty.get() === model.states.TRY_AGAIN ) {
-    button = createStateChangeButton( tryAgainString, model.tryAgain.bind( model ), maxWidth );
+    button = createStateChangeButton( balancingChemicalEquationsStrings.tryAgain, model.tryAgain.bind( model ), maxWidth );
   }
   else if ( model.stateProperty.get() === model.states.SHOW_ANSWER ) {
-    button = createStateChangeButton( showAnswerString, model.showAnswer.bind( model ), maxWidth );
+    button = createStateChangeButton( balancingChemicalEquationsStrings.showAnswer, model.showAnswer.bind( model ), maxWidth );
   }
   return button;
 }

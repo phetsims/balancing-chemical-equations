@@ -10,8 +10,6 @@ import balancingChemicalEquationsStrings from './balancingChemicalEquationsStrin
 import GameScreen from './game/GameScreen.js';
 import IntroductionScreen from './introduction/IntroductionScreen.js';
 
-const balancingChemicalEquationsTitleString = balancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].title;
-
 const simOptions = {
   credits: {
     leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
@@ -28,5 +26,5 @@ SimLauncher.launch( () => {
     new IntroductionScreen(),
     new GameScreen()
   ];
-  new Sim( balancingChemicalEquationsTitleString, screens, simOptions ).start();
+  new Sim( balancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].title, screens, simOptions ).start();
 } );
