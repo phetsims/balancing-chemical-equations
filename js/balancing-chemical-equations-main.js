@@ -5,7 +5,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import balancingChemicalEquationsStrings from './balancingChemicalEquationsStrings.js';
 import GameScreen from './game/GameScreen.js';
 import IntroductionScreen from './introduction/IntroductionScreen.js';
@@ -21,7 +21,7 @@ const simOptions = {
   }
 };
 
-SimLauncher.launch( () => {
+simLauncher.launch( () => {
   const screens = [
     new IntroductionScreen(),
     new GameScreen()
