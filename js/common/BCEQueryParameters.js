@@ -10,10 +10,12 @@ import balancingChemicalEquations from '../balancingChemicalEquations.js';
 
 const BCEQueryParameters = QueryStringMachine.getAll( {
 
-  // play all challenges for each level of the game, to get 100% test coverage
+  // Play all challenges for each level of the game, to get 100% test coverage.
+  // For internal use only.
   playAll: { type: 'flag' },
 
-  // show the game reward regardless of score
+  // Show the game reward regardless of score.
+  // For internal use only.
   showReward: { type: 'flag' }
 } );
 
