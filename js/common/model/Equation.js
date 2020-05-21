@@ -50,8 +50,6 @@ class Equation {
     } );
   }
 
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/142 is dispose needed?
-
   // @public
   reset() {
 
