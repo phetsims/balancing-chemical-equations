@@ -16,6 +16,7 @@ import RightArrowNode from './RightArrowNode.js';
 import TermNode from './TermNode.js';
 
 class EquationNode extends Node {
+
   /**
    * @param {Property.<Equation>} equationProperty
    * @param {DOT.Range} coefficientRange range of the coefficients
