@@ -62,13 +62,13 @@ class TermNode extends Node {
   }
 
   /**
-   * When a term is disabled, it is not pickable and the arrows on its picker are hidden.
-   * @param enabled
+   * Sets whether the term's coefficient is editable, by showing/hiding the arrows on the NumberPicker.
+   * @param editable
    * @public
    */
-  setEnabled( enabled ) {
-    this.pickable = enabled;
-    this.coefficientNode.setArrowsVisible( enabled );
+  setCoefficientEditable( editable ) {
+    this.pickable = editable;
+    this.coefficientNode.setArrowsVisible( editable );
   }
 }
 

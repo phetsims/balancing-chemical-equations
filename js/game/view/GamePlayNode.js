@@ -169,7 +169,7 @@ class GamePlayNode extends Node {
 
   // @private
   initCheck() {
-    this.equationNode.setEnabled( true );
+    this.equationNode.setCoefficientsEditable( true );
     this.checkButton.visible = true;
     this.nextButton.visible = false;
     this.setFeedbackDialogVisible( false );
@@ -178,7 +178,7 @@ class GamePlayNode extends Node {
 
   // @private
   initTryAgain() {
-    this.equationNode.setEnabled( false );
+    this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
     this.setFeedbackDialogVisible( true );
     this.setBalancedHighlightEnabled( false );
@@ -186,7 +186,7 @@ class GamePlayNode extends Node {
 
   // @private
   initShowAnswer() {
-    this.equationNode.setEnabled( false );
+    this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
     this.setFeedbackDialogVisible( true );
     this.setBalancedHighlightEnabled( false );
@@ -195,7 +195,7 @@ class GamePlayNode extends Node {
   // @private
   initNext() {
 
-    this.equationNode.setEnabled( false );
+    this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = false;
 
     const currentEquation = this.model.currentEquationProperty.get();

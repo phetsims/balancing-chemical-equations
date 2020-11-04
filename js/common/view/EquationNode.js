@@ -153,13 +153,13 @@ class EquationNode extends Node {
   }
 
   /**
-   * Enables or disabled each TermNode in the equation.
-   * @param {boolean} enabled
+   * Sets whether coefficients are editable, by showing/hiding the arrows on the NumberPicker associated with each term.
+   * @param {boolean} editable
    * @public
    */
-  setEnabled( enabled ) {
+  setCoefficientsEditable( editable ) {
     for ( let i = 0; i < this.terms.length; i++ ) {
-      this.terms[ i ].setEnabled( enabled );
+      this.terms[ i ].setCoefficientEditable( editable );
     }
   }
 }
