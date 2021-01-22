@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -27,7 +28,7 @@ const BALANCED_REPRESENTATION_STRATEGIES = [
   () => BalancedRepresentation.BALANCE_SCALES,
 
   //level 2
-  () => phet.joist.random.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS,
+  () => dotRandom.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS,
 
   // level 3
   () => BalancedRepresentation.BAR_CHARTS

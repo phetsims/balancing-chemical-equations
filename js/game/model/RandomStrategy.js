@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import merge from '../../../../phet-core/js/merge.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
@@ -50,7 +51,7 @@ class RandomStrategy {
       assert && assert( poolCopy.length > 0 );
 
       // randomly select an equation
-      const randomIndex = phet.joist.random.nextInt( poolCopy.length );
+      const randomIndex = dotRandom.nextInt( poolCopy.length );
       let factoryFunction = poolCopy[ randomIndex ];
 
       // If the first equation isn't supposed to contain any "big" molecules,
@@ -58,7 +59,7 @@ class RandomStrategy {
       if ( i === 0 && !this.firstBigMolecule && factoryFunction().hasBigMolecule() ) {
 
         // start the search at a random index
-        const startIndex = phet.joist.random.nextInt( poolCopy.length );
+        const startIndex = dotRandom.nextInt( poolCopy.length );
         let index = startIndex;
         let done = false;
         while ( !done ) {
