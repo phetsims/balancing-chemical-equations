@@ -163,5 +163,6 @@ class EquationNode extends Node {
     }
   }
 }
+
 balancingChemicalEquations.register( 'EquationNode', EquationNode );
 export default EquationNode;
