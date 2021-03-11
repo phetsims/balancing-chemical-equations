@@ -134,7 +134,7 @@ class GamePlayNode extends Node {
         baseColor: 'red',
         textFill: 'white',
         listener: model.next.bind( model ), // equivalent to 'Next'
-        left: this.layoutBounds.left + 4,
+        right: answerNode.left - 20,
         bottom: this.layoutBounds.bottom - 2
       } );
       this.addChild( skipButton );
