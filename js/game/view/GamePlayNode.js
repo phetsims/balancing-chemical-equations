@@ -117,7 +117,11 @@ class GamePlayNode extends Node {
     if ( phet.chipper.queryParameters.showAnswers ) {
 
       // display correct coefficient at bottom center of the screen
-      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: this.layoutBounds.bottom - 5 } );
+      const answerNode = new Text( '', {
+        fill: 'red',
+        font: new PhetFont( 12 ),
+        bottom: this.layoutBounds.bottom - 5
+      } );
       this.addChild( answerNode );
       this.model.currentEquationProperty.link( equation => {
         answerNode.text = equation.getCoefficientsString();
