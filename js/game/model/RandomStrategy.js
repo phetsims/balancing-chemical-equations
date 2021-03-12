@@ -88,7 +88,7 @@ class RandomStrategy {
 
       // add the equation to the game
       factoryFunctions.push( factoryFunction );
-      BCEQueryParameters.log && console.log( '+ chose ' + factoryFunction().toString() );
+      BCEQueryParameters.log && console.log( `+ chose ${factoryFunction().toString()}` );
 
       // remove the equation from the pool so it won't be selected again
       poolCopy.splice( poolCopy.indexOf( factoryFunction ), 1 );
@@ -102,7 +102,7 @@ class RandomStrategy {
             const excludedIndex = poolCopy.indexOf( excludedFunction );
             if ( excludedIndex !== -1 ) {
               poolCopy.splice( excludedIndex, 1 );
-              BCEQueryParameters.log && console.log( '- excluded ' + excludedFunction().toString() );
+              BCEQueryParameters.log && console.log( `- excluded ${excludedFunction().toString()}` );
             }
           }
           break; // assumes that all exclusions are in 1 entry
