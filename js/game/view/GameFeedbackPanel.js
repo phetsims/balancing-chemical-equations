@@ -1,8 +1,11 @@
 // Copyright 2014-2020, University of Colorado Boulder
 
 /**
- * Game feedback dialog. Presents different information based on whether the equation
- * is balanced and simplified, balanced but not simplified, or unbalanced.
+ * GameFeedbackPanel presents feedback about a user's guess. The format of the feedback is specific to whether
+ * the equation is balanced and simplified, balanced but not simplified, or unbalanced.
+ *
+ * NOTE: While the UX here is similar to a Dialog, there are significant differences that make using Dialog impractical
+ * here. See https://github.com/phetsims/balancing-chemical-equations/issues/137 for details.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -35,7 +38,7 @@ const WHY_BUTTON_FONT = new PhetFont( 16 );
 const WHY_BUTTON_FILL = '#d9d9d9';
 const ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
 
-class GameFeedbackDialog extends Node {
+class GameFeedbackPanel extends Node {
 
   /**
    * @param {GameModel} model
@@ -137,7 +140,7 @@ class GameFeedbackDialog extends Node {
     else {
 
       // not balanced
-      let saveCenterX; // saves the dialog's centerX when pressing Show/Hide Why.
+      let saveCenterX; // saves the panel's centerX when pressing Show/Hide Why.
       let balancedRepresentationNode = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
@@ -289,5 +292,5 @@ function createBalancedRepresentation( equation, balancedRepresentation, aligner
   return balancedRepresentationNode;
 }
 
-balancingChemicalEquations.register( 'GameFeedbackDialog', GameFeedbackDialog );
-export default GameFeedbackDialog;
+balancingChemicalEquations.register( 'GameFeedbackPanel', GameFeedbackPanel );
+export default GameFeedbackPanel;

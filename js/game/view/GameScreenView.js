@@ -106,7 +106,7 @@ class GameScreenView extends ScreenView {
     // bestTime on level, must be null to not show in popup
     const bestTimeOnThisLevel = this.model.bestTimeProperties[ level ].get() === 0 ? null : this.model.bestTimeProperties[ level ].get();
 
-    // Add the dialog node that indicates that the level has been completed.
+    // Node displaying notification that the level has been completed
     const numberOfEquations = this.model.getNumberOfEquations( level );
     const levelCompletedNode = new LevelCompletedNode( level + 1, this.model.pointsProperty.get(), this.model.getPerfectScore( level ),
       numberOfEquations, this.viewProperties.timerEnabledProperty.value,
@@ -120,7 +120,7 @@ class GameScreenView extends ScreenView {
           this.rewardNode.dispose();
           this.rewardNode = null;
         }
-        // remove the level-completed dialog
+        // remove the level-completed notification
         this.rootNode.removeChild( levelCompletedNode );
         // go back to the level-selection screen
         this.model.stateProperty.set( this.model.states.LEVEL_SELECTION );

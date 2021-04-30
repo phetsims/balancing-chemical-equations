@@ -21,7 +21,7 @@ import BCEConstants from '../../common/BCEConstants.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
-import GameFeedbackDialog from './GameFeedbackDialog.js';
+import GameFeedbackPanel from './GameFeedbackPanel.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 340 );
@@ -45,7 +45,7 @@ class GamePlayNode extends Node {
     this.audioPlayer = audioPlayer; // @private
     this.layoutBounds = layoutBounds; // @private
     this.aligner = new HorizontalAligner( layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING ); // @private
-    this.feedbackDialog = null; // @private game feedback dialog, created on demand
+    this.feedbackPanel = null; // @private game feedback dialog, created on demand
 
     // status bar
     const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
@@ -176,7 +176,7 @@ class GamePlayNode extends Node {
     this.equationNode.setCoefficientsEditable( true );
     this.checkButton.visible = true;
     this.nextButton.visible = false;
-    this.setFeedbackDialogVisible( false );
+    this.setFeedbackPanelVisible( false );
     this.setBalancedHighlightEnabled( false );
   }
 
@@ -184,7 +184,7 @@ class GamePlayNode extends Node {
   initTryAgain() {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
-    this.setFeedbackDialogVisible( true );
+    this.setFeedbackPanelVisible( true );
     this.setBalancedHighlightEnabled( false );
   }
 
@@ -192,7 +192,7 @@ class GamePlayNode extends Node {
   initShowAnswer() {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
-    this.setFeedbackDialogVisible( true );
+    this.setFeedbackPanelVisible( true );
     this.setBalancedHighlightEnabled( false );
   }
 
@@ -203,8 +203,8 @@ class GamePlayNode extends Node {
     this.checkButton.visible = false;
 
     const currentEquation = this.model.currentEquationProperty.get();
-    this.nextButton.visible = !currentEquation.balancedAndSimplified; // 'Next' button is in the game feedback dialog
-    this.setFeedbackDialogVisible( currentEquation.balancedAndSimplified );
+    this.nextButton.visible = !currentEquation.balancedAndSimplified; // 'Next' button is in the feedbackPanel
+    this.setFeedbackPanelVisible( currentEquation.balancedAndSimplified );
     this.setBalancedHighlightEnabled( true );
     currentEquation.balance(); // show the correct answer (do this last!)
   }
@@ -234,20 +234,20 @@ class GamePlayNode extends Node {
   }
 
   /**
-   * Controls the visibility of the game feedback dialog.
+   * Controls the visibility of the game feedback panel.
    * This tells the user whether their guess is correct or not.
    * @param visible
    * @private
    */
-  setFeedbackDialogVisible( visible ) {
-    if ( this.feedbackDialog ) {
-      this.removeChild( this.feedbackDialog );
-      this.feedbackDialog = null;
+  setFeedbackPanelVisible( visible ) {
+    if ( this.feedbackPanel ) {
+      this.removeChild( this.feedbackPanel );
+      this.feedbackPanel = null;
     }
     if ( visible ) {
-      this.feedbackDialog = new GameFeedbackDialog( this.model, this.aligner,
+      this.feedbackPanel = new GameFeedbackPanel( this.model, this.aligner,
         { centerX: this.layoutBounds.centerX, top: this.boxesNode.top + 10 } );
-      this.addChild( this.feedbackDialog ); // visible and in front
+      this.addChild( this.feedbackPanel ); // visible and in front
     }
   }
 }
