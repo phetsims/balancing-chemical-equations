@@ -1,95 +1,100 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.11-rc.1 Mon May 10 2021 13:19:34 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# balancing-chemical-equations 1.2.0-dev.4 Thu Nov 29 2018 19:00:05 GMT-0700 (MST)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "axon": {
-    "sha": "73e761ec58a4890a17a5b7fd3d02be0ed32e217c",
-    "branch": "HEAD"
+    "sha": "61dd41f7a4db8c9f7e831bf7c2af624c8fc1c17a",
+    "branch": "master"
   },
-  "balancing-chemical-equations": {
-    "sha": "c2f7cfe30d46340d76c2ab01ab34d3d2efd75beb",
-    "branch": "1.2"
-  },
+  "balancing-chemical-equations": "588dc1b9a0cf82086064ce36738edb616802e5c4",
   "brand": {
-    "sha": "3f351ed1f322f73b80a447177fd08971687d4ab4",
-    "branch": "HEAD"
+    "sha": "1fd6682e452ae55e0bd27b95376fd2c626b16d6e",
+    "branch": "master"
   },
   "chipper": {
-    "sha": "3c20eef3ee94e44a719d360e8225f12da4eb315d",
-    "branch": "HEAD"
+    "sha": "0097c5acd715d88dd12201b2d52690068afa3f0c",
+    "branch": "master"
   },
   "dot": {
     "sha": "266d3b7a2e9131071db77afa45da8440f1e82e9b",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "joist": {
-    "sha": "533d237891e4de2da0440f130aa929b31b4dc1be",
-    "branch": "HEAD"
+    "sha": "ae7668f7857d54617a7515551f9aeecb491bae45",
+    "branch": "master"
   },
   "kite": {
     "sha": "f3e96e5be87a05857884be53454161de1600d65d",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "nitroglycerin": {
     "sha": "ccaab9cd4d647ed55e03a813b801af4f05ad94df",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "phet-core": {
-    "sha": "ae1367ccb27aafae93490cc5981795696a3769bd",
-    "branch": "HEAD"
+    "sha": "2e54db083eb309bcb4b7cec0bd650c53a19156df",
+    "branch": "master"
   },
   "phet-io": {
-    "sha": "a267fdb1d385979e37ebd8e6b3d843a00e8e7d6a",
-    "branch": "HEAD"
+    "sha": "87ee0b5532f980bb3dd4a205bcb6b755b4d7c0ce",
+    "branch": "master"
+  },
+  "phet-io-wrapper-classroom-activity": {
+    "sha": "5dea7f543b7410dd2e9de02e602ab9f2fe897706",
+    "branch": "master"
+  },
+  "phet-io-wrapper-hookes-law-energy": {
+    "sha": "b42eaef724b2c898d7d9d75ec3844158c947d963",
+    "branch": "master"
+  },
+  "phet-io-wrapper-lab-book": {
+    "sha": "b884e9c15b63b2a6094522a649f93e3fdad0928d",
+    "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "29569397cc3804cff32013dbb47a1b77fbd8b8d9",
-    "branch": "HEAD"
+    "sha": "f37a37e33782fa078aa984c0cd1a4de4730593e5",
+    "branch": "master"
   },
   "phetcommon": {
-    "sha": "523999440fe7a41b616f685d3d7befeea6b4094e",
-    "branch": "HEAD"
-  },
-  "phetmarks": {
-    "sha": "0e0688a572fb3233cc320ae876e574028c20e09c",
-    "branch": "HEAD"
+    "sha": "869b25613e25f39455d71bc321b581502c4658df",
+    "branch": "master"
   },
   "query-string-machine": {
-    "sha": "e4f9e8e82de2f73f3009ef628f023616806d7467",
-    "branch": "HEAD"
+    "sha": "c4d4a81e62cde792bd872f1a5b55813fe2a9c3fc",
+    "branch": "master"
   },
   "scenery": {
-    "sha": "a3e46a6376d6fcc29731e47a678671282a12299e",
-    "branch": "balancing-chemical-equations-1.2"
+    "sha": "98bea4e93be7bb49d243901a32140b9c492f505e",
+    "branch": "master"
   },
   "scenery-phet": {
-    "sha": "7d4100874e8013776230079bd5185c245dd16423",
-    "branch": "HEAD"
+    "sha": "e5fa975a29cf7f9f01db34472eea36961b1c5c1d",
+    "branch": "master"
   },
   "sherpa": {
     "sha": "2134a0d14822df87c4f4e4ec6dc19acb23ff1de3",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "sun": {
-    "sha": "2e48a5f48f8fede22dcffa64ad71cb801090e409",
-    "branch": "HEAD"
+    "sha": "31b65ddaeb9cfe49c99968c79952b6ce42ef1f97",
+    "branch": "master"
   },
   "tambo": {
-    "sha": "ee53ff03181cb023f96be339d414b45e3c893ebd",
-    "branch": "HEAD"
+    "sha": "9b56e6cdfeeaa32dc56f0e3ea6819a2cc59f6615",
+    "branch": "master"
   },
   "tandem": {
-    "sha": "c7a56e2e760ab2e8cba1f515916b08fdb69e35e8",
-    "branch": "HEAD"
+    "sha": "4eac40d9be35b99be6cd37160cc70a0a6e6c5459",
+    "branch": "master"
   },
   "vegas": {
-    "sha": "35cb7ccc12025d89727be149ef8002a9096071fc",
-    "branch": "HEAD"
+    "sha": "9b35cba0f7b13214462c7130e0378c53da9a69bd",
+    "branch": "master"
   },
   "vibe": {
-    "sha": "1bcdc334cc1f9cf8bfa4ac8712622a540da4c274",
-    "branch": "HEAD"
+    "sha": "474ae7648c9d36400907c59236ddb04dac8cc1bc",
+    "branch": "master"
   }
 }
