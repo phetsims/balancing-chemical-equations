@@ -1,4 +1,4 @@
-[object Promise]
+// Copyright 2014-2021, University of Colorado Boulder
 
 /**
  * Encapsulates the strategy used to horizontally aligning terms in an equation

@@ -1,4 +1,4 @@
-[object Promise]
+// Copyright 2014-2021, University of Colorado Boulder
 
 /**
  * 'Tools' combo box, for selecting the visual representation for "balanced".
