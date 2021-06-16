@@ -1,4 +1,4 @@
-// Copyright 2014-2020, University of Colorado Boulder
+[object Promise]
 
 /**
  * A pair of boxes that show the number of molecules indicated by the equation's user coefficients.

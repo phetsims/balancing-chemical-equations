@@ -1,4 +1,4 @@
-// Copyright 2014-2020, University of Colorado Boulder
+[object Promise]
 
 /**
  * Controls for selecting a level and adjusting various game settings, such as whether the timer is enabled

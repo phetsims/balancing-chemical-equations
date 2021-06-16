@@ -1,4 +1,4 @@
-// Copyright 2014-2021, University of Colorado Boulder
+[object Promise]
 
 /**
  * GameFeedbackPanel presents feedback about a user's guess. The format of the feedback is specific to whether

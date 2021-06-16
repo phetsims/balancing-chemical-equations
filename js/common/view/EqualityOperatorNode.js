@@ -1,4 +1,4 @@
-// Copyright 2014-2020, University of Colorado Boulder
+[object Promise]
 
 /**
  * Equality operator between 2 sides of equation: equals (balanced) or not equals (not balanced).
