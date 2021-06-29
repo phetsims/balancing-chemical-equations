@@ -122,7 +122,8 @@ function createLevelSelectionButton( level, model, bestTimeVisibleProperty, star
       numberOfStars: model.getNumberOfEquations( level ),
       perfectScore: model.getPerfectScore( level )
     },
-    listener: () => startGame( level )
+    listener: () => startGame( level ),
+    soundPlayerIndex: level
   } );
 }
 
