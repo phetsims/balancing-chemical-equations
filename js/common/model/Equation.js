@@ -121,12 +121,12 @@ class Equation {
    * @public
    */
   hasBigMolecule() {
-    this.reactants.forEach( reactant => {
+    this.reactants.forEach( reactant => { // eslint-disable-line
       if ( reactant.molecule.isBig() ) {
         return true;
       }
     } );
-    this.products.forEach( product => {
+    this.products.forEach( product => { // eslint-disable-line
       if ( product.molecule.isBig() ) {
         return true;
       }
