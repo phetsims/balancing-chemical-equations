@@ -17,12 +17,14 @@ import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import VStrut from '../../../../scenery/js/nodes/VStrut.js';
+import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
+import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
-import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import Panel from '../../../../sun/js/Panel.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
@@ -226,7 +228,10 @@ class GameFeedbackPanel extends Node {
  * @returns {Node}
  */
 function createCorrectIcon() {
-  return new FontAwesomeNode( 'check', { fill: 'rgb( 0, 180, 0 )' } );
+  return new Path( checkSolidShape, {
+    scale: 0.08,
+    fill: 'rgb( 0, 180, 0 )'
+  } );
 }
 
 /**
@@ -234,7 +239,10 @@ function createCorrectIcon() {
  * @returns {Node}
  */
 function createIncorrectIcon() {
-  return new FontAwesomeNode( 'times', { fill: 'rgb(252,104,0)' } );
+  return new Path( timesSolidShape, {
+    scale: 0.08,
+    fill: 'rgb( 252, 104, 0 )'
+  } );
 }
 
 /**
