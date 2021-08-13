@@ -13,8 +13,8 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
-import chartsImage from '../../../images/charts_png.js';
-import scalesImage from '../../../mipmaps/scales_png.js';
+import charts_png from '../../../images/charts_png.js';
+import scales_png from '../../../mipmaps/scales_png.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
@@ -50,9 +50,9 @@ class ToolsComboBox extends ComboBox {
       // 'None'
       new ComboBoxItem( new Text( balancingChemicalEquationsStrings.none, { font: FONT, maxWidth: 100 } ), BalancedRepresentation.NONE ),
       // scales
-      new ComboBoxItem( new Image( scalesImage, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
+      new ComboBoxItem( new Image( scales_png, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
       // bar charts
-      new ComboBoxItem( new Image( chartsImage, { scale: 0.375 } ), BalancedRepresentation.BAR_CHARTS )
+      new ComboBoxItem( new Image( charts_png, { scale: 0.375 } ), BalancedRepresentation.BAR_CHARTS )
     ];
 
     super( items, balanceRepresentationProperty, parentNode, options );
