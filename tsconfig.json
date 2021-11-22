@@ -1,6 +1,16 @@
 {
   "extends": "../chipper/tsconfig-core.json",
-  "references": [{"path":"../nitroglycerin"},{"path":"../vegas"},{"path":"../joist"}],
+  "references": [
+    {
+      "path": "../nitroglycerin"
+    },
+    {
+      "path": "../vegas"
+    },
+    {
+      "path": "../joist/tsconfig-module.json"
+    }
+  ],
   "include": [
     "js/**/*",
     "sounds/**/*",
