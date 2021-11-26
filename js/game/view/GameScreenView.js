@@ -7,7 +7,7 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';

@@ -9,7 +9,7 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
 import BoxNode from './BoxNode.js';
