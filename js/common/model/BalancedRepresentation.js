@@ -6,10 +6,10 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-const BalancedRepresentation = Enumeration.byKeys( [ 'NONE', 'BALANCE_SCALES', 'BAR_CHARTS' ] );
+const BalancedRepresentation = EnumerationDeprecated.byKeys( [ 'NONE', 'BALANCE_SCALES', 'BAR_CHARTS' ] );
 
 balancingChemicalEquations.register( 'BalancedRepresentation', BalancedRepresentation );
 export default BalancedRepresentation;
