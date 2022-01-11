@@ -25,7 +25,7 @@ const FONT = new PhetFont( 22 );
 class ToolsComboBox extends ComboBox {
 
   /**
-   * @param {EnumerationProperty.<BalancedRepresentation>} balanceRepresentationProperty
+   * @param {EnumerationDeprecatedProperty.<BalancedRepresentation>} balanceRepresentationProperty
    * @param {Node} parentNode node that will be used as the list's parent, use this to ensuring that the list is in front of everything else
    * @param {Object} [options]
    * @constructor
