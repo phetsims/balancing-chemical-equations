@@ -9,7 +9,7 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import Shape from '../../../kite/js/Shape.js';
+import { Shape } from '../../../kite/js/imports.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import { Node } from '../../../scenery/js/imports.js';
 import { Path } from '../../../scenery/js/imports.js';

@@ -10,7 +10,7 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import Shape from '../../../kite/js/Shape.js';
+import { Shape } from '../../../kite/js/imports.js';
 import Element from '../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../nitroglycerin/js/nodes/AtomNode.js';
 import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
