@@ -26,6 +26,8 @@ import GameFeedbackPanel from './GameFeedbackPanel.js';
 // constants
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
+const STATUS_BAR_FONT = new PhetFont( 14 );
+const STATUS_BAR_TEXT_FILL = 'white';
 
 class GamePlayNode extends Node {
 
@@ -49,7 +51,10 @@ class GamePlayNode extends Node {
 
     // status bar
     const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
-      createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty ),
+      createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty, {
+        font: STATUS_BAR_FONT,
+        textFill: STATUS_BAR_TEXT_FILL
+      } ),
 
       // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #127.
       levelProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),
@@ -57,8 +62,8 @@ class GamePlayNode extends Node {
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
       timerEnabledProperty: viewProperties.timerEnabledProperty,
-      font: new PhetFont( 14 ),
-      textFill: 'white',
+      font: STATUS_BAR_FONT,
+      textFill: STATUS_BAR_TEXT_FILL,
       barFill: 'rgb( 49, 117, 202 )',
       xMargin: 30,
       yMargin: 5,
