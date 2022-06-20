@@ -49,7 +49,7 @@ class GamePlayNode extends Node {
 
     // status bar
     const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
-      scoreDisplayConstructor: ScoreDisplayLabeledNumber,
+      createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty ),
 
       // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #127.
       levelProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),

@@ -117,11 +117,10 @@ function createLevelSelectionButton( level, model, bestTimeVisibleProperty, star
     buttonHeight: 155,
     bestTimeProperty: model.bestTimeProperties[ level ],
     bestTimeVisibleProperty: bestTimeVisibleProperty,
-    scoreDisplayConstructor: ScoreDisplayStars,
-    scoreDisplayOptions: {
+    createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
       numberOfStars: model.getNumberOfEquations( level ),
       perfectScore: model.getPerfectScore( level )
-    },
+    } ),
     listener: () => startGame( level ),
     soundPlayerIndex: level
   } );
