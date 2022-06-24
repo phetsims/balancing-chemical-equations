@@ -55,7 +55,7 @@ class ToolsComboBox extends ComboBox {
       new ComboBoxItem( new Image( charts_png, { scale: 0.375 } ), BalancedRepresentation.BAR_CHARTS )
     ];
 
-    super( items, balanceRepresentationProperty, parentNode, options );
+    super( balanceRepresentationProperty, items, parentNode, options );
   }
 }
 
