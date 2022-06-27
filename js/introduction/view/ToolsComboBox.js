@@ -9,10 +9,8 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { Image, Text } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import charts_png from '../../../images/charts_png.js';
 import scales_png from '../../../mipmaps/scales_png.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -47,12 +45,9 @@ class ToolsComboBox extends ComboBox {
     } );
 
     const items = [
-      // 'None'
-      new ComboBoxItem( new Text( balancingChemicalEquationsStrings.none, { font: FONT, maxWidth: 100 } ), BalancedRepresentation.NONE ),
-      // scales
-      new ComboBoxItem( new Image( scales_png, { scale: 0.1875 } ), BalancedRepresentation.BALANCE_SCALES ),
-      // bar charts
-      new ComboBoxItem( new Image( charts_png, { scale: 0.375 } ), BalancedRepresentation.BAR_CHARTS )
+      { value: BalancedRepresentation.NONE, node: new Text( balancingChemicalEquationsStrings.none, { font: FONT, maxWidth: 100 } ) },
+      { value: BalancedRepresentation.BALANCE_SCALES, node: new Image( scales_png, { scale: 0.1875 } ) },
+      { value: BalancedRepresentation.BAR_CHARTS, node: new Image( charts_png, { scale: 0.375 } ) }
     ];
 
     super( balanceRepresentationProperty, items, parentNode, options );
