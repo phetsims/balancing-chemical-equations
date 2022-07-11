@@ -11,11 +11,8 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
-import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
+import { AlignBox, AlignGroup, Node, Text, VBox } from '../../../../scenery/js/imports.js';
+import LevelSelectionButtonGroup from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
@@ -45,24 +42,45 @@ class LevelSelectionNode extends Node {
 
     super();
 
-    // buttons
-    const buttons = [];
+    // To give all molecules the same effective size
+    const moleculeAlignGroup = new AlignGroup();
+
+    const buttonItems = [];
     for ( let level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
-      buttons.push( createLevelSelectionButton( level, model, viewProperties.timerEnabledProperty, startGame ) );
+      buttonItems.push( {
+        icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
+        scoreProperty: model.bestScoreProperties[ level ],
+        options: {
+          bestTimeProperty: model.bestTimeProperties[ level ],
+          createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
+            numberOfStars: model.getNumberOfEquations( level ),
+            perfectScore: model.getPerfectScore( level )
+          } ),
+          listener: () => startGame( level ),
+          soundPlayerIndex: level
+        }
+      } );
     }
-    const buttonsParent = new HBox( {
-      children: buttons,
-      spacing: 50,
-      resize: false,
-      center: layoutBounds.center
+    const buttonGroup = new LevelSelectionButtonGroup( buttonItems, {
+      levelSelectionButtonOptions: {
+        baseColor: '#d9ebff',
+        buttonWidth: 155,
+        buttonHeight: 155,
+        bestTimeVisibleProperty: viewProperties.timerEnabledProperty
+      },
+      flowBoxOptions: {
+        spacing: 50,
+        resize: false, //TODO
+        center: layoutBounds.center
+      }
     } );
-    this.addChild( buttonsParent );
+    this.addChild( buttonGroup );
 
     // title
     const title = new Text( balancingChemicalEquationsStrings.chooseYourLevel, {
       font: new PhetFont( 36 ),
       centerX: layoutBounds.centerX,
-      centerY: buttonsParent.top / 2,
+      centerY: buttonGroup.top / 2,
       maxWidth: 0.85 * layoutBounds.width // constrain width for i18n
     } );
     this.addChild( title );
@@ -93,36 +111,27 @@ class LevelSelectionNode extends Node {
 }
 
 /**
- * Creates a level selection button
- *
+ * Creates the icon for a level-selection button.
  * @param {number} level
- * @param {GameModel} model
- * @param {Property.<number>} bestTimeVisibleProperty
- * @param {function(number:level)} startGame
- * @returns {LevelSelectionButton}
+ * @param {AlignGroup} moleculeAlignGroup - to give all molecules the same effective size
+ * @returns {Node}
  */
-function createLevelSelectionButton( level, model, bestTimeVisibleProperty, startGame ) {
+function createLevelSelectionButtonIcon( level, moleculeAlignGroup ) {
 
-  // 'Level N' centered above icon
-  const image = new levelImagesConstructors[ level ]( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
-  const label = new Text( StringUtils.format( balancingChemicalEquationsStrings.pattern_0level, level + 1 ), {
+  const labelText = new Text( StringUtils.format( balancingChemicalEquationsStrings.pattern_0level, level + 1 ), {
     font: new PhetFont( { size: 14, weight: 'bold' } ),
-    maxWidth: image.width
+    maxWidth: 100
   } );
-  const icon = new VBox( { children: [ label, image ], spacing: 10 } );
 
-  return new LevelSelectionButton( icon, model.bestScoreProperties[ level ], {
-    baseColor: '#d9ebff',
-    buttonWidth: 155,
-    buttonHeight: 155,
-    bestTimeProperty: model.bestTimeProperties[ level ],
-    bestTimeVisibleProperty: bestTimeVisibleProperty,
-    createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
-      numberOfStars: model.getNumberOfEquations( level ),
-      perfectScore: model.getPerfectScore( level )
-    } ),
-    listener: () => startGame( level ),
-    soundPlayerIndex: level
+  const moleculeNode = new levelImagesConstructors[ level ]( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+  const alignBox = new AlignBox( moleculeNode, {
+    group: moleculeAlignGroup
+  } );
+
+  // 'Level N' centered above molecule
+  return new VBox( {
+    spacing: 10,
+    children: [ labelText, alignBox ]
   } );
 }
 
