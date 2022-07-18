@@ -164,7 +164,7 @@ class BoxNode extends AccordionBox {
         }
         else {
           // add a molecule node
-          const moleculeNode = new MoleculeNodeConstructor( { atomOptions: BCEConstants.ATOM_OPTIONS } );
+          const moleculeNode = new MoleculeNodeConstructor( { atomNodeOptions: BCEConstants.ATOM_OPTIONS } );
           moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
           this.moleculesParent.addChild( moleculeNode );
           moleculeNode.center = new Vector2( xOffsets[ i ] - this.x, y );

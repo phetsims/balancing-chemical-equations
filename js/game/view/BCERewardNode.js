@@ -52,61 +52,61 @@ import BCEConstants from '../../common/BCEConstants.js';
 
 // constants
 const NUMBER_OF_NODES = 150;
-const ATOM_OPTIONS = BCEConstants.ATOM_OPTIONS;
-const MOLECULE_OPTIONS = { atomOptions: BCEConstants.ATOM_OPTIONS };
+const ATOM_NODE_OPTIONS = BCEConstants.ATOM_NODE_OPTIONS;
+const MOLECULE_NODE_OPTIONS = { atomNodeOptions: BCEConstants.ATOM_NODE_OPTIONS };
 
 // nodes used in reward, indexed by game level
 const NODES = [
 
   // level 1: atoms
   [
-    new AtomNode( Element.C, ATOM_OPTIONS ),
-    new AtomNode( Element.Cl, ATOM_OPTIONS ),
-    new AtomNode( Element.F, ATOM_OPTIONS ),
-    new AtomNode( Element.H, ATOM_OPTIONS ),
-    new AtomNode( Element.N, ATOM_OPTIONS ),
-    new AtomNode( Element.O, ATOM_OPTIONS ),
-    new AtomNode( Element.P, ATOM_OPTIONS ),
-    new AtomNode( Element.S, ATOM_OPTIONS )
+    new AtomNode( Element.C, ATOM_NODE_OPTIONS ),
+    new AtomNode( Element.Cl, ATOM_NODE_OPTIONS ),
+    new AtomNode( Element.F, ATOM_NODE_OPTIONS ),
+    new AtomNode( Element.H, ATOM_NODE_OPTIONS ),
+    new AtomNode( Element.N, ATOM_NODE_OPTIONS ),
+    new AtomNode( Element.O, ATOM_NODE_OPTIONS ),
+    new AtomNode( Element.P, ATOM_NODE_OPTIONS ),
+    new AtomNode( Element.S, ATOM_NODE_OPTIONS )
   ],
 
   // level 2: molecules
   [
-    new CNode( MOLECULE_OPTIONS ),
-    new C2H2Node( MOLECULE_OPTIONS ),
-    new C2H4Node( MOLECULE_OPTIONS ),
-    new C2H5ClNode( MOLECULE_OPTIONS ),
-    new C2H5OHNode( MOLECULE_OPTIONS ),
-    new C2H6Node( MOLECULE_OPTIONS ),
-    new CH2ONode( MOLECULE_OPTIONS ),
-    new CH3OHNode( MOLECULE_OPTIONS ),
-    new CH4Node( MOLECULE_OPTIONS ),
-    new Cl2Node( MOLECULE_OPTIONS ),
-    new CONode( MOLECULE_OPTIONS ),
-    new CO2Node( MOLECULE_OPTIONS ),
-    new CS2Node( MOLECULE_OPTIONS ),
-    new F2Node( MOLECULE_OPTIONS ),
-    new CONode( MOLECULE_OPTIONS ),
-    new H2Node( MOLECULE_OPTIONS ),
-    new H2ONode( MOLECULE_OPTIONS ),
-    new H2SNode( MOLECULE_OPTIONS ),
-    new HClNode( MOLECULE_OPTIONS ),
-    new HFNode( MOLECULE_OPTIONS ),
-    new N2Node( MOLECULE_OPTIONS ),
-    new N2ONode( MOLECULE_OPTIONS ),
-    new NH3Node( MOLECULE_OPTIONS ),
-    new NONode( MOLECULE_OPTIONS ),
-    new NO2Node( MOLECULE_OPTIONS ),
-    new O2Node( MOLECULE_OPTIONS ),
-    new OF2Node( MOLECULE_OPTIONS ),
-    new P4Node( MOLECULE_OPTIONS ),
-    new PCl3Node( MOLECULE_OPTIONS ),
-    new PCl5Node( MOLECULE_OPTIONS ),
-    new PH3Node( MOLECULE_OPTIONS ),
-    new PF3Node( MOLECULE_OPTIONS ),
-    new SNode( MOLECULE_OPTIONS ),
-    new SO2Node( MOLECULE_OPTIONS ),
-    new SO3Node( MOLECULE_OPTIONS )
+    new CNode( MOLECULE_NODE_OPTIONS ),
+    new C2H2Node( MOLECULE_NODE_OPTIONS ),
+    new C2H4Node( MOLECULE_NODE_OPTIONS ),
+    new C2H5ClNode( MOLECULE_NODE_OPTIONS ),
+    new C2H5OHNode( MOLECULE_NODE_OPTIONS ),
+    new C2H6Node( MOLECULE_NODE_OPTIONS ),
+    new CH2ONode( MOLECULE_NODE_OPTIONS ),
+    new CH3OHNode( MOLECULE_NODE_OPTIONS ),
+    new CH4Node( MOLECULE_NODE_OPTIONS ),
+    new Cl2Node( MOLECULE_NODE_OPTIONS ),
+    new CONode( MOLECULE_NODE_OPTIONS ),
+    new CO2Node( MOLECULE_NODE_OPTIONS ),
+    new CS2Node( MOLECULE_NODE_OPTIONS ),
+    new F2Node( MOLECULE_NODE_OPTIONS ),
+    new CONode( MOLECULE_NODE_OPTIONS ),
+    new H2Node( MOLECULE_NODE_OPTIONS ),
+    new H2ONode( MOLECULE_NODE_OPTIONS ),
+    new H2SNode( MOLECULE_NODE_OPTIONS ),
+    new HClNode( MOLECULE_NODE_OPTIONS ),
+    new HFNode( MOLECULE_NODE_OPTIONS ),
+    new N2Node( MOLECULE_NODE_OPTIONS ),
+    new N2ONode( MOLECULE_NODE_OPTIONS ),
+    new NH3Node( MOLECULE_NODE_OPTIONS ),
+    new NONode( MOLECULE_NODE_OPTIONS ),
+    new NO2Node( MOLECULE_NODE_OPTIONS ),
+    new O2Node( MOLECULE_NODE_OPTIONS ),
+    new OF2Node( MOLECULE_NODE_OPTIONS ),
+    new P4Node( MOLECULE_NODE_OPTIONS ),
+    new PCl3Node( MOLECULE_NODE_OPTIONS ),
+    new PCl5Node( MOLECULE_NODE_OPTIONS ),
+    new PH3Node( MOLECULE_NODE_OPTIONS ),
+    new PF3Node( MOLECULE_NODE_OPTIONS ),
+    new SNode( MOLECULE_NODE_OPTIONS ),
+    new SO2Node( MOLECULE_NODE_OPTIONS ),
+    new SO3Node( MOLECULE_NODE_OPTIONS )
   ],
 
   // level 3: faces and stars
