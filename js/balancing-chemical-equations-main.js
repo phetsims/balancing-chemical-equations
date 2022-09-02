@@ -26,5 +26,5 @@ simLauncher.launch( () => {
     new IntroductionScreen(),
     new GameScreen()
   ];
-  new Sim( balancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].title, screens, simOptions ).start();
+  new Sim( balancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, screens, simOptions ).start();
 } );
