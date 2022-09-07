@@ -10,7 +10,7 @@
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import DecompositionEquation from '../../common/model/DecompositionEquation.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
@@ -27,9 +27,9 @@ class IntroductionModel {
      * The contract for a choice is: { equation: {Equation}, label: {string} }
      */
     this.choices = [
-      { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: balancingChemicalEquationsStrings.makeAmmonia },
-      { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: balancingChemicalEquationsStrings.separateWater },
-      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: balancingChemicalEquationsStrings.combustMethane }
+      { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: BalancingChemicalEquationsStrings.makeAmmonia },
+      { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: BalancingChemicalEquationsStrings.separateWater },
+      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: BalancingChemicalEquationsStrings.combustMethane }
     ];
 
     // @public the equation that is selected

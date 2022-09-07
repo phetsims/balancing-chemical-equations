@@ -13,7 +13,7 @@ import { Shape } from '../../../kite/js/imports.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import { Node, Path, Rectangle } from '../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
-import balancingChemicalEquationsStrings from '../balancingChemicalEquationsStrings.js';
+import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../common/BCEConstants.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
@@ -23,7 +23,7 @@ class GameScreen extends Screen {
   constructor() {
 
     const options = {
-      name: balancingChemicalEquationsStrings.screen.game,
+      name: BalancingChemicalEquationsStrings.screen.game,
       backgroundColorProperty: new Property( BCEConstants.GAME_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };

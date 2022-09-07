@@ -14,7 +14,7 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import charts_png from '../../../images/charts_png.js';
 import scales_png from '../../../mipmaps/scales_png.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 
 // constants
@@ -38,14 +38,14 @@ class ToolsComboBox extends ComboBox {
     }, options );
 
     // options that cannot be specified by client
-    options.labelNode = new Text( balancingChemicalEquationsStrings.tools, {
+    options.labelNode = new Text( BalancingChemicalEquationsStrings.tools, {
       font: FONT,
       fontWeight: 'bold',
       maxWidth: 100
     } );
 
     const items = [
-      { value: BalancedRepresentation.NONE, node: new Text( balancingChemicalEquationsStrings.none, { font: FONT, maxWidth: 100 } ) },
+      { value: BalancedRepresentation.NONE, node: new Text( BalancingChemicalEquationsStrings.none, { font: FONT, maxWidth: 100 } ) },
       { value: BalancedRepresentation.BALANCE_SCALES, node: new Image( scales_png, { scale: 0.1875 } ) },
       { value: BalancedRepresentation.BAR_CHARTS, node: new Image( charts_png, { scale: 0.375 } ) }
     ];

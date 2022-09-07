@@ -17,7 +17,7 @@ import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { LinearGradient, Node, Path, Rectangle, Text } from '../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
-import balancingChemicalEquationsStrings from '../balancingChemicalEquationsStrings.js';
+import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../common/BCEConstants.js';
 import IntroductionModel from './model/IntroductionModel.js';
 import IntroductionScreenView from './view/IntroductionScreenView.js';
@@ -27,7 +27,7 @@ class IntroductionScreen extends Screen {
   constructor() {
 
     const options = {
-      name: balancingChemicalEquationsStrings.screen.introduction,
+      name: BalancingChemicalEquationsStrings.screen.introduction,
       backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };

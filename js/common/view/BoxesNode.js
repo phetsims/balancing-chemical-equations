@@ -11,7 +11,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BoxNode from './BoxNode.js';
 import RightArrowNode from './RightArrowNode.js';
 
@@ -35,7 +35,7 @@ class BoxesNode extends Node {
       equation => equation.reactants,
       equation => aligner.getReactantXOffsets( equation ),
       coefficientsRange,
-      balancingChemicalEquationsStrings.reactants, {
+      BalancingChemicalEquationsStrings.reactants, {
         expandedProperty: reactantsBoxExpandedProperty,
         fill: boxColor,
         boxWidth: boxSize.width,
@@ -49,7 +49,7 @@ class BoxesNode extends Node {
       equation => equation.products,
       equation => aligner.getProductXOffsets( equation ),
       coefficientsRange,
-      balancingChemicalEquationsStrings.products, {
+      BalancingChemicalEquationsStrings.products, {
         expandedProperty: productsBoxExpandedProperty,
         fill: boxColor,
         boxWidth: boxSize.width,

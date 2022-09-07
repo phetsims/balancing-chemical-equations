@@ -21,7 +21,7 @@ import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Panel from '../../../../sun/js/Panel.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import balancingChemicalEquationsStrings from '../../balancingChemicalEquationsStrings.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
@@ -76,12 +76,12 @@ class GameFeedbackPanel extends Node {
 
           // check mark + 'balanced'
           new HBox( {
-            children: [ createCorrectIcon(), new Text( balancingChemicalEquationsStrings.balanced, textOptions ) ],
+            children: [ createCorrectIcon(), new Text( BalancingChemicalEquationsStrings.balanced, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
 
           // points awarded
-          new Text( StringUtils.format( balancingChemicalEquationsStrings.pattern_0points, points ), {
+          new Text( StringUtils.format( BalancingChemicalEquationsStrings.pattern_0points, points ), {
             font: new PhetFont( {
               size: 24,
               weight: 'bold'
@@ -92,7 +92,7 @@ class GameFeedbackPanel extends Node {
           new VStrut( ACTION_AREA_Y_SPACING ),
 
           // Next button
-          createStateChangeButton( balancingChemicalEquationsStrings.next, model.next.bind( model ), maxWidth )
+          createStateChangeButton( BalancingChemicalEquationsStrings.next, model.next.bind( model ), maxWidth )
         ],
         spacing: options.vBoxSpacing
       } );
@@ -112,13 +112,13 @@ class GameFeedbackPanel extends Node {
 
               // check mark + 'balanced'
               new HBox( {
-                children: [ createCorrectIcon(), new Text( balancingChemicalEquationsStrings.balanced, textOptions ) ],
+                children: [ createCorrectIcon(), new Text( BalancingChemicalEquationsStrings.balanced, textOptions ) ],
                 spacing: options.hBoxSpacing
               } ),
 
               // red X + 'not simplified'
               new HBox( {
-                children: [ createIncorrectIcon(), new Text( balancingChemicalEquationsStrings.notSimplified, textOptions ) ],
+                children: [ createIncorrectIcon(), new Text( BalancingChemicalEquationsStrings.notSimplified, textOptions ) ],
                 spacing: options.hBoxSpacing
               } )
             ]
@@ -140,7 +140,7 @@ class GameFeedbackPanel extends Node {
       let balancedRepresentationNode = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
-      const showWhyButton = new TextPushButton( balancingChemicalEquationsStrings.showWhy, {
+      const showWhyButton = new TextPushButton( BalancingChemicalEquationsStrings.showWhy, {
         listener: () => {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
@@ -158,7 +158,7 @@ class GameFeedbackPanel extends Node {
       } );
 
       // 'Hide Why' button, hides the 'balanced' representation
-      const hideWhyButton = new TextPushButton( balancingChemicalEquationsStrings.hideWhy, {
+      const hideWhyButton = new TextPushButton( BalancingChemicalEquationsStrings.hideWhy, {
         listener: () => {
           showWhyButton.visible = true;
           hideWhyButton.visible = false;
@@ -181,7 +181,7 @@ class GameFeedbackPanel extends Node {
 
           // red X + 'not balanced'
           new HBox( {
-            children: [ createIncorrectIcon(), new Text( balancingChemicalEquationsStrings.notBalanced, textOptions ) ],
+            children: [ createIncorrectIcon(), new Text( BalancingChemicalEquationsStrings.notBalanced, textOptions ) ],
             spacing: options.hBoxSpacing
           } ),
 
@@ -264,10 +264,10 @@ function createStateChangeButton( label, modelFunction, maxWidth ) {
 function createButtonForState( model, maxWidth ) {
   let button = null;
   if ( model.stateProperty.get() === model.states.TRY_AGAIN ) {
-    button = createStateChangeButton( balancingChemicalEquationsStrings.tryAgain, model.tryAgain.bind( model ), maxWidth );
+    button = createStateChangeButton( BalancingChemicalEquationsStrings.tryAgain, model.tryAgain.bind( model ), maxWidth );
   }
   else if ( model.stateProperty.get() === model.states.SHOW_ANSWER ) {
-    button = createStateChangeButton( balancingChemicalEquationsStrings.showAnswer, model.showAnswer.bind( model ), maxWidth );
+    button = createStateChangeButton( BalancingChemicalEquationsStrings.showAnswer, model.showAnswer.bind( model ), maxWidth );
   }
   return button;
 }

@@ -59,8 +59,8 @@ type StringsType = {
   'pattern_0pointsStringProperty': TReadOnlyProperty<string>;
 };
 
-const balancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;
+const BalancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;
 
-balancingChemicalEquations.register( 'balancingChemicalEquationsStrings', balancingChemicalEquationsStrings );
+balancingChemicalEquations.register( 'BalancingChemicalEquationsStrings', BalancingChemicalEquationsStrings );
 
-export default balancingChemicalEquationsStrings;
+export default BalancingChemicalEquationsStrings;

@@ -6,7 +6,7 @@
 
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
-import balancingChemicalEquationsStrings from './balancingChemicalEquationsStrings.js';
+import BalancingChemicalEquationsStrings from './BalancingChemicalEquationsStrings.js';
 import GameScreen from './game/GameScreen.js';
 import IntroductionScreen from './introduction/IntroductionScreen.js';
 
@@ -26,5 +26,5 @@ simLauncher.launch( () => {
     new IntroductionScreen(),
     new GameScreen()
   ];
-  new Sim( balancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, screens, simOptions ).start();
+  new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, screens, simOptions ).start();
 } );
