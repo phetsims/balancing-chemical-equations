@@ -23,7 +23,7 @@ class GameScreen extends Screen {
   constructor() {
 
     const options = {
-      name: BalancingChemicalEquationsStrings.screen.game,
+      name: BalancingChemicalEquationsStrings.screen.gameStringProperty,
       backgroundColorProperty: new Property( BCEConstants.GAME_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };

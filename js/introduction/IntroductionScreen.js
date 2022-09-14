@@ -27,7 +27,7 @@ class IntroductionScreen extends Screen {
   constructor() {
 
     const options = {
-      name: BalancingChemicalEquationsStrings.screen.introduction,
+      name: BalancingChemicalEquationsStrings.screen.introductionStringProperty,
       backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
       homeScreenIcon: createScreenIcon()
     };
