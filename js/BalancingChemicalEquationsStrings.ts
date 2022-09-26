@@ -5,58 +5,58 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import LinkableProperty from '../../axon/js/LinkableProperty.js';
 import balancingChemicalEquations from './balancingChemicalEquations.js';
 
 type StringsType = {
   'none': string;
-  'noneStringProperty': TReadOnlyProperty<string>;
+  'noneStringProperty': LinkableProperty<string>;
   'balanced': string;
-  'balancedStringProperty': TReadOnlyProperty<string>;
+  'balancedStringProperty': LinkableProperty<string>;
   'screen': {
     'introduction': string;
-    'introductionStringProperty': TReadOnlyProperty<string>;
+    'introductionStringProperty': LinkableProperty<string>;
     'game': string;
-    'gameStringProperty': TReadOnlyProperty<string>;
+    'gameStringProperty': LinkableProperty<string>;
   };
   'separateWater': string;
-  'separateWaterStringProperty': TReadOnlyProperty<string>;
+  'separateWaterStringProperty': LinkableProperty<string>;
   'hideWhy': string;
-  'hideWhyStringProperty': TReadOnlyProperty<string>;
+  'hideWhyStringProperty': LinkableProperty<string>;
   'showAnswer': string;
-  'showAnswerStringProperty': TReadOnlyProperty<string>;
+  'showAnswerStringProperty': LinkableProperty<string>;
   'tryAgain': string;
-  'tryAgainStringProperty': TReadOnlyProperty<string>;
+  'tryAgainStringProperty': LinkableProperty<string>;
   'notBalanced': string;
-  'notBalancedStringProperty': TReadOnlyProperty<string>;
+  'notBalancedStringProperty': LinkableProperty<string>;
   'balancing-chemical-equations': {
     'title': string;
-    'titleStringProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': LinkableProperty<string>;
   };
   'combustMethane': string;
-  'combustMethaneStringProperty': TReadOnlyProperty<string>;
+  'combustMethaneStringProperty': LinkableProperty<string>;
   'next': string;
-  'nextStringProperty': TReadOnlyProperty<string>;
+  'nextStringProperty': LinkableProperty<string>;
   'check': string;
-  'checkStringProperty': TReadOnlyProperty<string>;
+  'checkStringProperty': LinkableProperty<string>;
   'makeAmmonia': string;
-  'makeAmmoniaStringProperty': TReadOnlyProperty<string>;
+  'makeAmmoniaStringProperty': LinkableProperty<string>;
   'showWhy': string;
-  'showWhyStringProperty': TReadOnlyProperty<string>;
+  'showWhyStringProperty': LinkableProperty<string>;
   'notSimplified': string;
-  'notSimplifiedStringProperty': TReadOnlyProperty<string>;
+  'notSimplifiedStringProperty': LinkableProperty<string>;
   'tools': string;
-  'toolsStringProperty': TReadOnlyProperty<string>;
+  'toolsStringProperty': LinkableProperty<string>;
   'reactants': string;
-  'reactantsStringProperty': TReadOnlyProperty<string>;
+  'reactantsStringProperty': LinkableProperty<string>;
   'products': string;
-  'productsStringProperty': TReadOnlyProperty<string>;
+  'productsStringProperty': LinkableProperty<string>;
   'chooseYourLevel': string;
-  'chooseYourLevelStringProperty': TReadOnlyProperty<string>;
+  'chooseYourLevelStringProperty': LinkableProperty<string>;
   'pattern_0level': string;
-  'pattern_0levelStringProperty': TReadOnlyProperty<string>;
+  'pattern_0levelStringProperty': LinkableProperty<string>;
   'pattern_0points': string;
-  'pattern_0pointsStringProperty': TReadOnlyProperty<string>;
+  'pattern_0pointsStringProperty': LinkableProperty<string>;
 };
 
 const BalancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;
