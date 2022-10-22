@@ -38,14 +38,14 @@ class ToolsComboBox extends ComboBox {
     }, options );
 
     // options that cannot be specified by client
-    options.labelNode = new Text( BalancingChemicalEquationsStrings.tools, {
+    options.labelNode = new Text( BalancingChemicalEquationsStrings.toolsStringProperty, {
       font: FONT,
       fontWeight: 'bold',
       maxWidth: 100
     } );
 
     const items = [
-      { value: BalancedRepresentation.NONE, node: new Text( BalancingChemicalEquationsStrings.none, { font: FONT, maxWidth: 100 } ) },
+      { value: BalancedRepresentation.NONE, node: new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } ) },
       { value: BalancedRepresentation.BALANCE_SCALES, node: new Image( scales_png, { scale: 0.1875 } ) },
       { value: BalancedRepresentation.BAR_CHARTS, node: new Image( charts_png, { scale: 0.375 } ) }
     ];

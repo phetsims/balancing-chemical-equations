@@ -27,9 +27,9 @@ class IntroductionModel {
      * The contract for a choice is: { equation: {Equation}, label: {string} }
      */
     this.choices = [
-      { equation: SynthesisEquation.create_N2_3H2_2NH3(), label: BalancingChemicalEquationsStrings.makeAmmonia },
-      { equation: DecompositionEquation.create_2H2O_2H2_O2(), label: BalancingChemicalEquationsStrings.separateWater },
-      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), label: BalancingChemicalEquationsStrings.combustMethane }
+      { equation: SynthesisEquation.create_N2_3H2_2NH3(), labelStringProperty: BalancingChemicalEquationsStrings.makeAmmoniaStringProperty },
+      { equation: DecompositionEquation.create_2H2O_2H2_O2(), labelStringProperty: BalancingChemicalEquationsStrings.separateWaterStringProperty },
+      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), labelStringProperty: BalancingChemicalEquationsStrings.combustMethaneStringProperty }
     ];
 
     // @public the equation that is selected

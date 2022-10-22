@@ -22,10 +22,10 @@ class BoxNode extends AccordionBox {
    * @param {function} getTerms 1 parameter {Equation}, gets the terms that this box will display
    * @param {function} getXOffsets 1 parameter {Equation}, gets the x-offsets for each term
    * @param {DOT.Range} coefficientRange range of the coefficients
-   * @param {string} titleString
+   * @param {TReadOnlyProperty.<string>} titleStringProperty
    * @param {Object} [options]
    */
-  constructor( equationProperty, getTerms, getXOffsets, coefficientRange, titleString, options ) {
+  constructor( equationProperty, getTerms, getXOffsets, coefficientRange, titleStringProperty, options ) {
 
     options = merge( {
 
@@ -61,7 +61,7 @@ class BoxNode extends AccordionBox {
     }, options );
 
     assert && assert( !options.titleNode, 'BoxNode sets titleNode' );
-    options.titleNode = new Text( titleString, {
+    options.titleNode = new Text( titleStringProperty, {
       font: new PhetFont( { size: 18, weight: 'bold' } ),
       maxWidth: 0.75 * options.boxWidth
     } );

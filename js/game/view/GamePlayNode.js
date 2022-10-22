@@ -91,31 +91,35 @@ class GamePlayNode extends Node {
     const BUTTONS_OPTIONS = {
       font: new PhetFont( 20 ),
       baseColor: 'yellow',
-      centerX: 0,
-      bottom: this.boxesNode.bottom
+      maxWidth: 0.85 * BOX_X_SPACING
     };
+
     // @private
-    this.checkButton = new TextPushButton( BalancingChemicalEquationsStrings.check, merge( BUTTONS_OPTIONS, {
+    this.checkButton = new TextPushButton( BalancingChemicalEquationsStrings.checkStringProperty, merge( BUTTONS_OPTIONS, {
       listener: () => {
         this.playGuessAudio();
         this.model.check();
       }
     } ) );
+    this.addChild( this.checkButton );
+
+    this.checkButton.boundsProperty.link( bounds => {
+      this.checkButton.centerX = this.layoutBounds.centerX;
+      this.checkButton.bottom = this.boxesNode.bottom;
+    } );
+
     // @private
-    this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.next, merge( BUTTONS_OPTIONS, {
+    this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty, merge( BUTTONS_OPTIONS, {
       listener: () => {
         this.model.next();
       }
     } ) );
+    this.addChild( this.nextButton );
 
-    // constrain buttons to fit the horizontal space between the boxes
-    const buttonsParent = new Node( {
-      maxWidth: 0.85 * BOX_X_SPACING,
-      children: [ this.checkButton, this.nextButton ]
+    this.nextButton.boundsProperty.link( bounds => {
+      this.nextButton.centerX = this.layoutBounds.centerX;
+      this.nextButton.bottom = this.boxesNode.bottom;
     } );
-    buttonsParent.centerX = this.layoutBounds.centerX;
-    buttonsParent.bottom = this.boxesNode.bottom;
-    this.addChild( buttonsParent );
 
     // developer stuff
     if ( phet.chipper.queryParameters.showAnswers ) {

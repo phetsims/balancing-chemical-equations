@@ -51,8 +51,13 @@ class IntroductionScreenView extends ScreenView {
 
     // 'Tools' combo box, at upper-right
     const comboBoxParent = new Node();
-    this.addChild( new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
-      { right: this.layoutBounds.right - 45, top: this.layoutBounds.top + 15 } ) );
+    const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent );
+    this.addChild( toolsComboBox );
+
+    toolsComboBox.boundsProperty.link( bounds => {
+      toolsComboBox.right = this.layoutBounds.right - 45;
+      toolsComboBox.top = this.layoutBounds.top + 15;
+    } );
 
     // smiley face, top center, shown when equation is balanced
     const faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );

@@ -35,7 +35,7 @@ class BoxesNode extends Node {
       equation => equation.reactants,
       equation => aligner.getReactantXOffsets( equation ),
       coefficientsRange,
-      BalancingChemicalEquationsStrings.reactants, {
+      BalancingChemicalEquationsStrings.reactantsStringProperty, {
         expandedProperty: reactantsBoxExpandedProperty,
         fill: boxColor,
         boxWidth: boxSize.width,
@@ -49,7 +49,7 @@ class BoxesNode extends Node {
       equation => equation.products,
       equation => aligner.getProductXOffsets( equation ),
       coefficientsRange,
-      BalancingChemicalEquationsStrings.products, {
+      BalancingChemicalEquationsStrings.productsStringProperty, {
         expandedProperty: productsBoxExpandedProperty,
         fill: boxColor,
         boxWidth: boxSize.width,

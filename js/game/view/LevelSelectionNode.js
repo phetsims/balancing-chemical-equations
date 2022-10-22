@@ -6,6 +6,7 @@
  * @author Vasily Shakhov (mlearner.com)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -77,7 +78,7 @@ class LevelSelectionNode extends Node {
     this.addChild( buttonGroup );
 
     // title
-    const title = new Text( BalancingChemicalEquationsStrings.chooseYourLevel, {
+    const title = new Text( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 36 ),
       centerX: layoutBounds.centerX,
       centerY: buttonGroup.top / 2,
@@ -118,7 +119,12 @@ class LevelSelectionNode extends Node {
  */
 function createLevelSelectionButtonIcon( level, moleculeAlignGroup ) {
 
-  const labelText = new Text( StringUtils.format( BalancingChemicalEquationsStrings.pattern_0level, level + 1 ), {
+  const labelStringProperty = new DerivedProperty(
+    [ BalancingChemicalEquationsStrings.pattern_0levelStringProperty ],
+    pattern => StringUtils.format( pattern, level + 1 )
+  );
+
+  const labelText = new Text( labelStringProperty, {
     font: new PhetFont( { size: 14, weight: 'bold' } ),
     maxWidth: 100
   } );
