@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "134ecc9cc06ce223197536cdf73bef488cfc3e69",
+    "sha": "05142d5d756500a0ade62574297fbd099c51bb7d",
     "branch": "1.2"
   },
   "brand": {
@@ -61,7 +61,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "d0a155352252a8d58297f5390a4603f24ff8f937",
+    "sha": "cd3bc8cc3a1a325ebbf02c497d8860c573869e9a",
     "branch": "HEAD"
   },
   "scenery-phet": {
