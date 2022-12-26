@@ -1,5 +1,6 @@
 // Copyright 2014-2022, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Choices for visual representations of "balanced".
  *
