@@ -9,7 +9,7 @@
 import Atom from '../../../../nitroglycerin/js/Atom.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-class Molecule {
+export default class Molecule {
 
   /**
    * @param {NITROGLYCERIN.node} nodeConstructor constructor of molecule from NITROGLYCERIN
@@ -38,4 +38,3 @@ class Molecule {
 }
 
 balancingChemicalEquations.register( 'Molecule', Molecule );
-export default Molecule;

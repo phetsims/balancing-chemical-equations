@@ -27,7 +27,7 @@ const MAX_BAR_SIZE = new Dimension2( 40, 60 );
 const BAR_LINE_WIDTH = 1.5;
 const ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
 
-class BarNode extends VBox {
+export default class BarNode extends VBox {
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the bar
@@ -112,4 +112,3 @@ class BarNode extends VBox {
 }
 
 balancingChemicalEquations.register( 'BarNode', BarNode );
-export default BarNode;

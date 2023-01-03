@@ -11,7 +11,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 
-class IntroductionViewProperties {
+export default class IntroductionViewProperties {
 
   constructor() {
 
@@ -30,4 +30,3 @@ class IntroductionViewProperties {
 }
 
 balancingChemicalEquations.register( 'IntroductionViewProperties', IntroductionViewProperties );
-export default IntroductionViewProperties;

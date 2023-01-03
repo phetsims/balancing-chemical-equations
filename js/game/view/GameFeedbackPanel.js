@@ -35,7 +35,7 @@ const WHY_BUTTON_FONT = new PhetFont( 16 );
 const WHY_BUTTON_FILL = '#d9d9d9';
 const ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
 
-class GameFeedbackPanel extends Node {
+export default class GameFeedbackPanel extends Node {
 
   /**
    * @param {GameModel} model
@@ -303,4 +303,3 @@ function createBalancedRepresentation( equation, balancedRepresentation, aligner
 }
 
 balancingChemicalEquations.register( 'GameFeedbackPanel', GameFeedbackPanel );
-export default GameFeedbackPanel;

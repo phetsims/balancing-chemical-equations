@@ -11,7 +11,7 @@
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-class AtomCount {
+export default class AtomCount {
 
   /**
    * @param {NITROGLYCERIN.Element} element
@@ -95,4 +95,3 @@ function appendToCounts( atomCounts, terms, isReactants ) {
 }
 
 balancingChemicalEquations.register( 'AtomCount', AtomCount );
-export default AtomCount;

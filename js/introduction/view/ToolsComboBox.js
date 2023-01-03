@@ -20,7 +20,7 @@ import BalancedRepresentation from '../../common/model/BalancedRepresentation.js
 // constants
 const FONT = new PhetFont( 22 );
 
-class ToolsComboBox extends ComboBox {
+export default class ToolsComboBox extends ComboBox {
 
   /**
    * @param {EnumerationProperty.<BalancedRepresentation>} balanceRepresentationProperty
@@ -55,4 +55,3 @@ class ToolsComboBox extends ComboBox {
 }
 
 balancingChemicalEquations.register( 'ToolsComboBox', ToolsComboBox );
-export default ToolsComboBox;

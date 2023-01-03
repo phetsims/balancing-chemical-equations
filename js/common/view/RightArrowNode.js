@@ -16,7 +16,7 @@ import BCEConstants from '../BCEConstants.js';
 // constants
 const ARROW_LENGTH = 70;
 
-class RightArrowNode extends ArrowNode {
+export default class RightArrowNode extends ArrowNode {
 
   /**
    * @param {Property.<Equation>} equationProperty
@@ -62,4 +62,3 @@ class RightArrowNode extends ArrowNode {
 }
 
 balancingChemicalEquations.register( 'RightArrowNode', RightArrowNode );
-export default RightArrowNode;

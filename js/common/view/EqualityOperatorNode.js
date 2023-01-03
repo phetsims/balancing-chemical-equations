@@ -12,7 +12,7 @@ import { Node, Text } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
-class EqualityOperatorNode extends Node {
+export default class EqualityOperatorNode extends Node {
 
   /**
    * @param {Property.<Equation>} equationProperty
@@ -51,4 +51,3 @@ class EqualityOperatorNode extends Node {
 }
 
 balancingChemicalEquations.register( 'EqualityOperatorNode', EqualityOperatorNode );
-export default EqualityOperatorNode;

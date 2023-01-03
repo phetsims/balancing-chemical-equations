@@ -29,7 +29,7 @@ const COUNT_Y_SPACING = 3;
 const ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
 const TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
 
-class BalanceScaleNode extends Node {
+export default class BalanceScaleNode extends Node {
 
   /**
    * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
@@ -215,4 +215,3 @@ function updatePile( element, numberOfAtoms, pileNode, countNode, pileCenterX, b
 }
 
 balancingChemicalEquations.register( 'BalanceScaleNode', BalanceScaleNode );
-export default BalanceScaleNode;

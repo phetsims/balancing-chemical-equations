@@ -14,7 +14,7 @@ import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
 import MoleculeFactory from './MoleculeFactory.js';
 
-class SynthesisEquation extends Equation {
+export default class SynthesisEquation extends Equation {
 
   /**
    * @param {number} r1 balanced coefficient for reactant1
@@ -90,4 +90,3 @@ class SynthesisEquation extends Equation {
 }
 
 balancingChemicalEquations.register( 'SynthesisEquation', SynthesisEquation );
-export default SynthesisEquation;

@@ -15,7 +15,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import RightArrowNode from './RightArrowNode.js';
 import TermNode from './TermNode.js';
 
-class EquationNode extends Node {
+export default class EquationNode extends Node {
 
   /**
    * @param {Property.<Equation>} equationProperty
@@ -165,4 +165,3 @@ class EquationNode extends Node {
 }
 
 balancingChemicalEquations.register( 'EquationNode', EquationNode );
-export default EquationNode;

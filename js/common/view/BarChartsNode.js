@@ -21,7 +21,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
 
-class BarChartsNode extends Node {
+export default class BarChartsNode extends Node {
 
   /**
    * @param {Property} equationProperty the equation that the scales are representing
@@ -146,4 +146,3 @@ class BarChartsNode extends Node {
 }
 
 balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );
-export default BarChartsNode;

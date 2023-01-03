@@ -14,7 +14,7 @@ import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
 import MoleculeFactory from './MoleculeFactory.js';
 
-class DecompositionEquation extends Equation {
+export default class DecompositionEquation extends Equation {
 
   /**
    * @param {number} r1 balanced coefficient for reactant1
@@ -95,4 +95,3 @@ class DecompositionEquation extends Equation {
 }
 
 balancingChemicalEquations.register( 'DecompositionEquation', DecompositionEquation );
-export default DecompositionEquation;

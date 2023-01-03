@@ -15,7 +15,7 @@ import DecompositionEquation from '../../common/model/DecompositionEquation.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 
-class IntroductionModel {
+export default class IntroductionModel {
 
   constructor() {
 
@@ -44,4 +44,3 @@ class IntroductionModel {
 }
 
 balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
-export default IntroductionModel;

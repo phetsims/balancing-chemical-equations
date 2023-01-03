@@ -18,7 +18,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalanceScaleNode from './BalanceScaleNode.js';
 
-class BalanceScalesNode extends Node {
+export default class BalanceScalesNode extends Node {
 
   /**
    * @param {Property.<Equation>} equationProperty the equation that the scales are representing
@@ -121,4 +121,3 @@ class BalanceScalesNode extends Node {
 }
 
 balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );
-export default BalanceScalesNode;

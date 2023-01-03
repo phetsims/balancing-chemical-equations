@@ -28,7 +28,7 @@ import ToolsComboBox from './ToolsComboBox.js';
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
-class IntroductionScreenView extends ScreenView {
+export default class IntroductionScreenView extends ScreenView {
 
   /**
    * @param {IntroductionModel} model
@@ -135,4 +135,3 @@ class IntroductionScreenView extends ScreenView {
 }
 
 balancingChemicalEquations.register( 'IntroductionScreenView', IntroductionScreenView );
-export default IntroductionScreenView;

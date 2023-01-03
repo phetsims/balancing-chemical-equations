@@ -13,7 +13,7 @@
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-class HorizontalAligner {
+export default class HorizontalAligner {
 
   /**
    * @param {number} screenWidth screen width
@@ -134,4 +134,3 @@ function getXOffsets( terms, boxWidth, boxLeft, alignment ) {
 }
 
 balancingChemicalEquations.register( 'HorizontalAligner', HorizontalAligner );
-export default HorizontalAligner;

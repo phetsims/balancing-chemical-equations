@@ -18,7 +18,7 @@ import GamePlayNode from './GamePlayNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import LevelSelectionNode from './LevelSelectionNode.js';
 
-class GameScreenView extends ScreenView {
+export default class GameScreenView extends ScreenView {
 
   /**
    * @param {GameModel} model
@@ -149,4 +149,3 @@ class GameScreenView extends ScreenView {
 }
 
 balancingChemicalEquations.register( 'GameScreenView', GameScreenView );
-export default GameScreenView;

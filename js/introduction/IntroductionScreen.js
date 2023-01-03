@@ -22,7 +22,7 @@ import BCEConstants from '../common/BCEConstants.js';
 import IntroductionModel from './model/IntroductionModel.js';
 import IntroductionScreenView from './view/IntroductionScreenView.js';
 
-class IntroductionScreen extends Screen {
+export default class IntroductionScreen extends Screen {
 
   constructor() {
 
@@ -109,4 +109,3 @@ function createScreenIcon() {
 }
 
 balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );
-export default IntroductionScreen;

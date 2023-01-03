@@ -116,7 +116,7 @@ const NODES = [
   ]
 ];
 
-class BCERewardNode extends RewardNode {
+export default class BCERewardNode extends RewardNode {
 
   /**
    * @param {number} level game level
@@ -128,4 +128,3 @@ class BCERewardNode extends RewardNode {
 }
 
 balancingChemicalEquations.register( 'BCERewardNode', BCERewardNode );
-export default BCERewardNode;

@@ -13,7 +13,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';
 
-class RandomStrategy {
+export default class RandomStrategy {
 
   /**
    * @param {function[]} pool - which equation pool to use
@@ -116,4 +116,3 @@ class RandomStrategy {
 }
 
 balancingChemicalEquations.register( 'RandomStrategy', RandomStrategy );
-export default RandomStrategy;

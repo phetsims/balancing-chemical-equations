@@ -18,7 +18,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import AtomCount from './AtomCount.js';
 
-class Equation {
+export default class Equation {
 
   /**
    * @param {EquationTerm[]} reactants terms on the left side of the equation
@@ -204,4 +204,3 @@ class Equation {
 }
 
 balancingChemicalEquations.register( 'Equation', Equation );
-export default Equation;

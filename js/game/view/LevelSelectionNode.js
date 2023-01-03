@@ -30,7 +30,7 @@ const levelImagesConstructors = [
 // constants
 const BUTTON_MARGIN = 20;
 
-class LevelSelectionNode extends Node {
+export default class LevelSelectionNode extends Node {
 
   /**
    * @param {GameModel} model
@@ -142,4 +142,3 @@ function createLevelSelectionButtonIcon( level, moleculeAlignGroup ) {
 }
 
 balancingChemicalEquations.register( 'LevelSelectionNode', LevelSelectionNode );
-export default LevelSelectionNode;

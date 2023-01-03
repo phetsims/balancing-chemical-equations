@@ -28,7 +28,7 @@ const BOX_X_SPACING = 140; // horizontal spacing between boxes
 const STATUS_BAR_FONT = new PhetFont( 14 );
 const STATUS_BAR_TEXT_FILL = 'white';
 
-class GamePlayNode extends Node {
+export default class GamePlayNode extends Node {
 
   /**
    * @param {GameModel} model
@@ -261,4 +261,3 @@ class GamePlayNode extends Node {
 }
 
 balancingChemicalEquations.register( 'GamePlayNode', GamePlayNode );
-export default GamePlayNode;

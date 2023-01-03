@@ -15,7 +15,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 const BAR_HEIGHT = 50; //height of control node
 const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
 
-class EquationChoiceNode extends Node {
+export default class EquationChoiceNode extends Node {
 
   /**
    * @param {number} screenWidth
@@ -64,4 +64,3 @@ class EquationChoiceNode extends Node {
 }
 
 balancingChemicalEquations.register( 'EquationChoiceNode', EquationChoiceNode );
-export default EquationChoiceNode;

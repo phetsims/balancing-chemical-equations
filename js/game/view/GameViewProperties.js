@@ -9,7 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-class GameViewProperties {
+export default class GameViewProperties {
 
   constructor() {
 
@@ -28,4 +28,3 @@ class GameViewProperties {
 }
 
 balancingChemicalEquations.register( 'GameViewProperties', GameViewProperties );
-export default GameViewProperties;

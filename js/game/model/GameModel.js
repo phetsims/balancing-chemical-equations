@@ -36,7 +36,7 @@ const BALANCED_REPRESENTATION_STRATEGIES = [
 const POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
 const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
-class GameModel {
+export default class GameModel {
 
   constructor() {
 
@@ -264,4 +264,3 @@ class GameModel {
 }
 
 balancingChemicalEquations.register( 'GameModel', GameModel );
-export default GameModel;

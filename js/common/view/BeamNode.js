@@ -12,7 +12,7 @@ import { Rectangle } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
-class BeamNode extends Rectangle {
+export default class BeamNode extends Rectangle {
 
   /**
    * @param {number} beamLength
@@ -36,4 +36,3 @@ class BeamNode extends Rectangle {
 }
 
 balancingChemicalEquations.register( 'BeamNode', BeamNode );
-export default BeamNode;

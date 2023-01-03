@@ -18,7 +18,7 @@ import BCEConstants from '../common/BCEConstants.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
-class GameScreen extends Screen {
+export default class GameScreen extends Screen {
 
   constructor() {
 
@@ -81,4 +81,3 @@ function createScreenIcon() {
 }
 
 balancingChemicalEquations.register( 'GameScreen', GameScreen );
-export default GameScreen;

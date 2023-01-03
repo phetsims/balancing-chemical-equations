@@ -15,7 +15,7 @@ import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
-class BoxNode extends AccordionBox {
+export default class BoxNode extends AccordionBox {
 
   /**
    * @param {Property.<Equation>} equationProperty
@@ -176,4 +176,3 @@ class BoxNode extends AccordionBox {
 }
 
 balancingChemicalEquations.register( 'BoxNode', BoxNode );
-export default BoxNode;

@@ -15,7 +15,7 @@ import { Node, RichText } from '../../../../scenery/js/imports.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-class TermNode extends Node {
+export default class TermNode extends Node {
 
   /**
    * @param {DOT.Range} coefficientRange
@@ -72,4 +72,3 @@ class TermNode extends Node {
 }
 
 balancingChemicalEquations.register( 'TermNode', TermNode );
-export default TermNode;

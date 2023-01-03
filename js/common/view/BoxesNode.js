@@ -15,7 +15,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import BoxNode from './BoxNode.js';
 import RightArrowNode from './RightArrowNode.js';
 
-class BoxesNode extends Node {
+export default class BoxesNode extends Node {
 
   /**
    * @param {Property.<Equation>} equationProperty the equation displayed in the boxes
@@ -85,4 +85,3 @@ class BoxesNode extends Node {
 }
 
 balancingChemicalEquations.register( 'BoxesNode', BoxesNode );
-export default BoxesNode;

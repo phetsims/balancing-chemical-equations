@@ -13,7 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
 
-class EquationTerm {
+export default class EquationTerm {
 
   /**
    * @param {number} balancedCoefficient balanced coefficient for molecule
@@ -45,4 +45,3 @@ class EquationTerm {
 }
 
 balancingChemicalEquations.register( 'EquationTerm', EquationTerm );
-export default EquationTerm;

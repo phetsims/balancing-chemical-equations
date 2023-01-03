@@ -13,7 +13,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { LinearGradient, Node, Path, Text } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
-class FulcrumNode extends Node {
+export default class FulcrumNode extends Node {
 
   /**
    * @param {NITROGLYCERIN.Element} element to show
@@ -47,4 +47,3 @@ class FulcrumNode extends Node {
 }
 
 balancingChemicalEquations.register( 'FulcrumNode', FulcrumNode );
-export default FulcrumNode;
