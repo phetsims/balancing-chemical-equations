@@ -1,5 +1,6 @@
 // Copyright 2014-2021, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A term in a chemical equation.
  * The "balanced coefficient" is the lowest coefficient value that will balance the equation, and is immutable.
