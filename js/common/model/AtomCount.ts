@@ -1,6 +1,5 @@
 // Copyright 2014-2021, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Data structure for describing how many times an atom appears in an equation.
  * There are separate counts for the left-hand (reactants) and right-hand (products)
@@ -11,18 +10,21 @@
  */
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import Element from '../../../../nitroglycerin/js/Element.js';
+import Equation from './Equation.js';
+import EquationTerm from './EquationTerm.js';
+import Atom from '../../../../nitroglycerin/js/Atom.js';
 
 export default class AtomCount {
 
-  /**
-   * @param {NITROGLYCERIN.Element} element
-   * @param {number} reactantsCount
-   * @param {number} productsCount
-   */
-  constructor( element, reactantsCount, productsCount ) {
-    this.element = element; // @public the element that describes the atom's chemical properties
-    this.reactantsCount = reactantsCount; // @public
-    this.productsCount = productsCount; // @public
+  public readonly element: Element; // the element that describes the atom's chemical properties
+  public reactantsCount: number;
+  public productsCount: number;
+
+  public constructor( element: Element, reactantsCount: number, productsCount: number ) {
+    this.element = element;
+    this.reactantsCount = reactantsCount;
+    this.productsCount = productsCount;
   }
 
   /**
@@ -30,14 +32,9 @@ export default class AtomCount {
    * The order of atoms will be the same order that they are encountered in the terms, left to right.
    * For example, if the equation is CH4 + 2 O2 -> CO2 + 2 H2O, then the order of atoms
    * will be [C,H,O].
-   *
-   * @param {Equation} equation
-   * @returns {AtomCount[]}
-   * @public
-   * @static
    */
-  static countAtoms( equation ) {
-    const atomCounts = [];
+  public static countAtoms( equation: Equation ): AtomCount[] {
+    const atomCounts: AtomCount[] = [];
     appendToCounts( atomCounts, equation.reactants, true /* isReactants */ );
     appendToCounts( atomCounts, equation.products, false /* isReactants */ );
     return atomCounts;
@@ -57,13 +54,13 @@ export default class AtomCount {
  * This is a brute force algorithm, but our number of terms is always small,
  * and this is easy to implement and understand.
  *
- * @param {AtomCount[]} atomCounts
- * @param {EquationTerm[]} terms
- * @param {boolean} isReactants true if the terms are the reactants, false if they are the products
+ * @param atomCounts
+ * @param terms
+ * @param isReactants true if the terms are the reactants, false if they are the products
  */
-function appendToCounts( atomCounts, terms, isReactants ) {
+function appendToCounts( atomCounts: AtomCount[], terms: EquationTerm[], isReactants: boolean ): AtomCount[] {
   terms.forEach( term => {
-    term.molecule.atoms.forEach( atom => {
+    term.molecule.atoms.forEach( ( atom: Atom ) => {
 
       let found = false;
       for ( let i = 0; i < atomCounts.length; i++ ) {
