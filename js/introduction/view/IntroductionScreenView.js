@@ -35,7 +35,9 @@ class IntroductionScreenView extends ScreenView {
    */
   constructor( model ) {
 
-    super( BCEConstants.SCREEN_VIEW_OPTIONS );
+    super( {
+      layoutBounds: BCEConstants.LAYOUT_BOUNDS
+    } );
 
     // view-specific Properties
     const viewProperties = new IntroductionViewProperties();

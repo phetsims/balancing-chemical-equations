@@ -25,7 +25,9 @@ class GameScreenView extends ScreenView {
    */
   constructor( model ) {
 
-    super( BCEConstants.SCREEN_VIEW_OPTIONS );
+    super( {
+      layoutBounds: BCEConstants.LAYOUT_BOUNDS
+    } );
 
     // @public view-specific Properties
     this.viewProperties = new GameViewProperties();
