@@ -1,4 +1,4 @@
-// Copyright 2014-2022, University of Colorado Boulder
+// Copyright 2014-2023, University of Colorado Boulder
 
 /**
  * GameFeedbackPanel presents feedback about a user's guess. The format of the feedback is specific to whether
