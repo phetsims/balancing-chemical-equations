@@ -45,9 +45,9 @@ export default class ToolsComboBox extends ComboBox {
     } );
 
     const items = [
-      { value: BalancedRepresentation.NONE, node: new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } ) },
-      { value: BalancedRepresentation.BALANCE_SCALES, node: new Image( scales_png, { scale: 0.1875 } ) },
-      { value: BalancedRepresentation.BAR_CHARTS, node: new Image( charts_png, { scale: 0.375 } ) }
+      { value: BalancedRepresentation.NONE, createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } ) },
+      { value: BalancedRepresentation.BALANCE_SCALES, createNode: () => new Image( scales_png, { scale: 0.1875 } ) },
+      { value: BalancedRepresentation.BAR_CHARTS, createNode: () => new Image( charts_png, { scale: 0.375 } ) }
     ];
 
     super( balanceRepresentationProperty, items, parentNode, options );
