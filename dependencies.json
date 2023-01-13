@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.2.15 Wed Dec 21 2022 09:45:55 GMT-0700 (Mountain Standard Time)",
+  "comment": "# balancing-chemical-equations 1.2.16-rc.1 Fri Jan 13 2023 00:39:59 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "aaedd083ad1ab1fb2107165b64547b1afa15fb87",
+    "sha": "c59cf64f6a0eedc075f5f74510e237426ee9fbbe",
     "branch": "1.2"
   },
   "brand": {
