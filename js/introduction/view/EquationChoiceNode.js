@@ -37,7 +37,7 @@ export default class EquationChoiceNode extends Node {
     const radioButtonItems = [];
     choices.forEach( choice => {
       radioButtonItems.push( {
-        createNode: tandem => new Text( choice.labelStringProperty, TEXT_OPTIONS ),
+        createNode: () => new Text( choice.labelStringProperty, TEXT_OPTIONS ),
         value: choice.equation
       } );
     } );
