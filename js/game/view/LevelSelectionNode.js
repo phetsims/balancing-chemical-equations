@@ -71,7 +71,7 @@ export default class LevelSelectionNode extends Node {
       },
       flowBoxOptions: {
         spacing: 50,
-        resize: false, //TODO
+        resize: false, //TODO, https://github.com/phetsims/vegas/issues/108
         center: layoutBounds.center
       }
     } );
