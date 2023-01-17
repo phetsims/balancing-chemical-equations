@@ -37,13 +37,6 @@ export default class ToolsComboBox extends ComboBox {
       maxWidth: 600
     }, options );
 
-    // options that cannot be specified by client
-    options.labelNode = new Text( BalancingChemicalEquationsStrings.toolsStringProperty, {
-      font: FONT,
-      fontWeight: 'bold',
-      maxWidth: 100
-    } );
-
     const items = [
       { value: BalancedRepresentation.NONE, createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } ) },
       { value: BalancedRepresentation.BALANCE_SCALES, createNode: () => new Image( scales_png, { scale: 0.1875 } ) },

@@ -11,7 +11,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Text } from '../../../../scenery/js/imports.js';
+import { Node, Text, HBox } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
@@ -23,6 +23,7 @@ import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import EquationChoiceNode from './EquationChoiceNode.js';
 import IntroductionViewProperties from './IntroductionViewProperties.js';
 import ToolsComboBox from './ToolsComboBox.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -54,11 +55,22 @@ export default class IntroductionScreenView extends ScreenView {
     // 'Tools' combo box, at upper-right
     const comboBoxParent = new Node();
     const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent );
-    this.addChild( toolsComboBox );
+    const toolsControl = new HBox( {
+      spacing: 10,
+      children: [
+        new Text( BalancingChemicalEquationsStrings.toolsStringProperty, {
+          font: new PhetFont( 22 ),
+          fontWeight: 'bold',
+          maxWidth: 100
+        } ),
+        toolsComboBox
+      ]
+    } );
+    this.addChild( toolsControl );
 
-    toolsComboBox.boundsProperty.link( bounds => {
-      toolsComboBox.right = this.layoutBounds.right - 45;
-      toolsComboBox.top = this.layoutBounds.top + 15;
+    toolsControl.boundsProperty.link( bounds => {
+      toolsControl.right = this.layoutBounds.right - 45;
+      toolsControl.top = this.layoutBounds.top + 15;
     } );
 
     // smiley face, top center, shown when equation is balanced
