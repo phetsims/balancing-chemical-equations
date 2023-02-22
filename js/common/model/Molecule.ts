@@ -68,9 +68,7 @@ export default class Molecule {
 
     this.MoleculeNodeConstructor = MoleculeNodeConstructor;
     this.symbol = symbol;
-    this.atoms = [];
-
-    elements.forEach( element => this.atoms.push( new Atom( element ) ) );
+    this.atoms = elements.map( element => new Atom( element ) );
   }
 
   /**
