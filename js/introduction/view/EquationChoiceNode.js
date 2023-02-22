@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Horizontal bar for selecting an equation.
  *
