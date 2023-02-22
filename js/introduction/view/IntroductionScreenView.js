@@ -47,7 +47,7 @@ export default class IntroductionScreenView extends ScreenView {
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // boxes that show molecules corresponding to the equation coefficients
-    const boxesNode = new BoxesNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner,
+    const boxesNode = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner,
       BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { top: 180 } );
     this.addChild( boxesNode );
@@ -85,7 +85,7 @@ export default class IntroductionScreenView extends ScreenView {
     } );
 
     // interactive equation
-    this.addChild( new EquationNode( model.equationProperty, model.COEFFICENTS_RANGE, aligner, { top: boxesNode.bottom + 20 } ) );
+    this.addChild( new EquationNode( model.equationProperty, model.coefficientsRange, aligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
     const equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, { bottom: this.layoutBounds.bottom - 10 } );
