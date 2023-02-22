@@ -18,10 +18,10 @@ import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../../common/BCEConstants.js';
-import MoleculeFactory from '../../common/model/MoleculeFactory.js';
+import Molecule from '../../common/model/Molecule.js';
 
-// Molecules that will appear on level-selection buttons, ordered by level
-const levelMolecules = [ MoleculeFactory.HCl(), MoleculeFactory.H2O(), MoleculeFactory.NH3() ];
+// Molecules that appear on level-selection buttons, ordered by level number
+const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
 
 // constants
 const BUTTON_MARGIN = 20;

@@ -12,7 +12,7 @@
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
-import MoleculeFactory from './MoleculeFactory.js';
+import Molecule from './Molecule.js';
 
 export default class SynthesisEquation extends Equation {
 
@@ -35,57 +35,57 @@ export default class SynthesisEquation extends Equation {
 
   // @public 2 H2 + O2 -> 2 H2O
   static create_2H2_O2_2H2O() {
-    return new SynthesisEquation( 2, MoleculeFactory.H2(), 1, MoleculeFactory.O2(), 2, MoleculeFactory.H2O() );
+    return new SynthesisEquation( 2, Molecule.H2, 1, Molecule.O2, 2, Molecule.H2O );
   }
 
   // @public H2 + F2 -> 2 HF
   static create_H2_F2_2HF() {
-    return new SynthesisEquation( 1, MoleculeFactory.H2(), 1, MoleculeFactory.F2(), 2, MoleculeFactory.HF() );
+    return new SynthesisEquation( 1, Molecule.H2, 1, Molecule.F2, 2, Molecule.HF );
   }
 
   // @public CH2O + H2 -> CH3OH
   static create_CH2O_H2_CH3OH() {
-    return new SynthesisEquation( 1, MoleculeFactory.CH2O(), 1, MoleculeFactory.H2(), 1, MoleculeFactory.CH3OH() );
+    return new SynthesisEquation( 1, Molecule.CH2O, 1, Molecule.H2, 1, Molecule.CH3OH );
   }
 
   // @public C2H2 + 2 H2 -> C2H6
   static create_C2H2_2H2_C2H6() {
-    return new SynthesisEquation( 1, MoleculeFactory.C2H2(), 2, MoleculeFactory.H2(), 1, MoleculeFactory.C2H6() );
+    return new SynthesisEquation( 1, Molecule.C2H2, 2, Molecule.H2, 1, Molecule.C2H6 );
   }
 
   // @public C + O2 -> CO2
   static create_C_O2_CO2() {
-    return new SynthesisEquation( 1, MoleculeFactory.C(), 1, MoleculeFactory.O2(), 1, MoleculeFactory.CO2() );
+    return new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2 );
   }
 
   // @public 2 C + O2 -> 2 CO
   static create_2C_O2_2CO() {
-    return new SynthesisEquation( 2, MoleculeFactory.C(), 1, MoleculeFactory.O2(), 2, MoleculeFactory.CO() );
+    return new SynthesisEquation( 2, Molecule.C, 1, Molecule.O2, 2, Molecule.CO );
   }
 
   // @public C + 2 S -> CS2
   static create_C_2S_CS2() {
-    return new SynthesisEquation( 1, MoleculeFactory.C(), 2, MoleculeFactory.S(), 1, MoleculeFactory.CS2() );
+    return new SynthesisEquation( 1, Molecule.C, 2, Molecule.S, 1, Molecule.CS2 );
   }
 
   // @public N2 + 3 H2 -> 2 NH3
   static create_N2_3H2_2NH3() {
-    return new SynthesisEquation( 1, MoleculeFactory.N2(), 3, MoleculeFactory.H2(), 2, MoleculeFactory.NH3() );
+    return new SynthesisEquation( 1, Molecule.N2, 3, Molecule.H2, 2, Molecule.NH3 );
   }
 
   // @public 2 N2 + O2 -> 2 N2O
   static create_2N2_O2_2N2O() {
-    return new SynthesisEquation( 2, MoleculeFactory.N2(), 1, MoleculeFactory.O2(), 2, MoleculeFactory.N2O() );
+    return new SynthesisEquation( 2, Molecule.N2, 1, Molecule.O2, 2, Molecule.N2O );
   }
 
   // @public P4 + 6 H2 -> 4 PH3
   static create_P4_6H2_4PH3() {
-    return new SynthesisEquation( 1, MoleculeFactory.P4(), 6, MoleculeFactory.H2(), 4, MoleculeFactory.PH3() );
+    return new SynthesisEquation( 1, Molecule.P4, 6, Molecule.H2, 4, Molecule.PH3 );
   }
 
   // @public P4 + 6 F2 -> 4 PF3
   static create_P4_6F2_4PF3() {
-    return new SynthesisEquation( 1, MoleculeFactory.P4(), 6, MoleculeFactory.F2(), 4, MoleculeFactory.PF3() );
+    return new SynthesisEquation( 1, Molecule.P4, 6, Molecule.F2, 4, Molecule.PF3 );
   }
 }
 
