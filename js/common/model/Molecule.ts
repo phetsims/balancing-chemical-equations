@@ -63,11 +63,13 @@ export default class Molecule {
 
   /**
    * Constructor is private because we only use the static instances defined below.
+   * @param MoleculeNodeConstructor - constructor for some MoleculeNode subclass, for creating the view
+   * @param elements - ordered set of Elements that define the Molecule structure. For example: [ C, C, H, H ] => 'C<sub>2</sub>H<sub>2</sub>'
    */
-  private constructor( MoleculeNodeConstructor: new ( options?: MoleculeNodeOptions ) => MoleculeNode, symbol: string, elements: Element[] ) {
+  private constructor( MoleculeNodeConstructor: new ( options?: MoleculeNodeOptions ) => MoleculeNode, elements: Element[] ) {
 
     this.MoleculeNodeConstructor = MoleculeNodeConstructor;
-    this.symbol = symbol;
+    this.symbol = elementsToSymbol( elements );
     this.atoms = elements.map( element => new Atom( element ) );
   }
 
@@ -86,40 +88,68 @@ export default class Molecule {
   }
 
   // Static instances used through the simulation.
-  public static readonly C = new Molecule( CNode, 'C', [ C ] );
-  public static readonly Cl2 = new Molecule( Cl2Node, 'Cl<sub>2</sub>', [ Cl, Cl ] );
-  public static readonly C2H2 = new Molecule( C2H2Node, 'C<sub>2</sub>H<sub>2</sub>', [ C, C, H, H ] );
-  public static readonly C2H4 = new Molecule( C2H4Node, 'C<sub>2</sub>H<sub>4</sub>', [ C, C, H, H, H, H ] );
-  public static readonly C2H5Cl = new Molecule( C2H5ClNode, 'C<sub>2</sub>H<sub>5</sub>Cl', [ C, C, H, H, H, H, H, Cl ] );
-  public static readonly C2H5OH = new Molecule( C2H5OHNode, 'C<sub>2</sub>H<sub>5</sub>OH', [ C, C, H, H, H, H, H, O, H ] );
-  public static readonly C2H6 = new Molecule( C2H6Node, 'C<sub>2</sub>H<sub>6</sub>', [ C, C, H, H, H, H, H, H ] );
-  public static readonly CH2O = new Molecule( CH2ONode, 'CH<sub>2</sub>O', [ C, H, H, O ] );
-  public static readonly CH3OH = new Molecule( CH3OHNode, 'CH<sub>3</sub>OH', [ C, H, H, H, O, H ] );
-  public static readonly CH4 = new Molecule( CH4Node, 'CH<sub>4</sub>', [ C, H, H, H, H ] );
-  public static readonly CO = new Molecule( CONode, 'CO', [ C, O ] );
-  public static readonly CO2 = new Molecule( CO2Node, 'CO<sub>2</sub>', [ C, O, O ] );
-  public static readonly CS2 = new Molecule( CS2Node, 'CS<sub>2</sub>', [ C, S, S ] );
-  public static readonly F2 = new Molecule( F2Node, 'F<sub>2</sub>', [ F, F ] );
-  public static readonly H2 = new Molecule( H2Node, 'H<sub>2</sub>', [ H, H ] );
-  public static readonly H2O = new Molecule( H2ONode, 'H<sub>2</sub>O', [ H, H, O ] );
-  public static readonly H2S = new Molecule( H2SNode, 'H<sub>2</sub>S', [ H, H, S ] );
-  public static readonly HF = new Molecule( HFNode, 'HF', [ H, F ] );
-  public static readonly HCl = new Molecule( HClNode, 'HCl', [ H, Cl ] );
-  public static readonly N2 = new Molecule( N2Node, 'N<sub>2</sub>', [ N, N ] );
-  public static readonly N2O = new Molecule( N2ONode, 'N<sub>2</sub>O', [ N, N, O ] );
-  public static readonly NH3 = new Molecule( NH3Node, 'NH<sub>3</sub>', [ N, H, H, H ] );
-  public static readonly NO = new Molecule( NONode, 'NO', [ N, O ] );
-  public static readonly NO2 = new Molecule( NO2Node, 'NO<sub>2</sub>', [ N, O, O ] );
-  public static readonly O2 = new Molecule( O2Node, 'O<sub>2</sub>', [ O, O ] );
-  public static readonly OF2 = new Molecule( OF2Node, 'OF<sub>2</sub>', [ O, F, F ] );
-  public static readonly P4 = new Molecule( P4Node, 'P<sub>4</sub>', [ P, P, P, P ] );
-  public static readonly PH3 = new Molecule( PH3Node, 'PH<sub>3</sub>', [ P, H, H, H ] );
-  public static readonly PCl3 = new Molecule( PCl3Node, 'PCl<sub>3</sub>', [ P, Cl, Cl, Cl ] );
-  public static readonly PCl5 = new Molecule( PCl5Node, 'PCl<sub>5</sub>', [ P, Cl, Cl, Cl, Cl, Cl ] );
-  public static readonly PF3 = new Molecule( PF3Node, 'PF<sub>3</sub>', [ P, F, F, F ] );
-  public static readonly S = new Molecule( SNode, 'S', [ S ] );
-  public static readonly SO3 = new Molecule( SO3Node, 'SO<sub>3</sub>', [ S, O, O, O ] );
-  public static readonly SO2 = new Molecule( SO2Node, 'SO<sub>2</sub>', [ S, O, O ] );
+  public static readonly C = new Molecule( CNode, [ C ] );
+  public static readonly Cl2 = new Molecule( Cl2Node, [ Cl, Cl ] );
+  public static readonly C2H2 = new Molecule( C2H2Node, [ C, C, H, H ] );
+  public static readonly C2H4 = new Molecule( C2H4Node, [ C, C, H, H, H, H ] );
+  public static readonly C2H5Cl = new Molecule( C2H5ClNode, [ C, C, H, H, H, H, H, Cl ] );
+  public static readonly C2H5OH = new Molecule( C2H5OHNode, [ C, C, H, H, H, H, H, O, H ] );
+  public static readonly C2H6 = new Molecule( C2H6Node, [ C, C, H, H, H, H, H, H ] );
+  public static readonly CH2O = new Molecule( CH2ONode, [ C, H, H, O ] );
+  public static readonly CH3OH = new Molecule( CH3OHNode, [ C, H, H, H, O, H ] );
+  public static readonly CH4 = new Molecule( CH4Node, [ C, H, H, H, H ] );
+  public static readonly CO = new Molecule( CONode, [ C, O ] );
+  public static readonly CO2 = new Molecule( CO2Node, [ C, O, O ] );
+  public static readonly CS2 = new Molecule( CS2Node, [ C, S, S ] );
+  public static readonly F2 = new Molecule( F2Node, [ F, F ] );
+  public static readonly H2 = new Molecule( H2Node, [ H, H ] );
+  public static readonly H2O = new Molecule( H2ONode, [ H, H, O ] );
+  public static readonly H2S = new Molecule( H2SNode, [ H, H, S ] );
+  public static readonly HF = new Molecule( HFNode, [ H, F ] );
+  public static readonly HCl = new Molecule( HClNode, [ H, Cl ] );
+  public static readonly N2 = new Molecule( N2Node, [ N, N ] );
+  public static readonly N2O = new Molecule( N2ONode, [ N, N, O ] );
+  public static readonly NH3 = new Molecule( NH3Node, [ N, H, H, H ] );
+  public static readonly NO = new Molecule( NONode, [ N, O ] );
+  public static readonly NO2 = new Molecule( NO2Node, [ N, O, O ] );
+  public static readonly O2 = new Molecule( O2Node, [ O, O ] );
+  public static readonly OF2 = new Molecule( OF2Node, [ O, F, F ] );
+  public static readonly P4 = new Molecule( P4Node, [ P, P, P, P ] );
+  public static readonly PH3 = new Molecule( PH3Node, [ P, H, H, H ] );
+  public static readonly PCl3 = new Molecule( PCl3Node, [ P, Cl, Cl, Cl ] );
+  public static readonly PCl5 = new Molecule( PCl5Node, [ P, Cl, Cl, Cl, Cl, Cl ] );
+  public static readonly PF3 = new Molecule( PF3Node, [ P, F, F, F ] );
+  public static readonly S = new Molecule( SNode, [ S ] );
+  public static readonly SO3 = new Molecule( SO3Node, [ S, O, O, O ] );
+  public static readonly SO2 = new Molecule( SO2Node, [ S, O, O ] );
+}
+
+/**
+ * Converts an ordered set of elements to the symbol for a Molecule, in RichText format.
+ * For example: [ C, C, H, H ] => 'C<sub>2</sub>H<sub>2</sub>'
+ */
+function elementsToSymbol( elements: Element[] ): string {
+  let symbol = '';
+  let element: Element | null = null;
+  let count = 0;
+  for ( let i = 0; i < elements.length; i++ ) {
+    const currentElement = elements[ i ];
+    if ( currentElement === element ) {
+      count++;
+    }
+    else {
+      if ( count > 1 ) {
+        symbol += `<sub>${count}</sub>`;
+      }
+      symbol += currentElement.symbol;
+      element = currentElement;
+      count = 1;
+    }
+  }
+  if ( count > 1 ) {
+    symbol += `<sub>${count}</sub>`;
+  }
+  return symbol;
 }
 
 balancingChemicalEquations.register( 'Molecule', Molecule );
