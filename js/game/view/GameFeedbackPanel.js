@@ -26,6 +26,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
+import GameState from '../model/GameState.js';
 
 // constants
 const TEXT_FONT = new PhetFont( 18 );
@@ -269,11 +270,11 @@ function createStateChangeButton( labelStringProperty, modelFunction, maxWidth )
  */
 function createButtonForState( model, maxWidth ) {
   let button = null;
-  if ( model.stateProperty.value === model.states.TRY_AGAIN ) {
+  if ( model.stateProperty.value === GameState.TRY_AGAIN ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.tryAgainStringProperty,
       model.tryAgain.bind( model ), maxWidth );
   }
-  else if ( model.stateProperty.value === model.states.SHOW_ANSWER ) {
+  else if ( model.stateProperty.value === GameState.SHOW_ANSWER ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.showAnswerStringProperty,
       model.showAnswer.bind( model ), maxWidth );
   }

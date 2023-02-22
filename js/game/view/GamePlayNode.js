@@ -20,6 +20,7 @@ import BCEConstants from '../../common/BCEConstants.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
+import GameState from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 
 // constants
@@ -150,17 +151,16 @@ export default class GamePlayNode extends Node {
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
-      const states = model.states;
-      if ( state === states.CHECK ) {
+      if ( state === GameState.CHECK ) {
         this.initCheck();
       }
-      else if ( state === states.TRY_AGAIN ) {
+      else if ( state === GameState.TRY_AGAIN ) {
         this.initTryAgain();
       }
-      else if ( state === states.SHOW_ANSWER ) {
+      else if ( state === GameState.SHOW_ANSWER ) {
         this.initShowAnswer();
       }
-      else if ( state === states.NEXT ) {
+      else if ( state === GameState.NEXT ) {
         this.initNext();
       }
     } );

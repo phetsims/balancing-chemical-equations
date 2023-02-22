@@ -8,7 +8,7 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
@@ -16,6 +16,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import GameFactory from './GameFactory.js';
+import GameState from './GameState.js';
 
 // constants
 /*
@@ -40,28 +41,12 @@ export default class GameModel {
 
   constructor() {
 
-    /*
-     * @public
-     * The set of game states.
-     * For lack of better names, the state names correspond to the main action that
-     * the user can take in that state.  For example. the CHECK state is where the user
-     * can enter coefficients and press the "Check" button to check their answer.
-     */
-    this.states = {
-      LEVEL_SELECTION: 'LevelSelection', //level selection screen
-      CHECK: 'Check',
-      TRY_AGAIN: 'TryAgain',
-      SHOW_ANSWER: 'ShowAnswer',
-      NEXT: 'Next',
-      LEVEL_COMPLETED: 'LevelCompleted' //reward node
-    };
-
     // @public (read-only) constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
     this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
 
-    // @public
-    this.stateProperty = new StringProperty( this.states.LEVEL_SELECTION );
+    // @public {EnumerationProperty.<GameState>}
+    this.stateProperty = new EnumerationProperty( GameState.LEVEL_SELECTION );
     // level of the current game
     this.levelProperty = new NumberProperty( 0, { numberType: 'Integer' } );
     // how many points the user has earned for the current game
@@ -123,7 +108,7 @@ export default class GameModel {
     this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
     this.numberOfEquationsProperty.value = this.equations.length;
     this.pointsProperty.value = 0;
-    this.stateProperty.value = this.states.CHECK;
+    this.stateProperty.value = GameState.CHECK;
   }
 
   /**
@@ -146,20 +131,20 @@ export default class GameModel {
         this.currentPoints = 0;
       }
       this.pointsProperty.value = this.pointsProperty.value + this.currentPoints;
-      this.stateProperty.value = this.states.NEXT;
+      this.stateProperty.value = GameState.NEXT;
 
       if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
     }
     else if ( this.attempts < 2 ) {
-      this.stateProperty.value = this.states.TRY_AGAIN;
+      this.stateProperty.value = GameState.TRY_AGAIN;
     }
     else {
       if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
-      this.stateProperty.value = this.states.SHOW_ANSWER;
+      this.stateProperty.value = GameState.SHOW_ANSWER;
     }
   }
 
@@ -192,7 +177,7 @@ export default class GameModel {
    * @public
    */
   tryAgain() {
-    this.stateProperty.value = this.states.CHECK;
+    this.stateProperty.value = GameState.CHECK;
   }
 
   /**
@@ -200,7 +185,7 @@ export default class GameModel {
    * @public
    */
   showAnswer() {
-    this.stateProperty.value = this.states.NEXT;
+    this.stateProperty.value = GameState.NEXT;
   }
 
   /**
@@ -240,7 +225,7 @@ export default class GameModel {
    * @public
    */
   newGame() {
-    this.stateProperty.value = this.states.LEVEL_SELECTION;
+    this.stateProperty.value = GameState.LEVEL_SELECTION;
     this.timer.restart();
   }
 
@@ -255,10 +240,10 @@ export default class GameModel {
       this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.value ]();
       this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
       this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
-      this.stateProperty.value = this.states.CHECK;
+      this.stateProperty.value = GameState.CHECK;
     }
     else {
-      this.stateProperty.value = this.states.LEVEL_COMPLETED;
+      this.stateProperty.value = GameState.LEVEL_COMPLETED;
     }
   }
 }

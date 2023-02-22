@@ -13,6 +13,7 @@ import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
+import GameState from '../model/GameState.js';
 import BCERewardNode from './BCERewardNode.js';
 import GamePlayNode from './GamePlayNode.js';
 import GameViewProperties from './GameViewProperties.js';
@@ -49,10 +50,10 @@ export default class GameScreenView extends ScreenView {
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
-      if ( state === model.states.LEVEL_SELECTION ) {
+      if ( state === GameState.LEVEL_SELECTION ) {
         this.initLevelSelection();
       }
-      else if ( state === model.states.LEVEL_COMPLETED ) {
+      else if ( state === GameState.LEVEL_COMPLETED ) {
         this.initLevelCompleted();
       }
     } );
@@ -125,7 +126,7 @@ export default class GameScreenView extends ScreenView {
         // remove the level-completed notification
         this.rootNode.removeChild( levelCompletedNode );
         // go back to the level-selection screen
-        this.model.stateProperty.value = this.model.states.LEVEL_SELECTION;
+        this.model.stateProperty.value = GameState.LEVEL_SELECTION;
       },
       {
         // LevelCompletedNode options
