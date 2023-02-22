@@ -113,8 +113,8 @@ export default class BalanceScalesNode extends Node {
       const atomCounts = this.equationProperty.get().getAtomCounts();
       for ( let i = 0; i < atomCounts.length; i++ ) {
         const atomCount = atomCounts[ i ];
-        this.reactantCountProperties[ atomCount.element.symbol ].set( atomCount.reactantsCount );
-        this.productCountProperties[ atomCount.element.symbol ].set( atomCount.productsCount );
+        this.reactantCountProperties[ atomCount.element.symbol ].value = atomCount.reactantsCount;
+        this.productCountProperties[ atomCount.element.symbol ].value = atomCount.productsCount;
       }
     }
   }

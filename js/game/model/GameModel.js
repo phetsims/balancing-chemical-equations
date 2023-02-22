@@ -119,11 +119,11 @@ export default class GameModel {
     this.timer.restart();
 
     // initialize properties
-    this.currentEquationIndexProperty.set( 0 );
-    this.currentEquationProperty.set( this.equations[ this.currentEquationIndexProperty.get() ] );
-    this.numberOfEquationsProperty.set( this.equations.length );
-    this.pointsProperty.set( 0 );
-    this.stateProperty.set( this.states.CHECK );
+    this.currentEquationIndexProperty.value = 0;
+    this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.get() ];
+    this.numberOfEquationsProperty.value = this.equations.length;
+    this.pointsProperty.value = 0;
+    this.stateProperty.value = this.states.CHECK;
   }
 
   /**
@@ -145,21 +145,21 @@ export default class GameModel {
       else {
         this.currentPoints = 0;
       }
-      this.pointsProperty.set( this.pointsProperty.get() + this.currentPoints );
-      this.stateProperty.set( this.states.NEXT );
+      this.pointsProperty.value = this.pointsProperty.get() + this.currentPoints;
+      this.stateProperty.value = this.states.NEXT;
 
       if ( this.currentEquationIndexProperty.get() === this.equations.length - 1 ) {
         this.endGame();
       }
     }
     else if ( this.attempts < 2 ) {
-      this.stateProperty.set( this.states.TRY_AGAIN );
+      this.stateProperty.value = this.states.TRY_AGAIN;
     }
     else {
       if ( this.currentEquationIndexProperty.get() === this.equations.length - 1 ) {
         this.endGame();
       }
-      this.stateProperty.set( this.states.SHOW_ANSWER );
+      this.stateProperty.value = this.states.SHOW_ANSWER;
     }
   }
 
@@ -176,14 +176,14 @@ export default class GameModel {
 
     //check for new best score
     if ( points > this.bestScoreProperties[ level ].get() ) {
-      this.bestScoreProperties[ level ].set( points );
+      this.bestScoreProperties[ level ].value = points;
     }
 
     // check for new best time
     const previousBestTime = this.bestTimeProperties[ level ].get();
     if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
       this.isNewBestTime = true;
-      this.bestTimeProperties[ level ].set( this.timer.elapsedTimeProperty.value );
+      this.bestTimeProperties[ level ].value = this.timer.elapsedTimeProperty.value;
     }
   }
 
@@ -192,7 +192,7 @@ export default class GameModel {
    * @public
    */
   tryAgain() {
-    this.stateProperty.set( this.states.CHECK );
+    this.stateProperty.value = this.states.CHECK;
   }
 
   /**
@@ -200,7 +200,7 @@ export default class GameModel {
    * @public
    */
   showAnswer() {
-    this.stateProperty.set( this.states.NEXT );
+    this.stateProperty.value = this.states.NEXT;
   }
 
   /**
@@ -240,7 +240,7 @@ export default class GameModel {
    * @public
    */
   newGame() {
-    this.stateProperty.set( this.states.LEVEL_SELECTION );
+    this.stateProperty.value = this.states.LEVEL_SELECTION;
     this.timer.restart();
   }
 
@@ -253,12 +253,12 @@ export default class GameModel {
       this.attempts = 0;
       this.currentPoints = 0;
       this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.get() ]();
-      this.currentEquationIndexProperty.set( this.currentEquationIndexProperty.get() + 1 );
-      this.currentEquationProperty.set( this.equations[ this.currentEquationIndexProperty.get() ] );
-      this.stateProperty.set( this.states.CHECK );
+      this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.get() + 1;
+      this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.get() ];
+      this.stateProperty.value = this.states.CHECK;
     }
     else {
-      this.stateProperty.set( this.states.LEVEL_COMPLETED );
+      this.stateProperty.value = this.states.LEVEL_COMPLETED;
     }
   }
 }

@@ -79,7 +79,7 @@ export default class GameScreenView extends ScreenView {
    * @private
    */
   initStartGame( level ) {
-    this.model.levelProperty.set( level );
+    this.model.levelProperty.value = level;
     if ( !this.gamePlayNode ) {
       this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
         this.layoutBounds, this.visibleBoundsProperty );
@@ -125,7 +125,7 @@ export default class GameScreenView extends ScreenView {
         // remove the level-completed notification
         this.rootNode.removeChild( levelCompletedNode );
         // go back to the level-selection screen
-        this.model.stateProperty.set( this.model.states.LEVEL_SELECTION );
+        this.model.stateProperty.value = this.model.states.LEVEL_SELECTION;
       },
       {
         // LevelCompletedNode options
