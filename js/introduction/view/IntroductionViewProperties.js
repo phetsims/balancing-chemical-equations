@@ -1,5 +1,6 @@
 // Copyright 2016-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * View-specific Properties for the 'Introduction' screen
  *
