@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Base type for all chemical equations.
  * A chemical equation has 2 sets of terms, reactants and products.
