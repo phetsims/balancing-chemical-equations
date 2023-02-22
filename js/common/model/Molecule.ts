@@ -45,6 +45,7 @@ import PH3Node from '../../../../nitroglycerin/js/nodes/PH3Node.js';
 import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 
 const C = Element.C;
 const Cl = Element.Cl;
@@ -125,7 +126,8 @@ export default class Molecule {
 }
 
 /**
- * Converts an ordered set of elements to the symbol for a Molecule, in RichText format.
+ * Converts an ordered set of elements to the symbol for a Molecule.
+ * The string is in RichText format, and left-to-right order is preserved.
  * For example: [ C, C, H, H ] => 'C<sub>2</sub>H<sub>2</sub>'
  */
 function elementsToSymbol( elements: Element[] ): string {
@@ -149,7 +151,9 @@ function elementsToSymbol( elements: Element[] ): string {
   if ( count > 1 ) {
     symbol += `<sub>${count}</sub>`;
   }
-  return symbol;
+
+  // Preserve left-to-right ordering
+  return StringUtils.wrapLTR( symbol );
 }
 
 balancingChemicalEquations.register( 'Molecule', Molecule );
