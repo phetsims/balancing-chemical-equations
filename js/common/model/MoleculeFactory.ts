@@ -1,7 +1,7 @@
 // Copyright 2014-2021, University of Colorado Boulder
 
 /**
- * Factory for creating molecule nodes.
+ * Static instances of Molecule used through the sim.
  *
  * @author Vasily Shakhov (mlearner.com)
  */
