@@ -18,8 +18,10 @@ export default class Molecule {
    */
   constructor( nodeConstructor, symbolText, elements ) {
 
-    // @public
+    // @private
     this.nodeConstructor = nodeConstructor;
+
+    // @public
     this.symbol = symbolText;
     this.atoms = [];
 
@@ -34,6 +36,16 @@ export default class Molecule {
    */
   isBig() {
     return this.atoms.length > 5;
+  }
+
+  /**
+   * Creates the MoleculeNode that corresponds to this Molecule.
+   * @param [options]
+   * @returns {MoleculeNode}
+   * @public
+   */
+  createNode( options ) {
+    return new this.nodeConstructor( options );
   }
 }
 

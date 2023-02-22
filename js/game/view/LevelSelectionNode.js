@@ -20,12 +20,8 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import BCEConstants from '../../common/BCEConstants.js';
 import MoleculeFactory from '../../common/model/MoleculeFactory.js';
 
-// images, ordered by level
-const levelImagesConstructors = [
-  MoleculeFactory.HCl().nodeConstructor,
-  MoleculeFactory.H2O().nodeConstructor,
-  MoleculeFactory.NH3().nodeConstructor
-];
+// Molecules that will appear on level-selection buttons, ordered by level
+const levelMolecules = [ MoleculeFactory.HCl(), MoleculeFactory.H2O(), MoleculeFactory.NH3() ];
 
 // constants
 const BUTTON_MARGIN = 20;
@@ -128,7 +124,7 @@ function createLevelSelectionButtonIcon( level, moleculeAlignGroup ) {
     maxWidth: 100
   } );
 
-  const moleculeNode = new levelImagesConstructors[ level ]( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+  const moleculeNode = levelMolecules[ level ].createNode( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
   const alignBox = new AlignBox( moleculeNode, {
     group: moleculeAlignGroup
   } );

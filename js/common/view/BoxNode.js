@@ -152,7 +152,6 @@ export default class BoxNode extends AccordionBox {
 
       const moleculeNodes = this.termNodes[ terms[ i ].molecule.symbol ];
       const userCoefficient = terms[ i ].userCoefficientProperty.get();
-      const MoleculeNodeConstructor = terms[ i ].molecule.nodeConstructor;
       let y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
 
       for ( let j = 0; j < Math.max( userCoefficient, moleculeNodes.length ); j++ ) {
@@ -162,7 +161,7 @@ export default class BoxNode extends AccordionBox {
         }
         else {
           // add a molecule node
-          const moleculeNode = new MoleculeNodeConstructor( { atomNodeOptions: BCEConstants.ATOM_OPTIONS } );
+          const moleculeNode = terms[ i ].molecule.createNode( { atomNodeOptions: BCEConstants.ATOM_OPTIONS } );
           moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
           this.moleculesParent.addChild( moleculeNode );
           moleculeNode.center = new Vector2( xOffsets[ i ] - this.x, y );
