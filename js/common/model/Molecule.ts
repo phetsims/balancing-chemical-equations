@@ -61,7 +61,10 @@ export default class Molecule {
   public readonly symbol: string;
   public readonly atoms: Atom[];
 
-  public constructor( MoleculeNodeConstructor: new ( options?: MoleculeNodeOptions ) => MoleculeNode, symbol: string, elements: Element[] ) {
+  /**
+   * Constructor is private because we only use the static instances defined below.
+   */
+  private constructor( MoleculeNodeConstructor: new ( options?: MoleculeNodeOptions ) => MoleculeNode, symbol: string, elements: Element[] ) {
 
     this.MoleculeNodeConstructor = MoleculeNodeConstructor;
     this.symbol = symbol;
