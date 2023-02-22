@@ -18,7 +18,7 @@ import DisplacementEquation from '../../common/model/DisplacementEquation.js';
 import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 
-type EquationChoice = {
+export type EquationChoice = {
   equation: Equation;
   labelStringProperty: TReadOnlyProperty<string>;
 };
