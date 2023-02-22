@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Model container for the 'Introduction' screen.
  * This model has a small set of equations, one of which is the current equation that we're operating on.*
