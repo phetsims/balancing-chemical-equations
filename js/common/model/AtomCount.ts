@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Data structure for describing how many times an atom appears in an equation.
  * There are separate counts for the left-hand (reactants) and right-hand (products)
