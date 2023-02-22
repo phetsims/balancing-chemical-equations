@@ -88,7 +88,9 @@ export default class IntroductionScreenView extends ScreenView {
     this.addChild( new EquationNode( model.equationProperty, model.coefficientsRange, aligner, { top: boxesNode.bottom + 20 } ) );
 
     // control for choosing an equation
-    const equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, { bottom: this.layoutBounds.bottom - 10 } );
+    const equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, {
+      bottom: this.layoutBounds.bottom - 10
+    } );
     this.addChild( equationChoiceNode );
 
     // Reset All button
