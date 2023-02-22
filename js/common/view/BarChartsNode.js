@@ -71,7 +71,7 @@ export default class BarChartsNode extends Node {
    */
   updateNode() {
     if ( this.visible ) {
-      const atomCounts = this.equationProperty.get().getAtomCounts();
+      const atomCounts = this.equationProperty.value.getAtomCounts();
 
       this.reactantCountProperties = this.updateBars(
         this.reactantBarsParent,
@@ -135,7 +135,7 @@ export default class BarChartsNode extends Node {
    */
   updateCounts() {
     if ( this.visible ) {
-      const atomCounts = this.equationProperty.get().getAtomCounts();
+      const atomCounts = this.equationProperty.value.getAtomCounts();
       for ( let i = 0; i < atomCounts.length; i++ ) {
         const atomCount = atomCounts[ i ];
         this.reactantCountProperties[ atomCount.element.symbol ].value = atomCount.reactantsCount;

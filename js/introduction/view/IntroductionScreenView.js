@@ -77,7 +77,7 @@ export default class IntroductionScreenView extends ScreenView {
     const faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
     this.addChild( faceNode );
     const updateFace = () => {
-      faceNode.visible = model.equationProperty.get().balancedProperty.get();
+      faceNode.visible = model.equationProperty.value.balancedProperty.value;
     };
     model.equationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) { oldEquation.balancedProperty.unlink( updateFace ); }

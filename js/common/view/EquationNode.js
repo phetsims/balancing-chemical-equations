@@ -63,7 +63,7 @@ export default class EquationNode extends Node {
     this.terms.length = 0;
     this.termsParent.removeAllChildren();
 
-    const equation = this.equationProperty.get();
+    const equation = this.equationProperty.value;
     this.updateSideOfEquation( equation.reactants, this.aligner.getReactantXOffsets( equation ),
       this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
     this.updateSideOfEquation( equation.products, this.aligner.getProductXOffsets( equation ),

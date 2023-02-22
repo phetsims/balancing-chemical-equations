@@ -106,7 +106,7 @@ export default class GameModel {
    */
   startGame() {
 
-    const level = this.levelProperty.get();
+    const level = this.levelProperty.value;
 
     // create a set of challenges
     this.equations = GameFactory.createEquations( level );
@@ -120,7 +120,7 @@ export default class GameModel {
 
     // initialize properties
     this.currentEquationIndexProperty.value = 0;
-    this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.get() ];
+    this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
     this.numberOfEquationsProperty.value = this.equations.length;
     this.pointsProperty.value = 0;
     this.stateProperty.value = this.states.CHECK;
@@ -133,7 +133,7 @@ export default class GameModel {
   check() {
     this.attempts++;
 
-    if ( this.currentEquationProperty.get().balancedAndSimplified ) {
+    if ( this.currentEquationProperty.value.balancedAndSimplified ) {
       // award points
       if ( this.attempts === 1 ) {
         this.currentPoints = POINTS_FIRST_ATTEMPT;
@@ -145,10 +145,10 @@ export default class GameModel {
       else {
         this.currentPoints = 0;
       }
-      this.pointsProperty.value = this.pointsProperty.get() + this.currentPoints;
+      this.pointsProperty.value = this.pointsProperty.value + this.currentPoints;
       this.stateProperty.value = this.states.NEXT;
 
-      if ( this.currentEquationIndexProperty.get() === this.equations.length - 1 ) {
+      if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
     }
@@ -156,7 +156,7 @@ export default class GameModel {
       this.stateProperty.value = this.states.TRY_AGAIN;
     }
     else {
-      if ( this.currentEquationIndexProperty.get() === this.equations.length - 1 ) {
+      if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
       this.stateProperty.value = this.states.SHOW_ANSWER;
@@ -171,16 +171,16 @@ export default class GameModel {
 
     this.timer.stop();
 
-    const level = this.levelProperty.get();
-    const points = this.pointsProperty.get();
+    const level = this.levelProperty.value;
+    const points = this.pointsProperty.value;
 
     //check for new best score
-    if ( points > this.bestScoreProperties[ level ].get() ) {
+    if ( points > this.bestScoreProperties[ level ].value ) {
       this.bestScoreProperties[ level ].value = points;
     }
 
     // check for new best time
-    const previousBestTime = this.bestTimeProperties[ level ].get();
+    const previousBestTime = this.bestTimeProperties[ level ].value;
     if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
       this.isNewBestTime = true;
       this.bestTimeProperties[ level ].value = this.timer.elapsedTimeProperty.value;
@@ -232,7 +232,7 @@ export default class GameModel {
    * @public
    */
   isPerfectScore() {
-    return this.pointsProperty.get() === this.getPerfectScore( this.levelProperty.get() );
+    return this.pointsProperty.value === this.getPerfectScore( this.levelProperty.value );
   }
 
   /**
@@ -249,12 +249,12 @@ export default class GameModel {
    * @public
    */
   next() {
-    if ( this.currentEquationIndexProperty.get() < this.equations.length - 1 ) {
+    if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
       this.attempts = 0;
       this.currentPoints = 0;
-      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.get() ]();
-      this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.get() + 1;
-      this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.get() ];
+      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.value ]();
+      this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
+      this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
       this.stateProperty.value = this.states.CHECK;
     }
     else {

@@ -95,7 +95,7 @@ export default class GameScreenView extends ScreenView {
   // @private
   initLevelCompleted() {
 
-    const level = this.model.levelProperty.get();
+    const level = this.model.levelProperty.value;
 
     this.levelSelectionNode.visible = this.gamePlayNode.visible = false;
 
@@ -106,11 +106,11 @@ export default class GameScreenView extends ScreenView {
     }
 
     // bestTime on level, must be null to not show in popup
-    const bestTimeOnThisLevel = this.model.bestTimeProperties[ level ].get() === 0 ? null : this.model.bestTimeProperties[ level ].get();
+    const bestTimeOnThisLevel = this.model.bestTimeProperties[ level ].value === 0 ? null : this.model.bestTimeProperties[ level ].value;
 
     // Node displaying notification that the level has been completed
     const numberOfEquations = this.model.getNumberOfEquations( level );
-    const levelCompletedNode = new LevelCompletedNode( level + 1, this.model.pointsProperty.get(), this.model.getPerfectScore( level ),
+    const levelCompletedNode = new LevelCompletedNode( level + 1, this.model.pointsProperty.value, this.model.getPerfectScore( level ),
       numberOfEquations, this.viewProperties.timerEnabledProperty.value,
       this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
 

@@ -57,11 +57,11 @@ export default class BalanceScaleNode extends Node {
 
     // left pile & count
     this.leftPileNode = new Node(); // @private
-    this.leftCountNode = new Text( leftNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+    this.leftCountNode = new Text( leftNumberOfAtomsProperty.value, TEXT_OPTIONS ); // @private
 
     // right pile & count
     this.rightPileNode = new Node(); // @private
-    this.rightCountNode = new Text( rightNumberOfAtomsProperty.get(), TEXT_OPTIONS ); // @private
+    this.rightCountNode = new Text( rightNumberOfAtomsProperty.value, TEXT_OPTIONS ); // @private
 
     // @private parent for both piles, to simplify rotation
     this.pilesParent = new Node( {
@@ -108,8 +108,8 @@ export default class BalanceScaleNode extends Node {
     this.beamNode.setRotation( 0 );
     this.pilesParent.setRotation( 0 );
 
-    const leftNumberOfAtoms = this.leftNumberOfAtomsProperty.get();
-    const rightNumberOfAtoms = this.rightNumberOfAtomsProperty.get();
+    const leftNumberOfAtoms = this.leftNumberOfAtomsProperty.value;
+    const rightNumberOfAtoms = this.rightNumberOfAtomsProperty.value;
 
     // update piles
     updatePile( this.element, leftNumberOfAtoms, this.leftPileNode, this.leftCountNode, this.beamNode.left + 0.25 * this.beamNode.width, this.beamNode.top );

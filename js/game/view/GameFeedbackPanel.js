@@ -55,7 +55,7 @@ export default class GameFeedbackPanel extends Node {
       shadowYOffset: 5
     }, options );
 
-    const equation = model.currentEquationProperty.get();
+    const equation = model.currentEquationProperty.value;
     const balancedRepresentation = model.balancedRepresentation;
     const points = model.currentPoints;
     const maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements
@@ -63,7 +63,7 @@ export default class GameFeedbackPanel extends Node {
 
     // happy/sad face
     const faceNode = new FaceNode( 75 );
-    if ( !equation.balancedProperty.get() ) { faceNode.frown(); }
+    if ( !equation.balancedProperty.value ) { faceNode.frown(); }
 
     const pointsAwardedStringProperty = new DerivedProperty(
       [ BalancingChemicalEquationsStrings.pattern_0pointsStringProperty ],
@@ -103,7 +103,7 @@ export default class GameFeedbackPanel extends Node {
         spacing: options.vBoxSpacing
       } );
     }
-    else if ( equation.balancedProperty.get() ) {
+    else if ( equation.balancedProperty.value ) {
 
       // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
       content = new VBox( {
@@ -269,11 +269,11 @@ function createStateChangeButton( labelStringProperty, modelFunction, maxWidth )
  */
 function createButtonForState( model, maxWidth ) {
   let button = null;
-  if ( model.stateProperty.get() === model.states.TRY_AGAIN ) {
+  if ( model.stateProperty.value === model.states.TRY_AGAIN ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.tryAgainStringProperty,
       model.tryAgain.bind( model ), maxWidth );
   }
-  else if ( model.stateProperty.get() === model.states.SHOW_ANSWER ) {
+  else if ( model.stateProperty.value === model.states.SHOW_ANSWER ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.showAnswerStringProperty,
       model.showAnswer.bind( model ), maxWidth );
   }

@@ -47,7 +47,7 @@ export default class RightArrowNode extends ArrowNode {
 
   // @private Highlights the arrow if the equation is balanced.
   updateHighlight() {
-    this.fill = ( this.equationProperty.get().balancedProperty.get() && this._highlightEnabled )
+    this.fill = ( this.equationProperty.value.balancedProperty.value && this._highlightEnabled )
                 ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
   }
 

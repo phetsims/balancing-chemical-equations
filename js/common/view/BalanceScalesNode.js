@@ -78,7 +78,7 @@ export default class BalanceScalesNode extends Node {
       this.reactantCountProperties = {};
       this.productCountProperties = {};
 
-      const atomCounts = this.equationProperty.get().getAtomCounts(); // [AtomCount]
+      const atomCounts = this.equationProperty.value.getAtomCounts(); // [AtomCount]
       const fulcrumSpacing = ( atomCounts.length === 2 ) ? this.dualFulcrumSpacing : this.fulcrumSpacing;
       let x = 0;
       for ( let i = 0; i < atomCounts.length; i++ ) {
@@ -92,7 +92,7 @@ export default class BalanceScalesNode extends Node {
         this.productCountProperties[ atomCount.element.symbol ] = rightCountProperty;
 
         // add a scale node
-        const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.get().balancedProperty, { x: x } );
+        const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.balancedProperty, { x: x } );
         this.addChild( scaleNode );
 
         x += fulcrumSpacing;
@@ -110,7 +110,7 @@ export default class BalanceScalesNode extends Node {
    */
   updateCounts() {
     if ( this.visible ) {
-      const atomCounts = this.equationProperty.get().getAtomCounts();
+      const atomCounts = this.equationProperty.value.getAtomCounts();
       for ( let i = 0; i < atomCounts.length; i++ ) {
         const atomCount = atomCounts[ i ];
         this.reactantCountProperties[ atomCount.element.symbol ].value = atomCount.reactantsCount;

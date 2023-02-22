@@ -210,7 +210,7 @@ export default class GamePlayNode extends Node {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = false;
 
-    const currentEquation = this.model.currentEquationProperty.get();
+    const currentEquation = this.model.currentEquationProperty.value;
     this.nextButton.visible = !currentEquation.balancedAndSimplified; // 'Next' button is in the feedbackPanel
     this.setFeedbackPanelVisible( currentEquation.balancedAndSimplified );
     this.setBalancedHighlightEnabled( true );
@@ -233,7 +233,7 @@ export default class GamePlayNode extends Node {
    * @private
    */
   playGuessAudio() {
-    if ( this.model.currentEquationProperty.get().balancedAndSimplified ) {
+    if ( this.model.currentEquationProperty.value.balancedAndSimplified ) {
       this.audioPlayer.correctAnswer();
     }
     else {

@@ -93,7 +93,7 @@ export default class BoxNode extends AccordionBox {
 
     // update visible molecules to match the coefficients
     const coefficientsObserver = () => {
-      this.updateCounts( getTerms( equationProperty.get() ), getXOffsets( equationProperty.get() ) );
+      this.updateCounts( getTerms( equationProperty.value ), getXOffsets( equationProperty.value ) );
     };
 
     equationProperty.link( ( newEquation, oldEquation ) => {
@@ -151,7 +151,7 @@ export default class BoxNode extends AccordionBox {
     for ( let i = 0; i < terms.length; i++ ) {
 
       const moleculeNodes = this.termNodes[ terms[ i ].molecule.symbol ];
-      const userCoefficient = terms[ i ].userCoefficientProperty.get();
+      const userCoefficient = terms[ i ].userCoefficientProperty.value;
       let y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
 
       for ( let j = 0; j < Math.max( userCoefficient, moleculeNodes.length ); j++ ) {
