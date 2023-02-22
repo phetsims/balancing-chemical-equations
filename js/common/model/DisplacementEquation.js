@@ -1,7 +1,8 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
- * Base type for displacement equations.
+ * DisplacementEquation is the class for displacement equations.
  * In a displacement reactions, compounds exchange bonds or ions to form different compounds.
  * All displacement equations in this sim have 2 reactants and 2 products.
  * This base type adds no new functionality to Equation, it simply provides convenient factory functions.
