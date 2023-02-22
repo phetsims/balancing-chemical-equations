@@ -28,7 +28,7 @@ const BALANCED_REPRESENTATION_STRATEGIES = [
   // level 1
   () => BalancedRepresentation.BALANCE_SCALES,
 
-  //level 2
+  // level 2
   () => dotRandom.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS,
 
   // level 3
