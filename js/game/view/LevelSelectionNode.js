@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Controls for selecting a level and adjusting various game settings, such as whether the timer is enabled
  *
