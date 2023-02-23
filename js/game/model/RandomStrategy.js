@@ -1,5 +1,6 @@
 // Copyright 2020-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Selects a random set from a pool of equations, with no duplicates.
  * Selection of an equation may cause other equations to be excluded from the pool.
