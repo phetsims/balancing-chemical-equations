@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A term in the equation, includes the coefficient and symbol.
  * The coefficient may or may not be editable.
