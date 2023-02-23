@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * A balance scale, depicts the relationship between the atom count
  * on the left and right side of an equation.
@@ -11,11 +10,14 @@
  * @author Vasily Shakhov (mlearner.com)
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Element from '../../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../../nitroglycerin/js/nodes/AtomNode.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 import BeamNode from './BeamNode.js';
@@ -30,43 +32,64 @@ const COUNT_Y_SPACING = 3;
 const ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
 const TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
 
+type SelfOptions = EmptySelfOptions;
+
+type BalanceScaleNodeOptions = SelfOptions & NodeTranslationOptions;
+
 export default class BalanceScaleNode extends Node {
 
+  private readonly element: Element;
+  private readonly leftNumberOfAtomsProperty: TReadOnlyProperty<number>;
+  private readonly rightNumberOfAtomsProperty: TReadOnlyProperty<number>;
+  private readonly beamNode: BeamNode;
+  private readonly leftPileNode: Node;
+  private readonly rightPileNode: Node;
+  private readonly leftCountText: Text;
+  private readonly rightCountText: Text;
+  private readonly pilesParent: Node;
+
+  private readonly balanceScaleNodeDispose: () => void;
+
   /**
-   * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the scale
-   * @param {Property.<number>} leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
-   * @param {Property.<number>} rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
-   * @param {Property.<boolean>} highlightedProperty
-   * @param {Object} [options]
+   * @param element the atom that we're displaying on the scale
+   * @param leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
+   * @param rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
+   * @param highlightedProperty
+   * @param [providedOptions]
    */
-  constructor( element, leftNumberOfAtomsProperty, rightNumberOfAtomsProperty, highlightedProperty, options ) {
+  public constructor( element: Element,
+                      leftNumberOfAtomsProperty: TReadOnlyProperty<number>,
+                      rightNumberOfAtomsProperty: TReadOnlyProperty<number>,
+                      highlightedProperty: TReadOnlyProperty<boolean>,
+                      providedOptions?: BalanceScaleNodeOptions ) {
+
+    const options = optionize<BalanceScaleNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     super();
 
-    this.element = element; // @private
-    this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty; // @private
-    this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty; // @private
+    this.element = element;
+    this.leftNumberOfAtomsProperty = leftNumberOfAtomsProperty;
+    this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty;
 
     // fulcrum
     const fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
 
-    // @private beam
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
       bottom: 0,
       transformBounds: true /* see issue #77 */
     } );
 
     // left pile & count
-    this.leftPileNode = new Node(); // @private
-    this.leftCountNode = new Text( leftNumberOfAtomsProperty.value, TEXT_OPTIONS ); // @private
+    this.leftPileNode = new Node();
+    this.leftCountText = new Text( leftNumberOfAtomsProperty.value, TEXT_OPTIONS );
 
     // right pile & count
-    this.rightPileNode = new Node(); // @private
-    this.rightCountNode = new Text( rightNumberOfAtomsProperty.value, TEXT_OPTIONS ); // @private
+    this.rightPileNode = new Node();
+    this.rightCountText = new Text( rightNumberOfAtomsProperty.value, TEXT_OPTIONS );
 
-    // @private parent for both piles, to simplify rotation
+    // parent for both piles, to simplify rotation
     this.pilesParent = new Node( {
-      children: [ this.leftPileNode, this.leftCountNode, this.rightPileNode, this.rightCountNode ],
+      children: [ this.leftPileNode, this.leftCountText, this.rightPileNode, this.rightCountText ],
       transformBounds: true /* see issue #77 */
     } );
 
@@ -74,7 +97,7 @@ export default class BalanceScaleNode extends Node {
     this.mutate( options );
 
     // highlight the beam
-    const highlightObserver = highlighted => this.beamNode.setHighlighted( highlighted );
+    const highlightObserver = ( highlighted: boolean ) => this.beamNode.setHighlighted( highlighted );
     highlightedProperty.link( highlightObserver );
 
     // update piles
@@ -91,8 +114,7 @@ export default class BalanceScaleNode extends Node {
     };
   }
 
-  // @public
-  dispose() {
+  public override dispose(): void {
     this.balanceScaleNodeDispose();
     super.dispose();
   }
@@ -101,9 +123,8 @@ export default class BalanceScaleNode extends Node {
    * Places piles of atoms on the ends of the beam, with a count of the number of
    * atoms above each pile.  Then rotates the beam and stuff on it to indicate the
    * relative balance between the left and right piles.
-   * @private
    */
-  updateNode() {
+  private updateNode(): void {
 
     // update piles on beam in neutral orientation
     this.beamNode.setRotation( 0 );
@@ -113,8 +134,8 @@ export default class BalanceScaleNode extends Node {
     const rightNumberOfAtoms = this.rightNumberOfAtomsProperty.value;
 
     // update piles
-    updatePile( this.element, leftNumberOfAtoms, this.leftPileNode, this.leftCountNode, this.beamNode.left + 0.25 * this.beamNode.width, this.beamNode.top );
-    updatePile( this.element, rightNumberOfAtoms, this.rightPileNode, this.rightCountNode, this.beamNode.right - 0.25 * this.beamNode.width, this.beamNode.top );
+    updatePile( this.element, leftNumberOfAtoms, this.leftPileNode, this.leftCountText, this.beamNode.left + 0.25 * this.beamNode.width, this.beamNode.top );
+    updatePile( this.element, rightNumberOfAtoms, this.rightPileNode, this.rightCountText, this.beamNode.right - 0.25 * this.beamNode.width, this.beamNode.top );
 
     // rotate beam and piles on fulcrum
     const maxAngle = ( Math.PI / 2 ) - Math.acos( FULCRUM_SIZE.height / ( BEAM_LENGTH / 2 ) );
@@ -142,14 +163,15 @@ export default class BalanceScaleNode extends Node {
  * - Atoms are never removed from the pile; they stay in the pile for the lifetime of this node.
  * - The visibility of atoms is adjusted to show the correct number of atoms.
  *
- * @param {Element} element
- * @param {number} numberOfAtoms number of atoms that will be visible in the pile
- * @param {Node} pileNode pile that will be modified
- * @param {Node} countNode displays numberOfAtoms
- * @param {number} pileCenterX x-coordinate of the pile's center, relative to the beam
- * @param {number} beamTop y-coordinate of the beam's top
+ * @param element
+ * @param numberOfAtoms - number of atoms that will be visible in the pile
+ * @param pileNode - pile that will be modified
+ * @param countText - displays numberOfAtoms
+ * @param pileCenterX - x-coordinate of the pile's center, relative to the beam
+ * @param beamTop - y-coordinate of the beam's top
  */
-function updatePile( element, numberOfAtoms, pileNode, countNode, pileCenterX, beamTop ) {
+function updatePile( element: Element, numberOfAtoms: number, pileNode: Node, countText: Text,
+                     pileCenterX: number, beamTop: number ): void {
 
   const nodesInPile = pileNode.getChildrenCount(); // how many atom nodes are currently in the pile
   let pile = 0; // which pile we're working on, layered back-to-front, offset left-to-right
@@ -198,20 +220,20 @@ function updatePile( element, numberOfAtoms, pileNode, countNode, pileCenterX, b
   }
 
   // count display
-  countNode.text = numberOfAtoms;
+  countText.text = numberOfAtoms;
 
   // layout
   if ( pileNode.visibleBounds.isEmpty() ) {
     // pile is empty, just deal with count
-    countNode.centerX = pileCenterX;
-    countNode.bottom = beamTop - COUNT_Y_SPACING;
+    countText.centerX = pileCenterX;
+    countText.bottom = beamTop - COUNT_Y_SPACING;
   }
   else {
     // account for invisible atoms in the pile
     pileNode.centerX = pileCenterX + ( pileNode.width - pileNode.visibleBounds.width ) / 2;
     pileNode.bottom = beamTop + 1;
-    countNode.centerX = pileCenterX;
-    countNode.bottom = pileNode.visibleBounds.top - COUNT_Y_SPACING;
+    countText.centerX = pileCenterX;
+    countText.bottom = pileNode.visibleBounds.top - COUNT_Y_SPACING;
   }
 }
 
