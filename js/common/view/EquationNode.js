@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Displays a chemical equation.
  * Reactants are on the left-hand size, products are on the right-hand side.
