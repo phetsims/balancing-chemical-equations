@@ -22,7 +22,7 @@ import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import EquationChoiceNode from './EquationChoiceNode.js';
 import IntroductionViewProperties from './IntroductionViewProperties.js';
-import ToolsComboBox from './ToolsComboBox.ts';
+import ToolsComboBox from './ToolsComboBox.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 
 // constants
