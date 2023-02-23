@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * The 'Game' Screen
  *
@@ -8,11 +7,12 @@
  */
 
 import Property from '../../../axon/js/Property.js';
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import { Node, Path, Rectangle } from '../../../scenery/js/imports.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../common/BCEConstants.js';
@@ -21,12 +21,13 @@ import GameScreenView from './view/GameScreenView.js';
 
 export default class GameScreen extends Screen {
 
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
-    const options = {
+    const options: ScreenOptions = {
       name: BalancingChemicalEquationsStrings.screen.gameStringProperty,
       backgroundColorProperty: new Property( BCEConstants.GAME_CANVAS_BACKGROUND ),
-      homeScreenIcon: createScreenIcon()
+      homeScreenIcon: createScreenIcon(),
+      tandem: tandem
     };
 
     super(
@@ -39,9 +40,8 @@ export default class GameScreen extends Screen {
 
 /**
  * Creates the icon for this screen: a smiley face to the right of up/down arrows.
- * @returns {ScreenIcon}
  */
-function createScreenIcon() {
+function createScreenIcon(): ScreenIcon {
 
   // constants
   const faceDiameter = 200;
