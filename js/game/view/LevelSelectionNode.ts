@@ -39,7 +39,7 @@ export default class LevelSelectionNode extends Node {
     const moleculeAlignGroup = new AlignGroup();
 
     const buttonItems: LevelSelectionButtonGroupItem[] = [];
-    for ( let level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
+    for ( let level = model.levelsRange.min; level <= model.levelsRange.max; level++ ) {
       buttonItems.push( {
         icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
         scoreProperty: model.bestScoreProperties[ level ],

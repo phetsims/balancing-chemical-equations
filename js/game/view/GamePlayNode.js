@@ -78,13 +78,13 @@ export default class GamePlayNode extends Node {
     this.addChild( statusBar );
 
     // @private boxes that show molecules corresponding to the equation coefficients
-    this.boxesNode = new BoxesNode( model.currentEquationProperty, model.COEFFICENTS_RANGE, this.aligner,
+    this.boxesNode = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner,
       BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { y: statusBar.bottom + 15 } );
     this.addChild( this.boxesNode );
 
     // @private equation
-    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.COEFFICENTS_RANGE, this.aligner );
+    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.coefficientsRange, this.aligner );
     this.addChild( this.equationNode );
     this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.boxesNode.bottom ) / 2;
 

@@ -1,8 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
- * Model container for the 'Balancing game' screen.
+ * Top-level model for the 'Game' screen.
  *
  * @author Vasily Shakhov (MLearner)
  */
@@ -18,8 +17,9 @@ import BalancedRepresentation from '../../common/model/BalancedRepresentation.js
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import GameFactory from './GameFactory.js';
 import GameState from './GameState.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Equation from '../../common/model/Equation.js';
 
-// constants
 /*
  * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
  * This is a map from level to strategy.
@@ -40,45 +40,52 @@ const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd att
 
 export default class GameModel {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public readonly coefficientsRange: Range;
+  public readonly levelsRange: Range;
+  public readonly stateProperty: EnumerationProperty<GameState>; // state of the game
+  public readonly levelProperty: Property<number>; // level of the current game
+  public readonly pointsProperty: Property<number>; // how many points the user has earned for the current game
+  public readonly numberOfEquationsProperty: Property<number>; // number of challenges in the current game
+  public readonly currentEquationProperty: Property<Equation>; // current challenge/Equation
+  public readonly currentEquationIndexProperty: Property<number>; // index of the current challenge that the user is working on
+  public equations: Equation[];
+  public readonly timer: GameTimer;
 
-    // @public (read-only) constants
-    this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients
-    this.LEVELS_RANGE = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
+  private attempts: number; // how many attempts the user has made at solving the current challenge
+  private currentPoints: number; // how many points were earned for the current challenge
+  public balancedRepresentation: BalancedRepresentation | null; // which representation to use in the "Not Balanced" popup
+  public isNewBestTime: boolean; // is the time for this game a new best time?
+  public readonly bestTimeProperties: Property<number>[]; // best times in ms, indexed by level
+  public readonly bestScoreProperties: Property<number>[]; // best scores, indexed by level
 
-    // @public {EnumerationProperty.<GameState>}
+  public constructor( tandem: Tandem ) {
+
+    this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
+    this.levelsRange = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
+
     this.stateProperty = new EnumerationProperty( GameState.LEVEL_SELECTION );
-    // level of the current game
     this.levelProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-    // how many points the user has earned for the current game
     this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-    // number of challenges in the current game
     this.numberOfEquationsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-    // any non-null {Equation} will do here
-    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() );
-    // index of the current challenge that the user is working on
+    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() ); // any non-null Equation will do here
     this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    this.equations = []; // @public array of Equation
-    this.timer = new GameTimer(); // @public
-    this.attempts = 0; // @private how many attempts the user has made at solving the current challenge
-    this.currentPoints = 0; // @public how many points were earned for the current challenge
-    this.balancedRepresentation = null; // @public which representation to use in the "Not Balanced" popup
-    this.isNewBestTime = false; // @public is the time for this game a new best time?
+    this.equations = [];
+    this.timer = new GameTimer();
+    this.attempts = 0;
+    this.currentPoints = 0;
+    this.balancedRepresentation = null;
+    this.isNewBestTime = false;
 
-    this.bestTimeProperties = [];// @public {Property.<number>[]} best times in ms, indexed by level
-    this.bestScoreProperties = []; // @public {Property.<number>[]} best scores, indexed by level
-    for ( let i = this.LEVELS_RANGE.min; i <= this.LEVELS_RANGE.max; i++ ) {
+    this.bestTimeProperties = [];
+    this.bestScoreProperties = [];
+    for ( let i = this.levelsRange.min; i <= this.levelsRange.max; i++ ) {
       this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
       this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
     }
   }
 
-  // @public
-  reset() {
+  public reset(): void {
     this.stateProperty.reset();
     this.levelProperty.reset();
     this.pointsProperty.reset();
@@ -91,9 +98,8 @@ export default class GameModel {
 
   /**
    * Called when the user presses a level-selection button.
-   * @public
    */
-  startGame() {
+  public startGame(): void {
 
     const level = this.levelProperty.value;
 
@@ -117,9 +123,8 @@ export default class GameModel {
 
   /**
    * Called when the user presses the "Check" button.
-   * @public
    */
-  check() {
+  public check(): void {
     this.attempts++;
 
     if ( this.currentEquationProperty.value.balancedAndSimplified ) {
@@ -154,9 +159,8 @@ export default class GameModel {
 
   /**
    * When a game ends, stop the timer and (if perfect score) set the new best time.
-   * @private
    */
-  endGame() {
+  private endGame(): void {
 
     this.timer.stop();
 
@@ -178,66 +182,53 @@ export default class GameModel {
 
   /**
    * Called when the user presses the "Try Again" button.
-   * @public
    */
-  tryAgain() {
+  public tryAgain(): void {
     this.stateProperty.value = GameState.CHECK;
   }
 
   /**
    * Called when the user presses the "Show Answer" button.
-   * @public
    */
-  showAnswer() {
+  public showAnswer(): void {
     this.stateProperty.value = GameState.NEXT;
   }
 
   /**
    * Gets the number of equations for a specified level.
-   * @param level
-   * @returns {number}
-   * @public
    */
-  getNumberOfEquations( level ) {
+  public getNumberOfEquations( level: number ): number {
     return GameFactory.getNumberOfEquations( level );
   }
 
   /**
    * Gets the number of points in a perfect score for a specified level.
    * A perfect score is obtained when the user balances every equation correctly on the first attempt.
-   * @param level
-   * @returns {number}
-   * @public
    */
-  getPerfectScore( level ) {
+  public getPerfectScore( level: number ): number {
     return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
   }
 
   /**
    * Is the current score a perfect score?
-   * This can be called at any time during the game, but can't possibly
-   * return true until the game has been completed.
-   * @returns {boolean}
-   * @public
+   * This can be called at any time during the game, but can't possibly return true until the game has been completed.
    */
-  isPerfectScore() {
+  public isPerfectScore(): boolean {
     return this.pointsProperty.value === this.getPerfectScore( this.levelProperty.value );
   }
 
   /**
    * Called when the user presses the "Start Over" button.
-   * @public
    */
-  newGame() {
+  public newGame(): void {
     this.stateProperty.value = GameState.LEVEL_SELECTION;
     this.timer.restart();
   }
 
   /**
    * Called when the user presses the "Next" button.
-   * @public
    */
-  next() {
+  public next(): void {
     if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
       this.attempts = 0;
       this.currentPoints = 0;
