@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A bar that displays some number of atoms for a specified atom.
  * The bar is capable of displaying some maximum number of atoms.
