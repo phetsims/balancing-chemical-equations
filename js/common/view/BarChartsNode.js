@@ -119,7 +119,10 @@ export default class BarChartsNode extends Node {
       const countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
       countProperties[ atomCount.element.symbol ] = countProperty;
       // add a bar node
-      const barNode = new BarNode( atomCount.element, countProperty, { centerX: barCenterX, bottom: 0 } );
+      const barNode = new BarNode( atomCount.element, countProperty, {
+        centerX: barCenterX,
+        bottom: 0
+      } );
       parentNode.addChild( barNode );
       barCenterX = barNode.centerX + 100;
     }

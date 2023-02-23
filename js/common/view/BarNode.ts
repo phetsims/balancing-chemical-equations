@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * A bar that displays some number of atoms for a specified atom.
  * The bar is capable of displaying some maximum number of atoms.
@@ -13,12 +12,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import Element from '../../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../../nitroglycerin/js/nodes/AtomNode.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, HStrut, Path, Text, VBox } from '../../../../scenery/js/imports.js';
+import { HBox, HStrut, NodeTranslationOptions, Path, Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
@@ -28,17 +29,26 @@ const MAX_BAR_SIZE = new Dimension2( 40, 60 );
 const BAR_LINE_WIDTH = 1.5;
 const ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
 
+type SelfOptions = EmptySelfOptions;
+
+type BarNodeOptions = SelfOptions & NodeTranslationOptions;
+
 export default class BarNode extends VBox {
 
+  private readonly disposeBarNode: () => void;
+
   /**
-   * @param {NITROGLYCERIN.Element} element the atom that we're displaying on the bar
-   * @param {Property.<number>} numberOfAtomsProperty number of elements
-   * @param {Object} [options]
+   * @param element the atom that we're displaying on the bar
+   * @param numberOfAtomsProperty number of elements
+   * @param [providedOptions]
    */
-  constructor( element, numberOfAtomsProperty, options ) {
-    options = merge( {
+  public constructor( element: Element, numberOfAtomsProperty: TReadOnlyProperty<number>, providedOptions?: BarNodeOptions ) {
+
+    const options = optionize<BarNodeOptions, SelfOptions, VBoxOptions>()( {
+
+      // VBoxOptions
       excludeInvisibleChildrenFromBounds: false
-    }, options );
+    }, providedOptions );
 
     // number of atoms
     const numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
@@ -60,13 +70,16 @@ export default class BarNode extends VBox {
     // horizontal strut, to prevent resizing
     const hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
-    options.children = [ hStrut, numberNode, barNode, new HBox( {
-      children: [ iconNode, symbolNode ],
-      spacing: 3
-    } ) ];
+    options.children = [ hStrut, numberNode, barNode,
+      new HBox( {
+        children: [ iconNode, symbolNode ],
+        spacing: 3
+      } )
+    ];
+
     super( options );
 
-    const numberOfAtomsListener = numberOfAtoms => {
+    const numberOfAtomsListener = ( numberOfAtoms: number ) => {
 
       // number of atoms
       numberNode.text = `${numberOfAtoms}`;
@@ -99,14 +112,12 @@ export default class BarNode extends VBox {
     // when the number of atoms changes ...
     numberOfAtomsProperty.link( numberOfAtomsListener );
 
-    // @private
     this.disposeBarNode = () => {
       numberOfAtomsProperty.unlink( numberOfAtomsListener );
     };
   }
 
-  // @public
-  dispose() {
+  public override dispose(): void {
     this.disposeBarNode();
     super.dispose();
   }
