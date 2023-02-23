@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * An arrow that points left to right, from reactants to products.
  * Highlights when the equation is balanced.
