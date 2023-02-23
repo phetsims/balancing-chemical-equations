@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Controls for selecting a level and adjusting various game settings, such as whether the timer is enabled
  *
@@ -8,18 +7,22 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { AlignBox, AlignGroup, Node, Text, VBox } from '../../../../scenery/js/imports.js';
-import LevelSelectionButtonGroup from '../../../../vegas/js/LevelSelectionButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import Molecule from '../../common/model/Molecule.js';
+import GameModel from '../model/GameModel.js';
+import GameViewProperties from './GameViewProperties.js';
 
 // Molecules that appear on level-selection buttons, ordered by level number
 const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
@@ -29,21 +32,13 @@ const BUTTON_MARGIN = 20;
 
 export default class LevelSelectionNode extends Node {
 
-  /**
-   * @param {GameModel} model
-   * @param {GameViewProperties} viewProperties
-   * @param {Bounds2} layoutBounds
-   * @param {function(number:level)} startGame
-   * @param {Object} [options]
-   */
-  constructor( model, viewProperties, layoutBounds, startGame, options ) {
-
-    super();
+  public constructor( model: GameModel, viewProperties: GameViewProperties, layoutBounds: Bounds2,
+                      startGame: ( level: number ) => void, tandem: Tandem ) {
 
     // To give all molecules the same effective size
     const moleculeAlignGroup = new AlignGroup();
 
-    const buttonItems = [];
+    const buttonItems: LevelSelectionButtonGroupItem[] = [];
     for ( let level = model.LEVELS_RANGE.min; level <= model.LEVELS_RANGE.max; level++ ) {
       buttonItems.push( {
         icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
@@ -59,6 +54,7 @@ export default class LevelSelectionNode extends Node {
         }
       } );
     }
+
     const buttonGroup = new LevelSelectionButtonGroup( buttonItems, {
       levelSelectionButtonOptions: {
         baseColor: '#d9ebff',
@@ -69,26 +65,25 @@ export default class LevelSelectionNode extends Node {
       flowBoxOptions: {
         spacing: 50,
         center: layoutBounds.center
-      }
+      },
+      tandem: tandem.createTandem( 'buttonGroup' )
     } );
-    this.addChild( buttonGroup );
 
     // title
-    const title = new Text( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, {
+    const titleText = new Text( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 36 ),
       centerX: layoutBounds.centerX,
       centerY: buttonGroup.top / 2,
       maxWidth: 0.85 * layoutBounds.width // constrain width for i18n
     } );
-    this.addChild( title );
 
     // timer control, lower left
-    const toggleOptions = { stroke: 'black', cornerRadius: 10 };
-    const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, merge( toggleOptions, {
+    const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, {
+      stroke: 'black',
+      cornerRadius: 10,
       x: BUTTON_MARGIN,
       bottom: layoutBounds.bottom - BUTTON_MARGIN
-    } ) );
-    this.addChild( timerToggleButton );
+    } );
 
     // Reset All button, lower right
     const resetButton = new ResetAllButton( {
@@ -99,9 +94,11 @@ export default class LevelSelectionNode extends Node {
       right: layoutBounds.right - BUTTON_MARGIN,
       bottom: layoutBounds.bottom - BUTTON_MARGIN
     } );
-    this.addChild( resetButton );
 
-    this.mutate( options );
+    super( {
+      children: [ buttonGroup, titleText, timerToggleButton, resetButton ],
+      tandem: tandem
+    } );
   }
 
   // No dispose needed, instances of this type persist for lifetime of the sim.
@@ -109,11 +106,10 @@ export default class LevelSelectionNode extends Node {
 
 /**
  * Creates the icon for a level-selection button.
- * @param {number} level
- * @param {AlignGroup} moleculeAlignGroup - to give all molecules the same effective size
- * @returns {Node}
+ * @param level
+ * @param moleculeAlignGroup - to give all molecules the same effective size
  */
-function createLevelSelectionButtonIcon( level, moleculeAlignGroup ) {
+function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: AlignGroup ): Node {
 
   const labelStringProperty = new DerivedProperty(
     [ BalancingChemicalEquationsStrings.pattern_0levelStringProperty ],

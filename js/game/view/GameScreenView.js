@@ -44,7 +44,8 @@ export default class GameScreenView extends ScreenView {
 
     // @private level-selection interface
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
-      this.initStartGame.bind( this ), { visible: false } );
+      this.initStartGame.bind( this ), tandem.createTandem( 'levelSelectionNode' ) );
+    this.levelSelectionNode.visible = ( model.stateProperty === GameState.LEVEL_SELECTION );
     this.rootNode.addChild( this.levelSelectionNode );
 
     // @private game-play interface, created on demand
