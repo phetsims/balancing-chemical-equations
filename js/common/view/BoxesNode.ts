@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * A pair of boxes that show the number of molecules indicated by the equation's user coefficients.
  * Left box is for the reactants, right box is for the products.
@@ -9,27 +8,48 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, TColor } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BoxNode from './BoxNode.js';
 import RightArrowNode from './RightArrowNode.js';
+import Equation from '../model/Equation.js';
+import HorizontalAligner from './HorizontalAligner.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type BoxesNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class BoxesNode extends Node {
 
+  private readonly arrowNode: RightArrowNode;
+
   /**
-   * @param {Property.<Equation>} equationProperty the equation displayed in the boxes
-   * @param {dot.Range} coefficientsRange
-   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Dimension2} boxSize
-   * @param {string} boxColor fill color of the boxes
-   * @param {Property.<boolean>} reactantsBoxExpandedProperty
-   * @param {Property.<boolean>} productsBoxExpandedProperty
-   * @param {Object} [options]
+   * @param equationProperty - the equation displayed in the boxes
+   * @param coefficientsRange
+   * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param boxSize
+   * @param boxColor - fill color of the boxes
+   * @param reactantsBoxExpandedProperty
+   * @param productsBoxExpandedProperty
+   * @param [providedOptions]
    */
-  constructor( equationProperty, coefficientsRange, aligner, boxSize, boxColor,
-               reactantsBoxExpandedProperty, productsBoxExpandedProperty, options ) {
+  public constructor( equationProperty: TReadOnlyProperty<Equation>,
+                      coefficientsRange: Range,
+                      aligner: HorizontalAligner,
+                      boxSize: Dimension2,
+                      boxColor: TColor,
+                      reactantsBoxExpandedProperty: Property<boolean>,
+                      productsBoxExpandedProperty: Property<boolean>,
+                      providedOptions?: BoxesNodeOptions ) {
+
+    const options = optionize<BoxesNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // reactants box, on the left
     const reactantsBoxNode = new BoxNode( equationProperty,
@@ -67,7 +87,6 @@ export default class BoxesNode extends Node {
     options.children = [ reactantsBoxNode, productsBoxNode, arrowNode ];
     super( options );
 
-    // private
     this.arrowNode = arrowNode;
   }
 
@@ -77,10 +96,8 @@ export default class BoxesNode extends Node {
    * Enables or disables the highlighting feature.
    * When enabled, the arrow between the boxes will light up when the equation is balanced.
    * This is enabled by default, but we want to disable in the Game until the user presses the "Check" button.
-   * @param enabled
-   * @public
    */
-  setBalancedHighlightEnabled( enabled ) {
+  public setBalancedHighlightEnabled( enabled: boolean ): void {
     this.arrowNode.setHighlightEnabled( enabled );
   }
 }
