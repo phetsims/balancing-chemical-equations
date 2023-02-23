@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Scene graph for the 'Balancing game' screen.
  *
@@ -9,11 +8,13 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
+import GameModel from '../model/GameModel.js';
 import GameState from '../model/GameState.js';
 import BCERewardNode from './BCERewardNode.js';
 import GamePlayNode from './GamePlayNode.js';
@@ -22,35 +23,38 @@ import LevelSelectionNode from './LevelSelectionNode.js';
 
 export default class GameScreenView extends ScreenView {
 
-  /**
-   * @param {GameModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  public readonly model: GameModel;
+  public readonly viewProperties: GameViewProperties;
+  public readonly audioPlayer: GameAudioPlayer;
+
+  private readonly rootNode: Node; // parent for all game-related nodes
+
+  private readonly levelSelectionNode: Node;
+  private gamePlayNode: Node | null; // game-play interface, created on demand
+
+  private rewardNode: BCERewardNode | null; // created on demand
+
+  public constructor( model: GameModel, tandem: Tandem ) {
 
     super( {
       layoutBounds: BCEConstants.LAYOUT_BOUNDS,
       tandem: tandem
     } );
 
-    // @public view-specific Properties
+    this.model = model;
     this.viewProperties = new GameViewProperties();
+    this.audioPlayer = new GameAudioPlayer();
 
-    this.model = model; // @public
-    this.audioPlayer = new GameAudioPlayer(); // @public
-
-    // @private Add a root node where all of the game-related nodes will live.
     this.rootNode = new Node();
     this.addChild( this.rootNode );
 
-    // @private level-selection interface
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
       this.initStartGame.bind( this ), tandem.createTandem( 'levelSelectionNode' ) );
-    this.levelSelectionNode.visible = ( model.stateProperty === GameState.LEVEL_SELECTION );
+    this.levelSelectionNode.visible = ( model.stateProperty.value === GameState.LEVEL_SELECTION );
     this.rootNode.addChild( this.levelSelectionNode );
 
-    // @private game-play interface, created on demand
     this.gamePlayNode = null;
+    this.rewardNode = null;
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
@@ -65,25 +69,22 @@ export default class GameScreenView extends ScreenView {
 
   // No dispose needed, instances of this type persist for lifetime of the sim.
 
-  // @public
-  step( dt ) {
+  public override step( dt: number ): void {
     if ( this.rewardNode ) {
       this.rewardNode.step( dt );
     }
+    super.step( dt );
   }
 
-  // @private
-  initLevelSelection() {
+  private initLevelSelection(): void {
     if ( this.gamePlayNode ) { this.gamePlayNode.visible = false; }
     this.levelSelectionNode.visible = true;
   }
 
   /**
    * Performs initialization to start a game for a specified level.
-   * @param {number} level
-   * @private
    */
-  initStartGame( level ) {
+  private initStartGame( level: number ): void {
     this.model.levelProperty.value = level;
     if ( !this.gamePlayNode ) {
       this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
@@ -97,12 +98,14 @@ export default class GameScreenView extends ScreenView {
     this.model.startGame();
   }
 
-  // @private
-  initLevelCompleted() {
+  private initLevelCompleted(): void {
 
     const level = this.model.levelProperty.value;
 
-    this.levelSelectionNode.visible = this.gamePlayNode.visible = false;
+    this.levelSelectionNode.visible = false;
+    if ( this.gamePlayNode ) {
+      this.gamePlayNode.visible = false;
+    }
 
     // game reward, shown for perfect score (or with 'reward' query parameter)
     if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
