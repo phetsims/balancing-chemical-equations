@@ -15,7 +15,7 @@ simLauncher.launch( () => {
 
   const screens = [
     new IntroductionScreen( Tandem.ROOT.createTandem( 'introductionScreen' ) ),
-    new GameScreen()
+    new GameScreen( Tandem.ROOT.createTandem( 'gameScreen' ) )
   ];
 
   const sim = new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, screens, {

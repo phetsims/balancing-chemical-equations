@@ -39,7 +39,10 @@ const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd att
 
 export default class GameModel {
 
-  constructor() {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
     // @public (read-only) constants
     this.COEFFICENTS_RANGE = new Range( 0, 7 ); // Range of possible equation coefficients

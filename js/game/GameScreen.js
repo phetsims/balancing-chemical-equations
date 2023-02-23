@@ -20,7 +20,7 @@ import GameScreenView from './view/GameScreenView.js';
 
 export default class GameScreen extends Screen {
 
-  constructor() {
+  constructor( tandem ) {
 
     const options = {
       name: BalancingChemicalEquationsStrings.screen.gameStringProperty,
@@ -29,8 +29,8 @@ export default class GameScreen extends Screen {
     };
 
     super(
-      () => new GameModel(),
-      model => new GameScreenView( model ),
+      () => new GameModel( tandem.createTandem( 'model' ) ),
+      model => new GameScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }

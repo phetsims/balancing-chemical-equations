@@ -23,11 +23,13 @@ export default class GameScreenView extends ScreenView {
 
   /**
    * @param {GameModel} model
+   * @param {Tandem} tandem
    */
-  constructor( model ) {
+  constructor( model, tandem ) {
 
     super( {
-      layoutBounds: BCEConstants.LAYOUT_BOUNDS
+      layoutBounds: BCEConstants.LAYOUT_BOUNDS,
+      tandem: tandem
     } );
 
     // @public view-specific Properties
