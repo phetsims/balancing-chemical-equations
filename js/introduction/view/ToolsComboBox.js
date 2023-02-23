@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * 'Tools' combo box, for selecting the visual representation for "balanced".
  *
