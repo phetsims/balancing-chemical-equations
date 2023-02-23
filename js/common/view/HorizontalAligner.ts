@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Encapsulates the strategy used to horizontally aligning terms in an equation
  * with columns of molecules in the "boxes" view.  Based on knowledge of the
@@ -13,27 +12,31 @@
  */
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import Equation from '../model/Equation.js';
+import EquationTerm from '../model/EquationTerm.js';
 
 export default class HorizontalAligner {
 
+  private readonly screenWidth: number;
+  private readonly boxWidth: number;
+  private readonly boxXSpacing: number;
+
   /**
-   * @param {number} screenWidth screen width
-   * @param {DOT.Dimension2} boxWidth size of one of the 2 boxes (both boxes are assumed to be the same size)
-   * @param {number} boxXSpacing horizontal separation between the left and right boxes
+   * @param screenWidth screen width
+   * @param boxWidth size of one of the 2 boxes (both boxes are assumed to be the same size)
+   * @param boxXSpacing horizontal separation between the left and right boxes
    */
-  constructor( screenWidth, boxWidth, boxXSpacing ) {
-    this.screenWidth = screenWidth; // @private
-    this.boxWidth = boxWidth; // @private
-    this.boxXSpacing = boxXSpacing; // @private
+  public constructor( screenWidth: number, boxWidth: number, boxXSpacing: number ) {
+    this.screenWidth = screenWidth;
+    this.boxWidth = boxWidth;
+    this.boxXSpacing = boxXSpacing;
   }
 
   /**
    * Gets the offsets for an equation's reactant terms.
    * Reactants are on the left-hand side of the equation.
-   * @param equation
-   * @public
    */
-  getReactantXOffsets( equation ) {
+  public getReactantXOffsets( equation: Equation ): number[] {
     const boxLeft = this.screenWidth / 2 - this.boxWidth - this.boxXSpacing / 2;
     return getXOffsets( equation.reactants, this.boxWidth, boxLeft, 'right' );
   }
@@ -41,53 +44,41 @@ export default class HorizontalAligner {
   /**
    * Gets the offsets for an equation's product terms.
    * Products are on the right-hand side of the equation.
-   * @param equation
-   * @public
    */
-  getProductXOffsets( equation ) {
+  public getProductXOffsets( equation: Equation ): number[] {
     const boxLeft = this.screenWidth / 2 + this.boxXSpacing / 2;
     return getXOffsets( equation.products, this.boxWidth, boxLeft, 'left' );
   }
 
-  // @public
-  getScreenWidth() { return this.screenWidth; }
+  public getScreenWidth(): number { return this.screenWidth; }
 
-  // @public
-  getScreenLeft() { return 0; }
+  public getScreenLeft(): number { return 0; }
 
-  // @public
-  getScreenRight() { return this.screenWidth; }
+  public getScreenRight(): number { return this.screenWidth; }
 
-  // @public
-  getScreenCenterX() { return this.screenWidth / 2; }
+  public getScreenCenterX(): number { return this.screenWidth / 2; }
 
-  // @public
-  getReactantsBoxLeft() {
+  public getReactantsBoxLeft(): number {
     return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth;
   }
 
-  // @public
-  getProductsBoxLeft() {
+  public getProductsBoxLeft(): number {
     return this.getScreenCenterX() + this.boxXSpacing / 2;
   }
 
-  // @public
-  getReactantsBoxRight() {
+  public getReactantsBoxRight(): number {
     return this.getScreenCenterX() - this.boxXSpacing / 2;
   }
 
-  // @public
-  getProductsBoxRight() {
+  public getProductsBoxRight(): number {
     return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth;
   }
 
-  // @public
-  getReactantsBoxCenterX() {
+  public getReactantsBoxCenterX(): number {
     return this.getScreenCenterX() - this.boxXSpacing / 2 - this.boxWidth / 2;
   }
 
-  // @public
-  getProductsBoxCenterX() {
+  public getProductsBoxCenterX(): number {
     return this.getScreenCenterX() + this.boxXSpacing / 2 + this.boxWidth / 2;
   }
 }
@@ -96,14 +87,12 @@ export default class HorizontalAligner {
  * Gets the x offsets for a set of terms.
  * The box is divided up into columns and terms are centered in the columns.
  * @param terms
- * @param {number} boxWidth
- * @param {number} boxLeft left edge of box
- * @param alignment alignment for single term, 'left' or 'right'
- * @returns [{number}] x offset for each term
+ * @param boxWidth
+ * @param boxLeft - left edge of box
+ * @param alignment - alignment for single term, 'left' or 'right'
+ * @returns x offset for each term
  */
-function getXOffsets( terms, boxWidth, boxLeft, alignment ) {
-
-  assert && assert( alignment === 'left' || alignment === 'right' );
+function getXOffsets( terms: EquationTerm[], boxWidth: number, boxLeft: number, alignment: 'left' | 'right' ): number[] {
 
   const numberOfTerms = terms.length;
   const xOffsets = [];
