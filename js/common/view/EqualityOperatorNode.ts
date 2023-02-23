@@ -1,49 +1,55 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Equality operator between 2 sides of equation: equals (balanced) or not equals (not balanced).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
+import Equation from '../model/Equation.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type EqualityOperatorNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class EqualityOperatorNode extends Node {
 
-  /**
-   * @param {Property.<Equation>} equationProperty
-   * @param {Object} [options]
-   */
-  constructor( equationProperty, options ) {
+  public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: EqualityOperatorNodeOptions ) {
 
-    options = merge( {}, options );
+    const options = optionize<EqualityOperatorNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     const textOptions = {
       font: new PhetFont( 80 ),
       stroke: 'black'
     };
 
-    // nodes
-    const equalsSignNode = new Text( '\u003D',
-      merge( { fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR }, textOptions ) );
-    const notEqualsSignNode = new Text( '\u2260',
-      merge( { fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center }, textOptions ) );
+    const equalsSignNode = new Text( '\u003D', combineOptions<TextOptions>( {
+      fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR
+    }, textOptions ) );
+
+    const notEqualsSignNode = new Text( '\u2260', combineOptions<TextOptions>( {
+      fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center
+    }, textOptions ) );
 
     options.children = [ equalsSignNode, notEqualsSignNode ];
+
     super( options );
 
     // show the correct operator, based on whether the equation is balanced
-    const balancedObserver = balanced => {
+    const balancedObserver = ( balanced: boolean ) => {
       equalsSignNode.visible = balanced;
       notEqualsSignNode.visible = !balanced;
     };
     equationProperty.link( ( newEquation, oldEquation ) => {
-      if ( oldEquation ) { oldEquation.balancedProperty.unlink( balancedObserver ); }
+      if ( oldEquation ) {
+        oldEquation.balancedProperty.unlink( balancedObserver );
+      }
       newEquation.balancedProperty.link( balancedObserver );
     } );
   }
