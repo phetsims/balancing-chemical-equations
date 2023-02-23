@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Encapsulates the strategy used to horizontally aligning terms in an equation
  * with columns of molecules in the "boxes" view.  Based on knowledge of the
