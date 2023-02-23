@@ -64,7 +64,7 @@ export default class BarNode extends VBox {
     const symbolNode = new Text( element.symbol, { font: new PhetFont( 24 ) } );
 
     // atom icon
-    const iconNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+    const iconNode = new AtomNode( element, BCEConstants.ATOM_NODE_OPTIONS );
     iconNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
 
     // horizontal strut, to prevent resizing

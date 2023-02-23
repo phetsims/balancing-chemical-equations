@@ -190,7 +190,7 @@ function updatePile( element: Element, numberOfAtoms: number, pileNode: Node, co
     }
     else {
       // add an atom node
-      atomNode = new AtomNode( element, BCEConstants.ATOM_OPTIONS );
+      atomNode = new AtomNode( element, BCEConstants.ATOM_NODE_OPTIONS );
       atomNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
       pileNode.addChild( atomNode );
       atomNode.translation = new Vector2( x + ( atomNode.width / 2 ), y - ( atomNode.height / 2 ) );

@@ -8,7 +8,8 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import merge from '../../../../phet-core/js/merge.js';
+import { AtomNodeOptions } from '../../../../nitroglycerin/js/nodes/AtomNode.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
@@ -121,7 +122,9 @@ function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: Alig
     maxWidth: 100
   } );
 
-  const moleculeNode = levelMolecules[ level ].createNode( merge( { scale: 2 }, BCEConstants.ATOM_OPTIONS ) );
+  const moleculeNode = levelMolecules[ level ].createNode( combineOptions<AtomNodeOptions>( {
+    scale: 2
+  }, BCEConstants.ATOM_NODE_OPTIONS ) );
   const alignBox = new AlignBox( moleculeNode, {
     group: moleculeAlignGroup
   } );

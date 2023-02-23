@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Game reward for this simulation.
  *
@@ -54,7 +53,9 @@ import BCEConstants from '../../common/BCEConstants.js';
 // constants
 const NUMBER_OF_NODES = 150;
 const ATOM_NODE_OPTIONS = BCEConstants.ATOM_NODE_OPTIONS;
-const MOLECULE_NODE_OPTIONS = { atomNodeOptions: BCEConstants.ATOM_NODE_OPTIONS };
+const MOLECULE_NODE_OPTIONS = {
+  atomNodeOptions: ATOM_NODE_OPTIONS
+};
 
 // nodes used in reward, indexed by game level
 const NODES = [
@@ -120,10 +121,10 @@ const NODES = [
 export default class BCERewardNode extends RewardNode {
 
   /**
-   * @param {number} level game level
+   * @param level - game level
    */
-  constructor( level ) {
-    assert && assert( level >= 0 && level < NODES.length );
+  public constructor( level: number ) {
+    assert && assert( level >= 0 && level < NODES.length && Number.isInteger( level ), `invalid level: ${level}` );
     super( { nodes: RewardNode.createRandomNodes( NODES[ level ], NUMBER_OF_NODES ) } );
   }
 }
