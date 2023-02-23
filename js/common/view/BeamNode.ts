@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * The beam is a horizontal lever, centered on the fulcrum.
  * It will be pivoted to represent the relationship between quantities on either side of the fulcrum.
@@ -8,29 +7,31 @@
  * @author Vasily Shakhov (mlearner.com)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import { NodeTranslationOptions, Rectangle, RectangleOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
+type SelfOptions = EmptySelfOptions;
+
+type BeamNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'transformBounds'>;
+
 export default class BeamNode extends Rectangle {
 
-  /**
-   * @param {number} beamLength
-   * @param {number} beamThickness
-   */
-  constructor( beamLength, beamThickness, options ) {
+  public constructor( beamLength: number, beamThickness: number, providedOptions?: BeamNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<BeamNodeOptions, SelfOptions, RectangleOptions>()( {
+
+      // RectangleOptions
       fill: 'black',
       stroke: 'black'
-    }, options );
+    }, providedOptions );
 
     super( -beamLength / 2, -beamThickness / 2, beamLength, beamThickness, options );
   }
 
-  // @public
-  setHighlighted( highlighted ) {
+  public setHighlighted( highlighted: boolean ): void {
     this.fill = highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : 'black';
     this.lineWidth = highlighted ? 1 : 0;
   }
