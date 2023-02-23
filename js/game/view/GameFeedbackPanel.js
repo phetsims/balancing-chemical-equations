@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * GameFeedbackPanel presents feedback about a user's guess. The format of the feedback is specific to whether
  * the equation is balanced and simplified, balanced but not simplified, or unbalanced.
