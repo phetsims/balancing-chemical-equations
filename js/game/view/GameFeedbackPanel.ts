@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * GameFeedbackPanel presents feedback about a user's guess. The format of the feedback is specific to whether
  * the equation is balanced and simplified, balanced but not simplified, or unbalanced.
@@ -13,11 +12,10 @@
 
 import Property from '../../../../axon/js/Property.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Node, Path, Rectangle, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
+import { HBox, Node, NodeOptions, NodeTranslationOptions, Path, Rectangle, TColor, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
 import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
@@ -28,6 +26,11 @@ import BalancedRepresentation from '../../common/model/BalancedRepresentation.js
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import GameState from '../model/GameState.js';
+import HorizontalAligner from '../../common/view/HorizontalAligner.js';
+import GameModel from '../model/GameModel.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Equation from '../../common/model/Equation.js';
 
 // constants
 const TEXT_FONT = new PhetFont( 18 );
@@ -37,16 +40,26 @@ const WHY_BUTTON_FONT = new PhetFont( 16 );
 const WHY_BUTTON_FILL = '#d9d9d9';
 const ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
 
+type SelfOptions = {
+  fill?: TColor;
+  xMargin?: number;
+  yMargin?: number;
+  cornerRadius?: number;
+  hBoxSpacing?: number;
+  vBoxSpacing?: number;
+  shadowXOffset?: number;
+  shadowYOffset?: number;
+};
+
+type GameFeedbackPanelOptions = SelfOptions & NodeTranslationOptions;
+
 export default class GameFeedbackPanel extends Node {
 
-  /**
-   * @param {GameModel} model
-   * @param {HorizontalAligner} aligner
-   * @param {Object} [options]
-   */
-  constructor( model, aligner, options ) {
+  public constructor( model: GameModel, aligner: HorizontalAligner, providedOptions?: GameFeedbackPanelOptions ) {
 
-    options = merge( {
+    const options = optionize<GameFeedbackPanelOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
       fill: '#c1d8fe',
       xMargin: 40,
       yMargin: 10,
@@ -55,7 +68,7 @@ export default class GameFeedbackPanel extends Node {
       vBoxSpacing: 7,
       shadowXOffset: 5,
       shadowYOffset: 5
-    }, options );
+    }, providedOptions );
 
     const equation = model.currentEquationProperty.value;
     const balancedRepresentation = model.balancedRepresentation;
@@ -72,7 +85,7 @@ export default class GameFeedbackPanel extends Node {
       pattern => StringUtils.format( pattern, points )
     );
 
-    let content;
+    let content: Node;
     if ( equation.balancedAndSimplified ) {
 
       // balanced and simplified
@@ -145,7 +158,7 @@ export default class GameFeedbackPanel extends Node {
 
       // not balanced
       let saveCenterX; // saves the panel's centerX when pressing Show/Hide Why.
-      let balancedRepresentationNode = null; // create on demand
+      let balancedRepresentationNode: Node | null = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
       const showWhyButton = new TextPushButton( BalancingChemicalEquationsStrings.showWhyStringProperty, {
@@ -171,7 +184,9 @@ export default class GameFeedbackPanel extends Node {
           showWhyButton.visible = true;
           hideWhyButton.visible = false;
           saveCenterX = this.centerX;
-          content.removeChild( balancedRepresentationNode );
+          if ( balancedRepresentationNode && content.hasChild( balancedRepresentationNode ) ) {
+            content.removeChild( balancedRepresentationNode );
+          }
           this.centerX = saveCenterX;
         },
         font: WHY_BUTTON_FONT,
@@ -227,9 +242,8 @@ export default class GameFeedbackPanel extends Node {
 
 /**
  * Creates the icon for a correct answer, a green check mark.
- * @returns {Node}
  */
-function createCorrectIcon() {
+function createCorrectIcon(): Node {
   return new Path( checkSolidShape, {
     scale: 0.08,
     fill: 'rgb( 0, 180, 0 )'
@@ -238,9 +252,8 @@ function createCorrectIcon() {
 
 /**
  * Creates the icon for an incorrect answer, a red 'X'.
- * @returns {Node}
  */
-function createIncorrectIcon() {
+function createIncorrectIcon(): Node {
   return new Path( timesSolidShape, {
     scale: 0.08,
     fill: 'rgb( 252, 104, 0 )'
@@ -249,12 +262,12 @@ function createIncorrectIcon() {
 
 /**
  * Creates a text button that performs a model state change when pressed.
- * @param {TReadOnlyProperty.<string>} labelStringProperty
- * @param {function} modelFunction model function that performs the state change
- * @param {number} maxWidth
- * @returns {TextPushButton}
+ * @param labelStringProperty
+ * @param modelFunction - model function that performs the state change
+ * @param maxWidth
  */
-function createStateChangeButton( labelStringProperty, modelFunction, maxWidth ) {
+function createStateChangeButton( labelStringProperty: TReadOnlyProperty<string>,
+                                  modelFunction: () => void, maxWidth: number ): TextPushButton {
   return new TextPushButton( labelStringProperty, {
     font: STATE_BUTTON_FONT,
     baseColor: STATE_BUTTON_FILL,
@@ -265,31 +278,29 @@ function createStateChangeButton( labelStringProperty, modelFunction, maxWidth )
 
 /**
  * Creates a button that is appropriate for the current state of the model.
- * @param {GameModel} model
- * @param {number} maxWidth
- * @returns {TextPushButton}
  */
-function createButtonForState( model, maxWidth ) {
+function createButtonForState( model: GameModel, maxWidth: number ): TextPushButton {
   let button = null;
-  if ( model.stateProperty.value === GameState.TRY_AGAIN ) {
+  const gameState = model.stateProperty.value;
+  if ( gameState === GameState.TRY_AGAIN ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.tryAgainStringProperty,
       model.tryAgain.bind( model ), maxWidth );
   }
-  else if ( model.stateProperty.value === GameState.SHOW_ANSWER ) {
+  else if ( gameState === GameState.SHOW_ANSWER ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.showAnswerStringProperty,
       model.showAnswer.bind( model ), maxWidth );
+  }
+  else {
+    throw new Error( `unsupported GameState: ${gameState}` );
   }
   return button;
 }
 
 /**
  * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
- * @param {Equation} equation
- * @param {BalancedRepresentation} balancedRepresentation
- * @param {HorizontalAligner} aligner
- * @returns {Node}
  */
-function createBalancedRepresentation( equation, balancedRepresentation, aligner ) {
+function createBalancedRepresentation( equation: Equation, balancedRepresentation: BalancedRepresentation,
+                                       aligner: HorizontalAligner ): Node {
   let balancedRepresentationNode;
   if ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
     balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );

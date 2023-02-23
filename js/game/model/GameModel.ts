@@ -52,8 +52,8 @@ export default class GameModel {
   public readonly timer: GameTimer;
 
   private attempts: number; // how many attempts the user has made at solving the current challenge
-  private currentPoints: number; // how many points were earned for the current challenge
-  public balancedRepresentation: BalancedRepresentation | null; // which representation to use in the "Not Balanced" popup
+  public currentPoints: number; // how many points were earned for the current challenge
+  public balancedRepresentation: BalancedRepresentation; // which representation to use in the "Not Balanced" popup
   public isNewBestTime: boolean; // is the time for this game a new best time?
   public readonly bestTimeProperties: Property<number>[]; // best times in ms, indexed by level
   public readonly bestScoreProperties: Property<number>[]; // best scores, indexed by level
@@ -74,7 +74,7 @@ export default class GameModel {
     this.timer = new GameTimer();
     this.attempts = 0;
     this.currentPoints = 0;
-    this.balancedRepresentation = null;
+    this.balancedRepresentation = BalancedRepresentation.NONE;
     this.isNewBestTime = false;
 
     this.bestTimeProperties = [];

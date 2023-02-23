@@ -253,8 +253,10 @@ export default class GamePlayNode extends Node {
       this.feedbackPanel = null;
     }
     if ( visible ) {
-      this.feedbackPanel = new GameFeedbackPanel( this.model, this.aligner,
-        { centerX: this.layoutBounds.centerX, top: this.boxesNode.top + 10 } );
+      this.feedbackPanel = new GameFeedbackPanel( this.model, this.aligner, {
+        centerX: this.layoutBounds.centerX,
+        top: this.boxesNode.top + 10
+      } );
       this.addChild( this.feedbackPanel ); // visible and in front
     }
   }
