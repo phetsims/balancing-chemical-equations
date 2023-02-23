@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A balance scale, depicts the relationship between the atom count
  * on the left and right side of an equation.

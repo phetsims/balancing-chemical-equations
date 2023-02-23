@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Visual representation of an equation as a set of balance scales, one for each atom type.
  * The left side of each scale is the reactants, the right side is the products.
