@@ -19,7 +19,7 @@ export default class BoxesNode extends Node {
 
   /**
    * @param {Property.<Equation>} equationProperty the equation displayed in the boxes
-   * @param {Range} coefficientsRange
+   * @param {dot.Range} coefficientsRange
    * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param {Dimension2} boxSize
    * @param {string} boxColor fill color of the boxes

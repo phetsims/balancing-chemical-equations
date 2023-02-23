@@ -6,6 +6,7 @@
 
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
+import Tandem from '../../tandem/js/Tandem.js';
 import BalancingChemicalEquationsStrings from './BalancingChemicalEquationsStrings.js';
 import GameScreen from './game/GameScreen.js';
 import IntroductionScreen from './introduction/IntroductionScreen.js';
@@ -13,7 +14,7 @@ import IntroductionScreen from './introduction/IntroductionScreen.js';
 simLauncher.launch( () => {
 
   const screens = [
-    new IntroductionScreen(),
+    new IntroductionScreen( Tandem.ROOT.createTandem( 'introductionScreen' ) ),
     new GameScreen()
   ];
 

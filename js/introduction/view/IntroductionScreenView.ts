@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Scene graph for the 'Introduction' screen.
  *
@@ -12,7 +11,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Text, HBox } from '../../../../scenery/js/imports.js';
+import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
@@ -25,6 +24,8 @@ import EquationChoiceNode from './EquationChoiceNode.js';
 import IntroductionViewProperties from './IntroductionViewProperties.js';
 import ToolsComboBox from './ToolsComboBox.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import IntroductionModel from '../model/IntroductionModel.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -32,13 +33,11 @@ const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
 export default class IntroductionScreenView extends ScreenView {
 
-  /**
-   * @param {IntroductionModel} model
-   */
-  constructor( model ) {
+  public constructor( model: IntroductionModel, tandem: Tandem ) {
 
     super( {
-      layoutBounds: BCEConstants.LAYOUT_BOUNDS
+      layoutBounds: BCEConstants.LAYOUT_BOUNDS,
+      tandem: tandem
     } );
 
     // view-specific Properties
@@ -108,8 +107,8 @@ export default class IntroductionScreenView extends ScreenView {
     // Show the selected 'balanced' representation, create nodes on demand.
     const balancedParent = new Node(); // to maintain rendering order for combo box
     this.addChild( balancedParent );
-    let barChartsNode;
-    let balanceScalesNode;
+    let barChartsNode: BarChartsNode;
+    let balanceScalesNode: BalanceScalesNode;
     viewProperties.balancedRepresentationProperty.link( balancedRepresentation => {
 
       // bar chart

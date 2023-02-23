@@ -10,7 +10,7 @@
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 
-const BCEConstants = Object.freeze( {
+const BCEConstants = {
   LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 ),
   UNBALANCED_COLOR: 'rgb(46,107,178)',
   BALANCED_HIGHLIGHT_COLOR: 'yellow',
@@ -19,7 +19,7 @@ const BCEConstants = Object.freeze( {
   BOX_COLOR: 'white',
   ATOM_OPTIONS: { stroke: 'black', lineWidth: 0.5 },
   MOLECULE_SCALE_FACTOR: 0.74 // scale all molecules by scaleFactor to fit design
-} );
+};
 
 balancingChemicalEquations.register( 'BCEConstants', BCEConstants );
 export default BCEConstants;

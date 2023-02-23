@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * The 'Introduction' Screen
  *
@@ -9,7 +8,7 @@
  */
 
 import Property from '../../../axon/js/Property.js';
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
 import Element from '../../../nitroglycerin/js/Element.js';
@@ -17,25 +16,27 @@ import AtomNode from '../../../nitroglycerin/js/nodes/AtomNode.js';
 import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { LinearGradient, Node, Path, Rectangle, Text } from '../../../scenery/js/imports.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../common/BCEConstants.js';
 import IntroductionModel from './model/IntroductionModel.js';
 import IntroductionScreenView from './view/IntroductionScreenView.js';
 
-export default class IntroductionScreen extends Screen {
+export default class IntroductionScreen extends Screen<IntroductionModel, IntroductionScreenView> {
 
-  constructor() {
+  public constructor( tandem: Tandem ) {
 
-    const options = {
+    const options: ScreenOptions = {
       name: BalancingChemicalEquationsStrings.screen.introductionStringProperty,
       backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
-      homeScreenIcon: createScreenIcon()
+      homeScreenIcon: createScreenIcon(),
+      tandem: tandem
     };
 
     super(
-      () => new IntroductionModel(),
-      model => new IntroductionScreenView( model ),
+      () => new IntroductionModel( tandem.createTandem( 'model' ) ),
+      model => new IntroductionScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }
@@ -43,9 +44,8 @@ export default class IntroductionScreen extends Screen {
 
 /**
  * Creates the icon for this screen: an equation above a balance beam
- * @returns {ScreenIcon}
  */
-function createScreenIcon() {
+function createScreenIcon(): ScreenIcon {
 
   // background rectangle
   const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;

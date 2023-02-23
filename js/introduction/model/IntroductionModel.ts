@@ -11,6 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import DecompositionEquation from '../../common/model/DecompositionEquation.js';
@@ -34,7 +35,7 @@ export default class IntroductionModel implements TModel {
   // the equation that is selected
   public readonly equationProperty: Property<Equation>;
 
-  public constructor() {
+  public constructor( tandem: Tandem ) {
 
     this.coefficientsRange = new Range( 0, 3 );
 
