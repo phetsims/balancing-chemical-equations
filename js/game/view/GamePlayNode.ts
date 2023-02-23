@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Node that contains all user-interface elements related to playing game challenges.
  *
@@ -8,12 +7,15 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Text } from '../../../../scenery/js/imports.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
+import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
@@ -21,8 +23,10 @@ import BCEConstants from '../../common/BCEConstants.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
+import GameModel from '../model/GameModel.js';
 import GameState from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
+import GameViewProperties from './GameViewProperties.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 340 );
@@ -32,23 +36,26 @@ const STATUS_BAR_TEXT_FILL = 'white';
 
 export default class GamePlayNode extends Node {
 
-  /**
-   * @param {GameModel} model
-   * @param {GameViewProperties} viewProperties
-   * @param {GameAudioPlayer} audioPlayer
-   * @param {Bounds2} layoutBounds layout bounds of the parent ScreenView
-   * @param {Property.<Bounds2>} visibleBoundsProperty of the parent ScreenView
-   * @param {Object} [options]
-   */
-  constructor( model, viewProperties, audioPlayer, layoutBounds, visibleBoundsProperty, options ) {
+  private readonly model: GameModel;
+  private readonly audioPlayer: GameAudioPlayer;
+  private readonly layoutBounds: Bounds2;
+  private readonly aligner: HorizontalAligner;
+  private feedbackPanel: GameFeedbackPanel | null; // created on demand
+  private readonly boxesNode: BoxesNode; // boxes that show molecules corresponding to the equation coefficients
+  private readonly equationNode: EquationNode;
+  private readonly checkButton: TextPushButton;
+  private readonly nextButton: TextPushButton;
+
+  public constructor( model: GameModel, viewProperties: GameViewProperties, audioPlayer: GameAudioPlayer,
+                      layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2> ) {
 
     super();
 
-    this.model = model; // @private
-    this.audioPlayer = audioPlayer; // @private
-    this.layoutBounds = layoutBounds; // @private
-    this.aligner = new HorizontalAligner( layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING ); // @private
-    this.feedbackPanel = null; // @private game feedback dialog, created on demand
+    this.model = model;
+    this.audioPlayer = audioPlayer;
+    this.layoutBounds = layoutBounds;
+    this.aligner = new HorizontalAligner( layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
+    this.feedbackPanel = null;
 
     // status bar
     const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
@@ -78,13 +85,11 @@ export default class GamePlayNode extends Node {
     } );
     this.addChild( statusBar );
 
-    // @private boxes that show molecules corresponding to the equation coefficients
     this.boxesNode = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner,
       BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { y: statusBar.bottom + 15 } );
     this.addChild( this.boxesNode );
 
-    // @private equation
     this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.coefficientsRange, this.aligner );
     this.addChild( this.equationNode );
     this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.boxesNode.bottom ) / 2;
@@ -96,7 +101,6 @@ export default class GamePlayNode extends Node {
       maxWidth: 0.85 * BOX_X_SPACING
     };
 
-    // @private
     this.checkButton = new TextPushButton( BalancingChemicalEquationsStrings.checkStringProperty, merge( BUTTONS_OPTIONS, {
       listener: () => {
         this.playGuessAudio();
@@ -110,7 +114,6 @@ export default class GamePlayNode extends Node {
       this.checkButton.bottom = this.boxesNode.bottom;
     } );
 
-    // @private
     this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty, merge( BUTTONS_OPTIONS, {
       listener: () => {
         this.model.next();
@@ -167,21 +170,18 @@ export default class GamePlayNode extends Node {
     } );
 
     // Disable 'Check' button when all coefficients are zero.
-    const coefficientsSumObserver = coefficientsSum => {
+    const coefficientsSumObserver = ( coefficientsSum: number ) => {
       this.checkButton.enabled = ( coefficientsSum > 0 );
     };
     model.currentEquationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) { oldEquation.coefficientsSumProperty.unlink( coefficientsSumObserver ); }
       if ( newEquation ) { newEquation.coefficientsSumProperty.link( coefficientsSumObserver ); }
     } );
-
-    this.mutate( options );
   }
 
   // No dispose needed, instances of this type persist for lifetime of the sim.
 
-  // @private
-  initCheck() {
+  private initCheck(): void {
     this.equationNode.setCoefficientsEditable( true );
     this.checkButton.visible = true;
     this.nextButton.visible = false;
@@ -189,24 +189,21 @@ export default class GamePlayNode extends Node {
     this.setBalancedHighlightEnabled( false );
   }
 
-  // @private
-  initTryAgain() {
+  private initTryAgain(): void {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
     this.setFeedbackPanelVisible( true );
     this.setBalancedHighlightEnabled( false );
   }
 
-  // @private
-  initShowAnswer() {
+  private initShowAnswer(): void {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
     this.setFeedbackPanelVisible( true );
     this.setBalancedHighlightEnabled( false );
   }
 
-  // @private
-  initNext() {
+  private initNext(): void {
 
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = false;
@@ -222,18 +219,16 @@ export default class GamePlayNode extends Node {
    * Turns on/off the highlighting feature that indicates whether the equation is balanced.
    * We need to be able to control this so that a balanced equation doesn't highlight
    * until after the user has completed a challenge.
-   * @private
    */
-  setBalancedHighlightEnabled( enabled ) {
+  private setBalancedHighlightEnabled( enabled: boolean ): void {
     this.equationNode.setBalancedHighlightEnabled( enabled );
     this.boxesNode.setBalancedHighlightEnabled( enabled );
   }
 
   /**
    * Plays a sound corresponding to whether the user's guess is correct or incorrect.
-   * @private
    */
-  playGuessAudio() {
+  private playGuessAudio(): void {
     if ( this.model.currentEquationProperty.value.balancedAndSimplified ) {
       this.audioPlayer.correctAnswer();
     }
@@ -245,10 +240,8 @@ export default class GamePlayNode extends Node {
   /**
    * Controls the visibility of the game feedback panel.
    * This tells the user whether their guess is correct or not.
-   * @param visible
-   * @private
    */
-  setFeedbackPanelVisible( visible ) {
+  private setFeedbackPanelVisible( visible: boolean ): void {
     if ( this.feedbackPanel ) {
       this.removeChild( this.feedbackPanel );
       this.feedbackPanel = null;
