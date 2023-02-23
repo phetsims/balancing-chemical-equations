@@ -85,7 +85,9 @@ export default class IntroductionScreenView extends ScreenView {
     } );
 
     // interactive equation
-    this.addChild( new EquationNode( model.equationProperty, model.coefficientsRange, aligner, { top: boxesNode.bottom + 20 } ) );
+    this.addChild( new EquationNode( model.equationProperty, model.coefficientsRange, aligner, {
+      top: boxesNode.bottom + 20
+    } ) );
 
     // control for choosing an equation
     const equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, {

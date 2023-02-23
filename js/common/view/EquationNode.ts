@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Displays a chemical equation.
  * Reactants are on the left-hand size, products are on the right-hand side.
@@ -8,41 +7,69 @@
  * @author Vasily Shakhov (mlearner.com)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import RightArrowNode from './RightArrowNode.js';
 import TermNode from './TermNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import HorizontalAligner from './HorizontalAligner.js';
+import Equation from '../model/Equation.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import EquationTerm from '../model/EquationTerm.js';
+
+type SelfOptions = {
+  fontSize?: number;
+};
+
+type EquationNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class EquationNode extends Node {
 
-  /**
-   * @param {Property.<Equation>} equationProperty
-   * @param {DOT.Range} coefficientRange range of the coefficients
-   * @param {HorizontalAligner} aligner provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param {Object} [options]
-   */
-  constructor( equationProperty, coefficientRange, aligner, options ) {
+  private readonly equationProperty: TReadOnlyProperty<Equation>;
+  private readonly coefficientRange: Range;
+  private readonly aligner: HorizontalAligner;
+  private readonly fontSize: number;
+  private readonly arrowNode: RightArrowNode;
 
-    options = merge( { fontSize: 32 }, options );
+  // the set of TermNodes in the equation
+  private readonly terms: TermNode[];
+
+  // the parent for all terms and the "+" operators
+  private readonly termsParent: Node;
+
+  /**
+   * @param equationProperty
+   * @param coefficientRange - range of the coefficients
+   * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param [providedOptions]
+   */
+  public constructor( equationProperty: TReadOnlyProperty<Equation>, coefficientRange: Range,
+                      aligner: HorizontalAligner, providedOptions?: EquationNodeOptions ) {
+
+    const options = optionize<EquationNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      fontSize: 32
+    }, providedOptions );
 
     super();
 
-    this.fontSize = options.fontSize; // @private
-    this.coefficientRange = coefficientRange; // @private
-    this.balancedHighlightEnabled = true; // @private
-    this.aligner = aligner; // @private
-    this.equationProperty = equationProperty; // @private
+    this.equationProperty = equationProperty;
+    this.coefficientRange = coefficientRange;
+    this.aligner = aligner;
+    this.fontSize = options.fontSize;
 
-    // @private arrow node, at a fixed position
-    this.arrowNode = new RightArrowNode( equationProperty, { centerX: this.aligner.getScreenCenterX() } ); // @private
+    // arrow node, at a fixed position
+    this.arrowNode = new RightArrowNode( equationProperty, {
+      centerX: this.aligner.getScreenCenterX()
+    } );
     this.addChild( this.arrowNode );
 
-    this.terms = []; // @private the set of TermNodes in the equation
-
-    this.termsParent = new Node(); // @private the parent for all terms and the "+" operators
+    this.terms = [];
+    this.termsParent = new Node();
     this.addChild( this.termsParent );
 
     // if the equation changes...
@@ -55,9 +82,8 @@ export default class EquationNode extends Node {
 
   /**
    * Rebuilds the left and right sides of the equation.
-   * @private
    */
-  updateNode() {
+  private updateNode(): void {
 
     // dispose of existing instances of TermNode
     this.terms.forEach( termNode => termNode.dispose() );
@@ -73,17 +99,16 @@ export default class EquationNode extends Node {
 
   /**
    * Rebuilds one side of the equation.
-   *
-   * @param {EquationTerm} terms array
-   * @param {number} xOffsets array for terms
-   * @param {number} minX minimal possible x for equation
-   * @param {number} maxX maximum possible x for equation
-   * @private
+   * @param terms
+   * @param xOffsets
+   * @param minX - minimal possible x for equation
+   * @param maxX - maximum possible x for equation
    */
-  updateSideOfEquation( terms, xOffsets, minX, maxX ) {
+  private updateSideOfEquation( terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number ): void {
+    assert && assert( terms.length > 0 );
 
     let plusNode;
-    let termNode;
+    let termNode: TermNode | null = null;
     const minSeparation = 15;
     const tempNodes = []; // contains all nodes for position adjustment if needed
 
@@ -116,13 +141,11 @@ export default class EquationNode extends Node {
       }
     }
 
-    let dx;
     // check if equation fits minX (eg, C2H5OH + 3O2 -> 2CO2 + 3H2O)
     if ( tempNodes[ 0 ].bounds.minX < minX ) { // adjust all terms to the right
       let rightBound = minX; // current right bound of passed terms, if term.minX<rightBound move term to the right
       tempNodes.forEach( term => {
-        dx = Math.max( 0, rightBound - term.bounds.minX );
-        term.x += dx;
+        term.x += Math.max( 0, rightBound - term.bounds.minX );
         rightBound = term.bounds.maxX + minSeparation;
       } );
     }
@@ -130,35 +153,30 @@ export default class EquationNode extends Node {
     // check if equation fits maxX (eg, CH3OH -> CO + 2H2)
     if ( tempNodes[ tempNodes.length - 1 ].bounds.maxX > maxX ) { // adjust all terms to the left
       let leftBound = maxX; // current left bound of passed terms, if term.maxX > leftBound, move term to the left
-      for ( let i = tempNodes[ tempNodes.length - 1 ]; i > -1; i-- ) {
+      for ( let i = tempNodes.length - 1; i > -1; i-- ) {
         const term = tempNodes[ i ];
-        dx = Math.max( 0, term.bounds.maxX - leftBound );
-        term.x -= dx;
+        term.x -= Math.max( 0, term.bounds.maxX - leftBound );
         leftBound = term.bounds.minX - minSeparation;
       }
     }
 
-    this.arrowNode.centerY = termNode.centerY;
+    assert && assert( termNode );
+    this.arrowNode.centerY = termNode!.centerY;
   }
 
   /**
    * Enables or disables the highlighting feature.
    * When enabled, the arrow between the left and right sides of the equation will light up when the equation is balanced.
    * This is enabled by default, but we want to disable in the Game until the user presses the "Check" button.
-   *
-   * @param enabled
-   * @public
    */
-  setBalancedHighlightEnabled( enabled ) {
+  public setBalancedHighlightEnabled( enabled: boolean ): void {
     this.arrowNode.setHighlightEnabled( enabled );
   }
 
   /**
    * Sets whether coefficients are editable, by showing/hiding the arrows on the NumberPicker associated with each term.
-   * @param {boolean} editable
-   * @public
    */
-  setCoefficientsEditable( editable ) {
+  public setCoefficientsEditable( editable: boolean ): void {
     for ( let i = 0; i < this.terms.length; i++ ) {
       this.terms[ i ].setCoefficientEditable( editable );
     }
