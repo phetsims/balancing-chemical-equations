@@ -1,6 +1,5 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * An arrow that points left to right, from reactants to products.
  * Highlights when the equation is balanced.
@@ -9,32 +8,40 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
+import Equation from '../model/Equation.js';
 
 // constants
 const ARROW_LENGTH = 70;
 
+type SelfOptions = EmptySelfOptions;
+
+type RightArrowNodeOptions = SelfOptions & NodeTranslationOptions;
+
 export default class RightArrowNode extends ArrowNode {
 
-  /**
-   * @param {Property.<Equation>} equationProperty
-   * @param {Object} [options]
-   */
-  constructor( equationProperty, options ) {
+  private readonly equationProperty: TReadOnlyProperty<Equation>;
+  private _highlightEnabled: boolean;
 
-    options = merge( {
+  public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: RightArrowNodeOptions ) {
+
+    const options = optionize<RightArrowNodeOptions, SelfOptions, ArrowNodeOptions>()( {
+
+      // ArrowNodeOptions
       tailWidth: 15,
       headWidth: 35,
       headHeight: 30
-    }, options );
+    }, providedOptions );
 
     super( 0, 0, ARROW_LENGTH, 0, options );
 
-    this.equationProperty = equationProperty; // @private
-    this._highlightEnabled = true; // @private
+    this.equationProperty = equationProperty;
+    this._highlightEnabled = true;
 
     // Wire observer to current equation.
     const balancedObserver = this.updateHighlight.bind( this );
@@ -46,20 +53,16 @@ export default class RightArrowNode extends ArrowNode {
 
   // No dispose needed, instances of this type persist for lifetime of the sim.
 
-  // @private Highlights the arrow if the equation is balanced.
-  updateHighlight() {
-    this.fill = ( this.equationProperty.value.balancedProperty.value && this._highlightEnabled )
-                ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
-  }
-
-  // @public
-  set highlightEnabled( value ) {
-    this._highlightEnabled = value;
+  public setHighlightEnabled( enabled: boolean ): void {
+    this._highlightEnabled = enabled;
     this.updateHighlight();
   }
 
-  // @public
-  get highlightEnabled() { return this._highlightEnabled; }
+  // Highlights the arrow if the equation is balanced.
+  private updateHighlight(): void {
+    this.fill = ( this.equationProperty.value.balancedProperty.value && this._highlightEnabled )
+                ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
+  }
 }
 
 balancingChemicalEquations.register( 'RightArrowNode', RightArrowNode );

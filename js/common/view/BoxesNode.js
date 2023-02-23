@@ -80,7 +80,7 @@ export default class BoxesNode extends Node {
    * @public
    */
   setBalancedHighlightEnabled( enabled ) {
-    this.arrowNode.highlightEnabled = enabled;
+    this.arrowNode.setHighlightEnabled( enabled );
   }
 }
 
