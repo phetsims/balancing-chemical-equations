@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A pair of boxes that show the number of molecules indicated by the equation's user coefficients.
  * Left box is for the reactants, right box is for the products.

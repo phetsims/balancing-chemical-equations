@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * A box that shows the number of molecules indicated by the equation's user coefficients.
  *
