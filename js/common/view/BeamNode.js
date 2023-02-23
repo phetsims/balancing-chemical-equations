@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * The beam is a horizontal lever, centered on the fulcrum.
  * It will be pivoted to represent the relationship between quantities on either side of the fulcrum.
