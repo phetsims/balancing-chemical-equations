@@ -1,5 +1,6 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Equality operator between 2 sides of equation: equals (balanced) or not equals (not balanced).
  *
