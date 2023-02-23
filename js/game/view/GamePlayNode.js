@@ -1,7 +1,8 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
+// @ts-nocheck
 /**
- * Node that contains all of the user-interface elements related to playing game challenges.
+ * Node that contains all user-interface elements related to playing game challenges.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
