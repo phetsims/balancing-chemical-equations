@@ -82,7 +82,7 @@ export default class BarNode extends VBox {
     const numberOfAtomsListener = ( numberOfAtoms: number ) => {
 
       // number of atoms
-      numberNode.text = `${numberOfAtoms}`;
+      numberNode.string = `${numberOfAtoms}`;
 
       // bar
       let barShape;

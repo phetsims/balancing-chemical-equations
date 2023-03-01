@@ -220,7 +220,7 @@ function updatePile( element: Element, numberOfAtoms: number, pileNode: Node, co
   }
 
   // count display
-  countText.text = numberOfAtoms;
+  countText.string = numberOfAtoms;
 
   // layout
   if ( pileNode.visibleBounds.isEmpty() ) {

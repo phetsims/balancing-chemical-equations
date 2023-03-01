@@ -143,7 +143,7 @@ export default class IntroductionScreenView extends ScreenView {
       const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
       this.addChild( answerNode );
       model.equationProperty.link( equation => {
-        answerNode.text = equation.getCoefficientsString();
+        answerNode.string = equation.getCoefficientsString();
         answerNode.centerX = this.layoutBounds.centerX;
       } );
     }
