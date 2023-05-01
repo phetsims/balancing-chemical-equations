@@ -13,12 +13,10 @@ import IntroductionScreen from './introduction/IntroductionScreen.js';
 
 simLauncher.launch( () => {
 
-  const screens = [
+  const sim = new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, [
     new IntroductionScreen( Tandem.ROOT.createTandem( 'introductionScreen' ) ),
     new GameScreen( Tandem.ROOT.createTandem( 'gameScreen' ) )
-  ];
-
-  const sim = new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, screens, {
+  ], {
     credits: {
       leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',

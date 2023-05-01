@@ -19,7 +19,7 @@ import BCEConstants from '../common/BCEConstants.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
 
-export default class GameScreen extends Screen {
+export default class GameScreen extends Screen<GameModel, GameScreenView> {
 
   public constructor( tandem: Tandem ) {
 
