@@ -21,6 +21,10 @@
       "phet",
       "adapted-from-phet"
     ],
-    "simulation": true
+    "simulation": true,
+    "screenNameKeys": [
+      "BALANCING_CHEMICAL_EQUATIONS/screen.introduction",
+      "BALANCING_CHEMICAL_EQUATIONS/screen.game"
+    ]
   }
 }
