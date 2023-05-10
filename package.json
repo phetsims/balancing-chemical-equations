@@ -26,7 +26,11 @@
     },
     "simulation": true,
     "supportsOutputJS": true,
-    "published": true
+    "published": true,
+    "screenNameKeys": [
+      "BALANCING_CHEMICAL_EQUATIONS/screen.introduction",
+      "BALANCING_CHEMICAL_EQUATIONS/screen.game"
+    ]
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js",
