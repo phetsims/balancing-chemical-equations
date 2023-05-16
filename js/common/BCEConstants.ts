@@ -17,7 +17,7 @@ const ATOM_NODE_OPTIONS: AtomNodeOptions = {
 };
 
 const BCEConstants = {
-  LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 ),
+  LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 ), //TODO https://github.com/phetsims/balancing-chemical-equations/issues/150
   UNBALANCED_COLOR: 'rgb(46,107,178)',
   BALANCED_HIGHLIGHT_COLOR: 'yellow',
   INTRODUCTION_CANVAS_BACKGROUND: '#d9ebff',
