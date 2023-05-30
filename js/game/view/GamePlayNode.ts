@@ -10,10 +10,9 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Text } from '../../../../scenery/js/imports.js';
-import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
+import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
@@ -27,6 +26,7 @@ import GameModel from '../model/GameModel.js';
 import GameState from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import GameViewProperties from './GameViewProperties.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 340 );
@@ -101,12 +101,13 @@ export default class GamePlayNode extends Node {
       maxWidth: 0.85 * BOX_X_SPACING
     };
 
-    this.checkButton = new TextPushButton( BalancingChemicalEquationsStrings.checkStringProperty, merge( BUTTONS_OPTIONS, {
-      listener: () => {
-        this.playGuessAudio();
-        this.model.check();
-      }
-    } ) );
+    this.checkButton = new TextPushButton( BalancingChemicalEquationsStrings.checkStringProperty,
+      combineOptions<TextPushButtonOptions>( {}, BUTTONS_OPTIONS, {
+        listener: () => {
+          this.playGuessAudio();
+          this.model.check();
+        }
+      } ) );
     this.addChild( this.checkButton );
 
     this.checkButton.boundsProperty.link( bounds => {
@@ -114,11 +115,12 @@ export default class GamePlayNode extends Node {
       this.checkButton.bottom = this.boxesNode.bottom;
     } );
 
-    this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty, merge( BUTTONS_OPTIONS, {
-      listener: () => {
-        this.model.next();
-      }
-    } ) );
+    this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty,
+      combineOptions<TextPushButtonOptions>( {}, BUTTONS_OPTIONS, {
+        listener: () => {
+          this.model.next();
+        }
+      } ) );
     this.addChild( this.nextButton );
 
     this.nextButton.boundsProperty.link( bounds => {
