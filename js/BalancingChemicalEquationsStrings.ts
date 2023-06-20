@@ -5,36 +5,36 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import balancingChemicalEquations from './balancingChemicalEquations.js';
 
 type StringsType = {
-  'noneStringProperty': LinkableProperty<string>;
-  'balancedStringProperty': LinkableProperty<string>;
+  'noneStringProperty': LocalizedStringProperty;
+  'balancedStringProperty': LocalizedStringProperty;
   'screen': {
-    'introductionStringProperty': LinkableProperty<string>;
-    'gameStringProperty': LinkableProperty<string>;
+    'introductionStringProperty': LocalizedStringProperty;
+    'gameStringProperty': LocalizedStringProperty;
   };
-  'separateWaterStringProperty': LinkableProperty<string>;
-  'hideWhyStringProperty': LinkableProperty<string>;
-  'showAnswerStringProperty': LinkableProperty<string>;
-  'tryAgainStringProperty': LinkableProperty<string>;
-  'notBalancedStringProperty': LinkableProperty<string>;
+  'separateWaterStringProperty': LocalizedStringProperty;
+  'hideWhyStringProperty': LocalizedStringProperty;
+  'showAnswerStringProperty': LocalizedStringProperty;
+  'tryAgainStringProperty': LocalizedStringProperty;
+  'notBalancedStringProperty': LocalizedStringProperty;
   'balancing-chemical-equations': {
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
-  'combustMethaneStringProperty': LinkableProperty<string>;
-  'nextStringProperty': LinkableProperty<string>;
-  'checkStringProperty': LinkableProperty<string>;
-  'makeAmmoniaStringProperty': LinkableProperty<string>;
-  'showWhyStringProperty': LinkableProperty<string>;
-  'notSimplifiedStringProperty': LinkableProperty<string>;
-  'toolsStringProperty': LinkableProperty<string>;
-  'reactantsStringProperty': LinkableProperty<string>;
-  'productsStringProperty': LinkableProperty<string>;
-  'chooseYourLevelStringProperty': LinkableProperty<string>;
-  'pattern_0levelStringProperty': LinkableProperty<string>;
-  'pattern_0pointsStringProperty': LinkableProperty<string>;
+  'combustMethaneStringProperty': LocalizedStringProperty;
+  'nextStringProperty': LocalizedStringProperty;
+  'checkStringProperty': LocalizedStringProperty;
+  'makeAmmoniaStringProperty': LocalizedStringProperty;
+  'showWhyStringProperty': LocalizedStringProperty;
+  'notSimplifiedStringProperty': LocalizedStringProperty;
+  'toolsStringProperty': LocalizedStringProperty;
+  'reactantsStringProperty': LocalizedStringProperty;
+  'productsStringProperty': LocalizedStringProperty;
+  'chooseYourLevelStringProperty': LocalizedStringProperty;
+  'pattern_0levelStringProperty': LocalizedStringProperty;
+  'pattern_0pointsStringProperty': LocalizedStringProperty;
 };
 
 const BalancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;
