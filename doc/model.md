@@ -4,7 +4,7 @@ This simulation contains equations for reactions that have 2 reactants
 and 1 or 2 products, or 1 reactant and 2 products.
 
 Each equation is described as a set terms, where a term is a coefficient and
-a molecule or atom.  Reactant terms are on the left-hand side of the equation,
+a molecule or atom. Reactant terms are on the left-hand side of the equation,
 while product terms are on the right-hand side of the equation.
 
 Associated with each term are 2 integer coefficients: the smallest coefficient that would result in
