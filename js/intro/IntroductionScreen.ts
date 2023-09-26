@@ -19,10 +19,10 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import IntroModel from './model/IntroModel.js';
-import IntroductionScreenView from './view/IntroductionScreenView.js';
+import IntroScreenView from './view/IntroScreenView.js';
 import BCEColors from '../common/BCEColors.js';
 
-export default class IntroductionScreen extends Screen<IntroModel, IntroductionScreenView> {
+export default class IntroductionScreen extends Screen<IntroModel, IntroScreenView> {
 
   public constructor( tandem: Tandem ) {
 
@@ -39,7 +39,7 @@ export default class IntroductionScreen extends Screen<IntroModel, IntroductionS
 
     super(
       () => new IntroModel( tandem.createTandem( 'model' ) ),
-      model => new IntroductionScreenView( model, tandem.createTandem( 'view' ) ),
+      model => new IntroScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }

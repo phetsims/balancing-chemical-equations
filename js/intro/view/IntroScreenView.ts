@@ -32,7 +32,7 @@ import BCEColors from '../../common/BCEColors.js';
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
-export default class IntroductionScreenView extends ScreenView {
+export default class IntroScreenView extends ScreenView {
 
   public constructor( model: IntroModel, tandem: Tandem ) {
 
@@ -151,4 +151,4 @@ export default class IntroductionScreenView extends ScreenView {
   }
 }
 
-balancingChemicalEquations.register( 'IntroductionScreenView', IntroductionScreenView );
+balancingChemicalEquations.register( 'IntroductionScreenView', IntroScreenView );
