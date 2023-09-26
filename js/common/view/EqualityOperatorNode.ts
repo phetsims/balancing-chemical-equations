@@ -11,8 +11,8 @@ import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-co
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, NodeTranslationOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import BCEConstants from '../BCEConstants.js';
 import Equation from '../model/Equation.js';
+import BCEColors from '../BCEColors.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,11 +30,11 @@ export default class EqualityOperatorNode extends Node {
     };
 
     const equalsSignNode = new Text( '\u003D', combineOptions<TextOptions>( {
-      fill: BCEConstants.BALANCED_HIGHLIGHT_COLOR
+      fill: BCEColors.BALANCED_HIGHLIGHT_COLOR
     }, textOptions ) );
 
     const notEqualsSignNode = new Text( '\u2260', combineOptions<TextOptions>( {
-      fill: BCEConstants.UNBALANCED_COLOR, center: equalsSignNode.center
+      fill: BCEColors.UNBALANCED_COLOR, center: equalsSignNode.center
     }, textOptions ) );
 
     options.children = [ equalsSignNode, notEqualsSignNode ];

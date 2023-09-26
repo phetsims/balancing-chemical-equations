@@ -26,6 +26,7 @@ import ToolsComboBox from './ToolsComboBox.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IntroductionModel from '../model/IntroductionModel.js';
+import BCEColors from '../../common/BCEColors.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -48,7 +49,7 @@ export default class IntroductionScreenView extends ScreenView {
 
     // boxes that show molecules corresponding to the equation coefficients
     const boxesNode = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner,
-      BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
+      BOX_SIZE, BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { top: 180 } );
     this.addChild( boxesNode );
 

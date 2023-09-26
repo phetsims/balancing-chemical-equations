@@ -19,9 +19,9 @@ import { LinearGradient, Node, Path, Rectangle, Text } from '../../../scenery/js
 import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
-import BCEConstants from '../common/BCEConstants.js';
 import IntroductionModel from './model/IntroductionModel.js';
 import IntroductionScreenView from './view/IntroductionScreenView.js';
+import BCEColors from '../common/BCEColors.js';
 
 export default class IntroductionScreen extends Screen<IntroductionModel, IntroductionScreenView> {
 
@@ -29,7 +29,7 @@ export default class IntroductionScreen extends Screen<IntroductionModel, Introd
 
     const options: ScreenOptions = {
       name: BalancingChemicalEquationsStrings.screen.introductionStringProperty,
-      backgroundColorProperty: new Property( BCEConstants.INTRODUCTION_CANVAS_BACKGROUND ),
+      backgroundColorProperty: new Property( BCEColors.INTRODUCTION_SCREEN_VIEW_BACKGROUND ),
       homeScreenIcon: createScreenIcon(),
       tandem: tandem
     };

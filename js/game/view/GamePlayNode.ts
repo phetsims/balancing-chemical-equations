@@ -18,7 +18,6 @@ import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import BCEConstants from '../../common/BCEConstants.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
@@ -27,6 +26,7 @@ import GameState from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import GameViewProperties from './GameViewProperties.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import BCEColors from '../../common/BCEColors.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 340 );
@@ -86,7 +86,7 @@ export default class GamePlayNode extends Node {
     this.addChild( statusBar );
 
     this.boxesNode = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner,
-      BOX_SIZE, BCEConstants.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
+      BOX_SIZE, BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { y: statusBar.bottom + 15 } );
     this.addChild( this.boxesNode );
 

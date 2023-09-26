@@ -11,7 +11,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { NodeTranslationOptions, Rectangle, RectangleOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import BCEConstants from '../BCEConstants.js';
+import BCEColors from '../BCEColors.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,7 +32,7 @@ export default class BeamNode extends Rectangle {
   }
 
   public setHighlighted( highlighted: boolean ): void {
-    this.fill = highlighted ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : 'black';
+    this.fill = highlighted ? BCEColors.BALANCED_HIGHLIGHT_COLOR : 'black';
     this.lineWidth = highlighted ? 1 : 0;
   }
 }

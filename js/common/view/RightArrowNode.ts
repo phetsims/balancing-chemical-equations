@@ -13,8 +13,8 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import BCEConstants from '../BCEConstants.js';
 import Equation from '../model/Equation.js';
+import BCEColors from '../BCEColors.js';
 
 // constants
 const ARROW_LENGTH = 70;
@@ -61,7 +61,7 @@ export default class RightArrowNode extends ArrowNode {
   // Highlights the arrow if the equation is balanced.
   private updateHighlight(): void {
     this.fill = ( this.equationProperty.value.balancedProperty.value && this._highlightEnabled )
-                ? BCEConstants.BALANCED_HIGHLIGHT_COLOR : BCEConstants.UNBALANCED_COLOR;
+                ? BCEColors.BALANCED_HIGHLIGHT_COLOR : BCEColors.UNBALANCED_COLOR;
   }
 }
 
