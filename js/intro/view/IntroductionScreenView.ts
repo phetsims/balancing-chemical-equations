@@ -21,7 +21,7 @@ import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import EquationChoiceNode from './EquationChoiceNode.js';
-import IntroductionViewProperties from './IntroductionViewProperties.js';
+import IntroViewProperties from './IntroViewProperties.js';
 import ToolsComboBox from './ToolsComboBox.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -42,7 +42,7 @@ export default class IntroductionScreenView extends ScreenView {
     } );
 
     // view-specific Properties
-    const viewProperties = new IntroductionViewProperties();
+    const viewProperties = new IntroViewProperties();
 
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );

@@ -12,7 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 
-export default class IntroductionViewProperties {
+export default class IntroViewProperties {
 
   // Whether the 'Reactants' accordion box is expanded
   public readonly reactantsBoxExpandedProperty: Property<boolean>;
@@ -36,4 +36,4 @@ export default class IntroductionViewProperties {
   }
 }
 
-balancingChemicalEquations.register( 'IntroductionViewProperties', IntroductionViewProperties );
+balancingChemicalEquations.register( 'IntroductionViewProperties', IntroViewProperties );
