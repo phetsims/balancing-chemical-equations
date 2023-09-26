@@ -1,8 +1,8 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Model container for the 'Introduction' screen.
- * This model has a small set of equations, one of which is the current equation that we're operating on.*
+ * Top-level model for the 'Intro' screen.
+ * This model has a small set of equations, one of which is the current equation that we're operating on.
  *
  * @author Vasily Shakhov (MLearner)
  */

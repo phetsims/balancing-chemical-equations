@@ -1,7 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Introduction' screen.
+ * Scene graph for the 'Intro' screen.
  *
  * @author Vasily Shakhov (MLearner)
  */
