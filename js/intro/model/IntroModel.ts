@@ -54,4 +54,4 @@ export default class IntroModel implements TModel {
   }
 }
 
-balancingChemicalEquations.register( 'IntroductionModel', IntroModel );
+balancingChemicalEquations.register( 'IntroModel', IntroModel );
