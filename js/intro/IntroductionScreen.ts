@@ -32,7 +32,7 @@ export default class IntroductionScreen extends Screen<IntroductionModel, Introd
       // for consistency with other PhET sims. We also decided to change only the English string value, and not
       // the string key, due to the hassles involved in changing string keys.
       name: BalancingChemicalEquationsStrings.screen.introductionStringProperty,
-      backgroundColorProperty: BCEColors.introductionScreenBackgroundColorProperty,
+      backgroundColorProperty: BCEColors.introScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
       tandem: tandem
     };

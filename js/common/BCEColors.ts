@@ -11,7 +11,7 @@ import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 
 const BCEColors = {
 
-  introductionScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'introductionScreenBackgroundColor', {
+  introScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'introScreenBackgroundColor', {
     default: '#d9ebff'
   } ),
   gameScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'gameScreenBackgroundColor', {
