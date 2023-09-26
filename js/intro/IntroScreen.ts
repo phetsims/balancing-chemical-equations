@@ -112,4 +112,4 @@ function createScreenIcon(): ScreenIcon {
   } );
 }
 
-balancingChemicalEquations.register( 'IntroductionScreen', IntroScreen );
+balancingChemicalEquations.register( 'IntroScreen', IntroScreen );
