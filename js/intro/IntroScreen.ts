@@ -22,7 +22,7 @@ import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
 import BCEColors from '../common/BCEColors.js';
 
-export default class IntroductionScreen extends Screen<IntroModel, IntroScreenView> {
+export default class IntroScreen extends Screen<IntroModel, IntroScreenView> {
 
   public constructor( tandem: Tandem ) {
 
@@ -112,4 +112,4 @@ function createScreenIcon(): ScreenIcon {
   } );
 }
 
-balancingChemicalEquations.register( 'IntroductionScreen', IntroductionScreen );
+balancingChemicalEquations.register( 'IntroductionScreen', IntroScreen );

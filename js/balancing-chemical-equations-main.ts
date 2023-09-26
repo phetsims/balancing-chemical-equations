@@ -9,12 +9,12 @@ import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import BalancingChemicalEquationsStrings from './BalancingChemicalEquationsStrings.js';
 import GameScreen from './game/GameScreen.js';
-import IntroductionScreen from './intro/IntroductionScreen.js';
+import IntroScreen from './intro/IntroScreen.js';
 
 simLauncher.launch( () => {
 
   const sim = new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, [
-    new IntroductionScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
+    new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
     new GameScreen( Tandem.ROOT.createTandem( 'gameScreen' ) )
   ], {
     credits: {
