@@ -151,4 +151,4 @@ export default class IntroScreenView extends ScreenView {
   }
 }
 
-balancingChemicalEquations.register( 'IntroductionScreenView', IntroScreenView );
+balancingChemicalEquations.register( 'IntroScreenView', IntroScreenView );
