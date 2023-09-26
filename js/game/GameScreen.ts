@@ -6,7 +6,6 @@
  * @author Vasily Shakhov (mlearner.com)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
@@ -25,7 +24,7 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
 
     const options: ScreenOptions = {
       name: BalancingChemicalEquationsStrings.screen.gameStringProperty,
-      backgroundColorProperty: new Property( BCEColors.GAME_SCREEN_VIEW_BACKGROUND ),
+      backgroundColorProperty: BCEColors.gameScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
       tandem: tandem
     };

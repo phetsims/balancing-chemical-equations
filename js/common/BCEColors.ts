@@ -7,16 +7,28 @@
  */
 
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
+import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 
 const BCEColors = {
 
-  INTRODUCTION_SCREEN_VIEW_BACKGROUND: '#d9ebff',
-  GAME_SCREEN_VIEW_BACKGROUND: '#ffffe4',
+  introductionScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'introductionScreenBackgroundColor', {
+    default: '#d9ebff'
+  } ),
+  gameScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'gameScreenBackgroundColor', {
+    default: '#ffffe4'
+  } ),
 
-  ATOM_STROKE: 'black',
+  boxColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'boxColor', {
+    default: 'white'
+  } ),
+
+  atomStrokeProperty: new ProfileColorProperty( balancingChemicalEquations, 'atomStroke', {
+    default: 'black'
+  } ),
+
+  // Using ProfileColorProperty for these colors is problematic.
   UNBALANCED_COLOR: 'rgb( 46, 107, 178 )',
-  BALANCED_HIGHLIGHT_COLOR: 'yellow',
-  BOX_COLOR: 'white'
+  BALANCED_HIGHLIGHT_COLOR: 'yellow'
 };
 
 balancingChemicalEquations.register( 'BCEColors', BCEColors );

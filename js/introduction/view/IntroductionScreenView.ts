@@ -49,7 +49,7 @@ export default class IntroductionScreenView extends ScreenView {
 
     // boxes that show molecules corresponding to the equation coefficients
     const boxesNode = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner,
-      BOX_SIZE, BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
+      BOX_SIZE, BCEColors.boxColorProperty, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { top: 180 } );
     this.addChild( boxesNode );
 

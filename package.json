@@ -22,7 +22,10 @@
     ],
     "simFeatures": {
       "supportsSound": true,
-      "supportsDynamicLocale": true
+      "supportsDynamicLocale": true,
+      "colorProfiles": [
+        "default"
+      ]
     },
     "simulation": true,
     "supportsOutputJS": true,

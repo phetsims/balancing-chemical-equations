@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../kite/js/imports.js';
@@ -29,7 +28,7 @@ export default class IntroductionScreen extends Screen<IntroductionModel, Introd
 
     const options: ScreenOptions = {
       name: BalancingChemicalEquationsStrings.screen.introductionStringProperty,
-      backgroundColorProperty: new Property( BCEColors.INTRODUCTION_SCREEN_VIEW_BACKGROUND ),
+      backgroundColorProperty: BCEColors.introductionScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
       tandem: tandem
     };
