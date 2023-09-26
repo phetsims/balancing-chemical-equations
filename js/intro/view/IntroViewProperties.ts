@@ -36,4 +36,4 @@ export default class IntroViewProperties {
   }
 }
 
-balancingChemicalEquations.register( 'IntroductionViewProperties', IntroViewProperties );
+balancingChemicalEquations.register( 'IntroViewProperties', IntroViewProperties );
