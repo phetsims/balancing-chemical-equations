@@ -14,7 +14,7 @@ import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGrou
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
-import { EquationChoice } from '../model/IntroductionModel.js';
+import { EquationChoice } from '../model/IntroModel.js';
 
 // constants
 const BAR_HEIGHT = 50; //height of control node

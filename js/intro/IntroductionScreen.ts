@@ -18,11 +18,11 @@ import { LinearGradient, Node, Path, Rectangle, Text } from '../../../scenery/js
 import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
-import IntroductionModel from './model/IntroductionModel.js';
+import IntroModel from './model/IntroModel.js';
 import IntroductionScreenView from './view/IntroductionScreenView.js';
 import BCEColors from '../common/BCEColors.js';
 
-export default class IntroductionScreen extends Screen<IntroductionModel, IntroductionScreenView> {
+export default class IntroductionScreen extends Screen<IntroModel, IntroductionScreenView> {
 
   public constructor( tandem: Tandem ) {
 
@@ -38,7 +38,7 @@ export default class IntroductionScreen extends Screen<IntroductionModel, Introd
     };
 
     super(
-      () => new IntroductionModel( tandem.createTandem( 'model' ) ),
+      () => new IntroModel( tandem.createTandem( 'model' ) ),
       model => new IntroductionScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );

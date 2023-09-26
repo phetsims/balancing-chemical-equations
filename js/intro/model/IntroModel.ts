@@ -24,7 +24,7 @@ export type EquationChoice = {
   labelStringProperty: TReadOnlyProperty<string>;
 };
 
-export default class IntroductionModel implements TModel {
+export default class IntroModel implements TModel {
 
   // Range of possible equation coefficients
   public readonly coefficientsRange: Range;
@@ -54,4 +54,4 @@ export default class IntroductionModel implements TModel {
   }
 }
 
-balancingChemicalEquations.register( 'IntroductionModel', IntroductionModel );
+balancingChemicalEquations.register( 'IntroductionModel', IntroModel );

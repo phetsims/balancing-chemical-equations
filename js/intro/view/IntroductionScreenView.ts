@@ -25,7 +25,7 @@ import IntroductionViewProperties from './IntroductionViewProperties.js';
 import ToolsComboBox from './ToolsComboBox.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IntroductionModel from '../model/IntroductionModel.js';
+import IntroModel from '../model/IntroModel.js';
 import BCEColors from '../../common/BCEColors.js';
 
 // constants
@@ -34,7 +34,7 @@ const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
 export default class IntroductionScreenView extends ScreenView {
 
-  public constructor( model: IntroductionModel, tandem: Tandem ) {
+  public constructor( model: IntroModel, tandem: Tandem ) {
 
     super( {
       layoutBounds: BCEConstants.LAYOUT_BOUNDS,
