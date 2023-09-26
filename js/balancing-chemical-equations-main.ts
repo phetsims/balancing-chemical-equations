@@ -14,7 +14,7 @@ import IntroductionScreen from './intro/IntroductionScreen.js';
 simLauncher.launch( () => {
 
   const sim = new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, [
-    new IntroductionScreen( Tandem.ROOT.createTandem( 'introductionScreen' ) ),
+    new IntroductionScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
     new GameScreen( Tandem.ROOT.createTandem( 'gameScreen' ) )
   ], {
     credits: {
