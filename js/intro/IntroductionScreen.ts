@@ -27,6 +27,10 @@ export default class IntroductionScreen extends Screen<IntroductionModel, Introd
   public constructor( tandem: Tandem ) {
 
     const options: ScreenOptions = {
+
+      // In https://github.com/phetsims/balancing-chemical-equations/issues/151, we decided to rename this screen to 'Intro'
+      // for consistency with other PhET sims. We also decided to change only the English string value, and not
+      // the string key, due to the hassles involved in changing string keys.
       name: BalancingChemicalEquationsStrings.screen.introductionStringProperty,
       backgroundColorProperty: BCEColors.introductionScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
