@@ -59,14 +59,14 @@ export default class LevelSelectionNode extends Node {
     const buttonGroup = new LevelSelectionButtonGroup( buttonItems, {
       levelSelectionButtonOptions: {
         baseColor: '#d9ebff',
-        buttonWidth: 155,
-        buttonHeight: 155,
         bestTimeVisibleProperty: viewProperties.timerEnabledProperty
       },
       flowBoxOptions: {
         spacing: 50,
         center: layoutBounds.center
       },
+      groupButtonHeight: 155,
+      groupButtonWidth: 155,
       tandem: tandem.createTandem( 'buttonGroup' )
     } );
 
