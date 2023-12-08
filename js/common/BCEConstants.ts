@@ -18,7 +18,11 @@ const ATOM_NODE_OPTIONS: AtomNodeOptions = {
 };
 
 const BCEConstants = {
-  LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 ), //TODO https://github.com/phetsims/balancing-chemical-equations/issues/150
+
+  // A PhET wide decision was made to not update custom layout bounds even if they do not match the
+  // default layout bounds in ScreenView. Do not change these bounds as changes could break or disturb
+  // any phet-io instrumention. https://github.com/phetsims/phet-io/issues/1939
+  LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 ),
   ATOM_NODE_OPTIONS: ATOM_NODE_OPTIONS,
   MOLECULE_SCALE_FACTOR: 0.74 // scale all molecules by scaleFactor to fit design
 };
