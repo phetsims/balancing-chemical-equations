@@ -45,7 +45,6 @@ export default class LevelSelectionNode extends Node {
         icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
         scoreProperty: model.bestScoreProperties[ level ],
         options: {
-          bestTimeProperty: model.bestTimeProperties[ level ],
           createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: model.getNumberOfEquations( level ),
             perfectScore: model.getPerfectScore( level )
@@ -58,8 +57,7 @@ export default class LevelSelectionNode extends Node {
 
     const buttonGroup = new LevelSelectionButtonGroup( buttonItems, {
       levelSelectionButtonOptions: {
-        baseColor: '#d9ebff',
-        bestTimeVisibleProperty: viewProperties.timerEnabledProperty
+        baseColor: '#d9ebff'
       },
       flowBoxOptions: {
         spacing: 50,
