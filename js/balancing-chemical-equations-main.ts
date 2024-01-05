@@ -2,6 +2,8 @@
 
 /**
  * Main entry point for the 'Balancing Chemical Equations' sim.
+ *
+ * @author Vasily Shakhov (MLearner)
  */
 
 import Sim from '../../joist/js/Sim.js';
