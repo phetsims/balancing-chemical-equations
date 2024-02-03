@@ -1,7 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Visual representation of an equation as a set of balance scales, one for each atom type.
+ * Visual snackType of an equation as a set of balance scales, one for each atom type.
  * The left side of each scale is the reactants, the right side is the products.
  *
  * This implementation is very brute force, just about everything is recreated each time

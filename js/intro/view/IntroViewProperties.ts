@@ -20,7 +20,7 @@ export default class IntroViewProperties {
   // Whether the 'Products' accordion box is expanded
   public readonly productsBoxExpandedProperty: Property<boolean>;
 
-  // Which representation for 'balanced' is chosen from the combo box
+  // Which snackType for 'balanced' is chosen from the combo box
   public readonly balancedRepresentationProperty: EnumerationProperty<BalancedRepresentation>;
 
   public constructor() {

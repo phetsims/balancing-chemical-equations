@@ -107,7 +107,7 @@ export default class IntroScreenView extends ScreenView {
       scale: 0.8
     } ) );
 
-    // Show the selected 'balanced' representation, create nodes on demand.
+    // Show the selected 'balanced' snackType, create nodes on demand.
     const balancedParent = new Node(); // to maintain rendering order for combo box
     this.addChild( balancedParent );
     let barChartsNode: BarChartsNode;
