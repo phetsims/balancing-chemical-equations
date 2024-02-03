@@ -51,7 +51,6 @@ export default class IntroScreenView extends ScreenView {
     const boxesNode = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner,
       BOX_SIZE, BCEColors.boxColorProperty, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
       { top: 180 } );
-    this.addChild( boxesNode );
 
     // 'Tools' combo box, at upper-right
     const comboBoxParent = new Node();
@@ -67,7 +66,6 @@ export default class IntroScreenView extends ScreenView {
         toolsComboBox
       ]
     } );
-    this.addChild( toolsControl );
 
     toolsControl.boundsProperty.link( bounds => {
       toolsControl.right = this.layoutBounds.right - 45;
@@ -76,7 +74,6 @@ export default class IntroScreenView extends ScreenView {
 
     // smiley face, top center, shown when equation is balanced
     const faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
-    this.addChild( faceNode );
     const updateFace = () => {
       faceNode.visible = model.equationProperty.value.balancedProperty.value;
     };
@@ -86,18 +83,17 @@ export default class IntroScreenView extends ScreenView {
     } );
 
     // interactive equation
-    this.addChild( new EquationNode( model.equationProperty, model.coefficientsRange, aligner, {
+    const equationNode = new EquationNode( model.equationProperty, model.coefficientsRange, aligner, {
       top: boxesNode.bottom + 20
-    } ) );
+    } );
 
     // control for choosing an equation
     const equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, {
       bottom: this.layoutBounds.bottom - 10
     } );
-    this.addChild( equationChoiceNode );
 
     // Reset All button
-    this.addChild( new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
         viewProperties.reset();
@@ -105,11 +101,10 @@ export default class IntroScreenView extends ScreenView {
       right: this.layoutBounds.right - 20,
       centerY: equationChoiceNode.centerY,
       scale: 0.8
-    } ) );
+    } );
 
     // Show the selected 'balanced' representation, create nodes on demand.
     const balancedParent = new Node(); // to maintain rendering order for combo box
-    this.addChild( balancedParent );
     let barChartsNode: BarChartsNode;
     let balanceScalesNode: BalanceScalesNode;
     viewProperties.balancedRepresentationProperty.link( balancedRepresentation => {
@@ -136,13 +131,24 @@ export default class IntroScreenView extends ScreenView {
       }
     } );
 
-    // add this last, so that combo box list is on top of everything else
-    this.addChild( comboBoxParent );
+    const screenViewRootNode = new Node( {
+      children: [
+        boxesNode,
+        toolsControl,
+        faceNode,
+        equationNode,
+        equationChoiceNode,
+        resetAllButton,
+        balancedParent,
+        comboBoxParent // add this last, so that combo box list is on top of everything else
+      ]
+    } );
+    this.addChild( screenViewRootNode );
 
     // show the answer when running in dev mode, bottom center
     if ( phet.chipper.queryParameters.showAnswers ) {
       const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
-      this.addChild( answerNode );
+      screenViewRootNode.addChild( answerNode );
       model.equationProperty.link( equation => {
         answerNode.string = equation.getCoefficientsString();
         answerNode.centerX = this.layoutBounds.centerX;

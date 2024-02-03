@@ -27,7 +27,7 @@ export default class GameScreenView extends ScreenView {
   public readonly viewProperties: GameViewProperties;
   public readonly audioPlayer: GameAudioPlayer;
 
-  private readonly rootNode: Node; // parent for all game-related nodes
+  private readonly screenViewRootNode: Node; // parent for all game-related nodes
 
   private readonly levelSelectionNode: Node;
   private gamePlayNode: Node | null; // game-play interface, created on demand
@@ -45,13 +45,13 @@ export default class GameScreenView extends ScreenView {
     this.viewProperties = new GameViewProperties();
     this.audioPlayer = new GameAudioPlayer();
 
-    this.rootNode = new Node();
-    this.addChild( this.rootNode );
+    this.screenViewRootNode = new Node();
+    this.addChild( this.screenViewRootNode );
 
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
       this.initStartGame.bind( this ), tandem.createTandem( 'levelSelectionNode' ) );
     this.levelSelectionNode.visible = ( model.stateProperty.value === GameState.LEVEL_SELECTION );
-    this.rootNode.addChild( this.levelSelectionNode );
+    this.screenViewRootNode.addChild( this.levelSelectionNode );
 
     this.gamePlayNode = null;
     this.rewardNode = null;
@@ -89,7 +89,7 @@ export default class GameScreenView extends ScreenView {
     if ( !this.gamePlayNode ) {
       this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
         this.layoutBounds, this.visibleBoundsProperty );
-      this.rootNode.addChild( this.gamePlayNode );
+      this.screenViewRootNode.addChild( this.gamePlayNode );
     }
     this.viewProperties.reactantsBoxExpandedProperty.reset();
     this.viewProperties.productsBoxExpandedProperty.reset();
@@ -110,7 +110,7 @@ export default class GameScreenView extends ScreenView {
     // game reward, shown for perfect score (or with 'reward' query parameter)
     if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
       this.rewardNode = new BCERewardNode( level );
-      this.rootNode.addChild( this.rewardNode );
+      this.screenViewRootNode.addChild( this.rewardNode );
     }
 
     // bestTime on level, must be null to not show in popup
@@ -126,12 +126,12 @@ export default class GameScreenView extends ScreenView {
       () => {
         // remove the reward, if we have one
         if ( this.rewardNode ) {
-          this.rootNode.removeChild( this.rewardNode );
+          this.screenViewRootNode.removeChild( this.rewardNode );
           this.rewardNode.dispose();
           this.rewardNode = null;
         }
         // remove the level-completed notification
-        this.rootNode.removeChild( levelCompletedNode );
+        this.screenViewRootNode.removeChild( levelCompletedNode );
         // go back to the level-selection screen
         this.model.stateProperty.value = GameState.LEVEL_SELECTION;
       },
@@ -144,7 +144,7 @@ export default class GameScreenView extends ScreenView {
         maxWidth: 0.85 * this.layoutBounds.width // constrain width for i18n
       }
     );
-    this.rootNode.addChild( levelCompletedNode );
+    this.screenViewRootNode.addChild( levelCompletedNode );
 
     // Play the appropriate audio feedback.
     if ( this.model.isPerfectScore() ) {
