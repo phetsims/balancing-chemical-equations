@@ -8,8 +8,12 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
+import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
 
 const BCEQueryParameters = QueryStringMachine.getAll( {
+
+  // The levels to show in the Game screen.
+  gameLevels: getGameLevelsSchema( 3 ),
 
   // Play all challenges for each level of the game, to get 100% test coverage.
   // For internal use only.

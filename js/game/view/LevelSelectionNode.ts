@@ -24,6 +24,7 @@ import BCEConstants from '../../common/BCEConstants.js';
 import Molecule from '../../common/model/Molecule.js';
 import GameModel from '../model/GameModel.js';
 import GameViewProperties from './GameViewProperties.js';
+import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 
 // Molecules that appear on level-selection buttons, ordered by level number
 const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
@@ -65,6 +66,7 @@ export default class LevelSelectionNode extends Node {
       },
       groupButtonHeight: 155,
       groupButtonWidth: 155,
+      gameLevels: BCEQueryParameters.gameLevels,
       tandem: tandem.createTandem( 'buttonGroup' )
     } );
 
