@@ -1,7 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * 'Tools' combo box, for selecting the visual snackType for "balanced".
+ * 'Tools' combo box, for selecting the visual representation for "balanced".
  *
  * @author Vasily Shakhov (MLearner)
  * @author Chris Malley (PixelZoom, Inc.)

@@ -21,7 +21,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Equation from '../../common/model/Equation.js';
 
 /*
- * Strategies for selecting the "balanced snackType" that is displayed by the "Not Balanced" popup.
+ * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
  * This is a map from level to strategy.
  */
 const BALANCED_REPRESENTATION_STRATEGIES = [
@@ -53,7 +53,7 @@ export default class GameModel {
 
   private attempts: number; // how many attempts the user has made at solving the current challenge
   public currentPoints: number; // how many points were earned for the current challenge
-  public balancedRepresentation: BalancedRepresentation; // which snackType to use in the "Not Balanced" popup
+  public balancedRepresentation: BalancedRepresentation; // which representation to use in the "Not Balanced" popup
   public isNewBestTime: boolean; // is the time for this game a new best time?
   public readonly bestTimeProperties: Property<number>[]; // best times in ms, indexed by level
   public readonly bestScoreProperties: Property<number>[]; // best scores, indexed by level

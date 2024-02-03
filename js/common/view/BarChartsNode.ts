@@ -1,7 +1,7 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Visual snackType of an equation as a pair of bar charts, for left and right side of equation.
+ * Visual representation of an equation as a pair of bar charts, for left and right side of equation.
  * An indicator between the charts (equals or not equals) indicates whether they are balanced.
  *
  * This implementation is very brute force, just about everything is recreated each time

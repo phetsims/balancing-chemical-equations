@@ -178,7 +178,7 @@ export default class GameFeedbackPanel extends Node {
         maxWidth: maxWidth
       } );
 
-      // 'Hide Why' button, hides the 'balanced' snackType
+      // 'Hide Why' button, hides the 'balanced' representation
       const hideWhyButton = new TextPushButton( BalancingChemicalEquationsStrings.hideWhyStringProperty, {
         listener: () => {
           showWhyButton.visible = true;
@@ -297,7 +297,7 @@ function createButtonForState( model: GameModel, maxWidth: number ): TextPushBut
 }
 
 /**
- * Creates the snackType of 'balanced' that becomes visible when the 'Show Why' button is pressed.
+ * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
  */
 function createBalancedRepresentation( equation: Equation, balancedRepresentation: BalancedRepresentation,
                                        aligner: HorizontalAligner ): Node {
