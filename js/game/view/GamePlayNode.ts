@@ -78,7 +78,10 @@ export default class GamePlayNode extends Node {
       startOverButtonOptions: {
         baseColor: 'rgb( 229, 243, 255 )',
         textFill: 'black',
-        listener: this.model.newGame.bind( this.model ),
+        listener: () => {
+          this.interruptSubtreeInput();
+          this.model.newGame();
+        },
         xMargin: 10,
         yMargin: 5
       }
