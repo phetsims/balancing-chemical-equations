@@ -89,6 +89,7 @@ export default class LevelSelectionNode extends Node {
     // Reset All button, lower right
     const resetButton = new ResetAllButton( {
       listener: () => {
+        this.interruptSubtreeInput();
         model.reset();
         viewProperties.reset();
       },
