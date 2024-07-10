@@ -19,7 +19,7 @@ const BCEColors = {
     default: '#ffffe4'
   } ),
 
-  // Using ProfileColorProperty for these colors is problematic, because it requires disposing things that link to them.
+  // Caution! Converting these colors to ProfileColorProperty requires disposing things that link to them.
   ATOM_STROKE: 'black',
   UNBALANCED_COLOR: 'rgb( 46, 107, 178 )',
   BALANCED_HIGHLIGHT_COLOR: 'yellow',
