@@ -14,21 +14,16 @@ const BCEColors = {
   introScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'introScreenBackgroundColor', {
     default: '#d9ebff'
   } ),
+
   gameScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'gameScreenBackgroundColor', {
     default: '#ffffe4'
   } ),
 
-  boxColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'boxColor', {
-    default: 'white'
-  } ),
-
-  atomStrokeProperty: new ProfileColorProperty( balancingChemicalEquations, 'atomStroke', {
-    default: 'black'
-  } ),
-
-  // Using ProfileColorProperty for these colors is problematic.
+  // Using ProfileColorProperty for these colors is problematic, because it requires disposing things that link to them.
+  ATOM_STROKE: 'black',
   UNBALANCED_COLOR: 'rgb( 46, 107, 178 )',
-  BALANCED_HIGHLIGHT_COLOR: 'yellow'
+  BALANCED_HIGHLIGHT_COLOR: 'yellow',
+  BOX_COLOR: 'white'
 };
 
 balancingChemicalEquations.register( 'BCEColors', BCEColors );

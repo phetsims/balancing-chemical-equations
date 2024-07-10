@@ -13,7 +13,7 @@ import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BCEColors from './BCEColors.js';
 
 const ATOM_NODE_OPTIONS: AtomNodeOptions = {
-  stroke: BCEColors.atomStrokeProperty,
+  stroke: BCEColors.ATOM_STROKE,
   lineWidth: 0.5
 };
 
