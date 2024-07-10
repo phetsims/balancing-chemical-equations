@@ -7,9 +7,9 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, NodeTranslationOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -29,13 +29,17 @@ export default class EquationChoiceNode extends Node {
   public constructor( screenWidth: number, equationProperty: Property<Equation>, choices: EquationChoice[],
                       providedOptions?: EquationChoiceNodeOptions ) {
 
-    super();
+    const options = optionize<EquationChoiceNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
 
     // background, extra wide so that it will appear to fill the entire screen for all but extreme window sizes
-    this.addChild( new Rectangle( 0, 0, 4 * screenWidth, BAR_HEIGHT, {
+    const backgroundRectangle = new Rectangle( 0, 0, 4 * screenWidth, BAR_HEIGHT, {
       fill: '#3376c4',
       centerX: screenWidth / 2
-    } ) );
+    } );
 
     // radio button descriptions, one button for each equation
     const radioButtonItems: AquaRadioButtonGroupItem<Equation>[] = choices.map( choice => {
@@ -54,9 +58,10 @@ export default class EquationChoiceNode extends Node {
       centerY: BAR_HEIGHT / 2,
       maxWidth: 0.8 * screenWidth
     } );
-    this.addChild( radioButtonGroup );
 
-    this.mutate( providedOptions );
+    options.children = [ backgroundRectangle, radioButtonGroup ];
+
+    super( options );
   }
 }
 

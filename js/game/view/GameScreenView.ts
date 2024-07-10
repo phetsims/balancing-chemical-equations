@@ -37,6 +37,7 @@ export default class GameScreenView extends ScreenView {
   public constructor( model: GameModel, tandem: Tandem ) {
 
     super( {
+      isDisposable: false,
       layoutBounds: BCEConstants.LAYOUT_BOUNDS,
       tandem: tandem
     } );

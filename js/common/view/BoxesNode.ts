@@ -49,7 +49,11 @@ export default class BoxesNode extends Node {
                       productsBoxExpandedProperty: Property<boolean>,
                       providedOptions?: BoxesNodeOptions ) {
 
-    const options = optionize<BoxesNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
+    const options = optionize<BoxesNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
 
     // reactants box, on the left
     const reactantsBoxNode = new BoxNode( equationProperty,

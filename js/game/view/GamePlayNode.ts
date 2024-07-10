@@ -49,7 +49,9 @@ export default class GamePlayNode extends Node {
   public constructor( model: GameModel, viewProperties: GameViewProperties, audioPlayer: GameAudioPlayer,
                       layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2> ) {
 
-    super();
+    super( {
+      isDisposable: false
+    } );
 
     this.model = model;
     this.audioPlayer = audioPlayer;

@@ -31,6 +31,7 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
     ];
 
     super( balanceRepresentationProperty, items, listboxParent, {
+      isDisposable: false,
       xMargin: 10,
       yMargin: 5,
       cornerRadius: 4,

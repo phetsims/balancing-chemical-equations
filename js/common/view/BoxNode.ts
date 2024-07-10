@@ -62,6 +62,7 @@ export default class BoxNode extends AccordionBox {
       boxHeight: 100,
 
       // AccordionBoxOptions
+      isDisposable: false,
       titleAlignX: 'center',
       resize: false,
       fill: 'white',

@@ -98,6 +98,7 @@ export default class LevelSelectionNode extends Node {
     } );
 
     super( {
+      isDisposable: false,
       children: [ buttonGroup, titleText, timerToggleButton, resetButton ],
       tandem: tandem
     } );
