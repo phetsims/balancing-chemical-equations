@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2014-2024, University of Colorado Boulder
 
 /**
  * A pair of boxes that show the number of molecules indicated by the equation's user coefficients.
