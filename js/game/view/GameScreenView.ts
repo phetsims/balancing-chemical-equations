@@ -139,12 +139,13 @@ export default class GameScreenView extends ScreenView {
       {
         // LevelCompletedNode options
         starDiameter: Math.min( 60, 300 / numberOfEquations ),
-        centerX: this.layoutBounds.centerX,
-        centerY: this.layoutBounds.centerY,
         levelVisible: false,
         maxWidth: 0.85 * this.layoutBounds.width // constrain width for i18n
       }
     );
+    levelCompletedNode.localBoundsProperty.link( () => {
+      levelCompletedNode.center = this.layoutBounds.center;
+    } );
     this.screenViewRootNode.addChild( levelCompletedNode );
 
     // Play the appropriate audio feedback.
