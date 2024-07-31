@@ -73,9 +73,11 @@ export default class LevelSelectionNode extends Node {
     // title
     const titleText = new Text( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 36 ),
-      centerX: layoutBounds.centerX,
-      centerY: buttonGroup.top / 2,
-      maxWidth: 0.85 * layoutBounds.width // constrain width for i18n
+      maxWidth: 0.8 * layoutBounds.width // constrain width for i18n
+    } );
+    titleText.localBoundsProperty.link( () => {
+      titleText.centerX = layoutBounds.centerX;
+      titleText.centerY = buttonGroup.top / 2;
     } );
 
     // timer control, lower left
