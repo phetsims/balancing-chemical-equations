@@ -254,11 +254,13 @@ export default class GamePlayNode extends Node {
       this.feedbackPanel = null;
     }
     if ( visible ) {
-      this.feedbackPanel = new GameFeedbackPanel( this.model, this.aligner, {
-        centerX: this.layoutBounds.centerX,
-        top: this.boxesNode.top + 10
+      const feedbackPanel = new GameFeedbackPanel( this.model, this.aligner );
+      feedbackPanel.localBoundsProperty.link( () => {
+        feedbackPanel.centerX = this.layoutBounds.centerX;
+        feedbackPanel.top = this.boxesNode.top + 10;
       } );
-      this.addChild( this.feedbackPanel ); // visible and in front
+      this.addChild( feedbackPanel ); // visible and in front
+      this.feedbackPanel = feedbackPanel;
     }
   }
 }

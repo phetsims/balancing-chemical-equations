@@ -15,7 +15,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Node, NodeOptions, NodeTranslationOptions, Path, Rectangle, TColor, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
+import { HBox, Node, NodeOptions, Path, Rectangle, TColor, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
 import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
@@ -51,7 +51,7 @@ type SelfOptions = {
   shadowYOffset?: number;
 };
 
-type GameFeedbackPanelOptions = SelfOptions & NodeTranslationOptions;
+type GameFeedbackPanelOptions = SelfOptions;
 
 export default class GameFeedbackPanel extends Node {
 
@@ -73,7 +73,7 @@ export default class GameFeedbackPanel extends Node {
     const equation = model.currentEquationProperty.value;
     const balancedRepresentation = model.balancedRepresentation;
     const points = model.currentPoints;
-    const maxWidth = 0.75 * aligner.getScreenWidth(); // max width of UI elements
+    const maxWidth = 0.5 * aligner.getScreenWidth(); // max width of UI elements
     const textOptions = { font: TEXT_FONT, maxWidth: maxWidth };
 
     // happy/sad face
