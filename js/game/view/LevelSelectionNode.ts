@@ -14,7 +14,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { AlignBox, AlignGroup, Node, Text, VBox } from '../../../../scenery/js/imports.js';
+import { Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
@@ -37,13 +37,10 @@ export default class LevelSelectionNode extends Node {
   public constructor( model: GameModel, viewProperties: GameViewProperties, layoutBounds: Bounds2,
                       startGame: ( level: number ) => void, tandem: Tandem ) {
 
-    // To give all molecules the same effective size
-    const moleculeAlignGroup = new AlignGroup();
-
     const buttonItems: LevelSelectionButtonGroupItem[] = [];
     for ( let level = model.levelsRange.min; level <= model.levelsRange.max; level++ ) {
       buttonItems.push( {
-        icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
+        icon: createLevelSelectionButtonIcon( level ),
         scoreProperty: model.bestScoreProperties[ level ],
         options: {
           createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
@@ -111,10 +108,8 @@ export default class LevelSelectionNode extends Node {
 
 /**
  * Creates the icon for a level-selection button.
- * @param level
- * @param moleculeAlignGroup - to give all molecules the same effective size
  */
-function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: AlignGroup ): Node {
+function createLevelSelectionButtonIcon( level: number ): Node {
 
   const labelStringProperty = new DerivedProperty(
     [ BalancingChemicalEquationsStrings.pattern_0levelStringProperty ],
@@ -129,14 +124,11 @@ function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: Alig
   const moleculeNode = levelMolecules[ level ].createNode( combineOptions<AtomNodeOptions>( {
     scale: 2
   }, BCEConstants.ATOM_NODE_OPTIONS ) );
-  const alignBox = new AlignBox( moleculeNode, {
-    group: moleculeAlignGroup
-  } );
 
   // 'Level N' centered above molecule
   return new VBox( {
     spacing: 10,
-    children: [ labelText, alignBox ]
+    children: [ labelText, moleculeNode ]
   } );
 }
 
