@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.3.0-dev.4 Wed Jul 31 2024 10:38:43 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# balancing-chemical-equations 1.3.0-dev.5 Thu Aug 01 2024 08:19:52 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "4eaabfefb0b88b213e98b9c7f32d6c570c3fc122",
     "branch": "main"
@@ -9,7 +9,7 @@
     "branch": "main"
   },
   "balancing-chemical-equations": {
-    "sha": "36f98acd85094098e281178d86a8006da54faca8",
+    "sha": "86b6ed5afa676e22cf102c283bfe57e7d0266ebf",
     "branch": "main"
   },
   "brand": {
@@ -41,7 +41,7 @@
     "branch": "main"
   },
   "phet-core": {
-    "sha": "923891320890a15e0f45b3fd328862684a2b5582",
+    "sha": "06c08405c5bbc6fb7d66acf2739c520f786a7e18",
     "branch": "main"
   },
   "phet-io": {
@@ -49,7 +49,7 @@
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "2af9627ca3d0bdd101c800e8a099c44dd0d109f6",
+    "sha": "0d1f9d572452292bc04ce022b77361083a4d71b6",
     "branch": "main"
   },
   "phet-io-wrappers": {
@@ -69,15 +69,15 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "65b3ce0a1c203774e80ebfb50a01c13c1308a05f",
+    "sha": "50539bf7dae19276996a3ddfb87ff9d48c22d202",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "4f946b5631d290b564361d5bd78bc7a547e56262",
+    "sha": "b62e20cc271fca768eab3aaed41073e50cbd485c",
     "branch": "main"
   },
   "sherpa": {
-    "sha": "4217cf6bc893ecfacf509e54bc3a3c0e48934d01",
+    "sha": "e8465b41d5376e0ac613c56323defd2929ccf369",
     "branch": "main"
   },
   "studio": {
