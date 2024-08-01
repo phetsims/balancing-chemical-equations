@@ -251,6 +251,7 @@ export default class GamePlayNode extends Node {
   private setFeedbackPanelVisible( visible: boolean ): void {
     if ( this.feedbackPanel ) {
       this.removeChild( this.feedbackPanel );
+      this.feedbackPanel.dispose();
       this.feedbackPanel = null;
     }
     if ( visible ) {
