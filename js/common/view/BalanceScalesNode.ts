@@ -24,8 +24,13 @@ import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
-  fulcrumSpacing?: number; // horizontal spacing between the tips of the fulcrums
-  dualFulcrumSpacing?: number; // horizontal spacing when we have 2 scales, see issue #91
+
+  // horizontal spacing between the tips of the fulcrums
+  fulcrumSpacing?: number;
+
+  // horizontal spacing when we have 2 scales,
+  // see https://github.com/phetsims/balancing-chemical-equations/issues/91
+  dualFulcrumSpacing?: number;
 };
 
 type BalanceScalesNodeOptions = SelfOptions & NodeTranslationOptions;

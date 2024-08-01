@@ -104,7 +104,8 @@ export default class BoxNode extends AccordionBox {
     // constant-sized rectangle
     const contentNode = new Rectangle( 0, 0, contentWidth, options.boxHeight, {
 
-      // With ?dev query parameter, put a red stroke around the content, for debugging layout of #125
+      // With ?dev query parameter, put a red stroke around the content, for debugging layout.
+      // See https://github.com/phetsims/balancing-chemical-equations/issues/125
       stroke: phet.chipper.queryParameters.dev ? 'red' : null
     } );
 

@@ -76,7 +76,7 @@ export default class BalanceScaleNode extends Node {
 
     this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
       bottom: 0,
-      transformBounds: true /* see issue #77 */
+      transformBounds: true // see https://github.com/phetsims/balancing-chemical-equations/issues/77
     } );
 
     // left pile & count
@@ -90,7 +90,7 @@ export default class BalanceScaleNode extends Node {
     // parent for both piles, to simplify rotation
     this.pilesParent = new Node( {
       children: [ this.leftPileNode, this.leftCountText, this.rightPileNode, this.rightCountText ],
-      transformBounds: true /* see issue #77 */
+      transformBounds: true // see https://github.com/phetsims/balancing-chemical-equations/issues/77
     } );
 
     options.children = [ fulcrumNode, this.beamNode, this.pilesParent ];

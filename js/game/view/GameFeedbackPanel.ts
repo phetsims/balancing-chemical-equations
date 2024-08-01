@@ -355,7 +355,10 @@ function createBalancedRepresentation( equation: Equation, balancedRepresentatio
   else {
     throw new Error( `unsupported balancedRepresentation: ${balancedRepresentation.name}` );
   }
-  balancedRepresentationNode.setScaleMagnitude( 0.65 ); // issue #29, shrink size so that it doesn't cover so much of the screen
+
+  // Shrink size so that it doesn't cover so much of the screen.
+  // See https://github.com/phetsims/balancing-chemical-equations/issues/29.
+  balancedRepresentationNode.setScaleMagnitude( 0.65 );
   return balancedRepresentationNode;
 }
 
