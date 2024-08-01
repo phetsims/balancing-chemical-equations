@@ -66,7 +66,8 @@ export default class GamePlayNode extends Node {
         textFill: STATUS_BAR_TEXT_FILL
       } ),
 
-      // FiniteStatusBar uses 1-based level numbering, model is 0-based, see #127.
+      // FiniteStatusBar uses 1-based level numbering, model is 0-based.
+      // See https://github.com/phetsims/balancing-chemical-equations/issues/127.
       levelProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),
       challengeIndexProperty: model.currentEquationIndexProperty,
       numberOfChallengesProperty: model.numberOfEquationsProperty,
