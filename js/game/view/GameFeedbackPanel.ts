@@ -11,7 +11,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -32,6 +31,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Equation from '../../common/model/Equation.js';
 import Disposable from '../../../../axon/js/Disposable.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const TEXT_FONT = new PhetFont( 18 );
@@ -86,7 +86,7 @@ export default class GameFeedbackPanel extends Node {
     const faceNode = new FaceNode( 75 );
     if ( !equation.balancedProperty.value ) { faceNode.frown(); }
 
-    const pointsAwardedStringProperty = new DerivedProperty(
+    const pointsAwardedStringProperty = new DerivedStringProperty(
       [ BalancingChemicalEquationsStrings.pattern_0pointsStringProperty ],
       pattern => StringUtils.format( pattern, points )
     );

@@ -6,7 +6,6 @@
  * @author Vasily Shakhov (mlearner.com)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { AtomNodeOptions } from '../../../../nitroglycerin/js/nodes/AtomNode.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
@@ -25,6 +24,7 @@ import Molecule from '../../common/model/Molecule.js';
 import GameModel from '../model/GameModel.js';
 import GameViewProperties from './GameViewProperties.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // Molecules that appear on level-selection buttons, ordered by level number
 const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
@@ -116,7 +116,7 @@ export default class LevelSelectionNode extends Node {
  */
 function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: AlignGroup ): Node {
 
-  const labelStringProperty = new DerivedProperty(
+  const labelStringProperty = new DerivedStringProperty(
     [ BalancingChemicalEquationsStrings.pattern_0levelStringProperty ],
     pattern => StringUtils.format( pattern, level + 1 )
   );
