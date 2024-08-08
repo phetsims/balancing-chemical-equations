@@ -52,7 +52,10 @@ export default class EquationNode extends Node {
     const options = optionize<EquationNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      fontSize: 32
+      fontSize: 32,
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     super();
@@ -77,8 +80,6 @@ export default class EquationNode extends Node {
 
     this.mutate( options );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 
   /**
    * Rebuilds the left and right sides of the equation.

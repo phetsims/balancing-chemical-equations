@@ -51,7 +51,11 @@ export default class BarChartsNode extends Node {
   public constructor( equationProperty: TReadOnlyProperty<Equation>, aligner: HorizontalAligner,
                       providedOptions?: BarChartsNodeOptions ) {
 
-    const options = optionize<BarChartsNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
+    const options = optionize<BarChartsNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
 
     super();
 
@@ -83,8 +87,6 @@ export default class BarChartsNode extends Node {
     // Update this Node when it becomes visible.
     this.visibleProperty.link( visible => visible && this.updateNode() );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 
   /**
    * Updates this node's entire geometry and layout

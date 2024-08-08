@@ -94,8 +94,6 @@ export default class BoxesNode extends Node {
     this.arrowNode = arrowNode;
   }
 
-  // No dispose needed, instances of this type persist for lifetime of the sim.
-
   /**
    * Enables or disables the highlighting feature.
    * When enabled, the arrow between the boxes will light up when the equation is balanced.

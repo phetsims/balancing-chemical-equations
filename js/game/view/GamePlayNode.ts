@@ -50,6 +50,8 @@ export default class GamePlayNode extends Node {
                       layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2> ) {
 
     super( {
+
+      // NodeOptions
       isDisposable: false
     } );
 
@@ -186,8 +188,6 @@ export default class GamePlayNode extends Node {
       if ( newEquation ) { newEquation.coefficientsSumProperty.link( coefficientsSumObserver ); }
     } );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 
   private initCheck(): void {
     this.equationNode.setCoefficientsEditable( true );

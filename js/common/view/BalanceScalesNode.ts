@@ -62,6 +62,7 @@ export default class BalanceScalesNode extends Node {
       dualFulcrumSpacing: 237,
 
       // NodeOptions
+      isDisposable: false,
       bottom: 0
     }, providedOptions );
 
@@ -92,8 +93,6 @@ export default class BalanceScalesNode extends Node {
     // Update this Node when it becomes visible.
     this.visibleProperty.link( visible => visible && this.updateNode() );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 
   /**
    * Updates this node's entire geometry and layout.

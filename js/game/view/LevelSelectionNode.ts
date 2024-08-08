@@ -105,8 +105,6 @@ export default class LevelSelectionNode extends Node {
       tandem: tandem
     } );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 }
 
 /**

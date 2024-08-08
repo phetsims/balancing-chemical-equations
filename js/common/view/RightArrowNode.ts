@@ -33,6 +33,7 @@ export default class RightArrowNode extends ArrowNode {
     const options = optionize<RightArrowNodeOptions, SelfOptions, ArrowNodeOptions>()( {
 
       // ArrowNodeOptions
+      isDisposable: false,
       tailWidth: 15,
       headWidth: 35,
       headHeight: 30
@@ -50,8 +51,6 @@ export default class RightArrowNode extends ArrowNode {
       newEquation.balancedProperty.link( balancedObserver );
     } );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 
   public setHighlightEnabled( enabled: boolean ): void {
     this._highlightEnabled = enabled;

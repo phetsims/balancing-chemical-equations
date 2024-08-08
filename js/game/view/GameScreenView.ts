@@ -68,8 +68,6 @@ export default class GameScreenView extends ScreenView {
     } );
   }
 
-  // No dispose needed, instances of this type persist for lifetime of the sim.
-
   public override step( dt: number ): void {
     if ( this.rewardNode ) {
       this.rewardNode.step( dt );

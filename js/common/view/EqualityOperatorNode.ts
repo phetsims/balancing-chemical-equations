@@ -22,7 +22,11 @@ export default class EqualityOperatorNode extends Node {
 
   public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: EqualityOperatorNodeOptions ) {
 
-    const options = optionize<EqualityOperatorNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
+    const options = optionize<EqualityOperatorNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
 
     const textOptions = {
       font: new PhetFont( 80 ),
@@ -53,8 +57,6 @@ export default class EqualityOperatorNode extends Node {
       newEquation.balancedProperty.link( balancedObserver );
     } );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 }
 
 balancingChemicalEquations.register( 'EqualityOperatorNode', EqualityOperatorNode );
