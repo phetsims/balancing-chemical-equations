@@ -5,6 +5,7 @@
  * This model has a small set of equations, one of which is the current equation that we're operating on.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';

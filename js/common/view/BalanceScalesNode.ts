@@ -10,6 +10,7 @@
  * implementation.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Element from '../../../../nitroglycerin/js/Element.js';

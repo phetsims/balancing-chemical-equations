@@ -4,6 +4,7 @@
  * Scene graph for the 'Intro' screen.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';

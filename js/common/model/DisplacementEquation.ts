@@ -7,6 +7,7 @@
  * This class adds no new functionality to Equation, it simply provides convenient factory methods.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';

@@ -5,6 +5,7 @@
  * It will be pivoted to represent the relationship between quantities on either side of the fulcrum.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';

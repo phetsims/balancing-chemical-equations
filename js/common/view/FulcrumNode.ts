@@ -4,6 +4,7 @@
  * Fulcrum on which the scale balances. This is a triangle that is labeled with the atom symbol.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Element from '../../../../nitroglycerin/js/Element.js';

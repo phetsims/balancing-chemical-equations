@@ -5,6 +5,7 @@
  * Reactants are on the left-hand size, products are on the right-hand side.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Range from '../../../../dot/js/Range.js';

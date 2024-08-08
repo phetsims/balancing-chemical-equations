@@ -1,9 +1,10 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Balancing game' screen.
+ * Scene graph for the 'Game' screen.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';

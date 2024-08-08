@@ -4,6 +4,7 @@
  * The 'Game' Screen
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';

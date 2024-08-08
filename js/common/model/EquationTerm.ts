@@ -6,6 +6,7 @@
  * The "user coefficient" is the coefficient set by the user.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';

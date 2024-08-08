@@ -4,6 +4,7 @@
  * Horizontal bar for selecting an equation.
  *
  * @author Vasily Shakhov (MLearner)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';

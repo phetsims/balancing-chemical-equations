@@ -8,6 +8,7 @@
  * Origin is at the tip of the fulcrum.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';

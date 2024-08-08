@@ -4,6 +4,7 @@
  * Controls for selecting a level and adjusting various game settings, such as whether the timer is enabled
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';

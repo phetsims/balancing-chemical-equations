@@ -1,10 +1,10 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * A collection of constants that configure global properties.
- * If you change something here, it will change *everywhere* in this project.
+ * Constants used throughout this simulation.
  *
  * @author Vasily Shakhov (mlearner.com)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Bounds2 from '../../../dot/js/Bounds2.js';

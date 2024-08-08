@@ -4,6 +4,7 @@
  * Choices for visual representations of "balanced".
  *
  * @author Vasily Shakhov (Mlearner)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
