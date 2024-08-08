@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * A box that shows the number of molecules indicated by the equation's user coefficients.
+ * BoxNode is a box that shows the number of molecules indicated by the equation's user coefficients.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -64,18 +64,16 @@ export default class BoxNode extends AccordionBox {
       // AccordionBoxOptions
       isDisposable: false,
       titleAlignX: 'center',
-      resize: false,
       fill: 'white',
       stroke: 'black',
       lineWidth: 1,
       cornerRadius: 0,
-      buttonAlign: 'right',
       buttonXMargin: 5,
       buttonYMargin: 5,
       showTitleWhenExpanded: false,
       titleBarExpandCollapse: false,
       titleXMargin: 0,
-      titleXSpacing: 0,
+      titleXSpacing: 8,
       contentXMargin: 0,
       contentYMargin: 0,
       contentXSpacing: 0,
@@ -97,8 +95,7 @@ export default class BoxNode extends AccordionBox {
 
     // Content will be placed to the left of expand/collapse button, so contentWidth is only part of boxWidth.
     // See https://github.com/phetsims/balancing-chemical-equations/issues/125
-    assert && assert( !options.showTitleWhenExpanded && options.titleAlignX === 'center',
-      'computation of contentWidth is dependent on specific option values' );
+    assert && assert( !options.showTitleWhenExpanded, 'computation of contentWidth is dependent on specific option values' );
     const contentWidth = options.boxWidth - EXPAND_COLLAPSE_BUTTON_SIDE_LENGTH - options.buttonXMargin;
 
     // constant-sized rectangle
@@ -137,8 +134,6 @@ export default class BoxNode extends AccordionBox {
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
   }
-
-  // No dispose needed, instances of this type persist for lifetime of the sim.
 
   /**
    * Creates molecules in the boxes for one set of terms (reactants or products).
