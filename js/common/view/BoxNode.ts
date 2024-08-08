@@ -71,7 +71,6 @@ export default class BoxNode extends AccordionBox {
       buttonXMargin: 5,
       buttonYMargin: 5,
       showTitleWhenExpanded: false,
-      titleBarExpandCollapse: false,
       titleXMargin: 0,
       titleXSpacing: 8,
       contentXMargin: 0,
