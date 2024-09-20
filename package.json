@@ -55,7 +55,7 @@
         },
         "parserOptions": {
           "project": [
-            "../balancing-chemical-equations/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
