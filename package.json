@@ -52,6 +52,11 @@
               "ts-nocheck": true
             }
           ]
+        },
+        "parserOptions": {
+          "project": [
+            "../balancing-chemical-equations/tsconfig.json"
+          ]
         }
       }
     ]
