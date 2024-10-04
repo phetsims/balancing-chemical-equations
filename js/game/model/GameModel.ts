@@ -14,7 +14,7 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
+import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import GameFactory from './GameFactory.js';
 import GameState from './GameState.js';
@@ -25,16 +25,16 @@ import Equation from '../../common/model/Equation.js';
  * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
  * This is a map from level to strategy.
  */
-const BALANCED_REPRESENTATION_STRATEGIES = [
+const BALANCED_REPRESENTATION_STRATEGIES: ( () => BalancedRepresentation )[] = [
 
   // level 1
-  () => BalancedRepresentation.BALANCE_SCALES,
+  () => 'balanceScales',
 
   // level 2
-  () => dotRandom.nextDouble() < 0.5 ? BalancedRepresentation.BALANCE_SCALES : BalancedRepresentation.BAR_CHARTS,
+  () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
 
   // level 3
-  () => BalancedRepresentation.BAR_CHARTS
+  () => 'barCharts'
 ];
 const POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
 const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
@@ -75,7 +75,7 @@ export default class GameModel {
     this.timer = new GameTimer();
     this.attempts = 0;
     this.currentPoints = 0;
-    this.balancedRepresentation = BalancedRepresentation.NONE;
+    this.balancedRepresentation = 'none';
     this.isNewBestTime = false;
 
     this.bestTimeProperties = [];

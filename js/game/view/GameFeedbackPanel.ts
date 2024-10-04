@@ -21,7 +21,7 @@ import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Panel from '../../../../sun/js/Panel.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
+import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import GameState from '../model/GameState.js';
@@ -99,11 +99,11 @@ export default class GameFeedbackPanel extends Node {
       disposables.push( balancedText );
 
       const pointsAwardedText = new Text( pointsAwardedStringProperty, {
-          font: new PhetFont( {
-            size: 24,
-            weight: 'bold'
-          } ), maxWidth: maxWidth
-        } );
+        font: new PhetFont( {
+          size: 24,
+          weight: 'bold'
+        } ), maxWidth: maxWidth
+      } );
       disposables.push( pointsAwardedText );
 
       const nextButton = createStateChangeButton( BalancingChemicalEquationsStrings.nextStringProperty, model.next.bind( model ), maxWidth );
@@ -346,14 +346,14 @@ function createButtonForState( model: GameModel, maxWidth: number ): TextPushBut
 function createBalancedRepresentation( equation: Equation, balancedRepresentation: BalancedRepresentation,
                                        aligner: HorizontalAligner ): Node {
   let balancedRepresentationNode;
-  if ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
+  if ( balancedRepresentation === 'balanceScales' ) {
     balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );
   }
-  else if ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
+  else if ( balancedRepresentation === 'barCharts' ) {
     balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
   }
   else {
-    throw new Error( `unsupported balancedRepresentation: ${balancedRepresentation.name}` );
+    throw new Error( `unsupported balancedRepresentation: ${balancedRepresentation}` );
   }
 
   // Shrink size so that it doesn't cover so much of the screen.

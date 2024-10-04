@@ -15,7 +15,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
-import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
@@ -115,18 +114,18 @@ export default class IntroScreenView extends ScreenView {
     viewProperties.balancedRepresentationProperty.link( balancedRepresentation => {
 
       // bar chart
-      if ( !barChartsNode && balancedRepresentation === BalancedRepresentation.BAR_CHARTS ) {
+      if ( !barChartsNode && balancedRepresentation === 'barCharts' ) {
         barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
           bottom: boxesNode.top - 10
         } );
         balancedParent.addChild( barChartsNode );
       }
       if ( barChartsNode ) {
-        barChartsNode.visible = ( balancedRepresentation === BalancedRepresentation.BAR_CHARTS );
+        barChartsNode.visible = ( balancedRepresentation === 'barCharts' );
       }
 
       // balance scales
-      if ( !balanceScalesNode && balancedRepresentation === BalancedRepresentation.BALANCE_SCALES ) {
+      if ( !balanceScalesNode && balancedRepresentation === 'balanceScales' ) {
         balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
           bottom: boxesNode.top - 10,
 
@@ -137,7 +136,7 @@ export default class IntroScreenView extends ScreenView {
         balancedParent.addChild( balanceScalesNode );
       }
       if ( balanceScalesNode ) {
-        balanceScalesNode.visible = ( balancedRepresentation === BalancedRepresentation.BALANCE_SCALES );
+        balanceScalesNode.visible = ( balancedRepresentation === 'balanceScales' );
       }
     } );
 

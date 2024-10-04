@@ -7,39 +7,39 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Image, Node, Text } from '../../../../scenery/js/imports.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
+import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import charts_png from '../../../images/charts_png.js';
 import scales_png from '../../../mipmaps/scales_png.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
+import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 // constants
 const FONT = new PhetFont( 22 );
 
 export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
 
-  public constructor( balanceRepresentationProperty: EnumerationProperty<BalancedRepresentation>,
+  public constructor( balanceRepresentationProperty: StringUnionProperty<BalancedRepresentation>,
                       listboxParent: Node,
                       tandem: Tandem ) {
 
-    const items = [
+    const items: ComboBoxItem<BalancedRepresentation>[] = [
       {
-        value: BalancedRepresentation.NONE,
+        value: 'none',
         tandemName: 'noneItem',
         createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } )
       },
       {
-        value: BalancedRepresentation.BALANCE_SCALES,
+        value: 'balanceScales',
         tandemName: 'balanceScalesItem',
         createNode: () => new Image( scales_png, { scale: 0.1875 } )
       },
       {
-        value: BalancedRepresentation.BAR_CHARTS,
+        value: 'barCharts',
         tandemName: 'barChartItem',
         createNode: () => new Image( charts_png, { scale: 0.375 } )
       }
