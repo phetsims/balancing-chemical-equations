@@ -56,14 +56,16 @@ export default class IntroScreenView extends ScreenView {
 
     // 'Tools' combo box, at upper-right
     const comboBoxParent = new Node();
-    const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent );
+    const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
+      tandem.createTandem( 'toolsComboBox' ) );
     const toolsControl = new HBox( {
       spacing: 10,
       children: [
         new Text( BalancingChemicalEquationsStrings.toolsStringProperty, {
           font: new PhetFont( 22 ),
           fontWeight: 'bold',
-          maxWidth: 100
+          maxWidth: 100,
+          visibleProperty: toolsComboBox.visibleProperty
         } ),
         toolsComboBox
       ]

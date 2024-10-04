@@ -16,18 +16,33 @@ import scales_png from '../../../mipmaps/scales_png.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const FONT = new PhetFont( 22 );
 
 export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
 
-  public constructor( balanceRepresentationProperty: EnumerationProperty<BalancedRepresentation>, listboxParent: Node ) {
+  public constructor( balanceRepresentationProperty: EnumerationProperty<BalancedRepresentation>,
+                      listboxParent: Node,
+                      tandem: Tandem ) {
 
     const items = [
-      { value: BalancedRepresentation.NONE, createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } ) },
-      { value: BalancedRepresentation.BALANCE_SCALES, createNode: () => new Image( scales_png, { scale: 0.1875 } ) },
-      { value: BalancedRepresentation.BAR_CHARTS, createNode: () => new Image( charts_png, { scale: 0.375 } ) }
+      {
+        value: BalancedRepresentation.NONE,
+        tandemName: 'noneItem',
+        createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } )
+      },
+      {
+        value: BalancedRepresentation.BALANCE_SCALES,
+        tandemName: 'balanceScalesItem',
+        createNode: () => new Image( scales_png, { scale: 0.1875 } )
+      },
+      {
+        value: BalancedRepresentation.BAR_CHARTS,
+        tandemName: 'barChartItem',
+        createNode: () => new Image( charts_png, { scale: 0.375 } )
+      }
     ];
 
     super( balanceRepresentationProperty, items, listboxParent, {
@@ -35,7 +50,8 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
       xMargin: 10,
       yMargin: 5,
       cornerRadius: 4,
-      maxWidth: 600
+      maxWidth: 600,
+      tandem: tandem
     } );
   }
 }
