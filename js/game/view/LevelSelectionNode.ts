@@ -125,7 +125,7 @@ function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: Alig
 
   const labelStringProperty = new DerivedStringProperty(
     [ BalancingChemicalEquationsStrings.pattern_0levelStringProperty ],
-    pattern => StringUtils.format( pattern, level + 1 )
+    pattern => StringUtils.format( pattern, level )
   );
 
   const labelText = new Text( labelStringProperty, {
