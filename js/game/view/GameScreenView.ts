@@ -44,7 +44,7 @@ export default class GameScreenView extends ScreenView {
     } );
 
     this.model = model;
-    this.viewProperties = new GameViewProperties();
+    this.viewProperties = new GameViewProperties( tandem.createTandem( 'viewProperties' ) );
     this.audioPlayer = new GameAudioPlayer();
 
     this.screenViewRootNode = new Node();

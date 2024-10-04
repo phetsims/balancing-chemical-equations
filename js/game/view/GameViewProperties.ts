@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class GameViewProperties {
 
@@ -21,10 +22,19 @@ export default class GameViewProperties {
   // Whether the game timer is enabled
   public readonly timerEnabledProperty: Property<boolean>;
 
-  public constructor() {
-    this.reactantsBoxExpandedProperty = new BooleanProperty( true );
-    this.productsBoxExpandedProperty = new BooleanProperty( true );
-    this.timerEnabledProperty = new BooleanProperty( false );
+  public constructor( tandem: Tandem ) {
+
+    this.reactantsBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'reactantsBoxExpandedProperty' )
+    } );
+
+    this.productsBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'productsBoxExpandedProperty' )
+    } );
+
+    this.timerEnabledProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'timerEnabledProperty' )
+    } );
   }
 
   public reset(): void {
