@@ -222,8 +222,7 @@ export default class GameModel {
    * A perfect score is obtained when the user balances every equation correctly on the first attempt.
    */
   public getPerfectScore( level: number ): number {
-    const index = level - 1;
-    return this.getNumberOfEquations( index ) * POINTS_FIRST_ATTEMPT;
+    return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
   }
 
   /**
