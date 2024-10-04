@@ -71,38 +71,46 @@ export default class LevelSelectionNode extends Node {
       tandem: tandem.createTandem( 'buttonGroup' )
     } );
 
-    // title
-    const titleText = new Text( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, {
-      font: new PhetFont( 36 ),
-      maxWidth: 0.8 * layoutBounds.width // constrain width for i18n
-    } );
-    titleText.localBoundsProperty.link( () => {
-      titleText.centerX = layoutBounds.centerX;
-      titleText.centerY = buttonGroup.top / 2;
+    buttonGroup.localBoundsProperty.link( () => {
+      buttonGroup.center = layoutBounds.center;
     } );
 
-    // timer control, lower left
+    // 'Choose Your Level' title
+    const chooseYourLevelText = new Text( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, {
+      font: new PhetFont( 36 ),
+      maxWidth: 0.8 * layoutBounds.width, // constrain width for i18n
+      tandem: tandem.createTandem( 'chooseYourLevelText' ),
+      phetioVisiblePropertyInstrumented: true
+    } );
+    chooseYourLevelText.localBoundsProperty.link( () => {
+      chooseYourLevelText.centerX = layoutBounds.centerX;
+      chooseYourLevelText.centerY = buttonGroup.top / 2;
+    } );
+
+    // Timer control, lower left
     const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, {
       stroke: 'black',
       cornerRadius: 10,
       x: BUTTON_MARGIN,
-      bottom: layoutBounds.bottom - BUTTON_MARGIN
+      bottom: layoutBounds.bottom - BUTTON_MARGIN,
+      tandem: tandem.createTandem( 'timerToggleButton' )
     } );
 
     // Reset All button, lower right
-    const resetButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: () => {
         this.interruptSubtreeInput();
         model.reset();
         viewProperties.reset();
       },
       right: layoutBounds.right - BUTTON_MARGIN,
-      bottom: layoutBounds.bottom - BUTTON_MARGIN
+      bottom: layoutBounds.bottom - BUTTON_MARGIN,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     super( {
       isDisposable: false,
-      children: [ buttonGroup, titleText, timerToggleButton, resetButton ],
+      children: [ buttonGroup, chooseYourLevelText, timerToggleButton, resetAllButton ],
       tandem: tandem
     } );
   }
