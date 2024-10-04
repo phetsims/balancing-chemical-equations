@@ -91,10 +91,11 @@ export default class IntroScreenView extends ScreenView {
     } );
 
     // control for choosing an equation
-    const equationChoiceNode = new EquationChoiceNode( this.layoutBounds.width, model.equationProperty, model.choices, {
-      bottom: this.layoutBounds.bottom - 10,
-      tandem: tandem.createTandem( 'equationChoiceNode' )
-    } );
+    const equationChoiceNode = new EquationChoiceNode( this.visibleBoundsProperty, this.layoutBounds.width,
+      model.equationProperty, model.choices, {
+        bottom: this.layoutBounds.bottom - 10,
+        tandem: tandem.createTandem( 'equationChoiceNode' )
+      } );
 
     // Reset All button
     const resetAllButton = new ResetAllButton( {
