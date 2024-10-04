@@ -16,6 +16,7 @@ import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRad
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import { EquationChoice } from '../model/IntroModel.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
 const BAR_HEIGHT = 50; //height of control node
@@ -23,7 +24,7 @@ const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationChoiceNodeOptions = SelfOptions & NodeTranslationOptions;
+type EquationChoiceNodeOptions = SelfOptions & NodeTranslationOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class EquationChoiceNode extends Node {
 
@@ -57,7 +58,8 @@ export default class EquationChoiceNode extends Node {
       spacing: 30,
       left: 50,
       centerY: BAR_HEIGHT / 2,
-      maxWidth: 0.8 * screenWidth
+      maxWidth: 0.8 * screenWidth,
+      tandem: options.tandem.createTandem( 'radioButtonGroup' )
     } );
 
     options.children = [ backgroundRectangle, radioButtonGroup ];
