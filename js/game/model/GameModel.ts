@@ -73,7 +73,8 @@ export default class GameModel {
     this.levelProperty = new NumberProperty( 1, {
       numberType: 'Integer',
       range: this.levelRange,
-      tandem: tandem.createTandem( 'levelProperty' )
+      tandem: tandem.createTandem( 'levelProperty' ),
+      phetioReadOnly: true //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Make this settable.
     } );
 
     this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
