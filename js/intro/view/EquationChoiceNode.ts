@@ -9,20 +9,17 @@
 
 import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, NodeOptions, NodeTranslationOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
-import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
-import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
+import { Node, NodeOptions, NodeTranslationOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import { EquationChoice } from '../model/IntroModel.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 
 // constants
 const BAR_HEIGHT = 50; //height of control node
-const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
 
 type SelfOptions = EmptySelfOptions;
 
@@ -51,20 +48,8 @@ export default class EquationChoiceNode extends Node {
       barNode.centerX = visibleBounds.centerX;
     } );
 
-    // radio button descriptions, one button for each equation
-    const radioButtonItems: AquaRadioButtonGroupItem<Equation>[] = choices.map( choice => {
-      return {
-        value: choice.equation,
-        tandemName: `${choice.tandemNamePrefix}RadioButton`,
-        createNode: () => new Text( choice.labelStringProperty, TEXT_OPTIONS )
-      };
-    } );
-
-    // radio button group, horizontally layout
-    const radioButtonGroup = new HorizontalAquaRadioButtonGroup( equationProperty, radioButtonItems, {
-      radioButtonOptions: { radius: 8 },
-      touchAreaYDilation: 15,
-      spacing: 30,
+    // Radio button group
+    const radioButtonGroup = new EquationRadioButtonGroup( equationProperty, choices, {
       maxWidth: 0.8 * layoutBoundsWidth,
       tandem: options.tandem.createTandem( 'radioButtonGroup' )
     } );
