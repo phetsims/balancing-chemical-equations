@@ -23,6 +23,7 @@ import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 export type EquationChoice = {
   equation: Equation;
   labelStringProperty: TReadOnlyProperty<string>;
+  tandemNamePrefix: string;
 };
 
 export default class IntroModel implements TModel {
@@ -41,9 +42,21 @@ export default class IntroModel implements TModel {
     this.coefficientsRange = new Range( 0, 3 );
 
     this.choices = [
-      { equation: SynthesisEquation.create_N2_3H2_2NH3(), labelStringProperty: BalancingChemicalEquationsStrings.makeAmmoniaStringProperty },
-      { equation: DecompositionEquation.create_2H2O_2H2_O2(), labelStringProperty: BalancingChemicalEquationsStrings.separateWaterStringProperty },
-      { equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(), labelStringProperty: BalancingChemicalEquationsStrings.combustMethaneStringProperty }
+      {
+        equation: SynthesisEquation.create_N2_3H2_2NH3(),
+        labelStringProperty: BalancingChemicalEquationsStrings.makeAmmoniaStringProperty,
+        tandemNamePrefix: 'makeAmmonia'
+      },
+      {
+        equation: DecompositionEquation.create_2H2O_2H2_O2(),
+        labelStringProperty: BalancingChemicalEquationsStrings.separateWaterStringProperty,
+        tandemNamePrefix: 'separateWater'
+      },
+      {
+        equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(),
+        labelStringProperty: BalancingChemicalEquationsStrings.combustMethaneStringProperty,
+        tandemNamePrefix: 'combustMethane'
+      }
     ];
 
     this.equationProperty = new Property( this.choices[ 0 ].equation );

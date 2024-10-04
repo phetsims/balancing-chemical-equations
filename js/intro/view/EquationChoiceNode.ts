@@ -54,8 +54,9 @@ export default class EquationChoiceNode extends Node {
     // radio button descriptions, one button for each equation
     const radioButtonItems: AquaRadioButtonGroupItem<Equation>[] = choices.map( choice => {
       return {
-        createNode: () => new Text( choice.labelStringProperty, TEXT_OPTIONS ),
-        value: choice.equation
+        value: choice.equation,
+        tandemName: `${choice.tandemNamePrefix}RadioButton`,
+        createNode: () => new Text( choice.labelStringProperty, TEXT_OPTIONS )
       };
     } );
 
@@ -64,10 +65,12 @@ export default class EquationChoiceNode extends Node {
       radioButtonOptions: { radius: 8 },
       touchAreaYDilation: 15,
       spacing: 30,
-      left: 50,
-      centerY: BAR_HEIGHT / 2,
       maxWidth: 0.8 * layoutBoundsWidth,
       tandem: options.tandem.createTandem( 'radioButtonGroup' )
+    } );
+    radioButtonGroup.localBoundsProperty.link( () => {
+      radioButtonGroup.left = 50;
+      radioButtonGroup.centerY = BAR_HEIGHT / 2;
     } );
 
     options.children = [ barNode, radioButtonGroup ];
