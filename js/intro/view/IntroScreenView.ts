@@ -44,7 +44,7 @@ export default class IntroScreenView extends ScreenView {
     } );
 
     // view-specific Properties
-    const viewProperties = new IntroViewProperties();
+    const viewProperties = new IntroViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );

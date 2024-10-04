@@ -11,6 +11,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancedRepresentation from '../../common/model/BalancedRepresentation.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class IntroViewProperties {
 
@@ -23,10 +24,19 @@ export default class IntroViewProperties {
   // Which representation for 'balanced' is chosen from the combo box
   public readonly balancedRepresentationProperty: EnumerationProperty<BalancedRepresentation>;
 
-  public constructor() {
-    this.reactantsBoxExpandedProperty = new BooleanProperty( true );
-    this.productsBoxExpandedProperty = new BooleanProperty( true );
-    this.balancedRepresentationProperty = new EnumerationProperty( BalancedRepresentation.NONE );
+  public constructor( tandem: Tandem ) {
+
+    this.reactantsBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'reactantsBoxExpandedProperty' )
+    } );
+
+    this.productsBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'productsBoxExpandedProperty' )
+    } );
+
+    this.balancedRepresentationProperty = new EnumerationProperty( BalancedRepresentation.NONE, {
+      tandem: tandem.createTandem( 'balancedRepresentationProperty' )
+    } );
   }
 
   public reset(): void {
