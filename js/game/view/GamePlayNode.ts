@@ -22,7 +22,6 @@ import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
-import GameState from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import GameViewProperties from './GameViewProperties.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
@@ -165,16 +164,16 @@ export default class GamePlayNode extends Node {
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
-      if ( state === GameState.CHECK ) {
+      if ( state === 'check' ) {
         this.initCheck();
       }
-      else if ( state === GameState.TRY_AGAIN ) {
+      else if ( state === 'tryAgain' ) {
         this.initTryAgain();
       }
-      else if ( state === GameState.SHOW_ANSWER ) {
+      else if ( state === 'showAnswer' ) {
         this.initShowAnswer();
       }
-      else if ( state === GameState.NEXT ) {
+      else if ( state === 'next' ) {
         this.initNext();
       }
     } );

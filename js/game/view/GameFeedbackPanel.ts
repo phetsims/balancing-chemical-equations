@@ -24,7 +24,6 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
-import GameState from '../model/GameState.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -326,11 +325,11 @@ function createStateChangeButton( labelStringProperty: TReadOnlyProperty<string>
 function createButtonForState( model: GameModel, maxWidth: number ): TextPushButton {
   let button = null;
   const gameState = model.stateProperty.value;
-  if ( gameState === GameState.TRY_AGAIN ) {
+  if ( gameState === 'tryAgain' ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.tryAgainStringProperty,
       model.tryAgain.bind( model ), maxWidth );
   }
-  else if ( gameState === GameState.SHOW_ANSWER ) {
+  else if ( gameState === 'showAnswer' ) {
     button = createStateChangeButton( BalancingChemicalEquationsStrings.showAnswerStringProperty,
       model.showAnswer.bind( model ), maxWidth );
   }

@@ -16,7 +16,6 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import GameModel from '../model/GameModel.js';
-import GameState from '../model/GameState.js';
 import BCERewardNode from './BCERewardNode.js';
 import GamePlayNode from './GamePlayNode.js';
 import GameViewProperties from './GameViewProperties.js';
@@ -52,7 +51,7 @@ export default class GameScreenView extends ScreenView {
 
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
       this.initStartGame.bind( this ), tandem.createTandem( 'levelSelectionNode' ) );
-    this.levelSelectionNode.visible = ( model.stateProperty.value === GameState.LEVEL_SELECTION );
+    this.levelSelectionNode.visible = ( model.stateProperty.value === 'levelSelection' );
     this.screenViewRootNode.addChild( this.levelSelectionNode );
 
     this.gamePlayNode = null;
@@ -60,10 +59,10 @@ export default class GameScreenView extends ScreenView {
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
-      if ( state === GameState.LEVEL_SELECTION ) {
+      if ( state === 'levelSelection' ) {
         this.initLevelSelection();
       }
-      else if ( state === GameState.LEVEL_COMPLETED ) {
+      else if ( state === 'levelCompleted' ) {
         this.initLevelCompleted();
       }
     } );
@@ -133,7 +132,7 @@ export default class GameScreenView extends ScreenView {
         // remove the level-completed notification
         this.screenViewRootNode.removeChild( levelCompletedNode );
         // go back to the level-selection screen
-        this.model.stateProperty.value = GameState.LEVEL_SELECTION;
+        this.model.stateProperty.value = 'levelSelection';
       },
       {
         // LevelCompletedNode options

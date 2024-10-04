@@ -9,7 +9,6 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
@@ -17,9 +16,10 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import GameFactory from './GameFactory.js';
-import GameState from './GameState.js';
+import { GameState, GameStateValues } from './GameState.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Equation from '../../common/model/Equation.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 /*
  * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
@@ -43,7 +43,7 @@ export default class GameModel {
 
   public readonly coefficientsRange: Range;
   public readonly levelsRange: Range;
-  public readonly stateProperty: EnumerationProperty<GameState>; // state of the game
+  public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
   public readonly levelProperty: Property<number>; // level of the current game
   public readonly pointsProperty: Property<number>; // how many points the user has earned for the current game
   public readonly numberOfEquationsProperty: Property<number>; // number of challenges in the current game
@@ -64,11 +64,23 @@ export default class GameModel {
     this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
     this.levelsRange = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
 
-    this.stateProperty = new EnumerationProperty( GameState.LEVEL_SELECTION );
-    this.levelProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+    this.stateProperty = new StringUnionProperty( 'levelSelection', {
+      validValues: GameStateValues,
+      tandem: tandem.createTandem( 'stateProperty' ),
+      phetioReadOnly: true
+    } );
+
+    this.levelProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'levelProperty' )
+    } );
+
     this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+
     this.numberOfEquationsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+
     this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() ); // any non-null Equation will do here
+
     this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     this.equations = [];
@@ -119,7 +131,7 @@ export default class GameModel {
     this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
     this.numberOfEquationsProperty.value = this.equations.length;
     this.pointsProperty.value = 0;
-    this.stateProperty.value = GameState.CHECK;
+    this.stateProperty.value = 'check';
   }
 
   /**
@@ -141,20 +153,20 @@ export default class GameModel {
         this.currentPoints = 0;
       }
       this.pointsProperty.value = this.pointsProperty.value + this.currentPoints;
-      this.stateProperty.value = GameState.NEXT;
+      this.stateProperty.value = 'next';
 
       if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
     }
     else if ( this.attempts < 2 ) {
-      this.stateProperty.value = GameState.TRY_AGAIN;
+      this.stateProperty.value = 'tryAgain';
     }
     else {
       if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
-      this.stateProperty.value = GameState.SHOW_ANSWER;
+      this.stateProperty.value = 'showAnswer';
     }
   }
 
@@ -185,14 +197,14 @@ export default class GameModel {
    * Called when the user presses the "Try Again" button.
    */
   public tryAgain(): void {
-    this.stateProperty.value = GameState.CHECK;
+    this.stateProperty.value = 'check';
   }
 
   /**
    * Called when the user presses the "Show Answer" button.
    */
   public showAnswer(): void {
-    this.stateProperty.value = GameState.NEXT;
+    this.stateProperty.value = 'next';
   }
 
   /**
@@ -222,7 +234,7 @@ export default class GameModel {
    * Called when the user presses the "Start Over" button.
    */
   public newGame(): void {
-    this.stateProperty.value = GameState.LEVEL_SELECTION;
+    this.stateProperty.value = 'levelSelection';
     this.timer.restart();
   }
 
@@ -236,10 +248,10 @@ export default class GameModel {
       this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.value ]();
       this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
       this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
-      this.stateProperty.value = GameState.CHECK;
+      this.stateProperty.value = 'check';
     }
     else {
-      this.stateProperty.value = GameState.LEVEL_COMPLETED;
+      this.stateProperty.value = 'levelCompleted';
     }
   }
 }
