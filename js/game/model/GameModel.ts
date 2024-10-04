@@ -42,7 +42,7 @@ const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd att
 export default class GameModel {
 
   public readonly coefficientsRange: Range;
-  public readonly levelsRange: Range;
+  public readonly levelRange: Range;
   public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
   public readonly levelProperty: Property<number>; // level of the current game
   public readonly pointsProperty: Property<number>; // how many points the user has earned for the current game
@@ -62,7 +62,7 @@ export default class GameModel {
   public constructor( tandem: Tandem ) {
 
     this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
-    this.levelsRange = new Range( 0, 2 ); // Levels 1-2-3, counting from 0
+    this.levelRange = new Range( 1, 3 ); // level uses 1-based numbering
 
     this.stateProperty = new StringUnionProperty( 'levelSelection', {
       validValues: GameStateValues,
@@ -70,8 +70,9 @@ export default class GameModel {
       phetioReadOnly: true
     } );
 
-    this.levelProperty = new NumberProperty( 0, {
+    this.levelProperty = new NumberProperty( 1, {
       numberType: 'Integer',
+      range: this.levelRange,
       tandem: tandem.createTandem( 'levelProperty' )
     } );
 
@@ -92,7 +93,7 @@ export default class GameModel {
 
     this.bestTimeProperties = [];
     this.bestScoreProperties = [];
-    for ( let i = this.levelsRange.min; i <= this.levelsRange.max; i++ ) {
+    for ( let i = 0; i < this.levelRange.max; i++ ) {
       this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
       this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
     }
@@ -114,6 +115,7 @@ export default class GameModel {
    */
   public startGame(): void {
 
+    // level is 1-based numbering
     const level = this.levelProperty.value;
 
     // create a set of challenges
@@ -123,7 +125,7 @@ export default class GameModel {
     this.attempts = 0;
     this.currentPoints = 0;
     this.isNewBestTime = false;
-    this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ level ]();
+    this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ level - 1 ]();
     this.timer.restart();
 
     // initialize properties
@@ -177,19 +179,19 @@ export default class GameModel {
 
     this.timer.stop();
 
-    const level = this.levelProperty.value;
+    const level = this.levelProperty.value; // 1-based numbering
     const points = this.pointsProperty.value;
 
     //check for new best score
-    if ( points > this.bestScoreProperties[ level ].value ) {
-      this.bestScoreProperties[ level ].value = points;
+    if ( points > this.bestScoreProperties[ level - 1 ].value ) {
+      this.bestScoreProperties[ level - 1 ].value = points;
     }
 
     // check for new best time
-    const previousBestTime = this.bestTimeProperties[ level ].value;
+    const previousBestTime = this.bestTimeProperties[ level - 1 ].value;
     if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
       this.isNewBestTime = true;
-      this.bestTimeProperties[ level ].value = this.timer.elapsedTimeProperty.value;
+      this.bestTimeProperties[ level - 1 ].value = this.timer.elapsedTimeProperty.value;
     }
   }
 
@@ -219,7 +221,8 @@ export default class GameModel {
    * A perfect score is obtained when the user balances every equation correctly on the first attempt.
    */
   public getPerfectScore( level: number ): number {
-    return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
+    const index = level - 1;
+    return this.getNumberOfEquations( index ) * POINTS_FIRST_ATTEMPT;
   }
 
   /**
@@ -245,7 +248,7 @@ export default class GameModel {
     if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
       this.attempts = 0;
       this.currentPoints = 0;
-      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.value ]();
+      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.value - 1 ]();
       this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
       this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
       this.stateProperty.value = 'check';

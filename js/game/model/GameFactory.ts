@@ -189,9 +189,11 @@ const GameFactory = {
   /**
    * Gets the number of equations for a level.
    * If we're playing all equations for testing purposes, return the entire pool length.
+   * @param level uses 1-based numbering
    */
   getNumberOfEquations( level: number ): number {
-    return BCEQueryParameters.playAll ? POOLS[ level ].length : EQUATIONS_PER_GAME;
+    const index = level - 1;
+    return BCEQueryParameters.playAll ? POOLS[ index ].length : EQUATIONS_PER_GAME;
   },
 
   /**
@@ -200,10 +202,12 @@ const GameFactory = {
    */
   createEquations( level: number ): Equation[] {
 
+    const index = level - 1;
+
     // Get an array of EquationGenerators.
     const equationGenerators = BCEQueryParameters.playAll ?
-                               POOLS[ level ] :
-                               STRATEGIES[ level ].getEquationGenerators( EQUATIONS_PER_GAME );
+                               POOLS[ index ] :
+                               STRATEGIES[ index ].getEquationGenerators( EQUATIONS_PER_GAME );
 
     // Execute each EquationGenerator to produce an Equation.
     return equationGenerators.map( equationGenerator => equationGenerator() );

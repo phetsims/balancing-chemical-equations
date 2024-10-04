@@ -42,10 +42,10 @@ export default class LevelSelectionNode extends Node {
     const moleculeAlignGroup = new AlignGroup();
 
     const buttonItems: LevelSelectionButtonGroupItem[] = [];
-    for ( let level = model.levelsRange.min; level <= model.levelsRange.max; level++ ) {
+    for ( let level = model.levelRange.min; level <= model.levelRange.max; level++ ) {
       buttonItems.push( {
         icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
-        scoreProperty: model.bestScoreProperties[ level ],
+        scoreProperty: model.bestScoreProperties[ level - 1 ],
         options: {
           createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: model.getNumberOfEquations( level ),
@@ -133,7 +133,7 @@ function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: Alig
     maxWidth: 100
   } );
 
-  const moleculeNode = levelMolecules[ level ].createNode( combineOptions<AtomNodeOptions>( {
+  const moleculeNode = levelMolecules[ level - 1 ].createNode( combineOptions<AtomNodeOptions>( {
     scale: 2
   }, BCEConstants.ATOM_NODE_OPTIONS ) );
   const alignBox = new AlignBox( moleculeNode, {

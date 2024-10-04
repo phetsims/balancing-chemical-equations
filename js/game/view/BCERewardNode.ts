@@ -121,11 +121,11 @@ const NODES = [
 export default class BCERewardNode extends RewardNode {
 
   /**
-   * @param level - game level
+   * @param level - game level, 1-based numbering
    */
   public constructor( level: number ) {
-    assert && assert( level >= 0 && level < NODES.length && Number.isInteger( level ), `invalid level: ${level}` );
-    super( { nodes: RewardNode.createRandomNodes( NODES[ level ], NUMBER_OF_NODES ) } );
+    const index = level - 1;
+    super( { nodes: RewardNode.createRandomNodes( NODES[ index ], NUMBER_OF_NODES ) } );
   }
 }
 

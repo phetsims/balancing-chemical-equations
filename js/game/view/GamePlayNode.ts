@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -66,10 +65,7 @@ export default class GamePlayNode extends Node {
         font: STATUS_BAR_FONT,
         textFill: STATUS_BAR_TEXT_FILL
       } ),
-
-      // FiniteStatusBar uses 1-based level numbering, model is 0-based.
-      // See https://github.com/phetsims/balancing-chemical-equations/issues/127.
-      levelProperty: new DerivedProperty( [ model.levelProperty ], level => level + 1 ),
+      levelProperty: model.levelProperty, // FiniteStatusBar levelProperty is 1-based number, and so is model.levelProperty
       challengeIndexProperty: model.currentEquationIndexProperty,
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
