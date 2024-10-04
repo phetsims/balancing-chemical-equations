@@ -147,7 +147,6 @@ export default class GameModel {
       // award points
       if ( this.attempts === 1 ) {
         this.currentPoints = POINTS_FIRST_ATTEMPT;
-
       }
       else if ( this.attempts === 2 ) {
         this.currentPoints = POINTS_SECOND_ATTEMPT;
