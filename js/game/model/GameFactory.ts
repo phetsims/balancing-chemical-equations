@@ -31,9 +31,9 @@ export type ExclusionsMap = Map<EquationGenerator, EquationGenerator[]>;
 
 // Level 1 equation pool
 const LEVEL1_POOL: EquationGenerator[] = [
-  // this is the largest molecule, put it first to simplify layout testing
+  // This is the largest molecule. Put it first to simplify layout testing with ?playAll.
   DecompositionEquation.create_PCl5_PCl3_Cl2,
-  // this equation requires maxX adjustment in EquationNode, put it here to simplify layout testing
+  // This equation requires maxX adjustment in EquationNode. Put it here to simplify layout testing with ?playAll.
   DecompositionEquation.create_CH3OH_CO_2H2,
   SynthesisEquation.create_CH2O_H2_CH3OH,
   SynthesisEquation.create_2H2_O2_2H2O,
