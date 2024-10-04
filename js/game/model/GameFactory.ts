@@ -74,9 +74,9 @@ const LEVEL2_POOL: EquationGenerator[] = [
 
 // Level 3 equation pool
 const LEVEL3_POOL: EquationGenerator[] = [
-  // this is the longest equation, requires minX adjustment in EquationNode, put it first to simplify layout testing
+  // This is the longest equation, and requires minX adjustment in EquationNode. Put it first to simplify layout testing with ?playAll.
   DisplacementEquation.create_C2H5OH_3O2_2CO2_3H2O,
-  // this is the reverse of the previous equation
+  // This is the reverse of the previous equation. Put it here to simplify layout testing with ?playAll.
   DisplacementEquation.create_2CO2_3H2O_C2H5OH_3O2,
   DisplacementEquation.create_2C2H6_7O2_4CO2_6H2O,
   DisplacementEquation.create_4CO2_6H2O_2C2H6_7O2,
