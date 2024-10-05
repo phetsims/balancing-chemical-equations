@@ -19,7 +19,7 @@ type SelfOptions = EmptySelfOptions;
 
 type EquationChoiceNodeOptions = SelfOptions & NodeTranslationOptions;
 
-export default class EquationChoiceNode extends Rectangle {
+export default class HorizontalBarNode extends Rectangle {
 
   public constructor( visibleBoundsProperty: TReadOnlyProperty<Bounds2>, providedOptions: EquationChoiceNodeOptions ) {
 
@@ -39,4 +39,4 @@ export default class EquationChoiceNode extends Rectangle {
   }
 }
 
-balancingChemicalEquations.register( 'EquationChoiceNode', EquationChoiceNode );
+balancingChemicalEquations.register( 'HorizontalBarNode', HorizontalBarNode );

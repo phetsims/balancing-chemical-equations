@@ -20,14 +20,14 @@ import BarChartsNode from '../../common/view/BarChartsNode.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
-import EquationChoiceNode from './EquationChoiceNode.js';
-import IntroViewProperties from './IntroViewProperties.js';
 import ToolsComboBox from './ToolsComboBox.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IntroModel from '../model/IntroModel.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
+import HorizontalBarNode from './HorizontalBarNode.js';
+import IntroViewProperties from './IntroViewProperties.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -98,13 +98,13 @@ export default class IntroScreenView extends ScreenView {
     } );
 
     // Bar behind radio buttons at bottom of screen
-    const bottomBarNode = new EquationChoiceNode( this.visibleBoundsProperty, {
+    const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
       bottom: this.layoutBounds.bottom - 10
     } );
 
     equationRadioButtonGroup.localBoundsProperty.link( () => {
       equationRadioButtonGroup.left = 50;
-      equationRadioButtonGroup.centerY = bottomBarNode.centerY;
+      equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
     } );
 
     // Reset All button
@@ -115,7 +115,7 @@ export default class IntroScreenView extends ScreenView {
         viewProperties.reset();
       },
       right: this.layoutBounds.right - 20,
-      centerY: bottomBarNode.centerY,
+      centerY: horizontalBarNode.centerY,
       scale: 0.8,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
@@ -159,7 +159,7 @@ export default class IntroScreenView extends ScreenView {
         toolsControl,
         faceNode,
         equationNode,
-        bottomBarNode,
+        horizontalBarNode,
         equationRadioButtonGroup,
         resetAllButton,
         balancedParent,
@@ -170,7 +170,7 @@ export default class IntroScreenView extends ScreenView {
 
     // show the answer when running in dev mode, bottom center
     if ( phet.chipper.queryParameters.showAnswers ) {
-      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: bottomBarNode.top - 5 } );
+      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: horizontalBarNode.top - 5 } );
       screenViewRootNode.addChild( answerNode );
       model.equationProperty.link( equation => {
         answerNode.string = equation.getCoefficientsString();
