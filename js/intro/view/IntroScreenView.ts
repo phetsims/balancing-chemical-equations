@@ -27,6 +27,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IntroModel from '../model/IntroModel.js';
 import BCEColors from '../../common/BCEColors.js';
+import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -70,7 +71,7 @@ export default class IntroScreenView extends ScreenView {
       ]
     } );
 
-    toolsControl.boundsProperty.link( bounds => {
+    toolsControl.boundsProperty.link( () => {
       toolsControl.right = this.layoutBounds.right - 45;
       toolsControl.top = this.layoutBounds.top + 15;
     } );
@@ -90,12 +91,21 @@ export default class IntroScreenView extends ScreenView {
       top: boxesNode.bottom + 20
     } );
 
-    // control for choosing an equation
-    const equationChoiceNode = new EquationChoiceNode( this.visibleBoundsProperty, this.layoutBounds.width,
-      model.equationProperty, model.choices, {
-        bottom: this.layoutBounds.bottom - 10,
-        tandem: tandem.createTandem( 'equationChoiceNode' )
-      } );
+    // Radio button group for choosing an equation
+    const equationRadioButtonGroup = new EquationRadioButtonGroup( model.equationProperty, model.choices, {
+      maxWidth: 0.8 * this.layoutBounds.width,
+      tandem: tandem.createTandem( 'equationRadioButtonGroup' )
+    } );
+
+    // Bar behind radio buttons at bottom of screen
+    const bottomBarNode = new EquationChoiceNode( this.visibleBoundsProperty, {
+      bottom: this.layoutBounds.bottom - 10
+    } );
+
+    equationRadioButtonGroup.localBoundsProperty.link( () => {
+      equationRadioButtonGroup.left = 50;
+      equationRadioButtonGroup.centerY = bottomBarNode.centerY;
+    } );
 
     // Reset All button
     const resetAllButton = new ResetAllButton( {
@@ -105,8 +115,9 @@ export default class IntroScreenView extends ScreenView {
         viewProperties.reset();
       },
       right: this.layoutBounds.right - 20,
-      centerY: equationChoiceNode.centerY,
-      scale: 0.8
+      centerY: bottomBarNode.centerY,
+      scale: 0.8,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     // Show the selected 'balanced' representation, create nodes on demand.
@@ -148,7 +159,8 @@ export default class IntroScreenView extends ScreenView {
         toolsControl,
         faceNode,
         equationNode,
-        equationChoiceNode,
+        bottomBarNode,
+        equationRadioButtonGroup,
         resetAllButton,
         balancedParent,
         comboBoxParent // add this last, so that combo box list is on top of everything else
@@ -158,7 +170,7 @@ export default class IntroScreenView extends ScreenView {
 
     // show the answer when running in dev mode, bottom center
     if ( phet.chipper.queryParameters.showAnswers ) {
-      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: equationChoiceNode.top - 5 } );
+      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: bottomBarNode.top - 5 } );
       screenViewRootNode.addChild( answerNode );
       model.equationProperty.link( equation => {
         answerNode.string = equation.getCoefficientsString();

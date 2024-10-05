@@ -46,13 +46,7 @@ export default class EquationRadioButtonGroup extends HorizontalAquaRadioButtonG
       spacing: 30
     }, providedOptions );
 
-    super( equationProperty, radioButtonItems, {
-      isDisposable: false,
-      radioButtonOptions: { radius: 8 },
-      touchAreaYDilation: 15,
-      spacing: 30,
-      tandem: options.tandem.createTandem( 'radioButtonGroup' )
-    } );
+    super( equationProperty, radioButtonItems, options );
   }
 }
 
