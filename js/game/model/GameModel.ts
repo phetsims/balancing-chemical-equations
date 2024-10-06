@@ -182,12 +182,12 @@ export default class GameModel {
     const level = this.levelProperty.value; // 1-based numbering
     const points = this.pointsProperty.value;
 
-    //check for new best score
+    // Check for new best score.
     if ( points > this.bestScoreProperties[ level - 1 ].value ) {
       this.bestScoreProperties[ level - 1 ].value = points;
     }
 
-    // check for new best time
+    // Check for new best time.
     const previousBestTime = this.bestTimeProperties[ level - 1 ].value;
     if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
       this.isNewBestTime = true;
