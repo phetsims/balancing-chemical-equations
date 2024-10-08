@@ -28,7 +28,7 @@ export default class EquationTermNode extends Node {
 
   private readonly coefficientPicker: NumberPicker;
 
-  public constructor( coefficientRange: Range, term: EquationTerm, providedOptions?: TermNodeOptions ) {
+  public constructor( term: EquationTerm, coefficientRange: Range, providedOptions?: TermNodeOptions ) {
 
     const options = optionize<TermNodeOptions, SelfOptions, NodeOptions>()( {
 

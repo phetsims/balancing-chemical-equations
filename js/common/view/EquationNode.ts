@@ -115,8 +115,9 @@ export default class EquationNode extends Node {
     const tempNodes = []; // contains all nodes for position adjustment if needed
 
     for ( let i = 0; i < terms.length; i++ ) {
+
       // term
-      termNode = new EquationTermNode( this.coefficientRange, terms[ i ], { fontSize: this.fontSize } );
+      termNode = new EquationTermNode( terms[ i ], this.coefficientRange, { fontSize: this.fontSize } );
       this.termNodes.push( termNode );
       this.termsParent.addChild( termNode );
       termNode.center = new Vector2( xOffsets[ i ], 0 );
