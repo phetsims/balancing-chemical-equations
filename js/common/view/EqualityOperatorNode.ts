@@ -46,9 +46,9 @@ export default class EqualityOperatorNode extends Node {
     super( options );
 
     // show the correct operator, based on whether the equation is balanced
-    const isBalancedObserver = ( balanced: boolean ) => {
-      equalsSignNode.visible = balanced;
-      notEqualsSignNode.visible = !balanced;
+    const isBalancedObserver = ( isBalanced: boolean ) => {
+      equalsSignNode.visible = isBalanced;
+      notEqualsSignNode.visible = !isBalanced;
     };
     equationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) {
