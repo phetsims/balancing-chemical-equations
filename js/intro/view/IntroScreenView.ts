@@ -49,10 +49,11 @@ export default class IntroScreenView extends ScreenView {
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
-    // boxes that show molecules corresponding to the equation coefficients
-    const boxesNode = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
+    // Accordion boxes that show molecules corresponding to the equation coefficients
+    const accordionBoxes = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty, {
-        top: 180
+        top: 180,
+        parentTandem: tandem
       } );
 
     // 'Tools' combo box, at upper-right
@@ -89,7 +90,7 @@ export default class IntroScreenView extends ScreenView {
 
     // interactive equation
     const equationNode = new EquationNode( model.equationProperty, model.coefficientsRange, aligner, {
-      top: boxesNode.bottom + 20
+      top: accordionBoxes.bottom + 20
     } );
 
     // Radio button group for choosing an equation
@@ -131,7 +132,7 @@ export default class IntroScreenView extends ScreenView {
       // bar chart
       if ( !barChartsNode && balancedRepresentation === 'barCharts' ) {
         barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
-          bottom: boxesNode.top - 10
+          bottom: accordionBoxes.top - 10
         } );
         balancedParent.addChild( barChartsNode );
       }
@@ -142,7 +143,7 @@ export default class IntroScreenView extends ScreenView {
       // balance scales
       if ( !balanceScalesNode && balancedRepresentation === 'balanceScales' ) {
         balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
-          bottom: boxesNode.top - 10,
+          bottom: accordionBoxes.top - 10,
 
           // Use special spacing for 2 fulcrums.
           // See https://github.com/phetsims/balancing-chemical-equations/issues/91
@@ -157,7 +158,7 @@ export default class IntroScreenView extends ScreenView {
 
     const screenViewRootNode = new Node( {
       children: [
-        boxesNode,
+        accordionBoxes,
         toolsControl,
         faceNode,
         equationNode,
@@ -185,7 +186,7 @@ export default class IntroScreenView extends ScreenView {
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
       equationRadioButtonGroup,
       equationNode,
-      boxesNode,
+      accordionBoxes,
       toolsControl,
       resetAllButton
     ];

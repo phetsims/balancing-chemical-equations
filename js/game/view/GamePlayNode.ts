@@ -25,6 +25,7 @@ import GameFeedbackPanel from './GameFeedbackPanel.js';
 import GameViewProperties from './GameViewProperties.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import BCEColors from '../../common/BCEColors.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const BOX_SIZE = new Dimension2( 285, 340 );
@@ -39,7 +40,7 @@ export default class GamePlayNode extends Node {
   private readonly layoutBounds: Bounds2;
   private readonly aligner: HorizontalAligner;
   private feedbackPanel: GameFeedbackPanel | null; // created on demand
-  private readonly boxesNode: BoxesNode; // boxes that show molecules corresponding to the equation coefficients
+  private readonly accordionBoxes: BoxesNode; // boxes that show molecules corresponding to the equation coefficients
   private readonly equationNode: EquationNode;
   private readonly checkButton: TextPushButton;
   private readonly nextButton: TextPushButton;
@@ -88,14 +89,16 @@ export default class GamePlayNode extends Node {
     } );
     this.addChild( statusBar );
 
-    this.boxesNode = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner,
-      BOX_SIZE, BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
-      { y: statusBar.bottom + 15 } );
-    this.addChild( this.boxesNode );
+    this.accordionBoxes = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
+      BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty, {
+        y: statusBar.bottom + 15,
+        parentTandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160
+      } );
+    this.addChild( this.accordionBoxes );
 
     this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.coefficientsRange, this.aligner );
     this.addChild( this.equationNode );
-    this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.boxesNode.bottom ) / 2;
+    this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
 
     // buttons: Check, Next
     const BUTTONS_OPTIONS = {
@@ -115,7 +118,7 @@ export default class GamePlayNode extends Node {
 
     this.checkButton.boundsProperty.link( bounds => {
       this.checkButton.centerX = this.layoutBounds.centerX;
-      this.checkButton.bottom = this.boxesNode.bottom;
+      this.checkButton.bottom = this.accordionBoxes.bottom;
     } );
 
     this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty,
@@ -128,7 +131,7 @@ export default class GamePlayNode extends Node {
 
     this.nextButton.boundsProperty.link( bounds => {
       this.nextButton.centerX = this.layoutBounds.centerX;
-      this.nextButton.bottom = this.boxesNode.bottom;
+      this.nextButton.bottom = this.accordionBoxes.bottom;
     } );
 
     // developer stuff
@@ -225,7 +228,7 @@ export default class GamePlayNode extends Node {
    */
   private setBalancedHighlightEnabled( enabled: boolean ): void {
     this.equationNode.setBalancedHighlightEnabled( enabled );
-    this.boxesNode.setBalancedHighlightEnabled( enabled );
+    this.accordionBoxes.setBalancedHighlightEnabled( enabled );
   }
 
   /**
@@ -254,7 +257,7 @@ export default class GamePlayNode extends Node {
       const feedbackPanel = new GameFeedbackPanel( this.model, this.aligner );
       feedbackPanel.localBoundsProperty.link( () => {
         feedbackPanel.centerX = this.layoutBounds.centerX;
-        feedbackPanel.top = this.boxesNode.top + 10;
+        feedbackPanel.top = this.accordionBoxes.top + 10;
       } );
       this.addChild( feedbackPanel ); // visible and in front
       this.feedbackPanel = feedbackPanel;

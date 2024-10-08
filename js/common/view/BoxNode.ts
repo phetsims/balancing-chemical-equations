@@ -21,6 +21,7 @@ import BCEConstants from '../BCEConstants.js';
 import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
 import Molecule from '../model/Molecule.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const EXPAND_COLLAPSE_BUTTON_SIDE_LENGTH = 15;
 
@@ -30,7 +31,8 @@ type SelfOptions = {
 };
 
 type BoxNodeOptions = SelfOptions & NodeTranslationOptions &
-  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'fill'>;
+  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'fill'> &
+  PickRequired<AccordionBoxOptions, 'tandem'>;
 
 export default class BoxNode extends AccordionBox {
 

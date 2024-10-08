@@ -20,9 +20,12 @@ import HorizontalAligner from './HorizontalAligner.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Property from '../../../../axon/js/Property.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  parentTandem: Tandem;
+};
 
 type BoxesNodeOptions = SelfOptions & NodeTranslationOptions;
 
@@ -55,8 +58,8 @@ export default class BoxesNode extends Node {
       isDisposable: false
     }, providedOptions );
 
-    // reactants box, on the left
-    const reactantsBoxNode = new BoxNode( equationProperty,
+    // reactants on the left
+    const reactantsAccordionBox = new BoxNode( equationProperty,
       equation => equation.reactants,
       equation => aligner.getReactantXOffsets( equation ),
       coefficientsRange,
@@ -66,11 +69,12 @@ export default class BoxesNode extends Node {
         boxWidth: boxSize.width,
         boxHeight: boxSize.height,
         x: aligner.getReactantsBoxLeft(),
-        y: 0
+        y: 0,
+        tandem: options.parentTandem.createTandem( 'reactantsAccordionBox' )
       } );
 
-    // products box, on the right
-    const productsBoxNode = new BoxNode( equationProperty,
+    // products on the right
+    const productsAccordionBox = new BoxNode( equationProperty,
       equation => equation.products,
       equation => aligner.getProductXOffsets( equation ),
       coefficientsRange,
@@ -80,7 +84,8 @@ export default class BoxesNode extends Node {
         boxWidth: boxSize.width,
         boxHeight: boxSize.height,
         x: aligner.getProductsBoxLeft(),
-        y: 0
+        y: 0,
+        tandem: options.parentTandem.createTandem( 'productsAccordionBox' )
       } );
 
     // right-pointing arrow, in the middle
@@ -88,7 +93,7 @@ export default class BoxesNode extends Node {
       center: new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 )
     } );
 
-    options.children = [ reactantsBoxNode, productsBoxNode, arrowNode ];
+    options.children = [ reactantsAccordionBox, productsAccordionBox, arrowNode ];
     super( options );
 
     this.arrowNode = arrowNode;
