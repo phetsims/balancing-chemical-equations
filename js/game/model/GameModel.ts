@@ -46,10 +46,10 @@ export default class GameModel {
   public readonly levelProperty: Property<number>; // level of the current game
   public readonly coefficientsRange: Range;
   public readonly pointsProperty: Property<number>; // how many points the user has earned for the current game
+  private equations: Equation[];
   public readonly numberOfEquationsProperty: Property<number>; // number of challenges in the current game
   public readonly currentEquationProperty: Property<Equation>; // current challenge/Equation
   public readonly currentEquationIndexProperty: Property<number>; // index of the current challenge that the user is working on
-  public equations: Equation[];
   public readonly timer: GameTimer;
 
   private attempts: number; // how many attempts the user has made at solving the current challenge
@@ -80,13 +80,14 @@ export default class GameModel {
 
     this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
+    this.equations = [];
+
     this.numberOfEquationsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() ); // any non-null Equation will do here
 
     this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    this.equations = [];
     this.timer = new GameTimer();
     this.attempts = 0;
     this.currentPoints = 0;
