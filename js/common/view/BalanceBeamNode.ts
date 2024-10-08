@@ -18,7 +18,7 @@ type SelfOptions = EmptySelfOptions;
 
 type BeamNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'transformBounds'>;
 
-export default class BeamNode extends Rectangle {
+export default class BalanceBeamNode extends Rectangle {
 
   public constructor( beamLength: number, beamThickness: number, providedOptions?: BeamNodeOptions ) {
 
@@ -38,4 +38,4 @@ export default class BeamNode extends Rectangle {
   }
 }
 
-balancingChemicalEquations.register( 'BeamNode', BeamNode );
+balancingChemicalEquations.register( 'BalanceBeamNode', BalanceBeamNode );

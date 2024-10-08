@@ -21,7 +21,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
-import BeamNode from './BeamNode.js';
+import BalanceBeamNode from './BalanceBeamNode.js';
 import FulcrumNode from './FulcrumNode.js';
 
 // constants
@@ -42,7 +42,7 @@ export default class BalanceScaleNode extends Node {
   private readonly element: Element;
   private readonly leftNumberOfAtomsProperty: TReadOnlyProperty<number>;
   private readonly rightNumberOfAtomsProperty: TReadOnlyProperty<number>;
-  private readonly beamNode: BeamNode;
+  private readonly beamNode: BalanceBeamNode;
   private readonly leftPileNode: Node;
   private readonly rightPileNode: Node;
   private readonly leftCountText: Text;
@@ -75,7 +75,7 @@ export default class BalanceScaleNode extends Node {
     // fulcrum
     const fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
 
-    this.beamNode = new BeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
+    this.beamNode = new BalanceBeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
       bottom: 0,
       transformBounds: true // see https://github.com/phetsims/balancing-chemical-equations/issues/77
     } );
