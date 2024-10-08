@@ -18,13 +18,13 @@ const BAR_HEIGHT = 50;
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationChoiceNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'visibleProperty'>;
+type HorizontalBarNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'visibleProperty'>;
 
 export default class HorizontalBarNode extends Rectangle {
 
-  public constructor( visibleBoundsProperty: TReadOnlyProperty<Bounds2>, providedOptions: EquationChoiceNodeOptions ) {
+  public constructor( visibleBoundsProperty: TReadOnlyProperty<Bounds2>, providedOptions: HorizontalBarNodeOptions ) {
 
-    const options = optionize<EquationChoiceNodeOptions, SelfOptions, RectangleOptions>()( {
+    const options = optionize<HorizontalBarNodeOptions, SelfOptions, RectangleOptions>()( {
 
       // RectangleOptions
       isDisposable: false,
