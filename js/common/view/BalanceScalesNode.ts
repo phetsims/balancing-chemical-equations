@@ -127,7 +127,7 @@ export default class BalanceScalesNode extends Node {
         this.productCountProperties.set( atomCount.element, rightCountProperty );
 
         // add a scale node
-        const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.balancedProperty, { x: x } );
+        const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.isBalancedProperty, { x: x } );
         this.addChild( scaleNode );
 
         x += fulcrumSpacing;

@@ -81,11 +81,13 @@ export default class IntroScreenView extends ScreenView {
     // smiley face, top center, shown when equation is balanced
     const faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
     const updateFace = () => {
-      faceNode.visible = model.equationProperty.value.balancedProperty.value;
+      faceNode.visible = model.equationProperty.value.isBalancedProperty.value;
     };
     model.equationProperty.link( ( newEquation, oldEquation ) => {
-      if ( oldEquation ) { oldEquation.balancedProperty.unlink( updateFace ); }
-      newEquation.balancedProperty.link( updateFace );
+      if ( oldEquation ) {
+        oldEquation.isBalancedProperty.unlink( updateFace );
+      }
+      newEquation.isBalancedProperty.link( updateFace );
     } );
 
     // interactive equation

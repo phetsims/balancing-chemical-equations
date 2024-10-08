@@ -45,10 +45,10 @@ export default class RightArrowNode extends ArrowNode {
     this._highlightEnabled = true;
 
     // Wire observer to current equation.
-    const balancedObserver = this.updateHighlight.bind( this );
+    const isBalancedObserver = this.updateHighlight.bind( this );
     equationProperty.link( ( newEquation, oldEquation ) => {
-      if ( oldEquation ) { oldEquation.balancedProperty.unlink( balancedObserver ); }
-      newEquation.balancedProperty.link( balancedObserver );
+      if ( oldEquation ) { oldEquation.isBalancedProperty.unlink( isBalancedObserver ); }
+      newEquation.isBalancedProperty.link( isBalancedObserver );
     } );
   }
 
@@ -59,7 +59,7 @@ export default class RightArrowNode extends ArrowNode {
 
   // Highlights the arrow if the equation is balanced.
   private updateHighlight(): void {
-    this.fill = ( this.equationProperty.value.balancedProperty.value && this._highlightEnabled )
+    this.fill = ( this.equationProperty.value.isBalancedProperty.value && this._highlightEnabled )
                 ? BCEColors.BALANCED_HIGHLIGHT_COLOR : BCEColors.UNBALANCED_COLOR;
   }
 }

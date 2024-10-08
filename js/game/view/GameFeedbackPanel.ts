@@ -83,7 +83,7 @@ export default class GameFeedbackPanel extends Node {
 
     // happy/sad face
     const faceNode = new FaceNode( 75 );
-    if ( !equation.balancedProperty.value ) { faceNode.frown(); }
+    if ( !equation.isBalancedProperty.value ) { faceNode.frown(); }
 
     const pointsAwardedStringProperty = new DerivedStringProperty(
       [ BalancingChemicalEquationsStrings.pattern_0pointsStringProperty ],
@@ -133,7 +133,7 @@ export default class GameFeedbackPanel extends Node {
         spacing: options.vBoxSpacing
       } );
     }
-    else if ( equation.balancedProperty.value ) {
+    else if ( equation.isBalancedProperty.value ) {
 
       const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions );
       disposables.push( balancedText );

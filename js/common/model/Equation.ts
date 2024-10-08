@@ -29,7 +29,7 @@ export default class Equation {
   public readonly products: EquationTerm[];
 
   // whether the equation is balanced
-  public readonly balancedProperty: Property<boolean>;
+  public readonly isBalancedProperty: Property<boolean>;
 
   // a sum of all coefficients, so we know when the sum is non-zero
   public readonly coefficientsSumProperty: Property<number>;
@@ -45,7 +45,7 @@ export default class Equation {
 
     this.reactants = reactants;
     this.products = products;
-    this.balancedProperty = new BooleanProperty( false );
+    this.isBalancedProperty = new BooleanProperty( false );
     this.coefficientsSumProperty = new NumberProperty( 0, { numberType: 'Integer' } );
     this.balancedAndSimplified = false;
 
@@ -65,7 +65,7 @@ export default class Equation {
 
   public reset(): void {
 
-    this.balancedProperty.reset();
+    this.isBalancedProperty.reset();
     this.coefficientsSumProperty.reset();
 
     this.reactants.forEach( reactant => reactant.reset() );
@@ -81,18 +81,18 @@ export default class Equation {
 
     // Get integer multiplier from the first reactant term.
     const multiplier = this.reactants[ 0 ].userCoefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
-    let balanced = ( multiplier > 0 );
+    let isBalanced = ( multiplier > 0 );
 
     // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
     this.reactants.forEach( reactant => {
-      balanced = balanced && ( reactant.userCoefficientProperty.value === multiplier * reactant.balancedCoefficient );
+      isBalanced = isBalanced && ( reactant.userCoefficientProperty.value === multiplier * reactant.balancedCoefficient );
     } );
     this.products.forEach( product => {
-      balanced = balanced && ( product.userCoefficientProperty.value === multiplier * product.balancedCoefficient );
+      isBalanced = isBalanced && ( product.userCoefficientProperty.value === multiplier * product.balancedCoefficient );
     } );
 
-    this.balancedAndSimplified = balanced && ( multiplier === 1 ); // set the more specific value first
-    this.balancedProperty.value = balanced;
+    this.balancedAndSimplified = isBalanced && ( multiplier === 1 ); // set the more specific value first
+    this.isBalancedProperty.value = isBalanced;
   }
 
   /**

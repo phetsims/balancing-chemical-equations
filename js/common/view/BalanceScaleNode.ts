@@ -55,13 +55,13 @@ export default class BalanceScaleNode extends Node {
    * @param element the atom that we're displaying on the scale
    * @param leftNumberOfAtomsProperty number of atoms on left (reactants) side of the beam
    * @param rightNumberOfAtomsProperty number of atoms on right (products) side of the beam
-   * @param highlightedProperty
+   * @param isBalancedProperty
    * @param [providedOptions]
    */
   public constructor( element: Element,
                       leftNumberOfAtomsProperty: TReadOnlyProperty<number>,
                       rightNumberOfAtomsProperty: TReadOnlyProperty<number>,
-                      highlightedProperty: TReadOnlyProperty<boolean>,
+                      isBalancedProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: BalanceScaleNodeOptions ) {
 
     const options = optionize<BalanceScaleNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
@@ -98,8 +98,8 @@ export default class BalanceScaleNode extends Node {
     this.mutate( options );
 
     // highlight the beam
-    const highlightObserver = ( highlighted: boolean ) => this.beamNode.setHighlighted( highlighted );
-    highlightedProperty.link( highlightObserver );
+    const highlightObserver = ( isBalanced: boolean ) => this.beamNode.setHighlighted( isBalanced );
+    isBalancedProperty.link( highlightObserver );
 
     // update piles
     const updateNodeBind = this.updateNode.bind( this );
@@ -109,7 +109,7 @@ export default class BalanceScaleNode extends Node {
 
     // unlink from Properties
     this.balanceScaleNodeDispose = () => {
-      highlightedProperty.unlink( highlightObserver );
+      isBalancedProperty.unlink( highlightObserver );
       leftNumberOfAtomsProperty.unlink( updateNodeBind );
       rightNumberOfAtomsProperty.unlink( updateNodeBind );
     };
