@@ -22,7 +22,7 @@ import { Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../sce
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 import BalanceBeamNode from './BalanceBeamNode.js';
-import FulcrumNode from './FulcrumNode.js';
+import BalanceFulcrumNode from './BalanceFulcrumNode.js';
 
 // constants
 const FULCRUM_SIZE = new Dimension2( 60, 45 );
@@ -73,7 +73,7 @@ export default class BalanceScaleNode extends Node {
     this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty;
 
     // fulcrum
-    const fulcrumNode = new FulcrumNode( element, FULCRUM_SIZE );
+    const fulcrumNode = new BalanceFulcrumNode( element, FULCRUM_SIZE );
 
     this.beamNode = new BalanceBeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
       bottom: 0,

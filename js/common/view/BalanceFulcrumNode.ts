@@ -16,7 +16,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 const FONT = new PhetFont( 22 );
 
-export default class FulcrumNode extends Node {
+export default class BalanceFulcrumNode extends Node {
 
   public constructor( element: Element, fulcrumSize: Dimension2 ) {
 
@@ -45,4 +45,4 @@ export default class FulcrumNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'FulcrumNode', FulcrumNode );
+balancingChemicalEquations.register( 'BalanceFulcrumNode', BalanceFulcrumNode );
