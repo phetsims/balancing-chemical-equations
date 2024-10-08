@@ -24,7 +24,7 @@ type SelfOptions = {
 
 type TermNodeOptions = SelfOptions;
 
-export default class TermNode extends Node {
+export default class EquationTermNode extends Node {
 
   private readonly coefficientPicker: NumberPicker;
 
@@ -75,4 +75,4 @@ export default class TermNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'TermNode', TermNode );
+balancingChemicalEquations.register( 'EquationTermNode', EquationTermNode );

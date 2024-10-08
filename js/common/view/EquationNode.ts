@@ -14,7 +14,7 @@ import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import RightArrowNode from './RightArrowNode.js';
-import TermNode from './TermNode.js';
+import EquationTermNode from './EquationTermNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import Equation from '../model/Equation.js';
@@ -35,8 +35,8 @@ export default class EquationNode extends Node {
   private readonly fontSize: number;
   private readonly arrowNode: RightArrowNode;
 
-  // the set of TermNodes in the equation
-  private readonly terms: TermNode[];
+  // the set of EquationTermNodes in the equation
+  private readonly termNodes: EquationTermNode[];
 
   // the parent for all terms and the "+" operators
   private readonly termsParent: Node;
@@ -72,7 +72,7 @@ export default class EquationNode extends Node {
     } );
     this.addChild( this.arrowNode );
 
-    this.terms = [];
+    this.termNodes = [];
     this.termsParent = new Node();
     this.addChild( this.termsParent );
 
@@ -87,9 +87,9 @@ export default class EquationNode extends Node {
    */
   private updateNode(): void {
 
-    // dispose of existing instances of TermNode
-    this.terms.forEach( termNode => termNode.dispose() );
-    this.terms.length = 0;
+    // dispose of existing instances of EquationTermNode
+    this.termNodes.forEach( termNode => termNode.dispose() );
+    this.termNodes.length = 0;
     this.termsParent.removeAllChildren();
 
     const equation = this.equationProperty.value;
@@ -110,14 +110,14 @@ export default class EquationNode extends Node {
     assert && assert( terms.length > 0 );
 
     let plusNode;
-    let termNode: TermNode | null = null;
+    let termNode: EquationTermNode | null = null;
     const minSeparation = 15;
     const tempNodes = []; // contains all nodes for position adjustment if needed
 
     for ( let i = 0; i < terms.length; i++ ) {
       // term
-      termNode = new TermNode( this.coefficientRange, terms[ i ], { fontSize: this.fontSize } );
-      this.terms.push( termNode );
+      termNode = new EquationTermNode( this.coefficientRange, terms[ i ], { fontSize: this.fontSize } );
+      this.termNodes.push( termNode );
       this.termsParent.addChild( termNode );
       termNode.center = new Vector2( xOffsets[ i ], 0 );
 
@@ -179,8 +179,8 @@ export default class EquationNode extends Node {
    * Sets whether coefficients are editable, by showing/hiding the arrows on the NumberPicker associated with each term.
    */
   public setCoefficientsEditable( editable: boolean ): void {
-    for ( let i = 0; i < this.terms.length; i++ ) {
-      this.terms[ i ].setCoefficientEditable( editable );
+    for ( let i = 0; i < this.termNodes.length; i++ ) {
+      this.termNodes[ i ].setCoefficientEditable( editable );
     }
   }
 }
