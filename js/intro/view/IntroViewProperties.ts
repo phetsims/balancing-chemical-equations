@@ -16,22 +16,22 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 export default class IntroViewProperties {
 
   // Whether the 'Reactants' accordion box is expanded
-  public readonly reactantsBoxExpandedProperty: Property<boolean>;
+  public readonly reactantsAccordionBoxExpandedProperty: Property<boolean>;
 
   // Whether the 'Products' accordion box is expanded
-  public readonly productsBoxExpandedProperty: Property<boolean>;
+  public readonly productsAccordionBoxExpandedProperty: Property<boolean>;
 
   // Which representation for 'balanced' is chosen from the combo box
   public readonly balancedRepresentationProperty: StringUnionProperty<BalancedRepresentation>;
 
   public constructor( tandem: Tandem ) {
 
-    this.reactantsBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'reactantsBoxExpandedProperty' )
+    this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' )
     } );
 
-    this.productsBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'productsBoxExpandedProperty' )
+    this.productsAccordionBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' )
     } );
 
     this.balancedRepresentationProperty = new StringUnionProperty( 'none', {
@@ -41,8 +41,8 @@ export default class IntroViewProperties {
   }
 
   public reset(): void {
-    this.reactantsBoxExpandedProperty.reset();
-    this.productsBoxExpandedProperty.reset();
+    this.reactantsAccordionBoxExpandedProperty.reset();
+    this.productsAccordionBoxExpandedProperty.reset();
     this.balancedRepresentationProperty.reset();
   }
 }

@@ -14,22 +14,22 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 export default class GameViewProperties {
 
   // Whether the 'Reactants' accordion box is expanded
-  public readonly reactantsBoxExpandedProperty: Property<boolean>;
+  public readonly reactantsAccordionBoxExpandedProperty: Property<boolean>;
 
   // Whether the 'Products' accordion box is expanded
-  public readonly productsBoxExpandedProperty: Property<boolean>;
+  public readonly productsAccordionBoxExpandedProperty: Property<boolean>;
 
   // Whether the game timer is enabled
   public readonly timerEnabledProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
 
-    this.reactantsBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'reactantsBoxExpandedProperty' )
+    this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' )
     } );
 
-    this.productsBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'productsBoxExpandedProperty' )
+    this.productsAccordionBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' )
     } );
 
     this.timerEnabledProperty = new BooleanProperty( false, {
@@ -38,8 +38,8 @@ export default class GameViewProperties {
   }
 
   public reset(): void {
-    this.reactantsBoxExpandedProperty.reset();
-    this.productsBoxExpandedProperty.reset();
+    this.reactantsAccordionBoxExpandedProperty.reset();
+    this.productsAccordionBoxExpandedProperty.reset();
     this.timerEnabledProperty.reset();
   }
 }

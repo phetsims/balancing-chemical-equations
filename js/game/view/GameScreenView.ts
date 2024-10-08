@@ -102,8 +102,8 @@ export default class GameScreenView extends ScreenView {
         this.layoutBounds, this.visibleBoundsProperty );
       this.screenViewRootNode.addChild( this.gamePlayNode );
     }
-    this.viewProperties.reactantsBoxExpandedProperty.reset();
-    this.viewProperties.productsBoxExpandedProperty.reset();
+    this.viewProperties.reactantsAccordionBoxExpandedProperty.reset();
+    this.viewProperties.productsAccordionBoxExpandedProperty.reset();
     this.levelSelectionNode.visible = false;
     this.gamePlayNode.visible = true;
     this.model.startGame();

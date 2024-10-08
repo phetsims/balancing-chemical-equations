@@ -90,7 +90,7 @@ export default class GamePlayNode extends Node {
     this.addChild( statusBar );
 
     this.accordionBoxes = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
-      BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty, {
+      BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         y: statusBar.bottom + 15,
         parentTandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160
       } );

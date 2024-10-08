@@ -51,7 +51,7 @@ export default class IntroScreenView extends ScreenView {
 
     // Accordion boxes that show molecules corresponding to the equation coefficients
     const accordionBoxes = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
-      BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty, {
+      BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         top: 180,
         parentTandem: tandem
       } );
