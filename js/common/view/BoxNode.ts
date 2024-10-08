@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * BoxNode is a box that shows the number of molecules indicated by the equation's user coefficients.
+ * BoxNode is an accordion box that shows the number of molecules indicated by the equation's user coefficients.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)

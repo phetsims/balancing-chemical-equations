@@ -1,8 +1,8 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * A pair of boxes that show the number of molecules indicated by the equation's user coefficients.
- * Left box is for the reactants, right box is for the products.
+ * BoxesNode is a pair of accordion boxes that show the number of molecules indicated by the equation's
+ * user coefficients. The left box is for the reactants, the right box is for the products.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
