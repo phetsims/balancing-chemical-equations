@@ -41,10 +41,10 @@ const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd att
 
 export default class GameModel {
 
-  public readonly coefficientsRange: Range;
-  public readonly levelRange: Range;
   public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
+  public readonly levelRange: Range;
   public readonly levelProperty: Property<number>; // level of the current game
+  public readonly coefficientsRange: Range;
   public readonly pointsProperty: Property<number>; // how many points the user has earned for the current game
   public readonly numberOfEquationsProperty: Property<number>; // number of challenges in the current game
   public readonly currentEquationProperty: Property<Equation>; // current challenge/Equation
@@ -61,14 +61,13 @@ export default class GameModel {
 
   public constructor( tandem: Tandem ) {
 
-    this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
-    this.levelRange = new Range( 1, 3 ); // level uses 1-based numbering
-
     this.stateProperty = new StringUnionProperty( 'levelSelection', {
       validValues: GameStateValues,
       tandem: tandem.createTandem( 'stateProperty' ),
       phetioReadOnly: true
     } );
+
+    this.levelRange = new Range( 1, 3 ); // level uses 1-based numbering
 
     this.levelProperty = new NumberProperty( 1, {
       numberType: 'Integer',
@@ -76,6 +75,8 @@ export default class GameModel {
       tandem: tandem.createTandem( 'levelProperty' ),
       phetioReadOnly: true //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Make this settable.
     } );
+
+    this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
 
     this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
