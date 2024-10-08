@@ -35,6 +35,9 @@
     "screenNameKeys": [
       "BALANCING_CHEMICAL_EQUATIONS/screen.introduction",
       "BALANCING_CHEMICAL_EQUATIONS/screen.game"
-    ]
+    ],
+    "phet-io": {
+      "validation": false
+    }
   }
 }
