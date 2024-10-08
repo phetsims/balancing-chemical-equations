@@ -145,7 +145,7 @@ export default class GameModel {
   public check(): void {
     this.attempts++;
 
-    if ( this.currentEquationProperty.value.balancedAndSimplified ) {
+    if ( this.currentEquationProperty.value.isBalancedAndSimplified ) {
       // award points
       if ( this.attempts === 1 ) {
         this.currentPoints = POINTS_FIRST_ATTEMPT;

@@ -31,11 +31,11 @@ export default class Equation {
   // whether the equation is balanced
   public readonly isBalancedProperty: Property<boolean>;
 
+  // true = balanced with the lowest possible coefficients
+  public isBalancedAndSimplified: boolean;
+
   // a sum of all coefficients, so we know when the sum is non-zero
   public readonly coefficientsSumProperty: Property<number>;
-
-  // true = balanced with the lowest possible coefficients
-  public balancedAndSimplified: boolean;
 
   /**
    * @param reactants terms on the left side of the equation
@@ -46,8 +46,8 @@ export default class Equation {
     this.reactants = reactants;
     this.products = products;
     this.isBalancedProperty = new BooleanProperty( false );
+    this.isBalancedAndSimplified = false;
     this.coefficientsSumProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-    this.balancedAndSimplified = false;
 
     this.addCoefficientsObserver( this.updateBalanced.bind( this ) );
 
@@ -91,7 +91,7 @@ export default class Equation {
       isBalanced = isBalanced && ( product.userCoefficientProperty.value === multiplier * product.balancedCoefficient );
     } );
 
-    this.balancedAndSimplified = isBalanced && ( multiplier === 1 ); // set the more specific value first
+    this.isBalancedAndSimplified = isBalanced && ( multiplier === 1 ); // set the more specific value first
     this.isBalancedProperty.value = isBalanced;
   }
 

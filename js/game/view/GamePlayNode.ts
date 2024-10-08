@@ -215,8 +215,8 @@ export default class GamePlayNode extends Node {
     this.checkButton.visible = false;
 
     const currentEquation = this.model.currentEquationProperty.value;
-    this.nextButton.visible = !currentEquation.balancedAndSimplified; // 'Next' button is in the feedbackPanel
-    this.setFeedbackPanelVisible( currentEquation.balancedAndSimplified );
+    this.nextButton.visible = !currentEquation.isBalancedAndSimplified; // 'Next' button is in the feedbackPanel
+    this.setFeedbackPanelVisible( currentEquation.isBalancedAndSimplified );
     this.setBalancedHighlightEnabled( true );
     currentEquation.balance(); // show the correct answer (do this last!)
   }
@@ -235,7 +235,7 @@ export default class GamePlayNode extends Node {
    * Plays a sound corresponding to whether the user's guess is correct or incorrect.
    */
   private playGuessAudio(): void {
-    if ( this.model.currentEquationProperty.value.balancedAndSimplified ) {
+    if ( this.model.currentEquationProperty.value.isBalancedAndSimplified ) {
       this.audioPlayer.correctAnswer();
     }
     else {

@@ -92,7 +92,7 @@ export default class GameFeedbackPanel extends Node {
     disposables.push( pointsAwardedStringProperty );
 
     let content: Node;
-    if ( equation.balancedAndSimplified ) {
+    if ( equation.isBalancedAndSimplified ) {
 
       const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions );
       disposables.push( balancedText );
