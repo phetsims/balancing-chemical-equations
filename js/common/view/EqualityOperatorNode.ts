@@ -13,6 +13,7 @@ import { Node, NodeOptions, NodeTranslationOptions, Text, TextOptions } from '..
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BCEColors from '../BCEColors.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -33,22 +34,23 @@ export default class EqualityOperatorNode extends Node {
       stroke: 'black'
     };
 
-    const equalsSignNode = new Text( '\u003D', combineOptions<TextOptions>( {
+    const equalToNode = new Text( MathSymbols.EQUAL_TO, combineOptions<TextOptions>( {
       fill: BCEColors.BALANCED_HIGHLIGHT_COLOR
     }, textOptions ) );
 
-    const notEqualsSignNode = new Text( '\u2260', combineOptions<TextOptions>( {
-      fill: BCEColors.UNBALANCED_COLOR, center: equalsSignNode.center
+    const notEqualToNode = new Text( MathSymbols.NOT_EQUAL_TO, combineOptions<TextOptions>( {
+      fill: BCEColors.UNBALANCED_COLOR,
+      center: equalToNode.center
     }, textOptions ) );
 
-    options.children = [ equalsSignNode, notEqualsSignNode ];
+    options.children = [ equalToNode, notEqualToNode ];
 
     super( options );
 
     // show the correct operator, based on whether the equation is balanced
     const isBalancedObserver = ( isBalanced: boolean ) => {
-      equalsSignNode.visible = isBalanced;
-      notEqualsSignNode.visible = !isBalanced;
+      equalToNode.visible = isBalanced;
+      notEqualToNode.visible = !isBalanced;
     };
     equationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) {
