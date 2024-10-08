@@ -1,7 +1,7 @@
 // Copyright 2024, University of Colorado Boulder
 
 /**
- * Horizontal bar for selecting an equation.
+ * EquationRadioButtonGroup is the radio button group for selecting an equation in the 'Intro' screen.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Chris Malley (PixelZoom, Inc.)
