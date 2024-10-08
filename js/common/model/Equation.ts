@@ -31,7 +31,7 @@ export default class Equation {
   // whether the equation is balanced
   public readonly isBalancedProperty: Property<boolean>;
 
-  // true = balanced with the lowest possible coefficients
+  // whether the equation is balanced with the smallest possible coefficients
   public isBalancedAndSimplified: boolean;
 
   // a sum of all coefficients, so we know when the sum is non-zero
