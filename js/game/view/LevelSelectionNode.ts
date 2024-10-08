@@ -30,7 +30,6 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 // Molecules that appear on level-selection buttons, ordered by level number
 const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
 
-// constants
 const BUTTON_MARGIN = 20;
 
 export default class LevelSelectionNode extends Node {

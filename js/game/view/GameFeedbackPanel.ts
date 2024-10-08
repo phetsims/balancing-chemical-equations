@@ -32,7 +32,6 @@ import Equation from '../../common/model/Equation.js';
 import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
-// constants
 const TEXT_FONT = new PhetFont( 18 );
 const STATE_BUTTON_FONT = new PhetFont( 20 );
 const STATE_BUTTON_FILL = 'yellow';

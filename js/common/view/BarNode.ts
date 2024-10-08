@@ -23,7 +23,6 @@ import { HBox, HStrut, NodeTranslationOptions, Path, Text, VBox, VBoxOptions } f
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
-// constants
 const MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
 const MAX_BAR_SIZE = new Dimension2( 40, 60 );
 const BAR_LINE_WIDTH = 1.5;

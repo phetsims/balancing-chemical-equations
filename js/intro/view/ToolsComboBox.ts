@@ -18,7 +18,6 @@ import { BalancedRepresentation } from '../../common/model/BalancedRepresentatio
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
-// constants
 const FONT = new PhetFont( 22 );
 
 export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {

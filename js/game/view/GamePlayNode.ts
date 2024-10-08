@@ -27,7 +27,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import BCEColors from '../../common/BCEColors.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-// constants
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
 const STATUS_BAR_FONT = new PhetFont( 14 );

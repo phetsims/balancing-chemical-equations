@@ -29,7 +29,6 @@ import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 import HorizontalBarNode from './HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
 
-// constants
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
 

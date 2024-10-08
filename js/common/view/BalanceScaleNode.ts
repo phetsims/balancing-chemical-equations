@@ -24,7 +24,6 @@ import BCEConstants from '../BCEConstants.js';
 import BalanceBeamNode from './BalanceBeamNode.js';
 import BalanceFulcrumNode from './BalanceFulcrumNode.js';
 
-// constants
 const FULCRUM_SIZE = new Dimension2( 60, 45 );
 const BEAM_LENGTH = 205;
 const BEAM_THICKNESS = 6;

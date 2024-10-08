@@ -16,7 +16,6 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BCEColors from '../BCEColors.js';
 
-// constants
 const ARROW_LENGTH = 70;
 
 type SelfOptions = EmptySelfOptions;

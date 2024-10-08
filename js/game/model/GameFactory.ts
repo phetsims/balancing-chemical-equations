@@ -21,7 +21,6 @@ import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import RandomStrategy from './RandomStrategy.js';
 
-// constants
 const EQUATIONS_PER_GAME = 5;
 
 export type EquationGenerator = () => Equation;

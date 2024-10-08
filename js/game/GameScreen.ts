@@ -43,7 +43,6 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
  */
 function createScreenIcon(): ScreenIcon {
 
-  // constants
   const faceDiameter = 200;
   const arrowXSpacing = 25;
   const arrowYSpacing = 10;

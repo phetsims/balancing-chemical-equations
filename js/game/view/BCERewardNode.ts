@@ -48,9 +48,6 @@ import RewardNode from '../../../../vegas/js/RewardNode.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 
-// modules - molecules
-
-// constants
 const NUMBER_OF_NODES = 150;
 const ATOM_NODE_OPTIONS = BCEConstants.ATOM_NODE_OPTIONS;
 const MOLECULE_NODE_OPTIONS = {
