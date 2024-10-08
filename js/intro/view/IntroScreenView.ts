@@ -178,6 +178,21 @@ export default class IntroScreenView extends ScreenView {
         answerNode.centerX = this.layoutBounds.centerX;
       } );
     }
+
+    // Play Area focus order
+    this.pdomPlayAreaNode.pdomOrder = [
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
+      equationRadioButtonGroup,
+      equationNode,
+      boxesNode,
+      toolsControl,
+      resetAllButton
+    ];
+
+    // Control Area focus order
+    this.pdomControlAreaNode.pdomOrder = [
+      // TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
+    ];
   }
 }
 

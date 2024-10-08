@@ -66,6 +66,18 @@ export default class GameScreenView extends ScreenView {
         this.initLevelCompleted();
       }
     } );
+
+    // Play Area focus order
+    this.pdomPlayAreaNode.pdomOrder = [
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
+      this.levelSelectionNode,
+      this.gamePlayNode
+    ];
+
+    // Control Area focus order
+    this.pdomControlAreaNode.pdomOrder = [
+      // TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
+    ];
   }
 
   public override step( dt: number ): void {
