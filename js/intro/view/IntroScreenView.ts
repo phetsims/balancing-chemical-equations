@@ -50,9 +50,10 @@ export default class IntroScreenView extends ScreenView {
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // boxes that show molecules corresponding to the equation coefficients
-    const boxesNode = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner,
-      BOX_SIZE, BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty,
-      { top: 180 } );
+    const boxesNode = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
+      BCEColors.BOX_COLOR, viewProperties.reactantsBoxExpandedProperty, viewProperties.productsBoxExpandedProperty, {
+        top: 180
+      } );
 
     // 'Tools' combo box, at upper-right
     const comboBoxParent = new Node();
