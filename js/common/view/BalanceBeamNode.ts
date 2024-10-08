@@ -16,13 +16,13 @@ import BCEColors from '../BCEColors.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type BeamNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'transformBounds'>;
+type BalanceBeamNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'transformBounds'>;
 
 export default class BalanceBeamNode extends Rectangle {
 
-  public constructor( beamLength: number, beamThickness: number, providedOptions?: BeamNodeOptions ) {
+  public constructor( beamLength: number, beamThickness: number, providedOptions?: BalanceBeamNodeOptions ) {
 
-    const options = optionize<BeamNodeOptions, SelfOptions, RectangleOptions>()( {
+    const options = optionize<BalanceBeamNodeOptions, SelfOptions, RectangleOptions>()( {
 
       // RectangleOptions
       fill: 'black',

@@ -22,15 +22,15 @@ type SelfOptions = {
   xSpacing?: number;
 };
 
-type TermNodeOptions = SelfOptions;
+type EquationTermNodeOptions = SelfOptions;
 
 export default class EquationTermNode extends Node {
 
   private readonly coefficientPicker: NumberPicker;
 
-  public constructor( term: EquationTerm, coefficientRange: Range, providedOptions?: TermNodeOptions ) {
+  public constructor( term: EquationTerm, coefficientRange: Range, providedOptions?: EquationTermNodeOptions ) {
 
-    const options = optionize<TermNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<EquationTermNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       fontSize: 32,
