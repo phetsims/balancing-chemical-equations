@@ -12,12 +12,13 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 const BAR_HEIGHT = 50;
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationChoiceNodeOptions = SelfOptions & NodeTranslationOptions;
+type EquationChoiceNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'visibleProperty'>;
 
 export default class HorizontalBarNode extends Rectangle {
 

@@ -99,6 +99,7 @@ export default class IntroScreenView extends ScreenView {
 
     // Bar behind radio buttons at bottom of screen
     const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
+      visibleProperty: equationRadioButtonGroup.visibleProperty,
       bottom: this.layoutBounds.bottom - 10
     } );
 
