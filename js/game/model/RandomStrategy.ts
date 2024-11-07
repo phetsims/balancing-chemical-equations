@@ -116,11 +116,11 @@ export default class RandomStrategy {
       }
     }
 
+    assert && assert( equationGenerators.length === numberOfEquations );
     if ( assert && !this.firstBigMolecule ) {
       const equation = equationGenerators[ 0 ]();
       assert && assert( !equation.hasBigMolecule(), `First equation is not supposed to include a big molecule: ${equation.toString()}` );
     }
-    assert && assert( equationGenerators.length === numberOfEquations );
     return equationGenerators;
   }
 }
