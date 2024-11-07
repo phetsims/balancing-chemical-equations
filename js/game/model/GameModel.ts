@@ -20,6 +20,7 @@ import { GameState, GameStateValues } from './GameState.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Equation from '../../common/model/Equation.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 
 /*
  * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
@@ -99,6 +100,24 @@ export default class GameModel {
     for ( let i = 0; i < this.levelRange.max; i++ ) {
       this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
       this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
+    }
+
+    if ( BCEQueryParameters.verifyGame ) {
+      this.verifyGame();
+    }
+  }
+
+  /**
+   * Verifies by creating lots of equation sets for each game level.
+   * This test is performed when you run with ?verifyGame.
+   */
+  private verifyGame(): void {
+    const iterations = 1000;
+    for ( let level = 1; level <= this.levelRange.max; level++ ) {
+      for ( let i = 0; i < iterations; i++ ) {
+        GameFactory.createEquations( level );
+      }
+      console.log( `Level ${level} has been verified using ${iterations} iterations.` );
     }
   }
 
