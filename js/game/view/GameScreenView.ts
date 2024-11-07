@@ -160,7 +160,7 @@ export default class GameScreenView extends ScreenView {
     this.screenViewRootNode.addChild( levelCompletedNode );
 
     // Play the appropriate audio feedback.
-    if ( this.model.isPerfectScore() ) {
+    if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
       this.audioPlayer.gameOverPerfectScore();
     }
     else {

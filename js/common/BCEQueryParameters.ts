@@ -19,7 +19,7 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
   // For internal use only.
   playAll: { type: 'flag' },
 
-  // Show the game reward regardless of score.
+  // Show the game reward and play 'cheering' sound regardless of score.
   // For internal use only.
   showReward: { type: 'flag' }
 } );
