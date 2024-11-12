@@ -14,7 +14,7 @@ import Property from '../../../../axon/js/Property.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Node, NodeOptions, Path, Rectangle, TColor, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
+import { AlignGroup, HBox, Node, Path, Rectangle, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
 import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
@@ -26,56 +26,41 @@ import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Equation from '../../common/model/Equation.js';
 import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 const TEXT_FONT = new PhetFont( 18 );
+const POINTS_AWARDED_FONT = new PhetFont( {
+  size: 24,
+  weight: 'bold'
+} );
 const STATE_BUTTON_FONT = new PhetFont( 20 );
 const STATE_BUTTON_FILL = 'yellow';
-const WHY_BUTTON_FONT = new PhetFont( 16 );
-const WHY_BUTTON_FILL = '#d9d9d9';
+const SHOW_WHY_BUTTON_FONT = new PhetFont( 16 );
+const SHOW_WHY_BUTTON_FILL = '#d9d9d9';
 const ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
-
-type SelfOptions = {
-  fill?: TColor;
-  xMargin?: number;
-  yMargin?: number;
-  cornerRadius?: number;
-  hBoxSpacing?: number;
-  vBoxSpacing?: number;
-  shadowXOffset?: number;
-  shadowYOffset?: number;
-};
-
-type GameFeedbackPanelOptions = SelfOptions;
+const HBOX_SPACING = 5;
+const VBOX_SPACING = 7;
+const SHADOW_X_OFFSET = 5;
+const SHADOW_Y_OFFSET = 5;
+const CORNER_RADIUS = 0;
 
 export default class GameFeedbackPanel extends Node {
 
   private readonly disposeGameFeedbackPanel: () => void;
 
-  public constructor( model: GameModel, aligner: HorizontalAligner, providedOptions?: GameFeedbackPanelOptions ) {
-
-    const options = optionize<GameFeedbackPanelOptions, SelfOptions, NodeOptions>()( {
-
-      // SelfOptions
-      fill: '#c1d8fe',
-      xMargin: 40,
-      yMargin: 10,
-      cornerRadius: 0,
-      hBoxSpacing: 5,
-      vBoxSpacing: 7,
-      shadowXOffset: 5,
-      shadowYOffset: 5
-    }, providedOptions );
+  public constructor( model: GameModel, aligner: HorizontalAligner ) {
 
     const equation = model.currentEquationProperty.value;
-    const balancedRepresentation = model.balancedRepresentation;
-    const points = model.currentPoints;
-    const maxWidth = 0.5 * aligner.getScreenWidth(); // max width of UI elements
-    const textOptions = { font: TEXT_FONT, maxWidth: maxWidth };
+
+    // maxWidth for UI elements
+    const maxWidth = 0.5 * aligner.getScreenWidth();
+
+    const textOptions = {
+      font: TEXT_FONT,
+      maxWidth: maxWidth
+    };
 
     // Subcomponents that need to be disposed.
     const disposables: Disposable[] = [];
@@ -84,11 +69,8 @@ export default class GameFeedbackPanel extends Node {
     const faceNode = new FaceNode( 75 );
     if ( !equation.isBalancedProperty.value ) { faceNode.frown(); }
 
-    const pointsAwardedStringProperty = new DerivedStringProperty(
-      [ BalancingChemicalEquationsStrings.pattern_0pointsStringProperty ],
-      pattern => StringUtils.format( pattern, points )
-    );
-    disposables.push( pointsAwardedStringProperty );
+    // To make icons have the same effective size.
+    const iconAlignGroup = new AlignGroup();
 
     let content: Node;
     if ( equation.isBalancedAndSimplified ) {
@@ -96,19 +78,30 @@ export default class GameFeedbackPanel extends Node {
       const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions );
       disposables.push( balancedText );
 
+      const pointsAwardedStringProperty = new DerivedStringProperty(
+        [ BalancingChemicalEquationsStrings.pattern_0pointsStringProperty ],
+        pattern => StringUtils.format( pattern, model.currentPoints )
+      );
+      disposables.push( pointsAwardedStringProperty );
+
       const pointsAwardedText = new Text( pointsAwardedStringProperty, {
-        font: new PhetFont( {
-          size: 24,
-          weight: 'bold'
-        } ), maxWidth: maxWidth
+        font: POINTS_AWARDED_FONT,
+        maxWidth: maxWidth
       } );
       disposables.push( pointsAwardedText );
 
-      const nextButton = createStateChangeButton( BalancingChemicalEquationsStrings.nextStringProperty, model.next.bind( model ), maxWidth );
+      const nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty, {
+        font: STATE_BUTTON_FONT,
+        baseColor: STATE_BUTTON_FILL,
+        maxWidth: maxWidth,
+        listener: () => model.next()
+      } );
       disposables.push( nextButton );
 
       // balanced and simplified
       content = new VBox( {
+        align: 'center',
+        spacing: VBOX_SPACING,
         children: [
 
           // happy face
@@ -116,8 +109,8 @@ export default class GameFeedbackPanel extends Node {
 
           // check mark + 'balanced'
           new HBox( {
-            children: [ createCorrectIcon(), balancedText ],
-            spacing: options.hBoxSpacing
+            children: [ createCorrectIcon( iconAlignGroup ), balancedText ],
+            spacing: HBOX_SPACING
           } ),
 
           // points awarded
@@ -128,8 +121,7 @@ export default class GameFeedbackPanel extends Node {
 
           // Next button
           nextButton
-        ],
-        spacing: options.vBoxSpacing
+        ]
       } );
     }
     else if ( equation.isBalancedProperty.value ) {
@@ -141,11 +133,15 @@ export default class GameFeedbackPanel extends Node {
       disposables.push( notSimplifiedText );
 
       // Try Again or Show Answer button
-      const button = createButtonForState( model, maxWidth );
+      const button = ( model.stateProperty.value === 'tryAgain' ) ?
+                     createTryAgainButton( model, maxWidth ) :
+                     createShowAnswerButton( model, maxWidth );
       disposables.push( button );
 
       // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
       content = new VBox( {
+        align: 'center',
+        spacing: VBOX_SPACING,
         children: [
 
           // happy face
@@ -157,14 +153,14 @@ export default class GameFeedbackPanel extends Node {
 
               // check mark + 'balanced'
               new HBox( {
-                children: [ createCorrectIcon(), balancedText ],
-                spacing: options.hBoxSpacing
+                children: [ createCorrectIcon( iconAlignGroup ), balancedText ],
+                spacing: HBOX_SPACING
               } ),
 
               // red X + 'not simplified'
               new HBox( {
-                children: [ createIncorrectIcon(), notSimplifiedText ],
-                spacing: options.hBoxSpacing
+                children: [ createIncorrectIcon( iconAlignGroup ), notSimplifiedText ],
+                spacing: HBOX_SPACING
               } )
             ]
           } ),
@@ -174,14 +170,12 @@ export default class GameFeedbackPanel extends Node {
 
           // Try Again or Show Answer button
           button
-        ],
-        spacing: options.vBoxSpacing
+        ]
       } );
     }
     else {
 
       // not balanced
-      let saveCenterX; // saves the panel's centerX when pressing Show/Hide Why.
       let balancedRepresentationNode: Node | null = null; // create on demand
 
       // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
@@ -189,15 +183,13 @@ export default class GameFeedbackPanel extends Node {
         listener: () => {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
-          saveCenterX = this.centerX;
           if ( !balancedRepresentationNode ) {
-            balancedRepresentationNode = createBalancedRepresentation( equation, balancedRepresentation, aligner );
+            balancedRepresentationNode = createBalancedRepresentation( equation, model.balancedRepresentation, aligner );
           }
           content.addChild( balancedRepresentationNode );
-          this.centerX = saveCenterX;
         },
-        font: WHY_BUTTON_FONT,
-        baseColor: WHY_BUTTON_FILL,
+        font: SHOW_WHY_BUTTON_FONT,
+        baseColor: SHOW_WHY_BUTTON_FILL,
         visible: true,
         maxWidth: maxWidth
       } );
@@ -208,16 +200,13 @@ export default class GameFeedbackPanel extends Node {
         listener: () => {
           showWhyButton.visible = true;
           hideWhyButton.visible = false;
-          saveCenterX = this.centerX;
           if ( balancedRepresentationNode && content.hasChild( balancedRepresentationNode ) ) {
             content.removeChild( balancedRepresentationNode );
           }
-          this.centerX = saveCenterX;
         },
-        font: WHY_BUTTON_FONT,
-        baseColor: WHY_BUTTON_FILL,
+        font: SHOW_WHY_BUTTON_FONT,
+        baseColor: SHOW_WHY_BUTTON_FILL,
         visible: !showWhyButton.visible,
-        center: showWhyButton.center,
         maxWidth: maxWidth
       } );
       disposables.push( hideWhyButton );
@@ -226,10 +215,14 @@ export default class GameFeedbackPanel extends Node {
       disposables.push( notBalancedText );
 
       // Try Again or Show Answer button
-      const button = createButtonForState( model, maxWidth );
+      const button = ( model.stateProperty.value === 'tryAgain' ) ?
+                     createTryAgainButton( model, maxWidth ) :
+                     createShowAnswerButton( model, maxWidth );
       disposables.push( button );
 
       content = new VBox( {
+        align: 'center',
+        spacing: VBOX_SPACING,
         children: [
 
           // sad face
@@ -237,8 +230,8 @@ export default class GameFeedbackPanel extends Node {
 
           // red X + 'not balanced'
           new HBox( {
-            children: [ createIncorrectIcon(), notBalancedText ],
-            spacing: options.hBoxSpacing
+            children: [ createIncorrectIcon( iconAlignGroup ), notBalancedText ],
+            spacing: HBOX_SPACING
           } ),
 
           // space
@@ -247,29 +240,38 @@ export default class GameFeedbackPanel extends Node {
           // Try Again or Show Answer button
           button,
 
-          // Show/Hide Why buttons
-          new Node( { children: [ showWhyButton, hideWhyButton ] } )
-        ],
-        spacing: options.vBoxSpacing
+          // Show/Hide Why buttons, one of which will be visible at a time.
+          // Wrap these in an HBox (not a Node!) so that dynamic layout will work properly.
+          // See https://github.com/phetsims/balancing-chemical-equations/issues/164
+          new HBox( {
+            children: [ showWhyButton, hideWhyButton ]
+          } )
+        ]
       } );
     }
 
     // panel, which will resize dynamically
-    const panel = new Panel( content, options );
+    const panel = new Panel( content, {
+      fill: '#c1d8fe',
+      xMargin: 40,
+      yMargin: 10,
+      cornerRadius: CORNER_RADIUS
+    } );
 
     // shadow
     const shadowNode = new Rectangle( 0, 0, 1, 1, {
       fill: 'rgba( 80, 80, 80, 0.12 )',
-      cornerRadius: options.cornerRadius
+      cornerRadius: CORNER_RADIUS
     } );
     const updateShadow = () => {
-      shadowNode.setRect( panel.left + options.shadowXOffset, panel.top + options.shadowYOffset, panel.width, panel.height );
+      shadowNode.setRect( panel.left + SHADOW_X_OFFSET, panel.top + SHADOW_Y_OFFSET, panel.width, panel.height );
     };
     content.boundsProperty.lazyLink( updateShadow ); // resize shadow when panel changes size
     updateShadow();
 
-    options.children = [ shadowNode, panel ];
-    super( options );
+    super( {
+      children: [ shadowNode, panel ]
+    } );
 
     this.disposeGameFeedbackPanel = () => {
       disposables.forEach( disposable => disposable.dispose() );
@@ -285,63 +287,54 @@ export default class GameFeedbackPanel extends Node {
 /**
  * Creates the icon for a correct answer, a green check mark.
  */
-function createCorrectIcon(): Node {
-  return new Path( checkSolidShape, {
+function createCorrectIcon( iconAlignGroup: AlignGroup ): Node {
+  const icon = new Path( checkSolidShape, {
     scale: 0.08,
     fill: 'rgb( 0, 180, 0 )'
   } );
+  return iconAlignGroup.createBox( icon );
 }
 
 /**
  * Creates the icon for an incorrect answer, a red 'X'.
  */
-function createIncorrectIcon(): Node {
-  return new Path( timesSolidShape, {
+function createIncorrectIcon( iconAlignGroup: AlignGroup ): Node {
+  const icon = new Path( timesSolidShape, {
     scale: 0.08,
     fill: 'rgb( 252, 104, 0 )'
   } );
+  return iconAlignGroup.createBox( icon );
 }
 
 /**
- * Creates a text button that performs a model state change when pressed.
- * @param labelStringProperty
- * @param modelFunction - model function that performs the state change
- * @param maxWidth
+ * Creates the 'Try Again' button.
  */
-function createStateChangeButton( labelStringProperty: TReadOnlyProperty<string>,
-                                  modelFunction: () => void, maxWidth: number ): TextPushButton {
-  return new TextPushButton( labelStringProperty, {
+function createTryAgainButton( model: GameModel, maxWidth: number ): TextPushButton {
+  return new TextPushButton( BalancingChemicalEquationsStrings.tryAgainStringProperty, {
     font: STATE_BUTTON_FONT,
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
-    listener: () => modelFunction()
+    listener: () => model.tryAgain()
   } );
 }
 
 /**
- * Creates a button that is appropriate for the current state of the model.
+ * Creates the 'Show Answer' button.
  */
-function createButtonForState( model: GameModel, maxWidth: number ): TextPushButton {
-  let button = null;
-  const gameState = model.stateProperty.value;
-  if ( gameState === 'tryAgain' ) {
-    button = createStateChangeButton( BalancingChemicalEquationsStrings.tryAgainStringProperty,
-      model.tryAgain.bind( model ), maxWidth );
-  }
-  else if ( gameState === 'showAnswer' ) {
-    button = createStateChangeButton( BalancingChemicalEquationsStrings.showAnswerStringProperty,
-      model.showAnswer.bind( model ), maxWidth );
-  }
-  else {
-    throw new Error( `unsupported GameState: ${gameState}` );
-  }
-  return button;
+function createShowAnswerButton( model: GameModel, maxWidth: number ): TextPushButton {
+  return new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
+    font: STATE_BUTTON_FONT,
+    baseColor: STATE_BUTTON_FILL,
+    maxWidth: maxWidth,
+    listener: () => model.showAnswer()
+  } );
 }
 
 /**
  * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
  */
-function createBalancedRepresentation( equation: Equation, balancedRepresentation: BalancedRepresentation,
+function createBalancedRepresentation( equation: Equation,
+                                       balancedRepresentation: BalancedRepresentation,
                                        aligner: HorizontalAligner ): Node {
   let balancedRepresentationNode;
   if ( balancedRepresentation === 'balanceScales' ) {
