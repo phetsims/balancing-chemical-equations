@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 1.3.0-dev.6 Mon Nov 11 2024 13:52:01 GMT-0700 (Mountain Standard Time)",
+  "comment": "# balancing-chemical-equations 1.3.0-rc.0 Tue Nov 12 2024 19:46:59 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "eceb789a9dbd8c79eecc8f356e815ff5454b52d4",
     "branch": "main"
@@ -9,15 +9,15 @@
     "branch": "main"
   },
   "balancing-chemical-equations": {
-    "sha": "a3b3a3b6057ecee519080d7b186857e3e8c7736e",
-    "branch": "main"
+    "sha": "4ad3c706cf0b95545273be5a235baa000f62ad28",
+    "branch": "1.3"
   },
   "brand": {
     "sha": "27b428e96db774f2c4e9e1145118d4bbc268064d",
     "branch": "main"
   },
   "chipper": {
-    "sha": "4f78db0fa6669a81b7baa656cd2ea6e284822c14",
+    "sha": "91da12e399cee7b8e4de015fe10139ff814732e2",
     "branch": "main"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "main"
   },
   "joist": {
-    "sha": "b42d275ded24e12d19ed6353aa3ba69982828082",
+    "sha": "a449f9d9fb9b1896059a936045ce787fe305c691",
     "branch": "main"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "3a9a361ab3e623c6784d4a8f30346b769b7f9b9e",
+    "sha": "19c42716c76c30eafaca80e3201b5f1d34817814",
     "branch": "main"
   },
   "phet-core": {
@@ -49,7 +49,7 @@
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "9507d6865af2ce8e46fba9cc7c8ecf5809bc0eff",
+    "sha": "ee92b4838583263f64011be9b5f654110badf0bb",
     "branch": "main"
   },
   "phet-io-wrappers": {
@@ -69,11 +69,11 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "a9fb57947e18a58cc9535a11f40892980a9b9ed7",
+    "sha": "ac22aa9c9bfe7c8decbcfa76cf3fcd260aac36c8",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "ba5c38ea8db5c66f2ea79f9659d7bc745758f373",
+    "sha": "78d6a63319ae0be693413aec24087ccbe532ae3d",
     "branch": "main"
   },
   "sherpa": {
@@ -85,11 +85,11 @@
     "branch": "main"
   },
   "sun": {
-    "sha": "3a56da6c1f8dbdac1306b9f0f247c018c01e2c4f",
+    "sha": "411fbd042ce955339a860d29084e7087911ee05f",
     "branch": "main"
   },
   "tambo": {
-    "sha": "904dee870c2d45e1c7cc9c47e6544f3d1e4a7fe9",
+    "sha": "8ad3d265e441058779f1afd9aca9b1da8a464cc6",
     "branch": "main"
   },
   "tandem": {
@@ -105,7 +105,7 @@
     "branch": "main"
   },
   "vegas": {
-    "sha": "b08edb1f1f0996d050a313d80a2ed9ca9cb54992",
+    "sha": "7ce1864ec798747c515b1c50c7bb58b67a03f1f9",
     "branch": "main"
   }
 }
