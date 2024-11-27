@@ -13,16 +13,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Element from '../../../../nitroglycerin/js/Element.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Element from '../../../../nitroglycerin/js/Element.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BalanceScaleNode from './BalanceScaleNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
-import Property from '../../../../axon/js/Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
 

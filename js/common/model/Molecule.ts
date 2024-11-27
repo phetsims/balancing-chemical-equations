@@ -8,9 +8,7 @@
  */
 
 import Atom from '../../../../nitroglycerin/js/Atom.js';
-import MoleculeNode, { MoleculeNodeOptions } from '../../../../nitroglycerin/js/nodes/MoleculeNode.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import C2H2Node from '../../../../nitroglycerin/js/nodes/C2H2Node.js';
 import C2H4Node from '../../../../nitroglycerin/js/nodes/C2H4Node.js';
 import C2H5ClNode from '../../../../nitroglycerin/js/nodes/C2H5ClNode.js';
@@ -30,6 +28,7 @@ import H2ONode from '../../../../nitroglycerin/js/nodes/H2ONode.js';
 import H2SNode from '../../../../nitroglycerin/js/nodes/H2SNode.js';
 import HClNode from '../../../../nitroglycerin/js/nodes/HClNode.js';
 import HFNode from '../../../../nitroglycerin/js/nodes/HFNode.js';
+import MoleculeNode, { MoleculeNodeOptions } from '../../../../nitroglycerin/js/nodes/MoleculeNode.js';
 import N2Node from '../../../../nitroglycerin/js/nodes/N2Node.js';
 import N2ONode from '../../../../nitroglycerin/js/nodes/N2ONode.js';
 import NH3Node from '../../../../nitroglycerin/js/nodes/NH3Node.js';
@@ -46,6 +45,7 @@ import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 const C = Element.C;
 const Cl = Element.Cl;

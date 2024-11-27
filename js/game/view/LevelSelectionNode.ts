@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { AtomNodeOptions } from '../../../../nitroglycerin/js/nodes/AtomNode.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
@@ -21,11 +22,10 @@ import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../../common/BCEConstants.js';
+import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Molecule from '../../common/model/Molecule.js';
 import GameModel from '../model/GameModel.js';
 import GameViewProperties from './GameViewProperties.js';
-import BCEQueryParameters from '../../common/BCEQueryParameters.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // Molecules that appear on level-selection buttons, ordered by level number
 const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];

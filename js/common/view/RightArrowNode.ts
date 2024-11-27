@@ -13,8 +13,8 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import Equation from '../model/Equation.js';
 import BCEColors from '../BCEColors.js';
+import Equation from '../model/Equation.js';
 
 const ARROW_LENGTH = 70;
 

@@ -9,18 +9,18 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
+import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import GameFactory from './GameFactory.js';
 import { GameState, GameStateValues } from './GameState.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Equation from '../../common/model/Equation.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 
 /*
  * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.

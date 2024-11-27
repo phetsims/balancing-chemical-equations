@@ -8,12 +8,12 @@
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, NodeTranslationOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import Equation from '../model/Equation.js';
 import BCEColors from '../BCEColors.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import Equation from '../model/Equation.js';
 
 type SelfOptions = EmptySelfOptions;
 

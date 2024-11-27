@@ -9,6 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
@@ -16,7 +17,6 @@ import HorizontalAquaRadioButtonGroup, { HorizontalAquaRadioButtonGroupOptions }
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import { EquationChoice } from '../model/IntroModel.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
 

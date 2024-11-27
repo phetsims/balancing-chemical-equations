@@ -7,9 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Element from '../../../../nitroglycerin/js/Element.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import Element from '../../../../nitroglycerin/js/Element.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { LinearGradient, Node, Path, Text } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';

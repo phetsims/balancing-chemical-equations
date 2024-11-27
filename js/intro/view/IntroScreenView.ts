@@ -13,21 +13,21 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
+import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
-import ToolsComboBox from './ToolsComboBox.js';
-import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import IntroModel from '../model/IntroModel.js';
-import BCEColors from '../../common/BCEColors.js';
 import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 import HorizontalBarNode from './HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
+import ToolsComboBox from './ToolsComboBox.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes

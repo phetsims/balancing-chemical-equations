@@ -10,6 +10,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
@@ -22,13 +24,11 @@ import Panel from '../../../../sun/js/Panel.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
+import Equation from '../../common/model/Equation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
-import Equation from '../../common/model/Equation.js';
-import Disposable from '../../../../axon/js/Disposable.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 const TEXT_FONT = new PhetFont( 18 );
 const POINTS_AWARDED_FONT = new PhetFont( {

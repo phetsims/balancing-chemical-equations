@@ -7,8 +7,8 @@
  */
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
-import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
+import balancingChemicalEquations from '../balancingChemicalEquations.js';
 
 const BCEQueryParameters = QueryStringMachine.getAll( {
 

@@ -9,23 +9,23 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Text } from '../../../../scenery/js/imports.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
+import BCEColors from '../../common/BCEColors.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import GameViewProperties from './GameViewProperties.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import BCEColors from '../../common/BCEColors.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes

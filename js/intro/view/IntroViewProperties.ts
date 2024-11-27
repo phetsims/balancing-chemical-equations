@@ -8,10 +8,10 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import { BalancedRepresentation, BalancedRepresentationValues } from '../../common/model/BalancedRepresentation.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 export default class IntroViewProperties {
 

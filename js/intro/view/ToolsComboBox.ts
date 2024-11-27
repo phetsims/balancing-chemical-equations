@@ -7,16 +7,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Image, Node, Text } from '../../../../scenery/js/imports.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import charts_png from '../../../images/charts_png.js';
 import scales_png from '../../../mipmaps/scales_png.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 const FONT = new PhetFont( 22 );
 

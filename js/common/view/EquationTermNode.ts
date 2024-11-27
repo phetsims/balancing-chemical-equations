@@ -9,13 +9,13 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Range from '../../../../dot/js/Range.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, RichText } from '../../../../scenery/js/imports.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import EquationTerm from '../model/EquationTerm.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   fontSize?: number;

@@ -15,9 +15,9 @@ import { Node, Path, Rectangle } from '../../../scenery/js/imports.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
+import BCEColors from '../common/BCEColors.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
-import BCEColors from '../common/BCEColors.js';
 
 export default class GameScreen extends Screen<GameModel, GameScreenView> {
 

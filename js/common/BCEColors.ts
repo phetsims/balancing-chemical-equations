@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import { ProfileColorProperty } from '../../../scenery/js/imports.js';
+import balancingChemicalEquations from '../balancingChemicalEquations.js';
 
 const BCEColors = {
 

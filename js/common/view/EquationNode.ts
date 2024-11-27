@@ -8,18 +8,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import RightArrowNode from './RightArrowNode.js';
-import EquationTermNode from './EquationTermNode.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import HorizontalAligner from './HorizontalAligner.js';
 import Equation from '../model/Equation.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import EquationTerm from '../model/EquationTerm.js';
+import EquationTermNode from './EquationTermNode.js';
+import HorizontalAligner from './HorizontalAligner.js';
+import RightArrowNode from './RightArrowNode.js';
 
 type SelfOptions = {
   fontSize?: number;

@@ -8,20 +8,20 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Range from '../../../../dot/js/Range.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import { Node, NodeOptions, NodeTranslationOptions, TColor } from '../../../../scenery/js/imports.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import BoxNode from './BoxNode.js';
-import RightArrowNode from './RightArrowNode.js';
-import Equation from '../model/Equation.js';
-import HorizontalAligner from './HorizontalAligner.js';
+import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { Node, NodeOptions, NodeTranslationOptions, TColor } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
+import Equation from '../model/Equation.js';
+import BoxNode from './BoxNode.js';
+import HorizontalAligner from './HorizontalAligner.js';
+import RightArrowNode from './RightArrowNode.js';
 
 type SelfOptions = {
   parentTandem: Tandem;

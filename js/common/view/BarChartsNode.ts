@@ -13,19 +13,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Element from '../../../../nitroglycerin/js/Element.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Element from '../../../../nitroglycerin/js/Element.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import AtomCount from '../model/AtomCount.js';
 import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
-import AtomCount from '../model/AtomCount.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 

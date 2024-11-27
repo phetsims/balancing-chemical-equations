@@ -10,10 +10,11 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import MoleculeNode from '../../../../nitroglycerin/js/nodes/MoleculeNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import MoleculeNode from '../../../../nitroglycerin/js/nodes/MoleculeNode.js';
 import { Node, NodeTranslationOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -21,7 +22,6 @@ import BCEConstants from '../BCEConstants.js';
 import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
 import Molecule from '../model/Molecule.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const EXPAND_COLLAPSE_BUTTON_SIDE_LENGTH = 15;
 

@@ -18,9 +18,9 @@ import { LinearGradient, Node, Path, Rectangle, Text } from '../../../scenery/js
 import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
+import BCEColors from '../common/BCEColors.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
-import BCEColors from '../common/BCEColors.js';
 
 export default class IntroScreen extends Screen<IntroModel, IntroScreenView> {
 

@@ -9,11 +9,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import Atom from '../../../../nitroglycerin/js/Atom.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
-import Atom from '../../../../nitroglycerin/js/Atom.js';
 
 export default class AtomCount {
 
