@@ -83,7 +83,11 @@ export default class LevelSelectionNode extends Node {
     } );
     chooseYourLevelText.localBoundsProperty.link( () => {
       chooseYourLevelText.centerX = layoutBounds.centerX;
-      chooseYourLevelText.centerY = buttonGroup.top / 2;
+
+      // TODO: Replace isFinite() check with better support for Nodes with invisible content, https://github.com/phetsims/phet-io/issues/2003
+      if ( buttonGroup.bounds.isFinite() ) {
+        chooseYourLevelText.centerY = buttonGroup.top / 2;
+      }
     } );
 
     // Timer control, lower left
