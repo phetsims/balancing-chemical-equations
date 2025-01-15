@@ -15,7 +15,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { AlignBox, AlignGroup, ManualConstraint, Node, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
@@ -82,6 +82,13 @@ export default class LevelSelectionNode extends Node {
       phetioVisiblePropertyInstrumented: true
     } );
 
+    // Keep the title centered above the buttons.
+    // Only centerX needs to be set dynamically, as the length of the title changes.
+    chooseYourLevelText.centerY = buttonGroup.top / 2;
+    chooseYourLevelText.localBoundsProperty.link( () => {
+      chooseYourLevelText.centerX = layoutBounds.centerX;
+    } );
+
     // Timer control, lower left
     const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, {
       stroke: 'black',
@@ -107,15 +114,6 @@ export default class LevelSelectionNode extends Node {
       isDisposable: false,
       children: [ buttonGroup, chooseYourLevelText, timerToggleButton, resetAllButton ],
       tandem: tandem
-    } );
-
-    ManualConstraint.create( this, [ buttonGroup, chooseYourLevelText ], ( buttonGroupProxy, chooseYourLevelTextProxy ) => {
-      chooseYourLevelTextProxy.centerX = layoutBounds.centerX;
-
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/168 Replace isFinite() check with better support for Nodes with invisible content.
-      if ( buttonGroupProxy.bounds.isFinite() ) {
-        chooseYourLevelTextProxy.centerY = buttonGroupProxy.top / 2;
-      }
     } );
   }
 }
