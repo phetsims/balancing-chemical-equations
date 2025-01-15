@@ -112,7 +112,7 @@ export default class LevelSelectionNode extends Node {
     ManualConstraint.create( this, [ buttonGroup, chooseYourLevelText ], ( buttonGroupProxy, chooseYourLevelTextProxy ) => {
       chooseYourLevelTextProxy.centerX = layoutBounds.centerX;
 
-      // TODO: Replace isFinite() check with better support for Nodes with invisible content, https://github.com/phetsims/balancing-chemical-equations/issues/168
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/168 Replace isFinite() check with better support for Nodes with invisible content.
       if ( buttonGroupProxy.bounds.isFinite() ) {
         chooseYourLevelTextProxy.centerY = buttonGroupProxy.top / 2;
       }
