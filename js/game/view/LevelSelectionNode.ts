@@ -15,7 +15,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { AlignBox, AlignGroup, Node, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, ManualConstraint, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
@@ -81,14 +81,6 @@ export default class LevelSelectionNode extends Node {
       tandem: tandem.createTandem( 'chooseYourLevelText' ),
       phetioVisiblePropertyInstrumented: true
     } );
-    chooseYourLevelText.localBoundsProperty.link( () => {
-      chooseYourLevelText.centerX = layoutBounds.centerX;
-
-      // TODO: Replace isFinite() check with better support for Nodes with invisible content, https://github.com/phetsims/phet-io/issues/2003
-      if ( buttonGroup.bounds.isFinite() ) {
-        chooseYourLevelText.centerY = buttonGroup.top / 2;
-      }
-    } );
 
     // Timer control, lower left
     const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, {
@@ -115,6 +107,15 @@ export default class LevelSelectionNode extends Node {
       isDisposable: false,
       children: [ buttonGroup, chooseYourLevelText, timerToggleButton, resetAllButton ],
       tandem: tandem
+    } );
+
+    ManualConstraint.create( this, [ buttonGroup, chooseYourLevelText ], ( buttonGroupProxy, chooseYourLevelTextProxy ) => {
+      chooseYourLevelTextProxy.centerX = layoutBounds.centerX;
+
+      // TODO: Replace isFinite() check with better support for Nodes with invisible content, https://github.com/phetsims/phet-io/issues/2003
+      if ( buttonGroupProxy.bounds.isFinite() ) {
+        chooseYourLevelTextProxy.centerY = buttonGroupProxy.top / 2;
+      }
     } );
   }
 }
