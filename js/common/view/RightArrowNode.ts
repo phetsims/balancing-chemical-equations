@@ -11,7 +11,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEColors from '../BCEColors.js';
 import Equation from '../model/Equation.js';

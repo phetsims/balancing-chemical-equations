@@ -8,10 +8,13 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { LinearGradient, Node, Path, Text } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 const FONT = new PhetFont( 22 );

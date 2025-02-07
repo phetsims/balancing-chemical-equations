@@ -13,7 +13,7 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import { Node, NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
