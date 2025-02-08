@@ -1,4 +1,4 @@
-// Copyright 2014-2024, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * Equality operator between 2 sides of equation: equals (balanced) or not equals (not balanced).

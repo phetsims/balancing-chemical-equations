@@ -1,4 +1,4 @@
-// Copyright 2014-2024, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * BoxesNode is a pair of accordion boxes that show the number of molecules indicated by the equation's

@@ -1,4 +1,4 @@
-// Copyright 2024, University of Colorado Boulder
+// Copyright 2024-2025, University of Colorado Boulder
 
 /**
  * EquationRadioButtonGroup is the radio button group for selecting an equation in the 'Intro' screen.
