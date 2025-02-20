@@ -150,7 +150,7 @@ export default class GameModel {
     this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ level - 1 ]();
     this.timer.restart();
 
-    // initialize properties
+    // initialize Properties
     this.currentEquationIndexProperty.value = 0;
     this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
     this.numberOfEquationsProperty.value = this.equations.length;
