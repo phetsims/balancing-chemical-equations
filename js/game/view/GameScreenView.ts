@@ -71,8 +71,7 @@ export default class GameScreenView extends ScreenView {
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
-      this.levelSelectionNode,
-      this.gamePlayNode
+      this.levelSelectionNode
     ];
 
     // Control Area focus order
