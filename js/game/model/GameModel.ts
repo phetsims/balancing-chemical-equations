@@ -32,7 +32,7 @@ export default class GameModel {
 
   public readonly levels: GameLevel[];
   public readonly levelProperty: Property<GameLevel>; // the selected game level
-  public readonly levelNumberProperty: TReadOnlyProperty<number>;
+  public readonly levelNumberProperty: TReadOnlyProperty<number>; // number of the selected game level
 
   public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
 
@@ -50,12 +50,6 @@ export default class GameModel {
   public isNewBestTime: boolean; // is the time for this game a new best time?
 
   public constructor( tandem: Tandem ) {
-
-    this.stateProperty = new StringUnionProperty( 'levelSelection', {
-      validValues: GameStateValues,
-      tandem: tandem.createTandem( 'stateProperty' ),
-      phetioReadOnly: true
-    } );
 
     this.levels = [
       new GameLevel( {
@@ -77,11 +71,19 @@ export default class GameModel {
 
     this.levelProperty = new Property<GameLevel>( this.levels[ 0 ], {
       tandem: tandem.createTandem( 'levelProperty' ),
+      phetioDocumentation: 'The selected level in the game.',
+      phetioFeatured: true,
       phetioReadOnly: true,
       phetioValueType: GameLevel.GameLevelIO
     } );
 
     this.levelNumberProperty = new DerivedProperty( [ this.levelProperty ], level => level.levelNumber );
+
+    this.stateProperty = new StringUnionProperty( 'levelSelection', {
+      validValues: GameStateValues,
+      tandem: tandem.createTandem( 'stateProperty' ),
+      phetioReadOnly: true
+    } );
 
     this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
 

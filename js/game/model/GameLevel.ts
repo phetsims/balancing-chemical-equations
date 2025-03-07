@@ -49,12 +49,16 @@ export default class GameLevel extends PhetioObject {
 
     this.bestScoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
-      tandem: options.tandem.createTandem( 'bestScoreProperty' )
+      tandem: options.tandem.createTandem( 'bestScoreProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     this.bestTimeProperty = new NumberProperty( 0, {
       numberType: 'Integer',
-      tandem: options.tandem.createTandem( 'bestTimeProperty' )
+      tandem: options.tandem.createTandem( 'bestTimeProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
   }
 
