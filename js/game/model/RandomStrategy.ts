@@ -1,8 +1,8 @@
 // Copyright 2020-2024, University of Colorado Boulder
 
 /**
- * Selects a random set from a pool of equations, with no duplicates.
- * Selection of an equation may cause other equations to be excluded from the pool.
+ * Selects a random set from a pool of equation generators, with no duplicates. Base on the optional exclusionsMap,
+ * selection of an equation generator may cause other equation generators to be excluded from the pool.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
