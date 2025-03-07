@@ -82,6 +82,7 @@ export default class GameModel {
     this.stateProperty = new StringUnionProperty( 'levelSelection', {
       validValues: GameStateValues,
       tandem: tandem.createTandem( 'stateProperty' ),
+      phetioDocumentation: 'State that the game is currently in.',
       phetioReadOnly: true
     } );
 
