@@ -118,10 +118,10 @@ const NODES = [
 export default class BCERewardNode extends RewardNode {
 
   /**
-   * @param level - game level, 1-based numbering
+   * @param levelNumber - game level number, 1-based numbering
    */
-  public constructor( level: number ) {
-    const index = level - 1;
+  public constructor( levelNumber: number ) {
+    const index = levelNumber - 1;
     super( { nodes: RewardNode.createRandomNodes( NODES[ index ], NUMBER_OF_NODES ) } );
   }
 }

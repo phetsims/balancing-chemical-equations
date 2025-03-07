@@ -21,30 +21,21 @@ import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import GameFactory from './GameFactory.js';
 import { GameState, GameStateValues } from './GameState.js';
+import GameLevel from './GameLevel.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
-/*
- * Strategies for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
- * This is a map from level to strategy.
- */
-const BALANCED_REPRESENTATION_STRATEGIES: ( () => BalancedRepresentation )[] = [
-
-  // level 1
-  () => 'balanceScales',
-
-  // level 2
-  () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
-
-  // level 3
-  () => 'barCharts'
-];
 const POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
 const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
 export default class GameModel {
 
+  public readonly levels: GameLevel[];
+  public readonly levelProperty: Property<GameLevel>; // the selected game level
+  public readonly levelNumberProperty: TReadOnlyProperty<number>;
+
   public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
-  public readonly levelRange: Range;
-  public readonly levelProperty: Property<number>; // level of the current game
+
   public readonly coefficientsRange: Range;
   public readonly pointsProperty: Property<number>; // how many points the user has earned for the current game
   private equations: Equation[];
@@ -57,8 +48,6 @@ export default class GameModel {
   public currentPoints: number; // how many points were earned for the current challenge
   public balancedRepresentation: BalancedRepresentation; // which representation to use in the "Not Balanced" popup
   public isNewBestTime: boolean; // is the time for this game a new best time?
-  public readonly bestTimeProperties: Property<number>[]; // best times in ms, indexed by level
-  public readonly bestScoreProperties: Property<number>[]; // best scores, indexed by level
 
   public constructor( tandem: Tandem ) {
 
@@ -68,14 +57,31 @@ export default class GameModel {
       phetioReadOnly: true
     } );
 
-    this.levelRange = new Range( 1, 3 ); // level uses 1-based numbering
+    this.levels = [
+      new GameLevel( {
+        levelNumber: 1,
+        balancedRepresentation: () => 'balanceScales',
+        tandem: tandem.createTandem( 'level1' )
+      } ),
+      new GameLevel( {
+        levelNumber: 2,
+        balancedRepresentation: () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
+        tandem: tandem.createTandem( 'level2' )
+      } ),
+      new GameLevel( {
+        levelNumber: 3,
+        balancedRepresentation: () => 'barCharts',
+        tandem: tandem.createTandem( 'level3' )
+      } )
+    ];
 
-    this.levelProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: this.levelRange,
+    this.levelProperty = new Property<GameLevel>( this.levels[ 0 ], {
       tandem: tandem.createTandem( 'levelProperty' ),
-      phetioReadOnly: true //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Make this settable.
+      phetioReadOnly: true,
+      phetioValueType: GameLevel.GameLevelIO
     } );
+
+    this.levelNumberProperty = new DerivedProperty( [ this.levelProperty ], level => level.levelNumber );
 
     this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
 
@@ -95,13 +101,6 @@ export default class GameModel {
     this.balancedRepresentation = 'none';
     this.isNewBestTime = false;
 
-    this.bestTimeProperties = [];
-    this.bestScoreProperties = [];
-    for ( let i = 0; i < this.levelRange.max; i++ ) {
-      this.bestTimeProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
-      this.bestScoreProperties[ i ] = new NumberProperty( 0, { numberType: 'Integer' } );
-    }
-
     if ( BCEQueryParameters.verifyGame ) {
       this.verifyGame();
     }
@@ -113,23 +112,22 @@ export default class GameModel {
    */
   private verifyGame(): void {
     const iterations = 1000;
-    for ( let level = 1; level <= this.levelRange.max; level++ ) {
+    this.levels.forEach( level => {
       for ( let i = 0; i < iterations; i++ ) {
-        GameFactory.createEquations( level );
+        GameFactory.createEquations( level.levelNumber );
       }
-      console.log( `Level ${level} has been verified using ${iterations} iterations.` );
-    }
+      console.log( `Level ${level.levelNumber} has been verified by creating ${iterations} challenges.` );
+    } );
   }
 
   public reset(): void {
-    this.stateProperty.reset();
+    this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
+    this.stateProperty.reset();
     this.pointsProperty.reset();
     this.numberOfEquationsProperty.reset();
     this.currentEquationProperty.reset();
     this.currentEquationIndexProperty.reset();
-    this.bestTimeProperties.forEach( bestTimeProperty => bestTimeProperty.reset() );
-    this.bestScoreProperties.forEach( bestScoreProperty => bestScoreProperty.reset() );
   }
 
   /**
@@ -141,13 +139,13 @@ export default class GameModel {
     const level = this.levelProperty.value;
 
     // create a set of challenges
-    this.equations = GameFactory.createEquations( level );
+    this.equations = GameFactory.createEquations( level.levelNumber );
 
     // initialize simple fields
     this.attempts = 0;
     this.currentPoints = 0;
     this.isNewBestTime = false;
-    this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ level - 1 ]();
+    this.balancedRepresentation = level.balancedRepresentation();
     this.timer.restart();
 
     // initialize Properties
@@ -204,15 +202,15 @@ export default class GameModel {
     const points = this.pointsProperty.value;
 
     // Check for new best score.
-    if ( points > this.bestScoreProperties[ level - 1 ].value ) {
-      this.bestScoreProperties[ level - 1 ].value = points;
+    if ( points > level.bestScoreProperty.value ) {
+      level.bestScoreProperty.value = points;
     }
 
     // Check for new best time.
-    const previousBestTime = this.bestTimeProperties[ level - 1 ].value;
+    const previousBestTime = level.bestTimeProperty.value;
     if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
       this.isNewBestTime = true;
-      this.bestTimeProperties[ level - 1 ].value = this.timer.elapsedTimeProperty.value;
+      level.bestTimeProperty.value = this.timer.elapsedTimeProperty.value;
     }
   }
 
@@ -233,15 +231,15 @@ export default class GameModel {
   /**
    * Gets the number of equations for a specified level.
    */
-  public getNumberOfEquations( level: number ): number {
-    return GameFactory.getNumberOfEquations( level );
+  public getNumberOfEquations( level: GameLevel ): number {
+    return GameFactory.getNumberOfEquations( level.levelNumber );
   }
 
   /**
    * Gets the number of points in a perfect score for a specified level.
    * A perfect score is obtained when the user balances every equation correctly on the first attempt.
    */
-  public getPerfectScore( level: number ): number {
+  public getPerfectScore( level: GameLevel ): number {
     return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
   }
 
@@ -268,7 +266,7 @@ export default class GameModel {
     if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
       this.attempts = 0;
       this.currentPoints = 0;
-      this.balancedRepresentation = BALANCED_REPRESENTATION_STRATEGIES[ this.levelProperty.value - 1 ]();
+      this.balancedRepresentation = this.levelProperty.value.balancedRepresentation();
       this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
       this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
       this.stateProperty.value = 'check';

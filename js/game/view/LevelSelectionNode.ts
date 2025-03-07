@@ -30,6 +30,7 @@ import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Molecule from '../../common/model/Molecule.js';
 import GameModel from '../model/GameModel.js';
 import GameViewProperties from './GameViewProperties.js';
+import GameLevel from '../model/GameLevel.js';
 
 // Molecules that appear on level-selection buttons, ordered by level number
 const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
@@ -39,26 +40,26 @@ const BUTTON_MARGIN = 20;
 export default class LevelSelectionNode extends Node {
 
   public constructor( model: GameModel, viewProperties: GameViewProperties, layoutBounds: Bounds2,
-                      startGame: ( level: number ) => void, tandem: Tandem ) {
+                      startGame: ( level: GameLevel ) => void, tandem: Tandem ) {
 
     // To give all molecules the same effective size
     const moleculeAlignGroup = new AlignGroup();
 
     const buttonItems: LevelSelectionButtonGroupItem[] = [];
-    for ( let level = model.levelRange.min; level <= model.levelRange.max; level++ ) {
+    model.levels.forEach( level => {
       buttonItems.push( {
-        icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
-        scoreProperty: model.bestScoreProperties[ level - 1 ],
+        icon: createLevelSelectionButtonIcon( level.levelNumber, moleculeAlignGroup ),
+        scoreProperty: level.bestScoreProperty,
         options: {
           createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: model.getNumberOfEquations( level ),
             perfectScore: model.getPerfectScore( level )
           } ),
           listener: () => startGame( level ),
-          soundPlayerIndex: level
+          soundPlayerIndex: level.levelNumber
         }
       } );
-    }
+    } );
 
     const buttonGroup = new LevelSelectionButtonGroup( buttonItems, {
       levelSelectionButtonOptions: {

@@ -20,6 +20,7 @@ import BCERewardNode from './BCERewardNode.js';
 import GamePlayNode from './GamePlayNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import LevelSelectionNode from './LevelSelectionNode.js';
+import GameLevel from '../model/GameLevel.js';
 
 export default class GameScreenView extends ScreenView {
 
@@ -95,7 +96,7 @@ export default class GameScreenView extends ScreenView {
   /**
    * Performs initialization to start a game for a specified level.
    */
-  private initStartGame( level: number ): void {
+  private initStartGame( level: GameLevel ): void {
     this.model.levelProperty.value = level;
     if ( !this.gamePlayNode ) {
       this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
@@ -120,18 +121,17 @@ export default class GameScreenView extends ScreenView {
 
     // game reward, shown for perfect score (or with 'reward' query parameter)
     if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
-      this.rewardNode = new BCERewardNode( level );
+      this.rewardNode = new BCERewardNode( level.levelNumber );
       this.screenViewRootNode.addChild( this.rewardNode );
     }
 
     // bestTime on level, must be null to not show in popup
-    const bestTimeOnThisLevel = this.model.bestTimeProperties[ level - 1 ].value === 0 ?
-                                null : this.model.bestTimeProperties[ level - 1 ].value;
+    const bestTimeOnThisLevel = level.bestTimeProperty.value === 0 ? null : level.bestTimeProperty.value;
 
     // Node displaying notification that the level has been completed
     const numberOfEquations = this.model.getNumberOfEquations( level );
-    const levelCompletedNode = new LevelCompletedNode( level, this.model.pointsProperty.value, this.model.getPerfectScore( level ),
-      numberOfEquations, this.viewProperties.timerEnabledProperty.value,
+    const levelCompletedNode = new LevelCompletedNode( level.levelNumber, this.model.pointsProperty.value,
+      this.model.getPerfectScore( level ), numberOfEquations, this.viewProperties.timerEnabledProperty.value,
       this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
 
       // function called when 'Continue' button is pressed

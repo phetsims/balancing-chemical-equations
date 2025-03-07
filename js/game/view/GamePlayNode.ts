@@ -66,7 +66,7 @@ export default class GamePlayNode extends Node {
         font: STATUS_BAR_FONT,
         textFill: STATUS_BAR_TEXT_FILL
       } ),
-      levelProperty: model.levelProperty, // FiniteStatusBar levelProperty is 1-based number, and so is model.levelProperty
+      levelProperty: model.levelNumberProperty, // FiniteStatusBar levelProperty is 1-based number, and so is model.levelNumberProperty
       challengeIndexProperty: model.currentEquationIndexProperty,
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
