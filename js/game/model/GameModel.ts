@@ -10,7 +10,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
@@ -18,20 +17,19 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
-import GameFactory from './GameFactory.js';
 import { GameState, GameStateValues } from './GameState.js';
 import GameLevel from './GameLevel.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-
-const POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
-const POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
+import GameLevel1 from './GameLevel1.js';
+import GameLevel2 from './GameLevel2.js';
+import GameLevel3 from './GameLevel3.js';
 
 export default class GameModel {
 
   public readonly levels: GameLevel[];
   public readonly levelProperty: Property<GameLevel>; // the selected game level
-  public readonly levelNumberProperty: TReadOnlyProperty<number>; // number of the selected game level
+  public readonly levelNumberProperty: TReadOnlyProperty<number>; // number of the selected game level, 1-based
 
   public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
 
@@ -50,21 +48,9 @@ export default class GameModel {
   public constructor( tandem: Tandem ) {
 
     this.levels = [
-      new GameLevel( {
-        levelNumber: 1,
-        getBalancedRepresentation: () => 'balanceScales',
-        tandem: tandem.createTandem( 'level1' )
-      } ),
-      new GameLevel( {
-        levelNumber: 2,
-        getBalancedRepresentation: () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
-        tandem: tandem.createTandem( 'level2' )
-      } ),
-      new GameLevel( {
-        levelNumber: 3,
-        getBalancedRepresentation: () => 'barCharts',
-        tandem: tandem.createTandem( 'level3' )
-      } )
+      new GameLevel1( tandem.createTandem( 'level1' ) ),
+      new GameLevel2( tandem.createTandem( 'level2' ) ),
+      new GameLevel3( tandem.createTandem( 'level3' ) )
     ];
 
     this.levelProperty = new Property<GameLevel>( this.levels[ 0 ], {
@@ -114,7 +100,7 @@ export default class GameModel {
     const iterations = 1000;
     this.levels.forEach( level => {
       for ( let i = 0; i < iterations; i++ ) {
-        GameFactory.createEquations( level.levelNumber );
+        level.createEquations();
       }
       console.log( `Level ${level.levelNumber} has been verified by creating ${iterations} challenges.` );
     } );
@@ -135,11 +121,10 @@ export default class GameModel {
    */
   public startGame(): void {
 
-    // level is 1-based numbering
     const level = this.levelProperty.value;
 
     // create a set of challenges
-    this.equations = GameFactory.createEquations( level.levelNumber );
+    this.equations = level.createEquations();
 
     // initialize simple fields
     this.attempts = 0;
@@ -164,10 +149,10 @@ export default class GameModel {
     if ( this.currentEquationProperty.value.isBalancedAndSimplified ) {
       // award points
       if ( this.attempts === 1 ) {
-        this.currentPoints = POINTS_FIRST_ATTEMPT;
+        this.currentPoints = GameLevel.POINTS_FIRST_ATTEMPT;
       }
       else if ( this.attempts === 2 ) {
-        this.currentPoints = POINTS_SECOND_ATTEMPT;
+        this.currentPoints = GameLevel.POINTS_SECOND_ATTEMPT;
       }
       else {
         this.currentPoints = 0;
@@ -197,7 +182,7 @@ export default class GameModel {
 
     this.timer.stop();
 
-    const level = this.levelProperty.value; // 1-based numbering
+    const level = this.levelProperty.value;
     const points = this.pointsProperty.value;
 
     // Check for new best score.
@@ -207,7 +192,7 @@ export default class GameModel {
 
     // Check for new best time.
     const previousBestTime = level.bestTimeProperty.value;
-    if ( this.isPerfectScore() && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
+    if ( level.isPerfectScore( points ) && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
       this.isNewBestTime = true;
       level.bestTimeProperty.value = this.timer.elapsedTimeProperty.value;
     }
@@ -228,18 +213,11 @@ export default class GameModel {
   }
 
   /**
-   * Gets the number of equations for a specified level.
+   * Called when the user presses the "Start Over" button.
    */
-  public getNumberOfEquations( level: GameLevel ): number {
-    return GameFactory.getNumberOfEquations( level.levelNumber );
-  }
-
-  /**
-   * Gets the number of points in a perfect score for a specified level.
-   * A perfect score is obtained when the user balances every equation correctly on the first attempt.
-   */
-  public getPerfectScore( level: GameLevel ): number {
-    return this.getNumberOfEquations( level ) * POINTS_FIRST_ATTEMPT;
+  public newGame(): void {
+    this.stateProperty.value = 'levelSelection';
+    this.timer.restart();
   }
 
   /**
@@ -247,15 +225,7 @@ export default class GameModel {
    * This can be called at any time during the game, but can't possibly return true until the game has been completed.
    */
   public isPerfectScore(): boolean {
-    return this.pointsProperty.value === this.getPerfectScore( this.levelProperty.value );
-  }
-
-  /**
-   * Called when the user presses the "Start Over" button.
-   */
-  public newGame(): void {
-    this.stateProperty.value = 'levelSelection';
-    this.timer.restart();
+    return this.levelProperty.value.isPerfectScore( this.pointsProperty.value );
   }
 
   /**

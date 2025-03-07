@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * GameLevel is a level in the Game screen.
+ * GameLevel is the base class for a level in the Game screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,6 +15,11 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import Equation from '../../common/model/Equation.js';
+import RandomStrategy from './RandomStrategy.js';
+import BCEQueryParameters from '../../common/BCEQueryParameters.js';
+
+export type EquationGenerator = () => Equation;
 
 type SelfOptions = {
 
@@ -23,18 +28,32 @@ type SelfOptions = {
 
   // Gets the "balanced representation" that is displayed by the "Not Balanced" popup.
   getBalancedRepresentation: () => BalancedRepresentation;
+
+  // The pool of equations generators, which create equations for the challenges.
+  equationGenerators: EquationGenerator[];
+
+  // Strategy for selecting a set of equation generators from the pool.
+  equationGeneratorsSelectionStrategy: RandomStrategy;
 };
 
 type GameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class GameLevel extends PhetioObject {
 
+  private static readonly EQUATIONS_PER_GAME = 5;
+
+  public static readonly POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
+  public static readonly POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
+
   public readonly levelNumber: number;
   public readonly getBalancedRepresentation: () => BalancedRepresentation;
+  private readonly equationGenerators: EquationGenerator[];
+  private readonly equationGeneratorsSelectionStrategy: RandomStrategy;
+
   public readonly bestScoreProperty: Property<number>;
   public readonly bestTimeProperty: Property<number>;
 
-  public constructor( providedOptions: GameLevelOptions ) {
+  protected constructor( providedOptions: GameLevelOptions ) {
 
     const options = optionize<GameLevelOptions, SelfOptions, PhetioObjectOptions>()( {
 
@@ -46,6 +65,8 @@ export default class GameLevel extends PhetioObject {
 
     this.levelNumber = options.levelNumber;
     this.getBalancedRepresentation = options.getBalancedRepresentation;
+    this.equationGenerators = options.equationGenerators;
+    this.equationGeneratorsSelectionStrategy = options.equationGeneratorsSelectionStrategy;
 
     this.bestScoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
@@ -65,6 +86,43 @@ export default class GameLevel extends PhetioObject {
   public reset(): void {
     this.bestScoreProperty.reset();
     this.bestTimeProperty.reset();
+  }
+
+  /**
+   * Gets the number of equations for this level.
+   */
+  public getNumberOfEquations(): number {
+    return BCEQueryParameters.playAll ? this.equationGenerators.length : GameLevel.EQUATIONS_PER_GAME;
+  }
+
+  /**
+   * Gets the number of points in a perfect score for this level.
+   * A perfect score is obtained when the user balances every equation correctly on the first attempt.
+   */
+  public getPerfectScore(): number {
+    return this.getNumberOfEquations() * GameLevel.POINTS_FIRST_ATTEMPT;
+  }
+
+  /**
+   * Is the specified score a perfect score?
+   */
+  public isPerfectScore( points: number ): boolean {
+    return points === this.getPerfectScore();
+  }
+
+  /**
+   * Creates a set of equations to be used in the game.
+   * If 'playAll' query parameter is defined, return all equations for the level.
+   */
+  public createEquations(): Equation[] {
+
+    // Get an array of EquationGenerators.
+    const equationGenerators = BCEQueryParameters.playAll ?
+                               this.equationGenerators :
+                               this.equationGeneratorsSelectionStrategy.getEquationGenerators( GameLevel.EQUATIONS_PER_GAME );
+
+    // Execute each EquationGenerator to produce an Equation.
+    return equationGenerators.map( equationGenerator => equationGenerator() );
   }
 
   /**

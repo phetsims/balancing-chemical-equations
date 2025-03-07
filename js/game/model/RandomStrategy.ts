@@ -10,10 +10,13 @@
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import { EquationGenerator, ExclusionsMap } from './GameFactory.js';
+import { EquationGenerator } from './GameLevel.js';
+
+// For an example, see GameFactory EXCLUSIONS_MAP.
+export type ExclusionsMap = Map<EquationGenerator, EquationGenerator[]>;
 
 type SelfOptions = {
-  exclusionsMap?: ExclusionsMap | null; // See GameFactory.LEVEL3_EXCLUSIONS_MAP
+  exclusionsMap?: ExclusionsMap | null; // See GameLevel3.EXCLUSIONS_MAP
 };
 
 type RandomStrategyOptions = SelfOptions;
@@ -26,7 +29,7 @@ export default class RandomStrategy {
   // Whether it's OK if the first equation in the set contains a "big" molecule
   public readonly firstBigMolecule: boolean;
 
-  // See GameFactory.LEVEL3_EXCLUSIONS_MAP
+  // See GameLevel3.EXCLUSIONS_MAP
   public readonly exclusionsMap: ExclusionsMap | null;
 
   public constructor( pool: EquationGenerator[], firstBigMolecule: boolean, providedOptions?: RandomStrategyOptions ) {
