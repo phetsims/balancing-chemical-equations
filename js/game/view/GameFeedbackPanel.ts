@@ -191,7 +191,7 @@ export default class GameFeedbackPanel extends Node {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
           if ( !balancedRepresentationNode ) {
-            balancedRepresentationNode = createBalancedRepresentation( equation, model.balancedRepresentation, aligner );
+            balancedRepresentationNode = createBalancedRepresentation( equation, model.levelProperty.value.getBalancedRepresentation(), aligner );
           }
           content.addChild( balancedRepresentationNode );
         },

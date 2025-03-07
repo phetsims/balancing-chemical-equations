@@ -16,7 +16,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
-import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import GameFactory from './GameFactory.js';
@@ -46,7 +45,6 @@ export default class GameModel {
 
   private attempts: number; // how many attempts the user has made at solving the current challenge
   public currentPoints: number; // how many points were earned for the current challenge
-  public balancedRepresentation: BalancedRepresentation; // which representation to use in the "Not Balanced" popup
   public isNewBestTime: boolean; // is the time for this game a new best time?
 
   public constructor( tandem: Tandem ) {
@@ -54,17 +52,17 @@ export default class GameModel {
     this.levels = [
       new GameLevel( {
         levelNumber: 1,
-        balancedRepresentation: () => 'balanceScales',
+        getBalancedRepresentation: () => 'balanceScales',
         tandem: tandem.createTandem( 'level1' )
       } ),
       new GameLevel( {
         levelNumber: 2,
-        balancedRepresentation: () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
+        getBalancedRepresentation: () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
         tandem: tandem.createTandem( 'level2' )
       } ),
       new GameLevel( {
         levelNumber: 3,
-        balancedRepresentation: () => 'barCharts',
+        getBalancedRepresentation: () => 'barCharts',
         tandem: tandem.createTandem( 'level3' )
       } )
     ];
@@ -101,7 +99,6 @@ export default class GameModel {
     this.timer = new GameTimer();
     this.attempts = 0;
     this.currentPoints = 0;
-    this.balancedRepresentation = 'none';
     this.isNewBestTime = false;
 
     if ( BCEQueryParameters.verifyGame ) {
@@ -148,7 +145,6 @@ export default class GameModel {
     this.attempts = 0;
     this.currentPoints = 0;
     this.isNewBestTime = false;
-    this.balancedRepresentation = level.balancedRepresentation();
     this.timer.restart();
 
     // initialize Properties
@@ -269,7 +265,6 @@ export default class GameModel {
     if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
       this.attempts = 0;
       this.currentPoints = 0;
-      this.balancedRepresentation = this.levelProperty.value.balancedRepresentation();
       this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
       this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
       this.stateProperty.value = 'check';

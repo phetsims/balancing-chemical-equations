@@ -21,8 +21,8 @@ type SelfOptions = {
   // 1-based numbering
   levelNumber: number;
 
-  // Strategy for selecting the "balanced representation" that is displayed by the "Not Balanced" popup.
-  balancedRepresentation: () => BalancedRepresentation;
+  // Gets the "balanced representation" that is displayed by the "Not Balanced" popup.
+  getBalancedRepresentation: () => BalancedRepresentation;
 };
 
 type GameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -30,7 +30,7 @@ type GameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'
 export default class GameLevel extends PhetioObject {
 
   public readonly levelNumber: number;
-  public readonly balancedRepresentation: () => BalancedRepresentation;
+  public readonly getBalancedRepresentation: () => BalancedRepresentation;
   public readonly bestScoreProperty: Property<number>;
   public readonly bestTimeProperty: Property<number>;
 
@@ -45,7 +45,7 @@ export default class GameLevel extends PhetioObject {
     super( options );
 
     this.levelNumber = options.levelNumber;
-    this.balancedRepresentation = options.balancedRepresentation;
+    this.getBalancedRepresentation = options.getBalancedRepresentation;
 
     this.bestScoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
