@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * A term in a chemical equation.
+ * EquationTerm is a term in a chemical equation.
  * The "balanced coefficient" is the lowest coefficient value that will balance the equation, and is immutable.
  * The "user coefficient" is the coefficient set by the user.
  *

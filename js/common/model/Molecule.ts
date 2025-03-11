@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * Model of a molecule.
+ * Molecule is the model of a molecule.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)

@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * DisplacementEquation is the class for displacement equations.
+ * DisplacementEquation is the model for displacement equations.
  * In a displacement reactions, compounds exchange bonds or ions to form different compounds.
  * All displacement equations in this sim have 2 reactants and 2 products.
  * This class adds no new functionality to Equation, it simply provides convenient factory methods.

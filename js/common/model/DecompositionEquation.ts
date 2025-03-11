@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * DecompositionEquation is the class for decomposition equations.
+ * DecompositionEquation is the model for decomposition equations.
  * In a decomposition reaction, a more complex substance breaks down into its more simple parts.
  * All decomposition equations in this sim have 1 reactant and 2 products.
  * This class adds no new functionality to Equation, it simply provides convenient factory methods.

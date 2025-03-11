@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * SynthesisEquation is the class for synthesis equations.
+ * SynthesisEquation is the model for synthesis equations.
  * In a synthesis reaction two or more chemical species combine to form a more complex product.
  * All synthesis equations in this sim have 2 reactants and 1 product.
  * This class adds no new functionality to Equation, it simply provides convenient factory methods.

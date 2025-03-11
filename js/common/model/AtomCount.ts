@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * Data structure for describing how many times an atom appears in an equation.
+ * AtomCount is a data structure for describing how many times an atom appears in an equation.
  * There are separate counts for the left-hand (reactants) and right-hand (products)
  * sides of the equation.
  *

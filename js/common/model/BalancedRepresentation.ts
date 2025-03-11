@@ -1,7 +1,7 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * Choices for visual representations of "balanced".
+ * BalancedRepresentation is an enumeration of the visual representations of "balanced".
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
