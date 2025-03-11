@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Game reward for this simulation.
+ * BCERewardNode displays a reward for the game.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

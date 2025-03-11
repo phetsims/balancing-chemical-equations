@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Game' screen.
+ * GameScreenView is the top-level view for the 'Game' screen.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Chris Malley (PixelZoom, Inc.)

@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Scene graph for the 'Intro' screen.
+ * IntroScreenView is the top-level view for the 'Intro' screen.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Chris Malley (PixelZoom, Inc.)

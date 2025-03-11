@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Controls for selecting a level and adjusting various game settings, such as whether the timer is enabled
+ * LevelSelectionNode is user-interface for selecting a level and adjusting various game controls.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)

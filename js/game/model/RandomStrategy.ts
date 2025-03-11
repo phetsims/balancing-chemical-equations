@@ -1,8 +1,8 @@
 // Copyright 2020-2025, University of Colorado Boulder
 
 /**
- * Selects a random set from a pool of equation generators, with no duplicates. Base on the optional exclusionsMap,
- * selection of an equation generator may cause other equation generators to be excluded from the pool.
+ * RandomStrategy selects a random set from a pool of equation generators, with no duplicates. Base on the optional
+ * exclusionsMap, selection of an equation generator may cause other equation generators to be excluded from the pool.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

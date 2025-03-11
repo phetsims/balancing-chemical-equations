@@ -1,7 +1,7 @@
 // Copyright 2016-2024, University of Colorado Boulder
 
 /**
- * View-specific Properties for the 'Game' screen
+ * GameViewProperties is the set of view-specific Properties for the 'Game' screen
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

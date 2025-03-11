@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * 'Tools' combo box, for selecting the visual representation for "balanced".
+ * ToolsComboBox is the combo box for selecting the visual representation for "balanced".
  *
  * @author Vasily Shakhov (MLearner)
  * @author Chris Malley (PixelZoom, Inc.)

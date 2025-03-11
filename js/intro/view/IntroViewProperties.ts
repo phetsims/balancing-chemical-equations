@@ -1,7 +1,7 @@
 // Copyright 2016-2024, University of Colorado Boulder
 
 /**
- * View-specific Properties for the 'Intro' screen
+ * IntroViewProperties is the set of view-specific Properties for the 'Intro' screen
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

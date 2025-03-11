@@ -1,7 +1,8 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Horizontal bar that dynamically changes its width to match the visible width of the browser window.
+ * HorizontalBarNode is the horizontal bar on the Intro screen, behind the radio buttons that select an equation.
+ * The bar dynamically changes its width to match the visible width of the browser window.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Chris Malley (PixelZoom, Inc.)

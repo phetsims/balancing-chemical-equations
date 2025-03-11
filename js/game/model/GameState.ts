@@ -1,9 +1,9 @@
 // Copyright 2023-2024, University of Colorado Boulder
 
 /**
- * States for the game. For lack of better names, the state names correspond to the main action that the user
- * can take in that state.  For example. the 'check' state is where the user can enter coefficients and press
- * the "Check" button to check their answer.
+ * GameState is the enumeration of states for the game. For lack of better names, the state names correspond to the
+ * main action that the user can take in that state.  For example. the 'check' state is where the user can enter
+ * coefficients and press the "Check" button to check their answer.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

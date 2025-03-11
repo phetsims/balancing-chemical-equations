@@ -1,8 +1,8 @@
 // Copyright 2014-2024, University of Colorado Boulder
 
 /**
- * Top-level model for the 'Intro' screen.
- * This model has a small set of equations, one of which is the current equation that we're operating on.
+ * IntroModel is the top-level model for the 'Intro' screen. This model has a small set of equations, one of which
+ * is the current equation that we're operating on.
  *
  * @author Vasily Shakhov (MLearner)
  * @author Chris Malley (PixelZoom, Inc.)
