@@ -57,7 +57,8 @@ export default class LevelSelectionNode extends Node {
 
     const buttonGroup = new LevelSelectionButtonGroup( buttonItems, {
       levelSelectionButtonOptions: {
-        baseColor: '#d9ebff'
+        baseColor: '#d9ebff',
+        phetioVisiblePropertyInstrumented: false // controlled by ?gameLevels
       },
       flowBoxOptions: {
         spacing: 50,
@@ -66,7 +67,8 @@ export default class LevelSelectionNode extends Node {
       groupButtonHeight: 155,
       groupButtonWidth: 155,
       gameLevels: BCEQueryParameters.gameLevels,
-      tandem: tandem.createTandem( 'buttonGroup' )
+      tandem: tandem.createTandem( 'buttonGroup' ),
+      phetioVisiblePropertyInstrumented: false
     } );
 
     buttonGroup.localBoundsProperty.link( () => {
