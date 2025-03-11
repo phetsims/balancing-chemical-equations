@@ -45,13 +45,19 @@ export default class GamePlayNode extends Node {
   private readonly checkButton: TextPushButton;
   private readonly nextButton: TextPushButton;
 
-  public constructor( model: GameModel, viewProperties: GameViewProperties, audioPlayer: GameAudioPlayer,
-                      layoutBounds: Bounds2, visibleBoundsProperty: TReadOnlyProperty<Bounds2> ) {
+  public constructor( model: GameModel,
+                      viewProperties: GameViewProperties,
+                      audioPlayer: GameAudioPlayer,
+                      layoutBounds: Bounds2,
+                      visibleBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      tandem: Tandem ) {
 
     super( {
 
       // NodeOptions
-      isDisposable: false
+      isDisposable: false,
+      tandem: tandem,
+      phetioVisiblePropertyInstrumented: false
     } );
 
     this.model = model;
@@ -85,14 +91,16 @@ export default class GamePlayNode extends Node {
         },
         xMargin: 10,
         yMargin: 5
-      }
+      },
+      tandem: tandem.createTandem( 'statusBar' ),
+      phetioVisiblePropertyInstrumented: false
     } );
     this.addChild( statusBar );
 
     this.accordionBoxes = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         y: statusBar.bottom + 15,
-        parentTandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160
+        parentTandem: tandem
       } );
     this.addChild( this.accordionBoxes );
 
@@ -112,7 +120,10 @@ export default class GamePlayNode extends Node {
         listener: () => {
           this.playGuessAudio();
           this.model.check();
-        }
+        },
+        tandem: tandem.createTandem( 'checkButton' ),
+        phetioEnabledPropertyInstrumented: false,
+        phetioVisiblePropertyInstrumented: false
       } ) );
     this.addChild( this.checkButton );
 
@@ -125,7 +136,10 @@ export default class GamePlayNode extends Node {
       combineOptions<TextPushButtonOptions>( {}, BUTTONS_OPTIONS, {
         listener: () => {
           this.model.next();
-        }
+        },
+        tandem: tandem.createTandem( 'nextButton' ),
+        phetioEnabledPropertyInstrumented: false,
+        phetioVisiblePropertyInstrumented: false
       } ) );
     this.addChild( this.nextButton );
 
@@ -156,7 +170,8 @@ export default class GamePlayNode extends Node {
         textFill: 'white',
         listener: model.next.bind( model ), // equivalent to 'Next'
         right: answerNode.left - 20,
-        bottom: this.layoutBounds.bottom - 2
+        bottom: this.layoutBounds.bottom - 2,
+        tandem: Tandem.OPT_OUT
       } );
       this.addChild( skipButton );
     }

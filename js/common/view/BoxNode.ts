@@ -88,7 +88,8 @@ export default class BoxNode extends AccordionBox {
         touchAreaYDilation: 20,
         mouseAreaXDilation: 10,
         mouseAreaYDilation: 10
-      }
+      },
+      phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
     options.titleNode = new Text( titleStringProperty, {

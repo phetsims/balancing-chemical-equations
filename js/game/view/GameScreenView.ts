@@ -52,7 +52,7 @@ export default class GameScreenView extends ScreenView {
     this.levelSelectionNode.visible = ( model.stateProperty.value === 'levelSelection' );
 
     this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
-      this.layoutBounds, this.visibleBoundsProperty );
+      this.layoutBounds, this.visibleBoundsProperty, tandem.createTandem( 'gamePlayNode' ) );
     this.gamePlayNode.visible = ( model.stateProperty.value !== 'levelSelection' ) &&
                                 ( model.stateProperty.value !== 'levelCompleted' );
 
