@@ -25,15 +25,18 @@ export default class GameViewProperties {
   public constructor( tandem: Tandem ) {
 
     this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' )
+      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' ),
+      phetioFeatured: true
     } );
 
     this.productsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' )
+      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' ),
+      phetioFeatured: true
     } );
 
     this.timerEnabledProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'timerEnabledProperty' )
+      tandem: tandem.createTandem( 'timerEnabledProperty' ),
+      phetioFeatured: true
     } );
   }
 
