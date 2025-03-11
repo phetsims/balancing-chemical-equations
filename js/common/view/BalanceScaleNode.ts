@@ -1,11 +1,10 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * A balance scale, depicts the relationship between the atom count
- * on the left and right side of an equation.
+ * BalanceScaleNode displays a balance scale, which depicts the relationship between the atom count on the left
+ * and right side of an equation. The 2 main parts of a balance scale are the fulcrum and the beam.
  *
- * The 2 main parts of a balance scale are the fulcrum and the beam.
- * Origin is at the tip of the fulcrum.
+ * The origin is at the tip of the fulcrum.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)

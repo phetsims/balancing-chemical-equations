@@ -1,8 +1,8 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * An arrow that points left to right, from reactants to products.
- * Highlights when the equation is balanced.
+ * RightArrowNode is an arrow that points from left to right, from reactants to products.
+ * It highlights when the equation is balanced.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)

@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Equality operator between 2 sides of equation: equals (balanced) or not equals (not balanced).
+ * EqualityOperatorNode is the equality operator between 2 sides of equation: equals (balanced) or not equals (not balanced).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

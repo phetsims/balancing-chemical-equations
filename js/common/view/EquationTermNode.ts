@@ -1,8 +1,8 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * A term in the equation, includes the coefficient and symbol.
- * The coefficient may or may not be editable.
+ * EquationTermNode is a term in an equation, including the coefficient and symbol.
+ * The coefficient may or may not be editable via a NumberPicker.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)

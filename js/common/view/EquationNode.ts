@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Displays a chemical equation.
+ * EquationNode displays a chemical equation.
  * Reactants are on the left-hand size, products are on the right-hand side.
  *
  * @author Vasily Shakhov (mlearner.com)

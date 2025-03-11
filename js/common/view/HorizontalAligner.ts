@@ -1,11 +1,10 @@
 // Copyright 2014-2023, University of Colorado Boulder
 
 /**
- * Encapsulates the strategy used to horizontally aligning terms in an equation
- * with columns of molecules in the "boxes" view.  Based on knowledge of the
- * size and separation of the boxes, we determine the x-axis offset for each
- * term in the equation.  This offset is relative to a local coordinate system
- * where the origin is at (0,0).
+ * HorizontalAligner encapsulates the strategy used to horizontally aligning terms in an equation with columns of
+ * molecules in the "boxes" view.  Based on knowledge of the size and separation of the boxes, we determine the
+ * x-axis offset for each term in the equation.  This offset is relative to a local coordinate system where the
+ * origin is at (0,0).
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)

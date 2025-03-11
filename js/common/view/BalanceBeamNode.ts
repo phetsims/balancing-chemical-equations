@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * The beam is a horizontal lever, centered on the fulcrum.
+ * BalanceBeamNode is the beam for the balance scale. It is a horizontal lever, centered on the fulcrum.
  * It will be pivoted to represent the relationship between quantities on either side of the fulcrum.
  *
  * @author Vasily Shakhov (mlearner.com)
