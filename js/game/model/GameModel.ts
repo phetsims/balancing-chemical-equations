@@ -74,6 +74,7 @@ export default class GameModel {
 
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
+      range: new Range( 0, Infinity ), // because ?playAll affects the range
       tandem: tandem.createTandem( 'scoreProperty' ),
       phetioFeatured: true,
       phetioReadOnly: true
