@@ -11,6 +11,7 @@ import GameLevel, { EquationGenerator } from './GameLevel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RandomStrategy, { ExclusionsMap } from './RandomStrategy.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';
+import Molecule from '../../common/model/Molecule.js';
 
 const EQUATION_GENERATORS: EquationGenerator[] = [
   // This is the longest equation, and requires minX adjustment in EquationNode. Put it first to simplify layout testing with ?playAll.
@@ -118,6 +119,7 @@ export default class GameLevel3 extends GameLevel {
   public constructor( tandem: Tandem ) {
     super( {
       levelNumber: 3,
+      iconMolecule: Molecule.NH3,
       getBalancedRepresentation: () => 'barCharts',
       equationGenerators: EQUATION_GENERATORS,
       equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, true, {

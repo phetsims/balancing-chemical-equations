@@ -12,6 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import DecompositionEquation from '../../common/model/DecompositionEquation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import RandomStrategy from './RandomStrategy.js';
+import Molecule from '../../common/model/Molecule.js';
 
 const EQUATION_GENERATORS: EquationGenerator[] = [
   // This is the largest molecule. Put it first to simplify layout testing with ?playAll.
@@ -45,6 +46,7 @@ export default class GameLevel1 extends GameLevel {
   public constructor( tandem: Tandem ) {
     super( {
       levelNumber: 1,
+      iconMolecule: Molecule.HCl,
       getBalancedRepresentation: () => 'balanceScales',
       equationGenerators: EQUATION_GENERATORS,
       equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, false ),

@@ -9,8 +9,6 @@
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { AtomNodeOptions } from '../../../../nitroglycerin/js/nodes/AtomNode.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimerToggleButton from '../../../../scenery-phet/js/buttons/TimerToggleButton.js';
@@ -25,15 +23,10 @@ import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
-import Molecule from '../../common/model/Molecule.js';
 import GameModel from '../model/GameModel.js';
 import GameViewProperties from './GameViewProperties.js';
 import GameLevel from '../model/GameLevel.js';
-
-// Molecules that appear on level-selection buttons, ordered by level number
-const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
 
 const BUTTON_MARGIN = 20;
 const BUTTON_FONT = new PhetFont( { size: 14, weight: 'bold' } );
@@ -49,7 +42,7 @@ export default class LevelSelectionNode extends Node {
     const buttonItems: LevelSelectionButtonGroupItem[] = [];
     model.levels.forEach( level => {
       buttonItems.push( {
-        icon: createLevelSelectionButtonIcon( level.levelNumber, moleculeAlignGroup ),
+        icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
         scoreProperty: level.bestScoreProperty,
         options: {
           createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
@@ -129,11 +122,11 @@ export default class LevelSelectionNode extends Node {
  * @param level
  * @param moleculeAlignGroup - to give all molecules the same effective size
  */
-function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: AlignGroup ): Node {
+function createLevelSelectionButtonIcon( level: GameLevel, moleculeAlignGroup: AlignGroup ): Node {
 
   const labelStringProperty = new DerivedStringProperty(
     [ BalancingChemicalEquationsStrings.pattern_0levelStringProperty ],
-    pattern => StringUtils.format( pattern, level )
+    pattern => StringUtils.format( pattern, level.levelNumber )
   );
 
   const labelText = new Text( labelStringProperty, {
@@ -141,10 +134,7 @@ function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: Alig
     maxWidth: 100
   } );
 
-  const moleculeNode = levelMolecules[ level - 1 ].createNode( combineOptions<AtomNodeOptions>( {
-    scale: 2
-  }, BCEConstants.ATOM_NODE_OPTIONS ) );
-  const alignBox = new AlignBox( moleculeNode, {
+  const alignBox = new AlignBox( level.icon, {
     group: moleculeAlignGroup
   } );
 

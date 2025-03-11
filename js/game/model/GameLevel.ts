@@ -14,10 +14,14 @@ import Property from '../../../../axon/js/Property.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Equation from '../../common/model/Equation.js';
 import RandomStrategy from './RandomStrategy.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Molecule from '../../common/model/Molecule.js';
+import { AtomNodeOptions } from '../../../../nitroglycerin/js/nodes/AtomNode.js';
+import BCEConstants from '../../common/BCEConstants.js';
 
 export type EquationGenerator = () => Equation;
 
@@ -25,6 +29,9 @@ type SelfOptions = {
 
   // 1-based numbering
   levelNumber: number;
+
+  // Molecule that appears on the level-selection button for this game level.
+  iconMolecule: Molecule;
 
   // Gets the "balanced representation" that is displayed by the "Not Balanced" popup.
   getBalancedRepresentation: () => BalancedRepresentation;
@@ -46,6 +53,7 @@ export default class GameLevel extends PhetioObject {
   public static readonly POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
   public readonly levelNumber: number;
+  public readonly icon: Node;
   public readonly getBalancedRepresentation: () => BalancedRepresentation;
   private readonly equationGenerators: EquationGenerator[];
   private readonly equationGeneratorsSelectionStrategy: RandomStrategy;
@@ -65,6 +73,11 @@ export default class GameLevel extends PhetioObject {
     super( options );
 
     this.levelNumber = options.levelNumber;
+
+    this.icon = options.iconMolecule.createNode( combineOptions<AtomNodeOptions>( {
+      scale: 2
+    }, BCEConstants.ATOM_NODE_OPTIONS ) );
+
     this.getBalancedRepresentation = options.getBalancedRepresentation;
     this.equationGenerators = options.equationGenerators;
     this.equationGeneratorsSelectionStrategy = options.equationGeneratorsSelectionStrategy;

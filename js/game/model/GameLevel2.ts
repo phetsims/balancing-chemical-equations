@@ -12,6 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';
 import RandomStrategy from './RandomStrategy.js';
+import Molecule from '../../common/model/Molecule.js';
 
 const EQUATION_GENERATORS: EquationGenerator[] = [
   DisplacementEquation.create_2C_2H2O_CH4_CO2,
@@ -32,6 +33,7 @@ export default class GameLevel2 extends GameLevel {
   public constructor( tandem: Tandem ) {
     super( {
       levelNumber: 2,
+      iconMolecule: Molecule.H2O,
       getBalancedRepresentation: () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
       equationGenerators: EQUATION_GENERATORS,
       equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, true ),
