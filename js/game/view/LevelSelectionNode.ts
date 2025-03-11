@@ -112,7 +112,8 @@ export default class LevelSelectionNode extends Node {
     super( {
       isDisposable: false,
       children: [ buttonGroup, chooseYourLevelText, timerToggleButton, resetAllButton ],
-      tandem: tandem
+      tandem: tandem,
+      phetioVisiblePropertyInstrumented: false
     } );
   }
 }

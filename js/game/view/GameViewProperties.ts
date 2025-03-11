@@ -26,12 +26,14 @@ export default class GameViewProperties {
 
     this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     this.productsAccordionBoxExpandedProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     this.timerEnabledProperty = new BooleanProperty( false, {
