@@ -61,7 +61,7 @@ export default class GamePlayNode extends Node {
     this.feedbackPanel = null;
 
     // status bar
-    const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.pointsProperty, {
+    const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
       createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty, {
         font: STATUS_BAR_FONT,
         textFill: STATUS_BAR_TEXT_FILL

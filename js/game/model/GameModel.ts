@@ -34,7 +34,7 @@ export default class GameModel {
   public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
 
   public readonly coefficientsRange: Range;
-  public readonly pointsProperty: Property<number>; // how many points the user has earned for the current game
+  public readonly scoreProperty: Property<number>; // the score for the current game
   private equations: Equation[];
   public readonly numberOfEquationsProperty: Property<number>; // number of challenges in the current game
   public readonly currentEquationProperty: Property<Equation>; // current challenge/Equation
@@ -72,7 +72,12 @@ export default class GameModel {
 
     this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
 
-    this.pointsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+    this.scoreProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'scoreProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
 
     this.equations = [];
 
@@ -110,7 +115,7 @@ export default class GameModel {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
     this.stateProperty.reset();
-    this.pointsProperty.reset();
+    this.scoreProperty.reset();
     this.numberOfEquationsProperty.reset();
     this.currentEquationProperty.reset();
     this.currentEquationIndexProperty.reset();
@@ -136,7 +141,7 @@ export default class GameModel {
     this.currentEquationIndexProperty.value = 0;
     this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
     this.numberOfEquationsProperty.value = this.equations.length;
-    this.pointsProperty.value = 0;
+    this.scoreProperty.value = 0;
     this.stateProperty.value = 'check';
   }
 
@@ -157,7 +162,7 @@ export default class GameModel {
       else {
         this.currentPoints = 0;
       }
-      this.pointsProperty.value = this.pointsProperty.value + this.currentPoints;
+      this.scoreProperty.value = this.scoreProperty.value + this.currentPoints;
       this.stateProperty.value = 'next';
 
       if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
@@ -183,7 +188,7 @@ export default class GameModel {
     this.timer.stop();
 
     const level = this.levelProperty.value;
-    const points = this.pointsProperty.value;
+    const points = this.scoreProperty.value;
 
     // Check for new best score.
     if ( points > level.bestScoreProperty.value ) {
@@ -225,7 +230,7 @@ export default class GameModel {
    * This can be called at any time during the game, but can't possibly return true until the game has been completed.
    */
   public isPerfectScore(): boolean {
-    return this.levelProperty.value.isPerfectScore( this.pointsProperty.value );
+    return this.levelProperty.value.isPerfectScore( this.scoreProperty.value );
   }
 
   /**
