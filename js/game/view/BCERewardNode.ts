@@ -122,7 +122,9 @@ export default class BCERewardNode extends RewardNode {
    */
   public constructor( levelNumber: number ) {
     const index = levelNumber - 1;
-    super( { nodes: RewardNode.createRandomNodes( NODES[ index ], NUMBER_OF_NODES ) } );
+    super( {
+      nodes: RewardNode.createRandomNodes( NODES[ index ], NUMBER_OF_NODES )
+    } );
   }
 }
 
