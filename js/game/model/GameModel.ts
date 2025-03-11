@@ -24,8 +24,9 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GameLevel1 from './GameLevel1.js';
 import GameLevel2 from './GameLevel2.js';
 import GameLevel3 from './GameLevel3.js';
+import TModel from '../../../../joist/js/TModel.js';
 
-export default class GameModel {
+export default class GameModel implements TModel {
 
   public readonly levels: GameLevel[];
   public readonly levelProperty: Property<GameLevel>; // the selected game level
