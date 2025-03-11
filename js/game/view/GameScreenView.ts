@@ -31,7 +31,7 @@ export default class GameScreenView extends ScreenView {
   private readonly screenViewRootNode: Node; // parent for all game-related nodes
 
   private readonly levelSelectionNode: Node;
-  private gamePlayNode: Node | null; // game-play interface, created on demand
+  private gamePlayNode: Node; // game-play interface
 
   private rewardNode: BCERewardNode | null; // created on demand
 
@@ -47,16 +47,21 @@ export default class GameScreenView extends ScreenView {
     this.viewProperties = new GameViewProperties( tandem.createTandem( 'viewProperties' ) );
     this.audioPlayer = new GameAudioPlayer();
 
-    this.screenViewRootNode = new Node();
-    this.addChild( this.screenViewRootNode );
-
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
       this.initStartGame.bind( this ), tandem.createTandem( 'levelSelectionNode' ) );
     this.levelSelectionNode.visible = ( model.stateProperty.value === 'levelSelection' );
-    this.screenViewRootNode.addChild( this.levelSelectionNode );
 
-    this.gamePlayNode = null;
+    this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
+      this.layoutBounds, this.visibleBoundsProperty );
+    this.gamePlayNode.visible = ( model.stateProperty.value !== 'levelSelection' ) &&
+                                ( model.stateProperty.value !== 'levelCompleted' );
+
     this.rewardNode = null;
+
+    this.screenViewRootNode = new Node( {
+      children: [ this.levelSelectionNode, this.gamePlayNode ]
+    } );
+    this.addChild( this.screenViewRootNode );
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
@@ -88,7 +93,7 @@ export default class GameScreenView extends ScreenView {
   }
 
   private initLevelSelection(): void {
-    if ( this.gamePlayNode ) { this.gamePlayNode.visible = false; }
+    this.gamePlayNode.visible = false;
     this.levelSelectionNode.visible = true;
   }
 
@@ -97,11 +102,6 @@ export default class GameScreenView extends ScreenView {
    */
   private initStartGame( level: GameLevel ): void {
     this.model.levelProperty.value = level;
-    if ( !this.gamePlayNode ) {
-      this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
-        this.layoutBounds, this.visibleBoundsProperty );
-      this.screenViewRootNode.addChild( this.gamePlayNode );
-    }
     this.viewProperties.reactantsAccordionBoxExpandedProperty.reset();
     this.viewProperties.productsAccordionBoxExpandedProperty.reset();
     this.levelSelectionNode.visible = false;
@@ -114,9 +114,7 @@ export default class GameScreenView extends ScreenView {
     const level = this.model.levelProperty.value;
 
     this.levelSelectionNode.visible = false;
-    if ( this.gamePlayNode ) {
-      this.gamePlayNode.visible = false;
-    }
+    this.gamePlayNode.visible = false;
 
     // game reward, shown for perfect score (or with 'reward' query parameter)
     if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
