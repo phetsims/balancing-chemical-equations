@@ -15,10 +15,10 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
   // The levels to show in the Game screen. This query parameter is public.
   gameLevels: getGameLevelsSchema( 3 ),
 
-  // Play all challenges for each level of the game, to get 100% test coverage.
+  // Plays all challenges for each level of the game, to get 100% test coverage.
   playAll: { type: 'flag' },
 
-  // Show the game reward and play the 'cheering' sound regardless of the score.
+  // Shows the game reward and plays the 'cheering' sound, regardless of the score.
   showReward: { type: 'flag' },
 
   // Verifies the game model by creating lots of equation sets for each game level.
