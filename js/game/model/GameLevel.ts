@@ -58,6 +58,7 @@ export default class GameLevel extends PhetioObject {
     const options = optionize<GameLevelOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioType: GameLevel.GameLevelIO
     }, providedOptions );
 
