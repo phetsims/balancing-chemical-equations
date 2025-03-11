@@ -93,7 +93,8 @@ export default class IntroScreenView extends ScreenView {
 
     // interactive equation
     const equationNode = new EquationNode( model.equationProperty, model.coefficientsRange, aligner, {
-      top: accordionBoxes.bottom + 20
+      top: accordionBoxes.bottom + 20,
+      tandem: tandem.createTandem( 'equationNode' )
     } );
 
     // Radio button group for choosing an equation

@@ -104,9 +104,11 @@ export default class GamePlayNode extends Node {
       } );
     this.addChild( this.accordionBoxes );
 
-    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.coefficientsRange, this.aligner );
+    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.coefficientsRange, this.aligner, {
+      centerY: this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2,
+      tandem: tandem.createTandem( 'equationNode' )
+    } );
     this.addChild( this.equationNode );
-    this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
 
     // buttons: Check, Next
     const BUTTONS_OPTIONS = {

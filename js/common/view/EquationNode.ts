@@ -20,12 +20,13 @@ import EquationTerm from '../model/EquationTerm.js';
 import EquationTermNode from './EquationTermNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import RightArrowNode from './RightArrowNode.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   fontSize?: number;
 };
 
-type EquationNodeOptions = SelfOptions & NodeTranslationOptions;
+type EquationNodeOptions = SelfOptions & NodeTranslationOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class EquationNode extends Node {
 
@@ -56,7 +57,8 @@ export default class EquationNode extends Node {
       fontSize: 32,
 
       // NodeOptions
-      isDisposable: false
+      isDisposable: false,
+      phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
     super();
