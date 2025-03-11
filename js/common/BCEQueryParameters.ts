@@ -12,15 +12,13 @@ import balancingChemicalEquations from '../balancingChemicalEquations.js';
 
 const BCEQueryParameters = QueryStringMachine.getAll( {
 
-  // The levels to show in the Game screen.
+  // The levels to show in the Game screen. This query parameter is public.
   gameLevels: getGameLevelsSchema( 3 ),
 
   // Play all challenges for each level of the game, to get 100% test coverage.
-  // For internal use only.
   playAll: { type: 'flag' },
 
-  // Show the game reward and play 'cheering' sound regardless of score.
-  // For internal use only.
+  // Show the game reward and play the 'cheering' sound regardless of the score.
   showReward: { type: 'flag' },
 
   // Verifies the game model by creating lots of equation sets for each game level.
