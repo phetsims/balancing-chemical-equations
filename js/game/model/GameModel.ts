@@ -55,6 +55,7 @@ export default class GameModel implements TModel {
     ];
 
     this.levelProperty = new Property<GameLevel>( this.levels[ 0 ], {
+      validValues: this.levels,
       tandem: tandem.createTandem( 'levelProperty' ),
       phetioDocumentation: 'The selected level in the game.',
       phetioFeatured: true,
