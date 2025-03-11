@@ -36,6 +36,7 @@ import GameLevel from '../model/GameLevel.js';
 const levelMolecules = [ Molecule.HCl, Molecule.H2O, Molecule.NH3 ];
 
 const BUTTON_MARGIN = 20;
+const BUTTON_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 
 export default class LevelSelectionNode extends Node {
 
@@ -136,7 +137,7 @@ function createLevelSelectionButtonIcon( level: number, moleculeAlignGroup: Alig
   );
 
   const labelText = new Text( labelStringProperty, {
-    font: new PhetFont( { size: 14, weight: 'bold' } ),
+    font: BUTTON_FONT,
     maxWidth: 100
   } );
 
