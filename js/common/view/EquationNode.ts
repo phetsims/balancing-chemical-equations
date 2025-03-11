@@ -79,7 +79,7 @@ export default class EquationNode extends Node {
     this.addChild( this.termsParent );
 
     // if the equation changes...
-    equationProperty.link( ( newEquation, oldEquation ) => this.updateNode() );
+    equationProperty.link( () => this.updateNode() );
 
     this.mutate( options );
   }
