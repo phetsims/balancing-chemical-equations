@@ -19,9 +19,6 @@ export default class GameViewProperties {
   // Whether the 'Products' accordion box is expanded
   public readonly productsAccordionBoxExpandedProperty: Property<boolean>;
 
-  // Whether the game timer is enabled
-  public readonly timerEnabledProperty: Property<boolean>;
-
   public constructor( tandem: Tandem ) {
 
     this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
@@ -35,17 +32,11 @@ export default class GameViewProperties {
       phetioFeatured: true,
       phetioReadOnly: true
     } );
-
-    this.timerEnabledProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'timerEnabledProperty' ),
-      phetioFeatured: true
-    } );
   }
 
   public reset(): void {
     this.reactantsAccordionBoxExpandedProperty.reset();
     this.productsAccordionBoxExpandedProperty.reset();
-    this.timerEnabledProperty.reset();
   }
 }
 

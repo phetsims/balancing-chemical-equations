@@ -90,7 +90,7 @@ export default class LevelSelectionNode extends Node {
     } );
 
     // Timer control, lower left
-    const timerToggleButton = new TimerToggleButton( viewProperties.timerEnabledProperty, {
+    const timerToggleButton = new TimerToggleButton( model.timerEnabledProperty, {
       stroke: 'black',
       cornerRadius: 10,
       x: BUTTON_MARGIN,

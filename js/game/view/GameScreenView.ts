@@ -128,7 +128,7 @@ export default class GameScreenView extends ScreenView {
     // Node displaying notification that the level has been completed
     const numberOfEquations = level.getNumberOfEquations();
     const levelCompletedNode = new LevelCompletedNode( level.levelNumber, this.model.scoreProperty.value,
-      level.getPerfectScore(), numberOfEquations, this.viewProperties.timerEnabledProperty.value,
+      level.getPerfectScore(), numberOfEquations, this.model.timerEnabledProperty.value,
       this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
 
       // function called when 'Continue' button is pressed

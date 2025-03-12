@@ -25,6 +25,7 @@ import GameLevel1 from './GameLevel1.js';
 import GameLevel2 from './GameLevel2.js';
 import GameLevel3 from './GameLevel3.js';
 import TModel from '../../../../joist/js/TModel.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 export default class GameModel implements TModel {
 
@@ -40,7 +41,9 @@ export default class GameModel implements TModel {
   public readonly numberOfEquationsProperty: Property<number>; // number of challenges in the current game
   public readonly currentEquationProperty: Property<Equation>; // current challenge/Equation
   public readonly currentEquationIndexProperty: Property<number>; // index of the current challenge that the user is working on
+
   public readonly timer: GameTimer;
+  public readonly timerEnabledProperty: Property<boolean>;
 
   private attempts: number; // how many attempts the user has made at solving the current challenge
   public currentPoints: number; // how many points were earned for the current challenge
@@ -90,7 +93,14 @@ export default class GameModel implements TModel {
 
     this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    this.timer = new GameTimer( tandem.createTandem( 'timer' ) );
+    const timerTandem = tandem.createTandem( 'timer' );
+    this.timer = new GameTimer( timerTandem );
+
+    this.timerEnabledProperty = new BooleanProperty( false, {
+      tandem: timerTandem.createTandem( 'enabledProperty' ),
+      phetioFeatured: true
+    } );
+
     this.attempts = 0;
     this.currentPoints = 0;
     this.isNewBestTime = false;
@@ -122,6 +132,8 @@ export default class GameModel implements TModel {
     this.numberOfEquationsProperty.reset();
     this.currentEquationProperty.reset();
     this.currentEquationIndexProperty.reset();
+    this.timer.reset();
+    this.timerEnabledProperty.reset();
   }
 
   /**
@@ -138,7 +150,9 @@ export default class GameModel implements TModel {
     this.attempts = 0;
     this.currentPoints = 0;
     this.isNewBestTime = false;
-    this.timer.restart();
+    if ( this.timerEnabledProperty.value ) {
+      this.timer.restart();
+    }
 
     // initialize Properties
     this.currentEquationIndexProperty.value = 0;
@@ -225,7 +239,9 @@ export default class GameModel implements TModel {
    */
   public newGame(): void {
     this.stateProperty.value = 'levelSelection';
-    this.timer.restart();
+    if ( this.timerEnabledProperty.value ) {
+      this.timer.restart();
+    }
   }
 
   /**

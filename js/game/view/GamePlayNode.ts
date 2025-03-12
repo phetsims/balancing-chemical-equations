@@ -76,7 +76,7 @@ export default class GamePlayNode extends Node {
       challengeIndexProperty: model.currentEquationIndexProperty,
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
-      timerEnabledProperty: viewProperties.timerEnabledProperty,
+      timerEnabledProperty: model.timerEnabledProperty,
       font: STATUS_BAR_FONT,
       textFill: STATUS_BAR_TEXT_FILL,
       barFill: 'rgb( 49, 117, 202 )',
