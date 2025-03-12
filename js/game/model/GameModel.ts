@@ -90,7 +90,7 @@ export default class GameModel implements TModel {
 
     this.currentEquationIndexProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    this.timer = new GameTimer();
+    this.timer = new GameTimer( tandem.createTandem( 'timer' ) );
     this.attempts = 0;
     this.currentPoints = 0;
     this.isNewBestTime = false;
