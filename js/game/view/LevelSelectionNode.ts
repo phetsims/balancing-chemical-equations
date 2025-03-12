@@ -57,8 +57,7 @@ export default class LevelSelectionNode extends Node {
 
     const buttonGroup = new LevelSelectionButtonGroup( buttonItems, {
       levelSelectionButtonOptions: {
-        baseColor: '#d9ebff',
-        phetioVisiblePropertyInstrumented: false // controlled by ?gameLevels
+        baseColor: '#d9ebff'
       },
       flowBoxOptions: {
         spacing: 50,
