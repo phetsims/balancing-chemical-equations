@@ -1,4 +1,4 @@
-// Copyright 2014-2024, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * IntroModel is the top-level model for the 'Intro' screen. This model has a small set of equations, one of which

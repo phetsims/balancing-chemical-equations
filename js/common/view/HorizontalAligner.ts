@@ -1,4 +1,4 @@
-// Copyright 2014-2023, University of Colorado Boulder
+// Copyright 2014-2025, University of Colorado Boulder
 
 /**
  * HorizontalAligner encapsulates the strategy used to horizontally aligning terms in an equation with columns of
