@@ -10,6 +10,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
@@ -27,18 +28,27 @@ export default class DisplacementEquation extends Equation {
    * @param product1
    * @param p2 - balanced coefficient for product2
    * @param product2
+   * @param tandem
    */
   private constructor( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule,
-                       p1: number, product1: Molecule, p2: number, product2: Molecule ) {
+                       p1: number, product1: Molecule, p2: number, product2: Molecule,
+                       tandem = Tandem.OPT_OUT ) {
     super(
-      [ new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 ) ],
-      [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 ) ]
+      [
+        new EquationTerm( r1, reactant1, { tandem: tandem.createTandem( 'reactant1' ) } ),
+        new EquationTerm( r2, reactant2, { tandem: tandem.createTandem( 'reactant2' ) } )
+      ],
+      [
+        new EquationTerm( p1, product1, { tandem: tandem.createTandem( 'product1' ) } ),
+        new EquationTerm( p2, product2, { tandem: tandem.createTandem( 'product2' ) } )
+      ],
+      tandem
     );
   }
 
-  // CH4 + 2 O2 -> CO2 + 2 H2O
-  public static create_CH4_2O2_CO2_2H2O(): DisplacementEquation {
-    return new DisplacementEquation( 1, Molecule.CH4, 2, Molecule.O2, 1, Molecule.CO2, 2, Molecule.H2O );
+  // CH4 + 2 O2 -> CO2 + 2 H2O (Combust Methane)
+  public static create_CH4_2O2_CO2_2H2O( tandem = Tandem.OPT_OUT ): DisplacementEquation {
+    return new DisplacementEquation( 1, Molecule.CH4, 2, Molecule.O2, 1, Molecule.CO2, 2, Molecule.H2O, tandem );
   }
 
   // 2 C + 2 H2O -> CH4 + CO2

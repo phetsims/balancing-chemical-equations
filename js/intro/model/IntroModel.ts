@@ -41,25 +41,31 @@ export default class IntroModel implements TModel {
 
     this.coefficientsRange = new Range( 0, 3 );
 
+    const equationsTandem = tandem.createTandem( 'equations' );
+
     this.choices = [
       {
-        equation: SynthesisEquation.create_N2_3H2_2NH3(),
+        equation: SynthesisEquation.create_N2_3H2_2NH3( equationsTandem.createTandem( 'makeAmmoniaEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.makeAmmoniaStringProperty,
         tandemNamePrefix: 'makeAmmonia'
       },
       {
-        equation: DecompositionEquation.create_2H2O_2H2_O2(),
+        equation: DecompositionEquation.create_2H2O_2H2_O2( equationsTandem.createTandem( 'separateWateraEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.separateWaterStringProperty,
         tandemNamePrefix: 'separateWater'
       },
       {
-        equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O(),
+        equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O( equationsTandem.createTandem( 'combustMethaneEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.combustMethaneStringProperty,
         tandemNamePrefix: 'combustMethane'
       }
     ];
 
-    this.equationProperty = new Property( this.choices[ 0 ].equation );
+    this.equationProperty = new Property( this.choices[ 0 ].equation, {
+      validValues: this.choices.map( choice => choice.equation ),
+      tandem: tandem.createTandem( 'equationProperty' ),
+      phetioValueType: Equation.EquationIO
+    } );
   }
 
   public reset(): void {

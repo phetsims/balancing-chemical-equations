@@ -10,6 +10,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
@@ -25,17 +26,24 @@ export default class DecompositionEquation extends Equation {
    * @param product1
    * @param p2 - balanced coefficient for product2
    * @param product2
+   * @param tandem
    */
-  private constructor( r1: number, reactant1: Molecule, p1: number, product1: Molecule, p2: number, product2: Molecule ) {
+  private constructor( r1: number, reactant1: Molecule, p1: number, product1: Molecule, p2: number, product2: Molecule, tandem = Tandem.OPT_OUT ) {
     super(
-      [ new EquationTerm( r1, reactant1 ) ],
-      [ new EquationTerm( p1, product1 ), new EquationTerm( p2, product2 ) ]
+      [
+        new EquationTerm( r1, reactant1, { tandem: tandem.createTandem( 'reactant1' ) } )
+      ],
+      [
+        new EquationTerm( p1, product1, { tandem: tandem.createTandem( 'product1' ) } ),
+        new EquationTerm( p2, product2, { tandem: tandem.createTandem( 'product2' ) } )
+      ],
+      tandem
     );
   }
 
-  // 2 H2O -> 2 H2 + O2
-  public static create_2H2O_2H2_O2(): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.H2O, 2, Molecule.H2, 1, Molecule.O2 );
+  // 2 H2O -> 2 H2 + O2 (Separate Water)
+  public static create_2H2O_2H2_O2( tandem = Tandem.OPT_OUT ): DecompositionEquation {
+    return new DecompositionEquation( 2, Molecule.H2O, 2, Molecule.H2, 1, Molecule.O2, tandem );
   }
 
   // 2 HCl -> H2 + Cl2

@@ -10,6 +10,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
@@ -25,11 +26,18 @@ export default class SynthesisEquation extends Equation {
    * @param reactant2
    * @param p1 - balanced coefficient for product1
    * @param product1
+   * @param tandem
    */
-  private constructor( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule, p1: number, product1: Molecule ) {
+  private constructor( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule, p1: number, product1: Molecule, tandem = Tandem.OPT_OUT ) {
     super(
-      [ new EquationTerm( r1, reactant1 ), new EquationTerm( r2, reactant2 ) ],
-      [ new EquationTerm( p1, product1 ) ]
+      [
+        new EquationTerm( r1, reactant1, { tandem: tandem.createTandem( 'reactant1' ) } ),
+        new EquationTerm( r2, reactant2, { tandem: tandem.createTandem( 'reactant2' ) } )
+      ],
+      [
+        new EquationTerm( p1, product1, { tandem: tandem.createTandem( 'product1' ) } )
+      ],
+      tandem
     );
   }
 
@@ -68,9 +76,9 @@ export default class SynthesisEquation extends Equation {
     return new SynthesisEquation( 1, Molecule.C, 2, Molecule.S, 1, Molecule.CS2 );
   }
 
-  // N2 + 3 H2 -> 2 NH3
-  public static create_N2_3H2_2NH3(): SynthesisEquation {
-    return new SynthesisEquation( 1, Molecule.N2, 3, Molecule.H2, 2, Molecule.NH3 );
+  // N2 + 3 H2 -> 2 NH3 (Make Ammonia)
+  public static create_N2_3H2_2NH3( tandem = Tandem.OPT_OUT ): SynthesisEquation {
+    return new SynthesisEquation( 1, Molecule.N2, 3, Molecule.H2, 2, Molecule.NH3, tandem );
   }
 
   // 2 N2 + O2 -> 2 N2O

@@ -19,8 +19,13 @@ import Property from '../../../../axon/js/Property.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import AtomCount from './AtomCount.js';
 import EquationTerm from './EquationTerm.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
-export default class Equation {
+export default class Equation extends PhetioObject {
 
   // terms on the left side of the equation
   public readonly reactants: EquationTerm[];
@@ -29,25 +34,54 @@ export default class Equation {
   public readonly products: EquationTerm[];
 
   // whether the equation is balanced
-  public readonly isBalancedProperty: Property<boolean>;
+  public readonly isBalancedProperty: TReadOnlyProperty<boolean>;
+  private readonly _isBalancedProperty: Property<boolean>;
 
   // whether the equation is balanced with the smallest possible coefficients
-  public isBalancedAndSimplified: boolean;
+  private isBalancedAndSimplifiedProperty: Property<boolean>;
 
   // a sum of all coefficients, so we know when the sum is non-zero
-  public readonly coefficientsSumProperty: Property<number>;
+  public readonly coefficientsSumProperty: TReadOnlyProperty<number>;
+  private readonly _coefficientsSumProperty: Property<number>;
 
   /**
    * @param reactants terms on the left side of the equation
    * @param products terms on the right side of the equation
+   * @param tandem
    */
-  protected constructor( reactants: EquationTerm[], products: EquationTerm[] ) {
+  protected constructor( reactants: EquationTerm[], products: EquationTerm[], tandem = Tandem.OPT_OUT ) {
+
+    super( {
+      tandem: tandem,
+      phetioType: Equation.EquationIO
+    } );
 
     this.reactants = reactants;
     this.products = products;
-    this.isBalancedProperty = new BooleanProperty( false );
-    this.isBalancedAndSimplified = false;
-    this.coefficientsSumProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can isBalancedProperty be a DerivedProperty?
+    this._isBalancedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isBalancedProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+    this.isBalancedProperty = this._isBalancedProperty;
+
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can isBalancedAndSimplifiedProperty be a DerivedProperty?
+    this.isBalancedAndSimplifiedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isBalancedAndSimplifiedProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can coefficientsSumProperty be a DerivedProperty?
+    this._coefficientsSumProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'coefficientsSumProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
+    } );
+    this.coefficientsSumProperty = this._coefficientsSumProperty;
 
     this.addCoefficientsObserver( this.updateBalanced.bind( this ) );
 
@@ -59,14 +93,19 @@ export default class Equation {
       };
       this.reactants.forEach( reactant => addCoefficients( reactant ) );
       this.products.forEach( product => addCoefficients( product ) );
-      this.coefficientsSumProperty.value = coefficientsSum;
+      this._coefficientsSumProperty.value = coefficientsSum;
     } );
+  }
+
+  public get isBalancedAndSimplified(): boolean {
+    return this.isBalancedAndSimplifiedProperty.value;
   }
 
   public reset(): void {
 
-    this.isBalancedProperty.reset();
-    this.coefficientsSumProperty.reset();
+    this._isBalancedProperty.reset();
+    this.isBalancedAndSimplifiedProperty.reset();
+    this._coefficientsSumProperty.reset();
 
     this.reactants.forEach( reactant => reactant.reset() );
     this.products.forEach( product => product.reset() );
@@ -91,8 +130,8 @@ export default class Equation {
       isBalanced = isBalanced && ( product.userCoefficientProperty.value === multiplier * product.balancedCoefficient );
     } );
 
-    this.isBalancedAndSimplified = isBalanced && ( multiplier === 1 ); // set the more specific value first
-    this.isBalancedProperty.value = isBalanced;
+    this.isBalancedAndSimplifiedProperty.value = isBalanced && ( multiplier === 1 ); // set the more specific value first
+    this._isBalancedProperty.value = isBalanced;
   }
 
   /**
@@ -161,7 +200,7 @@ export default class Equation {
   /**
    * String value of an equation, shows balanced coefficients, for debugging. Do not rely on this format!
    */
-  public toString(): string {
+  public override toString(): string {
     let string = '';
 
     // reactants
@@ -193,6 +232,15 @@ export default class Equation {
 
     return string;
   }
+
+  /**
+   * EquationIO handles serialization an Equation. It implements reference-type serialization, as
+   * described in https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization.
+   */
+  public static readonly EquationIO = new IOType<Equation, ReferenceIOState>( 'EquationIO', {
+    valueType: Equation,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
 }
 
 balancingChemicalEquations.register( 'Equation', Equation );
