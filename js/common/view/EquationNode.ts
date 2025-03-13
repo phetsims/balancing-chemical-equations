@@ -21,12 +21,14 @@ import EquationTermNode from './EquationTermNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import RightArrowNode from './RightArrowNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   fontSize?: number;
 };
 
-type EquationNodeOptions = SelfOptions & NodeTranslationOptions & PickRequired<NodeOptions, 'tandem'>;
+type EquationNodeOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<NodeOptions, 'visibleProperty'> & PickRequired<NodeOptions, 'tandem'>;
 
 export default class EquationNode extends Node {
 

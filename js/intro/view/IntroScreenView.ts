@@ -30,6 +30,8 @@ import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 import HorizontalBarNode from './HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
 import ToolsComboBox from './ToolsComboBox.js';
+import Property from '../../../../axon/js/Property.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -91,10 +93,18 @@ export default class IntroScreenView extends ScreenView {
       newEquation.isBalancedProperty.link( updateFace );
     } );
 
-    // interactive equation
-    const equationNode = new EquationNode( model.equationProperty, model.coefficientsRange, aligner, {
+    // interactive equations
+    const equationNodesTandem = tandem.createTandem( 'equationNodes' );
+    const equationNodes = new Node( {
+      children: model.choices.map( choice => {
+        const equationProperty = new Property( choice.equation );
+        return new EquationNode( equationProperty, model.coefficientsRange, aligner, {
+          visibleProperty: new DerivedProperty( [ model.equationProperty ], equation => equation === choice.equation ),
+          tandem: equationNodesTandem.createTandem( `${choice.tandemNamePrefix}Node` )
+        } );
+      } ),
       top: accordionBoxes.bottom + 20,
-      tandem: tandem.createTandem( 'equationNode' )
+      tandem: equationNodesTandem
     } );
 
     // Radio button group for choosing an equation
@@ -164,7 +174,7 @@ export default class IntroScreenView extends ScreenView {
         accordionBoxes,
         toolsControl,
         faceNode,
-        equationNode,
+        equationNodes,
         horizontalBarNode,
         equationRadioButtonGroup,
         resetAllButton,
@@ -188,7 +198,7 @@ export default class IntroScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
       equationRadioButtonGroup,
-      equationNode
+      equationNodes
     ];
 
     // Control Area focus order
