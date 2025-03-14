@@ -68,10 +68,10 @@ function appendToCounts( atomCounts: AtomCount[], terms: EquationTerm[], isReact
         // add to an existing count
         if ( atomCount.element === atom.element ) {
           if ( isReactants ) {
-            atomCount.reactantsCount += term.userCoefficientProperty.value;
+            atomCount.reactantsCount += term.coefficientProperty.value;
           }
           else {
-            atomCount.productsCount += term.userCoefficientProperty.value;
+            atomCount.productsCount += term.coefficientProperty.value;
           }
           found = true;
           break;
@@ -81,10 +81,10 @@ function appendToCounts( atomCounts: AtomCount[], terms: EquationTerm[], isReact
       // if no existing count was found, create one.
       if ( !found ) {
         if ( isReactants ) {
-          atomCounts.push( new AtomCount( atom.element, term.userCoefficientProperty.value, 0 ) );
+          atomCounts.push( new AtomCount( atom.element, term.coefficientProperty.value, 0 ) );
         }
         else {
-          atomCounts.push( new AtomCount( atom.element, 0, term.userCoefficientProperty.value ) );
+          atomCounts.push( new AtomCount( atom.element, 0, term.coefficientProperty.value ) );
         }
       }
     } );

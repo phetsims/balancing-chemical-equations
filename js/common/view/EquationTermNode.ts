@@ -39,7 +39,7 @@ export default class EquationTermNode extends Node {
     }, providedOptions );
 
     // coefficient picker
-    const coefficientPicker = new NumberPicker( term.userCoefficientProperty, new Property( coefficientRange ), {
+    const coefficientPicker = new NumberPicker( term.coefficientProperty, new Property( coefficientRange ), {
       color: 'rgb(50,50,50)',
       pressedColor: 'black',
       xMargin: 8,

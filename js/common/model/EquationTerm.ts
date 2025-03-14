@@ -29,7 +29,7 @@ export default class EquationTerm {
 
   public readonly balancedCoefficient: number;
   public readonly molecule: Molecule;
-  public readonly userCoefficientProperty: Property<number>;
+  public readonly coefficientProperty: Property<number>;
 
   public constructor( balancedCoefficient: number, molecule: Molecule, providedOptions?: EquationTermOptions ) {
 
@@ -50,15 +50,15 @@ export default class EquationTerm {
     this.balancedCoefficient = balancedCoefficient;
     this.molecule = molecule;
 
-    this.userCoefficientProperty = new NumberProperty( options.initialCoefficient, {
+    this.coefficientProperty = new NumberProperty( options.initialCoefficient, {
       numberType: 'Integer',
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Needs range, which is different for Intro and Game screens.
-      tandem: options.tandem.createTandem( 'userCoefficientProperty' )
+      tandem: options.tandem.createTandem( 'coefficientProperty' )
     } );
   }
 
   public reset(): void {
-    this.userCoefficientProperty.reset();
+    this.coefficientProperty.reset();
   }
 }
 

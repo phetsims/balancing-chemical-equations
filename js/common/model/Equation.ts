@@ -89,7 +89,7 @@ export default class Equation extends PhetioObject {
     this.addCoefficientsObserver( () => {
       let coefficientsSum = 0;
       const addCoefficients = ( equationTerm: EquationTerm ) => {
-        coefficientsSum += equationTerm.userCoefficientProperty.value;
+        coefficientsSum += equationTerm.coefficientProperty.value;
       };
       this.reactants.forEach( reactant => addCoefficients( reactant ) );
       this.products.forEach( product => addCoefficients( product ) );
@@ -119,15 +119,15 @@ export default class Equation extends PhetioObject {
   private updateBalanced(): void {
 
     // Get integer multiplier from the first reactant term.
-    const multiplier = this.reactants[ 0 ].userCoefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
+    const multiplier = this.reactants[ 0 ].coefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
     let isBalanced = ( multiplier > 0 );
 
     // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
     this.reactants.forEach( reactant => {
-      isBalanced = isBalanced && ( reactant.userCoefficientProperty.value === multiplier * reactant.balancedCoefficient );
+      isBalanced = isBalanced && ( reactant.coefficientProperty.value === multiplier * reactant.balancedCoefficient );
     } );
     this.products.forEach( product => {
-      isBalanced = isBalanced && ( product.userCoefficientProperty.value === multiplier * product.balancedCoefficient );
+      isBalanced = isBalanced && ( product.coefficientProperty.value === multiplier * product.balancedCoefficient );
     } );
 
     this.isBalancedAndSimplifiedProperty.value = isBalanced && ( multiplier === 1 ); // set the more specific value first
@@ -138,8 +138,8 @@ export default class Equation extends PhetioObject {
    * Convenience method for adding an observer to all coefficients.
    */
   public addCoefficientsObserver( observer: () => void ): void {
-    this.reactants.forEach( reactant => reactant.userCoefficientProperty.lazyLink( observer ) );
-    this.products.forEach( product => product.userCoefficientProperty.lazyLink( observer ) );
+    this.reactants.forEach( reactant => reactant.coefficientProperty.lazyLink( observer ) );
+    this.products.forEach( product => product.coefficientProperty.lazyLink( observer ) );
     observer();
   }
 
@@ -147,8 +147,8 @@ export default class Equation extends PhetioObject {
    * Convenience method for removing an observer from all coefficients.
    */
   public removeCoefficientsObserver( observer: () => void ): void {
-    this.reactants.forEach( reactant => reactant.userCoefficientProperty.unlink( observer ) );
-    this.products.forEach( product => product.userCoefficientProperty.unlink( observer ) );
+    this.reactants.forEach( reactant => reactant.coefficientProperty.unlink( observer ) );
+    this.products.forEach( product => product.coefficientProperty.unlink( observer ) );
   }
 
   /**
@@ -172,10 +172,10 @@ export default class Equation extends PhetioObject {
    */
   public balance(): void {
     this.reactants.forEach( term => {
-      term.userCoefficientProperty.value = term.balancedCoefficient;
+      term.coefficientProperty.value = term.balancedCoefficient;
     } );
     this.products.forEach( term => {
-      term.userCoefficientProperty.value = term.balancedCoefficient;
+      term.coefficientProperty.value = term.balancedCoefficient;
     } );
   }
 

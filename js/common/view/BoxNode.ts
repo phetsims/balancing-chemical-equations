@@ -168,14 +168,14 @@ export default class BoxNode extends AccordionBox {
       const term = terms[ i ];
       const moleculeNodes = this.termNodesMap.get( term.molecule ) || [];
 
-      const userCoefficient = terms[ i ].userCoefficientProperty.value;
+      const coefficient = terms[ i ].coefficientProperty.value;
       let y = this.boxHeight - Y_MARGIN - ( rowHeight / 2 );
 
-      for ( let j = 0; j < Math.max( userCoefficient, moleculeNodes.length ); j++ ) {
+      for ( let j = 0; j < Math.max( coefficient, moleculeNodes.length ); j++ ) {
         if ( j < moleculeNodes.length ) {
 
           // set visibility of a molecule that already exists
-          moleculeNodes[ j ].visible = ( j < userCoefficient );
+          moleculeNodes[ j ].visible = ( j < coefficient );
         }
         else {
 
