@@ -184,9 +184,13 @@ export default class IntroScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
-    // show the answer when running in dev mode, bottom center
+    // Show the answer at bottom center.
     if ( phet.chipper.queryParameters.showAnswers ) {
-      const answerNode = new Text( '', { font: new PhetFont( 12 ), bottom: horizontalBarNode.top - 5 } );
+      const answerNode = new Text( '', {
+        fill: 'red',
+        font: new PhetFont( 20 ),
+        bottom: horizontalBarNode.top - 5
+      } );
       screenViewRootNode.addChild( answerNode );
       model.equationProperty.link( equation => {
         answerNode.string = equation.getCoefficientsString();

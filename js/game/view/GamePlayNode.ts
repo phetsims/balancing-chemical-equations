@@ -151,13 +151,12 @@ export default class GamePlayNode extends Node {
       this.nextButton.bottom = this.accordionBoxes.bottom;
     } );
 
-    // developer stuff
     if ( phet.chipper.queryParameters.showAnswers ) {
 
-      // display correct coefficient at bottom center of the screen
+      // Show the answer at bottom center.
       const answerNode = new Text( '', {
         fill: 'red',
-        font: new PhetFont( 12 ),
+        font: new PhetFont( 20 ),
         bottom: this.layoutBounds.bottom - 5
       } );
       this.addChild( answerNode );
@@ -166,14 +165,14 @@ export default class GamePlayNode extends Node {
         answerNode.centerX = this.layoutBounds.centerX;
       } );
 
-      // skips the current equation
+      // Add a 'Skip' button to skip the current equation.
       const skipButton = new TextPushButton( 'Skip', {
-        font: new PhetFont( 10 ),
+        font: new PhetFont( 20 ),
         baseColor: 'red',
         textFill: 'white',
         listener: model.next.bind( model ), // equivalent to 'Next'
-        right: answerNode.left - 20,
-        bottom: this.layoutBounds.bottom - 2,
+        centerX: this.checkButton.centerX,
+        bottom: this.checkButton.top - 15,
         tandem: Tandem.OPT_OUT
       } );
       this.addChild( skipButton );
