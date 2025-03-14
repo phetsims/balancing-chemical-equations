@@ -143,10 +143,10 @@ export default class GameLevel extends PhetioObject {
    * GameLevelIO handles serialization of a level in the game screen. It implements reference-type serialization, as
    * described in https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization.
    */
-  public static readonly GameLevelIO = new IOType<GameLevel, ReferenceIOState>( 'HydrogenAtomIO', {
+  public static readonly GameLevelIO = new IOType<GameLevel, ReferenceIOState>( 'GameLevelIO', {
     valueType: GameLevel,
     supertype: ReferenceIO( IOType.ObjectIO ),
-    documentation: 'A level in the game'
+    documentation: 'A level in the game.'
   } );
 }
 
