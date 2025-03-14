@@ -77,7 +77,7 @@ export default class BarChartsNode extends Node {
     const coefficientsObserver = this.updateCounts.bind( this );
     equationProperty.link( ( newEquation, oldEquation ) => {
       this.updateNode();
-      if ( oldEquation ) { oldEquation.removeCoefficientsObserver( coefficientsObserver ); }
+      oldEquation && oldEquation.removeCoefficientsObserver( coefficientsObserver );
       newEquation.addCoefficientsObserver( coefficientsObserver );
     } );
 

@@ -46,7 +46,7 @@ export default class RightArrowNode extends ArrowNode {
     // Wire observer to current equation.
     const isBalancedObserver = this.updateHighlight.bind( this );
     equationProperty.link( ( newEquation, oldEquation ) => {
-      if ( oldEquation ) { oldEquation.isBalancedProperty.unlink( isBalancedObserver ); }
+      oldEquation && oldEquation.isBalancedProperty.unlink( isBalancedObserver );
       newEquation.isBalancedProperty.link( isBalancedObserver );
     } );
   }
