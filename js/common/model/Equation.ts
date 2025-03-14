@@ -238,7 +238,7 @@ export default class Equation extends PhetioObject {
   }
 
   /**
-   * EquationIO handles serialization an Equation. It implements reference-type serialization, as
+   * EquationIO handles serialization of an Equation. It implements reference-type serialization, as
    * described in https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization.
    */
   public static readonly EquationIO = new IOType<Equation, ReferenceIOState>( 'EquationIO', {
