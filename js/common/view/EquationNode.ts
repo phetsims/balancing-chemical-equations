@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -22,6 +21,8 @@ import HorizontalAligner from './HorizontalAligner.js';
 import RightArrowNode from './RightArrowNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = {
   fontSize?: number;
@@ -32,7 +33,7 @@ type EquationNodeOptions = SelfOptions & NodeTranslationOptions &
 
 export default class EquationNode extends Node {
 
-  private readonly equationProperty: TReadOnlyProperty<Equation>;
+  private readonly equation: Equation;
   private readonly coefficientRange: Range;
   private readonly aligner: HorizontalAligner;
   private readonly fontSize: number;
@@ -45,33 +46,28 @@ export default class EquationNode extends Node {
   private readonly termsParent: Node;
 
   /**
-   * @param equationProperty
+   * @param equation
    * @param coefficientRange - range of the coefficients
    * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
-   * @param [providedOptions]
+   * @param providedOptions
    */
-  public constructor( equationProperty: TReadOnlyProperty<Equation>, coefficientRange: Range,
-                      aligner: HorizontalAligner, providedOptions?: EquationNodeOptions ) {
+  public constructor( equation: Equation, coefficientRange: Range, aligner: HorizontalAligner, providedOptions: EquationNodeOptions ) {
 
     const options = optionize<EquationNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      fontSize: 32,
-
-      // NodeOptions
-      isDisposable: false,
-      phetioVisiblePropertyInstrumented: false
+      fontSize: 32
     }, providedOptions );
 
-    super();
+    super( options );
 
-    this.equationProperty = equationProperty;
+    this.equation = equation;
     this.coefficientRange = coefficientRange;
     this.aligner = aligner;
     this.fontSize = options.fontSize;
 
     // arrow node, at a fixed position
-    this.arrowNode = new RightArrowNode( equationProperty, {
+    this.arrowNode = new RightArrowNode( new Property( equation ), {
       centerX: this.aligner.getScreenCenterX()
     } );
     this.addChild( this.arrowNode );
@@ -80,37 +76,31 @@ export default class EquationNode extends Node {
     this.termsParent = new Node();
     this.addChild( this.termsParent );
 
-    // if the equation changes...
-    equationProperty.link( () => this.updateNode() );
+    const termNodesTandem = options.tandem.createTandem( 'termNodes' );
 
-    this.mutate( options );
+    // Create the reactants side of the equation.
+    this.createSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ),
+      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), termNodesTandem );
+
+    // Create the products side of the equation.
+    this.createSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ),
+      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), termNodesTandem );
+
+    this.disposeEmitter.addListener( () => {
+      this.arrowNode.dispose();
+      this.termNodes.forEach( termNode => termNode.dispose() );
+    } );
   }
 
   /**
-   * Rebuilds the left and right sides of the equation.
-   */
-  private updateNode(): void {
-
-    // dispose of existing instances of EquationTermNode
-    this.termNodes.forEach( termNode => termNode.dispose() );
-    this.termNodes.length = 0;
-    this.termsParent.removeAllChildren();
-
-    const equation = this.equationProperty.value;
-    this.updateSideOfEquation( equation.reactants, this.aligner.getReactantXOffsets( equation ),
-      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight() );
-    this.updateSideOfEquation( equation.products, this.aligner.getProductXOffsets( equation ),
-      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight() );
-  }
-
-  /**
-   * Rebuilds one side of the equation.
+   * Creates one side of the equation.
    * @param terms
    * @param xOffsets
    * @param minX - minimal possible x for equation
    * @param maxX - maximum possible x for equation
+   * @param parentTandem
    */
-  private updateSideOfEquation( terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number ): void {
+  private createSideOfEquation( terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number, parentTandem: Tandem ): void {
     assert && assert( terms.length > 0 );
 
     let plusNode;
@@ -120,8 +110,15 @@ export default class EquationNode extends Node {
 
     for ( let i = 0; i < terms.length; i++ ) {
 
+      const term = terms[ i ];
+
+      const tandemName = `${term.molecule.symbolPlainText}Node`;
+
       // term
-      termNode = new EquationTermNode( terms[ i ], this.coefficientRange, { fontSize: this.fontSize } );
+      termNode = new EquationTermNode( term, this.coefficientRange, {
+        fontSize: this.fontSize,
+        tandem: parentTandem.createTandem( tandemName )
+      } );
       this.termNodes.push( termNode );
       this.termsParent.addChild( termNode );
       termNode.center = new Vector2( xOffsets[ i ], 0 );

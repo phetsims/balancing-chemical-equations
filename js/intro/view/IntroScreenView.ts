@@ -30,7 +30,6 @@ import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 import HorizontalBarNode from './HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
 import ToolsComboBox from './ToolsComboBox.js';
-import Property from '../../../../axon/js/Property.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -96,13 +95,10 @@ export default class IntroScreenView extends ScreenView {
     // interactive equations
     const equationNodesTandem = tandem.createTandem( 'equationNodes' );
     const equationNodes = new Node( {
-      children: model.choices.map( choice => {
-        const equationProperty = new Property( choice.equation );
-        return new EquationNode( equationProperty, model.coefficientsRange, aligner, {
-          visibleProperty: new DerivedProperty( [ model.equationProperty ], equation => equation === choice.equation ),
-          tandem: equationNodesTandem.createTandem( `${choice.tandemNamePrefix}Node` )
-        } );
-      } ),
+      children: model.choices.map( choice => new EquationNode( choice.equation, model.coefficientsRange, aligner, {
+        visibleProperty: new DerivedProperty( [ model.equationProperty ], equation => equation === choice.equation ),
+        tandem: equationNodesTandem.createTandem( `${choice.tandemNamePrefix}Node` )
+      } ) ),
       top: accordionBoxes.bottom + 20,
       tandem: equationNodesTandem
     } );

@@ -32,7 +32,6 @@ export default class RightArrowNode extends ArrowNode {
     const options = optionize<RightArrowNodeOptions, SelfOptions, ArrowNodeOptions>()( {
 
       // ArrowNodeOptions
-      isDisposable: false,
       tailWidth: 15,
       headWidth: 35,
       headHeight: 30
@@ -44,10 +43,19 @@ export default class RightArrowNode extends ArrowNode {
     this._highlightEnabled = true;
 
     // Wire observer to current equation.
-    const isBalancedObserver = this.updateHighlight.bind( this );
-    equationProperty.link( ( newEquation, oldEquation ) => {
-      oldEquation && oldEquation.isBalancedProperty.unlink( isBalancedObserver );
-      newEquation.isBalancedProperty.link( isBalancedObserver );
+    const isBalancedListener = this.updateHighlight.bind( this );
+
+    const equationObserver = ( newEquation: Equation, oldEquation: Equation | null ) => {
+      oldEquation && oldEquation.isBalancedProperty.unlink( isBalancedListener );
+      newEquation.isBalancedProperty.link( isBalancedListener );
+    };
+    equationProperty.link( equationObserver );
+
+    this.disposeEmitter.addListener( () => {
+      equationProperty.unlink( equationObserver );
+      if ( equationProperty.value.isBalancedProperty.hasListener( isBalancedListener ) ) {
+        equationProperty.value.isBalancedProperty.unlink( isBalancedListener );
+      }
     } );
   }
 

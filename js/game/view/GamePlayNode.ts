@@ -42,7 +42,10 @@ export default class GamePlayNode extends Node {
   private readonly aligner: HorizontalAligner;
   private feedbackPanel: GameFeedbackPanel | null; // created on demand
   private readonly accordionBoxes: BoxesNode; // boxes that show molecules corresponding to the equation coefficients
-  private readonly equationNode: EquationNode;
+
+  private equationNode: EquationNode;
+  private readonly equationNodeParent: Node;
+
   private readonly checkButton: TextPushButton;
   private readonly nextButton: TextPushButton;
 
@@ -105,11 +108,23 @@ export default class GamePlayNode extends Node {
       } );
     this.addChild( this.accordionBoxes );
 
-    this.equationNode = new EquationNode( this.model.currentEquationProperty, this.model.coefficientsRange, this.aligner, {
-      centerY: this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2,
-      tandem: tandem.createTandem( 'equationNode' )
+    this.equationNode = new EquationNode( model.currentEquationProperty.value, this.model.coefficientsRange, this.aligner, {
+      tandem: Tandem.OPT_OUT
     } );
-    this.addChild( this.equationNode );
+
+    this.equationNodeParent = new Node( {
+      children: [ this.equationNode ]
+    } );
+    this.addChild( this.equationNodeParent );
+
+    model.currentEquationProperty.link( equation => {
+      this.equationNode.dispose();
+      this.equationNode = new EquationNode( equation, this.model.coefficientsRange, this.aligner, {
+        tandem: Tandem.OPT_OUT
+      } );
+      this.equationNodeParent.children = [ this.equationNode ];
+      this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
+    } );
 
     // buttons: Check, Next
     const BUTTONS_OPTIONS = {

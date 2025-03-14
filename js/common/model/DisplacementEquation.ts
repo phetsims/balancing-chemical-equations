@@ -33,14 +33,17 @@ export default class DisplacementEquation extends Equation {
   private constructor( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule,
                        p1: number, product1: Molecule, p2: number, product2: Molecule,
                        tandem = Tandem.OPT_OUT ) {
+
+    const termsTandem = tandem.createTandem( 'terms' );
+
     super(
       [
-        new EquationTerm( r1, reactant1, { tandem: tandem.createTandem( 'reactant1' ) } ),
-        new EquationTerm( r2, reactant2, { tandem: tandem.createTandem( 'reactant2' ) } )
+        new EquationTerm( r1, reactant1, { tandem: termsTandem.createTandem( reactant1.symbolPlainText ) } ),
+        new EquationTerm( r2, reactant2, { tandem: termsTandem.createTandem( reactant2.symbolPlainText ) } )
       ],
       [
-        new EquationTerm( p1, product1, { tandem: tandem.createTandem( 'product1' ) } ),
-        new EquationTerm( p2, product2, { tandem: tandem.createTandem( 'product2' ) } )
+        new EquationTerm( p1, product1, { tandem: termsTandem.createTandem( product1.symbolPlainText ) } ),
+        new EquationTerm( p2, product2, { tandem: termsTandem.createTandem( product2.symbolPlainText ) } )
       ],
       tandem
     );

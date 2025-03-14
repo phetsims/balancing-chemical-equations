@@ -59,7 +59,8 @@ const S = Element.S;
 export default class Molecule {
 
   private readonly MoleculeNodeConstructor: new ( options?: MoleculeNodeOptions ) => MoleculeNode;
-  public readonly symbol: string;
+  public readonly symbol: string; // in RichText format, with LTR wrapping
+  public readonly symbolPlainText: string; // in plain text format
   public readonly atoms: Atom[];
 
   /**
@@ -71,6 +72,7 @@ export default class Molecule {
 
     this.MoleculeNodeConstructor = MoleculeNodeConstructor;
     this.symbol = elementsToSymbol( elements );
+    this.symbolPlainText = elementsToSymbol( elements, false /* withMarkup */ );
     this.atoms = elements.map( element => new Atom( element ) );
   }
 
@@ -126,11 +128,11 @@ export default class Molecule {
 }
 
 /**
- * Converts an ordered set of elements to the symbol for a Molecule.
- * The string is in RichText format, and left-to-right order is preserved.
- * For example: [ C, C, H, H ] => 'C<sub>2</sub>H<sub>2</sub>'
+ * Converts an ordered set of elements to the symbol for a Molecule. Left-to-right order is preserved.
+ * The string is in RichText format by default, with LTR wrapping, but can be in plain text format with withMarkup = false.
+ * For example: [ C, C, H, H ] => '\u202aC<sub>2</sub>H<sub>2</sub>\u202b'
  */
-function elementsToSymbol( elements: Element[] ): string {
+function elementsToSymbol( elements: Element[], withMarkup = true ): string {
   let symbol = '';
   let element: Element | null = null;
   let count = 0;
@@ -141,7 +143,12 @@ function elementsToSymbol( elements: Element[] ): string {
     }
     else {
       if ( count > 1 ) {
-        symbol += `<sub>${count}</sub>`;
+        if ( withMarkup ) {
+          symbol += `<sub>${count}</sub>`;
+        }
+        else {
+          symbol += `${count}`;
+        }
       }
       symbol += currentElement.symbol;
       element = currentElement;
@@ -149,11 +156,20 @@ function elementsToSymbol( elements: Element[] ): string {
     }
   }
   if ( count > 1 ) {
-    symbol += `<sub>${count}</sub>`;
+    if ( withMarkup ) {
+      symbol += `<sub>${count}</sub>`;
+    }
+    else {
+      symbol += `${count}`;
+    }
   }
 
-  // Preserve left-to-right ordering
-  return StringUtils.wrapLTR( symbol );
+  // Preserve left-to-right ordering.
+  if ( withMarkup ) {
+    symbol = StringUtils.wrapLTR( symbol );
+  }
+
+  return symbol;
 }
 
 balancingChemicalEquations.register( 'Molecule', Molecule );

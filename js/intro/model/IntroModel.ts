@@ -50,7 +50,7 @@ export default class IntroModel implements TModel {
         tandemNamePrefix: 'makeAmmonia'
       },
       {
-        equation: DecompositionEquation.create_2H2O_2H2_O2( equationsTandem.createTandem( 'separateWateraEquation' ) ),
+        equation: DecompositionEquation.create_2H2O_2H2_O2( equationsTandem.createTandem( 'separateWaterEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.separateWaterStringProperty,
         tandemNamePrefix: 'separateWater'
       },

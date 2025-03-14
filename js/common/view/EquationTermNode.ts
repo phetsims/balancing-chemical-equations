@@ -17,25 +17,29 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import EquationTerm from '../model/EquationTerm.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   fontSize?: number;
   xSpacing?: number;
 };
 
-type EquationTermNodeOptions = SelfOptions;
+type EquationTermNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class EquationTermNode extends Node {
 
   private readonly coefficientPicker: NumberPicker;
 
-  public constructor( term: EquationTerm, coefficientRange: Range, providedOptions?: EquationTermNodeOptions ) {
+  public constructor( term: EquationTerm, coefficientRange: Range, providedOptions: EquationTermNodeOptions ) {
 
     const options = optionize<EquationTermNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       fontSize: 32,
-      xSpacing: 4
+      xSpacing: 4,
+
+      // NodeOptions
+      phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
     // coefficient picker
@@ -47,16 +51,21 @@ export default class EquationTermNode extends Node {
       touchAreaXDilation: 30,
       font: new PhetFont( options.fontSize ),
       timerDelay: 400, // ms until the picker starts to fire continuously
-      timerInterval: 200 // ms between value change while firing continuously
+      timerInterval: 200, // ms between value change while firing continuously
+      tandem: options.tandem.createTandem( 'coefficientPicker' ),
+      phetioVisiblePropertyInstrumented: false
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
-    const richTextOptions = { font: new PhetFont( options.fontSize ) };
+    const richTextOptions = {
+      font: new PhetFont( options.fontSize )
+    };
     const symbolNode = new RichText( term.molecule.symbol, richTextOptions );
     symbolNode.left = coefficientPicker.right + options.xSpacing;
     symbolNode.centerY = coefficientPicker.centerY + ( symbolNode.height - new RichText( 'H', richTextOptions ).height ) / 2;
 
     options.children = [ coefficientPicker, symbolNode ];
+
     super( options );
 
     this.coefficientPicker = coefficientPicker;
