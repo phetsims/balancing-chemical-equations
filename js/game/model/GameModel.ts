@@ -19,21 +19,24 @@ import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import { GameState, GameStateValues } from './GameState.js';
 import GameLevel from './GameLevel.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GameLevel1 from './GameLevel1.js';
 import GameLevel2 from './GameLevel2.js';
 import GameLevel3 from './GameLevel3.js';
 import TModel from '../../../../joist/js/TModel.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 export default class GameModel implements TModel {
 
   public readonly levels: GameLevel[];
-  public readonly levelProperty: Property<GameLevel>; // the selected game level
-  public readonly levelNumberProperty: TReadOnlyProperty<number>; // number of the selected game level, 1-based
 
-  public readonly stateProperty: StringUnionProperty<GameState>; // state of the game
+  // The selected game level. null means 'no selection' and causes the view to return to the level-selection UI.
+  public readonly levelProperty: Property<GameLevel | null>;
+
+  // state of the game
+  private readonly _stateProperty: StringUnionProperty<GameState>;
+  public readonly stateProperty: TReadOnlyProperty<GameState>;
 
   public readonly coefficientsRange: Range;
   public readonly scoreProperty: Property<number>; // the score for the current game
@@ -57,23 +60,21 @@ export default class GameModel implements TModel {
       new GameLevel3( tandem.createTandem( 'level3' ) )
     ];
 
-    this.levelProperty = new Property<GameLevel>( this.levels[ 0 ], {
-      validValues: this.levels,
+    this.levelProperty = new Property<GameLevel | null>( null, {
+      validValues: [ ...this.levels, null ],
       tandem: tandem.createTandem( 'levelProperty' ),
-      phetioDocumentation: 'The selected level in the game.',
+      phetioDocumentation: 'The selected level in the game. null means that no level is selected.',
       phetioFeatured: true,
-      phetioReadOnly: true,
-      phetioValueType: GameLevel.GameLevelIO
+      phetioValueType: NullableIO( GameLevel.GameLevelIO )
     } );
 
-    this.levelNumberProperty = new DerivedProperty( [ this.levelProperty ], level => level.levelNumber );
-
-    this.stateProperty = new StringUnionProperty( 'levelSelection', {
+    this._stateProperty = new StringUnionProperty( 'levelSelection', {
       validValues: GameStateValues,
       tandem: tandem.createTandem( 'stateProperty' ),
-      phetioDocumentation: 'State that the game is currently in.',
+      phetioDocumentation: 'For internal use only.',
       phetioReadOnly: true
     } );
+    this.stateProperty = this._stateProperty;
 
     this.coefficientsRange = new Range( 0, 7 ); // Range of possible equation coefficients
 
@@ -105,6 +106,15 @@ export default class GameModel implements TModel {
     this.currentPoints = 0;
     this.isNewBestTime = false;
 
+    this.levelProperty.link( level => {
+      if ( level ) {
+        this.startGame( level );
+      }
+      else {
+        this.startOver();
+      }
+    } );
+
     if ( BCEQueryParameters.verifyGame ) {
       this.verifyGame();
     }
@@ -127,7 +137,7 @@ export default class GameModel implements TModel {
   public reset(): void {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
-    this.stateProperty.reset();
+    this._stateProperty.reset();
     this.scoreProperty.reset();
     this.numberOfEquationsProperty.reset();
     this.currentEquationProperty.reset();
@@ -136,12 +146,14 @@ export default class GameModel implements TModel {
     this.timerEnabledProperty.reset();
   }
 
+  private setState( value: GameState ): void {
+    this._stateProperty.value = value;
+  }
+
   /**
    * Called when the user presses a level-selection button.
    */
-  public startGame(): void {
-
-    const level = this.levelProperty.value;
+  private startGame( level: GameLevel ): void {
 
     // create a set of challenges
     this.equations = level.createEquations();
@@ -151,7 +163,7 @@ export default class GameModel implements TModel {
     this.currentPoints = 0;
     this.isNewBestTime = false;
     if ( this.timerEnabledProperty.value ) {
-      this.timer.restart();
+      this.timer.start();
     }
 
     // initialize Properties
@@ -159,7 +171,7 @@ export default class GameModel implements TModel {
     this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
     this.numberOfEquationsProperty.value = this.equations.length;
     this.scoreProperty.value = 0;
-    this.stateProperty.value = 'check';
+    this.setState( 'check' );
   }
 
   /**
@@ -180,20 +192,20 @@ export default class GameModel implements TModel {
         this.currentPoints = 0;
       }
       this.scoreProperty.value = this.scoreProperty.value + this.currentPoints;
-      this.stateProperty.value = 'next';
+      this.setState( 'next' );
 
       if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
     }
     else if ( this.attempts < 2 ) {
-      this.stateProperty.value = 'tryAgain';
+      this.setState( 'tryAgain' );
     }
     else {
       if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
         this.endGame();
       }
-      this.stateProperty.value = 'showAnswer';
+      this.setState( 'showAnswer' );
     }
   }
 
@@ -204,7 +216,9 @@ export default class GameModel implements TModel {
 
     this.timer.stop();
 
-    const level = this.levelProperty.value;
+    const level = this.levelProperty.value!;
+    assert && assert( level );
+
     const points = this.scoreProperty.value;
 
     // Check for new best score.
@@ -224,32 +238,33 @@ export default class GameModel implements TModel {
    * Called when the user presses the "Try Again" button.
    */
   public tryAgain(): void {
-    this.stateProperty.value = 'check';
+    this.setState( 'check' );
   }
 
   /**
    * Called when the user presses the "Show Answer" button.
    */
   public showAnswer(): void {
-    this.stateProperty.value = 'next';
+    this.setState( 'next' );
   }
 
   /**
-   * Called when the user presses the "Start Over" button.
+   * Called when the user presses the "Start Over" button, or when levelProperty is set to null.
    */
-  public newGame(): void {
-    this.stateProperty.value = 'levelSelection';
-    if ( this.timerEnabledProperty.value ) {
-      this.timer.restart();
-    }
+  public startOver(): void {
+    this.levelProperty.value = null;
+    this.setState( 'levelSelection' );
+    this.timer.reset();
+    this.scoreProperty.value = 0;
   }
 
   /**
    * Is the current score a perfect score?
-   * This can be called at any time during the game, but can't possibly return true until the game has been completed.
    */
   public isPerfectScore(): boolean {
-    return this.levelProperty.value.isPerfectScore( this.scoreProperty.value );
+    const level = this.levelProperty.value!;
+    assert && assert( level );
+    return level.isPerfectScore( this.scoreProperty.value );
   }
 
   /**
@@ -261,10 +276,10 @@ export default class GameModel implements TModel {
       this.currentPoints = 0;
       this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
       this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
-      this.stateProperty.value = 'check';
+      this.setState( 'check' );
     }
     else {
-      this.stateProperty.value = 'levelCompleted';
+      this.setState( 'levelCompleted' );
     }
   }
 }

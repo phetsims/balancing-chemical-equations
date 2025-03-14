@@ -27,6 +27,7 @@ import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import GameViewProperties from './GameViewProperties.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
@@ -72,7 +73,7 @@ export default class GamePlayNode extends Node {
         font: STATUS_BAR_FONT,
         textFill: STATUS_BAR_TEXT_FILL
       } ),
-      levelProperty: model.levelNumberProperty, // FiniteStatusBar levelProperty is 1-based number, and so is model.levelNumberProperty
+      levelProperty: new DerivedProperty( [ model.levelProperty ], level => level ? level.levelNumber : 0 ),
       challengeIndexProperty: model.currentEquationIndexProperty,
       numberOfChallengesProperty: model.numberOfEquationsProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
@@ -87,7 +88,7 @@ export default class GamePlayNode extends Node {
         textFill: 'black',
         listener: () => {
           this.interruptSubtreeInput();
-          this.model.newGame();
+          model.startOver();
         },
         xMargin: 10,
         yMargin: 5

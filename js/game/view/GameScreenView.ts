@@ -20,7 +20,6 @@ import BCERewardNode from './BCERewardNode.js';
 import GamePlayNode from './GamePlayNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import LevelSelectionNode from './LevelSelectionNode.js';
-import GameLevel from '../model/GameLevel.js';
 
 export default class GameScreenView extends ScreenView {
 
@@ -48,13 +47,10 @@ export default class GameScreenView extends ScreenView {
     this.audioPlayer = new GameAudioPlayer();
 
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
-      this.initStartGame.bind( this ), tandem.createTandem( 'levelSelectionNode' ) );
-    this.levelSelectionNode.visible = ( model.stateProperty.value === 'levelSelection' );
+      tandem.createTandem( 'levelSelectionNode' ) );
 
     this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
       this.layoutBounds, this.visibleBoundsProperty, tandem.createTandem( 'gamePlayNode' ) );
-    this.gamePlayNode.visible = ( model.stateProperty.value !== 'levelSelection' ) &&
-                                ( model.stateProperty.value !== 'levelCompleted' );
 
     this.rewardNode = null;
 
@@ -62,6 +58,12 @@ export default class GameScreenView extends ScreenView {
       children: [ this.levelSelectionNode, this.gamePlayNode ]
     } );
     this.addChild( this.screenViewRootNode );
+
+    model.levelProperty.link( level => {
+      if ( level ) {
+        this.initStartGame();
+      }
+    } );
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
@@ -98,20 +100,19 @@ export default class GameScreenView extends ScreenView {
   }
 
   /**
-   * Performs initialization to start a game for a specified level.
+   * Performs initialization to play a game for a specified level.
    */
-  private initStartGame( level: GameLevel ): void {
-    this.model.levelProperty.value = level;
+  private initStartGame(): void {
     this.viewProperties.reactantsAccordionBoxExpandedProperty.reset();
     this.viewProperties.productsAccordionBoxExpandedProperty.reset();
     this.levelSelectionNode.visible = false;
     this.gamePlayNode.visible = true;
-    this.model.startGame();
   }
 
   private initLevelCompleted(): void {
 
-    const level = this.model.levelProperty.value;
+    const level = this.model.levelProperty.value!;
+    assert && assert( level );
 
     this.levelSelectionNode.visible = false;
     this.gamePlayNode.visible = false;
@@ -142,7 +143,7 @@ export default class GameScreenView extends ScreenView {
         // remove the level-completed notification
         this.screenViewRootNode.removeChild( levelCompletedNode );
         // go back to the level-selection screen
-        this.model.stateProperty.value = 'levelSelection';
+        this.model.startOver();
       },
       {
         // LevelCompletedNode options

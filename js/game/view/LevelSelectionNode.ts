@@ -33,8 +33,7 @@ const BUTTON_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 
 export default class LevelSelectionNode extends Node {
 
-  public constructor( model: GameModel, viewProperties: GameViewProperties, layoutBounds: Bounds2,
-                      startGame: ( level: GameLevel ) => void, tandem: Tandem ) {
+  public constructor( model: GameModel, viewProperties: GameViewProperties, layoutBounds: Bounds2, tandem: Tandem ) {
 
     // To give all molecules the same effective size
     const moleculeAlignGroup = new AlignGroup();
@@ -49,7 +48,9 @@ export default class LevelSelectionNode extends Node {
             numberOfStars: level.getNumberOfEquations(),
             perfectScore: level.getPerfectScore()
           } ),
-          listener: () => startGame( level ),
+          listener: () => {
+            model.levelProperty.value = level;
+          },
           soundPlayerIndex: level.levelNumber
         }
       } );

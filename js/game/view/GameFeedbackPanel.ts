@@ -190,8 +190,10 @@ export default class GameFeedbackPanel extends Node {
         listener: () => {
           showWhyButton.visible = false;
           hideWhyButton.visible = true;
+          const level = model.levelProperty.value!;
+          assert && assert( level );
           if ( !balancedRepresentationNode ) {
-            balancedRepresentationNode = createBalancedRepresentation( equation, model.levelProperty.value.getBalancedRepresentation(), aligner );
+            balancedRepresentationNode = createBalancedRepresentation( equation, level.getBalancedRepresentation(), aligner );
           }
           content.addChild( balancedRepresentationNode );
         },
