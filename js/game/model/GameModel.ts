@@ -120,20 +120,6 @@ export default class GameModel implements TModel {
     }
   }
 
-  /**
-   * Verifies by creating lots of equation sets for each game level.
-   * This test is performed when you run with ?verifyGame.
-   */
-  private verifyGame(): void {
-    const iterations = 1000;
-    this.levels.forEach( level => {
-      for ( let i = 0; i < iterations; i++ ) {
-        level.createEquations();
-      }
-      console.log( `Level ${level.levelNumber} has been verified by creating ${iterations} challenges.` );
-    } );
-  }
-
   public reset(): void {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
@@ -175,6 +161,31 @@ export default class GameModel implements TModel {
   }
 
   /**
+   * When a game ends, stop the timer and (if perfect score) set the new best time.
+   */
+  private endGame(): void {
+
+    this.timer.stop();
+
+    const level = this.levelProperty.value!;
+    assert && assert( level );
+
+    const points = this.scoreProperty.value;
+
+    // Check for new best score.
+    if ( points > level.bestScoreProperty.value ) {
+      level.bestScoreProperty.value = points;
+    }
+
+    // Check for new best time.
+    const previousBestTime = level.bestTimeProperty.value;
+    if ( level.isPerfectScore( points ) && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
+      this.isNewBestTime = true;
+      level.bestTimeProperty.value = this.timer.elapsedTimeProperty.value;
+    }
+  }
+
+  /**
    * Called when the user presses the "Check" button.
    */
   public check(): void {
@@ -210,31 +221,6 @@ export default class GameModel implements TModel {
   }
 
   /**
-   * When a game ends, stop the timer and (if perfect score) set the new best time.
-   */
-  private endGame(): void {
-
-    this.timer.stop();
-
-    const level = this.levelProperty.value!;
-    assert && assert( level );
-
-    const points = this.scoreProperty.value;
-
-    // Check for new best score.
-    if ( points > level.bestScoreProperty.value ) {
-      level.bestScoreProperty.value = points;
-    }
-
-    // Check for new best time.
-    const previousBestTime = level.bestTimeProperty.value;
-    if ( level.isPerfectScore( points ) && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
-      this.isNewBestTime = true;
-      level.bestTimeProperty.value = this.timer.elapsedTimeProperty.value;
-    }
-  }
-
-  /**
    * Called when the user presses the "Try Again" button.
    */
   public tryAgain(): void {
@@ -246,6 +232,22 @@ export default class GameModel implements TModel {
    */
   public showAnswer(): void {
     this.setState( 'next' );
+  }
+
+  /**
+   * Called when the user presses the "Next" button.
+   */
+  public next(): void {
+    if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
+      this.attempts = 0;
+      this.currentPoints = 0;
+      this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
+      this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
+      this.setState( 'check' );
+    }
+    else {
+      this.setState( 'levelCompleted' );
+    }
   }
 
   /**
@@ -268,19 +270,17 @@ export default class GameModel implements TModel {
   }
 
   /**
-   * Called when the user presses the "Next" button.
+   * Verifies by creating lots of equation sets for each game level.
+   * This test is performed when you run with ?verifyGame.
    */
-  public next(): void {
-    if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
-      this.attempts = 0;
-      this.currentPoints = 0;
-      this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
-      this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
-      this.setState( 'check' );
-    }
-    else {
-      this.setState( 'levelCompleted' );
-    }
+  private verifyGame(): void {
+    const iterations = 1000;
+    this.levels.forEach( level => {
+      for ( let i = 0; i < iterations; i++ ) {
+        level.createEquations();
+      }
+      console.log( `Level ${level.levelNumber} has been verified by creating ${iterations} challenges.` );
+    } );
   }
 }
 
