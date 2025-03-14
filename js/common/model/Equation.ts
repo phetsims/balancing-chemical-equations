@@ -78,7 +78,7 @@ export default class Equation extends PhetioObject {
     this._coefficientsSumProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       tandem: tandem.createTandem( 'coefficientsSumProperty' ),
-      phetioFeatured: true,
+      phetioDocumentation: 'For internal use only.',
       phetioReadOnly: true
     } );
     this.coefficientsSumProperty = this._coefficientsSumProperty;
