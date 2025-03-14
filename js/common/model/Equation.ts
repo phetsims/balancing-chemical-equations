@@ -181,18 +181,22 @@ export default class Equation extends PhetioObject {
 
   /**
    * Gets a string that shows just the coefficients of the equations.
-   * This is used to show game answers when running in 'dev' mode.
+   * This is used to show the balanced coefficients when running with ?showAnswers.
    */
-  public getCoefficientsString(): string {
+  public getShowAnswersString(): string {
     let string = '';
     for ( let i = 0; i < this.reactants.length; i++ ) {
       string += this.reactants[ i ].balancedCoefficient;
-      string += ( i < this.reactants.length - 1 ) ? ' + ' : ' ';
+      if ( i < this.reactants.length - 1 ) {
+        string += ' + ';
+      }
     }
-    string += '\u2192 '; // right arrow
+    string += ' \u2192 '; // right arrow, with space before and after
     for ( let i = 0; i < this.products.length; i++ ) {
       string += this.products[ i ].balancedCoefficient;
-      string += ( i < this.products.length - 1 ) ? ' + ' : '';
+      if ( i < this.products.length - 1 ) {
+        string += ' + ';
+      }
     }
     return string;
   }
@@ -213,7 +217,7 @@ export default class Equation extends PhetioObject {
       }
     }
 
-    // right arrow
+    // right arrow, with space before and after
     string += ' \u2192 ';
 
     // products

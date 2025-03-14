@@ -161,7 +161,7 @@ export default class GamePlayNode extends Node {
       } );
       this.addChild( answerNode );
       this.model.currentEquationProperty.link( equation => {
-        answerNode.string = equation.getCoefficientsString();
+        answerNode.string = equation.getShowAnswersString();
         answerNode.centerX = this.layoutBounds.centerX;
       } );
 

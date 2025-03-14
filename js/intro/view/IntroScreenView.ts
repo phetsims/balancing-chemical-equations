@@ -193,7 +193,7 @@ export default class IntroScreenView extends ScreenView {
       } );
       screenViewRootNode.addChild( answerNode );
       model.equationProperty.link( equation => {
-        answerNode.string = equation.getCoefficientsString();
+        answerNode.string = equation.getShowAnswersString();
         answerNode.centerX = this.layoutBounds.centerX;
       } );
     }
