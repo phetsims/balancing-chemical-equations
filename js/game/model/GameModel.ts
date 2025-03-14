@@ -268,6 +268,14 @@ export default class GameModel implements TModel {
   }
 
   /**
+   * Called when the user presses the "Skip" button, which is visible when running with ?showAnswers.
+   * This is equivalent to pressing the "Next" button.
+   */
+  public skip(): void {
+    this.next();
+  }
+
+  /**
    * Called when the user presses the "Start Over" button, or when levelProperty is set to null.
    */
   public startOver(): void {

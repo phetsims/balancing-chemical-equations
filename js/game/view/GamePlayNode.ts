@@ -170,7 +170,7 @@ export default class GamePlayNode extends Node {
         font: new PhetFont( 20 ),
         baseColor: 'red',
         textFill: 'white',
-        listener: model.next.bind( model ), // equivalent to 'Next'
+        listener: () => model.skip(),
         centerX: this.checkButton.centerX,
         bottom: this.checkButton.top - 15,
         tandem: Tandem.OPT_OUT
