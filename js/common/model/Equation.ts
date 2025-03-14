@@ -183,7 +183,7 @@ export default class Equation extends PhetioObject {
    * Gets a string that shows just the coefficients of the equations.
    * This is used to show the balanced coefficients when running with ?showAnswers.
    */
-  public getShowAnswersString(): string {
+  public getAnswerString(): string {
     let string = '';
     for ( let i = 0; i < this.reactants.length; i++ ) {
       string += this.reactants[ i ].balancedCoefficient;
