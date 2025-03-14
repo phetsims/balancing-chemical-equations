@@ -200,14 +200,12 @@ export default class IntroScreenView extends ScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
       equationRadioButtonGroup,
       equationNodes
     ];
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
-      // TODO https://github.com/phetsims/balancing-chemical-equations/issues/161
       accordionBoxes,
       toolsControl,
       resetAllButton
