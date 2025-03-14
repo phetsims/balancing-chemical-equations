@@ -106,14 +106,7 @@ export default class GameModel implements TModel {
     this.currentPoints = 0;
     this.isNewBestTime = false;
 
-    this.levelProperty.link( level => {
-      if ( level ) {
-        this.startGame( level );
-      }
-      else {
-        this.startOver();
-      }
-    } );
+    this.levelProperty.link( level => level ? this.startGame() : this.startOver() );
 
     if ( BCEQueryParameters.verifyGame ) {
       this.verifyGame();
@@ -137,9 +130,12 @@ export default class GameModel implements TModel {
   }
 
   /**
-   * Called when the user presses a level-selection button.
+   * Called before the first challenge has been played.
    */
-  private startGame( level: GameLevel ): void {
+  private startGame(): void {
+
+    const level = this.levelProperty.value!;
+    assert && assert( level );
 
     // create a set of challenges
     this.equations = level.createEquations();
@@ -161,7 +157,7 @@ export default class GameModel implements TModel {
   }
 
   /**
-   * When a game ends, stop the timer and (if perfect score) set the new best time.
+   * Called after the last challenge has been played.
    */
   private endGame(): void {
 
@@ -264,9 +260,13 @@ export default class GameModel implements TModel {
    * Is the current score a perfect score?
    */
   public isPerfectScore(): boolean {
-    const level = this.levelProperty.value!;
-    assert && assert( level );
-    return level.isPerfectScore( this.scoreProperty.value );
+    const level = this.levelProperty.value;
+    if ( level ) {
+      return level.isPerfectScore( this.scoreProperty.value );
+    }
+    else {
+      return false;
+    }
   }
 
   /**
