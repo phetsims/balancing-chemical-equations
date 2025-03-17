@@ -149,7 +149,8 @@ export default class GameScreenView extends ScreenView {
         // LevelCompletedNode options
         starDiameter: Math.min( 60, 300 / numberOfEquations ),
         levelVisible: false,
-        contentMaxWidth: 500
+        contentMaxWidth: 500,
+        tandem: Tandem.OPT_OUT // ...because this element is created dynamically.
       }
     );
     levelCompletedNode.localBoundsProperty.link( () => {

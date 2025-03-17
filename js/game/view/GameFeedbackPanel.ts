@@ -105,7 +105,7 @@ export default class GameFeedbackPanel extends Node {
         baseColor: STATE_BUTTON_FILL,
         maxWidth: maxWidth,
         listener: () => model.next(),
-        tandem: Tandem.OPT_OUT
+        tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
       } );
       disposables.push( nextButton );
 
@@ -205,7 +205,7 @@ export default class GameFeedbackPanel extends Node {
         baseColor: SHOW_WHY_BUTTON_FILL,
         visible: true,
         maxWidth: maxWidth,
-        tandem: Tandem.OPT_OUT
+        tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
       } );
       disposables.push( showWhyButton );
 
@@ -222,7 +222,7 @@ export default class GameFeedbackPanel extends Node {
         baseColor: SHOW_WHY_BUTTON_FILL,
         visible: !showWhyButton.visible,
         maxWidth: maxWidth,
-        tandem: Tandem.OPT_OUT
+        tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
       } );
       disposables.push( hideWhyButton );
 
@@ -330,7 +330,7 @@ function createTryAgainButton( model: GameModel, maxWidth: number ): TextPushBut
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
     listener: () => model.tryAgain(),
-    tandem: Tandem.OPT_OUT
+    tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
   } );
 }
 
@@ -343,7 +343,7 @@ function createShowAnswerButton( model: GameModel, maxWidth: number ): TextPushB
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
     listener: () => model.showAnswer(),
-    tandem: Tandem.OPT_OUT
+    tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
   } );
 }
 
