@@ -351,17 +351,14 @@ function createShowAnswerButton( model: GameModel, maxWidth: number, tandem: Tan
  * Creates the representation of 'balanced' that becomes visible when the 'Show Why' button is pressed.
  */
 function createBalancedRepresentation( equation: Equation,
-                                       balancedRepresentation: BalancedRepresentation,
+                                       balancedRepresentation: Exclude<BalancedRepresentation, 'none'>,
                                        aligner: HorizontalAligner ): Node {
   let balancedRepresentationNode;
   if ( balancedRepresentation === 'balanceScales' ) {
     balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), aligner );
   }
-  else if ( balancedRepresentation === 'barCharts' ) {
-    balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
-  }
   else {
-    throw new Error( `unsupported balancedRepresentation: ${balancedRepresentation}` );
+    balancedRepresentationNode = new BarChartsNode( new Property( equation ), aligner );
   }
 
   // Shrink size so that it doesn't cover so much of the screen.

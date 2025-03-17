@@ -38,7 +38,7 @@ type SelfOptions = {
   coefficientRange: Range;
 
   // Gets the "balanced representation" that is displayed by the "Not Balanced" popup.
-  getBalancedRepresentation: () => BalancedRepresentation;
+  getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
 
   // The pool of equations generators, which create equations for the challenges.
   equationGenerators: EquationGenerator[];
@@ -59,7 +59,7 @@ export default class GameLevel extends PhetioObject {
   public readonly levelNumber: number;
   public readonly icon: Node;
   private readonly coefficientRange: Range;
-  public readonly getBalancedRepresentation: () => BalancedRepresentation;
+  public readonly getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
   private readonly equationGenerators: EquationGenerator[];
   private readonly equationGeneratorsSelectionStrategy: RandomStrategy;
 
