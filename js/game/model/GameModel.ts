@@ -103,6 +103,7 @@ export default class GameModel implements TModel {
       numberType: 'Integer',
       range: new Range( 0, Infinity ), // because ?playAll affects the range
       tandem: tandem.createTandem( 'scoreProperty' ),
+      phetioDocumentation: 'Score for the current level that is being played.',
       phetioFeatured: true,
       phetioReadOnly: true
     } );
@@ -145,7 +146,7 @@ export default class GameModel implements TModel {
       numberType: 'Integer',
       range: new Range( 0, ATTEMPTS_RANGE.max * GameLevel.POINTS_FIRST_ATTEMPT ),
       tandem: tandem.createTandem( 'pointsProperty' ),
-      phetioDocumentation: 'The number of points that have been earned for the current challenge.',
+      phetioDocumentation: 'Points that have been earned for the current challenge.',
       phetioReadOnly: true
     } );
 
