@@ -68,7 +68,7 @@ export default class GameModel implements TModel {
   private readonly attemptsProperty: Property<number>;
 
   // The number of points that were earned for the current challenge.
-  public readonly currentPointsProperty: Property<number>;
+  public readonly pointsProperty: Property<number>;
 
   // Whether the time for this game a new best time.
   public isNewBestTime: boolean;
@@ -141,10 +141,10 @@ export default class GameModel implements TModel {
       phetioReadOnly: true
     } );
 
-    this.currentPointsProperty = new NumberProperty( 0, {
+    this.pointsProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       range: new Range( 0, ATTEMPTS_RANGE.max * GameLevel.POINTS_FIRST_ATTEMPT ),
-      tandem: tandem.createTandem( 'currentPointsProperty' ),
+      tandem: tandem.createTandem( 'pointsProperty' ),
       phetioDocumentation: 'The number of points that have been earned for the current challenge.',
       phetioReadOnly: true
     } );
@@ -178,7 +178,7 @@ export default class GameModel implements TModel {
   private resetToStart(): void {
     this.isNewBestTime = false;
     this.attemptsProperty.reset();
-    this.currentPointsProperty.reset();
+    this.pointsProperty.reset();
     this.scoreProperty.reset();
     this.timer.reset();
   }
@@ -251,15 +251,15 @@ export default class GameModel implements TModel {
     if ( this.challengeProperty.value.isBalancedAndSimplified ) {
       // award points
       if ( this.attemptsProperty.value === 1 ) {
-        this.currentPointsProperty.value = GameLevel.POINTS_FIRST_ATTEMPT;
+        this.pointsProperty.value = GameLevel.POINTS_FIRST_ATTEMPT;
       }
       else if ( this.attemptsProperty.value === 2 ) {
-        this.currentPointsProperty.value = GameLevel.POINTS_SECOND_ATTEMPT;
+        this.pointsProperty.value = GameLevel.POINTS_SECOND_ATTEMPT;
       }
       else {
-        this.currentPointsProperty.value = 0;
+        this.pointsProperty.value = 0;
       }
-      this.scoreProperty.value += this.currentPointsProperty.value;
+      this.scoreProperty.value += this.pointsProperty.value;
       this.setState( 'next' );
 
       if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
@@ -297,7 +297,7 @@ export default class GameModel implements TModel {
   public next(): void {
     if ( this.challengeIndexProperty.value < this.challenges.length - 1 ) {
       this.attemptsProperty.value = 0;
-      this.currentPointsProperty.value = 0;
+      this.pointsProperty.value = 0;
       this._challengeIndexProperty.value++;
       this._challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
       this.setState( 'check' );
