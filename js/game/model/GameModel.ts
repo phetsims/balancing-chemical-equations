@@ -40,7 +40,7 @@ export default class GameModel implements TModel {
   private readonly _stateProperty: StringUnionProperty<GameState>;
   public readonly stateProperty: TReadOnlyProperty<GameState>;
 
-  // Range of all coefficients, in all challenges.
+  // Range of all coefficients, for all challenges.
   public readonly coefficientsRange: Range;
 
   // The score for the current game that is being played.
