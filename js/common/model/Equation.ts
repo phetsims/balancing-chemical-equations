@@ -15,7 +15,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import AtomCount from './AtomCount.js';
@@ -25,6 +24,7 @@ import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/Refer
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export default class Equation extends PhetioObject {
 
@@ -34,6 +34,9 @@ export default class Equation extends PhetioObject {
   // terms on the right side of the equation
   public readonly products: EquationTerm[];
 
+  // all terms
+  private readonly terms: EquationTerm[];
+
   // whether the equation is balanced
   public readonly isBalancedProperty: TReadOnlyProperty<boolean>;
   private readonly _isBalancedProperty: Property<boolean>;
@@ -41,9 +44,8 @@ export default class Equation extends PhetioObject {
   // whether the equation is balanced with the smallest possible coefficients
   private isBalancedAndSimplifiedProperty: Property<boolean>;
 
-  // a sum of all coefficients, so we know when the sum is non-zero
+  // Sum of all coefficients, so we know when we have at least one non-zero coefficient.
   public readonly coefficientsSumProperty: TReadOnlyProperty<number>;
-  private readonly _coefficientsSumProperty: Property<number>;
 
   /**
    * @param reactants terms on the left side of the equation
@@ -59,6 +61,7 @@ export default class Equation extends PhetioObject {
 
     this.reactants = reactants;
     this.products = products;
+    this.terms = [ ...reactants, ...products ];
 
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can isBalancedProperty be a DerivedProperty?
     this._isBalancedProperty = new BooleanProperty( false, {
@@ -71,32 +74,21 @@ export default class Equation extends PhetioObject {
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can isBalancedAndSimplifiedProperty be a DerivedProperty?
     this.isBalancedAndSimplifiedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'isBalancedAndSimplifiedProperty' ),
+      phetioDocumentation: 'Whether the equation is balanced with the smallest possible coefficients.',
       phetioFeatured: true,
       phetioReadOnly: true
     } );
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can coefficientsSumProperty be a DerivedProperty?
-    this._coefficientsSumProperty = new NumberProperty( 0, {
-      numberType: 'Integer',
-      tandem: tandem.createTandem( 'coefficientsSumProperty' ),
-      phetioDocumentation: 'For internal use only.',
-      phetioReadOnly: true
+    const coefficientProperties = this.terms.map( term => term.coefficientProperty );
+    this.coefficientsSumProperty = DerivedProperty.deriveAny( coefficientProperties, () => {
+      let coefficientsSum = 0;
+      this.terms.forEach( term => {
+        coefficientsSum += term.coefficientProperty.value;
+      } );
+      return coefficientsSum;
     } );
-    this.coefficientsSumProperty = this._coefficientsSumProperty;
 
     this.addCoefficientsListener( this.updateBalanced.bind( this ) );
-
-    // keep a sum of all coefficients, so we know when the sum is non-zero
-    const coefficientsListener = () => {
-      let coefficientsSum = 0;
-      const addCoefficients = ( equationTerm: EquationTerm ) => {
-        coefficientsSum += equationTerm.coefficientProperty.value;
-      };
-      this.reactants.forEach( reactant => addCoefficients( reactant ) );
-      this.products.forEach( product => addCoefficients( product ) );
-      this._coefficientsSumProperty.value = coefficientsSum;
-    };
-    this.addCoefficientsListener( coefficientsListener );
   }
 
   public get isBalancedAndSimplified(): boolean {
@@ -107,7 +99,6 @@ export default class Equation extends PhetioObject {
 
     this._isBalancedProperty.reset();
     this.isBalancedAndSimplifiedProperty.reset();
-    this._coefficientsSumProperty.reset();
 
     this.reactants.forEach( reactant => reactant.reset() );
     this.products.forEach( product => product.reset() );
