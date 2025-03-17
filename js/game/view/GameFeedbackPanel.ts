@@ -28,6 +28,7 @@ import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape
 import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Panel from '../../../../sun/js/Panel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
@@ -103,7 +104,8 @@ export default class GameFeedbackPanel extends Node {
         font: STATE_BUTTON_FONT,
         baseColor: STATE_BUTTON_FILL,
         maxWidth: maxWidth,
-        listener: () => model.next()
+        listener: () => model.next(),
+        tandem: Tandem.OPT_OUT
       } );
       disposables.push( nextButton );
 
@@ -202,7 +204,8 @@ export default class GameFeedbackPanel extends Node {
         font: SHOW_WHY_BUTTON_FONT,
         baseColor: SHOW_WHY_BUTTON_FILL,
         visible: true,
-        maxWidth: maxWidth
+        maxWidth: maxWidth,
+        tandem: Tandem.OPT_OUT
       } );
       disposables.push( showWhyButton );
 
@@ -218,7 +221,8 @@ export default class GameFeedbackPanel extends Node {
         font: SHOW_WHY_BUTTON_FONT,
         baseColor: SHOW_WHY_BUTTON_FILL,
         visible: !showWhyButton.visible,
-        maxWidth: maxWidth
+        maxWidth: maxWidth,
+        tandem: Tandem.OPT_OUT
       } );
       disposables.push( hideWhyButton );
 
@@ -325,7 +329,8 @@ function createTryAgainButton( model: GameModel, maxWidth: number ): TextPushBut
     font: STATE_BUTTON_FONT,
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
-    listener: () => model.tryAgain()
+    listener: () => model.tryAgain(),
+    tandem: Tandem.OPT_OUT
   } );
 }
 
@@ -337,7 +342,8 @@ function createShowAnswerButton( model: GameModel, maxWidth: number ): TextPushB
     font: STATE_BUTTON_FONT,
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
-    listener: () => model.showAnswer()
+    listener: () => model.showAnswer(),
+    tandem: Tandem.OPT_OUT
   } );
 }
 
