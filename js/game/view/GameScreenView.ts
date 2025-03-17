@@ -145,14 +145,16 @@ export default class GameScreenView extends ScreenView {
         // go back to the level-selection screen
         this.model.startOver();
       },
+
+      // LevelCompletedNodeOptions
       {
-        // LevelCompletedNode options
         starDiameter: Math.min( 60, 300 / numberOfChallenges ),
         levelVisible: false,
         contentMaxWidth: 500,
         tandem: Tandem.OPT_OUT // ...because levelCompletedNode is created dynamically.
       }
     );
+
     levelCompletedNode.localBoundsProperty.link( () => {
       levelCompletedNode.center = this.layoutBounds.center;
     } );
