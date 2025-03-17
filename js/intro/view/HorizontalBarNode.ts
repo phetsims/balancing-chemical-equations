@@ -11,16 +11,16 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle, { RectangleOptions } from '../../../../scenery/js/nodes/Rectangle.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const BAR_HEIGHT = 50;
 
 type SelfOptions = EmptySelfOptions;
 
-type HorizontalBarNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<RectangleOptions, 'visibleProperty'>;
+type HorizontalBarNodeOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangleOptions, 'visibleProperty'>;
 
 export default class HorizontalBarNode extends Rectangle {
 
