@@ -15,9 +15,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
-import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
@@ -27,12 +25,10 @@ import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import GameViewProperties from './GameViewProperties.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
-const STATUS_BAR_FONT = new PhetFont( 14 );
-const STATUS_BAR_TEXT_FILL = 'white';
 
 export default class GamePlayNode extends Node {
 
@@ -71,34 +67,7 @@ export default class GamePlayNode extends Node {
     this.feedbackPanel = null;
 
     // status bar
-    const statusBar = new FiniteStatusBar( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
-      createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty, {
-        font: STATUS_BAR_FONT,
-        textFill: STATUS_BAR_TEXT_FILL
-      } ),
-      levelProperty: new DerivedProperty( [ model.levelProperty ], level => level ? level.levelNumber : 0 ),
-      challengeIndexProperty: model.currentEquationIndexProperty,
-      numberOfChallengesProperty: model.numberOfEquationsProperty,
-      elapsedTimeProperty: model.timer.elapsedTimeProperty,
-      timerEnabledProperty: model.timerEnabledProperty,
-      font: STATUS_BAR_FONT,
-      textFill: STATUS_BAR_TEXT_FILL,
-      barFill: 'rgb( 49, 117, 202 )',
-      xMargin: 30,
-      yMargin: 5,
-      startOverButtonOptions: {
-        baseColor: 'rgb( 229, 243, 255 )',
-        textFill: 'black',
-        listener: () => {
-          this.interruptSubtreeInput();
-          model.startOver();
-        },
-        xMargin: 10,
-        yMargin: 5
-      },
-      tandem: tandem.createTandem( 'statusBar' ),
-      phetioVisiblePropertyInstrumented: false
-    } );
+    const statusBar = new BCEFiniteStatusBar( model, layoutBounds, visibleBoundsProperty, tandem.createTandem( 'statusBar' ) );
     this.addChild( statusBar );
 
     this.accordionBoxes = new BoxesNode( model.currentEquationProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
