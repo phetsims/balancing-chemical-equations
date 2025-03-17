@@ -27,6 +27,8 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
+const ATTEMPTS_RANGE = new Range( 0, 2 );
+
 export default class GameModel implements TModel {
 
   public readonly levels: GameLevel[];
@@ -62,9 +64,14 @@ export default class GameModel implements TModel {
   public readonly timer: GameTimer;
   public readonly timerEnabledProperty: Property<boolean>;
 
-  private attempts: number; // The number of attempts the user has made at solving the current challenge.
-  public currentPoints: number; // The number of points that were earned for the current challenge.
-  public isNewBestTime: boolean; // Whether the time for this game a new best time.
+  // The number of attempts the user has made at solving the current challenge.
+  private readonly attemptsProperty: Property<number>;
+
+  // The number of points that were earned for the current challenge.
+  public readonly currentPointsProperty: Property<number>;
+
+  // Whether the time for this game a new best time.
+  public isNewBestTime: boolean;
 
   public constructor( tandem: Tandem ) {
 
@@ -103,12 +110,16 @@ export default class GameModel implements TModel {
     this.challenges = [];
 
     this._numberOfChallengesProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'numberOfChallengesProperty' ),
+      phetioReadOnly: true
     } );
     this.numberOfChallengesProperty = this._numberOfChallengesProperty;
 
     this._challengeIndexProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'challengeIndexProperty' ),
+      phetioReadOnly: true
     } );
     this.challengeIndexProperty = this._challengeIndexProperty;
 
@@ -124,8 +135,22 @@ export default class GameModel implements TModel {
       phetioFeatured: true
     } );
 
-    this.attempts = 0;
-    this.currentPoints = 0;
+    this.attemptsProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      range: ATTEMPTS_RANGE,
+      tandem: tandem.createTandem( 'attemptsProperty' ),
+      phetioDocumentation: 'The number of attempts to solve the current challenge.',
+      phetioReadOnly: true
+    } );
+
+    this.currentPointsProperty = new NumberProperty( 0, {
+      numberType: 'Integer',
+      range: new Range( 0, ATTEMPTS_RANGE.max * GameLevel.POINTS_FIRST_ATTEMPT ),
+      tandem: tandem.createTandem( 'currentPointsProperty' ),
+      phetioDocumentation: 'The number of points that have been earned for the current challenge.',
+      phetioReadOnly: true
+    } );
+
     this.isNewBestTime = false;
 
     this.levelProperty.link( level => level ? this.startGame() : this.startOver() );
@@ -153,9 +178,9 @@ export default class GameModel implements TModel {
    * Resets only the things that should be reset when a game is started, or when in the 'levelSelection' state.
    */
   private resetToStart(): void {
-    this.attempts = 0;
-    this.currentPoints = 0;
     this.isNewBestTime = false;
+    this.attemptsProperty.reset();
+    this.currentPointsProperty.reset();
     this.scoreProperty.reset();
     this.timer.reset();
   }
@@ -223,27 +248,27 @@ export default class GameModel implements TModel {
    * Called when the user presses the "Check" button.
    */
   public check(): void {
-    this.attempts++;
+    this.attemptsProperty.value++;
 
     if ( this.challengeProperty.value.isBalancedAndSimplified ) {
       // award points
-      if ( this.attempts === 1 ) {
-        this.currentPoints = GameLevel.POINTS_FIRST_ATTEMPT;
+      if ( this.attemptsProperty.value === 1 ) {
+        this.currentPointsProperty.value = GameLevel.POINTS_FIRST_ATTEMPT;
       }
-      else if ( this.attempts === 2 ) {
-        this.currentPoints = GameLevel.POINTS_SECOND_ATTEMPT;
+      else if ( this.attemptsProperty.value === 2 ) {
+        this.currentPointsProperty.value = GameLevel.POINTS_SECOND_ATTEMPT;
       }
       else {
-        this.currentPoints = 0;
+        this.currentPointsProperty.value = 0;
       }
-      this.scoreProperty.value = this.scoreProperty.value + this.currentPoints;
+      this.scoreProperty.value += this.currentPointsProperty.value;
       this.setState( 'next' );
 
       if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
         this.endGame();
       }
     }
-    else if ( this.attempts < 2 ) {
+    else if ( this.attemptsProperty.value < 2 ) {
       this.setState( 'tryAgain' );
     }
     else {
@@ -273,9 +298,9 @@ export default class GameModel implements TModel {
    */
   public next(): void {
     if ( this.challengeIndexProperty.value < this.challenges.length - 1 ) {
-      this.attempts = 0;
-      this.currentPoints = 0;
-      this._challengeIndexProperty.value += 1;
+      this.attemptsProperty.value = 0;
+      this.currentPointsProperty.value = 0;
+      this._challengeIndexProperty.value++;
       this._challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
       this.setState( 'check' );
     }

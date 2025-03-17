@@ -90,7 +90,7 @@ export default class GameFeedbackPanel extends Node {
 
       const pointsAwardedStringProperty = new DerivedStringProperty(
         [ BalancingChemicalEquationsStrings.pattern_0pointsStringProperty ],
-        pattern => StringUtils.format( pattern, model.currentPoints )
+        pattern => StringUtils.format( pattern, model.currentPointsProperty.value )
       );
       disposables.push( pointsAwardedStringProperty );
 
