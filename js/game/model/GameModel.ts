@@ -44,10 +44,11 @@ export default class GameModel implements TModel {
   // The score for the current game that is being played.
   public readonly scoreProperty: Property<number>;
 
-  private equations: Equation[];
-  public readonly numberOfEquationsProperty: Property<number>; // number of challenges in the current game
-  public readonly currentEquationProperty: Property<Equation>; // current challenge/Equation
-  public readonly currentEquationIndexProperty: Property<number>; // index of the current challenge that the user is working on
+  // Challenges are a set of Equations to be balanced.
+  private challenges: Equation[];
+  public readonly numberOfChallengesProperty: Property<number>; // number of challenges in the current game
+  public readonly currentChallengeIndexProperty: Property<number>; // index of the current challenge in this.challenges
+  public readonly currentChallengeProperty: Property<Equation>; // current challenge to be solved
 
   public readonly timer: GameTimer;
   public readonly timerEnabledProperty: Property<boolean>;
@@ -90,18 +91,18 @@ export default class GameModel implements TModel {
       phetioReadOnly: true
     } );
 
-    this.equations = [];
+    this.challenges = [];
 
-    this.numberOfEquationsProperty = new NumberProperty( 0, {
+    this.numberOfChallengesProperty = new NumberProperty( 0, {
+      numberType: 'Integer'
+    } );
+
+    this.currentChallengeIndexProperty = new NumberProperty( 0, {
       numberType: 'Integer'
     } );
 
     // Any non-null Equation will do here for the initial value.
-    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange ) );
-
-    this.currentEquationIndexProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
-    } );
+    this.currentChallengeProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange ) );
 
     const timerTandem = tandem.createTandem( 'timer' );
     this.timer = new GameTimer( timerTandem );
@@ -130,9 +131,9 @@ export default class GameModel implements TModel {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
     this._stateProperty.reset();
-    this.numberOfEquationsProperty.reset();
-    this.currentEquationProperty.reset();
-    this.currentEquationIndexProperty.reset();
+    this.numberOfChallengesProperty.reset();
+    this.currentChallengeProperty.reset();
+    this.currentChallengeIndexProperty.reset();
     this.timerEnabledProperty.reset();
   }
 
@@ -165,13 +166,13 @@ export default class GameModel implements TModel {
     this.resetToStart();
 
     // Dispose of previous challenges.
-    this.equations.forEach( equation => equation.dispose() );
+    this.challenges.forEach( challenge => challenge.dispose() );
 
     // Create a set of challenges.
-    this.equations = level.createEquations();
-    this.currentEquationIndexProperty.value = 0;
-    this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
-    this.numberOfEquationsProperty.value = this.equations.length;
+    this.challenges = level.createChallenges();
+    this.currentChallengeIndexProperty.value = 0;
+    this.currentChallengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
+    this.numberOfChallengesProperty.value = this.challenges.length;
 
     // Start the timer.
     if ( this.timerEnabledProperty.value ) {
@@ -212,7 +213,7 @@ export default class GameModel implements TModel {
   public check(): void {
     this.attempts++;
 
-    if ( this.currentEquationProperty.value.isBalancedAndSimplified ) {
+    if ( this.currentChallengeProperty.value.isBalancedAndSimplified ) {
       // award points
       if ( this.attempts === 1 ) {
         this.currentPoints = GameLevel.POINTS_FIRST_ATTEMPT;
@@ -226,7 +227,7 @@ export default class GameModel implements TModel {
       this.scoreProperty.value = this.scoreProperty.value + this.currentPoints;
       this.setState( 'next' );
 
-      if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
+      if ( this.currentChallengeIndexProperty.value === this.challenges.length - 1 ) {
         this.endGame();
       }
     }
@@ -234,7 +235,7 @@ export default class GameModel implements TModel {
       this.setState( 'tryAgain' );
     }
     else {
-      if ( this.currentEquationIndexProperty.value === this.equations.length - 1 ) {
+      if ( this.currentChallengeIndexProperty.value === this.challenges.length - 1 ) {
         this.endGame();
       }
       this.setState( 'showAnswer' );
@@ -259,11 +260,11 @@ export default class GameModel implements TModel {
    * Called when the user presses the "Next" button.
    */
   public next(): void {
-    if ( this.currentEquationIndexProperty.value < this.equations.length - 1 ) {
+    if ( this.currentChallengeIndexProperty.value < this.challenges.length - 1 ) {
       this.attempts = 0;
       this.currentPoints = 0;
-      this.currentEquationIndexProperty.value = this.currentEquationIndexProperty.value + 1;
-      this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];
+      this.currentChallengeIndexProperty.value = this.currentChallengeIndexProperty.value + 1;
+      this.currentChallengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
       this.setState( 'check' );
     }
     else {
@@ -309,7 +310,7 @@ export default class GameModel implements TModel {
     const iterations = 1000;
     this.levels.forEach( level => {
       for ( let i = 0; i < iterations; i++ ) {
-        level.createEquations();
+        level.createChallenges();
       }
       console.log( `Level ${level.levelNumber} has been verified by creating ${iterations} challenges.` );
     } );

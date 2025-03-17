@@ -45,7 +45,7 @@ export default class LevelSelectionNode extends Node {
         scoreProperty: level.bestScoreProperty,
         options: {
           createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
-            numberOfStars: level.getNumberOfEquations(),
+            numberOfStars: level.getNumberOfChallenges(),
             perfectScore: level.getPerfectScore()
           } ),
           listener: () => {

@@ -127,9 +127,9 @@ export default class GameScreenView extends ScreenView {
     const bestTimeOnThisLevel = level.bestTimeProperty.value === 0 ? null : level.bestTimeProperty.value;
 
     // Node displaying notification that the level has been completed
-    const numberOfEquations = level.getNumberOfEquations();
+    const numberOfChallenges = level.getNumberOfChallenges();
     const levelCompletedNode = new LevelCompletedNode( level.levelNumber, this.model.scoreProperty.value,
-      level.getPerfectScore(), numberOfEquations, this.model.timerEnabledProperty.value,
+      level.getPerfectScore(), numberOfChallenges, this.model.timerEnabledProperty.value,
       this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
 
       // function called when 'Continue' button is pressed
@@ -147,7 +147,7 @@ export default class GameScreenView extends ScreenView {
       },
       {
         // LevelCompletedNode options
-        starDiameter: Math.min( 60, 300 / numberOfEquations ),
+        starDiameter: Math.min( 60, 300 / numberOfChallenges ),
         levelVisible: false,
         contentMaxWidth: 500,
         tandem: Tandem.OPT_OUT // ...because levelCompletedNode is created dynamically.

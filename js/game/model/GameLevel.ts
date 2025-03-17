@@ -51,7 +51,7 @@ type GameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'
 
 export default class GameLevel extends PhetioObject {
 
-  private static readonly EQUATIONS_PER_GAME = 5;
+  private static readonly CHALLENGES_PER_GAME = 5;
 
   public static readonly POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
   public static readonly POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
@@ -111,8 +111,8 @@ export default class GameLevel extends PhetioObject {
   /**
    * Gets the number of equations for this level.
    */
-  public getNumberOfEquations(): number {
-    return BCEQueryParameters.playAll ? this.equationGenerators.length : GameLevel.EQUATIONS_PER_GAME;
+  public getNumberOfChallenges(): number {
+    return BCEQueryParameters.playAll ? this.equationGenerators.length : GameLevel.CHALLENGES_PER_GAME;
   }
 
   /**
@@ -120,7 +120,7 @@ export default class GameLevel extends PhetioObject {
    * A perfect score is obtained when the user balances every equation correctly on the first attempt.
    */
   public getPerfectScore(): number {
-    return this.getNumberOfEquations() * GameLevel.POINTS_FIRST_ATTEMPT;
+    return this.getNumberOfChallenges() * GameLevel.POINTS_FIRST_ATTEMPT;
   }
 
   /**
@@ -131,15 +131,15 @@ export default class GameLevel extends PhetioObject {
   }
 
   /**
-   * Creates a set of equations to be used in the game.
+   * Creates a set of challenges to be used in the game. Each challenges is an Equation to be balanced.
    * If 'playAll' query parameter is defined, return all equations for the level.
    */
-  public createEquations(): Equation[] {
+  public createChallenges(): Equation[] {
 
     // Get an array of EquationGenerators.
     const equationGenerators = BCEQueryParameters.playAll ?
                                this.equationGenerators :
-                               this.equationGeneratorsSelectionStrategy.getEquationGenerators( GameLevel.EQUATIONS_PER_GAME );
+                               this.equationGeneratorsSelectionStrategy.getEquationGenerators( GameLevel.CHALLENGES_PER_GAME );
 
     // Execute each EquationGenerator to produce an Equation.
     return equationGenerators.map( equationGenerator => equationGenerator( this.coefficientRange ) );
