@@ -58,7 +58,7 @@ export default class GameFeedbackPanel extends Node {
 
   private readonly disposeGameFeedbackPanel: () => void;
 
-  public constructor( model: GameModel, aligner: HorizontalAligner ) {
+  public constructor( model: GameModel, aligner: HorizontalAligner, tandem: Tandem ) {
 
     const equation = model.currentEquationProperty.value;
 
@@ -105,7 +105,7 @@ export default class GameFeedbackPanel extends Node {
         baseColor: STATE_BUTTON_FILL,
         maxWidth: maxWidth,
         listener: () => model.next(),
-        tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
+        tandem: tandem.createTandem( 'nextButton' )
       } );
       disposables.push( nextButton );
 
@@ -145,8 +145,8 @@ export default class GameFeedbackPanel extends Node {
 
       // Try Again or Show Answer button
       const button = ( model.stateProperty.value === 'tryAgain' ) ?
-                     createTryAgainButton( model, maxWidth ) :
-                     createShowAnswerButton( model, maxWidth );
+                     createTryAgainButton( model, maxWidth, tandem.createTandem( 'tryAgainButton' ) ) :
+                     createShowAnswerButton( model, maxWidth, tandem.createTandem( 'showAnswerButton' ) );
       disposables.push( button );
 
       // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
@@ -205,7 +205,7 @@ export default class GameFeedbackPanel extends Node {
         baseColor: SHOW_WHY_BUTTON_FILL,
         visible: true,
         maxWidth: maxWidth,
-        tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
+        tandem: tandem.createTandem( 'showWhyButton' )
       } );
       disposables.push( showWhyButton );
 
@@ -222,7 +222,7 @@ export default class GameFeedbackPanel extends Node {
         baseColor: SHOW_WHY_BUTTON_FILL,
         visible: !showWhyButton.visible,
         maxWidth: maxWidth,
-        tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
+        tandem: tandem.createTandem( 'hideWhyButton' )
       } );
       disposables.push( hideWhyButton );
 
@@ -231,8 +231,8 @@ export default class GameFeedbackPanel extends Node {
 
       // Try Again or Show Answer button
       const button = ( model.stateProperty.value === 'tryAgain' ) ?
-                     createTryAgainButton( model, maxWidth ) :
-                     createShowAnswerButton( model, maxWidth );
+                     createTryAgainButton( model, maxWidth, tandem.createTandem( 'tryAgainButton' ) ) :
+                     createShowAnswerButton( model, maxWidth, tandem.createTandem( 'showAnswerButton' ) );
       disposables.push( button );
 
       content = new VBox( {
@@ -324,26 +324,26 @@ function createIncorrectIcon( iconAlignGroup: AlignGroup ): Node {
 /**
  * Creates the 'Try Again' button.
  */
-function createTryAgainButton( model: GameModel, maxWidth: number ): TextPushButton {
+function createTryAgainButton( model: GameModel, maxWidth: number, tandem: Tandem ): TextPushButton {
   return new TextPushButton( BalancingChemicalEquationsStrings.tryAgainStringProperty, {
     font: STATE_BUTTON_FONT,
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
     listener: () => model.tryAgain(),
-    tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
+    tandem: tandem
   } );
 }
 
 /**
  * Creates the 'Show Answer' button.
  */
-function createShowAnswerButton( model: GameModel, maxWidth: number ): TextPushButton {
+function createShowAnswerButton( model: GameModel, maxWidth: number, tandem: Tandem ): TextPushButton {
   return new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
     font: STATE_BUTTON_FONT,
     baseColor: STATE_BUTTON_FILL,
     maxWidth: maxWidth,
     listener: () => model.showAnswer(),
-    tandem: Tandem.OPT_OUT // ...because GameFeedbackPanel is created dynamically.
+    tandem: tandem
   } );
 }
 

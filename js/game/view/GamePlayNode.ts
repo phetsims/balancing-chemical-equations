@@ -78,7 +78,7 @@ export default class GamePlayNode extends Node {
     this.addChild( this.accordionBoxes );
 
     this.equationNode = new EquationNode( model.currentEquationProperty.value, this.aligner, {
-      tandem: Tandem.OPT_OUT
+      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
     } );
 
     this.equationNodeParent = new Node( {
@@ -89,7 +89,7 @@ export default class GamePlayNode extends Node {
     model.currentEquationProperty.link( equation => {
       this.equationNode.dispose();
       this.equationNode = new EquationNode( equation, this.aligner, {
-        tandem: Tandem.OPT_OUT
+        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
       } );
       this.equationNodeParent.children = [ this.equationNode ];
       this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
@@ -157,7 +157,7 @@ export default class GamePlayNode extends Node {
         listener: () => model.skip(),
         centerX: this.checkButton.centerX,
         bottom: this.checkButton.top - 15,
-        tandem: Tandem.OPT_OUT
+        tandem: Tandem.OPT_OUT // ... because skipButton is an optional development tool.
       } );
       this.addChild( skipButton );
     }
@@ -259,7 +259,7 @@ export default class GamePlayNode extends Node {
       this.feedbackPanel = null;
     }
     if ( visible ) {
-      const feedbackPanel = new GameFeedbackPanel( this.model, this.aligner );
+      const feedbackPanel = new GameFeedbackPanel( this.model, this.aligner, Tandem.OPT_OUT );
       feedbackPanel.localBoundsProperty.link( () => {
         feedbackPanel.centerX = this.layoutBounds.centerX;
         feedbackPanel.top = this.accordionBoxes.top + 10;

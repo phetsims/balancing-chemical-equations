@@ -16,7 +16,6 @@ import BCEQueryParameters from '../BCEQueryParameters.js';
 import Molecule from './Molecule.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import Range from '../../../../dot/js/Range.js';
 
 type SelfOptions = {
@@ -42,10 +41,7 @@ export default class EquationTerm {
     const options = optionize<EquationTermOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      initialCoefficient: 0,
-
-      // EquationTermOptions
-      tandem: Tandem.OPT_OUT
+      initialCoefficient: 0
     }, providedOptions );
 
     // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
