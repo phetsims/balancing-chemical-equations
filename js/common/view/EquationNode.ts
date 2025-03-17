@@ -143,7 +143,7 @@ export default class EquationNode extends Node {
 
     // Check if equation fits minX (eg, C2H5OH + 3O2 -> 2CO2 + 3H2O), and adjust all terms to the right.
     if ( tempNodes[ 0 ].bounds.minX < minX ) {
-      let rightBound = minX; // current right bound of passed terms, if term.minX<rightBound move term to the right
+      let rightBound = minX; // Current right bound of passed terms, if term.minX < rightBound, move term to the right.
       tempNodes.forEach( term => {
         term.x += Math.max( 0, rightBound - term.bounds.minX );
         rightBound = term.bounds.maxX + minSeparation;
@@ -152,7 +152,7 @@ export default class EquationNode extends Node {
 
     // Check if equation fits maxX (eg, CH3OH -> CO + 2H2), and adjust all terms to the left.
     if ( tempNodes[ tempNodes.length - 1 ].bounds.maxX > maxX ) {
-      let leftBound = maxX; // current left bound of passed terms, if term.maxX > leftBound, move term to the left
+      let leftBound = maxX; // Current left bound of passed terms, if term.maxX > leftBound, move term to the left.
       for ( let i = tempNodes.length - 1; i > -1; i-- ) {
         const term = tempNodes[ i ];
         term.x -= Math.max( 0, term.bounds.maxX - leftBound );
