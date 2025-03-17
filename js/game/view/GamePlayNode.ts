@@ -71,7 +71,6 @@ export default class GamePlayNode extends Node {
     this.aligner = new HorizontalAligner( layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
     this.feedbackPanel = null;
 
-    // status bar
     const statusBar = new BCEFiniteStatusBar( model, layoutBounds, visibleBoundsProperty, tandem.createTandem( 'statusBar' ) );
     this.addChild( statusBar );
 
