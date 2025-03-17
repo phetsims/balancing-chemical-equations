@@ -60,7 +60,7 @@ export default class GameFeedbackPanel extends Node {
 
   public constructor( model: GameModel, aligner: HorizontalAligner, tandem: Tandem ) {
 
-    const equation = model.currentChallengeProperty.value;
+    const equation = model.challengeProperty.value;
 
     // maxWidth for UI elements
     const maxWidth = 0.5 * aligner.getScreenWidth();

@@ -74,14 +74,14 @@ export default class GamePlayNode extends Node {
     const statusBar = new BCEFiniteStatusBar( model, layoutBounds, visibleBoundsProperty, tandem.createTandem( 'statusBar' ) );
     this.addChild( statusBar );
 
-    this.accordionBoxes = new BoxesNode( model.currentChallengeProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
+    this.accordionBoxes = new BoxesNode( model.challengeProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         y: statusBar.bottom + 15,
         parentTandem: tandem
       } );
     this.addChild( this.accordionBoxes );
 
-    this.equationNode = new EquationNode( model.currentChallengeProperty.value, this.aligner, {
+    this.equationNode = new EquationNode( model.challengeProperty.value, this.aligner, {
       tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
     } );
 
@@ -90,7 +90,7 @@ export default class GamePlayNode extends Node {
     } );
     this.addChild( this.equationNodeParent );
 
-    model.currentChallengeProperty.link( challenge => {
+    model.challengeProperty.link( challenge => {
       this.equationNode.dispose();
       this.equationNode = new EquationNode( challenge, this.aligner, {
         tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
@@ -141,7 +141,7 @@ export default class GamePlayNode extends Node {
         bottom: this.layoutBounds.bottom - 5
       } );
       this.addChild( answerNode );
-      this.model.currentChallengeProperty.link( challenge => {
+      this.model.challengeProperty.link( challenge => {
         answerNode.string = challenge.getAnswerString();
         answerNode.centerX = this.layoutBounds.centerX;
       } );
@@ -179,7 +179,7 @@ export default class GamePlayNode extends Node {
     const hasNonZeroCoefficientListener = ( hasNonZeroCoefficient: boolean ) => {
       this.checkButton.enabled = hasNonZeroCoefficient;
     };
-    model.currentChallengeProperty.link( ( newChallenge, oldChallenge ) => {
+    model.challengeProperty.link( ( newChallenge, oldChallenge ) => {
       if ( oldChallenge ) {
         oldChallenge.hasNonZeroCoefficientProperty.unlink( hasNonZeroCoefficientListener );
       }
@@ -216,7 +216,7 @@ export default class GamePlayNode extends Node {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = false;
 
-    const currentEquation = this.model.currentChallengeProperty.value;
+    const currentEquation = this.model.challengeProperty.value;
     this.nextButton.visible = !currentEquation.isBalancedAndSimplified; // 'Next' button is in the feedbackPanel
     this.setFeedbackPanelVisible( currentEquation.isBalancedAndSimplified );
     this.setBalancedHighlightEnabled( true );
@@ -237,7 +237,7 @@ export default class GamePlayNode extends Node {
    * Plays a sound corresponding to whether the user's guess is correct or incorrect.
    */
   private playGuessAudio(): void {
-    if ( this.model.currentChallengeProperty.value.isBalancedAndSimplified ) {
+    if ( this.model.challengeProperty.value.isBalancedAndSimplified ) {
       this.audioPlayer.correctAnswer();
     }
     else {

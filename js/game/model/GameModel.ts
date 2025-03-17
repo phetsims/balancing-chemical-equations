@@ -48,7 +48,7 @@ export default class GameModel implements TModel {
   private challenges: Equation[];
   public readonly numberOfChallengesProperty: Property<number>; // number of challenges in the current game
   public readonly currentChallengeIndexProperty: Property<number>; // index of the current challenge in this.challenges
-  public readonly currentChallengeProperty: Property<Equation>; // current challenge to be solved
+  public readonly challengeProperty: Property<Equation>; // current challenge to be solved
 
   public readonly timer: GameTimer;
   public readonly timerEnabledProperty: Property<boolean>;
@@ -102,7 +102,7 @@ export default class GameModel implements TModel {
     } );
 
     // Any non-null Equation will do here for the initial value.
-    this.currentChallengeProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange ) );
+    this.challengeProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange ) );
 
     const timerTandem = tandem.createTandem( 'timer' );
     this.timer = new GameTimer( timerTandem );
@@ -132,7 +132,7 @@ export default class GameModel implements TModel {
     this.levelProperty.reset();
     this._stateProperty.reset();
     this.numberOfChallengesProperty.reset();
-    this.currentChallengeProperty.reset();
+    this.challengeProperty.reset();
     this.currentChallengeIndexProperty.reset();
     this.timerEnabledProperty.reset();
   }
@@ -171,7 +171,7 @@ export default class GameModel implements TModel {
     // Create a set of challenges.
     this.challenges = level.createChallenges();
     this.currentChallengeIndexProperty.value = 0;
-    this.currentChallengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
+    this.challengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
     this.numberOfChallengesProperty.value = this.challenges.length;
 
     // Start the timer.
@@ -213,7 +213,7 @@ export default class GameModel implements TModel {
   public check(): void {
     this.attempts++;
 
-    if ( this.currentChallengeProperty.value.isBalancedAndSimplified ) {
+    if ( this.challengeProperty.value.isBalancedAndSimplified ) {
       // award points
       if ( this.attempts === 1 ) {
         this.currentPoints = GameLevel.POINTS_FIRST_ATTEMPT;
@@ -264,7 +264,7 @@ export default class GameModel implements TModel {
       this.attempts = 0;
       this.currentPoints = 0;
       this.currentChallengeIndexProperty.value = this.currentChallengeIndexProperty.value + 1;
-      this.currentChallengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
+      this.challengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
       this.setState( 'check' );
     }
     else {
