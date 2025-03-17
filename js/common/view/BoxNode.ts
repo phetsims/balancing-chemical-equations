@@ -122,7 +122,7 @@ export default class BoxNode extends AccordionBox {
     this.moleculesParent = moleculesParent;
 
     // update visible molecules to match the coefficients
-    const coefficientsObserver = () => {
+    const coefficientsListener = () => {
       this.updateCounts( getTerms( equationProperty.value ), getXOffsets( equationProperty.value ) );
     };
 
@@ -131,11 +131,11 @@ export default class BoxNode extends AccordionBox {
       // updates the node for molecules of the current equation
       this.updateNode( getTerms( newEquation ), getXOffsets( newEquation ) );
 
-      // wire up coefficients observer to current equation
+      // wire up coefficients listener to current equation
       if ( oldEquation ) {
-        oldEquation.removeCoefficientsObserver( coefficientsObserver );
+        oldEquation.removeCoefficientsListener( coefficientsListener );
       }
-      newEquation.addCoefficientsObserver( coefficientsObserver );
+      newEquation.addCoefficientsListener( coefficientsListener );
     } );
   }
 

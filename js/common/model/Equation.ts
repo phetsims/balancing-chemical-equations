@@ -83,10 +83,10 @@ export default class Equation extends PhetioObject {
     } );
     this.coefficientsSumProperty = this._coefficientsSumProperty;
 
-    this.addCoefficientsObserver( this.updateBalanced.bind( this ) );
+    this.addCoefficientsListener( this.updateBalanced.bind( this ) );
 
     // keep a sum of all coefficients, so we know when the sum is non-zero
-    this.addCoefficientsObserver( () => {
+    const coefficientsListener = () => {
       let coefficientsSum = 0;
       const addCoefficients = ( equationTerm: EquationTerm ) => {
         coefficientsSum += equationTerm.coefficientProperty.value;
@@ -94,7 +94,8 @@ export default class Equation extends PhetioObject {
       this.reactants.forEach( reactant => addCoefficients( reactant ) );
       this.products.forEach( product => addCoefficients( product ) );
       this._coefficientsSumProperty.value = coefficientsSum;
-    } );
+    };
+    this.addCoefficientsListener( coefficientsListener );
   }
 
   public get isBalancedAndSimplified(): boolean {
@@ -135,20 +136,30 @@ export default class Equation extends PhetioObject {
   }
 
   /**
-   * Convenience method for adding an observer to all coefficients.
+   * Convenience method for adding a listener to all coefficients.
    */
-  public addCoefficientsObserver( observer: () => void ): void {
-    this.reactants.forEach( reactant => reactant.coefficientProperty.lazyLink( observer ) );
-    this.products.forEach( product => product.coefficientProperty.lazyLink( observer ) );
-    observer();
+  public addCoefficientsListener( listener: () => void ): void {
+    this.reactants.forEach( reactant => reactant.coefficientProperty.lazyLink( listener ) );
+    this.products.forEach( product => product.coefficientProperty.lazyLink( listener ) );
+    listener();
   }
 
   /**
-   * Convenience method for removing an observer from all coefficients.
+   * Convenience method for removing a listener from all coefficients.
    */
-  public removeCoefficientsObserver( observer: () => void ): void {
-    this.reactants.forEach( reactant => reactant.coefficientProperty.unlink( observer ) );
-    this.products.forEach( product => product.coefficientProperty.unlink( observer ) );
+  public removeCoefficientsListener( listener: () => void ): void {
+
+    this.reactants.forEach( reactant => {
+      if ( reactant.coefficientProperty.hasListener( listener ) ) {
+        reactant.coefficientProperty.unlink( listener );
+      }
+    } );
+
+    this.products.forEach( product => {
+      if ( product.coefficientProperty.hasListener( listener ) ) {
+        product.coefficientProperty.unlink( listener );
+      }
+    } );
   }
 
   /**

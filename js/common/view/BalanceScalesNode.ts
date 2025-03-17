@@ -78,12 +78,12 @@ export default class BalanceScalesNode extends Node {
     this.reactantCountProperties = new Map();
     this.productCountProperties = new Map();
 
-    // Wire coefficients observer to current equation.
-    const coefficientsObserver = this.updateCounts.bind( this );
+    // Wire coefficients listener to current equation.
+    const coefficientsListener = this.updateCounts.bind( this );
     equationProperty.link( ( newEquation, oldEquation ) => {
       this.updateNode();
-      oldEquation && oldEquation.removeCoefficientsObserver( coefficientsObserver );
-      newEquation.addCoefficientsObserver( coefficientsObserver );
+      oldEquation && oldEquation.removeCoefficientsListener( coefficientsListener );
+      newEquation.addCoefficientsListener( coefficientsListener );
     } );
 
     this.mutate( options );

@@ -49,15 +49,15 @@ export default class EqualityOperatorNode extends Node {
     super( options );
 
     // show the correct operator, based on whether the equation is balanced
-    const isBalancedObserver = ( isBalanced: boolean ) => {
+    const isBalancedListener = ( isBalanced: boolean ) => {
       equalToNode.visible = isBalanced;
       notEqualToNode.visible = !isBalanced;
     };
     equationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) {
-        oldEquation.isBalancedProperty.unlink( isBalancedObserver );
+        oldEquation.isBalancedProperty.unlink( isBalancedListener );
       }
-      newEquation.isBalancedProperty.link( isBalancedObserver );
+      newEquation.isBalancedProperty.link( isBalancedListener );
     } );
   }
 }

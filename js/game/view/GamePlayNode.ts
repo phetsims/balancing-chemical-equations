@@ -210,12 +210,16 @@ export default class GamePlayNode extends Node {
     } );
 
     // Disable 'Check' button when all coefficients are zero.
-    const coefficientsSumObserver = ( coefficientsSum: number ) => {
+    const coefficientSumListener = ( coefficientsSum: number ) => {
       this.checkButton.enabled = ( coefficientsSum > 0 );
     };
     model.currentEquationProperty.link( ( newEquation, oldEquation ) => {
-      if ( oldEquation ) { oldEquation.coefficientsSumProperty.unlink( coefficientsSumObserver ); }
-      if ( newEquation ) { newEquation.coefficientsSumProperty.link( coefficientsSumObserver ); }
+      if ( oldEquation ) {
+        oldEquation.coefficientsSumProperty.unlink( coefficientSumListener );
+      }
+      if ( newEquation ) {
+        newEquation.coefficientsSumProperty.link( coefficientSumListener );
+      }
     } );
   }
 

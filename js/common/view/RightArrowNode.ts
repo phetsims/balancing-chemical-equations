@@ -42,17 +42,17 @@ export default class RightArrowNode extends ArrowNode {
     this.equationProperty = equationProperty;
     this._highlightEnabled = true;
 
-    // Wire observer to current equation.
+    // Wire listener to current equation.
     const isBalancedListener = this.updateHighlight.bind( this );
 
-    const equationObserver = ( newEquation: Equation, oldEquation: Equation | null ) => {
+    const equationListener = ( newEquation: Equation, oldEquation: Equation | null ) => {
       oldEquation && oldEquation.isBalancedProperty.unlink( isBalancedListener );
       newEquation.isBalancedProperty.link( isBalancedListener );
     };
-    equationProperty.link( equationObserver );
+    equationProperty.link( equationListener );
 
     this.disposeEmitter.addListener( () => {
-      equationProperty.unlink( equationObserver );
+      equationProperty.unlink( equationListener );
       if ( equationProperty.value.isBalancedProperty.hasListener( isBalancedListener ) ) {
         equationProperty.value.isBalancedProperty.unlink( isBalancedListener );
       }

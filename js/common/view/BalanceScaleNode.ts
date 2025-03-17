@@ -97,8 +97,8 @@ export default class BalanceScaleNode extends Node {
     this.mutate( options );
 
     // highlight the beam
-    const highlightObserver = ( isBalanced: boolean ) => this.beamNode.setHighlighted( isBalanced );
-    isBalancedProperty.link( highlightObserver );
+    const highlightListener = ( isBalanced: boolean ) => this.beamNode.setHighlighted( isBalanced );
+    isBalancedProperty.link( highlightListener );
 
     // update piles
     const updateNodeBind = this.updateNode.bind( this );
@@ -108,7 +108,7 @@ export default class BalanceScaleNode extends Node {
 
     // unlink from Properties
     this.balanceScaleNodeDispose = () => {
-      isBalancedProperty.unlink( highlightObserver );
+      isBalancedProperty.unlink( highlightListener );
       leftNumberOfAtomsProperty.unlink( updateNodeBind );
       rightNumberOfAtomsProperty.unlink( updateNodeBind );
     };
