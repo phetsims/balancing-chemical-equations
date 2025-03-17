@@ -110,20 +110,18 @@ export default class GameModel implements TModel {
     this.challenges = [];
 
     this._numberOfChallengesProperty = new NumberProperty( 0, {
-      numberType: 'Integer',
-      tandem: tandem.createTandem( 'numberOfChallengesProperty' ),
-      phetioReadOnly: true
+      numberType: 'Integer'
     } );
     this.numberOfChallengesProperty = this._numberOfChallengesProperty;
 
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null or -1, because this.challenges is empty.
     this._challengeIndexProperty = new NumberProperty( 0, {
-      numberType: 'Integer',
-      tandem: tandem.createTandem( 'challengeIndexProperty' ),
-      phetioReadOnly: true
+      numberType: 'Integer'
     } );
     this.challengeIndexProperty = this._challengeIndexProperty;
 
-    // Any non-null Equation will do here for the initial value.
+    // Any Equation will do here for the initial value.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null, but that would be a lot of work.
     this._challengeProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange ) );
     this.challengeProperty = this._challengeProperty;
 
