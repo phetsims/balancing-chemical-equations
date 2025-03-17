@@ -20,7 +20,6 @@ import Molecule from './Molecule.js';
 export default class SynthesisEquation extends Equation {
 
   /**
-   * Constructor is private because the factory methods are used to create instances.
    * @param r1 - balanced coefficient for reactant1
    * @param reactant1
    * @param r2 - balanced coefficient for reactant2
@@ -30,11 +29,11 @@ export default class SynthesisEquation extends Equation {
    * @param coefficientRange
    * @param tandem
    */
-  private constructor( r1: number, reactant1: Molecule,
-                       r2: number, reactant2: Molecule,
-                       p1: number, product1: Molecule,
-                       coefficientRange: Range,
-                       tandem = Tandem.OPT_OUT ) {
+  public constructor( r1: number, reactant1: Molecule,
+                      r2: number, reactant2: Molecule,
+                      p1: number, product1: Molecule,
+                      coefficientRange: Range,
+                      tandem = Tandem.OPT_OUT ) {
 
     const termsTandem = tandem.createTandem( 'terms' );
 
@@ -94,7 +93,7 @@ export default class SynthesisEquation extends Equation {
     return new SynthesisEquation( 1, Molecule.C, 2, Molecule.S, 1, Molecule.CS2, coefficientRange );
   }
 
-  // N2 + 3 H2 -> 2 NH3 (Make Ammonia)
+  // N2 + 3 H2 -> 2 NH3
   public static create_N2_3H2_2NH3( coefficientRange: Range, tandem = Tandem.OPT_OUT ): SynthesisEquation {
     return new SynthesisEquation( 1, Molecule.N2, 3, Molecule.H2, 2, Molecule.NH3, coefficientRange, tandem );
   }

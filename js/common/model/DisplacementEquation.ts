@@ -20,7 +20,6 @@ import Range from '../../../../dot/js/Range.js';
 export default class DisplacementEquation extends Equation {
 
   /**
-   * Constructor is private because the factory methods are used to create instances.
    * @param r1 - balanced coefficient for reactant1
    * @param reactant1
    * @param r2 - balanced coefficient for reactant1
@@ -32,10 +31,10 @@ export default class DisplacementEquation extends Equation {
    * @param coefficientRange
    * @param tandem
    */
-  private constructor( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule,
-                       p1: number, product1: Molecule, p2: number, product2: Molecule,
-                       coefficientRange: Range,
-                       tandem = Tandem.OPT_OUT ) {
+  public constructor( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule,
+                      p1: number, product1: Molecule, p2: number, product2: Molecule,
+                      coefficientRange: Range,
+                      tandem = Tandem.OPT_OUT ) {
 
     const termsTandem = tandem.createTandem( 'terms' );
 
@@ -64,7 +63,7 @@ export default class DisplacementEquation extends Equation {
     );
   }
 
-  // CH4 + 2 O2 -> CO2 + 2 H2O (Combust Methane)
+  // CH4 + 2 O2 -> CO2 + 2 H2O
   public static create_CH4_2O2_CO2_2H2O( coefficientRange: Range, tandem = Tandem.OPT_OUT ): DisplacementEquation {
     return new DisplacementEquation( 1, Molecule.CH4, 2, Molecule.O2, 1, Molecule.CO2, 2, Molecule.H2O, coefficientRange, tandem );
   }

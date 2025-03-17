@@ -19,6 +19,7 @@ import DecompositionEquation from '../../common/model/DecompositionEquation.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';
 import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
+import Molecule from '../../common/model/Molecule.js';
 
 export type EquationChoice = {
   equation: Equation;
@@ -44,18 +45,27 @@ export default class IntroModel implements TModel {
     const equationsTandem = tandem.createTandem( 'equations' );
 
     this.choices = [
+
+      // Make Ammonia: N2 + 3 H2 -> 2 NH3
       {
-        equation: SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange, equationsTandem.createTandem( 'makeAmmoniaEquation' ) ),
+        equation: new SynthesisEquation( 1, Molecule.N2, 3, Molecule.H2, 2, Molecule.NH3,
+          this.coefficientsRange, equationsTandem.createTandem( 'makeAmmoniaEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.makeAmmoniaStringProperty,
         tandemNamePrefix: 'makeAmmonia'
       },
+
+      // Separate Water: 2 H2O -> 2 H2 + O2
       {
-        equation: DecompositionEquation.create_2H2O_2H2_O2( this.coefficientsRange, equationsTandem.createTandem( 'separateWaterEquation' ) ),
+        equation: new DecompositionEquation( 2, Molecule.H2O, 2, Molecule.H2, 1, Molecule.O2,
+          this.coefficientsRange, equationsTandem.createTandem( 'separateWaterEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.separateWaterStringProperty,
         tandemNamePrefix: 'separateWater'
       },
+
+      // Combust Methane: CH4 + 2 O2 -> CO2 + 2 H2O
       {
-        equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O( this.coefficientsRange, equationsTandem.createTandem( 'combustMethaneEquation' ) ),
+        equation: new DisplacementEquation( 1, Molecule.CH4, 2, Molecule.O2, 1, Molecule.CO2, 2, Molecule.H2O,
+          this.coefficientsRange, equationsTandem.createTandem( 'combustMethaneEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.combustMethaneStringProperty,
         tandemNamePrefix: 'combustMethane'
       }

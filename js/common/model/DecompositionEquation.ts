@@ -20,7 +20,6 @@ import Range from '../../../../dot/js/Range.js';
 export default class DecompositionEquation extends Equation {
 
   /**
-   * Constructor is private because the factory methods are used to create instances.
    * @param r1 - balanced coefficient for reactant1
    * @param reactant1
    * @param p1 - balanced coefficient for product1
@@ -30,11 +29,11 @@ export default class DecompositionEquation extends Equation {
    * @param coefficientRange
    * @param tandem
    */
-  private constructor( r1: number, reactant1: Molecule,
-                       p1: number, product1: Molecule,
-                       p2: number, product2: Molecule,
-                       coefficientRange: Range,
-                       tandem = Tandem.OPT_OUT ) {
+  public constructor( r1: number, reactant1: Molecule,
+                      p1: number, product1: Molecule,
+                      p2: number, product2: Molecule,
+                      coefficientRange: Range,
+                      tandem = Tandem.OPT_OUT ) {
 
     const termsTandem = tandem.createTandem( 'terms' );
 
@@ -59,7 +58,7 @@ export default class DecompositionEquation extends Equation {
     );
   }
 
-  // 2 H2O -> 2 H2 + O2 (Separate Water)
+  // 2 H2O -> 2 H2 + O2
   public static create_2H2O_2H2_O2( coefficientRange: Range, tandem = Tandem.OPT_OUT ): DecompositionEquation {
     return new DecompositionEquation( 2, Molecule.H2O, 2, Molecule.H2, 1, Molecule.O2, coefficientRange, tandem );
   }
