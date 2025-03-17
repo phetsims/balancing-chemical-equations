@@ -47,7 +47,7 @@ export default class GameModel implements TModel {
   // Challenges are a set of Equations to be balanced.
   private challenges: Equation[];
   public readonly numberOfChallengesProperty: Property<number>; // number of challenges in the current game
-  public readonly currentChallengeIndexProperty: Property<number>; // index of the current challenge in this.challenges
+  public readonly challengeIndexProperty: Property<number>; // index of the current challenge in this.challenges
   public readonly challengeProperty: Property<Equation>; // current challenge to be solved
 
   public readonly timer: GameTimer;
@@ -97,7 +97,7 @@ export default class GameModel implements TModel {
       numberType: 'Integer'
     } );
 
-    this.currentChallengeIndexProperty = new NumberProperty( 0, {
+    this.challengeIndexProperty = new NumberProperty( 0, {
       numberType: 'Integer'
     } );
 
@@ -133,7 +133,7 @@ export default class GameModel implements TModel {
     this._stateProperty.reset();
     this.numberOfChallengesProperty.reset();
     this.challengeProperty.reset();
-    this.currentChallengeIndexProperty.reset();
+    this.challengeIndexProperty.reset();
     this.timerEnabledProperty.reset();
   }
 
@@ -170,8 +170,8 @@ export default class GameModel implements TModel {
 
     // Create a set of challenges.
     this.challenges = level.createChallenges();
-    this.currentChallengeIndexProperty.value = 0;
-    this.challengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
+    this.challengeIndexProperty.value = 0;
+    this.challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
     this.numberOfChallengesProperty.value = this.challenges.length;
 
     // Start the timer.
@@ -227,7 +227,7 @@ export default class GameModel implements TModel {
       this.scoreProperty.value = this.scoreProperty.value + this.currentPoints;
       this.setState( 'next' );
 
-      if ( this.currentChallengeIndexProperty.value === this.challenges.length - 1 ) {
+      if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
         this.endGame();
       }
     }
@@ -235,7 +235,7 @@ export default class GameModel implements TModel {
       this.setState( 'tryAgain' );
     }
     else {
-      if ( this.currentChallengeIndexProperty.value === this.challenges.length - 1 ) {
+      if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
         this.endGame();
       }
       this.setState( 'showAnswer' );
@@ -260,11 +260,11 @@ export default class GameModel implements TModel {
    * Called when the user presses the "Next" button.
    */
   public next(): void {
-    if ( this.currentChallengeIndexProperty.value < this.challenges.length - 1 ) {
+    if ( this.challengeIndexProperty.value < this.challenges.length - 1 ) {
       this.attempts = 0;
       this.currentPoints = 0;
-      this.currentChallengeIndexProperty.value = this.currentChallengeIndexProperty.value + 1;
-      this.challengeProperty.value = this.challenges[ this.currentChallengeIndexProperty.value ];
+      this.challengeIndexProperty.value = this.challengeIndexProperty.value + 1;
+      this.challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
       this.setState( 'check' );
     }
     else {
