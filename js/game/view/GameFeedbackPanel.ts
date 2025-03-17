@@ -74,7 +74,9 @@ export default class GameFeedbackPanel extends Node {
 
     // happy/sad face
     const faceNode = new FaceNode( 75 );
-    if ( !equation.isBalancedProperty.value ) { faceNode.frown(); }
+    if ( !equation.isBalancedProperty.value ) {
+      faceNode.frown();
+    }
 
     // To make icons have the same effective size.
     const iconAlignGroup = new AlignGroup();
