@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * GamePlayNode contains all user-interface elements related to playing game challenges.
+ * LevelNode contains all user-interface elements related to playing game challenges.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -35,7 +35,7 @@ const PUSH_BUTTON_OPTIONS = {
   maxWidth: 0.85 * BOX_X_SPACING
 };
 
-export default class GamePlayNode extends Node {
+export default class LevelNode extends Node {
 
   private readonly model: GameModel;
   private readonly audioPlayer: GameAudioPlayer;
@@ -62,6 +62,7 @@ export default class GamePlayNode extends Node {
       // NodeOptions
       isDisposable: false,
       tandem: tandem,
+      phetioDocumentation: 'The user interface for playing a game level.',
       phetioVisiblePropertyInstrumented: false
     } );
 
@@ -267,4 +268,4 @@ export default class GamePlayNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'GamePlayNode', GamePlayNode );
+balancingChemicalEquations.register( 'LevelNode', LevelNode );

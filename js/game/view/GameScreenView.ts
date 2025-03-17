@@ -17,7 +17,7 @@ import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import GameModel from '../model/GameModel.js';
 import BCERewardNode from './BCERewardNode.js';
-import GamePlayNode from './GamePlayNode.js';
+import LevelNode from './LevelNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import LevelSelectionNode from './LevelSelectionNode.js';
 
@@ -30,7 +30,7 @@ export default class GameScreenView extends ScreenView {
   private readonly screenViewRootNode: Node; // parent for all game-related nodes
 
   private readonly levelSelectionNode: Node;
-  private gamePlayNode: Node; // game-play interface
+  private readonly levelNode: Node;
 
   private rewardNode: BCERewardNode | null; // created on demand
 
@@ -49,13 +49,13 @@ export default class GameScreenView extends ScreenView {
     this.levelSelectionNode = new LevelSelectionNode( this.model, this.viewProperties, this.layoutBounds,
       tandem.createTandem( 'levelSelectionNode' ) );
 
-    this.gamePlayNode = new GamePlayNode( this.model, this.viewProperties, this.audioPlayer,
-      this.layoutBounds, this.visibleBoundsProperty, tandem.createTandem( 'gamePlayNode' ) );
+    this.levelNode = new LevelNode( this.model, this.viewProperties, this.audioPlayer,
+      this.layoutBounds, this.visibleBoundsProperty, tandem.createTandem( 'levelNode' ) );
 
     this.rewardNode = null;
 
     this.screenViewRootNode = new Node( {
-      children: [ this.levelSelectionNode, this.gamePlayNode ]
+      children: [ this.levelSelectionNode, this.levelNode ]
     } );
     this.addChild( this.screenViewRootNode );
 
@@ -95,7 +95,7 @@ export default class GameScreenView extends ScreenView {
   }
 
   private initLevelSelection(): void {
-    this.gamePlayNode.visible = false;
+    this.levelNode.visible = false;
     this.levelSelectionNode.visible = true;
   }
 
@@ -106,7 +106,7 @@ export default class GameScreenView extends ScreenView {
     this.viewProperties.reactantsAccordionBoxExpandedProperty.reset();
     this.viewProperties.productsAccordionBoxExpandedProperty.reset();
     this.levelSelectionNode.visible = false;
-    this.gamePlayNode.visible = true;
+    this.levelNode.visible = true;
   }
 
   private initLevelCompleted(): void {
@@ -115,7 +115,7 @@ export default class GameScreenView extends ScreenView {
     assert && assert( level );
 
     this.levelSelectionNode.visible = false;
-    this.gamePlayNode.visible = false;
+    this.levelNode.visible = false;
 
     // game reward, shown for perfect score (or with 'reward' query parameter)
     if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {

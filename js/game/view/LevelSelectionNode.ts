@@ -115,6 +115,7 @@ export default class LevelSelectionNode extends Node {
       isDisposable: false,
       children: [ buttonGroup, chooseYourLevelText, timerToggleButton, resetAllButton ],
       tandem: tandem,
+      phetioDocumentation: 'The user interface for choosing a game level.',
       phetioVisiblePropertyInstrumented: false
     } );
   }
