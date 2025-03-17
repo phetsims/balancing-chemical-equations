@@ -29,7 +29,8 @@ export class BCEFiniteStatusBar extends FiniteStatusBar {
     super( layoutBounds, visibleBoundsProperty, model.scoreProperty, {
       createScoreDisplay: scoreProperty => new ScoreDisplayLabeledNumber( scoreProperty, {
         font: STATUS_BAR_FONT,
-        textFill: STATUS_BAR_TEXT_FILL
+        textFill: STATUS_BAR_TEXT_FILL,
+        tandem: tandem.createTandem( 'scoreDisplay' )
       } ),
       levelProperty: new DerivedProperty( [ model.levelProperty ], level => level ? level.levelNumber : 0 ),
       challengeIndexProperty: model.currentEquationIndexProperty,
