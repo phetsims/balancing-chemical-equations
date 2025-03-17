@@ -1,5 +1,6 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Override dispose.
 /**
  * Equation is the base class for all chemical equations.
  * A chemical equation has 2 sets of terms, reactants and products.
