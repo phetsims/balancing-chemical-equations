@@ -38,7 +38,7 @@ export default class GameModel implements TModel {
   private readonly _stateProperty: StringUnionProperty<GameState>;
   public readonly stateProperty: TReadOnlyProperty<GameState>;
 
-  // Range of possible equation coefficients.
+  // Range of all coefficients, in all challenges.
   public readonly coefficientsRange: Range;
 
   // The score for the current game that is being played.
@@ -58,10 +58,12 @@ export default class GameModel implements TModel {
 
   public constructor( tandem: Tandem ) {
 
+    this.coefficientsRange = new Range( 0, 7 );
+
     this.levels = [
-      new GameLevel1( tandem.createTandem( 'level1' ) ),
-      new GameLevel2( tandem.createTandem( 'level2' ) ),
-      new GameLevel3( tandem.createTandem( 'level3' ) )
+      new GameLevel1( this.coefficientsRange, tandem.createTandem( 'level1' ) ),
+      new GameLevel2( this.coefficientsRange, tandem.createTandem( 'level2' ) ),
+      new GameLevel3( this.coefficientsRange, tandem.createTandem( 'level3' ) )
     ];
 
     this.levelProperty = new Property<GameLevel | null>( null, {
@@ -80,8 +82,6 @@ export default class GameModel implements TModel {
     } );
     this.stateProperty = this._stateProperty;
 
-    this.coefficientsRange = new Range( 0, 7 );
-
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       range: new Range( 0, Infinity ), // because ?playAll affects the range
@@ -96,7 +96,8 @@ export default class GameModel implements TModel {
       numberType: 'Integer'
     } );
 
-    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3() ); // any non-null Equation will do here
+    // Any non-null Equation will do here for the initial value.
+    this.currentEquationProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange ) );
 
     this.currentEquationIndexProperty = new NumberProperty( 0, {
       numberType: 'Integer'

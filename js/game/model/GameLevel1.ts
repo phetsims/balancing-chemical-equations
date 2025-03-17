@@ -9,6 +9,7 @@
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import GameLevel, { EquationGenerator } from './GameLevel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Range from '../../../../dot/js/Range.js';
 import DecompositionEquation from '../../common/model/DecompositionEquation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import RandomStrategy from './RandomStrategy.js';
@@ -43,13 +44,16 @@ const EQUATION_GENERATORS: EquationGenerator[] = [
 
 export default class GameLevel1 extends GameLevel {
 
-  public constructor( tandem: Tandem ) {
+  public constructor( coefficientRange: Range, tandem: Tandem ) {
     super( {
       levelNumber: 1,
       iconMolecule: Molecule.HCl,
+      coefficientRange: coefficientRange,
       getBalancedRepresentation: () => 'balanceScales',
       equationGenerators: EQUATION_GENERATORS,
-      equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, false ),
+      equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, coefficientRange, {
+        firstBigMolecule: false
+      } ),
       tandem: tandem
     } );
   }

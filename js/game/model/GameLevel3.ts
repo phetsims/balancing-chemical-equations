@@ -9,6 +9,7 @@
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import GameLevel, { EquationGenerator } from './GameLevel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Range from '../../../../dot/js/Range.js';
 import RandomStrategy, { ExclusionsMap } from './RandomStrategy.js';
 import DisplacementEquation from '../../common/model/DisplacementEquation.js';
 import Molecule from '../../common/model/Molecule.js';
@@ -116,13 +117,14 @@ EXCLUSIONS_MAP.set( DisplacementEquation.create_5N2_6H2O_4NH3_6NO, [
 
 export default class GameLevel3 extends GameLevel {
 
-  public constructor( tandem: Tandem ) {
+  public constructor( coefficientRange: Range, tandem: Tandem ) {
     super( {
       levelNumber: 3,
       iconMolecule: Molecule.NH3,
+      coefficientRange: coefficientRange,
       getBalancedRepresentation: () => 'barCharts',
       equationGenerators: EQUATION_GENERATORS,
-      equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, true, {
+      equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, coefficientRange, {
         exclusionsMap: EXCLUSIONS_MAP
       } ),
       tandem: tandem

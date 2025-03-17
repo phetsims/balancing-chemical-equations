@@ -108,7 +108,7 @@ export default class GamePlayNode extends Node {
       } );
     this.addChild( this.accordionBoxes );
 
-    this.equationNode = new EquationNode( model.currentEquationProperty.value, this.model.coefficientsRange, this.aligner, {
+    this.equationNode = new EquationNode( model.currentEquationProperty.value, this.aligner, {
       tandem: Tandem.OPT_OUT
     } );
 
@@ -119,7 +119,7 @@ export default class GamePlayNode extends Node {
 
     model.currentEquationProperty.link( equation => {
       this.equationNode.dispose();
-      this.equationNode = new EquationNode( equation, this.model.coefficientsRange, this.aligner, {
+      this.equationNode = new EquationNode( equation, this.aligner, {
         tandem: Tandem.OPT_OUT
       } );
       this.equationNodeParent.children = [ this.equationNode ];

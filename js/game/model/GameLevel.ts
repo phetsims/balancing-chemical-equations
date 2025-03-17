@@ -22,8 +22,9 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Molecule from '../../common/model/Molecule.js';
 import { AtomNodeOptions } from '../../../../nitroglycerin/js/nodes/AtomNode.js';
 import BCEConstants from '../../common/BCEConstants.js';
+import Range from '../../../../dot/js/Range.js';
 
-export type EquationGenerator = () => Equation;
+export type EquationGenerator = ( coefficientRange: Range ) => Equation;
 
 type SelfOptions = {
 
@@ -32,6 +33,9 @@ type SelfOptions = {
 
   // Molecule that appears on the level-selection button for this game level.
   iconMolecule: Molecule;
+
+  // Range of the coefficient in all equation terms.
+  coefficientRange: Range;
 
   // Gets the "balanced representation" that is displayed by the "Not Balanced" popup.
   getBalancedRepresentation: () => BalancedRepresentation;
@@ -54,6 +58,7 @@ export default class GameLevel extends PhetioObject {
 
   public readonly levelNumber: number;
   public readonly icon: Node;
+  private readonly coefficientRange: Range;
   public readonly getBalancedRepresentation: () => BalancedRepresentation;
   private readonly equationGenerators: EquationGenerator[];
   private readonly equationGeneratorsSelectionStrategy: RandomStrategy;
@@ -78,6 +83,7 @@ export default class GameLevel extends PhetioObject {
       scale: 2
     }, BCEConstants.ATOM_NODE_OPTIONS ) );
 
+    this.coefficientRange = options.coefficientRange;
     this.getBalancedRepresentation = options.getBalancedRepresentation;
     this.equationGenerators = options.equationGenerators;
     this.equationGeneratorsSelectionStrategy = options.equationGeneratorsSelectionStrategy;
@@ -136,7 +142,7 @@ export default class GameLevel extends PhetioObject {
                                this.equationGeneratorsSelectionStrategy.getEquationGenerators( GameLevel.EQUATIONS_PER_GAME );
 
     // Execute each EquationGenerator to produce an Equation.
-    return equationGenerators.map( equationGenerator => equationGenerator() );
+    return equationGenerators.map( equationGenerator => equationGenerator( this.coefficientRange ) );
   }
 
   /**

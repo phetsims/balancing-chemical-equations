@@ -8,8 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
@@ -30,7 +28,7 @@ export default class EquationTermNode extends Node {
 
   private readonly coefficientPicker: NumberPicker;
 
-  public constructor( term: EquationTerm, coefficientRange: Range, providedOptions: EquationTermNodeOptions ) {
+  public constructor( term: EquationTerm, providedOptions: EquationTermNodeOptions ) {
 
     const options = optionize<EquationTermNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -43,7 +41,7 @@ export default class EquationTermNode extends Node {
     }, providedOptions );
 
     // coefficient picker
-    const coefficientPicker = new NumberPicker( term.coefficientProperty, new Property( coefficientRange ), {
+    const coefficientPicker = new NumberPicker( term.coefficientProperty, term.coefficientProperty.rangeProperty, {
       color: 'rgb(50,50,50)',
       pressedColor: 'black',
       xMargin: 8,

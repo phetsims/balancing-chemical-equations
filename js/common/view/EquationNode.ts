@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
@@ -34,7 +33,6 @@ type EquationNodeOptions = SelfOptions & NodeTranslationOptions &
 export default class EquationNode extends Node {
 
   private readonly equation: Equation;
-  private readonly coefficientRange: Range;
   private readonly aligner: HorizontalAligner;
   private readonly fontSize: number;
   private readonly arrowNode: RightArrowNode;
@@ -47,11 +45,10 @@ export default class EquationNode extends Node {
 
   /**
    * @param equation
-   * @param coefficientRange - range of the coefficients
    * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
    * @param providedOptions
    */
-  public constructor( equation: Equation, coefficientRange: Range, aligner: HorizontalAligner, providedOptions: EquationNodeOptions ) {
+  public constructor( equation: Equation, aligner: HorizontalAligner, providedOptions: EquationNodeOptions ) {
 
     const options = optionize<EquationNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -62,7 +59,6 @@ export default class EquationNode extends Node {
     super( options );
 
     this.equation = equation;
-    this.coefficientRange = coefficientRange;
     this.aligner = aligner;
     this.fontSize = options.fontSize;
 
@@ -115,7 +111,7 @@ export default class EquationNode extends Node {
       const tandemName = `${term.molecule.symbolPlainText}Node`;
 
       // term
-      termNode = new EquationTermNode( term, this.coefficientRange, {
+      termNode = new EquationTermNode( term, {
         fontSize: this.fontSize,
         tandem: parentTandem.createTandem( tandemName )
       } );

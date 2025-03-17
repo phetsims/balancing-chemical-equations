@@ -10,7 +10,6 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
@@ -18,9 +17,11 @@ import Molecule from './Molecule.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Range from '../../../../dot/js/Range.js';
 
 type SelfOptions = {
   initialCoefficient?: number; // initial value of the coefficient
+  coefficientRange: Range;
 };
 
 type EquationTermOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem'>;
@@ -29,9 +30,9 @@ export default class EquationTerm {
 
   public readonly balancedCoefficient: number;
   public readonly molecule: Molecule;
-  public readonly coefficientProperty: Property<number>;
+  public readonly coefficientProperty: NumberProperty; // because we need rangeProperty
 
-  public constructor( balancedCoefficient: number, molecule: Molecule, providedOptions?: EquationTermOptions ) {
+  public constructor( balancedCoefficient: number, molecule: Molecule, providedOptions: EquationTermOptions ) {
 
     const options = optionize<EquationTermOptions, SelfOptions, PhetioObjectOptions>()( {
 
@@ -52,7 +53,7 @@ export default class EquationTerm {
 
     this.coefficientProperty = new NumberProperty( options.initialCoefficient, {
       numberType: 'Integer',
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Needs range, which is different for Intro and Game screens.
+      range: options.coefficientRange,
       tandem: options.tandem.createTandem( 'coefficientProperty' )
     } );
   }

@@ -45,17 +45,17 @@ export default class IntroModel implements TModel {
 
     this.choices = [
       {
-        equation: SynthesisEquation.create_N2_3H2_2NH3( equationsTandem.createTandem( 'makeAmmoniaEquation' ) ),
+        equation: SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange, equationsTandem.createTandem( 'makeAmmoniaEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.makeAmmoniaStringProperty,
         tandemNamePrefix: 'makeAmmonia'
       },
       {
-        equation: DecompositionEquation.create_2H2O_2H2_O2( equationsTandem.createTandem( 'separateWaterEquation' ) ),
+        equation: DecompositionEquation.create_2H2O_2H2_O2( this.coefficientsRange, equationsTandem.createTandem( 'separateWaterEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.separateWaterStringProperty,
         tandemNamePrefix: 'separateWater'
       },
       {
-        equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O( equationsTandem.createTandem( 'combustMethaneEquation' ) ),
+        equation: DisplacementEquation.create_CH4_2O2_CO2_2H2O( this.coefficientsRange, equationsTandem.createTandem( 'combustMethaneEquation' ) ),
         labelStringProperty: BalancingChemicalEquationsStrings.combustMethaneStringProperty,
         tandemNamePrefix: 'combustMethane'
       }
