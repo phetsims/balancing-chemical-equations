@@ -28,9 +28,14 @@ type EquationTermOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tand
 
 export default class EquationTerm {
 
+  // The lowest possible coefficient (simplified) that will balance the equation.
   public readonly balancedCoefficient: number;
+
+  // The molecule associated with this term.
   public readonly molecule: Molecule;
-  public readonly coefficientProperty: NumberProperty; // because we need rangeProperty
+
+  // The coefficient entered by the user. NumberProperty because we need rangeProperty.
+  public readonly coefficientProperty: NumberProperty;
 
   public constructor( balancedCoefficient: number, molecule: Molecule, providedOptions: EquationTermOptions ) {
 

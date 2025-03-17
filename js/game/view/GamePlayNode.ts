@@ -209,16 +209,16 @@ export default class GamePlayNode extends Node {
       }
     } );
 
-    // Disable 'Check' button when all coefficients are zero.
-    const coefficientSumListener = ( coefficientsSum: number ) => {
-      this.checkButton.enabled = ( coefficientsSum > 0 );
+    // Enable the 'Check' button when at least one coefficient is non-zero.
+    const hasNonZeroCoefficientListener = ( hasNonZeroCoefficient: boolean ) => {
+      this.checkButton.enabled = hasNonZeroCoefficient;
     };
     model.currentEquationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) {
-        oldEquation.coefficientsSumProperty.unlink( coefficientSumListener );
+        oldEquation.hasNonZeroCoefficientProperty.unlink( hasNonZeroCoefficientListener );
       }
       if ( newEquation ) {
-        newEquation.coefficientsSumProperty.link( coefficientSumListener );
+        newEquation.hasNonZeroCoefficientProperty.link( hasNonZeroCoefficientListener );
       }
     } );
   }

@@ -164,7 +164,10 @@ export default class GameModel implements TModel {
 
     this.resetToStart();
 
-    // Create a set of challenges
+    // Dispose of previous challenges.
+    this.equations.forEach( equation => equation.dispose() );
+
+    // Create a set of challenges.
     this.equations = level.createEquations();
     this.currentEquationIndexProperty.value = 0;
     this.currentEquationProperty.value = this.equations[ this.currentEquationIndexProperty.value ];

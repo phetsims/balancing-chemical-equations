@@ -1,6 +1,5 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Override dispose.
 /**
  * Equation is the base class for all chemical equations.
  * A chemical equation has 2 sets of terms, reactants and products.
@@ -14,8 +13,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import AtomCount from './AtomCount.js';
 import EquationTerm from './EquationTerm.js';
@@ -25,6 +22,7 @@ import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 export default class Equation extends PhetioObject {
 
@@ -37,15 +35,16 @@ export default class Equation extends PhetioObject {
   // all terms
   private readonly terms: EquationTerm[];
 
-  // whether the equation is balanced
+  // Whether the equation has at least one non-zero coefficient.
+  public readonly hasNonZeroCoefficientProperty: TReadOnlyProperty<boolean>;
+
+  // Whether the equation is balanced.
   public readonly isBalancedProperty: TReadOnlyProperty<boolean>;
-  private readonly _isBalancedProperty: Property<boolean>;
 
-  // whether the equation is balanced with the smallest possible coefficients
-  private isBalancedAndSimplifiedProperty: Property<boolean>;
+  // Whether the equation is balanced with the smallest possible coefficients.
+  private readonly isBalancedAndSimplifiedProperty: TReadOnlyProperty<boolean>;
 
-  // Sum of all coefficients, so we know when we have at least one non-zero coefficient.
-  public readonly coefficientsSumProperty: TReadOnlyProperty<number>;
+  private readonly disposeEquation: () => void;
 
   /**
    * @param reactants terms on the left side of the equation
@@ -63,32 +62,68 @@ export default class Equation extends PhetioObject {
     this.products = products;
     this.terms = [ ...reactants, ...products ];
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can isBalancedProperty be a DerivedProperty?
-    this._isBalancedProperty = new BooleanProperty( false, {
+    const coefficientProperties = this.terms.map( term => term.coefficientProperty );
+
+    this.hasNonZeroCoefficientProperty = DerivedProperty.deriveAny( coefficientProperties,
+      () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value > 0 ) );
+
+    const hasZeroCoefficientProperty = DerivedProperty.deriveAny( coefficientProperties,
+      () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value === 0 ) );
+
+    // An equation is balanced if all of its terms have a coefficient that is the same integer multiple of the term's
+    // balanced coefficient.
+    this.isBalancedProperty = DerivedProperty.deriveAny( [ hasZeroCoefficientProperty, ...coefficientProperties ], () => {
+
+      // If any coefficients is zero, the equation cannot possibly be balanced.
+      let isBalanced = !hasZeroCoefficientProperty.value;
+      if ( isBalanced ) {
+
+        // Get the multiplier from the first reactant term (any term will do.)
+        const multiplier = this.reactants[ 0 ].coefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
+        if ( multiplier > 0 && Number.isInteger( multiplier ) ) {
+
+          // Check each term to see if the actual coefficient is the same multiple of the balanced coefficient.
+          isBalanced = true;
+          this.terms.forEach( term => {
+            isBalanced = isBalanced && ( term.coefficientProperty.value === multiplier * term.balancedCoefficient );
+          } );
+        }
+      }
+      return isBalanced;
+    }, {
       tandem: tandem.createTandem( 'isBalancedProperty' ),
       phetioFeatured: true,
-      phetioReadOnly: true
-    } );
-    this.isBalancedProperty = this._isBalancedProperty;
-
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can isBalancedAndSimplifiedProperty be a DerivedProperty?
-    this.isBalancedAndSimplifiedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'isBalancedAndSimplifiedProperty' ),
-      phetioDocumentation: 'Whether the equation is balanced with the smallest possible coefficients.',
-      phetioFeatured: true,
-      phetioReadOnly: true
+      phetioValueType: BooleanIO
     } );
 
-    const coefficientProperties = this.terms.map( term => term.coefficientProperty );
-    this.coefficientsSumProperty = DerivedProperty.deriveAny( coefficientProperties, () => {
-      let coefficientsSum = 0;
-      this.terms.forEach( term => {
-        coefficientsSum += term.coefficientProperty.value;
+    // An equation is balanced and simplified if the equation is balanced with the lowest possible coefficients.
+    this.isBalancedAndSimplifiedProperty = DerivedProperty.deriveAny( [ this.isBalancedProperty, ...coefficientProperties ],
+      () => {
+        let isBalancedAndSimplified = false;
+        if ( this.isBalancedProperty.value ) {
+          isBalancedAndSimplified = true;
+          this.terms.forEach( term => {
+            isBalancedAndSimplified = isBalancedAndSimplified && ( term.coefficientProperty.value === term.balancedCoefficient );
+          } );
+        }
+        return isBalancedAndSimplified;
+      }, {
+        tandem: tandem.createTandem( 'isBalancedAndSimplifiedProperty' ),
+        phetioDocumentation: 'Whether the equation is balanced with the smallest possible coefficients.',
+        phetioFeatured: true,
+        phetioValueType: BooleanIO
       } );
-      return coefficientsSum;
-    } );
 
-    this.addCoefficientsListener( this.updateBalanced.bind( this ) );
+    this.disposeEquation = () => {
+      // Dispose of Properties that are PhET-iO instrumented.
+      this.isBalancedProperty.dispose();
+      this.isBalancedAndSimplifiedProperty.dispose();
+    };
+  }
+
+  public override dispose(): void {
+    this.disposeEquation();
+    super.dispose();
   }
 
   public get isBalancedAndSimplified(): boolean {
@@ -96,35 +131,8 @@ export default class Equation extends PhetioObject {
   }
 
   public reset(): void {
-
-    this._isBalancedProperty.reset();
-    this.isBalancedAndSimplifiedProperty.reset();
-
     this.reactants.forEach( reactant => reactant.reset() );
     this.products.forEach( product => product.reset() );
-  }
-
-  /**
-   * An equation is balanced if all of its terms have a coefficient that is the same integer multiple of the term's
-   * balanced coefficient. If the integer multiple is 1, then the term is "balanced and simplified" - balanced with
-   * the lowest possible coefficients.
-   */
-  private updateBalanced(): void {
-
-    // Get integer multiplier from the first reactant term.
-    const multiplier = this.reactants[ 0 ].coefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
-    let isBalanced = ( multiplier > 0 );
-
-    // Check each term to see if the actual coefficient is the same integer multiple of the balanced coefficient.
-    this.reactants.forEach( reactant => {
-      isBalanced = isBalanced && ( reactant.coefficientProperty.value === multiplier * reactant.balancedCoefficient );
-    } );
-    this.products.forEach( product => {
-      isBalanced = isBalanced && ( product.coefficientProperty.value === multiplier * product.balancedCoefficient );
-    } );
-
-    this.isBalancedAndSimplifiedProperty.value = isBalanced && ( multiplier === 1 ); // set the more specific value first
-    this._isBalancedProperty.value = isBalanced;
   }
 
   /**
