@@ -29,6 +29,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Molecule from '../../common/model/Molecule.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 const ATTEMPTS_RANGE = new Range( 0, 2 );
 
@@ -61,7 +62,6 @@ export default class GameModel implements TModel {
 
   // Current challenge to be solved
   public readonly challengeProperty: TReadOnlyProperty<Equation>;
-  private readonly _challengeProperty: Property<Equation>;
 
   public readonly timer: GameTimer;
   public readonly timerEnabledProperty: Property<boolean>;
@@ -120,8 +120,8 @@ export default class GameModel implements TModel {
 
     this.numberOfChallengesProperty = new DerivedProperty( [ this.challengesProperty ], challenges => challenges.length );
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null or -1, because this.challenges is empty.
-    this._challengeIndexProperty = new NumberProperty( 0, {
+    // Initial value is -1, because this.challenges is empty.
+    this._challengeIndexProperty = new NumberProperty( -1, {
       numberType: 'Integer',
       tandem: tandem.createTandem( 'challengeIndexProperty' ),
       phetioFeatured: true,
@@ -129,20 +129,24 @@ export default class GameModel implements TModel {
     } );
     this.challengeIndexProperty = this._challengeIndexProperty;
 
+    this.challengesProperty.lazyLink( () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this._challengeIndexProperty.value = 0;
+      }
+    } );
+
     // Any Equation will do here for the initial value.
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null, but that would be a lot of work.
     const dummyChallenge = new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange,
       tandem.createTandem( 'dummyChallenge' ) );
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Derive from _challengeIndexProperty
-    this._challengeProperty = new Property( dummyChallenge, {
-      tandem: tandem.createTandem( 'challengeProperty' ),
-      phetioDocumentation: 'The challenge being played.',
-      phetioFeatured: true,
-      phetioReadOnly: true,
-      phetioValueType: Equation.EquationIO
-    } );
-    this.challengeProperty = this._challengeProperty;
+    this.challengeProperty = new DerivedProperty( [ this.challengesProperty, this.challengeIndexProperty ],
+      ( challenges, challengeIndex ) => ( challenges.length > 0 && challengeIndex >= 0 ) ? challenges[ challengeIndex ] : dummyChallenge, {
+        tandem: tandem.createTandem( 'challengeProperty' ),
+        phetioDocumentation: 'The challenge being played.',
+        phetioFeatured: true,
+        phetioValueType: Equation.EquationIO
+      } );
 
     const timerTandem = tandem.createTandem( 'timer' );
     this.timer = new GameTimer( timerTandem );
@@ -185,7 +189,6 @@ export default class GameModel implements TModel {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
     this._stateProperty.reset();
-    this._challengeProperty.reset();
     this._challengeIndexProperty.reset();
     this.timerEnabledProperty.reset();
   }
@@ -220,8 +223,6 @@ export default class GameModel implements TModel {
 
     // Create a set of challenges.
     this.challengesProperty.value = level.getChallenges();
-    this._challengeIndexProperty.value = 0;
-    this._challengeProperty.value = this.challengesProperty.value[ this.challengeIndexProperty.value ];
 
     // Start the timer.
     if ( this.timerEnabledProperty.value ) {
@@ -313,7 +314,6 @@ export default class GameModel implements TModel {
       this.attemptsProperty.value = 0;
       this.pointsProperty.value = 0;
       this._challengeIndexProperty.value++;
-      this._challengeProperty.value = this.challengesProperty.value[ this.challengeIndexProperty.value ];
       this.setState( 'check' );
     }
     else {
