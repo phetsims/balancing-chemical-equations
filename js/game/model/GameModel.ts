@@ -27,6 +27,8 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Molecule from '../../common/model/Molecule.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const ATTEMPTS_RANGE = new Range( 0, 2 );
 
@@ -48,11 +50,10 @@ export default class GameModel implements TModel {
   public readonly scoreProperty: Property<number>;
 
   // Challenges are a set of Equations to be balanced.
-  private challenges: Equation[];
+  private challengesProperty: Property<Equation[]>;
 
   // Number of challenges in the current game
   public readonly numberOfChallengesProperty: TReadOnlyProperty<number>;
-  private readonly _numberOfChallengesProperty: Property<number>;
 
   // Index of the current challenge in this.challenges
   public readonly challengeIndexProperty: TReadOnlyProperty<number>;
@@ -109,23 +110,38 @@ export default class GameModel implements TModel {
       phetioReadOnly: true
     } );
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Change to challengesProperty
-    this.challenges = [];
-
-    this._numberOfChallengesProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
+    this.challengesProperty = new Property<Equation[]>( [], {
+      tandem: tandem.createTandem( 'challengesProperty' ),
+      phetioDocumentation: 'The current set of challenges being played.',
+      phetioReadOnly: true,
+      phetioFeatured: true,
+      phetioValueType: ArrayIO( Equation.EquationIO )
     } );
-    this.numberOfChallengesProperty = this._numberOfChallengesProperty;
+
+    this.numberOfChallengesProperty = new DerivedProperty( [ this.challengesProperty ], challenges => challenges.length );
 
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null or -1, because this.challenges is empty.
     this._challengeIndexProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
+      numberType: 'Integer',
+      tandem: tandem.createTandem( 'challengeIndexProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
     this.challengeIndexProperty = this._challengeIndexProperty;
 
     // Any Equation will do here for the initial value.
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null, but that would be a lot of work.
-    this._challengeProperty = new Property( new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange ) );
+    const dummyChallenge = new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange,
+      tandem.createTandem( 'dummyChallenge' ) );
+
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Derive from _challengeIndexProperty
+    this._challengeProperty = new Property( dummyChallenge, {
+      tandem: tandem.createTandem( 'challengeProperty' ),
+      phetioDocumentation: 'The challenge being played.',
+      phetioFeatured: true,
+      phetioReadOnly: true,
+      phetioValueType: Equation.EquationIO
+    } );
     this.challengeProperty = this._challengeProperty;
 
     const timerTandem = tandem.createTandem( 'timer' );
@@ -169,7 +185,6 @@ export default class GameModel implements TModel {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
     this._stateProperty.reset();
-    this._numberOfChallengesProperty.reset();
     this._challengeProperty.reset();
     this._challengeIndexProperty.reset();
     this.timerEnabledProperty.reset();
@@ -203,14 +218,10 @@ export default class GameModel implements TModel {
 
     this.resetToStart();
 
-    // Dispose of previous challenges.
-    this.challenges.forEach( challenge => challenge.dispose() );
-
     // Create a set of challenges.
-    this.challenges = level.getChallenges();
+    this.challengesProperty.value = level.getChallenges();
     this._challengeIndexProperty.value = 0;
-    this._challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
-    this._numberOfChallengesProperty.value = this.challenges.length;
+    this._challengeProperty.value = this.challengesProperty.value[ this.challengeIndexProperty.value ];
 
     // Start the timer.
     if ( this.timerEnabledProperty.value ) {
@@ -265,7 +276,7 @@ export default class GameModel implements TModel {
       this.scoreProperty.value += this.pointsProperty.value;
       this.setState( 'next' );
 
-      if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
+      if ( this.challengeIndexProperty.value === this.challengesProperty.value.length - 1 ) {
         this.endGame();
       }
     }
@@ -273,7 +284,7 @@ export default class GameModel implements TModel {
       this.setState( 'tryAgain' );
     }
     else {
-      if ( this.challengeIndexProperty.value === this.challenges.length - 1 ) {
+      if ( this.challengeIndexProperty.value === this.challengesProperty.value.length - 1 ) {
         this.endGame();
       }
       this.setState( 'showAnswer' );
@@ -298,11 +309,11 @@ export default class GameModel implements TModel {
    * Called when the user presses the "Next" button.
    */
   public next(): void {
-    if ( this.challengeIndexProperty.value < this.challenges.length - 1 ) {
+    if ( this.challengeIndexProperty.value < this.challengesProperty.value.length - 1 ) {
       this.attemptsProperty.value = 0;
       this.pointsProperty.value = 0;
       this._challengeIndexProperty.value++;
-      this._challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
+      this._challengeProperty.value = this.challengesProperty.value[ this.challengeIndexProperty.value ];
       this.setState( 'check' );
     }
     else {

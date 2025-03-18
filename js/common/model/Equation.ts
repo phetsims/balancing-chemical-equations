@@ -44,8 +44,6 @@ export default class Equation extends PhetioObject {
   // Whether the equation is balanced with the smallest possible coefficients.
   private readonly isBalancedAndSimplifiedProperty: TReadOnlyProperty<boolean>;
 
-  private readonly disposeEquation: () => void;
-
   /**
    * @param reactants terms on the left side of the equation
    * @param products terms on the right side of the equation
@@ -54,6 +52,7 @@ export default class Equation extends PhetioObject {
   protected constructor( reactants: EquationTerm[], products: EquationTerm[], tandem: Tandem ) {
 
     super( {
+      isDisposable: false,
       tandem: tandem,
       phetioType: Equation.EquationIO
     } );
@@ -113,17 +112,6 @@ export default class Equation extends PhetioObject {
         phetioFeatured: true,
         phetioValueType: BooleanIO
       } );
-
-    this.disposeEquation = () => {
-      // Dispose of Properties that are PhET-iO instrumented.
-      this.isBalancedProperty.dispose();
-      this.isBalancedAndSimplifiedProperty.dispose();
-    };
-  }
-
-  public override dispose(): void {
-    this.disposeEquation();
-    super.dispose();
   }
 
   public get isBalancedAndSimplified(): boolean {
