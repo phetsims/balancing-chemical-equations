@@ -117,16 +117,16 @@ export default class GameScreenView extends ScreenView {
     this.levelSelectionNode.visible = false;
     this.levelNode.visible = false;
 
-    // game reward, shown for perfect score (or with 'reward' query parameter)
+    // Game reward, shown for perfect score, or with ?showReward.
     if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
       this.rewardNode = new BCERewardNode( level.levelNumber );
       this.screenViewRootNode.addChild( this.rewardNode );
     }
 
-    // bestTime on level, must be null to not show in popup
+    // bestTime on level, must be null to not show in popup.
     const bestTimeOnThisLevel = level.bestTimeProperty.value === 0 ? null : level.bestTimeProperty.value;
 
-    // Node displaying notification that the level has been completed
+    // Node displaying notification that the level has been completed.
     const numberOfChallenges = level.getNumberOfChallenges();
     const levelCompletedNode = new LevelCompletedNode( level.levelNumber, this.model.scoreProperty.value,
       level.getPerfectScore(), numberOfChallenges, this.model.timerEnabledProperty.value,
@@ -134,15 +134,15 @@ export default class GameScreenView extends ScreenView {
 
       // function called when 'Continue' button is pressed
       () => {
-        // remove the reward, if we have one
+        // Remove the reward, if we have one.
         if ( this.rewardNode ) {
           this.screenViewRootNode.removeChild( this.rewardNode );
           this.rewardNode.dispose();
           this.rewardNode = null;
         }
-        // remove the level-completed notification
+        // Remove the level-completed notification.
         this.screenViewRootNode.removeChild( levelCompletedNode );
-        // go back to the level-selection screen
+        // Go back to the level-selection screen
         this.model.startOver();
       },
 
