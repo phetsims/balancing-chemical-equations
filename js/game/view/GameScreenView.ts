@@ -128,6 +128,7 @@ export default class GameScreenView extends ScreenView {
 
     // Node displaying notification that the level has been completed.
     const numberOfChallenges = level.getNumberOfChallenges();
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 'Continue' button is not instrumented because LevelCompletedNode is created dynamically.
     const levelCompletedNode = new LevelCompletedNode( level.levelNumber, this.model.scoreProperty.value,
       level.getPerfectScore(), numberOfChallenges, this.model.timerEnabledProperty.value,
       this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,

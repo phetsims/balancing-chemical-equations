@@ -1,5 +1,6 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Push buttons are not instrumented because GameFeedbackPanel is created dynamically.
 /**
  * GameFeedbackPanel presents feedback about a user's guess. The format of the feedback is specific to whether
  * the equation is balanced and simplified, balanced but not simplified, or unbalanced.
