@@ -20,6 +20,8 @@ import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStri
 import BCEColors from '../common/BCEColors.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
+import VBox from '../../../scenery/js/layout/nodes/VBox.js';
+import HBox from '../../../scenery/js/layout/nodes/HBox.js';
 
 export default class GameScreen extends Screen<GameModel, GameScreenView> {
 
@@ -45,36 +47,42 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
  */
 function createScreenIcon(): ScreenIcon {
 
+  const arrowLength = 75;
   const faceDiameter = 200;
-  const arrowXSpacing = 25;
-  const arrowYSpacing = 10;
 
   // background rectangle
   const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
   const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
   const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
-  // face
-  const faceNode = new FaceNode( faceDiameter, { headStroke: 'black', headLineWidth: 4 } );
-
   // up/down arrows
   const arrowOptions = { fill: 'black' };
-  const arrowSize = 0.4 * ( faceNode.height - arrowYSpacing );
-  const upArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize / 2, arrowSize ).lineTo( -arrowSize / 2, arrowSize ).close(), arrowOptions );
-  const downArrowNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowSize / 2, -arrowSize ).lineTo( -arrowSize / 2, -arrowSize ).close(), arrowOptions );
+  const arrowsNode = new VBox( {
+    spacing: 20,
+    children: [
+      new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowLength / 2, arrowLength ).lineTo( -arrowLength / 2, arrowLength ).close(), arrowOptions ),
+      new Path( new Shape().moveTo( 0, 0 ).lineTo( arrowLength / 2, -arrowLength ).lineTo( -arrowLength / 2, -arrowLength ).close(), arrowOptions )
+    ]
+  } );
 
-  // layout, arrows to left of face
-  upArrowNode.right = faceNode.left - arrowXSpacing;
-  upArrowNode.bottom = faceNode.centerY - arrowYSpacing;
-  downArrowNode.right = faceNode.left - arrowXSpacing;
-  downArrowNode.top = faceNode.centerY + arrowYSpacing;
+  // smiley face
+  const faceNode = new FaceNode( faceDiameter, {
+    headStroke: 'black',
+    headLineWidth: 4
+  } );
+
+  const contentNode = new HBox( {
+    spacing: 25,
+    children: [ arrowsNode, faceNode ]
+  } );
 
   // scale to fit, center in background
-  const contentNode = new Node( { children: [ faceNode, upArrowNode, downArrowNode ] } );
   contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
   contentNode.center = background.center;
 
-  const iconNode = new Node( { children: [ background, contentNode ] } );
+  const iconNode = new Node( {
+    children: [ background, contentNode ]
+  } );
 
   return new ScreenIcon( iconNode, {
     maxIconWidthProportion: 1,
