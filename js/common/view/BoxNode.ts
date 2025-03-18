@@ -25,6 +25,7 @@ import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
 import Molecule from '../model/Molecule.js';
 
+const TITLE_FONT = new PhetFont( { size: 18, weight: 'bold' } );
 const EXPAND_COLLAPSE_BUTTON_SIDE_LENGTH = 15;
 
 type SelfOptions = {
@@ -93,7 +94,7 @@ export default class BoxNode extends AccordionBox {
     }, providedOptions );
 
     options.titleNode = new Text( titleStringProperty, {
-      font: new PhetFont( { size: 18, weight: 'bold' } ),
+      font: TITLE_FONT,
       maxWidth: 0.75 * options.boxWidth
     } );
 
