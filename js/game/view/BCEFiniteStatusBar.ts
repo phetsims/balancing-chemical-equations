@@ -60,8 +60,7 @@ export class BCEFiniteStatusBar extends FiniteStatusBar {
         tandem: tandem.createTandem( 'challengeText' ),
         phetioVisiblePropertyInstrumented: true
       },
-      tandem: tandem,
-      phetioVisiblePropertyInstrumented: false
+      tandem: tandem
     } );
   }
 }
