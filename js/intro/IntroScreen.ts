@@ -77,7 +77,6 @@ function createScreenIcon(): ScreenIcon {
     ],
     spacing: 5
   } );
-  console.log( equationNode.width );
 
   // Atoms
   const atomsNode = new HBox( {

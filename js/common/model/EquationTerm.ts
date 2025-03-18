@@ -14,16 +14,16 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
 import Molecule from './Molecule.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Range from '../../../../dot/js/Range.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   initialCoefficient?: number; // initial value of the coefficient
   coefficientRange: Range;
 };
 
-type EquationTermOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem'>;
+type EquationTermOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class EquationTerm {
 

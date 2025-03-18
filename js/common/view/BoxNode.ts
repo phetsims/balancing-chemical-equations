@@ -40,7 +40,7 @@ type BoxNodeOptions = SelfOptions & NodeTranslationOptions &
 export default class BoxNode extends AccordionBox {
 
   private readonly boxHeight: number;
-  private readonly coefficientRange: Range;
+  private readonly coefficientsRange: Range;
 
   private readonly termNodesMap: Map<Molecule, MoleculeNode[]>; // molecule nodes for each term
   private readonly moleculesParent: Node;
@@ -49,14 +49,14 @@ export default class BoxNode extends AccordionBox {
    * @param equationProperty
    * @param getTerms - gets the EquationTerms that this box will display
    * @param getXOffsets - gets the x-offsets for each EquationTerm
-   * @param coefficientRange - range of the coefficients
+   * @param coefficientsRange - range of the coefficients
    * @param titleStringProperty
    * @param [providedOptions]
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
                       getTerms: ( equation: Equation ) => EquationTerm[],
                       getXOffsets: ( equation: Equation ) => number[],
-                      coefficientRange: Range,
+                      coefficientsRange: Range,
                       titleStringProperty: TReadOnlyProperty<string>,
                       providedOptions?: BoxNodeOptions ) {
 
@@ -118,7 +118,7 @@ export default class BoxNode extends AccordionBox {
     super( contentNode, options );
 
     this.boxHeight = options.boxHeight;
-    this.coefficientRange = coefficientRange;
+    this.coefficientsRange = coefficientsRange;
     this.termNodesMap = new Map();
     this.moleculesParent = moleculesParent;
 
@@ -162,7 +162,7 @@ export default class BoxNode extends AccordionBox {
   private updateCounts( terms: EquationTerm[], xOffsets: number[] ): void {
 
     const Y_MARGIN = 0;
-    const rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientRange.max;
+    const rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientsRange.max;
 
     for ( let i = 0; i < terms.length; i++ ) {
 

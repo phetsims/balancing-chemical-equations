@@ -24,8 +24,6 @@ import { AtomNodeOptions } from '../../../../nitroglycerin/js/nodes/AtomNode.js'
 import BCEConstants from '../../common/BCEConstants.js';
 import Range from '../../../../dot/js/Range.js';
 
-export type EquationGenerator = ( coefficientRange: Range ) => Equation;
-
 type SelfOptions = {
 
   // 1-based numbering
@@ -35,16 +33,16 @@ type SelfOptions = {
   iconMolecule: Molecule;
 
   // Range of the coefficient in all equation terms.
-  coefficientRange: Range;
+  coefficientsRange: Range;
 
   // Gets the "balanced representation" that is displayed by the "Not Balanced" popup.
   getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
 
-  // The pool of equations generators, which create equations for the challenges.
-  equationGenerators: EquationGenerator[];
+  // The pool of equations for the challenges.
+  equationPool: Equation[];
 
-  // Strategy for selecting a set of equation generators from the pool.
-  equationGeneratorsSelectionStrategy: RandomStrategy;
+  // Strategy for selecting a set of equations from the pool.
+  equationSelectionStrategy: RandomStrategy;
 };
 
 type GameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -56,12 +54,14 @@ export default class GameLevel extends PhetioObject {
   public static readonly POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
   public static readonly POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
 
+  protected static readonly EQUATION_POOL_TANDEM_NAME = 'equationPool';
+
   public readonly levelNumber: number;
   public readonly icon: Node;
-  private readonly coefficientRange: Range;
+  private readonly coefficientsRange: Range;
   public readonly getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
-  private readonly equationGenerators: EquationGenerator[];
-  private readonly equationGeneratorsSelectionStrategy: RandomStrategy;
+  private readonly equationPool: Equation[];
+  private readonly equationSelectionStrategy: RandomStrategy;
 
   public readonly bestScoreProperty: Property<number>;
   public readonly bestTimeProperty: Property<number>;
@@ -83,10 +83,10 @@ export default class GameLevel extends PhetioObject {
       scale: 2
     }, BCEConstants.ATOM_NODE_OPTIONS ) );
 
-    this.coefficientRange = options.coefficientRange;
+    this.coefficientsRange = options.coefficientsRange;
     this.getBalancedRepresentation = options.getBalancedRepresentation;
-    this.equationGenerators = options.equationGenerators;
-    this.equationGeneratorsSelectionStrategy = options.equationGeneratorsSelectionStrategy;
+    this.equationPool = options.equationPool;
+    this.equationSelectionStrategy = options.equationSelectionStrategy;
 
     this.bestScoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
@@ -112,7 +112,7 @@ export default class GameLevel extends PhetioObject {
    * Gets the number of equations for this level.
    */
   public getNumberOfChallenges(): number {
-    return BCEQueryParameters.playAll ? this.equationGenerators.length : GameLevel.CHALLENGES_PER_GAME;
+    return BCEQueryParameters.playAll ? this.equationPool.length : GameLevel.CHALLENGES_PER_GAME;
   }
 
   /**
@@ -131,18 +131,15 @@ export default class GameLevel extends PhetioObject {
   }
 
   /**
-   * Creates a set of challenges to be used in the game. Each challenges is an Equation to be balanced.
+   * Gets a set of challenges to be used in the game. Each challenges is an Equation to be balanced.
    * If 'playAll' query parameter is defined, return all equations for the level.
    */
-  public createChallenges(): Equation[] {
-
-    // Get an array of EquationGenerators.
-    const equationGenerators = BCEQueryParameters.playAll ?
-                               this.equationGenerators :
-                               this.equationGeneratorsSelectionStrategy.getEquationGenerators( GameLevel.CHALLENGES_PER_GAME );
-
-    // Execute each EquationGenerator to produce an Equation.
-    return equationGenerators.map( equationGenerator => equationGenerator( this.coefficientRange ) );
+  public getChallenges(): Equation[] {
+    const equations = BCEQueryParameters.playAll ?
+                      this.equationPool :
+                      this.equationSelectionStrategy.getEquations( GameLevel.CHALLENGES_PER_GAME );
+    equations.forEach( equation => equation.reset() ); // Ensure that all coefficients are reset to zero.
+    return equations;
   }
 
   /**

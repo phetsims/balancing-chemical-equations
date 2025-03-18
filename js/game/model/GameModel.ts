@@ -26,6 +26,7 @@ import TModel from '../../../../joist/js/TModel.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Molecule from '../../common/model/Molecule.js';
 
 const ATTEMPTS_RANGE = new Range( 0, 2 );
 
@@ -108,6 +109,7 @@ export default class GameModel implements TModel {
       phetioReadOnly: true
     } );
 
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Change to challengesProperty
     this.challenges = [];
 
     this._numberOfChallengesProperty = new NumberProperty( 0, {
@@ -123,7 +125,7 @@ export default class GameModel implements TModel {
 
     // Any Equation will do here for the initial value.
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null, but that would be a lot of work.
-    this._challengeProperty = new Property( SynthesisEquation.create_N2_3H2_2NH3( this.coefficientsRange ) );
+    this._challengeProperty = new Property( new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange ) );
     this.challengeProperty = this._challengeProperty;
 
     const timerTandem = tandem.createTandem( 'timer' );
@@ -205,7 +207,7 @@ export default class GameModel implements TModel {
     this.challenges.forEach( challenge => challenge.dispose() );
 
     // Create a set of challenges.
-    this.challenges = level.createChallenges();
+    this.challenges = level.getChallenges();
     this._challengeIndexProperty.value = 0;
     this._challengeProperty.value = this.challenges[ this.challengeIndexProperty.value ];
     this._numberOfChallengesProperty.value = this.challenges.length;
@@ -346,7 +348,7 @@ export default class GameModel implements TModel {
     const iterations = 1000;
     this.levels.forEach( level => {
       for ( let i = 0; i < iterations; i++ ) {
-        level.createChallenges();
+        level.getChallenges();
       }
       console.log( `Level ${level.levelNumber} has been verified by creating ${iterations} challenges.` );
     } );

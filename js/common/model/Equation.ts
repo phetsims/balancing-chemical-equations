@@ -51,7 +51,7 @@ export default class Equation extends PhetioObject {
    * @param products terms on the right side of the equation
    * @param tandem
    */
-  protected constructor( reactants: EquationTerm[], products: EquationTerm[], tandem = Tandem.OPT_OUT ) {
+  protected constructor( reactants: EquationTerm[], products: EquationTerm[], tandem: Tandem ) {
 
     super( {
       tandem: tandem,

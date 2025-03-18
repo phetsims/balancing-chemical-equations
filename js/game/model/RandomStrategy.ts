@@ -8,13 +8,12 @@
  */
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
-import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import { EquationGenerator } from './GameLevel.js';
+import Equation from '../../common/model/Equation.js';
 
 // For an example, see GameFactory EXCLUSIONS_MAP.
-export type ExclusionsMap = Map<EquationGenerator, EquationGenerator[]>;
+export type ExclusionsMap = Map<Equation, Equation[]>;
 
 type SelfOptions = {
 
@@ -29,11 +28,8 @@ type RandomStrategyOptions = SelfOptions;
 
 export default class RandomStrategy {
 
-  // The pool of EquationGenerators to choose from
-  public readonly pool: EquationGenerator[];
-
-  // Range of the coefficient for every term in every equation.
-  private readonly coefficientRange: Range;
+  // The pool of Equations to choose from
+  public readonly pool: Equation[];
 
   // Whether it's OK if the first equation in the set contains a "big" molecule
   public readonly firstBigMolecule: boolean;
@@ -41,7 +37,7 @@ export default class RandomStrategy {
   // See GameLevel3.EXCLUSIONS_MAP
   public readonly exclusionsMap: ExclusionsMap | null;
 
-  public constructor( pool: EquationGenerator[], coefficientRange: Range, providedOptions?: RandomStrategyOptions ) {
+  public constructor( pool: Equation[], providedOptions?: RandomStrategyOptions ) {
 
     const options = optionize<RandomStrategyOptions, SelfOptions>()( {
 
@@ -51,33 +47,32 @@ export default class RandomStrategy {
     }, providedOptions );
 
     this.pool = pool;
-    this.coefficientRange = coefficientRange;
     this.firstBigMolecule = options.firstBigMolecule;
     this.exclusionsMap = options.exclusionsMap;
   }
 
   /**
-   * Randomly selects a specified number of EquationGenerators from the pool.
+   * Randomly selects a specified number of Equations from the pool.
    */
-  public getEquationGenerators( numberOfEquations: number ): EquationGenerator[] {
+  public getEquations( numberOfEquations: number ): Equation[] {
 
     phet.log && phet.log( 'Choosing challenges...' );
 
     // Operate on a copy of the pool, so that we can prune as we select equations.
     const poolCopy = _.clone( this.pool );
 
-    const equationGenerators: EquationGenerator[] = [];
+    const equations: Equation[] = [];
     for ( let i = 0; i < numberOfEquations; i++ ) {
 
       assert && assert( poolCopy.length > 0 );
 
       // randomly select an equation
       const randomIndex = dotRandom.nextInt( poolCopy.length );
-      let equationGenerator = poolCopy[ randomIndex ];
+      let equation = poolCopy[ randomIndex ];
 
-      // If the first equation isn't supposed to contain any "big" molecules, then find an equation generator
-      // in the pool that does not make equations that have "big" molecules.
-      if ( i === 0 && !this.firstBigMolecule && equationGenerator( this.coefficientRange ).hasBigMolecule() ) {
+      // If the first equation isn't supposed to contain any "big" molecules, then find an equation in the pool that
+      // does not have "big" molecules.
+      if ( i === 0 && !this.firstBigMolecule && equation.hasBigMolecule() ) {
 
         // start the search at a random index
         const startIndex = dotRandom.nextInt( poolCopy.length );
@@ -86,9 +81,9 @@ export default class RandomStrategy {
         while ( !done ) {
 
           // next equation in the pool
-          equationGenerator = poolCopy[ index ];
+          equation = poolCopy[ index ];
 
-          if ( !equationGenerator( this.coefficientRange ).hasBigMolecule() ) {
+          if ( !equation.hasBigMolecule() ) {
             done = true; // success, this equation has no big molecules
           }
           else {
@@ -108,35 +103,35 @@ export default class RandomStrategy {
       }
 
       // Add the equation to the game.
-      equationGenerators.push( equationGenerator );
-      phet.log && phet.log( `+ chose ${equationGenerator( this.coefficientRange ).toString()}` );
+      equations.push( equation );
+      phet.log && phet.log( `+ chose ${equation.toString()}` );
 
       // Remove the equation from the pool, so it won't be selected again.
-      poolCopy.splice( poolCopy.indexOf( equationGenerator ), 1 );
+      poolCopy.splice( poolCopy.indexOf( equation ), 1 );
 
-      // If the selected equation generator has exclusions, remove them from the pool.
+      // If the selected equation has exclusions, remove them from the pool.
       if ( this.exclusionsMap ) {
-        const exclusions = this.exclusionsMap.get( equationGenerator );
+        const exclusions = this.exclusionsMap.get( equation );
         if ( exclusions ) {
           for ( let j = 0; j < exclusions.length; j++ ) {
             const exclusion = exclusions[ j ];
             const excludedIndex = poolCopy.indexOf( exclusion );
             if ( excludedIndex !== -1 ) {
               poolCopy.splice( excludedIndex, 1 );
-              phet.log && phet.log( `- excluded ${exclusion( this.coefficientRange ).toString()}` );
+              phet.log && phet.log( `- excluded ${exclusion.toString()}` );
             }
           }
         }
       }
     }
 
-    assert && assert( equationGenerators.length === numberOfEquations );
+    assert && assert( equations.length === numberOfEquations );
     if ( assert && !this.firstBigMolecule ) {
-      const equation = equationGenerators[ 0 ]( this.coefficientRange );
-      assert && assert( !equation.hasBigMolecule(), `First equation is not supposed to include a big molecule: ${equation.toString()}` );
+      const firstEquation = equations[ 0 ];
+      assert && assert( !firstEquation.hasBigMolecule(), `First equation is not supposed to include a big molecule: ${firstEquation.toString()}` );
     }
 
-    return equationGenerators;
+    return equations;
   }
 }
 

@@ -26,13 +26,13 @@ export default class DecompositionEquation extends Equation {
    * @param product1
    * @param p2 - balanced coefficient for product2
    * @param product2
-   * @param coefficientRange
+   * @param coefficientsRange - range of all coefficients in the equation
    * @param tandem
    */
   public constructor( r1: number, reactant1: Molecule,
                       p1: number, product1: Molecule,
                       p2: number, product2: Molecule,
-                      coefficientRange: Range,
+                      coefficientsRange: Range,
                       tandem = Tandem.OPT_OUT ) {
 
     const termsTandem = tandem.createTandem( 'terms' );
@@ -40,82 +40,22 @@ export default class DecompositionEquation extends Equation {
     super(
       [
         new EquationTerm( r1, reactant1, {
-          coefficientRange: coefficientRange,
+          coefficientRange: coefficientsRange,
           tandem: termsTandem.createTandem( reactant1.symbolPlainText )
         } )
       ],
       [
         new EquationTerm( p1, product1, {
-          coefficientRange: coefficientRange,
+          coefficientRange: coefficientsRange,
           tandem: termsTandem.createTandem( product1.symbolPlainText )
         } ),
         new EquationTerm( p2, product2, {
-          coefficientRange: coefficientRange,
+          coefficientRange: coefficientsRange,
           tandem: termsTandem.createTandem( product2.symbolPlainText )
         } )
       ],
       tandem
     );
-  }
-
-  // 2 H2O -> 2 H2 + O2
-  public static create_2H2O_2H2_O2( coefficientRange: Range, tandem = Tandem.OPT_OUT ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.H2O, 2, Molecule.H2, 1, Molecule.O2, coefficientRange, tandem );
-  }
-
-  // 2 HCl -> H2 + Cl2
-  public static create_2HCl_H2_Cl2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.HCl, 1, Molecule.H2, 1, Molecule.Cl2, coefficientRange );
-  }
-
-  // CH3OH -> CO + 2 H2
-  public static create_CH3OH_CO_2H2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 1, Molecule.CH3OH, 1, Molecule.CO, 2, Molecule.H2, coefficientRange );
-  }
-
-  // C2H6 -> C2H4 + H2
-  public static create_C2H6_C2H4_H2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 1, Molecule.C2H6, 1, Molecule.C2H4, 1, Molecule.H2, coefficientRange );
-  }
-
-  // 2 CO2 -> 2 CO + O2
-  public static create_2CO2_2CO_O2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.CO2, 2, Molecule.CO, 1, Molecule.O2, coefficientRange );
-  }
-
-  // 2 CO -> C + CO2
-  public static create_2CO_C_CO2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.CO, 1, Molecule.C, 1, Molecule.CO2, coefficientRange );
-  }
-
-  // 2 NH3 -> N2 + 3 H2
-  public static create_2NH3_N2_3H2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.NH3, 1, Molecule.N2, 3, Molecule.H2, coefficientRange );
-  }
-
-  // 2 NO -> N2 + O2
-  public static create_2NO_N2_O2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.NO, 1, Molecule.N2, 1, Molecule.O2, coefficientRange );
-  }
-
-  // 2 NO2 -> 2 NO + O2
-  public static create_2NO2_2NO_O2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.NO2, 2, Molecule.NO, 1, Molecule.O2, coefficientRange );
-  }
-
-  // 4 PCl3 -> P4 + 6 Cl2
-  public static create_4PCl3_P4_6Cl2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 4, Molecule.PCl3, 1, Molecule.P4, 6, Molecule.Cl2, coefficientRange );
-  }
-
-  // PCl5 -> PCl3 + Cl2
-  public static create_PCl5_PCl3_Cl2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 1, Molecule.PCl5, 1, Molecule.PCl3, 1, Molecule.Cl2, coefficientRange );
-  }
-
-  // 2 SO3 -> 2 SO2 + O2
-  public static create_2SO3_2SO2_O2( coefficientRange: Range ): DecompositionEquation {
-    return new DecompositionEquation( 2, Molecule.SO3, 2, Molecule.SO2, 1, Molecule.O2, coefficientRange );
   }
 }
 

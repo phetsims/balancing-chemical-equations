@@ -7,51 +7,76 @@
  */
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import GameLevel, { EquationGenerator } from './GameLevel.js';
+import GameLevel from './GameLevel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Range from '../../../../dot/js/Range.js';
 import DecompositionEquation from '../../common/model/DecompositionEquation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import RandomStrategy from './RandomStrategy.js';
 import Molecule from '../../common/model/Molecule.js';
-
-const EQUATION_GENERATORS: EquationGenerator[] = [
-  // This is the largest molecule. Put it first to simplify layout testing with ?playAll.
-  DecompositionEquation.create_PCl5_PCl3_Cl2,
-  // This equation requires maxX adjustment in EquationNode. Put it here to simplify layout testing with ?playAll.
-  DecompositionEquation.create_CH3OH_CO_2H2,
-  SynthesisEquation.create_CH2O_H2_CH3OH,
-  SynthesisEquation.create_2H2_O2_2H2O,
-  SynthesisEquation.create_H2_F2_2HF,
-  DecompositionEquation.create_2HCl_H2_Cl2,
-  SynthesisEquation.create_CH2O_H2_CH3OH,
-  DecompositionEquation.create_C2H6_C2H4_H2,
-  SynthesisEquation.create_C2H2_2H2_C2H6,
-  SynthesisEquation.create_C_O2_CO2,
-  SynthesisEquation.create_2C_O2_2CO,
-  DecompositionEquation.create_2CO2_2CO_O2,
-  DecompositionEquation.create_2CO_C_CO2,
-  SynthesisEquation.create_C_2S_CS2,
-  DecompositionEquation.create_2NH3_N2_3H2,
-  DecompositionEquation.create_2NO_N2_O2,
-  DecompositionEquation.create_2NO2_2NO_O2,
-  SynthesisEquation.create_2N2_O2_2N2O,
-  SynthesisEquation.create_P4_6H2_4PH3,
-  SynthesisEquation.create_P4_6F2_4PF3,
-  DecompositionEquation.create_4PCl3_P4_6Cl2,
-  DecompositionEquation.create_2SO3_2SO2_O2
-];
+import Equation from '../../common/model/Equation.js';
 
 export default class GameLevel1 extends GameLevel {
 
-  public constructor( coefficientRange: Range, tandem: Tandem ) {
+  public constructor( coefficientsRange: Range, tandem: Tandem ) {
+
+    const equationPoolTandem = tandem.createTandem( GameLevel.EQUATION_POOL_TANDEM_NAME );
+    let equationIndex = 0;
+
+    const equationPool: Equation[] = [
+      // This is the largest molecule. Put it first to simplify layout testing with ?playAll.
+      new DecompositionEquation( 1, Molecule.PCl5, 1, Molecule.PCl3, 1, Molecule.Cl2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      // This equation requires maxX adjustment in EquationNode. Put it here to simplify layout testing with ?playAll.
+      new DecompositionEquation( 1, Molecule.CH3OH, 1, Molecule.CO, 2, Molecule.H2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 2, Molecule.H2, 1, Molecule.O2, 2, Molecule.H2O, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.H2, 1, Molecule.F2, 2, Molecule.HF, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.HCl, 1, Molecule.H2, 1, Molecule.Cl2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.CH2O, 1, Molecule.H2, 1, Molecule.CH3OH, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 1, Molecule.C2H6, 1, Molecule.C2H4, 1, Molecule.H2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.C2H2, 2, Molecule.H2, 1, Molecule.C2H6, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 2, Molecule.C, 1, Molecule.O2, 2, Molecule.CO, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.CO2, 2, Molecule.CO, 1, Molecule.O2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.CO, 1, Molecule.C, 1, Molecule.CO2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.C, 2, Molecule.S, 1, Molecule.CS2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.NH3, 1, Molecule.N2, 3, Molecule.H2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.NO, 1, Molecule.N2, 1, Molecule.O2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.NO2, 2, Molecule.NO, 1, Molecule.O2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 2, Molecule.N2, 1, Molecule.O2, 2, Molecule.N2O, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.P4, 6, Molecule.H2, 4, Molecule.PH3, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.P4, 6, Molecule.F2, 4, Molecule.PF3, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 4, Molecule.PCl3, 1, Molecule.P4, 6, Molecule.Cl2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.SO3, 2, Molecule.SO2, 1, Molecule.O2, coefficientsRange,
+        equationPoolTandem.createTandem( `equation${equationIndex++}` ) )
+    ];
+
     super( {
       levelNumber: 1,
       iconMolecule: Molecule.HCl,
-      coefficientRange: coefficientRange,
+      coefficientsRange: coefficientsRange,
       getBalancedRepresentation: () => 'balanceScales',
-      equationGenerators: EQUATION_GENERATORS,
-      equationGeneratorsSelectionStrategy: new RandomStrategy( EQUATION_GENERATORS, coefficientRange, {
+      equationPool: equationPool,
+      equationSelectionStrategy: new RandomStrategy( equationPool, {
         firstBigMolecule: false
       } ),
       tandem: tandem
