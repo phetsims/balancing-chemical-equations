@@ -120,7 +120,7 @@ export default class GameModel implements TModel {
 
     this.numberOfChallengesProperty = new DerivedProperty( [ this.challengesProperty ], challenges => challenges.length );
 
-    // Initial value is -1, because this.challenges is empty.
+    // Initial value is -1, because this.challengesProperty is empty.
     this._challengeIndexProperty = new NumberProperty( -1, {
       numberType: 'Integer',
       tandem: tandem.createTandem( 'challengeIndexProperty' ),
