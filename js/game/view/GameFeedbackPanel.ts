@@ -6,7 +6,7 @@
  * the equation is balanced and simplified, balanced but not simplified, or unbalanced.
  *
  * NOTE: While the UX here is similar to a Dialog, there are significant differences that make using Dialog impractical
- * here. See https://github.com/phetsims/balancing-chemical-equations/issues/137 for details.
+ * and/or undesirable here. See https://github.com/phetsims/balancing-chemical-equations/issues/137 for details.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
