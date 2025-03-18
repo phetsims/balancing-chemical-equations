@@ -50,6 +50,12 @@ export default class EquationTermNode extends Node {
       font: new PhetFont( options.fontSize ),
       timerDelay: 400, // ms until the picker starts to fire continuously
       timerInterval: 200, // ms between value change while firing continuously
+
+      // Hide arrows when picker is disabled.
+      disabledOpacity: 1,
+      backgroundStrokeDisabledOpacity: 1,
+      arrowDisabledOpacity: 0,
+
       tandem: options.tandem.createTandem( 'coefficientPicker' ),
       phetioVisiblePropertyInstrumented: false
     } );
@@ -75,11 +81,10 @@ export default class EquationTermNode extends Node {
   }
 
   /**
-   * Sets whether the term's coefficient is editable, by showing/hiding the arrows on the NumberPicker.
+   * Sets whether the term's coefficient is editable.
    */
   public setCoefficientEditable( editable: boolean ): void {
-    this.pickable = editable;
-    this.coefficientPicker.setArrowsVisible( editable );
+    this.coefficientPicker.enabledProperty.value = editable;
   }
 }
 
