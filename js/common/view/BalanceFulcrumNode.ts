@@ -30,7 +30,7 @@ export default class BalanceFulcrumNode extends Node {
       .lineTo( -fulcrumSize.width / 2, fulcrumSize.height )
       .close();
     const triangleNode = new Path( triangleShape, {
-      fill: new LinearGradient( 0, 0, 0, fulcrumSize.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' ),
+      fill: new LinearGradient( 0, 0, 0, fulcrumSize.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb( 192, 192, 192 )' ),
       lineWidth: 1,
       stroke: 'black'
     } );

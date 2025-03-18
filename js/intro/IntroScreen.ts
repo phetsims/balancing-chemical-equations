@@ -79,7 +79,7 @@ function createScreenIcon(): ScreenIcon {
   // fulcrum, centered below balance beam
   const fulcrumWidth = 0.25 * beamNode.width;
   const fulcrumHeight = 20;
-  const fulcrumFill = new LinearGradient( 0, 0, 0, fulcrumHeight ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb(192, 192, 192)' );
+  const fulcrumFill = new LinearGradient( 0, 0, 0, fulcrumHeight ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb( 192, 192, 192 )' );
   const fulcrumNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( fulcrumWidth / 2, fulcrumHeight ).lineTo( -fulcrumWidth / 2, fulcrumHeight ).close(),
     { fill: fulcrumFill, stroke: 'black', lineWidth: 0.25 } );
   fulcrumNode.centerX = beamNode.centerX;
