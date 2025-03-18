@@ -72,7 +72,10 @@ export default class BalanceScaleNode extends Node {
     this.rightNumberOfAtomsProperty = rightNumberOfAtomsProperty;
 
     // fulcrum
-    const fulcrumNode = new BalanceFulcrumNode( element, FULCRUM_SIZE );
+    const fulcrumNode = new BalanceFulcrumNode( {
+      size: FULCRUM_SIZE,
+      symbol: element.symbol
+    } );
 
     this.beamNode = new BalanceBeamNode( BEAM_LENGTH, BEAM_THICKNESS, {
       bottom: 0,

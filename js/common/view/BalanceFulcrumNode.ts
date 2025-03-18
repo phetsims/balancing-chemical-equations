@@ -9,9 +9,10 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Element from '../../../../nitroglycerin/js/Element.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
@@ -19,31 +20,51 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 const FONT = new PhetFont( 22 );
 
+type SelfOptions = {
+  size: Dimension2;
+  lineWidth?: number;
+  symbol?: string;
+};
+
+type BalanceFulcrumNodeOptions = SelfOptions & NodeTranslationOptions;
+
 export default class BalanceFulcrumNode extends Node {
 
-  public constructor( element: Element, fulcrumSize: Dimension2 ) {
+  public constructor( providedOptions: BalanceFulcrumNodeOptions ) {
+
+    const options = optionize<BalanceFulcrumNodeOptions, StrictOmit<SelfOptions, 'symbol'>, NodeOptions>()( {
+      lineWidth: 1
+    }, providedOptions );
+
+    const children = [];
 
     // triangle, start at tip and move clockwise
     const triangleShape = new Shape()
       .moveTo( 0, 0 )
-      .lineTo( fulcrumSize.width / 2, fulcrumSize.height )
-      .lineTo( -fulcrumSize.width / 2, fulcrumSize.height )
+      .lineTo( options.size.width / 2, options.size.height )
+      .lineTo( -options.size.width / 2, options.size.height )
       .close();
     const triangleNode = new Path( triangleShape, {
-      fill: new LinearGradient( 0, 0, 0, fulcrumSize.height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb( 192, 192, 192 )' ),
-      lineWidth: 1,
+      fill: new LinearGradient( 0, 0, 0, options.size.height )
+        .addColorStop( 0, 'white' )
+        .addColorStop( 1, 'rgb( 192, 192, 192 )' ),
+      lineWidth: options.lineWidth,
       stroke: 'black'
     } );
+    children.push( triangleNode );
 
     // atom symbol, centered in triangle
-    const symbolNode = new Text( element.symbol, {
-      font: FONT,
-      centerX: triangleNode.centerX,
-      centerY: triangleNode.centerY + 8
-    } );
+    if ( options.symbol ) {
+      const symbolNode = new Text( options.symbol, {
+        font: FONT,
+        centerX: triangleNode.centerX,
+        centerY: triangleNode.centerY + 8
+      } );
+      children.push( symbolNode );
+    }
 
     super( {
-      children: [ triangleNode, symbolNode ]
+      children: children
     } );
   }
 }
