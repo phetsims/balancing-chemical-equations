@@ -148,15 +148,14 @@ export default class LevelNode extends Node {
       } );
 
       // Add a 'Skip' button to skip the current equation.
-      const skipButton = new TextPushButton( 'Skip', {
-        font: new PhetFont( 20 ),
+      const skipButton = new TextPushButton( 'Skip', combineOptions<TextPushButtonOptions>( {}, PUSH_BUTTON_OPTIONS, {
         baseColor: 'red',
         textFill: 'white',
         listener: () => model.skip(),
         centerX: this.checkButton.centerX,
         bottom: this.checkButton.top - 15,
         tandem: Tandem.OPT_OUT // ... because skipButton is an optional development tool.
-      } );
+      } ) );
       this.addChild( skipButton );
     }
 

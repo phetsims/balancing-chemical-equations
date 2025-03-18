@@ -30,6 +30,7 @@ import GameLevel from '../model/GameLevel.js';
 
 const BUTTON_MARGIN = 20;
 const BUTTON_FONT = new PhetFont( { size: 14, weight: 'bold' } );
+const TITLE_FONT = new PhetFont( 36 );
 
 export default class LevelSelectionNode extends Node {
 
@@ -77,7 +78,7 @@ export default class LevelSelectionNode extends Node {
 
     // 'Choose Your Level' title
     const chooseYourLevelText = new Text( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, {
-      font: new PhetFont( 36 ),
+      font: TITLE_FONT,
       maxWidth: 0.8 * layoutBounds.width, // constrain width for i18n
       tandem: tandem.createTandem( 'chooseYourLevelText' ),
       phetioVisiblePropertyInstrumented: true

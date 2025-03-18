@@ -18,7 +18,10 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import { EquationChoice } from '../model/IntroModel.js';
 
-const TEXT_OPTIONS = { font: new PhetFont( 16 ), fill: 'white' };
+const TEXT_OPTIONS = {
+  font: new PhetFont( 16 ),
+  fill: 'white'
+};
 
 type SelfOptions = EmptySelfOptions;
 

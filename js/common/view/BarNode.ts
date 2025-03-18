@@ -31,6 +31,8 @@ const MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
 const MAX_BAR_SIZE = new Dimension2( 40, 60 );
 const BAR_LINE_WIDTH = 1.5;
 const ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
+const NUMBER_FONT = new PhetFont( 18 );
+const SYMBOL_FONT = new PhetFont( 24 );
 
 type SelfOptions = EmptySelfOptions;
 
@@ -54,7 +56,7 @@ export default class BarNode extends VBox {
     }, providedOptions );
 
     // number of atoms
-    const numberNode = new Text( '?', { font: new PhetFont( 18 ) } );
+    const numberNode = new Text( '?', { font: NUMBER_FONT } );
 
     // bar
     const barNode = new Path( Shape.rect( 0, 0, 1, 1 ), {
@@ -64,7 +66,7 @@ export default class BarNode extends VBox {
     } );
 
     // atom symbol
-    const symbolNode = new Text( element.symbol, { font: new PhetFont( 24 ) } );
+    const symbolNode = new Text( element.symbol, { font: SYMBOL_FONT } );
 
     // atom icon
     const iconNode = new AtomNode( element, BCEConstants.ATOM_NODE_OPTIONS );

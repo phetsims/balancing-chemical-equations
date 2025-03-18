@@ -16,6 +16,11 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEColors from '../BCEColors.js';
 import Equation from '../model/Equation.js';
 
+const TEXT_OPTIONS = {
+  font: new PhetFont( 80 ),
+  stroke: 'black'
+};
+
 type SelfOptions = EmptySelfOptions;
 
 type EqualityOperatorNodeOptions = SelfOptions & NodeTranslationOptions;
@@ -30,19 +35,14 @@ export default class EqualityOperatorNode extends Node {
       isDisposable: false
     }, providedOptions );
 
-    const textOptions = {
-      font: new PhetFont( 80 ),
-      stroke: 'black'
-    };
-
     const equalToNode = new Text( MathSymbols.EQUAL_TO, combineOptions<TextOptions>( {
       fill: BCEColors.BALANCED_HIGHLIGHT_COLOR
-    }, textOptions ) );
+    }, TEXT_OPTIONS ) );
 
     const notEqualToNode = new Text( MathSymbols.NOT_EQUAL_TO, combineOptions<TextOptions>( {
       fill: BCEColors.UNBALANCED_COLOR,
       center: equalToNode.center
-    }, textOptions ) );
+    }, TEXT_OPTIONS ) );
 
     options.children = [ equalToNode, notEqualToNode ];
 
