@@ -41,7 +41,7 @@ export default class LevelNode extends Node {
   private readonly audioPlayer: GameAudioPlayer;
   private readonly layoutBounds: Bounds2;
   private readonly aligner: HorizontalAligner;
-  private feedbackPanel: GameFeedbackPanel | null; // created on demand
+  private readonly feedbackPanel: GameFeedbackPanel;
   private readonly accordionBoxes: BoxesNode; // boxes that show molecules corresponding to the equation coefficients
 
   private equationNode: EquationNode;
@@ -70,7 +70,6 @@ export default class LevelNode extends Node {
     this.audioPlayer = audioPlayer;
     this.layoutBounds = layoutBounds;
     this.aligner = new HorizontalAligner( layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
-    this.feedbackPanel = null;
 
     const statusBar = new BCEFiniteStatusBar( model, layoutBounds, visibleBoundsProperty, tandem.createTandem( 'statusBar' ) );
     this.addChild( statusBar );
@@ -159,6 +158,13 @@ export default class LevelNode extends Node {
       this.addChild( skipButton );
     }
 
+    this.feedbackPanel = new GameFeedbackPanel( model, this.aligner, tandem.createTandem( 'feedbackPanel' ) );
+    this.feedbackPanel.localBoundsProperty.link( () => {
+      this.feedbackPanel.centerX = this.layoutBounds.centerX;
+      this.feedbackPanel.top = this.accordionBoxes.top + 10;
+    } );
+    this.addChild( this.feedbackPanel );
+
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
       if ( state === 'check' ) {
@@ -217,7 +223,7 @@ export default class LevelNode extends Node {
     this.checkButton.visible = false;
 
     const currentEquation = this.model.challengeProperty.value;
-    this.nextButton.visible = !currentEquation.isBalancedAndSimplified; // 'Next' button is in the feedbackPanel
+    this.nextButton.visible = !currentEquation.isBalancedAndSimplified;
     this.setFeedbackPanelVisible( currentEquation.isBalancedAndSimplified );
     this.setBalancedHighlightEnabled( true );
     currentEquation.balance(); // show the correct answer (do this last!)
@@ -250,20 +256,9 @@ export default class LevelNode extends Node {
    * This tells the user whether their guess is correct or not.
    */
   private setFeedbackPanelVisible( visible: boolean ): void {
-    if ( this.feedbackPanel ) {
-      this.removeChild( this.feedbackPanel );
-      this.feedbackPanel.dispose();
-      this.feedbackPanel = null;
-    }
-    if ( visible ) {
-      const feedbackPanel = new GameFeedbackPanel( this.model, this.aligner, Tandem.OPT_OUT );
-      feedbackPanel.localBoundsProperty.link( () => {
-        feedbackPanel.centerX = this.layoutBounds.centerX;
-        feedbackPanel.top = this.accordionBoxes.top + 10;
-      } );
-      this.addChild( feedbackPanel ); // visible and in front
-      this.feedbackPanel = feedbackPanel;
-    }
+    this.feedbackPanel.update();
+    this.feedbackPanel.moveToFront();
+    this.feedbackPanel.visible = visible;
   }
 }
 
