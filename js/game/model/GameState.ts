@@ -27,11 +27,13 @@ export function isValidGameStateTransition( fromState: GameState, toState: GameS
   }
   else if ( fromState === 'check' ) {
 
-    // 'tryAgain' if the 'Check' button was pressed once.
-    // 'showAnswer' if the 'Check' button was pressed twice.
+    // 'next' if the 'Check' button was pressed and we guessed correctly.
+    // 'tryAgain' if the 'Check' button was pressed once and we guessed incorrectly.
+    // 'showAnswer' if the 'Check' button was pressed twice and we guessed incorrectly.
     // 'check' if the optional 'Skip' button was pressed and there are more challenges to play.
     // 'levelCompleted' if the optional 'Skip' button was pressed and all challenges have been played.
-    return ( toState === 'tryAgain' ) || ( toState === 'showAnswer' ) || ( toState === 'check' ) || ( toState === 'levelCompleted' );
+    return ( toState === 'next' ) || ( toState === 'tryAgain' ) || ( toState === 'showAnswer' ) ||
+           ( toState === 'check' ) || ( toState === 'levelCompleted' );
   }
   else if ( fromState === 'tryAgain' ) {
     return ( toState === 'check' );
