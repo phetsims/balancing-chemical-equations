@@ -29,6 +29,9 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { GameState } from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
@@ -36,6 +39,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
   private static readonly WHY_BUTTON_FONT = new PhetFont( GameFeedbackPanel.PUSH_BUTTON_FONT.numericSize - 4 );
   private static readonly WHY_BUTTON_FILL = '#d9d9d9';
 
+  private readonly whyVisibleProperty: Property<boolean>;
   private readonly balancedRepresentationNode: BalancedRepresentationNode;
 
   public constructor( equation: Equation,
@@ -83,35 +87,29 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       tandem: tandem.createTandem( 'showAnswerButton' )
     } );
 
-    const balancedRepresentationNode = new BalancedRepresentationNode( equation, balancedRepresentation, aligner );
-
-    // 'Show Why' button, exposes one of the 'balanced' representations to explain why it's not balanced
-    const showWhyButton = new TextPushButton( BalancingChemicalEquationsStrings.showWhyStringProperty, {
-      listener: () => {
-        showWhyButton.visible = false;
-        hideWhyButton.visible = true;
-        balancedRepresentationNode.visible = true;
-      },
-      font: NotBalancedPanel.WHY_BUTTON_FONT,
-      baseColor: NotBalancedPanel.WHY_BUTTON_FILL,
-      maxWidth: maxWidth,
-      tandem: tandem.createTandem( 'showWhyButton' ),
-      phetioVisiblePropertyInstrumented: false
+    const whyVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'whyVisibleProperty' ),
+      phetioDocumentation: 'Visibility of the representation that shows why the equation is not balanced.',
+      phetioReadOnly: true
     } );
 
-    // 'Hide Why' button, hides the 'balanced' representation
-    const hideWhyButton = new TextPushButton( BalancingChemicalEquationsStrings.hideWhyStringProperty, {
-      listener: () => {
-        showWhyButton.visible = true;
-        hideWhyButton.visible = false;
-        balancedRepresentationNode.visible = false;
-      },
-      font: NotBalancedPanel.WHY_BUTTON_FONT,
+    // 'Show Why' or 'Hide Why'
+    const showHideWhyStringProperty = new DerivedStringProperty(
+      [ whyVisibleProperty, BalancingChemicalEquationsStrings.showWhyStringProperty, BalancingChemicalEquationsStrings.hideWhyStringProperty ],
+      ( whyVisible, showWhyString, hideWhyString ) => whyVisible ? hideWhyString : showWhyString );
+
+    // Toggle button that shows/hides the 'balanced' representation, to explain why the equation is not balanced.
+    const showHideWhyToggleButton = new RectangularToggleButton<boolean>( whyVisibleProperty, false, true, {
+      content: new Text( showHideWhyStringProperty, {
+        font: NotBalancedPanel.WHY_BUTTON_FONT
+      } ),
       baseColor: NotBalancedPanel.WHY_BUTTON_FILL,
       maxWidth: maxWidth,
-      tandem: tandem.createTandem( 'hideWhyButton' ),
-      phetioVisiblePropertyInstrumented: false
+      tandem: tandem.createTandem( 'showHideWhyToggleButton' )
     } );
+
+    const balancedRepresentationNode = new BalancedRepresentationNode( equation, balancedRepresentation, aligner,
+      whyVisibleProperty );
 
     const content = new VBox( {
       excludeInvisibleChildrenFromBounds: true,
@@ -137,13 +135,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
           children: [ tryAgainButton, showAnswerButton ]
         } ),
 
-        // Show/Hide Why buttons, one of which will be visible at a time.
-        // Wrap these in an HBox (not a Node!) so that dynamic layout will work properly.
-        // See https://github.com/phetsims/balancing-chemical-equations/issues/164
-        new HBox( {
-          children: [ showWhyButton, hideWhyButton ]
-        } ),
-
+        showHideWhyToggleButton,
         balancedRepresentationNode
       ]
     } );
@@ -153,32 +145,30 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       phetioDocumentation: 'Provides feedback when the challenge is not balanced.'
     } );
 
+    this.whyVisibleProperty = whyVisibleProperty;
     this.balancedRepresentationNode = balancedRepresentationNode;
-
-    // When this panel becomes visible, reset initial visibility.
-    this.visibleProperty.link( visible => {
-      if ( visible ) {
-        showWhyButton.visible = true;
-        hideWhyButton.visible = false;
-        balancedRepresentationNode.visible = false;
-      }
-    } );
   }
 
   public updateBalancedRepresentation( equation: Equation, balancedRepresentation: Exclude<BalancedRepresentation, 'none'> ): void {
+    this.whyVisibleProperty.reset();
     this.balancedRepresentationNode.update( equation, balancedRepresentation );
   }
 }
 
+/**
+ * BalancedRepresentationNode shows why the equation is not balanced.
+ */
 class BalancedRepresentationNode extends Node {
 
   private readonly aligner: HorizontalAligner;
 
   public constructor( equation: Equation,
                       balancedRepresentation: Exclude<BalancedRepresentation, 'none'>,
-                      aligner: HorizontalAligner ) {
+                      aligner: HorizontalAligner,
+                      visibleProperty: TReadOnlyProperty<boolean> ) {
     super( {
-      isDisposable: false
+      isDisposable: false,
+      visibleProperty: visibleProperty
     } );
 
     this.aligner = aligner;
