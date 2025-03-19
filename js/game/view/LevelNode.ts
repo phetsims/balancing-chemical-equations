@@ -26,6 +26,7 @@ import GameModel from '../model/GameModel.js';
 import GameFeedbackNode from './GameFeedbackNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
@@ -156,6 +157,7 @@ export default class LevelNode extends Node {
         listener: () => model.skip(),
         centerX: this.checkButton.centerX,
         bottom: this.checkButton.top - 15,
+        enabledProperty: new DerivedProperty( [ model.gameStateProperty ], gameState => gameState === 'check' ),
         tandem: Tandem.OPT_OUT // ... because skipButton is an optional development tool.
       } ) );
       this.addChild( skipButton );

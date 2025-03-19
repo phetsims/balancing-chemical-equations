@@ -17,7 +17,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Equation from '../../common/model/Equation.js';
 import SynthesisEquation from '../../common/model/SynthesisEquation.js';
-import { GameState, GameStateValues } from './GameState.js';
+import { GameState, GameStateValues, isValidGameStateTransition } from './GameState.js';
 import GameLevel from './GameLevel.js';
 import GameLevel1 from './GameLevel1.js';
 import GameLevel2 from './GameLevel2.js';
@@ -40,7 +40,7 @@ export default class GameModel implements TModel {
   // The selected game level. null means 'no selection' and causes the view to return to the level-selection UI.
   public readonly levelProperty: Property<GameLevel | null>;
 
-  // State of the game.
+  // State of the game. See GameState.ts for documentation of possible state transitions.
   private readonly _gameStateProperty: StringUnionProperty<GameState>;
   public readonly gameStateProperty: TReadOnlyProperty<GameState>;
 
@@ -222,6 +222,8 @@ export default class GameModel implements TModel {
    * Convenience method for setting the game state.
    */
   private setState( value: GameState ): void {
+    assert && assert( isValidGameStateTransition( this._gameStateProperty.value, value ),
+      `invalid game state transition: ${this._gameStateProperty.value} to ${value}` );
     this._gameStateProperty.value = value;
   }
 

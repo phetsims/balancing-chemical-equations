@@ -10,12 +10,42 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-export const GameStateValues = [
-  'levelSelection', // goes to 'check'
-  'check',          // goes to 'tryAgain' or 'showAnswer', depending on how many attempts have been made to solve the current challenge
-  'tryAgain',       // goes to 'check'
-  'showAnswer',     // goes to 'next'
-  'next',           // goes to 'check' if there are more challenges to play, or 'levelCompleted' if all challenges have been played
-  'levelCompleted'  // goes to 'levelSelection'
-] as const;
+export const GameStateValues = [ 'levelSelection', 'check', 'tryAgain', 'showAnswer', 'next', 'levelCompleted' ] as const;
 export type GameState = ( typeof GameStateValues )[number];
+
+/**
+ * Determines whether the game state transition is valid.
+ */
+export function isValidGameStateTransition( fromState: GameState, toState: GameState ): boolean {
+  if ( toState === 'levelSelection' ) {
+
+    // Any state can go to 'levelSelection' by pressing the 'Start Over' button or 'Continue' button.
+    return true;
+  }
+  if ( fromState === 'levelSelection' ) {
+    return ( toState === 'check' );
+  }
+  else if ( fromState === 'check' ) {
+
+    // 'tryAgain' if the 'Check' button was pressed once.
+    // 'showAnswer' if the 'Check' button was pressed twice.
+    // 'check' if the optional 'Skip' button was pressed and there are more challenges to play.
+    // 'levelCompleted' if the optional 'Skip' button was pressed and all challenges have been played.
+    return ( toState === 'tryAgain' ) || ( toState === 'showAnswer' ) || ( toState === 'check' ) || ( toState === 'levelCompleted' );
+  }
+  else if ( fromState === 'tryAgain' ) {
+    return ( toState === 'check' );
+  }
+  else if ( fromState === 'showAnswer' ) {
+    return ( toState === 'next' );
+  }
+  else if ( fromState === 'next' ) {
+
+    // 'check' if there are more challenges to play.
+    // 'levelCompleted' if all challenges have been played.
+    return ( toState === 'check' ) || ( toState === 'levelCompleted' );
+  }
+  else {
+    return false; // If we got here, there's a programming error.
+  }
+}
