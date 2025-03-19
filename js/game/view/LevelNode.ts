@@ -23,7 +23,7 @@ import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
-import GameFeedbackPanel from './GameFeedbackPanel.js';
+import GameFeedbackNode from './GameFeedbackNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
 
@@ -41,14 +41,17 @@ export default class LevelNode extends Node {
   private readonly audioPlayer: GameAudioPlayer;
   private readonly layoutBounds: Bounds2;
   private readonly aligner: HorizontalAligner;
-  private readonly feedbackPanel: GameFeedbackPanel;
-  private readonly accordionBoxes: BoxesNode; // boxes that show molecules corresponding to the equation coefficients
+
+  // boxes that show molecules corresponding to the equation coefficients
+  private readonly accordionBoxes: BoxesNode;
 
   private equationNode: EquationNode;
   private readonly equationNodeParent: Node;
 
   private readonly checkButton: TextPushButton;
   private readonly nextButton: TextPushButton;
+
+  private readonly feedbackNode: GameFeedbackNode;
 
   public constructor( model: GameModel,
                       viewProperties: GameViewProperties,
@@ -158,12 +161,12 @@ export default class LevelNode extends Node {
       this.addChild( skipButton );
     }
 
-    this.feedbackPanel = new GameFeedbackPanel( model, this.aligner, tandem.createTandem( 'feedbackPanel' ) );
-    this.feedbackPanel.localBoundsProperty.link( () => {
-      this.feedbackPanel.centerX = this.layoutBounds.centerX;
-      this.feedbackPanel.top = this.accordionBoxes.top + 10;
+    this.feedbackNode = new GameFeedbackNode( model, this.aligner, tandem.createTandem( 'feedbackNode' ) );
+    this.feedbackNode.localBoundsProperty.link( () => {
+      this.feedbackNode.centerX = this.layoutBounds.centerX;
+      this.feedbackNode.top = this.accordionBoxes.top + 10;
     } );
-    this.addChild( this.feedbackPanel );
+    this.addChild( this.feedbackNode );
 
     // Call an initializer to set up the game for the state.
     model.stateProperty.link( state => {
@@ -199,21 +202,21 @@ export default class LevelNode extends Node {
     this.equationNode.setCoefficientsEditable( true );
     this.checkButton.visible = true;
     this.nextButton.visible = false;
-    this.setFeedbackPanelVisible( false );
+    this.setFeedbackNodeVisible( false );
     this.setBalancedHighlightEnabled( false );
   }
 
   private initTryAgain(): void {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
-    this.setFeedbackPanelVisible( true );
+    this.setFeedbackNodeVisible( true );
     this.setBalancedHighlightEnabled( false );
   }
 
   private initShowAnswer(): void {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
-    this.setFeedbackPanelVisible( true );
+    this.setFeedbackNodeVisible( true );
     this.setBalancedHighlightEnabled( false );
   }
 
@@ -224,7 +227,7 @@ export default class LevelNode extends Node {
 
     const currentEquation = this.model.challengeProperty.value;
     this.nextButton.visible = !currentEquation.isBalancedAndSimplified;
-    this.setFeedbackPanelVisible( currentEquation.isBalancedAndSimplified );
+    this.setFeedbackNodeVisible( currentEquation.isBalancedAndSimplified );
     this.setBalancedHighlightEnabled( true );
     currentEquation.balance(); // show the correct answer (do this last!)
   }
@@ -255,10 +258,10 @@ export default class LevelNode extends Node {
    * Controls the visibility of the game feedback panel.
    * This tells the user whether their guess is correct or not.
    */
-  private setFeedbackPanelVisible( visible: boolean ): void {
-    this.feedbackPanel.update();
-    this.feedbackPanel.moveToFront();
-    this.feedbackPanel.visible = visible;
+  private setFeedbackNodeVisible( visible: boolean ): void {
+    this.feedbackNode.update();
+    this.feedbackNode.moveToFront();
+    this.feedbackNode.visible = visible;
   }
 }
 

@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * GameFeedbackPanel presents feedback about a user's guess. The format of the feedback is specific to whether
+ * GameFeedbackNode presents feedback about a user's guess. The format of the feedback is specific to whether
  * the equation is balanced and simplified, balanced but not simplified, or unbalanced.
  *
  * NOTE: While the UX here is similar to a Dialog, there are significant differences that make using Dialog impractical
@@ -19,7 +19,7 @@ import BalancedPanel from './BalancedPanel.js';
 import BalancedNotSimplifiedPanel from './BalancedNotSimplifiedPanel.js';
 import NotBalancedPanel from './NotBalancedPanel.js';
 
-export default class GameFeedbackPanel extends Node {
+export default class GameFeedbackNode extends Node {
 
   private readonly model: GameModel;
   private readonly aligner: HorizontalAligner;
@@ -34,7 +34,8 @@ export default class GameFeedbackPanel extends Node {
     super( {
       isDisposable: false,
       visible: false,
-      tandem: tandem
+      tandem: tandem,
+      phetioDocumentation: 'Provides feedback when the Check button is pressed.'
     } );
 
     this.model = model;
@@ -83,4 +84,4 @@ export default class GameFeedbackPanel extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'GameFeedbackPanel', GameFeedbackPanel );
+balancingChemicalEquations.register( 'GameFeedbackNode', GameFeedbackNode );

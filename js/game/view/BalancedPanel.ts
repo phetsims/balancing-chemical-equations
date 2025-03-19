@@ -128,6 +128,7 @@ export default class BalancedPanel extends Node {
       isDisposable: false,
       children: [ shadowNode, panel ],
       tandem: tandem,
+      phetioDocumentation: 'Provides feedback when the challenge is balanced and simplified.',
       phetioVisiblePropertyInstrumented: false
     } );
   }

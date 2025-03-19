@@ -182,6 +182,7 @@ export default class NotBalancedPanel extends Node {
       isDisposable: false,
       children: [ shadowNode, panel ],
       tandem: tandem,
+      phetioDocumentation: 'Provides feedback when the challenge is not balanced.',
       phetioVisiblePropertyInstrumented: false
     } );
 

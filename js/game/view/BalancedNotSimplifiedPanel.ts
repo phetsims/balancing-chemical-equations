@@ -154,6 +154,7 @@ export default class BalancedNotSimplifiedPanel extends Node {
       isDisposable: false,
       children: [ shadowNode, panel ],
       tandem: tandem,
+      phetioDocumentation: 'Provides feedback when the challenge is balanced, but not simplified.',
       phetioVisiblePropertyInstrumented: false
     } );
   }
