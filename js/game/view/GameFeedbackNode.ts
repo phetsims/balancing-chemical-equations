@@ -15,7 +15,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
-import BalancedPanel from './BalancedPanel.js';
+import BalancedAndSimplifiedPanel from './BalancedAndSimplifiedPanel.js';
 import BalancedNotSimplifiedPanel from './BalancedNotSimplifiedPanel.js';
 import NotBalancedPanel from './NotBalancedPanel.js';
 
@@ -25,7 +25,7 @@ export default class GameFeedbackNode extends Node {
   private readonly aligner: HorizontalAligner;
 
   // A panel for each type of feedback.
-  private readonly balancedPanel: BalancedPanel;
+  private readonly balancedAndSimplifiedPanel: BalancedAndSimplifiedPanel;
   private readonly balancedNotSimplifiedPanel: BalancedNotSimplifiedPanel;
   private readonly notBalancedPanel: NotBalancedPanel;
 
@@ -41,9 +41,9 @@ export default class GameFeedbackNode extends Node {
     this.model = model;
     this.aligner = aligner;
 
-    this.balancedPanel = new BalancedPanel( this.model.pointsProperty, () => this.model.next(),
-      tandem.createTandem( 'balancedPanel' ) );
-    this.addChild( this.balancedPanel );
+    this.balancedAndSimplifiedPanel = new BalancedAndSimplifiedPanel( this.model.pointsProperty, () => this.model.next(),
+      tandem.createTandem( 'balancedAndSimplifiedPanel' ) );
+    this.addChild( this.balancedAndSimplifiedPanel );
 
     this.balancedNotSimplifiedPanel = new BalancedNotSimplifiedPanel( this.model.stateProperty, () => this.model.tryAgain(),
       () => this.model.showAnswer(), this.aligner, tandem.createTandem( 'balancedNotSimplifiedPanel' ) );
@@ -63,14 +63,14 @@ export default class GameFeedbackNode extends Node {
   public update(): void {
 
     // Start with all panels invisible.
-    this.balancedPanel.visible = false;
+    this.balancedAndSimplifiedPanel.visible = false;
     this.balancedNotSimplifiedPanel.visible = false;
     this.notBalancedPanel.visible = false;
 
     // Make the panel visible that corresponds to the state of the current challenge.
     const challenge = this.model.challengeProperty.value;
     if ( challenge.isBalancedAndSimplified ) {
-      this.balancedPanel.visible = true;
+      this.balancedAndSimplifiedPanel.visible = true;
     }
     else if ( challenge.isBalancedProperty.value ) {
       this.balancedNotSimplifiedPanel.visible = true;

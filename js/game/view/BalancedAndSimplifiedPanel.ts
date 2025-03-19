@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * BalancedPanel presents feedback to the user when their answer to a challenge is balanced and simplified.
+ * BalancedAndSimplifiedPanel presents feedback to the user when their answer to a challenge is balanced and simplified.
  *
  * NOTE: While the UX here is similar to a Dialog, there are significant differences that make using Dialog impractical
  * and/or undesirable here. See https://github.com/phetsims/balancing-chemical-equations/issues/137 for details.
@@ -43,7 +43,7 @@ const SHADOW_Y_OFFSET = 5;
 const CORNER_RADIUS = 0;
 const MAX_WIDTH = 385; // maxWidth for UI elements
 
-export default class BalancedPanel extends Node {
+export default class BalancedAndSimplifiedPanel extends Node {
 
   public constructor( pointsProperty: TReadOnlyProperty<number>, nextButtonListener: () => void, tandem: Tandem ) {
 
@@ -134,4 +134,4 @@ export default class BalancedPanel extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'BalancedPanel', BalancedPanel );
+balancingChemicalEquations.register( 'BalancedAndSimplifiedPanel', BalancedAndSimplifiedPanel );
