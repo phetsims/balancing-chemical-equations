@@ -41,7 +41,8 @@ export default class GameFeedbackNode extends Node {
       isDisposable: false,
       visible: false,
       tandem: tandem,
-      phetioDocumentation: 'Provides feedback when the Check button is pressed.'
+      phetioDocumentation: 'Provides feedback when the Check button is pressed.',
+      phetioVisiblePropertyInstrumented: false
     } );
 
     this.model = model;
