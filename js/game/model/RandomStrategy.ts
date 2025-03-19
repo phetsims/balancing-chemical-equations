@@ -131,6 +131,8 @@ export default class RandomStrategy {
       assert && assert( !firstEquation.hasBigMolecule(), `First equation is not supposed to include a big molecule: ${firstEquation.toString()}` );
     }
 
+    assert && assert( _.uniq( equations ).length === equations.length, 'equation should contain no duplicates.' );
+
     return equations;
   }
 }
