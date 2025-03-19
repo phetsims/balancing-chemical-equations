@@ -221,7 +221,7 @@ export default class GameModel implements TModel {
   /**
    * Convenience method for setting the game state.
    */
-  private setState( value: GameState ): void {
+  private setGameState( value: GameState ): void {
     assert && assert( isValidGameStateTransition( this._gameStateProperty.value, value ),
       `invalid game state transition: ${this._gameStateProperty.value} to ${value}` );
     this._gameStateProperty.value = value;
@@ -245,7 +245,7 @@ export default class GameModel implements TModel {
       this.timer.start();
     }
 
-    this.setState( 'check' );
+    this.setGameState( 'check' );
   }
 
   /**
@@ -291,20 +291,20 @@ export default class GameModel implements TModel {
         this.pointsProperty.value = 0;
       }
       this.scoreProperty.value += this.pointsProperty.value;
-      this.setState( 'next' );
+      this.setGameState( 'next' );
 
       if ( this.challengeIndexProperty.value === this.challengesProperty.value.length - 1 ) {
         this.endGame();
       }
     }
     else if ( this.attemptsProperty.value < 2 ) {
-      this.setState( 'tryAgain' );
+      this.setGameState( 'tryAgain' );
     }
     else {
       if ( this.challengeIndexProperty.value === this.challengesProperty.value.length - 1 ) {
         this.endGame();
       }
-      this.setState( 'showAnswer' );
+      this.setGameState( 'showAnswer' );
     }
   }
 
@@ -312,14 +312,14 @@ export default class GameModel implements TModel {
    * Called when the user presses the "Try Again" button.
    */
   public tryAgain(): void {
-    this.setState( 'check' );
+    this.setGameState( 'check' );
   }
 
   /**
    * Called when the user presses the "Show Answer" button.
    */
   public showAnswer(): void {
-    this.setState( 'next' );
+    this.setGameState( 'next' );
   }
 
   /**
@@ -330,10 +330,10 @@ export default class GameModel implements TModel {
       this.attemptsProperty.value = 0;
       this.pointsProperty.value = 0;
       this._challengeIndexProperty.value++;
-      this.setState( 'check' );
+      this.setGameState( 'check' );
     }
     else {
-      this.setState( 'levelCompleted' );
+      this.setGameState( 'levelCompleted' );
     }
   }
 
@@ -351,7 +351,7 @@ export default class GameModel implements TModel {
   public startOver(): void {
     this.resetToStart();
     this.levelProperty.value = null;
-    this.setState( 'levelSelection' );
+    this.setGameState( 'levelSelection' );
   }
 
   /**
