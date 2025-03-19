@@ -58,7 +58,10 @@ class BCELevelCompletedNodeGroup extends PhetioGroup<BCELevelCompletedNode> {
 
     super( createElement, [], {
       tandem: tandem,
+      phetioDocumentation: 'Dynamically creates the summary that appears when a game level has been completed.',
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why IOType.ObjectIO
       phetioType: PhetioGroup.PhetioGroupIO( IOType.ObjectIO ),
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why false.
       supportsDynamicState: false
     } );
   }
