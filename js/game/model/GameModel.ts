@@ -114,6 +114,8 @@ export default class GameModel implements TModel {
     // herein. So create one dummy challenge that will never be seen by the user. The dummy challenge unfortunately
     // must be PhET-iO instrumented, so it will appear in the PhET-iO Studio tree and PhET-iO API.
     const initialChallenges = [
+
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can this be Tandem.OPT_OUT?
       new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange,
         tandem.createTandem( 'dummyChallenge' ) )
     ];
