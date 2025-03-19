@@ -39,7 +39,7 @@ export default class BCELevelCompletedNode extends LevelCompletedNode {
         starDiameter: Math.min( 60, 300 / numberOfChallenges ),
         levelVisible: false,
         contentMaxWidth: 500,
-        tandem: Tandem.OPT_OUT // ...because levelCompletedNode is created dynamically.
+        tandem: tandem
       }
     );
   }
