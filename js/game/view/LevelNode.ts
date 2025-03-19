@@ -168,18 +168,18 @@ export default class LevelNode extends Node {
     } );
     this.addChild( this.feedbackNode );
 
-    // Call an initializer to set up the game for the state.
-    model.stateProperty.link( state => {
-      if ( state === 'check' ) {
+    // Call an initializer to set up UI to correspond to the game state.
+    model.gameStateProperty.link( gameState => {
+      if ( gameState === 'check' ) {
         this.initCheck();
       }
-      else if ( state === 'tryAgain' ) {
+      else if ( gameState === 'tryAgain' ) {
         this.initTryAgain();
       }
-      else if ( state === 'showAnswer' ) {
+      else if ( gameState === 'showAnswer' ) {
         this.initShowAnswer();
       }
-      else if ( state === 'next' ) {
+      else if ( gameState === 'next' ) {
         this.initNext();
       }
     } );
@@ -198,6 +198,9 @@ export default class LevelNode extends Node {
     } );
   }
 
+  /**
+   * Set up the UI for the 'check' game state.
+   */
   private initCheck(): void {
     this.equationNode.setCoefficientsEditable( true );
     this.checkButton.visible = true;
@@ -206,6 +209,9 @@ export default class LevelNode extends Node {
     this.setBalancedHighlightEnabled( false );
   }
 
+  /**
+   * Set up the UI for the 'tryAgain' game state.
+   */
   private initTryAgain(): void {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
@@ -213,6 +219,9 @@ export default class LevelNode extends Node {
     this.setBalancedHighlightEnabled( false );
   }
 
+  /**
+   * Set up the UI for the 'showAnswer' game state.
+   */
   private initShowAnswer(): void {
     this.equationNode.setCoefficientsEditable( false );
     this.checkButton.visible = this.nextButton.visible = false;
@@ -220,6 +229,9 @@ export default class LevelNode extends Node {
     this.setBalancedHighlightEnabled( false );
   }
 
+  /**
+   * Set up the UI for the 'next' game state.
+   */
   private initNext(): void {
 
     this.equationNode.setCoefficientsEditable( false );

@@ -65,12 +65,12 @@ export default class GameScreenView extends ScreenView {
       }
     } );
 
-    // Call an initializer to set up the game for the state.
-    model.stateProperty.link( state => {
-      if ( state === 'levelSelection' ) {
+    // Call an initializer to set up the UI to correspond to the game state.
+    model.gameStateProperty.link( gameState => {
+      if ( gameState === 'levelSelection' ) {
         this.initLevelSelection();
       }
-      else if ( state === 'levelCompleted' ) {
+      else if ( gameState === 'levelCompleted' ) {
         this.initLevelCompleted();
       }
     } );
@@ -94,13 +94,16 @@ export default class GameScreenView extends ScreenView {
     super.step( dt );
   }
 
+  /**
+   * Set up the UI for the 'levelSelection' game state.
+   */
   private initLevelSelection(): void {
     this.levelNode.visible = false;
     this.levelSelectionNode.visible = true;
   }
 
   /**
-   * Performs initialization to play a game for a specified level.
+   * Set up the UI to begin playing a game level.
    */
   private initStartGame(): void {
     this.viewProperties.reactantsAccordionBoxExpandedProperty.reset();
@@ -109,6 +112,9 @@ export default class GameScreenView extends ScreenView {
     this.levelNode.visible = true;
   }
 
+  /**
+   * Set up the UI for the 'levelCompleted' game state.
+   */
   private initLevelCompleted(): void {
 
     const level = this.model.levelProperty.value!;

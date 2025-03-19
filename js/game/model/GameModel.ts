@@ -41,8 +41,8 @@ export default class GameModel implements TModel {
   public readonly levelProperty: Property<GameLevel | null>;
 
   // State of the game.
-  private readonly _stateProperty: StringUnionProperty<GameState>;
-  public readonly stateProperty: TReadOnlyProperty<GameState>;
+  private readonly _gameStateProperty: StringUnionProperty<GameState>;
+  public readonly gameStateProperty: TReadOnlyProperty<GameState>;
 
   // Range of all coefficients, for all challenges.
   public readonly coefficientsRange: Range;
@@ -93,13 +93,13 @@ export default class GameModel implements TModel {
       phetioValueType: NullableIO( GameLevel.GameLevelIO )
     } );
 
-    this._stateProperty = new StringUnionProperty( 'levelSelection', {
+    this._gameStateProperty = new StringUnionProperty( 'levelSelection', {
       validValues: GameStateValues,
-      tandem: tandem.createTandem( 'stateProperty' ),
+      tandem: tandem.createTandem( 'gameStateProperty' ),
       phetioDocumentation: 'For internal use only.',
       phetioReadOnly: true
     } );
-    this.stateProperty = this._stateProperty;
+    this.gameStateProperty = this._gameStateProperty;
 
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
@@ -200,13 +200,13 @@ export default class GameModel implements TModel {
     this.resetToStart();
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
-    this._stateProperty.reset();
+    this._gameStateProperty.reset();
     this._challengeIndexProperty.reset();
     this.timerEnabledProperty.reset();
   }
 
   /**
-   * Resets only the things that should be reset when a game is started, or when in the 'levelSelection' state.
+   * Resets only the things that should be reset when a game is started, or when in the 'levelSelection' game state.
    */
   private resetToStart(): void {
     this.isNewBestTime = false;
@@ -217,10 +217,10 @@ export default class GameModel implements TModel {
   }
 
   /**
-   * Convenience method for setting the game's state.
+   * Convenience method for setting the game state.
    */
   private setState( value: GameState ): void {
-    this._stateProperty.value = value;
+    this._gameStateProperty.value = value;
   }
 
   /**
