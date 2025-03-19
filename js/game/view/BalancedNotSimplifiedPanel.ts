@@ -35,7 +35,6 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
     // maxWidth for UI elements
     const maxWidth = 0.5 * aligner.getScreenWidth();
-    console.log( `maxWidth=${maxWidth}` );
 
     const textOptions = {
       font: GameFeedbackPanel.TEXT_FONT,
