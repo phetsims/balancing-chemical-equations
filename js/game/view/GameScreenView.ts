@@ -11,7 +11,6 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
-import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
@@ -20,6 +19,7 @@ import BCERewardNode from './BCERewardNode.js';
 import LevelNode from './LevelNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import LevelSelectionNode from './LevelSelectionNode.js';
+import BCELevelCompletedNode from './BCELevelCompletedNode.js';
 
 export default class GameScreenView extends ScreenView {
 
@@ -31,6 +31,7 @@ export default class GameScreenView extends ScreenView {
 
   private readonly levelSelectionNode: Node;
   private readonly levelNode: Node;
+  private levelCompletedNode: Node | null;
 
   private rewardNode: BCERewardNode | null; // created on demand
 
@@ -51,6 +52,8 @@ export default class GameScreenView extends ScreenView {
 
     this.levelNode = new LevelNode( this.model, this.viewProperties, this.audioPlayer,
       this.layoutBounds, this.visibleBoundsProperty, tandem.createTandem( 'levelNode' ) );
+
+    this.levelCompletedNode = null;
 
     this.rewardNode = null;
 
@@ -129,43 +132,15 @@ export default class GameScreenView extends ScreenView {
       this.screenViewRootNode.addChild( this.rewardNode );
     }
 
-    // bestTime on level, must be null to not show in popup.
-    const bestTimeOnThisLevel = level.bestTimeProperty.value === 0 ? null : level.bestTimeProperty.value;
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 OPT_OUT because levelCompletedNode is created dynamically.
+    this.levelCompletedNode = new BCELevelCompletedNode( this.model, () => this.continue(), Tandem.OPT_OUT );
+    this.screenViewRootNode.addChild( this.levelCompletedNode );
 
-    // Node displaying notification that the level has been completed.
-    const numberOfChallenges = level.getNumberOfChallenges();
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 'Continue' button is not instrumented because LevelCompletedNode is created dynamically.
-    const levelCompletedNode = new LevelCompletedNode( level.levelNumber, this.model.scoreProperty.value,
-      level.getPerfectScore(), numberOfChallenges, this.model.timerEnabledProperty.value,
-      this.model.timer.elapsedTimeProperty.value, bestTimeOnThisLevel, this.model.isNewBestTime,
-
-      // function called when 'Continue' button is pressed
-      () => {
-        // Remove the reward, if we have one.
-        if ( this.rewardNode ) {
-          this.screenViewRootNode.removeChild( this.rewardNode );
-          this.rewardNode.dispose();
-          this.rewardNode = null;
-        }
-        // Remove the level-completed notification.
-        this.screenViewRootNode.removeChild( levelCompletedNode );
-        // Go back to the level-selection screen
-        this.model.startOver();
-      },
-
-      // LevelCompletedNodeOptions
-      {
-        starDiameter: Math.min( 60, 300 / numberOfChallenges ),
-        levelVisible: false,
-        contentMaxWidth: 500,
-        tandem: Tandem.OPT_OUT // ...because levelCompletedNode is created dynamically.
-      }
-    );
-
-    levelCompletedNode.localBoundsProperty.link( () => {
+    this.levelCompletedNode.localBoundsProperty.link( () => {
+      const levelCompletedNode = this.levelCompletedNode!;
+      assert && assert( levelCompletedNode );
       levelCompletedNode.center = this.layoutBounds.center;
     } );
-    this.screenViewRootNode.addChild( levelCompletedNode );
 
     // Play the appropriate audio feedback.
     if ( this.model.isPerfectScore() || BCEQueryParameters.showReward ) {
@@ -174,6 +149,29 @@ export default class GameScreenView extends ScreenView {
     else {
       this.audioPlayer.gameOverImperfectScore();
     }
+  }
+
+  /**
+   * Called when the 'Continue' button is pressed.
+   */
+  private continue(): void {
+
+    // Remove rewardNode, if we have one.
+    if ( this.rewardNode ) {
+      this.screenViewRootNode.removeChild( this.rewardNode );
+      this.rewardNode.dispose();
+      this.rewardNode = null;
+    }
+
+    // Remove levelCompletedNode.
+    const levelCompletedNode = this.levelCompletedNode!;
+    assert && assert( levelCompletedNode );
+    this.screenViewRootNode.removeChild( levelCompletedNode );
+    levelCompletedNode.dispose();
+    this.levelCompletedNode = null;
+
+    // Go back to the level-selection screen.
+    this.model.startOver();
   }
 }
 
