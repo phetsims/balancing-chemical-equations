@@ -10,13 +10,15 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import GameModel from '../model/GameModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 
 export default class BCELevelCompletedNode extends LevelCompletedNode {
 
   public constructor( model: GameModel, continueButtonCallback: () => void, tandem: Tandem ) {
 
-    const level = model.levelProperty.value!;
-    assert && assert( level );
+    // So that we have a non-null level when the archetype is created for BCELevelCompletedNodeGroup.
+    const level = model.levelProperty.value || model.levels[ 0 ];
 
     const numberOfChallenges = level.getNumberOfChallenges();
 
@@ -45,4 +47,22 @@ export default class BCELevelCompletedNode extends LevelCompletedNode {
   }
 }
 
+/**
+ * BCELevelCompletedNodeGroup is a PhetioGroup for dynamically creating instances of BCELevelCompletedNode.
+ */
+class BCELevelCompletedNodeGroup extends PhetioGroup<BCELevelCompletedNode> {
+
+  public constructor( model: GameModel, continueButtonCallback: () => void, tandem: Tandem ) {
+
+    const createElement = ( tandem: Tandem ) => new BCELevelCompletedNode( model, continueButtonCallback, tandem );
+
+    super( createElement, [], {
+      tandem: tandem,
+      phetioType: PhetioGroup.PhetioGroupIO( IOType.ObjectIO ),
+      supportsDynamicState: false
+    } );
+  }
+}
+
 balancingChemicalEquations.register( 'BCELevelCompletedNode', BCELevelCompletedNode );
+export { BCELevelCompletedNodeGroup };
