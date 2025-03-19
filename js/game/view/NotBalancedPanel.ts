@@ -30,11 +30,11 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { GameState } from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 
-// 'Show Why' and 'Hide Why' buttons
-const WHY_BUTTON_FONT = new PhetFont( 16 );
-const WHY_BUTTON_FILL = '#d9d9d9';
-
 export default class NotBalancedPanel extends GameFeedbackPanel {
+
+  // 'Show Why' and 'Hide Why' buttons
+  private static readonly WHY_BUTTON_FONT = new PhetFont( GameFeedbackPanel.PUSH_BUTTON_FONT.numericSize - 4 );
+  private static readonly WHY_BUTTON_FILL = '#d9d9d9';
 
   private readonly balancedRepresentationNode: BalancedRepresentationNode;
 
@@ -92,8 +92,8 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
         hideWhyButton.visible = true;
         balancedRepresentationNode.visible = true;
       },
-      font: WHY_BUTTON_FONT,
-      baseColor: WHY_BUTTON_FILL,
+      font: NotBalancedPanel.WHY_BUTTON_FONT,
+      baseColor: NotBalancedPanel.WHY_BUTTON_FILL,
       maxWidth: maxWidth,
       tandem: tandem.createTandem( 'showWhyButton' ),
       phetioVisiblePropertyInstrumented: false
@@ -106,8 +106,8 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
         hideWhyButton.visible = false;
         balancedRepresentationNode.visible = false;
       },
-      font: WHY_BUTTON_FONT,
-      baseColor: WHY_BUTTON_FILL,
+      font: NotBalancedPanel.WHY_BUTTON_FONT,
+      baseColor: NotBalancedPanel.WHY_BUTTON_FILL,
       maxWidth: maxWidth,
       tandem: tandem.createTandem( 'hideWhyButton' ),
       phetioVisiblePropertyInstrumented: false
