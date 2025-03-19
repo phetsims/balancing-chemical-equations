@@ -39,7 +39,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
   private static readonly WHY_BUTTON_FONT = new PhetFont( GameFeedbackPanel.PUSH_BUTTON_FONT.numericSize - 4 );
   private static readonly WHY_BUTTON_FILL = '#d9d9d9';
 
-  private readonly whyVisibleProperty: Property<boolean>;
+  private readonly balancedRepresentationVisibleProperty: Property<boolean>;
   private readonly balancedRepresentationNode: BalancedRepresentationNode;
 
   public constructor( equation: Equation,
@@ -87,19 +87,19 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       tandem: tandem.createTandem( 'showAnswerButton' )
     } );
 
-    const whyVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'whyVisibleProperty' ),
+    const balancedRepresentationVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'balancedRepresentationVisibleProperty' ),
       phetioDocumentation: 'Visibility of the representation that shows why the equation is not balanced.',
       phetioReadOnly: true
     } );
 
     // 'Show Why' or 'Hide Why'
     const showHideWhyStringProperty = new DerivedStringProperty(
-      [ whyVisibleProperty, BalancingChemicalEquationsStrings.showWhyStringProperty, BalancingChemicalEquationsStrings.hideWhyStringProperty ],
+      [ balancedRepresentationVisibleProperty, BalancingChemicalEquationsStrings.showWhyStringProperty, BalancingChemicalEquationsStrings.hideWhyStringProperty ],
       ( whyVisible, showWhyString, hideWhyString ) => whyVisible ? hideWhyString : showWhyString );
 
     // Toggle button that shows/hides the 'balanced' representation, to explain why the equation is not balanced.
-    const showHideWhyToggleButton = new RectangularToggleButton<boolean>( whyVisibleProperty, false, true, {
+    const showHideWhyToggleButton = new RectangularToggleButton<boolean>( balancedRepresentationVisibleProperty, false, true, {
       content: new Text( showHideWhyStringProperty, {
         font: NotBalancedPanel.WHY_BUTTON_FONT
       } ),
@@ -109,7 +109,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     } );
 
     const balancedRepresentationNode = new BalancedRepresentationNode( equation, balancedRepresentation, aligner,
-      whyVisibleProperty );
+      balancedRepresentationVisibleProperty );
 
     const content = new VBox( {
       excludeInvisibleChildrenFromBounds: true,
@@ -145,12 +145,12 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       phetioDocumentation: 'Provides feedback when the challenge is not balanced.'
     } );
 
-    this.whyVisibleProperty = whyVisibleProperty;
+    this.balancedRepresentationVisibleProperty = balancedRepresentationVisibleProperty;
     this.balancedRepresentationNode = balancedRepresentationNode;
   }
 
   public updateBalancedRepresentation( equation: Equation, balancedRepresentation: Exclude<BalancedRepresentation, 'none'> ): void {
-    this.whyVisibleProperty.reset();
+    this.balancedRepresentationVisibleProperty.reset();
     this.balancedRepresentationNode.update( equation, balancedRepresentation );
   }
 }
