@@ -51,7 +51,7 @@ export default class GameModel implements TModel {
   public readonly scoreProperty: Property<number>;
 
   // Challenges are a set of Equations to be balanced.
-  private challengesProperty: Property<Equation[]>;
+  private readonly challengesProperty: Property<Equation[]>;
 
   // Number of challenges in the current game
   public readonly numberOfChallengesProperty: TReadOnlyProperty<number>;
@@ -110,7 +110,15 @@ export default class GameModel implements TModel {
       phetioReadOnly: true
     } );
 
-    this.challengesProperty = new Property<Equation[]>( [], {
+    // The initial value of challengesProperty needs to be constant for PhET-iO, and non-empty for DerivedProperties
+    // herein. So create one dummy challenge that will never be seen by the user. The dummy challenge unfortunately
+    // must be PhET-iO instrumented, so it will appear in the PhET-iO Studio tree and PhET-iO API.
+    const initialChallenges = [
+      new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange,
+        tandem.createTandem( 'dummyChallenge' ) )
+    ];
+
+    this.challengesProperty = new Property<Equation[]>( initialChallenges, {
       tandem: tandem.createTandem( 'challengesProperty' ),
       phetioDocumentation: 'The current set of challenges being played.',
       phetioReadOnly: true,
@@ -120,8 +128,7 @@ export default class GameModel implements TModel {
 
     this.numberOfChallengesProperty = new DerivedProperty( [ this.challengesProperty ], challenges => challenges.length );
 
-    // Initial value is -1, because this.challengesProperty is empty.
-    this._challengeIndexProperty = new NumberProperty( -1, {
+    this._challengeIndexProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       tandem: tandem.createTandem( 'challengeIndexProperty' ),
       phetioFeatured: true,
@@ -135,18 +142,23 @@ export default class GameModel implements TModel {
       }
     } );
 
-    // Any Equation will do here for the initial value.
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Initial value should be null, but that would be a lot of work.
-    const dummyChallenge = new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange,
-      tandem.createTandem( 'dummyChallenge' ) );
-
+    // Consider that this may go through intermediate states when PhET-iO state is restored, depending on what
+    // order the dependencies are set.
     this.challengeProperty = new DerivedProperty( [ this.challengesProperty, this.challengeIndexProperty ],
-      ( challenges, challengeIndex ) => ( challenges.length > 0 && challengeIndex >= 0 ) ? challenges[ challengeIndex ] : dummyChallenge, {
+      ( challenges, challengeIndex ) => ( challengeIndex >= 0 && challenges.length > challengeIndex ) ? challenges[ challengeIndex ] : challenges[ 0 ], {
         tandem: tandem.createTandem( 'challengeProperty' ),
         phetioDocumentation: 'The challenge being played.',
         phetioFeatured: true,
         phetioValueType: Equation.EquationIO
       } );
+
+    // When the challenge changes, reset it to ensure that coefficients are zero, in case the set of challenges
+    // contains the same equation instance more than once.
+    this.challengeProperty.link( challenge => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        challenge.reset();
+      }
+    } );
 
     const timerTandem = tandem.createTandem( 'timer' );
     this.timer = new GameTimer( timerTandem );
