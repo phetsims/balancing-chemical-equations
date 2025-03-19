@@ -142,8 +142,8 @@ export default class GameModel implements TModel {
       }
     } );
 
-    // Consider that this may go through intermediate states when PhET-iO state is restored, depending on what
-    // order the dependencies are set.
+    // Consider that this derivation may go through intermediate states when PhET-iO state is restored,
+    // depending on what order the dependencies are set.
     this.challengeProperty = new DerivedProperty( [ this.challengesProperty, this.challengeIndexProperty ],
       ( challenges, challengeIndex ) => ( challengeIndex >= 0 && challenges.length > challengeIndex ) ? challenges[ challengeIndex ] : challenges[ 0 ], {
         tandem: tandem.createTandem( 'challengeProperty' ),
