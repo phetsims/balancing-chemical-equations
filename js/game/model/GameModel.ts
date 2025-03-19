@@ -110,7 +110,7 @@ export default class GameModel implements TModel {
       phetioReadOnly: true
     } );
 
-    // The initial value of challengesProperty needs to be constant for PhET-iO, and non-empty for DerivedProperties
+    // The initial value of challengesProperty must be constant for PhET-iO, and non-empty for DerivedProperties
     // herein. So create one dummy challenge that will never be seen by the user. The dummy challenge unfortunately
     // must be PhET-iO instrumented, so it will appear in the PhET-iO Studio tree and PhET-iO API.
     const initialChallenges = [
