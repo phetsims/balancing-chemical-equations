@@ -86,6 +86,9 @@ export default class GameFeedbackNode extends Node {
     } );
   }
 
+  /**
+   * Updates the feedback to match the state of the current challenge that is being played.
+   */
   public update(): void {
 
     const challenge = this.model.challengeProperty.value;
