@@ -101,6 +101,11 @@ export default class GameModel implements TModel {
     } );
     this.gameStateProperty = this._gameStateProperty;
 
+    // Validate game state transitions.
+    assert && this.gameStateProperty.lazyLink( ( toState, fromState ) => {
+      assert && assert( isValidGameStateTransition( fromState, toState ), `invalid transition: ${fromState} to ${toState}` );
+    } );
+
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       range: new Range( 0, Infinity ), // because ?playAll affects the range
@@ -222,8 +227,6 @@ export default class GameModel implements TModel {
    * Convenience method for setting the game state.
    */
   private setGameState( value: GameState ): void {
-    assert && assert( isValidGameStateTransition( this._gameStateProperty.value, value ),
-      `invalid game state transition: ${this._gameStateProperty.value} to ${value}` );
     this._gameStateProperty.value = value;
   }
 
