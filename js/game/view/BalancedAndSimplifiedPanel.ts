@@ -64,7 +64,6 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: MAX_WIDTH,
       listener: nextButtonListener,
       tandem: tandem.createTandem( 'nextButton' ),
-      phetioFeatured: true,
       phetioVisiblePropertyInstrumented: false
     } );
 

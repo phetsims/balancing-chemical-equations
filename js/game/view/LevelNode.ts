@@ -114,7 +114,6 @@ export default class LevelNode extends Node {
           this.model.check();
         },
         tandem: tandem.createTandem( 'checkButton' ),
-        phetioFeatured: true,
         phetioEnabledPropertyInstrumented: false,
         phetioVisiblePropertyInstrumented: false
       } ) );
@@ -131,7 +130,6 @@ export default class LevelNode extends Node {
           this.model.next();
         },
         tandem: tandem.createTandem( 'nextButton' ),
-        phetioFeatured: true,
         phetioEnabledPropertyInstrumented: false,
         phetioVisiblePropertyInstrumented: false
       } ) );
