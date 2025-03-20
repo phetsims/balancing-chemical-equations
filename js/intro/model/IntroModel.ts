@@ -74,6 +74,7 @@ export default class IntroModel implements TModel {
     this.equationProperty = new Property( this.choices[ 0 ].equation, {
       validValues: this.choices.map( choice => choice.equation ),
       tandem: tandem.createTandem( 'equationProperty' ),
+      phetioFeatured: true,
       phetioValueType: Equation.EquationIO
     } );
   }

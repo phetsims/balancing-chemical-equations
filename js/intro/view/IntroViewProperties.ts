@@ -27,16 +27,19 @@ export default class IntroViewProperties {
   public constructor( tandem: Tandem ) {
 
     this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' )
+      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' ),
+      phetioFeatured: true
     } );
 
     this.productsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' )
+      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' ),
+      phetioFeatured: true
     } );
 
     this.balancedRepresentationProperty = new StringUnionProperty( 'none', {
       validValues: BalancedRepresentationValues,
-      tandem: tandem.createTandem( 'balancedRepresentationProperty' )
+      tandem: tandem.createTandem( 'balancedRepresentationProperty' ),
+      phetioFeatured: true
     } );
   }
 

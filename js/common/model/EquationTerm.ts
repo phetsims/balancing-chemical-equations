@@ -61,7 +61,8 @@ export default class EquationTerm extends PhetioObject {
     this.coefficientProperty = new NumberProperty( options.initialCoefficient, {
       numberType: 'Integer',
       range: options.coefficientRange,
-      tandem: options.tandem.createTandem( 'coefficientProperty' )
+      tandem: options.tandem.createTandem( 'coefficientProperty' ),
+      phetioFeatured: true
     } );
   }
 
