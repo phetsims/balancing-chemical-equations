@@ -121,7 +121,7 @@ export default class GameModel implements TModel {
     const initialChallenges = [
 
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can this be Tandem.OPT_OUT?
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add phetioDocumentation.
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add phetioDocumentation and phetioFeatured: false.
       new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange,
         tandem.createTandem( 'dummyChallenge' ) )
     ];
