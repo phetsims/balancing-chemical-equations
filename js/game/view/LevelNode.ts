@@ -86,7 +86,7 @@ export default class LevelNode extends Node {
     this.addChild( this.accordionBoxes );
 
     this.equationNode = new EquationNode( model.challengeProperty.value, this.aligner, {
-      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+      tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 How to instrument dynamic UI elements?
     } );
 
     this.equationNodeParent = new Node( {
@@ -101,7 +101,7 @@ export default class LevelNode extends Node {
 
       // Create a new equationNode for the current challenge.
       this.equationNode = new EquationNode( challenge, this.aligner, {
-        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+        tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 How to instrument dynamic UI elements?
       } );
       this.equationNodeParent.children = [ this.equationNode ];
       this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
@@ -162,7 +162,7 @@ export default class LevelNode extends Node {
         centerX: this.checkButton.centerX,
         bottom: this.checkButton.top - 15,
         enabledProperty: new DerivedProperty( [ model.gameStateProperty ], gameState => gameState === 'check' ),
-        tandem: Tandem.OPT_OUT // ... because skipButton is an optional development tool.
+        tandem: Tandem.OPT_OUT // skipButton is optional with ?showAnswers, not part of the PhET-iO API.
       } ) );
       this.addChild( skipButton );
     }
