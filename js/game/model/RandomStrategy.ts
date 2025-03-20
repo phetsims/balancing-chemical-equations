@@ -104,7 +104,7 @@ export default class RandomStrategy {
 
       // Add the equation to the game.
       equations.push( equation );
-      phet.log && phet.log( `+ ${equation.tandem.name}, ${equation.toString()}` );
+      phet.log && phet.log( `+ selected ${equation.tandem.name}, ${equation.toString()}` );
 
       // Remove the equation from the pool, so it won't be selected again.
       poolCopy.splice( poolCopy.indexOf( equation ), 1 );
@@ -118,7 +118,7 @@ export default class RandomStrategy {
             const excludedIndex = poolCopy.indexOf( exclusion );
             if ( excludedIndex !== -1 ) {
               poolCopy.splice( excludedIndex, 1 );
-              phet.log && phet.log( `- excluded ${exclusion.toString()}` );
+              phet.log && phet.log( `- excluded ${exclusion.tandem.name}, ${exclusion.toString()}` );
             }
           }
         }
