@@ -73,12 +73,12 @@ export default class EquationNode extends Node {
     this.addChild( this.termsParent );
 
     // Create the reactants side of the equation.
-    this.createSideOfEquation( 'reactant', this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ),
-      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), options.tandem );
+    this.createSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ),
+      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), 'reactant', options.tandem );
 
     // Create the products side of the equation.
-    this.createSideOfEquation( 'product', this.equation.products, this.aligner.getProductXOffsets( this.equation ),
-      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), options.tandem );
+    this.createSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ),
+      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), 'product', options.tandem );
 
     this.addLinkedElement( equation );
     
@@ -90,14 +90,14 @@ export default class EquationNode extends Node {
 
   /**
    * Creates one side of the equation.
-   * @param tandemNamePrefix
    * @param terms
    * @param xOffsets
    * @param minX - minimal possible x for equation
    * @param maxX - maximum possible x for equation
+   * @param tandemNamePrefix
    * @param parentTandem
    */
-  private createSideOfEquation( tandemNamePrefix: string, terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number, parentTandem: Tandem ): void {
+  private createSideOfEquation( terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number, tandemNamePrefix: string, parentTandem: Tandem ): void {
     assert && assert( terms.length > 0 );
 
     let plusNode;
