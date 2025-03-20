@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * BCELevelCompletedNode is present as summary of how the user did on a level, after all challenges have been played.
+ * BCELevelCompletedNode presents a summary of how the user did on a level, after all challenges have been played.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,8 +10,6 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import GameModel from '../model/GameModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
-import IOType from '../../../../tandem/js/types/IOType.js';
 
 export default class BCELevelCompletedNode extends LevelCompletedNode {
 
@@ -47,25 +45,4 @@ export default class BCELevelCompletedNode extends LevelCompletedNode {
   }
 }
 
-/**
- * BCELevelCompletedNodeGroup is a PhetioGroup for dynamically creating instances of BCELevelCompletedNode.
- */
-class BCELevelCompletedNodeGroup extends PhetioGroup<BCELevelCompletedNode> {
-
-  public constructor( model: GameModel, continueButtonCallback: () => void, tandem: Tandem ) {
-
-    const createElement = ( tandem: Tandem ) => new BCELevelCompletedNode( model, continueButtonCallback, tandem );
-
-    super( createElement, [], {
-      tandem: tandem,
-      phetioDocumentation: 'Dynamically creates the summary that appears when a game level has been completed.',
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why IOType.ObjectIO
-      phetioType: PhetioGroup.PhetioGroupIO( IOType.ObjectIO ),
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why false.
-      supportsDynamicState: false
-    } );
-  }
-}
-
 balancingChemicalEquations.register( 'BCELevelCompletedNode', BCELevelCompletedNode );
-export { BCELevelCompletedNodeGroup };

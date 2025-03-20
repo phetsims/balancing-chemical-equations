@@ -20,7 +20,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
-import EquationNode, { EquationNodeGroup } from '../../common/view/EquationNode.js';
+import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
 import GameFeedbackNode from './GameFeedbackNode.js';
@@ -46,7 +46,6 @@ export default class LevelNode extends Node {
   // boxes that show molecules corresponding to the equation coefficients
   private readonly accordionBoxes: BoxesNode;
 
-  private readonly equationNodeGroup: EquationNodeGroup;
   private equationNode: EquationNode;
   private readonly equationNodeParent: Node;
 
@@ -86,10 +85,9 @@ export default class LevelNode extends Node {
       } );
     this.addChild( this.accordionBoxes );
 
-    this.equationNodeGroup = new EquationNodeGroup( model.challengeProperty.value, this.aligner,
-      tandem.createTandem( 'equationNodeGroup' ) );
-
-    this.equationNode = this.equationNodeGroup.createNextElement( model.challengeProperty.value );
+    this.equationNode = new EquationNode( model.challengeProperty.value, this.aligner, {
+      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+    } );
 
     this.equationNodeParent = new Node( {
       children: []
@@ -99,10 +97,12 @@ export default class LevelNode extends Node {
     model.challengeProperty.lazyLink( challenge => {
 
       // Dispose of the current equationNode.
-      this.equationNodeGroup.disposeElement( this.equationNode );
+      this.equationNode.dispose();
 
       // Create a new equationNode for the current challenge.
-      this.equationNode = this.equationNodeGroup.createNextElement( challenge );
+      this.equationNode = new EquationNode( challenge, this.aligner, {
+        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+      } );
       this.equationNodeParent.children = [ this.equationNode ];
       this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
     } );

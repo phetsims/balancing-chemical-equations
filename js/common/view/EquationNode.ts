@@ -22,8 +22,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
-import IOType from '../../../../tandem/js/types/IOType.js';
 
 type SelfOptions = {
   fontSize?: number;
@@ -185,30 +183,4 @@ export default class EquationNode extends Node {
   }
 }
 
-type CreateElementArguments = [ Equation ];
-
-/**
- * EquationNodeGroup is a PhetioGroup for dynamically creating instances of EquationNode.
- * It is used in the Game screen, where EquationNode instances are dynamically created for challenges.
- */
-class EquationNodeGroup extends PhetioGroup<EquationNode, CreateElementArguments> {
-
-  public constructor( defaultEquation: Equation, aligner: HorizontalAligner, tandem: Tandem ) {
-
-    const createElement = ( tandem: Tandem, equation: Equation ) => new EquationNode( equation, aligner, {
-      tandem: tandem
-    } );
-
-    super( createElement, [ defaultEquation ], {
-      tandem: tandem,
-      phetioDocumentation: 'Dynamically creates the user interface for displaying an equation and setting its coefficients.',
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why IOType.ObjectIO.
-      phetioType: PhetioGroup.PhetioGroupIO( IOType.ObjectIO ),
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why false.
-      supportsDynamicState: false
-    } );
-  }
-}
-
 balancingChemicalEquations.register( 'EquationNode', EquationNode );
-export { EquationNodeGroup };

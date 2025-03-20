@@ -19,7 +19,7 @@ import BCERewardNode from './BCERewardNode.js';
 import LevelNode from './LevelNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import LevelSelectionNode from './LevelSelectionNode.js';
-import BCELevelCompletedNode, { BCELevelCompletedNodeGroup } from './BCELevelCompletedNode.js';
+import BCELevelCompletedNode from './BCELevelCompletedNode.js';
 
 export default class GameScreenView extends ScreenView {
 
@@ -31,10 +31,7 @@ export default class GameScreenView extends ScreenView {
 
   private readonly levelSelectionNode: Node;
   private readonly levelNode: Node;
-
-  private readonly levelCompletedNodeGroup: BCELevelCompletedNodeGroup;
-  private levelCompletedNode: BCELevelCompletedNode | null;
-
+  private levelCompletedNode: BCELevelCompletedNode | null; // created on demand
   private rewardNode: BCERewardNode | null; // created on demand
 
   public constructor( model: GameModel, tandem: Tandem ) {
@@ -54,9 +51,6 @@ export default class GameScreenView extends ScreenView {
 
     this.levelNode = new LevelNode( this.model, this.viewProperties, this.audioPlayer,
       this.layoutBounds, this.visibleBoundsProperty, tandem.createTandem( 'levelNode' ) );
-
-    this.levelCompletedNodeGroup = new BCELevelCompletedNodeGroup( model, () => this.continue(),
-      tandem.createTandem( 'levelCompletedNodeGroup' ) );
 
     this.levelCompletedNode = null;
 
@@ -137,8 +131,9 @@ export default class GameScreenView extends ScreenView {
       this.screenViewRootNode.addChild( this.rewardNode );
     }
 
-    // Dynamically create the level-completed Node via PhetioGroup.
-    this.levelCompletedNode = this.levelCompletedNodeGroup.createNextElement();
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 OPT_OUT because levelCompletedNode is created dynamically.
+    this.levelCompletedNode = new BCELevelCompletedNode( this.model, () => this.continue(), Tandem.OPT_OUT );
+
     this.screenViewRootNode.addChild( this.levelCompletedNode );
 
     this.levelCompletedNode.localBoundsProperty.link( () => {
@@ -172,7 +167,7 @@ export default class GameScreenView extends ScreenView {
     const levelCompletedNode = this.levelCompletedNode!;
     assert && assert( levelCompletedNode );
     this.screenViewRootNode.removeChild( levelCompletedNode );
-    this.levelCompletedNodeGroup.disposeElement( levelCompletedNode );
+    levelCompletedNode.dispose();
     this.levelCompletedNode = null;
 
     // Go back to the level-selection screen.
