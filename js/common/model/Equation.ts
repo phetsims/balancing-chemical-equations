@@ -54,6 +54,7 @@ export default class Equation extends PhetioObject {
     super( {
       isDisposable: false,
       tandem: tandem,
+      phetioDocumentation: createEquationString( reactants, products ),
       phetioType: Equation.EquationIO
     } );
 
@@ -204,30 +205,7 @@ export default class Equation extends PhetioObject {
    * String value of an equation, shows balanced coefficients, for debugging. Do not rely on this format!
    */
   public override toString(): string {
-    let string = '';
-
-    // reactants
-    for ( let i = 0; i < this.reactants.length; i++ ) {
-      string += this.reactants[ i ].balancedCoefficient;
-      string += ' ';
-      string += this.reactants[ i ].molecule.symbol;
-      if ( i < this.reactants.length - 1 ) {
-        string += ' + ';
-      }
-    }
-
-    // right arrow, with space before and after
-    string += ' \u2192 ';
-
-    // products
-    for ( let i = 0; i < this.products.length; i++ ) {
-      string += this.products[ i ].balancedCoefficient;
-      string += ' ';
-      string += this.products[ i ].molecule.symbol;
-      if ( i < this.products.length - 1 ) {
-        string += ' + ';
-      }
-    }
+    let string = createEquationString( this.reactants, this.products );
 
     // strip out HTML tags to improve readability
     string = string.replace( /<sub>/g, '' );
@@ -244,6 +222,38 @@ export default class Equation extends PhetioObject {
     valueType: Equation,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
+}
+
+/**
+ * Creates PhET-iO documentation for an Equation.
+ */
+function createEquationString( reactants: EquationTerm[], products: EquationTerm[] ): string {
+  let string = '';
+
+  // reactants
+  for ( let i = 0; i < reactants.length; i++ ) {
+    string += reactants[ i ].balancedCoefficient;
+    string += ' ';
+    string += reactants[ i ].molecule.symbol;
+    if ( i < reactants.length - 1 ) {
+      string += ' + ';
+    }
+  }
+
+  // right arrow, with space before and after
+  string += ' \u2192 ';
+
+  // products
+  for ( let i = 0; i < products.length; i++ ) {
+    string += products[ i ].balancedCoefficient;
+    string += ' ';
+    string += products[ i ].molecule.symbol;
+    if ( i < products.length - 1 ) {
+      string += ' + ';
+    }
+  }
+
+  return string;
 }
 
 balancingChemicalEquations.register( 'Equation', Equation );
