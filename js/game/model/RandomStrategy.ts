@@ -104,7 +104,7 @@ export default class RandomStrategy {
 
       // Add the equation to the game.
       equations.push( equation );
-      phet.log && phet.log( `+ chose ${equation.toString()}` );
+      phet.log && phet.log( `+ ${equation.tandem.name}, ${equation.toString()}` );
 
       // Remove the equation from the pool, so it won't be selected again.
       poolCopy.splice( poolCopy.indexOf( equation ), 1 );

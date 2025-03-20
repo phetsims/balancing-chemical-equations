@@ -159,6 +159,7 @@ export default class GameModel implements TModel {
         phetioFeatured: true,
         phetioValueType: Equation.EquationIO
       } );
+    phet.log && this.challengeProperty.lazyLink( challenge => phet.log( `Playing ${challenge.tandem.name}, ${challenge.toString()}` ) );
 
     // When the challenge changes, reset it to ensure that coefficients are zero, in case the set of challenges
     // contains the same equation instance more than once.
