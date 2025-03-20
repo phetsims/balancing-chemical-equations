@@ -109,6 +109,14 @@ export default class GameLevel extends PhetioObject {
   }
 
   /**
+   * Gets an equation from the pool.
+   */
+  public getEquation( index: number ): Equation {
+    assert && assert( index >= 0 && index < this.equationPool.length );
+    return this.equationPool[ index ];
+  }
+
+  /**
    * Gets the number of equations for this level.
    */
   public getNumberOfChallenges(): number {

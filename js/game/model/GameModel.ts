@@ -16,7 +16,6 @@ import GameTimer from '../../../../vegas/js/GameTimer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Equation from '../../common/model/Equation.js';
-import SynthesisEquation from '../../common/model/SynthesisEquation.js';
 import { GameState, GameStateValues, isValidGameStateTransition } from './GameState.js';
 import GameLevel from './GameLevel.js';
 import GameLevel1 from './GameLevel1.js';
@@ -26,7 +25,6 @@ import TModel from '../../../../joist/js/TModel.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Molecule from '../../common/model/Molecule.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -115,18 +113,10 @@ export default class GameModel implements TModel {
       phetioReadOnly: true
     } );
 
-    // The initial value of challengesProperty must be constant for PhET-iO, and non-empty for DerivedProperties
-    // herein. So create one dummy challenge that will never be seen by the user. The dummy challenge unfortunately
-    // must be PhET-iO instrumented, so it will appear in the PhET-iO Studio tree and PhET-iO API.
-    const initialChallenges = [
-
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Can this be Tandem.OPT_OUT?
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add phetioDocumentation and phetioFeatured: false.
-      new SynthesisEquation( 1, Molecule.C, 1, Molecule.O2, 1, Molecule.CO2, this.coefficientsRange,
-        tandem.createTandem( 'dummyChallenge' ) )
-    ];
-
-    this.challengesProperty = new Property<Equation[]>( initialChallenges, {
+    // Any initial value if OK here, as long as the array is not empty, the challenges are instrumented,
+    // and the initial value is not randomly generated (which would break the PhET-iO API).
+    this.challengesProperty = new Property<Equation[]>( [ this.levels[ 0 ].getEquation( 0 ) ], {
+      isValidValue: challenges => challenges.length > 0,
       tandem: tandem.createTandem( 'challengesProperty' ),
       phetioDocumentation: 'The current set of challenges being played.',
       phetioReadOnly: true,
