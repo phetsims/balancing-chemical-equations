@@ -53,7 +53,10 @@ export default class EquationNode extends Node {
     const options = optionize<EquationNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      fontSize: 32
+      fontSize: 32,
+
+      // NodeOptions
+      phetioFeatured: true
     }, providedOptions );
 
     super( options );

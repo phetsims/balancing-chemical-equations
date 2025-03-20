@@ -75,7 +75,8 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       maxWidth: maxWidth,
       listener: tryAgainButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'tryAgain' ),
-      tandem: tandem.createTandem( 'tryAgainButton' )
+      tandem: tandem.createTandem( 'tryAgainButton' ),
+      phetioFeatured: true
     } );
 
     const showAnswerButton = new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
@@ -84,7 +85,8 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       maxWidth: maxWidth,
       listener: showAnswerButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'showAnswer' ),
-      tandem: tandem.createTandem( 'showAnswerButton' )
+      tandem: tandem.createTandem( 'showAnswerButton' ),
+      phetioFeatured: true
     } );
 
     const balancedRepresentationVisibleProperty = new BooleanProperty( false, {
@@ -105,7 +107,8 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       } ),
       baseColor: NotBalancedPanel.WHY_BUTTON_FILL,
       maxWidth: maxWidth,
-      tandem: tandem.createTandem( 'showHideWhyToggleButton' )
+      tandem: tandem.createTandem( 'showHideWhyToggleButton' ),
+      phetioFeatured: true
     } );
 
     const balancedRepresentationNode = new BalancedRepresentationNode( equation, balancedRepresentation, aligner,

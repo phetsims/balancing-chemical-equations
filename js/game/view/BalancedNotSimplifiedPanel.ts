@@ -66,7 +66,8 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: maxWidth,
       listener: tryAgainButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'tryAgain' ),
-      tandem: tandem.createTandem( 'tryAgainButton' )
+      tandem: tandem.createTandem( 'tryAgainButton' ),
+      phetioFeatured: true
     } );
 
     const showAnswerButton = new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
@@ -75,7 +76,8 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: maxWidth,
       listener: showAnswerButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'showAnswer' ),
-      tandem: tandem.createTandem( 'showAnswerButton' )
+      tandem: tandem.createTandem( 'showAnswerButton' ),
+      phetioFeatured: true
     } );
 
     // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
