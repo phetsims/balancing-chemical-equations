@@ -72,16 +72,16 @@ export default class EquationNode extends Node {
     this.termsParent = new Node();
     this.addChild( this.termsParent );
 
-    const termNodesTandem = options.tandem.createTandem( 'termNodes' );
-
     // Create the reactants side of the equation.
-    this.createSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ),
-      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), termNodesTandem );
+    this.createSideOfEquation( 'reactant', this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ),
+      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), options.tandem );
 
     // Create the products side of the equation.
-    this.createSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ),
-      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), termNodesTandem );
+    this.createSideOfEquation( 'product', this.equation.products, this.aligner.getProductXOffsets( this.equation ),
+      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), options.tandem );
 
+    this.addLinkedElement( equation );
+    
     this.disposeEmitter.addListener( () => {
       this.arrowNode.dispose();
       this.termNodes.forEach( termNode => termNode.dispose() );
@@ -90,13 +90,14 @@ export default class EquationNode extends Node {
 
   /**
    * Creates one side of the equation.
+   * @param tandemNamePrefix
    * @param terms
    * @param xOffsets
    * @param minX - minimal possible x for equation
    * @param maxX - maximum possible x for equation
    * @param parentTandem
    */
-  private createSideOfEquation( terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number, parentTandem: Tandem ): void {
+  private createSideOfEquation( tandemNamePrefix: string, terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number, parentTandem: Tandem ): void {
     assert && assert( terms.length > 0 );
 
     let plusNode;
@@ -108,12 +109,10 @@ export default class EquationNode extends Node {
 
       const term = terms[ i ];
 
-      const tandemName = `${term.molecule.symbolPlainText}Node`;
-
       // term
       termNode = new EquationTermNode( term, {
         fontSize: this.fontSize,
-        tandem: parentTandem.createTandem( tandemName )
+        tandem: parentTandem.createTandem( `${tandemNamePrefix}${i + 1}Node` )
       } );
       this.termNodes.push( termNode );
       this.termsParent.addChild( termNode );

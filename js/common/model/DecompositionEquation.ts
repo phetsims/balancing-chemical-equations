@@ -33,25 +33,26 @@ export default class DecompositionEquation extends Equation {
                       p1: number, product1: Molecule,
                       p2: number, product2: Molecule,
                       coefficientsRange: Range,
-                      tandem = Tandem.OPT_OUT ) {
+                      tandem: Tandem ) {
 
-    const termsTandem = tandem.createTandem( 'terms' );
+    let reactantNumber = 1;
+    let productNumber = 1;
 
     super(
       [
         new EquationTerm( r1, reactant1, {
           coefficientRange: coefficientsRange,
-          tandem: termsTandem.createTandem( reactant1.symbolPlainText )
+          tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } )
       ],
       [
         new EquationTerm( p1, product1, {
           coefficientRange: coefficientsRange,
-          tandem: termsTandem.createTandem( product1.symbolPlainText )
+          tandem: tandem.createTandem( `product${productNumber++}` )
         } ),
         new EquationTerm( p2, product2, {
           coefficientRange: coefficientsRange,
-          tandem: termsTandem.createTandem( product2.symbolPlainText )
+          tandem: tandem.createTandem( `product${productNumber++}` )
         } )
       ],
       tandem

@@ -60,7 +60,6 @@ export default class Molecule {
 
   private readonly MoleculeNodeConstructor: new ( options?: MoleculeNodeOptions ) => MoleculeNode;
   public readonly symbol: string; // in RichText format, with LTR wrapping
-  public readonly symbolPlainText: string; // in plain text format
   public readonly atoms: Atom[];
 
   /**
@@ -72,7 +71,6 @@ export default class Molecule {
 
     this.MoleculeNodeConstructor = MoleculeNodeConstructor;
     this.symbol = elementsToSymbol( elements );
-    this.symbolPlainText = elementsToSymbol( elements, false /* withMarkup */ );
     this.atoms = elements.map( element => new Atom( element ) );
   }
 

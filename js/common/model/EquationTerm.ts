@@ -14,7 +14,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
 import Molecule from './Molecule.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Range from '../../../../dot/js/Range.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
@@ -25,7 +25,7 @@ type SelfOptions = {
 
 type EquationTermOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class EquationTerm {
+export default class EquationTerm extends PhetioObject {
 
   // The lowest possible coefficient (simplified) that will balance the equation.
   public readonly balancedCoefficient: number;
@@ -41,13 +41,19 @@ export default class EquationTerm {
     const options = optionize<EquationTermOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      initialCoefficient: 0
+      initialCoefficient: 0,
+
+      // PhetioObjectOptions
+      phetioDocumentation: molecule.symbol,
+      phetioState: false
     }, providedOptions );
 
     // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
     if ( BCEQueryParameters.playAll ) {
       options.initialCoefficient = balancedCoefficient;
     }
+
+    super( options );
 
     this.balancedCoefficient = balancedCoefficient;
     this.molecule = molecule;
