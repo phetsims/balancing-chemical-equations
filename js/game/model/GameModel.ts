@@ -182,6 +182,7 @@ export default class GameModel implements TModel {
       range: ATTEMPTS_RANGE,
       tandem: tandem.createTandem( 'attemptsProperty' ),
       phetioDocumentation: 'The number of attempts to solve the current challenge.',
+      phetioFeatured: true,
       phetioReadOnly: true
     } );
 
@@ -190,6 +191,7 @@ export default class GameModel implements TModel {
       range: new Range( 0, ATTEMPTS_RANGE.max * GameLevel.POINTS_FIRST_ATTEMPT ),
       tandem: tandem.createTandem( 'pointsProperty' ),
       phetioDocumentation: 'Points that have been earned for the current challenge.',
+      phetioFeatured: true,
       phetioReadOnly: true
     } );
 
