@@ -107,14 +107,14 @@ export default class LevelNode extends Node {
     model.challengeProperty.lazyLink( challenge => {
 
       if ( BCEQueryParameters.usePhetioGroup ) {
-        // Dispose of the current equationNode.
+        // Dispose of the previous equationNode.
         this.equationNodeGroup.disposeElement( this.equationNode );
 
         // Create a new equationNode for the current challenge.
         this.equationNode = this.equationNodeGroup.createNextElement( challenge );
       }
       else {
-        // Dispose of the current equationNode.
+        // Dispose of the previous equationNode.
         this.equationNode.dispose();
 
         // Create a new equationNode for the current challenge.
