@@ -72,6 +72,7 @@ export default class GameLevel extends PhetioObject {
 
       // PhetioObjectOptions
       isDisposable: false,
+      phetioState: false,
       phetioType: GameLevel.GameLevelIO
     }, providedOptions );
 

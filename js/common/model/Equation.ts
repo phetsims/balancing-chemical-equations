@@ -56,6 +56,7 @@ export default class Equation extends PhetioObject {
       tandem: tandem,
       phetioDocumentation: createEquationString( reactants, products ),
       phetioFeatured: true,
+      phetioState: false,
       phetioType: Equation.EquationIO
     } );
 
