@@ -22,7 +22,10 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
   showReward: { type: 'flag' },
 
   // Verifies the game model by creating lots of equation sets for each game level.
-  verifyGame: { type: 'flag' }
+  verifyGame: { type: 'flag' },
+
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160
+  usePhetioGroup: { type: 'flag' }
 } );
 
 balancingChemicalEquations.register( 'BCEQueryParameters', BCEQueryParameters );
