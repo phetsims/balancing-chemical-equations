@@ -87,6 +87,9 @@ export default class LevelNode extends Node {
       } );
     this.addChild( this.accordionBoxes );
 
+    this.equationNodeParent = new Node();
+    this.addChild( this.equationNodeParent );
+
     this.equationNodeGroup = new EquationNodeGroup( model.challengeProperty.value, this.aligner,
       tandem.createTandem( 'equationNodeGroup' ) );
 
@@ -99,19 +102,10 @@ export default class LevelNode extends Node {
       } );
     }
 
-    this.equationNodeParent = new Node( {
-      children: []
-    } );
-    this.addChild( this.equationNodeParent );
-
     model.challengeProperty.lazyLink( challenge => {
 
       if ( BCEQueryParameters.usePhetioGroup ) {
-        // Dispose of the previous equationNode.
-        this.equationNodeGroup.disposeElement( this.equationNode );
-
-        // Create a new equationNode for the current challenge.
-        this.equationNode = this.equationNodeGroup.createNextElement( challenge );
+        this.equationNodeGroup.createNextElement( challenge );
       }
       else {
         // Dispose of the previous equationNode.
@@ -123,6 +117,17 @@ export default class LevelNode extends Node {
         } );
       }
 
+      this.equationNodeParent.children = [ this.equationNode ];
+      this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
+    } );
+
+    this.equationNodeGroup.elementCreatedEmitter.addListener( equationNode => {
+
+      // Dispose of the previous equationNode.
+      this.equationNodeGroup.disposeElement( this.equationNode );
+
+      // Add new equationNode to scene graph.
+      this.equationNode = equationNode;
       this.equationNodeParent.children = [ this.equationNode ];
       this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
     } );
