@@ -22,15 +22,15 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IOType from '../../../../tandem/js/types/IOType.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 
 type SelfOptions = {
   fontSize?: number;
 };
 
 type EquationNodeOptions = SelfOptions & NodeTranslationOptions &
-  PickOptional<NodeOptions, 'visibleProperty'> & PickRequired<NodeOptions, 'tandem'>;
+  PickOptional<NodeOptions, 'visibleProperty'> & PhetioObjectOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class EquationNode extends Node {
 
@@ -206,7 +206,7 @@ class EquationNodeGroup extends PhetioGroup<EquationNode, CreateElementArguments
       tandem: tandem,
       phetioDocumentation: 'Dynamically creates the user interface for displaying an equation and setting its coefficients.',
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why IOType.ObjectIO.
-      phetioType: PhetioGroup.PhetioGroupIO( IOType.ObjectIO ),
+      phetioType: PhetioGroup.PhetioGroupIO( Node.NodeIO ),
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Document why false.
       supportsDynamicState: false
     } );
