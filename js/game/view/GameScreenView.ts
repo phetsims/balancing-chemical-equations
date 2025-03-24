@@ -131,7 +131,7 @@ export default class GameScreenView extends ScreenView {
       this.screenViewRootNode.addChild( this.rewardNode );
     }
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 OPT_OUT because levelCompletedNode is created dynamically.
+    // Tandem.OPT_OUT because levelCompletedNode is created dynamically.
     this.levelCompletedNode = new BCELevelCompletedNode( this.model, () => this.continue(), Tandem.OPT_OUT );
 
     this.screenViewRootNode.addChild( this.levelCompletedNode );
