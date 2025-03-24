@@ -100,8 +100,22 @@ export default class GameScreenView extends ScreenView {
    * Set up the UI for the 'levelSelection' game state.
    */
   private initLevelSelection(): void {
-    this.levelNode.visible = false;
+
     this.levelSelectionNode.visible = true;
+    this.levelNode.visible = false;
+
+    if ( this.levelCompletedNode ) {
+      this.screenViewRootNode.removeChild( this.levelCompletedNode );
+      this.levelCompletedNode.dispose();
+      this.levelCompletedNode = null;
+    }
+
+    // Remove rewardNode, if we have one.
+    if ( this.rewardNode ) {
+      this.screenViewRootNode.removeChild( this.rewardNode );
+      this.rewardNode.dispose();
+      this.rewardNode = null;
+    }
   }
 
   /**
@@ -155,22 +169,6 @@ export default class GameScreenView extends ScreenView {
    * Called when the 'Continue' button is pressed.
    */
   private continue(): void {
-
-    // Remove rewardNode, if we have one.
-    if ( this.rewardNode ) {
-      this.screenViewRootNode.removeChild( this.rewardNode );
-      this.rewardNode.dispose();
-      this.rewardNode = null;
-    }
-
-    // Remove levelCompletedNode.
-    const levelCompletedNode = this.levelCompletedNode!;
-    assert && assert( levelCompletedNode );
-    this.screenViewRootNode.removeChild( levelCompletedNode );
-    levelCompletedNode.dispose();
-    this.levelCompletedNode = null;
-
-    // Go back to the level-selection screen.
     this.model.startOver();
   }
 }
