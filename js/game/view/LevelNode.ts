@@ -20,14 +20,13 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
-import EquationNode, { EquationNodeGroup } from '../../common/view/EquationNode.js';
+import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
 import GameFeedbackNode from './GameFeedbackNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
@@ -47,7 +46,6 @@ export default class LevelNode extends Node {
   // boxes that show molecules corresponding to the equation coefficients
   private readonly accordionBoxes: BoxesNode;
 
-  private readonly equationNodeGroup: EquationNodeGroup;
   private equationNode: EquationNode;
   private readonly equationNodeParent: Node;
 
@@ -87,18 +85,9 @@ export default class LevelNode extends Node {
       } );
     this.addChild( this.accordionBoxes );
 
-
-    this.equationNodeGroup = new EquationNodeGroup( model.challengeProperty.value, this.aligner,
-      tandem.createTandem( 'equationNodeGroup' ) );
-
-    if ( BCEQueryParameters.usePhetioGroup ) {
-      this.equationNode = this.equationNodeGroup.createNextElement( model.challengeProperty.value );
-    }
-    else {
-      this.equationNode = new EquationNode( model.challengeProperty.value, this.aligner, {
-        tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 How to instrument dynamic UI elements?
-      } );
-    }
+    this.equationNode = new EquationNode( model.challengeProperty.value, this.aligner, {
+      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+    } );
 
     this.equationNodeParent = new Node();
     this.addChild( this.equationNodeParent );
@@ -107,31 +96,15 @@ export default class LevelNode extends Node {
     this.equationNodeParent.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
 
     model.challengeProperty.lazyLink( challenge => {
-      if ( BCEQueryParameters.usePhetioGroup ) {
-        this.equationNodeGroup.createNextElement( challenge );
-      }
-      else {
-        // Dispose of the previous equationNode.
-        this.equationNode && this.equationNode.dispose();
-
-        // Create a new equationNode for the current challenge.
-        this.equationNode = new EquationNode( challenge, this.aligner, {
-          tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 How to instrument dynamic UI elements?
-        } );
-      }
-
-      this.equationNodeParent.children = [ this.equationNode ];
-    } );
-
-    this.equationNodeGroup.elementCreatedEmitter.addListener( equationNode => {
 
       // Dispose of the previous equationNode.
-      this.equationNodeGroup.disposeElement( this.equationNode );
+      this.equationNode.dispose();
 
-      // Add new equationNode to scene graph.
-      this.equationNode = equationNode;
+      // Create a new equationNode for the current challenge.
+      this.equationNode = new EquationNode( challenge, this.aligner, {
+        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+      } );
       this.equationNodeParent.children = [ this.equationNode ];
-      this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
     } );
 
     this.checkButton = new TextPushButton( BalancingChemicalEquationsStrings.checkStringProperty,
