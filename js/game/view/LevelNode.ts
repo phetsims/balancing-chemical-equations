@@ -87,8 +87,6 @@ export default class LevelNode extends Node {
       } );
     this.addChild( this.accordionBoxes );
 
-    this.equationNodeParent = new Node();
-    this.addChild( this.equationNodeParent );
 
     this.equationNodeGroup = new EquationNodeGroup( model.challengeProperty.value, this.aligner,
       tandem.createTandem( 'equationNodeGroup' ) );
@@ -102,14 +100,19 @@ export default class LevelNode extends Node {
       } );
     }
 
-    model.challengeProperty.lazyLink( challenge => {
+    this.equationNodeParent = new Node();
+    this.addChild( this.equationNodeParent );
+    this.equationNodeParent.children = [ this.equationNode ];
+    // x position is handled by this.aligner.
+    this.equationNodeParent.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
 
+    model.challengeProperty.lazyLink( challenge => {
       if ( BCEQueryParameters.usePhetioGroup ) {
         this.equationNodeGroup.createNextElement( challenge );
       }
       else {
         // Dispose of the previous equationNode.
-        this.equationNode.dispose();
+        this.equationNode && this.equationNode.dispose();
 
         // Create a new equationNode for the current challenge.
         this.equationNode = new EquationNode( challenge, this.aligner, {
@@ -118,7 +121,6 @@ export default class LevelNode extends Node {
       }
 
       this.equationNodeParent.children = [ this.equationNode ];
-      this.equationNode.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
     } );
 
     this.equationNodeGroup.elementCreatedEmitter.addListener( equationNode => {
