@@ -82,7 +82,7 @@ export default class Equation extends PhetioObject {
 
         // Get the multiplier from the first reactant term (any term will do.)
         const multiplier = this.reactants[ 0 ].coefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
-        if ( multiplier > 0 && Number.isInteger( multiplier ) ) {
+        if ( multiplier > 0 ) {
 
           // Check each term to see if the actual coefficient is the same multiple of the balanced coefficient.
           isBalanced = true;
