@@ -82,9 +82,8 @@ export default class GameFeedbackNode extends Node {
     this.addChild( panelsParent );
 
     // Resize dropShadowNode when the panel size changes.
-    panelsParent.localBoundsProperty.link( () => {
-      dropShadowNode.setRect( panelsParent.left + SHADOW_X_OFFSET, panelsParent.top + SHADOW_Y_OFFSET, panelsParent.width, panelsParent.height );
-    } );
+    panelsParent.localBoundsProperty.link( () =>
+      dropShadowNode.setRect( panelsParent.left + SHADOW_X_OFFSET, panelsParent.top + SHADOW_Y_OFFSET, panelsParent.width, panelsParent.height ) );
   }
 
   /**

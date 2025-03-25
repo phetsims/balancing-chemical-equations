@@ -54,9 +54,7 @@ export default class EqualityOperatorNode extends Node {
       notEqualToNode.visible = !isBalanced;
     };
     equationProperty.link( ( newEquation, oldEquation ) => {
-      if ( oldEquation ) {
-        oldEquation.isBalancedProperty.unlink( isBalancedListener );
-      }
+      oldEquation && oldEquation.isBalancedProperty.unlink( isBalancedListener );
       newEquation.isBalancedProperty.link( isBalancedListener );
     } );
   }
