@@ -18,7 +18,7 @@ export default class EquationsViewProperties {
 
   public constructor( tandem: Tandem ) {
 
-    this.balancedRepresentationProperty = new StringUnionProperty( 'none', {
+    this.balancedRepresentationProperty = new StringUnionProperty( 'balanceScales', {
       validValues: BalancedRepresentationValues,
       tandem: tandem.createTandem( 'balancedRepresentationProperty' ),
       phetioFeatured: true
