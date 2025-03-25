@@ -26,10 +26,12 @@ import EquationsComboBox from './EquationsComboBox.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import EquationNode from '../../common/view/EquationNode.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 
-//TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Need by aligner.
-// const BOX_SIZE = new Dimension2( 285, 145 );
-// const BOX_X_SPACING = 110; // horizontal spacing between boxes
+const BOX_SIZE = new Dimension2( 285, 145 );
+const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
 export default class EquationsScreenView extends ScreenView {
 
@@ -45,8 +47,7 @@ export default class EquationsScreenView extends ScreenView {
     const viewProperties = new EquationsViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // aligner for equation
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 aligner is needed even without accordion boxes.
-    // const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
+    const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // 'Tools' combo box, at upper-right
     const listboxParent = new Node();
@@ -131,6 +132,27 @@ export default class EquationsScreenView extends ScreenView {
         equationComboBoxes.centerY = horizontalBarNode.centerY;
       } );
 
+    let equationNode = new EquationNode( model.equationProperty.value, aligner, {
+      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+    } );
+    const equationNodes = new Node( {
+      children: [ equationNode ]
+    } );
+    // x position is handled by this.aligner.
+    equationNodes.bottom = horizontalBarNode.top - 20;
+
+    model.equationProperty.lazyLink( equation => {
+
+      // Dispose of the previous equationNode.
+      equationNode.dispose();
+
+      // Create a new equationNode for the current equation.
+      equationNode = new EquationNode( equation, aligner, {
+        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+      } );
+      equationNodes.children = [ equationNode ];
+    } );
+
     // Reset All button
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -147,6 +169,7 @@ export default class EquationsScreenView extends ScreenView {
       children: [
         toolsControl,
         faceNode,
+        equationNodes,
         horizontalBarNode,
         equationRadioButtonGroup,
         equationComboBoxes,
@@ -173,7 +196,8 @@ export default class EquationsScreenView extends ScreenView {
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
       equationRadioButtonGroup,
-      equationComboBoxes
+      equationComboBoxes,
+      equationNodes
     ];
 
     // Control Area focus order
