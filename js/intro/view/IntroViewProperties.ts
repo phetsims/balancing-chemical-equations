@@ -21,7 +21,7 @@ export default class IntroViewProperties {
   // Whether the 'Products' accordion box is expanded
   public readonly productsAccordionBoxExpandedProperty: Property<boolean>;
 
-  // Which representation for 'balanced' is chosen from the combo box
+  // The representation for 'balanced' that is chosen from the Tools combo box.
   public readonly balancedRepresentationProperty: StringUnionProperty<BalancedRepresentation>;
 
   public constructor( tandem: Tandem ) {

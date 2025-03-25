@@ -13,7 +13,7 @@ import { BalancedRepresentation, BalancedRepresentationValues } from '../../comm
 
 export default class EquationsViewProperties {
   
-  // Which representation for 'balanced' is chosen from the combo box
+  // The representation for 'balanced' that is chosen from the Tools combo box.
   public readonly balancedRepresentationProperty: StringUnionProperty<BalancedRepresentation>;
 
   public constructor( tandem: Tandem ) {
