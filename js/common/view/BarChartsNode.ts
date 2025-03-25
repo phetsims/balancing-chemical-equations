@@ -167,11 +167,13 @@ export default class BarChartsNode extends Node {
         const atomCount = atomCounts[ i ];
 
         const reactantCountProperty = this.reactantCountProperties.get( atomCount.element )!;
-        assert && assert( reactantCountProperty );
+        assert && assert( reactantCountProperty,
+          `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
         reactantCountProperty.value = atomCount.reactantsCount;
 
         const productCountProperty = this.productCountProperties.get( atomCount.element )!;
-        assert && assert( productCountProperty );
+        assert && assert( productCountProperty,
+          `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
         productCountProperty.value = atomCount.productsCount;
       }
     }
