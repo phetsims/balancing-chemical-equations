@@ -7,37 +7,24 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
-import HorizontalAquaRadioButtonGroup, { HorizontalAquaRadioButtonGroupOptions } from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
+import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import { EquationType } from '../model/EquationsModel.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const TEXT_OPTIONS = {
   font: new PhetFont( 16 ),
-  fill: 'white'
+  fill: 'white',
+  maxWidth: 100
 };
-
-type SelfOptions = EmptySelfOptions;
-
-type EquationTypeRadioButtonGroupOptions = SelfOptions & PickRequired<HorizontalAquaRadioButtonGroupOptions, 'tandem' | 'maxWidth'>;
 
 export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup<EquationType> {
 
-  public constructor( equationTypeProperty: Property<EquationType>, providedOptions: EquationTypeRadioButtonGroupOptions ) {
-
-    const options = optionize<EquationTypeRadioButtonGroupOptions, SelfOptions, HorizontalAquaRadioButtonGroupOptions>()( {
-
-      // NodeOptions
-      isDisposable: false,
-      radioButtonOptions: { radius: 8 },
-      touchAreaYDilation: 15,
-      spacing: 30
-    }, providedOptions );
+  public constructor( equationTypeProperty: Property<EquationType>, tandem: Tandem ) {
 
     const items: AquaRadioButtonGroupItem<EquationType>[] = [
       {
@@ -57,7 +44,13 @@ export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioBut
       }
     ];
 
-    super( equationTypeProperty, items, options );
+    super( equationTypeProperty, items, {
+      isDisposable: false,
+      radioButtonOptions: { radius: 8 },
+      touchAreaYDilation: 15,
+      spacing: 30,
+      tandem: tandem
+    } );
   }
 }
 

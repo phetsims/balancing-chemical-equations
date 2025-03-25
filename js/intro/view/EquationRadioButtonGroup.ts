@@ -8,28 +8,24 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
-import HorizontalAquaRadioButtonGroup, { HorizontalAquaRadioButtonGroupOptions } from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
+import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import { EquationChoice } from '../model/IntroModel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const TEXT_OPTIONS = {
   font: new PhetFont( 16 ),
-  fill: 'white'
+  fill: 'white',
+  maxWidth: 150
 };
-
-type SelfOptions = EmptySelfOptions;
-
-type EquationRadioButtonGroupOptions = SelfOptions & PickRequired<HorizontalAquaRadioButtonGroupOptions, 'tandem' | 'maxWidth'>;
 
 export default class EquationRadioButtonGroup extends HorizontalAquaRadioButtonGroup<Equation> {
 
-  public constructor( equationProperty: Property<Equation>, choices: EquationChoice[], providedOptions: EquationRadioButtonGroupOptions ) {
+  public constructor( equationProperty: Property<Equation>, choices: EquationChoice[], tandem: Tandem ) {
 
     // radio button descriptions, one button for each equation
     const radioButtonItems: AquaRadioButtonGroupItem<Equation>[] = choices.map( choice => {
@@ -40,16 +36,13 @@ export default class EquationRadioButtonGroup extends HorizontalAquaRadioButtonG
       };
     } );
 
-    const options = optionize<EquationRadioButtonGroupOptions, SelfOptions, HorizontalAquaRadioButtonGroupOptions>()( {
-
-      // NodeOptions
+    super( equationProperty, radioButtonItems, {
       isDisposable: false,
       radioButtonOptions: { radius: 8 },
       touchAreaYDilation: 15,
-      spacing: 30
-    }, providedOptions );
-
-    super( equationProperty, radioButtonItems, options );
+      spacing: 30,
+      tandem: tandem
+    } );
   }
 }
 

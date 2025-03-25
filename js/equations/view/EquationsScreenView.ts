@@ -81,10 +81,8 @@ export default class EquationsScreenView extends ScreenView {
     } );
 
     // Radio button group for choosing an equation type
-    const equationRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty, {
-      maxWidth: 0.8 * this.layoutBounds.width, //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 maxWidth should be on Text nodes, not here.
-      tandem: tandem.createTandem( 'equationRadioButtonGroup' )
-    } );
+    const equationRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty,
+      tandem.createTandem( 'equationRadioButtonGroup' ) );
 
     // Bar behind radio buttons at bottom of screen
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Move HorizontalBarNode to common/.
