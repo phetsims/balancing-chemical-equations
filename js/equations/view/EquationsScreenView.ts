@@ -187,6 +187,7 @@ export default class EquationsScreenView extends ScreenView {
         bottom: horizontalBarNode.top - 5
       } );
       screenViewRootNode.addChild( answerNode );
+      answerNode.moveToBack();
       model.equationProperty.link( equation => {
         answerNode.string = equation.getAnswerString();
         answerNode.centerX = this.layoutBounds.centerX;
