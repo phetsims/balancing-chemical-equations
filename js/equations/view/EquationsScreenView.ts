@@ -22,6 +22,10 @@ import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
 import ToolsComboBox from '../../intro/view/ToolsComboBox.js';
 import HorizontalBarNode from '../../intro/view/HorizontalBarNode.js';
+import EquationsComboBox from './EquationsComboBox.js';
+import Multilink from '../../../../axon/js/Multilink.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 
 //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Need by aligner.
 // const BOX_SIZE = new Dimension2( 285, 145 );
@@ -96,6 +100,37 @@ export default class EquationsScreenView extends ScreenView {
       equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
     } );
 
+    // So that all equations have the same effective size.
+    const itemAlignGroup = new AlignGroup();
+
+    // ComboBoxes for selecting specific equations
+    const equationComboBoxesTandem = tandem.createTandem( 'equationsComboBoxes' );
+    const equationComboBoxes = new Node( {
+      children: [
+        new EquationsComboBox( model.synthesisEquationProperty, listboxParent, itemAlignGroup, {
+          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'synthesis' ),
+          tandem: equationComboBoxesTandem.createTandem( 'synthesisEquationComboBox' )
+        } ),
+        new EquationsComboBox( model.decompositionEquationProperty, listboxParent, itemAlignGroup, {
+          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'decomposition' ),
+          tandem: equationComboBoxesTandem.createTandem( 'decompositionEquationComboBox' )
+        } ),
+        new EquationsComboBox( model.combustionEquationProperty, listboxParent, itemAlignGroup, {
+          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'combustion' ),
+          tandem: equationComboBoxesTandem.createTandem( 'combustionEquationComboBox' )
+        } )
+      ],
+      tandem: equationComboBoxesTandem
+    } );
+
+    Multilink.multilink( [ equationRadioButtonGroup.localBoundsProperty, equationComboBoxes.localBoundsProperty ],
+      () => {
+        equationRadioButtonGroup.left = 20;
+        equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
+        equationComboBoxes.left = equationRadioButtonGroup.right + 20;
+        equationComboBoxes.centerY = horizontalBarNode.centerY;
+      } );
+
     // Reset All button
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -114,6 +149,7 @@ export default class EquationsScreenView extends ScreenView {
         faceNode,
         horizontalBarNode,
         equationRadioButtonGroup,
+        equationComboBoxes,
         resetAllButton,
         listboxParent // add this last, so that combo box list is on top of everything else
       ]
@@ -136,7 +172,8 @@ export default class EquationsScreenView extends ScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      equationRadioButtonGroup
+      equationRadioButtonGroup,
+      equationComboBoxes
     ];
 
     // Control Area focus order

@@ -17,7 +17,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 const TEXT_OPTIONS = {
-  font: new PhetFont( 16 ),
+  font: new PhetFont( 14 ),
   fill: 'white',
   maxWidth: 100
 };
@@ -48,7 +48,7 @@ export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioBut
       isDisposable: false,
       radioButtonOptions: { radius: 8 },
       touchAreaYDilation: 15,
-      spacing: 30,
+      spacing: 20,
       tandem: tandem
     } );
   }
