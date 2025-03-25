@@ -41,7 +41,8 @@ export default class EquationsComboBox<T extends Equation> extends ComboBox<T> {
       xMargin: 10,
       yMargin: 5,
       cornerRadius: 4,
-      maxWidth: 600
+      maxWidth: 600,
+      phetioEnabledPropertyInstrumented: false
     }, providedOptions );
 
     const equations = equationProperty.validValues!;

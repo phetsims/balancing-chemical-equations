@@ -87,20 +87,23 @@ export default class EquationsModel implements TModel {
     ];
 
     this.synthesisEquationProperty = new Property( this.synthesisEquations[ 0 ], {
-      tandem: tandem.createTandem( 'synthesisEquationProperty' ),
       validValues: this.synthesisEquations,
+      tandem: tandem.createTandem( 'synthesisEquationProperty' ),
+      phetioFeatured: true,
       phetioValueType: Equation.EquationIO
     } );
 
     this.decompositionEquationProperty = new Property( this.decompositionEquations[ 0 ], {
-      tandem: tandem.createTandem( 'decompositionEquationProperty' ),
       validValues: this.decompositionEquations,
+      tandem: tandem.createTandem( 'decompositionEquationProperty' ),
+      phetioFeatured: true,
       phetioValueType: Equation.EquationIO
     } );
 
     this.combustionEquationProperty = new Property( this.combustionEquations[ 0 ], {
-      tandem: tandem.createTandem( 'combustionEquationProperty' ),
       validValues: this.combustionEquations,
+      tandem: tandem.createTandem( 'combustionEquationProperty' ),
+      phetioFeatured: true,
       phetioValueType: Equation.EquationIO
     } );
 
