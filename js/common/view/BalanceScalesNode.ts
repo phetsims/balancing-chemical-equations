@@ -79,11 +79,14 @@ export default class BalanceScalesNode extends Node {
     this.productCountProperties = new Map();
 
     // Wire coefficients listener to current equation.
-    const coefficientsListener = this.updateCounts.bind( this );
+    const coefficientsListener = () => this.updateCounts();
     equationProperty.link( ( newEquation, oldEquation ) => {
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Failure if this.updateNode() is moved last.
       this.updateNode();
-      oldEquation && oldEquation.removeCoefficientsListener( coefficientsListener );
-      newEquation.addCoefficientsListener( coefficientsListener );
+      oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
+      newEquation.lazyLinkCoefficientProperties( coefficientsListener );
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Guard with isSettingPhetioStateProperty?
+      coefficientsListener();
     } );
 
     this.mutate( options );

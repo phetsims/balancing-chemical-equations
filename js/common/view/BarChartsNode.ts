@@ -74,11 +74,14 @@ export default class BarChartsNode extends Node {
     options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
 
     // Wire coefficients listener to current equation.
-    const coefficentsListener = this.updateCounts.bind( this );
+    const coefficentsListener = () => this.updateCounts();
     equationProperty.link( ( newEquation, oldEquation ) => {
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Failure if this.updateNode() is moved last.
       this.updateNode();
-      oldEquation && oldEquation.removeCoefficientsListener( coefficentsListener );
-      newEquation.addCoefficientsListener( coefficentsListener );
+      oldEquation && oldEquation.unlinkCoefficientProperties( coefficentsListener );
+      newEquation.lazyLinkCoefficientProperties( coefficentsListener );
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Guard with isSettingPhetioStateProperty?
+      coefficentsListener();
     } );
 
     this.mutate( options );

@@ -133,8 +133,9 @@ export default class BoxNode extends AccordionBox {
       this.updateNode( getTerms( newEquation ), getXOffsets( newEquation ) );
 
       // wire up coefficients listener to current equation
-      oldEquation && oldEquation.removeCoefficientsListener( coefficientsListener );
-      newEquation.addCoefficientsListener( coefficientsListener );
+      oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
+      newEquation.lazyLinkCoefficientProperties( coefficientsListener );
+      coefficientsListener();
     } );
   }
 

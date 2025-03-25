@@ -129,16 +129,15 @@ export default class Equation extends PhetioObject {
   /**
    * Convenience method for adding a listener to all coefficients.
    */
-  public addCoefficientsListener( listener: () => void ): void {
+  public lazyLinkCoefficientProperties( listener: () => void ): void {
     this.reactants.forEach( reactant => reactant.coefficientProperty.lazyLink( listener ) );
     this.products.forEach( product => product.coefficientProperty.lazyLink( listener ) );
-    listener();
   }
 
   /**
    * Convenience method for removing a listener from all coefficients.
    */
-  public removeCoefficientsListener( listener: () => void ): void {
+  public unlinkCoefficientProperties( listener: () => void ): void {
 
     this.reactants.forEach( reactant => {
       if ( reactant.coefficientProperty.hasListener( listener ) ) {
