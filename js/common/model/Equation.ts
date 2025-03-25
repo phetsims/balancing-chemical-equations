@@ -202,11 +202,15 @@ export default class Equation extends PhetioObject {
     return string;
   }
 
+  public toRichString( coefficientsString?: string ): string {
+    return createEquationString( this.reactants, this.products, coefficientsString );
+  }
+
   /**
    * String value of an equation, shows balanced coefficients, for debugging. Do not rely on this format!
    */
   public override toString(): string {
-    let string = createEquationString( this.reactants, this.products );
+    let string = this.toRichString();
 
     // strip out HTML tags to improve readability
     string = string.replace( /<sub>/g, '' );
@@ -228,12 +232,12 @@ export default class Equation extends PhetioObject {
 /**
  * Creates PhET-iO documentation for an Equation.
  */
-function createEquationString( reactants: EquationTerm[], products: EquationTerm[] ): string {
+function createEquationString( reactants: EquationTerm[], products: EquationTerm[], coefficientsString?: string ): string {
   let string = '';
 
   // reactants
   for ( let i = 0; i < reactants.length; i++ ) {
-    string += reactants[ i ].balancedCoefficient;
+    string += coefficientsString || reactants[ i ].balancedCoefficient;
     string += ' ';
     string += reactants[ i ].molecule.symbol;
     if ( i < reactants.length - 1 ) {
@@ -246,7 +250,7 @@ function createEquationString( reactants: EquationTerm[], products: EquationTerm
 
   // products
   for ( let i = 0; i < products.length; i++ ) {
-    string += products[ i ].balancedCoefficient;
+    string += coefficientsString || products[ i ].balancedCoefficient;
     string += ' ';
     string += products[ i ].molecule.symbol;
     if ( i < products.length - 1 ) {

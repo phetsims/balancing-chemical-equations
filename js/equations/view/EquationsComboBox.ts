@@ -53,7 +53,7 @@ export default class EquationsComboBox<T extends Equation> extends ComboBox<T> {
         value: equation,
         tandemName: `${equation.tandem.name}Item`,
         //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Equation with markup and '?' for coefficients.
-        createNode: () => itemAlignGroup.createBox( new RichText( equation.toString(), RICH_TEXT_OPTIONS ), {
+        createNode: () => itemAlignGroup.createBox( new RichText( equation.toRichString( '?' ), RICH_TEXT_OPTIONS ), {
           xAlign: 'left'
         } )
       };
