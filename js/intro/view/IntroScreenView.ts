@@ -106,7 +106,7 @@ export default class IntroScreenView extends ScreenView {
 
     // Radio button group for choosing an equation
     const equationRadioButtonGroup = new EquationRadioButtonGroup( model.equationProperty, model.choices, {
-      maxWidth: 0.8 * this.layoutBounds.width,
+      maxWidth: 0.8 * this.layoutBounds.width,  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 maxWidth should be on Text nodes, not here.
       tandem: tandem.createTandem( 'equationRadioButtonGroup' )
     } );
 

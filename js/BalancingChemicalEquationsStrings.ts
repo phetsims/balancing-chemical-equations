@@ -12,12 +12,13 @@ import type LocalizedStringProperty from '../../chipper/js/browser/LocalizedStri
 import balancingChemicalEquations from './balancingChemicalEquations.js';
 
 type StringsType = {
-  'noneStringProperty': LocalizedStringProperty;
-  'balancedStringProperty': LocalizedStringProperty;
   'screen': {
     'introductionStringProperty': LocalizedStringProperty;
+    'equationsStringProperty': LocalizedStringProperty;
     'gameStringProperty': LocalizedStringProperty;
   };
+  'noneStringProperty': LocalizedStringProperty;
+  'balancedStringProperty': LocalizedStringProperty;
   'separateWaterStringProperty': LocalizedStringProperty;
   'hideWhyStringProperty': LocalizedStringProperty;
   'showAnswerStringProperty': LocalizedStringProperty;
@@ -38,6 +39,9 @@ type StringsType = {
   'chooseYourLevelStringProperty': LocalizedStringProperty;
   'pattern_0levelStringProperty': LocalizedStringProperty;
   'pattern_0pointsStringProperty': LocalizedStringProperty;
+  'synthesisStringProperty': LocalizedStringProperty;
+  'decompositionStringProperty': LocalizedStringProperty;
+  'combustionStringProperty': LocalizedStringProperty;
 };
 
 const BalancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;

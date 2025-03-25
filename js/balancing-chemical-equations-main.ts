@@ -13,11 +13,13 @@ import Tandem from '../../tandem/js/Tandem.js';
 import BalancingChemicalEquationsStrings from './BalancingChemicalEquationsStrings.js';
 import GameScreen from './game/GameScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
+import EquationsScreen from './equations/EquationsScreen.js';
 
 simLauncher.launch( () => {
 
   const sim = new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, [
     new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
+    new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) ),
     new GameScreen( Tandem.ROOT.createTandem( 'gameScreen' ) )
   ], {
     credits: {
