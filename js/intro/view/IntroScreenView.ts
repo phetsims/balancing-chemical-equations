@@ -85,6 +85,7 @@ export default class IntroScreenView extends ScreenView {
     const updateFace = () => {
       faceNode.visible = model.equationProperty.value.isBalancedProperty.value;
     };
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Should this be a Multilink, since updateFace() uses isBalancedProperty?
     model.equationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) {
         oldEquation.isBalancedProperty.unlink( updateFace );
@@ -133,6 +134,7 @@ export default class IntroScreenView extends ScreenView {
     } );
 
     // Show the selected 'balanced' representation, create nodes on demand.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Create barChartsNode and balanceScalesNode statically and toggle their visibility.
     const balancedParent = new Node(); // to maintain rendering order for combo box
     let barChartsNode: BarChartsNode;
     let balanceScalesNode: BalanceScalesNode;

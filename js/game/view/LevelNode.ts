@@ -175,6 +175,7 @@ export default class LevelNode extends Node {
     this.addChild( this.feedbackNode );
 
     // Call an initializer to set up UI to correspond to the game state.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add isSettingPhetioStateProperty guard?
     model.gameStateProperty.link( gameState => {
       if ( gameState === 'check' ) {
         this.initCheck();

@@ -187,6 +187,7 @@ export default class GameModel implements TModel {
 
     this.isNewBestTime = false;
 
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add isSettingPhetioStateProperty guard?
     this.levelProperty.link( level => level ? this.startGame() : this.startOver() );
 
     if ( BCEQueryParameters.verifyGame ) {
