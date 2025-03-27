@@ -29,6 +29,8 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import EquationNode from '../../common/view/EquationNode.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
+import BarChartsNode from '../../common/view/BarChartsNode.js';
+import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -166,6 +168,40 @@ export default class EquationsScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
+    // Show the selected 'balanced' representation, create nodes on demand.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Create barChartsNode and balanceScalesNode statically and toggle their visibility.
+    const balancedParent = new Node(); // to maintain rendering order for combo box
+    let barChartsNode: BarChartsNode;
+    let balanceScalesNode: BalanceScalesNode;
+    viewProperties.balancedRepresentationProperty.link( balancedRepresentation => {
+
+      // bar chart
+      if ( !barChartsNode && balancedRepresentation === 'barCharts' ) {
+        barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
+          bottom: equationNodes.top - 30
+        } );
+        balancedParent.addChild( barChartsNode );
+      }
+      if ( barChartsNode ) {
+        barChartsNode.visible = ( balancedRepresentation === 'barCharts' );
+      }
+
+      // balance scales
+      if ( !balanceScalesNode && balancedRepresentation === 'balanceScales' ) {
+        balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
+          bottom: equationNodes.top - 30,
+
+          // Use special spacing for 2 fulcrums.
+          // See https://github.com/phetsims/balancing-chemical-equations/issues/91
+          dualFulcrumSpacing: 325
+        } );
+        balancedParent.addChild( balanceScalesNode );
+      }
+      if ( balanceScalesNode ) {
+        balanceScalesNode.visible = ( balancedRepresentation === 'balanceScales' );
+      }
+    } );
+
     const screenViewRootNode = new Node( {
       children: [
         toolsControl,
@@ -175,6 +211,7 @@ export default class EquationsScreenView extends ScreenView {
         equationTypeRadioButtonGroup,
         equationComboBoxes,
         resetAllButton,
+        balancedParent,
         listboxParent // add this last, so that combo box list is on top of everything else
       ]
     } );
