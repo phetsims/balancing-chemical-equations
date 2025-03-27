@@ -86,19 +86,19 @@ export default class EquationsScreenView extends ScreenView {
     } );
 
     // Radio button group for choosing an equation type
-    const equationRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty,
-      tandem.createTandem( 'equationRadioButtonGroup' ) );
+    const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty,
+      tandem.createTandem( 'equationTypeRadioButtonGroup' ) );
 
     // Bar behind radio buttons at bottom of screen
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Move HorizontalBarNode to common/.
     const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
-      visibleProperty: equationRadioButtonGroup.visibleProperty,
+      visibleProperty: equationTypeRadioButtonGroup.visibleProperty,
       bottom: this.layoutBounds.bottom - 10
     } );
 
-    equationRadioButtonGroup.localBoundsProperty.link( () => {
-      equationRadioButtonGroup.left = 20;
-      equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
+    equationTypeRadioButtonGroup.localBoundsProperty.link( () => {
+      equationTypeRadioButtonGroup.left = 20;
+      equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
     } );
 
     // So that all equations have the same effective size.
@@ -124,12 +124,12 @@ export default class EquationsScreenView extends ScreenView {
       tandem: equationComboBoxesTandem
     } );
 
-    Multilink.multilink( [ equationRadioButtonGroup.boundsProperty, equationComboBoxes.boundsProperty ],
-      ( equationRadioButtonGroupBounds, equationComboBoxesBounds ) => {
+    Multilink.multilink( [ equationTypeRadioButtonGroup.boundsProperty, equationComboBoxes.boundsProperty ],
+      ( equationTypeRadioButtonGroupBounds, equationComboBoxesBounds ) => {
         const leftMargin = 20;
-        equationRadioButtonGroup.left = leftMargin;
-        equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
-        equationComboBoxes.left = equationRadioButtonGroupBounds.isFinite() ? equationRadioButtonGroup.right + 20 : leftMargin;
+        equationTypeRadioButtonGroup.left = leftMargin;
+        equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
+        equationComboBoxes.left = equationTypeRadioButtonGroupBounds.isFinite() ? equationTypeRadioButtonGroup.right + 20 : leftMargin;
         equationComboBoxes.centerY = horizontalBarNode.centerY;
       } );
 
@@ -172,7 +172,7 @@ export default class EquationsScreenView extends ScreenView {
         faceNode,
         equationNodes,
         horizontalBarNode,
-        equationRadioButtonGroup,
+        equationTypeRadioButtonGroup,
         equationComboBoxes,
         resetAllButton,
         listboxParent // add this last, so that combo box list is on top of everything else
@@ -197,7 +197,7 @@ export default class EquationsScreenView extends ScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      equationRadioButtonGroup,
+      equationTypeRadioButtonGroup,
       equationComboBoxes,
       equationNodes
     ];
