@@ -75,7 +75,10 @@ export default class EquationsScreenView extends ScreenView {
     } );
 
     // smiley face, top center, shown when equation is balanced
-    const faceNode = new FaceNode( 70, { centerX: this.layoutBounds.centerX, top: 15 } );
+    const faceNode = new FaceNode( 70, {
+      left: this.layoutBounds.left + 20,
+      top: this.layoutBounds.top + 20
+    } );
     const updateFace = () => {
       faceNode.visible = model.equationProperty.value.isBalancedProperty.value;
     };
@@ -178,7 +181,7 @@ export default class EquationsScreenView extends ScreenView {
       // bar chart
       if ( !barChartsNode && balancedRepresentation === 'barCharts' ) {
         barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
-          bottom: equationNodes.top - 30
+          bottom: equationNodes.top - 20 //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
         } );
         balancedParent.addChild( barChartsNode );
       }
@@ -189,11 +192,9 @@ export default class EquationsScreenView extends ScreenView {
       // balance scales
       if ( !balanceScalesNode && balancedRepresentation === 'balanceScales' ) {
         balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
-          bottom: equationNodes.top - 30,
-
-          // Use special spacing for 2 fulcrums.
-          // See https://github.com/phetsims/balancing-chemical-equations/issues/91
-          dualFulcrumSpacing: 325
+          orientation: 'vertical', //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
+          scale: 0.85, //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
+          bottom: equationNodes.top - 30
         } );
         balancedParent.addChild( balanceScalesNode );
       }

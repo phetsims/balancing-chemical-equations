@@ -156,7 +156,7 @@ export default class IntroScreenView extends ScreenView {
 
           // Use special spacing for 2 fulcrums.
           // See https://github.com/phetsims/balancing-chemical-equations/issues/91
-          dualFulcrumSpacing: 325
+          twoFulcrumsXSpacing: 325
         } );
         balancedParent.addChild( balanceScalesNode );
       }

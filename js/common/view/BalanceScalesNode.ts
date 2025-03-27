@@ -17,31 +17,36 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeOptions, NodeTransformOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BalanceScaleNode from './BalanceScaleNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
 
+type Orientation = 'horizontal' | 'vertical';
+
 type SelfOptions = {
+  
+  orientation?: Orientation;
 
-  // horizontal spacing between the tips of the fulcrums
-  fulcrumSpacing?: number;
-
-  // horizontal spacing when we have 2 scales,
+  // horizontal spacing between the tips of 2 fulcrums
   // see https://github.com/phetsims/balancing-chemical-equations/issues/91
-  dualFulcrumSpacing?: number;
+  twoFulcrumsXSpacing?: number;
+  
+  // horizontal spacing between the tips of 3 fulcrums
+  threeFulcrumsXSpacing?: number;
 };
 
-type BalanceScalesNodeOptions = SelfOptions & NodeTranslationOptions;
+type BalanceScalesNodeOptions = SelfOptions & NodeTransformOptions;
 
 export default class BalanceScalesNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
+  private readonly orientation: Orientation;
   private readonly constantBottom: number;
-  private readonly fulcrumSpacing: number;
-  private readonly dualFulcrumSpacing: number;
+  private readonly twoFulcrumsXSpacing: number;
+  private readonly threeFulcrumsXSpacing: number;
 
   // maps Element to count for that Element
   private readonly reactantCountProperties: Map<Element, Property<number>>;
@@ -58,8 +63,9 @@ export default class BalanceScalesNode extends Node {
     const options = optionize<BalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      fulcrumSpacing: 237,
-      dualFulcrumSpacing: 237,
+      orientation: 'horizontal',
+      twoFulcrumsXSpacing: 237,
+      threeFulcrumsXSpacing: 237,
 
       // NodeOptions
       isDisposable: false,
@@ -70,10 +76,11 @@ export default class BalanceScalesNode extends Node {
 
     this.equationProperty = equationProperty;
     this.aligner = aligner;
+    this.orientation = options.orientation;
 
     this.constantBottom = options.bottom;
-    this.fulcrumSpacing = options.fulcrumSpacing;
-    this.dualFulcrumSpacing = options.dualFulcrumSpacing;
+    this.twoFulcrumsXSpacing = options.twoFulcrumsXSpacing;
+    this.threeFulcrumsXSpacing = options.threeFulcrumsXSpacing;
 
     this.reactantCountProperties = new Map();
     this.productCountProperties = new Map();
@@ -114,8 +121,8 @@ export default class BalanceScalesNode extends Node {
       this.productCountProperties.clear();
 
       const atomCounts = this.equationProperty.value.getAtomCounts();
-      const fulcrumSpacing = ( atomCounts.length === 2 ) ? this.dualFulcrumSpacing : this.fulcrumSpacing;
       let x = 0;
+      let y = 0;
       for ( let i = 0; i < atomCounts.length; i++ ) {
 
         const atomCount = atomCounts[ i ];
@@ -127,10 +134,12 @@ export default class BalanceScalesNode extends Node {
         this.productCountProperties.set( atomCount.element, rightCountProperty );
 
         // add a scale node
-        const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.isBalancedProperty, { x: x } );
+        const scaleNodeOptions = this.orientation === 'horizontal' ? { x: x } : { y: y };
+        const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.isBalancedProperty, scaleNodeOptions );
         this.addChild( scaleNode );
 
-        x += fulcrumSpacing;
+        x += ( atomCounts.length === 2 ) ? this.twoFulcrumsXSpacing : this.threeFulcrumsXSpacing;
+        y += 140;
       }
 
       this.centerX = this.aligner.getScreenCenterX();
