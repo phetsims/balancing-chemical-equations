@@ -49,7 +49,7 @@ export default class EquationTerm extends PhetioObject {
     }, providedOptions );
 
     // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
-    if ( BCEQueryParameters.playAll ) {
+    if ( BCEQueryParameters.autoBalance ) {
       options.initialCoefficient = balancedCoefficient;
     }
 
