@@ -55,7 +55,7 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
       isDisposable: false,
       align: 'center',
       xMargin: 10,
-      yMargin: 5,
+      yMargin: 10,
       cornerRadius: 4,
       maxWidth: 600,
       tandem: tandem
