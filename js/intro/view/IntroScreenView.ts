@@ -59,8 +59,8 @@ export default class IntroScreenView extends ScreenView {
       } );
 
     // 'Tools' combo box, at upper-right
-    const comboBoxParent = new Node();
-    const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, comboBoxParent,
+    const listboxParent = new Node();
+    const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
       tandem.createTandem( 'toolsComboBox' ) );
     const toolsControl = new HBox( {
       spacing: 10,
@@ -175,7 +175,7 @@ export default class IntroScreenView extends ScreenView {
         equationRadioButtonGroup,
         resetAllButton,
         balancedParent,
-        comboBoxParent // add this last, so that combo box list is on top of everything else
+        listboxParent // add this last, so that combo box list is on top of everything else
       ]
     } );
     this.addChild( screenViewRootNode );
