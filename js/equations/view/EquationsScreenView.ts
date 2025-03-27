@@ -124,11 +124,12 @@ export default class EquationsScreenView extends ScreenView {
       tandem: equationComboBoxesTandem
     } );
 
-    Multilink.multilink( [ equationRadioButtonGroup.localBoundsProperty, equationComboBoxes.localBoundsProperty ],
-      () => {
-        equationRadioButtonGroup.left = 20;
+    Multilink.multilink( [ equationRadioButtonGroup.boundsProperty, equationComboBoxes.boundsProperty ],
+      ( equationRadioButtonGroupBounds, equationComboBoxesBounds ) => {
+        const leftMargin = 20;
+        equationRadioButtonGroup.left = leftMargin;
         equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
-        equationComboBoxes.left = equationRadioButtonGroup.right + 20;
+        equationComboBoxes.left = equationRadioButtonGroupBounds.isFinite() ? equationRadioButtonGroup.right + 20 : leftMargin;
         equationComboBoxes.centerY = horizontalBarNode.centerY;
       } );
 
