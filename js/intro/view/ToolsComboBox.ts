@@ -37,12 +37,12 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
       {
         value: 'balanceScales',
         tandemName: 'balanceScalesItem',
-        createNode: () => new Image( scales_png, { scale: 0.1875 } )
+        createNode: () => createBalanceScales()
       },
       {
         value: 'barCharts',
         tandemName: 'barChartItem',
-        createNode: () => new Image( charts_png, { scale: 0.375 } )
+        createNode: () => createBarChartsIcon()
       }
     ];
 
@@ -55,6 +55,14 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
       tandem: tandem
     } );
   }
+}
+
+function createBalanceScales(): Node {
+  return new Image( scales_png, { scale: 0.1875 } );
+}
+
+function createBarChartsIcon(): Node {
+  return new Image( charts_png, { scale: 0.375 } );
 }
 
 balancingChemicalEquations.register( 'ToolsComboBox', ToolsComboBox );
