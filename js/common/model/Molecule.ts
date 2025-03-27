@@ -105,24 +105,28 @@ export default class Molecule {
   public static readonly F2 = new Molecule( F2Node, [ F, F ] );
   public static readonly H2 = new Molecule( H2Node, [ H, H ] );
   public static readonly H2O = new Molecule( H2ONode, [ H, H, O ] );
+  public static readonly H2O2 = new Molecule( H2ONode, [ H, H, O, O ] );
   public static readonly H2S = new Molecule( H2SNode, [ H, H, S ] );
   public static readonly HF = new Molecule( HFNode, [ H, F ] );
   public static readonly HCl = new Molecule( HClNode, [ H, Cl ] );
   public static readonly N2 = new Molecule( N2Node, [ N, N ] );
   public static readonly N2O = new Molecule( N2ONode, [ N, N, O ] );
+  public static readonly N2O5 = new Molecule( N2ONode, [ N, N, O, O, O, O, O ] );
   public static readonly NH3 = new Molecule( NH3Node, [ N, H, H, H ] );
   public static readonly NO = new Molecule( NONode, [ N, O ] );
   public static readonly NO2 = new Molecule( NO2Node, [ N, O, O ] );
   public static readonly O2 = new Molecule( O2Node, [ O, O ] );
   public static readonly OF2 = new Molecule( OF2Node, [ O, F, F ] );
+  public static readonly P = new Molecule( P4Node, [ P ] );
   public static readonly P4 = new Molecule( P4Node, [ P, P, P, P ] );
+  public static readonly P2O5 = new Molecule( P4Node, [ P, P, O, O, O, O, O ] );
   public static readonly PH3 = new Molecule( PH3Node, [ P, H, H, H ] );
   public static readonly PCl3 = new Molecule( PCl3Node, [ P, Cl, Cl, Cl ] );
   public static readonly PCl5 = new Molecule( PCl5Node, [ P, Cl, Cl, Cl, Cl, Cl ] );
   public static readonly PF3 = new Molecule( PF3Node, [ P, F, F, F ] );
   public static readonly S = new Molecule( SNode, [ S ] );
-  public static readonly SO3 = new Molecule( SO3Node, [ S, O, O, O ] );
   public static readonly SO2 = new Molecule( SO2Node, [ S, O, O ] );
+  public static readonly SO3 = new Molecule( SO3Node, [ S, O, O, O ] );
 }
 
 /**

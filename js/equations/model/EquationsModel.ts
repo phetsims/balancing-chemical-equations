@@ -58,10 +58,13 @@ export default class EquationsModel implements TModel {
       new SynthesisEquation( 1, Molecule.C2H2, 2, Molecule.H2, 1, Molecule.C2H6,
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new SynthesisEquation( 2, Molecule.C, 1, Molecule.O2, 2, Molecule.CO,
+        this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 2, Molecule.N2, 5, Molecule.O2, 2, Molecule.N2O5,
+        this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 2, Molecule.S, 3, Molecule.O2, 2, Molecule.SO3,
+        this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 4, Molecule.P, 5, Molecule.O2, 2, Molecule.P2O5,
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) )
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 2 N2 + 5 O2 -> 2 N2O5
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 2 S + 3 O2 -> 2 SO3
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 4 P + 5 O2 -> 2 P2O5
     ];
 
     const decompositionEquationsTandem = tandem.createTandem( 'decompositionEquations' );
@@ -70,9 +73,11 @@ export default class EquationsModel implements TModel {
       new DecompositionEquation( 1, Molecule.CH3OH, 1, Molecule.CO, 2, Molecule.H2,
         this.coefficientsRange, decompositionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new DecompositionEquation( 2, Molecule.NO2, 2, Molecule.NO, 1, Molecule.O2,
+        this.coefficientsRange, decompositionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.PCl3, 2, Molecule.P, 3, Molecule.Cl2,
+        this.coefficientsRange, decompositionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DecompositionEquation( 2, Molecule.H2O2, 2, Molecule.H2O, 1, Molecule.O2,
         this.coefficientsRange, decompositionEquationsTandem.createTandem( `equation${equationIndex++}` ) )
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 2 PCl3 -> 2P + 3 Cl2
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 2 H2O2 -> 2 H2O + 1 O2
     ];
 
     const combustionEquationsTandem = tandem.createTandem( 'combustionEquations' );
@@ -80,10 +85,12 @@ export default class EquationsModel implements TModel {
     this.combustionEquations = [
       new DisplacementEquation( 1, Molecule.C2H4, 3, Molecule.O2, 2, Molecule.CO2, 2, Molecule.H2O,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 2 C2H2 + 5 O2 -> 4 CO2 + 2H2O
+      new DisplacementEquation( 2, Molecule.C2H2, 5, Molecule.O2, 4, Molecule.CO2, 2, Molecule.H2O2,
+        this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new DisplacementEquation( 1, Molecule.C2H5OH, 3, Molecule.O2, 2, Molecule.CO2, 3, Molecule.H2O,
+        this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DisplacementEquation( 3, Molecule.CH3OH, 3, Molecule.O2, 2, Molecule.CO2, 4, Molecule.H2O,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) )
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 2 CH3OH + 3 O2 -> 2 CO2 + 4 H2O
     ];
 
     this.synthesisEquationProperty = new Property( this.synthesisEquations[ 0 ], {
