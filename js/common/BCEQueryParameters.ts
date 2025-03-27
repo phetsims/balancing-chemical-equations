@@ -17,6 +17,7 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
   gameLevels: getGameLevelsSchema( 3 ),
 
   // Plays all challenges for each level of the game, to get 100% test coverage.
+  // It also sets all coefficients to be balanced, so that you don't have to set them with NumberPickers.
   playAll: { type: 'flag' },
 
   // Shows the game reward and plays the 'cheering' sound, regardless of the score.
