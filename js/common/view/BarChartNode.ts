@@ -18,17 +18,18 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import AtomCount from '../model/AtomCount.js';
 import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type BarChartNodeOptions = SelfOptions & NodeTranslationOptions;
+type BarChartNodeOptions = SelfOptions & PickRequired<NodeOptions, 'visibleProperty'>;
 
 export default class BarChartNode extends Node {
 

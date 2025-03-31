@@ -58,6 +58,26 @@ export default class IntroScreenView extends ScreenView {
         parentTandem: tandem
       } );
 
+    const balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
+      visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
+        balancedRepresentation => balancedRepresentation === 'balanceScales' ),
+
+      // Use special spacing for 2 fulcrums.
+      // See https://github.com/phetsims/balancing-chemical-equations/issues/91
+      twoFulcrumsXSpacing: 325
+    } );
+    balanceScalesNode.boundsProperty.link( () => {
+      balanceScalesNode.bottom = accordionBoxes.top - 10;
+    } );
+
+    const barChartNode = new BarChartNode( model.equationProperty, aligner, {
+      visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
+        balancedRepresentation => balancedRepresentation === 'barChart' )
+    } );
+    barChartNode.boundsProperty.link( () => {
+      barChartNode.bottom = accordionBoxes.top - 10;
+    } );
+
     // 'Tools' combo box, at upper-right
     const listboxParent = new Node();
     const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
@@ -131,50 +151,17 @@ export default class IntroScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Show the selected 'balanced' representation, create nodes on demand.
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Create barChartsNode and balanceScalesNode statically and toggle their visibility.
-    const balancedParent = new Node(); // to maintain rendering order for combo box
-    let barChartNode: BarChartNode;
-    let balanceScalesNode: BalanceScalesNode;
-    viewProperties.balancedRepresentationProperty.link( balancedRepresentation => {
-
-      // bar chart
-      if ( !barChartNode && balancedRepresentation === 'barChart' ) {
-        barChartNode = new BarChartNode( model.equationProperty, aligner, {
-          bottom: accordionBoxes.top - 10
-        } );
-        balancedParent.addChild( barChartNode );
-      }
-      if ( barChartNode ) {
-        barChartNode.visible = ( balancedRepresentation === 'barChart' );
-      }
-
-      // balance scales
-      if ( !balanceScalesNode && balancedRepresentation === 'balanceScales' ) {
-        balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
-          bottom: accordionBoxes.top - 10,
-
-          // Use special spacing for 2 fulcrums.
-          // See https://github.com/phetsims/balancing-chemical-equations/issues/91
-          twoFulcrumsXSpacing: 325
-        } );
-        balancedParent.addChild( balanceScalesNode );
-      }
-      if ( balanceScalesNode ) {
-        balanceScalesNode.visible = ( balancedRepresentation === 'balanceScales' );
-      }
-    } );
-
     const screenViewRootNode = new Node( {
       children: [
         accordionBoxes,
+        balanceScalesNode,
+        barChartNode,
         toolsControl,
         faceNode,
         equationNodes,
         horizontalBarNode,
         equationRadioButtonGroup,
         resetAllButton,
-        balancedParent,
         listboxParent // add this last, so that combo box list is on top of everything else
       ]
     } );

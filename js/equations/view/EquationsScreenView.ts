@@ -62,6 +62,24 @@ export default class EquationsScreenView extends ScreenView {
         parentTandem: tandem
       } );
 
+    const balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
+      visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
+        balancedRepresentation => balancedRepresentation === 'balanceScales' ),
+      orientation: 'vertical' //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
+    } );
+    balanceScalesNode.setScaleMagnitude( 0.85 );
+    balanceScalesNode.boundsProperty.link( () => {
+      balanceScalesNode.bottom = accordionBoxes.bottom;
+    } );
+
+    const barChartNode = new BarChartNode( model.equationProperty, aligner, {
+      visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
+        balancedRepresentation => balancedRepresentation === 'barChart' )
+    } );
+    barChartNode.boundsProperty.link( () => {
+      barChartNode.bottom = accordionBoxes.bottom;
+    } );
+
     // 'Tools' combo box, at upper-right
     const listboxParent = new Node();
     const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
@@ -181,41 +199,11 @@ export default class EquationsScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Show the selected 'balanced' representation, create nodes on demand.
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Create barChartsNode and balanceScalesNode statically and toggle their visibility.
-    const balancedParent = new Node(); // to maintain rendering order for combo box
-    let barChartNode: BarChartNode;
-    let balanceScalesNode: BalanceScalesNode;
-    viewProperties.balancedRepresentationProperty.link( balancedRepresentation => {
-
-      // bar chart
-      if ( !barChartNode && balancedRepresentation === 'barChart' ) {
-        barChartNode = new BarChartNode( model.equationProperty, aligner, {
-          bottom: equationNodes.top - 20 //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
-        } );
-        balancedParent.addChild( barChartNode );
-      }
-      if ( barChartNode ) {
-        barChartNode.visible = ( balancedRepresentation === 'barChart' );
-      }
-
-      // balance scales
-      if ( !balanceScalesNode && balancedRepresentation === 'balanceScales' ) {
-        balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
-          orientation: 'vertical', //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
-          scale: 0.85, //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
-          bottom: equationNodes.top - 30
-        } );
-        balancedParent.addChild( balanceScalesNode );
-      }
-      if ( balanceScalesNode ) {
-        balanceScalesNode.visible = ( balancedRepresentation === 'balanceScales' );
-      }
-    } );
-
     const screenViewRootNode = new Node( {
       children: [
         accordionBoxes,
+        balanceScalesNode,
+        barChartNode,
         toolsControl,
         faceNode,
         equationNodes,
@@ -223,7 +211,6 @@ export default class EquationsScreenView extends ScreenView {
         equationTypeRadioButtonGroup,
         equationComboBoxes,
         resetAllButton,
-        balancedParent,
         listboxParent // add this last, so that combo box list is on top of everything else
       ]
     } );

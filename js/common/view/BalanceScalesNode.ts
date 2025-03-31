@@ -17,11 +17,12 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Node, { NodeOptions, NodeTransformOptions } from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BalanceScaleNode from './BalanceScaleNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type Orientation = 'horizontal' | 'vertical';
 
@@ -37,7 +38,7 @@ type SelfOptions = {
   threeFulcrumsXSpacing?: number;
 };
 
-type BalanceScalesNodeOptions = SelfOptions & NodeTransformOptions;
+type BalanceScalesNodeOptions = SelfOptions & PickRequired<NodeOptions, 'visibleProperty'>;
 
 export default class BalanceScalesNode extends Node {
 
