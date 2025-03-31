@@ -128,8 +128,8 @@ export default class BarChartNode extends Node {
    * @param getCount - gets the reactants or products count
    * @param centerX - centerX of the chart
    */
-  public updateBars( countProperties: Map<Element, Property<number>>, parentNode: Node, atomCounts: AtomCount[],
-                     getCount: ( atomCount: AtomCount ) => number, centerX: number ): void {
+  private updateBars( countProperties: Map<Element, Property<number>>, parentNode: Node, atomCounts: AtomCount[],
+                      getCount: ( atomCount: AtomCount ) => number, centerX: number ): void {
 
     if ( this.visible ) {
 
