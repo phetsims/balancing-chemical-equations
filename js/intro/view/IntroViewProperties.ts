@@ -36,8 +36,8 @@ export default class IntroViewProperties {
       phetioFeatured: true
     } );
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Add 'molecules' to Intro screen?
     this.balancedRepresentationProperty = new StringUnionProperty<BalancedRepresentation>( 'none', {
+      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Add 'molecules' to Intro screen?
       validValues: [ 'balanceScales', 'barChart', 'none' ],
       tandem: tandem.createTandem( 'balancedRepresentationProperty' ),
       phetioFeatured: true
