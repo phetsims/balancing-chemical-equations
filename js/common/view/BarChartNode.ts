@@ -28,7 +28,7 @@ import HorizontalAligner from './HorizontalAligner.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type BarChartsNodeOptions = SelfOptions & NodeTranslationOptions;
+type BarChartNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class BarChartNode extends Node {
 
@@ -48,9 +48,9 @@ export default class BarChartNode extends Node {
    * @param [providedOptions]
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>, aligner: HorizontalAligner,
-                      providedOptions?: BarChartsNodeOptions ) {
+                      providedOptions?: BarChartNodeOptions ) {
 
-    const options = optionize<BarChartsNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<BarChartNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       isDisposable: false
