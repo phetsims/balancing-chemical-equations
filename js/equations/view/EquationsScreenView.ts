@@ -74,7 +74,8 @@ export default class EquationsScreenView extends ScreenView {
 
     const barChartNode = new BarChartNode( model.equationProperty, aligner, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-        balancedRepresentation => balancedRepresentation === 'barChart' )
+        balancedRepresentation => balancedRepresentation === 'barChart' ),
+      orientation: 'vertical' //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
     } );
     barChartNode.boundsProperty.link( () => {
       barChartNode.bottom = accordionBoxes.bottom;

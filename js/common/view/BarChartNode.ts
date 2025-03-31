@@ -17,7 +17,7 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import AtomCount from '../model/AtomCount.js';
@@ -27,7 +27,11 @@ import EqualityOperatorNode from './EqualityOperatorNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type SelfOptions = EmptySelfOptions;
+type Orientation = 'horizontal' | 'vertical';
+
+type SelfOptions = {
+  orientation?: Orientation;
+};
 
 type BarChartNodeOptions = SelfOptions & PickRequired<NodeOptions, 'visibleProperty'>;
 
@@ -35,6 +39,7 @@ export default class BarChartNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
+  private readonly orientation: Orientation;
 
   // maps Element to count for that Element
   private readonly reactantCountProperties: Map<Element, Property<number>>;
@@ -53,6 +58,9 @@ export default class BarChartNode extends Node {
 
     const options = optionize<BarChartNodeOptions, SelfOptions, NodeOptions>()( {
 
+      // SelfOptions
+      orientation: 'horizontal',
+
       // NodeOptions
       isDisposable: false
     }, providedOptions );
@@ -61,6 +69,7 @@ export default class BarChartNode extends Node {
 
     this.equationProperty = equationProperty;
     this.aligner = aligner;
+    this.orientation = options.orientation;
 
     this.reactantCountProperties = new Map();
     this.productCountProperties = new Map();

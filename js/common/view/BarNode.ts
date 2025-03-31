@@ -40,6 +40,8 @@ type BarNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class BarNode extends VBox {
 
+  public static readonly MAX_BAR_SIZE = MAX_BAR_SIZE;
+
   private readonly disposeBarNode: () => void;
 
   /**
