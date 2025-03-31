@@ -34,7 +34,7 @@ import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import BCEColors from '../../common/BCEColors.js';
 
-const BOX_SIZE = new Dimension2( 285, 288 );
+const BOX_SIZE = new Dimension2( 285, 260 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
 export default class EquationsScreenView extends ScreenView {
@@ -58,7 +58,7 @@ export default class EquationsScreenView extends ScreenView {
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
           balancedRepresentation => balancedRepresentation === 'molecules' ),
-        top: 70,
+        top: 90,
         parentTandem: tandem
       } );
 
@@ -88,7 +88,7 @@ export default class EquationsScreenView extends ScreenView {
     // smiley face, top center, shown when equation is balanced
     const faceNode = new FaceNode( 70, {
       left: this.layoutBounds.left + 20,
-      top: this.layoutBounds.top + 20
+      top: this.layoutBounds.top + 10
     } );
     const updateFace = () => {
       faceNode.visible = model.equationProperty.value.isBalancedProperty.value;
