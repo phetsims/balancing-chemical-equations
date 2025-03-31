@@ -110,6 +110,7 @@ export default class EquationsScreenView extends ScreenView {
     const updateFace = () => {
       faceNode.visible = model.equationProperty.value.isBalancedProperty.value;
     };
+
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Should this be a Multilink, since updateFace() uses isBalancedProperty?
     model.equationProperty.link( ( newEquation, oldEquation ) => {
       if ( oldEquation ) {
