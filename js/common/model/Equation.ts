@@ -24,6 +24,8 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
+const RIGHTWARDS_BLACK_ARROW = '\u2B95';
+
 export default class Equation extends PhetioObject {
 
   // terms on the left side of the equation
@@ -192,7 +194,7 @@ export default class Equation extends PhetioObject {
         string += ' + ';
       }
     }
-    string += ' \u2192 '; // right arrow, with space before and after
+    string += ` ${RIGHTWARDS_BLACK_ARROW} `; // right arrow, with space before and after
     for ( let i = 0; i < this.products.length; i++ ) {
       string += this.products[ i ].balancedCoefficient;
       if ( i < this.products.length - 1 ) {
@@ -246,7 +248,7 @@ function createEquationString( reactants: EquationTerm[], products: EquationTerm
   }
 
   // right arrow, with space before and after
-  string += ' \u2192 ';
+  string += ` ${RIGHTWARDS_BLACK_ARROW} `;
 
   // products
   for ( let i = 0; i < products.length; i++ ) {
