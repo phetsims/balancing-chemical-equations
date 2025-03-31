@@ -105,7 +105,9 @@ export default class BarChartNode extends Node {
    */
   private updateNode(): void {
     if ( this.visible ) {
+
       const atomCounts = this.equationProperty.value.getAtomCounts();
+      const centerXOffset = 125;
 
       // reactant bars
       this.updateBars(
@@ -113,7 +115,7 @@ export default class BarChartNode extends Node {
         this.reactantBarsParent,
         atomCounts,
         atomCount => atomCount.reactantsCount,
-        this.aligner.getReactantsBoxCenterX()
+        ( this.orientation === 'horizontal' ) ? this.aligner.getReactantsBoxCenterX() : this.aligner.getScreenCenterX() - centerXOffset
       );
 
       // product bars
@@ -122,7 +124,7 @@ export default class BarChartNode extends Node {
         this.productBarsParent,
         atomCounts,
         atomCount => atomCount.productsCount,
-        this.aligner.getProductsBoxCenterX()
+        ( this.orientation === 'horizontal' ) ? this.aligner.getProductsBoxCenterX() : this.aligner.getScreenCenterX() + centerXOffset
       );
 
       this.updateCounts();
@@ -149,7 +151,6 @@ export default class BarChartNode extends Node {
       // Clear the map.
       countProperties.clear();
 
-      let barCenterX = 0;
       for ( let i = 0; i < atomCounts.length; i++ ) {
         const atomCount = atomCounts[ i ];
 
@@ -158,12 +159,22 @@ export default class BarChartNode extends Node {
         countProperties.set( atomCount.element, countProperty );
 
         // add a bar node
-        const barNode = new BarNode( atomCount.element, countProperty, {
-          centerX: barCenterX,
-          bottom: 0
-        } );
+        const barNode = new BarNode( atomCount.element, countProperty );
         parentNode.addChild( barNode );
-        barCenterX = barNode.centerX + 100;
+
+        // Position the bar as it changes size.
+        const barCenterX = i * ( BarNode.MAX_BAR_SIZE.width + 60 );
+        const barBottom = i * ( BarNode.MAX_BAR_SIZE.height + 50 );
+        barNode.boundsProperty.link( () => {
+          if ( this.orientation === 'horizontal' ) {
+            barNode.centerX = barCenterX;
+            barNode.bottom = 0;
+          }
+          else {
+            barNode.centerX = centerX;
+            barNode.bottom = barBottom;
+          }
+        } );
       }
 
       parentNode.centerX = centerX;

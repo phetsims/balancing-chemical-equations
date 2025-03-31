@@ -16,12 +16,10 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../../nitroglycerin/js/nodes/AtomNode.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -34,10 +32,6 @@ const ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
 const NUMBER_FONT = new PhetFont( 18 );
 const SYMBOL_FONT = new PhetFont( 24 );
 
-type SelfOptions = EmptySelfOptions;
-
-type BarNodeOptions = SelfOptions & NodeTranslationOptions;
-
 export default class BarNode extends VBox {
 
   public static readonly MAX_BAR_SIZE = MAX_BAR_SIZE;
@@ -47,15 +41,8 @@ export default class BarNode extends VBox {
   /**
    * @param element the atom that we're displaying on the bar
    * @param numberOfAtomsProperty number of elements
-   * @param [providedOptions]
    */
-  public constructor( element: Element, numberOfAtomsProperty: TReadOnlyProperty<number>, providedOptions?: BarNodeOptions ) {
-
-    const options = optionize<BarNodeOptions, SelfOptions, VBoxOptions>()( {
-
-      // VBoxOptions
-      excludeInvisibleChildrenFromBounds: false
-    }, providedOptions );
+  public constructor( element: Element, numberOfAtomsProperty: TReadOnlyProperty<number> ) {
 
     // number of atoms
     const numberNode = new Text( '?', { font: NUMBER_FONT } );
@@ -77,14 +64,15 @@ export default class BarNode extends VBox {
     // horizontal strut, to prevent resizing
     const hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );
 
-    options.children = [ hStrut, numberNode, barNode,
-      new HBox( {
-        children: [ iconNode, symbolNode ],
-        spacing: 3
-      } )
-    ];
-
-    super( options );
+    super( {
+      excludeInvisibleChildrenFromBounds: false,
+      children: [ hStrut, numberNode, barNode,
+        new HBox( {
+          children: [ iconNode, symbolNode ],
+          spacing: 3
+        } )
+      ]
+    } );
 
     const numberOfAtomsListener = ( numberOfAtoms: number ) => {
 
@@ -112,8 +100,6 @@ export default class BarNode extends VBox {
       }
       barNode.setShape( barShape );
       barNode.visible = ( numberOfAtoms > 0 );
-
-      this.bottom = 0;
     };
 
     // when the number of atoms changes ...
