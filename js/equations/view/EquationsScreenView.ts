@@ -31,8 +31,10 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import BarChartNode from '../../common/view/BarChartNode.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
+import BoxesNode from '../../common/view/BoxesNode.js';
+import BCEColors from '../../common/BCEColors.js';
 
-const BOX_SIZE = new Dimension2( 285, 145 );
+const BOX_SIZE = new Dimension2( 285, 288 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
 
 export default class EquationsScreenView extends ScreenView {
@@ -50,6 +52,15 @@ export default class EquationsScreenView extends ScreenView {
 
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
+
+    // Accordion boxes that show molecules corresponding to the equation coefficients
+    const accordionBoxes = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
+      BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
+        visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
+          balancedRepresentation => balancedRepresentation === 'molecules' ),
+        top: 70,
+        parentTandem: tandem
+      } );
 
     // 'Tools' combo box, at upper-right
     const listboxParent = new Node();
@@ -205,6 +216,7 @@ export default class EquationsScreenView extends ScreenView {
 
     const screenViewRootNode = new Node( {
       children: [
+        accordionBoxes,
         toolsControl,
         faceNode,
         equationNodes,
@@ -242,6 +254,7 @@ export default class EquationsScreenView extends ScreenView {
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
+      accordionBoxes,
       toolsControl,
       resetAllButton
     ];

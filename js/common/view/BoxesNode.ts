@@ -23,12 +23,13 @@ import Equation from '../model/Equation.js';
 import BoxNode from './BoxNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import RightArrowNode from './RightArrowNode.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   parentTandem: Tandem;
 };
 
-type BoxesNodeOptions = SelfOptions & NodeTranslationOptions;
+type BoxesNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class BoxesNode extends Node {
 
