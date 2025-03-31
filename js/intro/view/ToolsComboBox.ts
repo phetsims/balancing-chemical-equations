@@ -25,7 +25,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 
-const FONT = new PhetFont( 20 );
+const FONT = new PhetFont( 18 );
 
 export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
 
@@ -35,11 +35,6 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
 
     const items: ComboBoxItem<BalancedRepresentation>[] = [
       {
-        value: 'none',
-        tandemName: 'noneItem',
-        createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, { font: FONT, maxWidth: 100 } )
-      },
-      {
         value: 'balanceScales',
         tandemName: 'balanceScalesItem',
         createNode: () => createBalanceScales()
@@ -48,6 +43,14 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
         value: 'barChart',
         tandemName: 'barChartItem',
         createNode: () => createBarChartsIcon()
+      },
+      {
+        value: 'none',
+        tandemName: 'noneItem',
+        createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, {
+          font: FONT,
+          maxWidth: 100
+        } )
       }
     ];
 
