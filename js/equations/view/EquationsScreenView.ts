@@ -105,7 +105,7 @@ export default class EquationsScreenView extends ScreenView {
 
     // smiley face, top center, shown when equation is balanced
     const faceNode = new FaceNode( 70, {
-      left: this.layoutBounds.left + 20,
+      left: accordionBoxes.left,
       top: this.layoutBounds.top + 10
     } );
     const updateFace = () => {
