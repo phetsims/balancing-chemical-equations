@@ -101,7 +101,9 @@ export default class GameModel implements TModel {
 
     // Validate game state transitions.
     assert && this.gameStateProperty.lazyLink( ( toState, fromState ) => {
-      assert && assert( isValidGameStateTransition( fromState, toState ), `invalid transition: ${fromState} to ${toState}` );
+      if ( !isSettingPhetioStateProperty.value ) {
+        assert && assert( isValidGameStateTransition( fromState, toState ), `invalid transition: ${fromState} to ${toState}` );
+      }
     } );
 
     this.scoreProperty = new NumberProperty( 0, {
