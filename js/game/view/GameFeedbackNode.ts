@@ -56,7 +56,7 @@ export default class GameFeedbackNode extends Node {
 
     this.notBalancedPanel = new NotBalancedPanel(
       this.model.challengeProperty.value,
-      'barCharts', // any value will do for instantiation
+      'barChart', // any value will do for instantiation
       this.model.gameStateProperty,
       () => this.model.tryAgain(),
       () => this.model.showAnswer(),

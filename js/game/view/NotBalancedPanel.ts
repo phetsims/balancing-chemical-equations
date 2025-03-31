@@ -23,7 +23,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import Equation from '../../common/model/Equation.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
-import BarChartsNode from '../../common/view/BarChartsNode.js';
+import BarChartNode from '../../common/view/BarChartNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -184,7 +184,7 @@ class BalancedRepresentationNode extends Node {
       balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), this.aligner );
     }
     else {
-      balancedRepresentationNode = new BarChartsNode( new Property( equation ), this.aligner );
+      balancedRepresentationNode = new BarChartNode( new Property( equation ), this.aligner );
     }
 
     // Shrink size so that it doesn't cover so much of the screen.

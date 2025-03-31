@@ -155,7 +155,7 @@ export default class GameLevel3 extends GameLevel {
       levelNumber: 3,
       iconMolecule: Molecule.NH3,
       coefficientsRange: coefficientsRange,
-      getBalancedRepresentation: () => 'barCharts',
+      getBalancedRepresentation: () => 'barChart',
       equationPool: equationPool,
       equationSelectionStrategy: new RandomStrategy( equationPool, {
         exclusionsMap: exclusionsMap

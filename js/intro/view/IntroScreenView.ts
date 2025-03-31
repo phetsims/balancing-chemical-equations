@@ -21,7 +21,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
-import BarChartsNode from '../../common/view/BarChartsNode.js';
+import BarChartNode from '../../common/view/BarChartNode.js';
 import BoxesNode from '../../common/view/BoxesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
@@ -134,19 +134,19 @@ export default class IntroScreenView extends ScreenView {
     // Show the selected 'balanced' representation, create nodes on demand.
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Create barChartsNode and balanceScalesNode statically and toggle their visibility.
     const balancedParent = new Node(); // to maintain rendering order for combo box
-    let barChartsNode: BarChartsNode;
+    let barChartNode: BarChartNode;
     let balanceScalesNode: BalanceScalesNode;
     viewProperties.balancedRepresentationProperty.link( balancedRepresentation => {
 
       // bar chart
-      if ( !barChartsNode && balancedRepresentation === 'barCharts' ) {
-        barChartsNode = new BarChartsNode( model.equationProperty, aligner, {
+      if ( !barChartNode && balancedRepresentation === 'barChart' ) {
+        barChartNode = new BarChartNode( model.equationProperty, aligner, {
           bottom: accordionBoxes.top - 10
         } );
-        balancedParent.addChild( barChartsNode );
+        balancedParent.addChild( barChartNode );
       }
-      if ( barChartsNode ) {
-        barChartsNode.visible = ( balancedRepresentation === 'barCharts' );
+      if ( barChartNode ) {
+        barChartNode.visible = ( balancedRepresentation === 'barChart' );
       }
 
       // balance scales

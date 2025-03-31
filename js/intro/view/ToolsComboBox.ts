@@ -45,7 +45,7 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
         createNode: () => createBalanceScales()
       },
       {
-        value: 'barCharts',
+        value: 'barChart',
         tandemName: 'barChartItem',
         createNode: () => createBarChartsIcon()
       }

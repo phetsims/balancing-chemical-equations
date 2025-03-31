@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * BarChartsNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
+ * BarChartNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
  * An indicator between the charts (equals or not equals) indicates whether they are balanced.
  *
  * This implementation is very brute force, just about everything is recreated each time a coefficient is changed in
@@ -30,7 +30,7 @@ type SelfOptions = EmptySelfOptions;
 
 type BarChartsNodeOptions = SelfOptions & NodeTranslationOptions;
 
-export default class BarChartsNode extends Node {
+export default class BarChartNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
@@ -183,4 +183,4 @@ export default class BarChartsNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );
+balancingChemicalEquations.register( 'BarChartNode', BarChartNode );

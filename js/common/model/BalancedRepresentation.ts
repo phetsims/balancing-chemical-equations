@@ -6,5 +6,5 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-export const BalancedRepresentationValues = [ 'none', 'balanceScales', 'barCharts' ] as const;
+export const BalancedRepresentationValues = [ 'none', 'balanceScales', 'barChart' ] as const;
 export type BalancedRepresentation = ( typeof BalancedRepresentationValues )[number];

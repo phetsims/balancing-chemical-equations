@@ -52,7 +52,7 @@ export default class GameLevel2 extends GameLevel {
       levelNumber: 2,
       iconMolecule: Molecule.H2O,
       coefficientsRange: coefficientsRange,
-      getBalancedRepresentation: () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barCharts',
+      getBalancedRepresentation: () => dotRandom.nextDouble() < 0.5 ? 'balanceScales' : 'barChart',
       equationPool: equationPool,
       equationSelectionStrategy: new RandomStrategy( equationPool ),
       tandem: tandem
