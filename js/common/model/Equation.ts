@@ -44,7 +44,7 @@ export default class Equation extends PhetioObject {
   public readonly isBalancedProperty: TReadOnlyProperty<boolean>;
 
   // Whether the equation is balanced with the smallest possible coefficients.
-  private readonly isBalancedAndSimplifiedProperty: TReadOnlyProperty<boolean>;
+  public readonly isBalancedAndSimplifiedProperty: TReadOnlyProperty<boolean>;
 
   /**
    * @param reactants terms on the left side of the equation

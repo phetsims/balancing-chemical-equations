@@ -32,6 +32,7 @@ type StringsType = {
   'checkStringProperty': LocalizedStringProperty;
   'makeAmmoniaStringProperty': LocalizedStringProperty;
   'showWhyStringProperty': LocalizedStringProperty;
+  'simplifiedStringProperty': LocalizedStringProperty;
   'notSimplifiedStringProperty': LocalizedStringProperty;
   'toolsStringProperty': LocalizedStringProperty;
   'reactantsStringProperty': LocalizedStringProperty;

@@ -23,7 +23,8 @@ const BCEColors = {
   ATOM_STROKE: 'black',
   UNBALANCED_COLOR: 'rgb( 46, 107, 178 )',
   BALANCED_HIGHLIGHT_COLOR: 'yellow',
-  BOX_COLOR: 'white'
+  BOX_COLOR: 'white',
+  CHECK_MARK_FILL: 'rgb( 0, 180, 0 )'
 };
 
 balancingChemicalEquations.register( 'BCEColors', BCEColors );

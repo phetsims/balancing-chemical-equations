@@ -24,6 +24,8 @@ import { GameState } from '../model/GameState.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
+import BCEColors from '../../common/BCEColors.js';
 
 export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
@@ -48,12 +50,12 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
     const greenCheckMark = iconAlignGroup.createBox( new Path( checkSolidShape, {
       scale: 0.08,
-      fill: 'rgb( 0, 180, 0 )'
+      fill: BCEColors.CHECK_MARK_FILL
     } ) );
 
     const redX = iconAlignGroup.createBox( new Path( timesSolidShape, {
       scale: 0.08,
-      fill: 'rgb( 252, 104, 0 )'
+      fill: PhetColorScheme.RED_COLORBLIND
     } ) );
 
     const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions );

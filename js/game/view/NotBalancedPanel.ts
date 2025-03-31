@@ -32,6 +32,7 @@ import GameFeedbackPanel from './GameFeedbackPanel.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
@@ -64,7 +65,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
 
     const redX = new Path( timesSolidShape, {
       scale: 0.08,
-      fill: 'rgb( 252, 104, 0 )'
+      fill: PhetColorScheme.RED_COLORBLIND
     } );
 
     const notBalancedText = new Text( BalancingChemicalEquationsStrings.notBalancedStringProperty, textOptions );

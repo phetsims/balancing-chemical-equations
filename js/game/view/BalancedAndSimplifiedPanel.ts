@@ -22,6 +22,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
+import BCEColors from '../../common/BCEColors.js';
 
 const MAX_WIDTH = 385; // maxWidth for UI elements
 const POINTS_AWARDED_FONT = new PhetFont( {
@@ -42,7 +43,7 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
 
     const greenCheckMark = new Path( checkSolidShape, {
       scale: 0.08,
-      fill: 'rgb( 0, 180, 0 )'
+      fill: BCEColors.CHECK_MARK_FILL
     } );
 
     const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions );
