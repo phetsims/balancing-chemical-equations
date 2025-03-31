@@ -31,7 +31,10 @@ const BEAM_THICKNESS = 6;
 const NUMBER_OF_TILT_ANGLES = 6;
 const COUNT_Y_SPACING = 3;
 const ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
-const TEXT_OPTIONS = { font: new PhetFont( 18 ), fill: 'black' };
+const TEXT_OPTIONS = {
+  font: new PhetFont( 18 ),
+  fill: 'black'
+};
 
 type SelfOptions = EmptySelfOptions;
 
