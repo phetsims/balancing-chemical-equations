@@ -12,7 +12,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
@@ -24,6 +23,7 @@ import BalanceFulcrumNode from '../../common/view/BalanceFulcrumNode.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const FONT = new PhetFont( 18 );
 
@@ -33,26 +33,16 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
                       listboxParent: Node,
                       tandem: Tandem ) {
 
-    const items: ComboBoxItem<BalancedRepresentation>[] = [
-      {
-        value: 'balanceScales',
-        tandemName: 'balanceScalesItem',
-        createNode: () => createBalanceScales()
-      },
-      {
-        value: 'barChart',
-        tandemName: 'barChartItem',
-        createNode: () => createBarChartsIcon()
-      },
-      {
-        value: 'none',
-        tandemName: 'noneItem',
-        createNode: () => new Text( BalancingChemicalEquationsStrings.noneStringProperty, {
-          font: FONT,
-          maxWidth: 100
-        } )
-      }
-    ];
+    const balancedRepresentationValues = balanceRepresentationProperty.validValues!;
+    assert && assert( balancedRepresentationValues );
+
+    const items: ComboBoxItem<BalancedRepresentation>[] = balancedRepresentationValues.map( value => {
+      return {
+        value: value,
+        tandemName: `${value}Item`,
+        createNode: () => createIcon( value )
+      };
+    } );
 
     super( balanceRepresentationProperty, items, listboxParent, {
       isDisposable: false,
@@ -66,12 +56,67 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
   }
 }
 
-function createBalanceScales(): Node {
+function createIcon( balancedRepresentation: BalancedRepresentation ): Node {
+  if ( balancedRepresentation === 'molecules' ) {
+    return createMoleculesIcon();
+  }
+  else if ( balancedRepresentation === 'balanceScales' ) {
+    return createBalanceScalesIcon();
+  }
+  else if ( balancedRepresentation === 'barChart' ) {
+    return createBarChartsIcon();
+  }
+  else {
+    return new Text( BalancingChemicalEquationsStrings.noneStringProperty, {
+      font: FONT,
+      maxWidth: 100
+    } );
+  }
+}
+
+/**
+ * This icon looks like a grayscale version of H2O.
+ */
+function createMoleculesIcon(): Node {
+
+  const bigAtomDiameter = 18;
+  const smallAtomDiameter = 12;
+
+  const stroke = 'black';
+  const lineWidth = 0.5;
+
+  const bigAtom = new ShadedSphereNode( bigAtomDiameter, {
+    mainColor: Color.grayColor( 100 ),
+    highlightColor: Color.grayColor( 220 ),
+    stroke: stroke,
+    lineWidth: lineWidth
+  } );
+
+  const smallAtomOptions = {
+    mainColor: Color.grayColor( 180 ),
+    highlightColor: Color.grayColor( 240 ),
+    stroke: stroke,
+    lineWidth: lineWidth
+  };
+
+  const smallAtomLeft = new ShadedSphereNode( smallAtomDiameter, smallAtomOptions );
+  smallAtomLeft.centerX = bigAtom.left;
+  smallAtomLeft.centerY = bigAtom.bottom - ( 0.25 * bigAtom.height );
+
+  const smallAtomRight = new ShadedSphereNode( smallAtomDiameter, smallAtomOptions );
+  smallAtomRight.centerX = bigAtom.right;
+  smallAtomRight.centerY = smallAtomLeft.centerY;
+
+  return new Node( {
+    children: [ bigAtom, smallAtomLeft, smallAtomRight ]
+  } );
+}
+
+function createBalanceScalesIcon(): Node {
 
   // Atoms
-  const diameter = 12;
+  const diameter = 18;
   const shadedSphereNodeOptions: ShadedSphereNodeOptions = {
-    radius: 8,
     mainColor: Color.grayColor( 180 ),
     highlightColor: Color.grayColor( 240 ),
     stroke: 'black',

@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import { BalancedRepresentation, BalancedRepresentationValues } from '../../common/model/BalancedRepresentation.js';
+import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 
 export default class IntroViewProperties {
 
@@ -36,8 +36,9 @@ export default class IntroViewProperties {
       phetioFeatured: true
     } );
 
-    this.balancedRepresentationProperty = new StringUnionProperty( 'none', {
-      validValues: BalancedRepresentationValues,
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Add 'molecules' to Intro screen?
+    this.balancedRepresentationProperty = new StringUnionProperty<BalancedRepresentation>( 'none', {
+      validValues: [ 'balanceScales', 'barChart', 'none' ],
       tandem: tandem.createTandem( 'balancedRepresentationProperty' ),
       phetioFeatured: true
     } );
