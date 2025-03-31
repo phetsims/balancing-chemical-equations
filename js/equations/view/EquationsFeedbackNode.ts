@@ -38,36 +38,39 @@ export default class EquationsFeedbackNode extends HBox {
     // To make icons have the same effective size.
     const iconAlignGroup = new AlignGroup();
 
-    const greenCheckMark1 = iconAlignGroup.createBox( new Path( checkSolidShape, {
-      scale: ICON_SCALE,
-      fill: BCEColors.CHECK_MARK_FILL
-    } ) );
-
-    const greenCheckMark2 = iconAlignGroup.createBox( new Path( checkSolidShape, {
-      scale: ICON_SCALE,
-      fill: BCEColors.CHECK_MARK_FILL
-    } ) );
-
-    const redX = iconAlignGroup.createBox( new Path( timesSolidShape, {
-      scale: ICON_SCALE,
-      fill: PhetColorScheme.RED_COLORBLIND
-    } ) );
-
-    const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, TEXT_OPTIONS );
+    // Green check mark to the left of 'balanced'.
     const balancedHBox = new HBox( {
-      children: [ greenCheckMark1, balancedText ],
+      children: [
+        iconAlignGroup.createBox( new Path( checkSolidShape, {
+          scale: ICON_SCALE,
+          fill: BCEColors.CHECK_MARK_FILL
+        } ) ),
+        new Text( BalancingChemicalEquationsStrings.balancedStringProperty, TEXT_OPTIONS )
+      ],
       spacing: X_SPACING
     } );
 
-    const simplifiedText = new Text( BalancingChemicalEquationsStrings.simplifiedStringProperty, TEXT_OPTIONS );
+    // Green check mark to the left of 'simplified'.
     const simplifiedHBox = new HBox( {
-      children: [ greenCheckMark2, simplifiedText ],
+      children: [
+        iconAlignGroup.createBox( new Path( checkSolidShape, {
+          scale: ICON_SCALE,
+          fill: BCEColors.CHECK_MARK_FILL
+        } ) ),
+        new Text( BalancingChemicalEquationsStrings.simplifiedStringProperty, TEXT_OPTIONS )
+      ],
       spacing: X_SPACING
     } );
 
-    const notSimplifiedText = new Text( BalancingChemicalEquationsStrings.notSimplifiedStringProperty, TEXT_OPTIONS );
+    // Red 'X' to the left of 'not simplified'.
     const notSimplifiedHBox = new HBox( {
-      children: [ redX, notSimplifiedText ],
+      children: [
+        iconAlignGroup.createBox( new Path( timesSolidShape, {
+          scale: ICON_SCALE,
+          fill: PhetColorScheme.RED_COLORBLIND
+        } ) ),
+        new Text( BalancingChemicalEquationsStrings.notSimplifiedStringProperty, TEXT_OPTIONS )
+      ],
       spacing: X_SPACING
     } );
 
@@ -82,10 +85,16 @@ export default class EquationsFeedbackNode extends HBox {
       children: [ faceNode, vBox ]
     } );
 
+    // Listener for isBalancedProperty.
     const isBalancedListener = ( isBalanced: boolean ) => {
       this.visible = isBalanced;
+
+      // Not strictly necessary to set these since this Node will not be visible, but for future-proofing...
+      balancedHBox.visible = isBalanced;
+      isBalanced ? faceNode.smile() : faceNode.frown();
     };
 
+    // Listener for isBalancedAndSimplifiedProperty.
     const isBalancedAndSimplifiedListener = ( isBalancedAndSimplified: boolean ) => {
       simplifiedHBox.visible = isBalancedAndSimplified;
       notSimplifiedHBox.visible = !isBalancedAndSimplified;
