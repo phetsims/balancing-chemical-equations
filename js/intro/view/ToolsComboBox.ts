@@ -1,5 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Move to common/view/
+//TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Rename and change label?
 /**
  * ToolsComboBox is the combo box for selecting the visual representation for "balanced".
  *

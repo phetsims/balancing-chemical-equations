@@ -64,7 +64,6 @@ export default class EquationsScreenView extends ScreenView {
 
     // 'Tools' combo box, at upper-right
     const listboxParent = new Node();
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Move ToolsComboBox to common/.
     const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
       tandem.createTandem( 'toolsComboBox' ) );
     const toolsControl = new HBox( {
