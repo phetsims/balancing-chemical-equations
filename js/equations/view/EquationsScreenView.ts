@@ -58,7 +58,7 @@ export default class EquationsScreenView extends ScreenView {
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
           balancedRepresentation => balancedRepresentation === 'molecules' ),
-        top: 90,
+        top: 90, //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
         parentTandem: tandem
       } );
 
