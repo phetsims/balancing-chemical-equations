@@ -45,6 +45,7 @@ export default class BalanceScalesNode extends Node {
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
   private readonly orientation: Orientation;
+
   private readonly constantBottom: number;
   private readonly twoFulcrumsXSpacing: number;
   private readonly threeFulcrumsXSpacing: number;
@@ -140,7 +141,7 @@ export default class BalanceScalesNode extends Node {
         this.addChild( scaleNode );
 
         x += ( atomCounts.length === 2 ) ? this.twoFulcrumsXSpacing : this.threeFulcrumsXSpacing;
-        y += 140;
+        y += 140; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
       }
 
       this.centerX = this.aligner.getScreenCenterX();
