@@ -13,7 +13,6 @@ import Element from '../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../nitroglycerin/js/nodes/AtomNode.js';
 import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import Node from '../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../tandem/js/Tandem.js';
@@ -56,11 +55,6 @@ export default class IntroScreen extends Screen<IntroModel, IntroScreenView> {
  * Creates the icon for this screen: an equation above a balance beam
  */
 function createScreenIcon(): ScreenIcon {
-
-  // background rectangle
-  const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-  const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-  const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
 
   // X + Y -> XY
   const textOptions = {
@@ -116,17 +110,10 @@ function createScreenIcon(): ScreenIcon {
     ]
   } );
 
-  // scale to fit, center in background
-  contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
-  contentNode.center = background.center;
-
-  const iconNode = new Node( {
-    children: [ background, contentNode ]
-  } );
-
-  return new ScreenIcon( iconNode, {
-    maxIconWidthProportion: 1,
-    maxIconHeightProportion: 1
+  return new ScreenIcon( contentNode, {
+    maxIconWidthProportion: 0.85,
+    maxIconHeightProportion: 0.85,
+    fill: 'white'
   } );
 }
 

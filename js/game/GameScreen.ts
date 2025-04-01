@@ -11,9 +11,7 @@ import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Shape from '../../../kite/js/Shape.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
-import Node from '../../../scenery/js/nodes/Node.js';
 import Path from '../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
@@ -50,11 +48,6 @@ function createScreenIcon(): ScreenIcon {
   const arrowLength = 75;
   const faceDiameter = 200;
 
-  // background rectangle
-  const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-  const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-  const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
-
   // up/down arrows
   const arrowOptions = { fill: 'black' };
   const arrowsNode = new VBox( {
@@ -76,17 +69,10 @@ function createScreenIcon(): ScreenIcon {
     children: [ arrowsNode, faceNode ]
   } );
 
-  // scale to fit, center in background
-  contentNode.setScaleMagnitude( Math.min( 0.82 * background.width / contentNode.width, 0.82 * background.height / contentNode.height ) );
-  contentNode.center = background.center;
-
-  const iconNode = new Node( {
-    children: [ background, contentNode ]
-  } );
-
-  return new ScreenIcon( iconNode, {
-    maxIconWidthProportion: 1,
-    maxIconHeightProportion: 1
+  return new ScreenIcon( contentNode, {
+    maxIconWidthProportion: 0.85,
+    maxIconHeightProportion: 0.85,
+    fill: 'white'
   } );
 }
 

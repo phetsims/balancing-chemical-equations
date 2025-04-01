@@ -9,8 +9,6 @@
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import Node from '../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
@@ -46,11 +44,6 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
  */
 function createScreenIcon(): ScreenIcon {
 
-  // background rectangle
-  const width = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-  const height = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
-  const background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
-
   // A + B -> AB
   const textOptions = {
     font: new PhetFont( { size: 24, weight: 'bold' } )
@@ -68,17 +61,10 @@ function createScreenIcon(): ScreenIcon {
     spacing: 5
   } );
 
-  // scale equation to fit, center in background
-  equationNode.setScaleMagnitude( Math.min( 0.82 * background.width / equationNode.width, 0.82 * background.height / equationNode.height ) );
-  equationNode.center = background.center;
-
-  const iconNode = new Node( {
-    children: [ background, equationNode ]
-  } );
-
-  return new ScreenIcon( iconNode, {
-    maxIconWidthProportion: 1,
-    maxIconHeightProportion: 1
+  return new ScreenIcon( equationNode, {
+    maxIconWidthProportion: 0.85,
+    maxIconHeightProportion: 0.85,
+    fill: 'white'
   } );
 }
 
