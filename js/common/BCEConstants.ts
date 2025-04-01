@@ -26,8 +26,8 @@ const BCEConstants = {
 
   ATOM_NODE_OPTIONS: ATOM_NODE_OPTIONS,
 
-  // Scale all molecules and atoms by this value to match the visual design.
-  MOLECULE_SCALE_FACTOR: 0.74
+  // Scale all particles (molecules and atoms) by this value to match the visual design.
+  PARTICLES_SCALE_FACTOR: 0.74
 };
 
 balancingChemicalEquations.register( 'BCEConstants', BCEConstants );

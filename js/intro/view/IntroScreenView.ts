@@ -51,7 +51,7 @@ export default class IntroScreenView extends ScreenView {
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
-    // Accordion boxes that show molecules corresponding to the equation coefficients
+    // Accordion boxes that show particles corresponding to the equation coefficients
     const accordionBoxes = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         top: 180,

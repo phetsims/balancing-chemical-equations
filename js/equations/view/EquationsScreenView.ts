@@ -53,11 +53,11 @@ export default class EquationsScreenView extends ScreenView {
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
-    // Accordion boxes that show molecules corresponding to the equation coefficients
+    // Accordion boxes that show particles corresponding to the equation coefficients
     const accordionBoxes = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-          balancedRepresentation => balancedRepresentation === 'molecules' ),
+          balancedRepresentation => balancedRepresentation === 'particles' ),
         top: 90, //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
         parentTandem: tandem
       } );

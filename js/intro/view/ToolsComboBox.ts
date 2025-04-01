@@ -59,8 +59,8 @@ export default class ToolsComboBox extends ComboBox<BalancedRepresentation> {
 }
 
 function createIcon( balancedRepresentation: BalancedRepresentation ): Node {
-  if ( balancedRepresentation === 'molecules' ) {
-    return createMoleculesIcon();
+  if ( balancedRepresentation === 'particles' ) {
+    return createParticlesIcon();
   }
   else if ( balancedRepresentation === 'balanceScales' ) {
     return createBalanceScalesIcon();
@@ -79,7 +79,7 @@ function createIcon( balancedRepresentation: BalancedRepresentation ): Node {
 /**
  * This icon looks like a grayscale version of H2O.
  */
-function createMoleculesIcon(): Node {
+function createParticlesIcon(): Node {
 
   const bigAtomDiameter = 18;
   const smallAtomDiameter = 12;

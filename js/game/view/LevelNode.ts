@@ -43,7 +43,7 @@ export default class LevelNode extends Node {
   private readonly layoutBounds: Bounds2;
   private readonly aligner: HorizontalAligner;
 
-  // boxes that show molecules corresponding to the equation coefficients
+  // boxes that show particles corresponding to the equation coefficients
   private readonly accordionBoxes: BoxesNode;
 
   private equationNode: EquationNode;

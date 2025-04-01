@@ -59,7 +59,7 @@ export default class BarNode extends VBox {
 
     // atom icon
     const iconNode = new AtomNode( element, BCEConstants.ATOM_NODE_OPTIONS );
-    iconNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
+    iconNode.scale( BCEConstants.PARTICLES_SCALE_FACTOR );
 
     // horizontal strut, to prevent resizing
     const hStrut = new HStrut( MAX_BAR_SIZE.width + BAR_LINE_WIDTH );

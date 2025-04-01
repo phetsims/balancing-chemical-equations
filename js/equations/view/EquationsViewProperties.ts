@@ -37,7 +37,7 @@ export default class EquationsViewProperties {
       phetioFeatured: true
     } );
 
-    this.balancedRepresentationProperty = new StringUnionProperty( 'molecules', {
+    this.balancedRepresentationProperty = new StringUnionProperty( 'particles', {
       validValues: BalancedRepresentationValues,
       tandem: tandem.createTandem( 'balancedRepresentationProperty' ),
       phetioFeatured: true

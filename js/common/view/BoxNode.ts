@@ -183,7 +183,7 @@ export default class BoxNode extends AccordionBox {
           const moleculeNode = term.molecule.createNode( {
             atomNodeOptions: BCEConstants.ATOM_NODE_OPTIONS
           } );
-          moleculeNode.scale( BCEConstants.MOLECULE_SCALE_FACTOR );
+          moleculeNode.scale( BCEConstants.PARTICLES_SCALE_FACTOR );
           this.moleculesParent.addChild( moleculeNode );
           moleculeNode.center = new Vector2( xOffsets[ i ] - this.x, y );
           moleculeNodes.push( moleculeNode );
