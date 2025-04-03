@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * BoxNode is an accordion box that shows particles (molecules and atoms) indicated by the equation's coefficients.
+ * ParticlesAccordionBox is an accordion box that shows particles (molecules and atoms) for one side of an equation.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -33,11 +33,11 @@ type SelfOptions = {
   boxHeight?: number;
 };
 
-type BoxNodeOptions = SelfOptions & NodeTranslationOptions &
+type ParticlesAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
   PickOptional<AccordionBoxOptions, 'expandedProperty' | 'fill'> &
   PickRequired<AccordionBoxOptions, 'tandem'>;
 
-export default class BoxNode extends AccordionBox {
+export default class ParticlesAccordionBox extends AccordionBox {
 
   private readonly boxHeight: number;
   private readonly coefficientsRange: Range;
@@ -58,9 +58,9 @@ export default class BoxNode extends AccordionBox {
                       getXOffsets: ( equation: Equation ) => number[],
                       coefficientsRange: Range,
                       titleStringProperty: TReadOnlyProperty<string>,
-                      providedOptions?: BoxNodeOptions ) {
+                      providedOptions?: ParticlesAccordionBoxOptions ) {
 
-    const options = optionize<BoxNodeOptions, SelfOptions, AccordionBoxOptions>()( {
+    const options = optionize<ParticlesAccordionBoxOptions, SelfOptions, AccordionBoxOptions>()( {
 
       // SelfOptions
       boxWidth: 100,
@@ -196,4 +196,4 @@ export default class BoxNode extends AccordionBox {
   }
 }
 
-balancingChemicalEquations.register( 'BoxNode', BoxNode );
+balancingChemicalEquations.register( 'ParticlesAccordionBox', ParticlesAccordionBox );

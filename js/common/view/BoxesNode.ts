@@ -19,7 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../model/Equation.js';
-import BoxNode from './BoxNode.js';
+import ParticlesAccordionBox from './ParticlesAccordionBox.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import RightArrowNode from './RightArrowNode.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -60,7 +60,7 @@ export default class BoxesNode extends Node {
     }, providedOptions );
 
     // reactants on the left
-    const reactantsAccordionBox = new BoxNode( equationProperty,
+    const reactantsAccordionBox = new ParticlesAccordionBox( equationProperty,
       equation => equation.reactants,
       equation => aligner.getReactantXOffsets( equation ),
       coefficientsRange,
@@ -75,7 +75,7 @@ export default class BoxesNode extends Node {
       } );
 
     // products on the right
-    const productsAccordionBox = new BoxNode( equationProperty,
+    const productsAccordionBox = new ParticlesAccordionBox( equationProperty,
       equation => equation.products,
       equation => aligner.getProductXOffsets( equation ),
       coefficientsRange,
