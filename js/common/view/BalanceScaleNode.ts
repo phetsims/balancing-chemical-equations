@@ -55,7 +55,7 @@ export default class BalanceScaleNode extends Node {
   private readonly rightCountText: Text;
   private readonly pilesParent: Node;
 
-  private readonly balanceScaleNodeDispose: () => void;
+  private readonly disposeBalanceScaleNode: () => void;
 
   /**
    * @param element the atom that we're displaying on the scale
@@ -117,7 +117,7 @@ export default class BalanceScaleNode extends Node {
     this.updateNode();
 
     // unlink from Properties
-    this.balanceScaleNodeDispose = () => {
+    this.disposeBalanceScaleNode = () => {
       isBalancedProperty.unlink( highlightListener );
       leftNumberOfAtomsProperty.unlink( updateNodeBind );
       rightNumberOfAtomsProperty.unlink( updateNodeBind );
@@ -125,7 +125,7 @@ export default class BalanceScaleNode extends Node {
   }
 
   public override dispose(): void {
-    this.balanceScaleNodeDispose();
+    this.disposeBalanceScaleNode();
     super.dispose();
   }
 
