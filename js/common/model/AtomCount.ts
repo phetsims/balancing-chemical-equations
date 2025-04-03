@@ -2,8 +2,7 @@
 
 /**
  * AtomCount is a data structure for describing how many times an atom appears in an equation.
- * There are separate counts for the left-hand (reactants) and right-hand (products)
- * sides of the equation.
+ * There are separate counts for the left-hand (Reactants) and right-hand (Products) sides of the equation.
  *
  * @author Vasily Shakhov
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,8 +16,13 @@ import EquationTerm from './EquationTerm.js';
 
 export default class AtomCount {
 
-  public readonly element: Element; // the element that describes the atom's chemical properties
+  // The element that describes the atom's chemical properties.
+  public readonly element: Element;
+
+  // Number of atoms on the Reactants side of the equation.
   public reactantsCount: number;
+
+  // Number of atoms on the Products side of the equation.
   public productsCount: number;
 
   public constructor( element: Element, reactantsCount: number, productsCount: number ) {
@@ -42,17 +46,12 @@ export default class AtomCount {
 }
 
 /**
- * Some of our visual representations of 'balanced' (ie, balance scales and bar charts)
- * compare the number of atoms on the left and right side of the equation.
- *
- * This algorithm supports those representations by computing the atom counts.
- * It examines a collection of terms in the equation (either reactants or products),
- * examines those terms' molecules, and counts the number of each atom type.
- * The atomCounts argument is modified, so that it contains the counts for the
- * specified terms.
- *
- * This is a brute force algorithm, but our number of terms is always small,
- * and this is easy to implement and understand.
+ * Some of our visual representations of 'balanced' (ie, balance scales and bar chart) compare the number of atoms on
+ * the left and right side of the equation. This algorithm supports those representations by computing the atom counts.
+ * It examines a collection of terms in the equation (either reactants or products), examines those terms' molecules,
+ * and counts the number of each atom type. The atomCounts argument is modified, so that it contains the counts for
+ * the specified terms. This is a brute force algorithm, but our number of terms is always small, and this is easy to
+ * implement and understand.
  *
  * @param atomCounts
  * @param terms

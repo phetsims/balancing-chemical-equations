@@ -39,12 +39,16 @@ export default class DecompositionEquation extends Equation {
     let productNumber = 1;
 
     super(
+
+      // Reactants
       [
         new EquationTerm( r1, reactant1, {
           coefficientRange: coefficientsRange,
           tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } )
       ],
+
+      // Products
       [
         new EquationTerm( p1, product1, {
           coefficientRange: coefficientsRange,

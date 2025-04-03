@@ -38,6 +38,8 @@ export default class SynthesisEquation extends Equation {
     let productNumber = 1;
 
     super(
+
+      // Reactants
       [
         new EquationTerm( r1, reactant1, {
           coefficientRange: coefficientsRange,
@@ -48,6 +50,8 @@ export default class SynthesisEquation extends Equation {
           tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } )
       ],
+
+      // Products
       [
         new EquationTerm( p1, product1, {
           coefficientRange: coefficientsRange,
