@@ -36,6 +36,9 @@ export default class EquationTerm extends PhetioObject {
 
   public constructor( balancedCoefficient: number, molecule: Molecule, providedOptions: EquationTermOptions ) {
 
+    assert && assert( Number.isInteger( balancedCoefficient ) && balancedCoefficient > 0,
+      `balancedCoefficient must be a positive integer: ${balancedCoefficient}` );
+
     const options = optionize<EquationTermOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
@@ -45,6 +48,11 @@ export default class EquationTerm extends PhetioObject {
       phetioDocumentation: molecule.symbol,
       phetioState: false
     }, providedOptions );
+    
+    assert && assert( Number.isInteger( options.coefficientRange.min ) && options.coefficientRange.min >= 0,
+      `coefficientRange.min must be a non-negative integer: ${options.coefficientRange.min}` );
+    assert && assert( Number.isInteger( options.coefficientRange.max ) && options.coefficientRange.max >= 0,
+      `coefficientRange.max must be a non-negative integer: ${options.coefficientRange.max}` );
 
     // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
     if ( BCEQueryParameters.autoBalance ) {
