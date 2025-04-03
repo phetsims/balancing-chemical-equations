@@ -103,7 +103,7 @@ export default class BalanceScalesNode extends Node {
    */
   private updateNode(): void {
 
-    // dispose of the previous bars
+    // dispose of the previous BalanceScaleNode instances.
     this.getChildren().forEach( child => child.dispose() );
 
     // Clear the maps.

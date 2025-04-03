@@ -137,7 +137,7 @@ export default class BarChartNode extends Node {
                       getCount: ( atomCount: AtomCount ) => number,
                       centerX: number ): void {
 
-    // Dispose of previous bars.
+    // Dispose of previous BarNode instances.
     parentNode.getChildren().forEach( child => child.dispose() );
 
     // Clear the map.
