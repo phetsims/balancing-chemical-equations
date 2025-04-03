@@ -94,10 +94,10 @@ export default class EquationsFeedbackNode extends HBox {
       isBalanced ? faceNode.smile() : faceNode.frown();
     };
 
-    // Listener for isBalancedAndSimplifiedProperty.
-    const isBalancedAndSimplifiedListener = ( isBalancedAndSimplified: boolean ) => {
-      simplifiedHBox.visible = isBalancedAndSimplified;
-      notSimplifiedHBox.visible = !isBalancedAndSimplified;
+    // Listener for isSimplifiedProperty.
+    const isSimplifiedListener = ( isSimplified: boolean ) => {
+      simplifiedHBox.visible = isSimplified;
+      notSimplifiedHBox.visible = !isSimplified;
     };
 
     equationProperty.link( ( newEquation, oldEquation ) => {
@@ -105,8 +105,8 @@ export default class EquationsFeedbackNode extends HBox {
       oldEquation && oldEquation.isBalancedProperty.unlink( isBalancedListener );
       newEquation.isBalancedProperty.link( isBalancedListener );
 
-      oldEquation && oldEquation.isBalancedAndSimplifiedProperty.unlink( isBalancedAndSimplifiedListener );
-      newEquation.isBalancedAndSimplifiedProperty.link( isBalancedAndSimplifiedListener );
+      oldEquation && oldEquation.isSimplifiedProperty.unlink( isSimplifiedListener );
+      newEquation.isSimplifiedProperty.link( isSimplifiedListener );
     } );
   }
 }

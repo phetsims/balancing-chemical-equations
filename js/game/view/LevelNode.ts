@@ -245,8 +245,8 @@ export default class LevelNode extends Node {
     this.checkButton.visible = false;
 
     const currentEquation = this.model.challengeProperty.value;
-    this.nextButton.visible = !currentEquation.isBalancedAndSimplified;
-    this.setFeedbackNodeVisible( currentEquation.isBalancedAndSimplified );
+    this.nextButton.visible = !currentEquation.isSimplifiedProperty.value;
+    this.setFeedbackNodeVisible( currentEquation.isSimplifiedProperty.value );
     this.setBalancedHighlightEnabled( true );
     currentEquation.balance(); // show the correct answer (do this last!)
   }
@@ -265,7 +265,7 @@ export default class LevelNode extends Node {
    * Plays a sound corresponding to whether the user's guess is correct or incorrect.
    */
   private playGuessAudio(): void {
-    if ( this.model.challengeProperty.value.isBalancedAndSimplified ) {
+    if ( this.model.challengeProperty.value.isSimplifiedProperty.value ) {
       this.audioPlayer.correctAnswer();
     }
     else {

@@ -96,7 +96,7 @@ export default class GameFeedbackNode extends Node {
     // Make the panel visible that corresponds to the state of the current challenge. Be sure to make a panel visible
     // before hiding the others, so that we do not trigger an assertion failure by having all children of panelsParent
     // invisible at the same time.
-    if ( challenge.isBalancedAndSimplified ) {
+    if ( challenge.isSimplifiedProperty.value ) {
       this.balancedAndSimplifiedPanel.visible = true;
       this.balancedNotSimplifiedPanel.visible = false;
       this.notBalancedPanel.visible = false;

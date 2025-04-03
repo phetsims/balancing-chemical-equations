@@ -279,7 +279,7 @@ export default class GameModel implements TModel {
   public check(): void {
     this.attemptsProperty.value++;
 
-    if ( this.challengeProperty.value.isBalancedAndSimplified ) {
+    if ( this.challengeProperty.value.isSimplifiedProperty.value ) {
       // award points
       if ( this.attemptsProperty.value === 1 ) {
         this.pointsProperty.value = GameLevel.POINTS_FIRST_ATTEMPT;

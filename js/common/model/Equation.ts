@@ -37,14 +37,14 @@ export default class Equation extends PhetioObject {
   // all terms
   private readonly terms: EquationTerm[];
 
-  // Whether the equation has at least one non-zero coefficient.
-  public readonly hasNonZeroCoefficientProperty: TReadOnlyProperty<boolean>;
-
   // Whether the equation is balanced.
   public readonly isBalancedProperty: TReadOnlyProperty<boolean>;
 
   // Whether the equation is balanced with the smallest possible coefficients.
-  public readonly isBalancedAndSimplifiedProperty: TReadOnlyProperty<boolean>;
+  public readonly isSimplifiedProperty: TReadOnlyProperty<boolean>;
+
+  // Whether the equation has at least one non-zero coefficient.
+  public readonly hasNonZeroCoefficientProperty: TReadOnlyProperty<boolean>;
 
   /**
    * @param reactants terms on the left side of the equation
@@ -71,56 +71,26 @@ export default class Equation extends PhetioObject {
     this.hasNonZeroCoefficientProperty = DerivedProperty.deriveAny( coefficientProperties,
       () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value > 0 ) );
 
-    const hasZeroCoefficientProperty = DerivedProperty.deriveAny( coefficientProperties,
-      () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value === 0 ) );
-
-    // An equation is balanced if all of its terms have a coefficient that is the same integer multiple of the term's
-    // balanced coefficient.
-    this.isBalancedProperty = DerivedProperty.deriveAny( [ hasZeroCoefficientProperty, ...coefficientProperties ], () => {
-
-      // If any coefficients is zero, the equation cannot possibly be balanced.
-      let isBalanced = !hasZeroCoefficientProperty.value;
-      if ( isBalanced ) {
-
-        // Get the multiplier from the first reactant term (any term will do.)
-        const multiplier = this.reactants[ 0 ].coefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
-        if ( multiplier > 0 ) {
-
-          // Check each term to see if the actual coefficient is the same multiple of the balanced coefficient.
-          isBalanced = true;
-          this.terms.forEach( term => {
-            isBalanced = isBalanced && ( term.coefficientProperty.value === multiplier * term.balancedCoefficient );
-          } );
-        }
-      }
-      return isBalanced;
+    // An equation is balanced if all terms have a non-zero coefficient that is the same integer multiple
+    // of the term's balanced coefficient.
+    this.isBalancedProperty = DerivedProperty.deriveAny( [ ...coefficientProperties ], () => {
+      const multiplier = this.reactants[ 0 ].coefficientProperty.value / this.reactants[ 0 ].balancedCoefficient;
+      return _.every( this.terms, term => ( term.coefficientProperty.value !== 0 ) &&
+                                          ( term.coefficientProperty.value === multiplier * term.balancedCoefficient ) );
     }, {
       tandem: tandem.createTandem( 'isBalancedProperty' ),
       phetioFeatured: true,
       phetioValueType: BooleanIO
     } );
 
-    // An equation is balanced and simplified if the equation is balanced with the lowest possible coefficients.
-    this.isBalancedAndSimplifiedProperty = DerivedProperty.deriveAny( [ this.isBalancedProperty, ...coefficientProperties ],
-      () => {
-        let isBalancedAndSimplified = false;
-        if ( this.isBalancedProperty.value ) {
-          isBalancedAndSimplified = true;
-          this.terms.forEach( term => {
-            isBalancedAndSimplified = isBalancedAndSimplified && ( term.coefficientProperty.value === term.balancedCoefficient );
-          } );
-        }
-        return isBalancedAndSimplified;
-      }, {
-        tandem: tandem.createTandem( 'isBalancedAndSimplifiedProperty' ),
+    // An equation is simplified if the equation is balanced with the lowest possible coefficients for all terms.
+    this.isSimplifiedProperty = DerivedProperty.deriveAny( [ ...coefficientProperties ],
+      () => _.every( this.terms, term => term.coefficientProperty.value === term.balancedCoefficient ), {
+        tandem: tandem.createTandem( 'isSimplifiedProperty' ),
         phetioDocumentation: 'Whether the equation is balanced with the smallest possible coefficients.',
         phetioFeatured: true,
         phetioValueType: BooleanIO
       } );
-  }
-
-  public get isBalancedAndSimplified(): boolean {
-    return this.isBalancedAndSimplifiedProperty.value;
   }
 
   public reset(): void {
