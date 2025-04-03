@@ -25,7 +25,7 @@ import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type Orientation = 'horizontal' | 'vertical';
 
@@ -33,7 +33,7 @@ type SelfOptions = {
   orientation?: Orientation;
 };
 
-type BarChartNodeOptions = SelfOptions & PickRequired<NodeOptions, 'visibleProperty'>;
+type BarChartNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class BarChartNode extends Node {
 
@@ -54,7 +54,8 @@ export default class BarChartNode extends Node {
    * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
    * @param [providedOptions]
    */
-  public constructor( equationProperty: TReadOnlyProperty<Equation>, aligner: HorizontalAligner,
+  public constructor( equationProperty: TReadOnlyProperty<Equation>,
+                      aligner: HorizontalAligner,
                       providedOptions?: BarChartNodeOptions ) {
 
     const options = optionize<BarChartNodeOptions, SelfOptions, NodeOptions>()( {

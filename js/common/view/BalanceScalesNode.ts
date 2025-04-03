@@ -22,7 +22,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BalanceScaleNode from './BalanceScaleNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type Orientation = 'horizontal' | 'vertical';
 
@@ -38,7 +38,7 @@ type SelfOptions = {
   threeFulcrumsXSpacing?: number;
 };
 
-type BalanceScalesNodeOptions = SelfOptions & PickRequired<NodeOptions, 'visibleProperty'>;
+type BalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class BalanceScalesNode extends Node {
 
@@ -59,7 +59,8 @@ export default class BalanceScalesNode extends Node {
    * @param aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param [providedOptions]
    */
-  public constructor( equationProperty: TReadOnlyProperty<Equation>, aligner: HorizontalAligner,
+  public constructor( equationProperty: TReadOnlyProperty<Equation>,
+                      aligner: HorizontalAligner,
                       providedOptions?: BalanceScalesNodeOptions ) {
 
     const options = optionize<BalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
