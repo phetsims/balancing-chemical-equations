@@ -45,6 +45,7 @@ export default class BarChartNode extends Node {
   private readonly reactantCountProperties: Map<Element, Property<number>>;
   private readonly productCountProperties: Map<Element, Property<number>>;
 
+  // UI subcomponents
   private readonly reactantBarsParent: Node;
   private readonly productBarsParent: Node;
 

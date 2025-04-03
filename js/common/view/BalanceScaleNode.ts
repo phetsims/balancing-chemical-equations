@@ -43,8 +43,11 @@ type BalanceScaleNodeOptions = SelfOptions & NodeTranslationOptions;
 export default class BalanceScaleNode extends Node {
 
   private readonly element: Element;
+
   private readonly leftNumberOfAtomsProperty: TReadOnlyProperty<number>;
   private readonly rightNumberOfAtomsProperty: TReadOnlyProperty<number>;
+
+  // UI subcomponents
   private readonly beamNode: BalanceBeamNode;
   private readonly leftPileNode: Node;
   private readonly rightPileNode: Node;
