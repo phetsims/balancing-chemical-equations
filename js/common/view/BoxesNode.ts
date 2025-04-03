@@ -1,8 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * BoxesNode is a pair of accordion boxes that show the number of molecules indicated by the equation's
- * user coefficients. The left box is for the reactants, the right box is for the products.
+ * BoxesNode is a pair of accordion boxes that show particles for an equation's reactants and products.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
