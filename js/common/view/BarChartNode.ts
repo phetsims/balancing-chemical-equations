@@ -58,16 +58,23 @@ export default class BarChartNode extends Node {
                       aligner: HorizontalAligner,
                       providedOptions?: BarChartNodeOptions ) {
 
+    const reactantBarsParent = new Node();
+    const productBarsParent = new Node();
+    const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
+      center: new Vector2( aligner.getScreenCenterX(), -40 )
+    } );
+
     const options = optionize<BarChartNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       orientation: 'horizontal',
 
       // NodeOptions
-      isDisposable: false
+      isDisposable: false,
+      children: [ reactantBarsParent, productBarsParent, equalityOperatorNode ]
     }, providedOptions );
 
-    super();
+    super( options );
 
     this.equationProperty = equationProperty;
     this.aligner = aligner;
@@ -76,133 +83,112 @@ export default class BarChartNode extends Node {
     this.reactantCountProperties = new Map();
     this.productCountProperties = new Map();
 
-    this.reactantBarsParent = new Node();
-    this.productBarsParent = new Node();
-
-    const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
-      center: new Vector2( aligner.getScreenCenterX(), -40 )
-    } );
-
-    options.children = [ this.reactantBarsParent, this.productBarsParent, equalityOperatorNode ];
+    this.reactantBarsParent = reactantBarsParent;
+    this.productBarsParent = productBarsParent;
 
     // Wire coefficients listener to current equation.
     const coefficentsListener = () => this.updateCounts();
     equationProperty.link( ( newEquation, oldEquation ) => {
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Failure if this.updateNode() is moved last.
       this.updateNode();
       oldEquation && oldEquation.unlinkCoefficientProperties( coefficentsListener );
       newEquation.lazyLinkCoefficientProperties( coefficentsListener );
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Guard with isSettingPhetioStateProperty?
       coefficentsListener();
     } );
-
-    this.mutate( options );
-
-    // Update this Node when it becomes visible.
-    this.visibleProperty.link( visible => visible && this.updateNode() );
   }
 
   /**
-   * Updates this node's entire geometry and layout
+   * Create new count Properties, and create new balance scales that are wired to those Properties.
    */
   private updateNode(): void {
-    if ( this.visible ) {
 
-      const atomCounts = this.equationProperty.value.getAtomCounts();
-      const centerXOffset = 125;
+    const atomCounts = this.equationProperty.value.getAtomCounts();
+    const centerXOffset = 125; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
 
-      // reactant bars
-      this.updateBars(
-        this.reactantCountProperties,
-        this.reactantBarsParent,
-        atomCounts,
-        atomCount => atomCount.reactantsCount,
-        ( this.orientation === 'horizontal' ) ? this.aligner.getReactantsBoxCenterX() : this.aligner.getScreenCenterX() - centerXOffset
-      );
+    // reactant bars
+    this.updateBars(
+      this.reactantCountProperties,
+      this.reactantBarsParent,
+      atomCounts,
+      atomCount => atomCount.reactantsCount,
+      ( this.orientation === 'horizontal' ) ? this.aligner.getReactantsBoxCenterX() : this.aligner.getScreenCenterX() - centerXOffset
+    );
 
-      // product bars
-      this.updateBars(
-        this.productCountProperties,
-        this.productBarsParent,
-        atomCounts,
-        atomCount => atomCount.productsCount,
-        ( this.orientation === 'horizontal' ) ? this.aligner.getProductsBoxCenterX() : this.aligner.getScreenCenterX() + centerXOffset
-      );
-
-      this.updateCounts();
-    }
+    // product bars
+    this.updateBars(
+      this.productCountProperties,
+      this.productBarsParent,
+      atomCounts,
+      atomCount => atomCount.productsCount,
+      ( this.orientation === 'horizontal' ) ? this.aligner.getProductsBoxCenterX() : this.aligner.getScreenCenterX() + centerXOffset
+    );
   }
 
   /**
-   * Updates one set of bars (reactants or products).
+   * Creates new count Properties, and bars that are wired to those Properties, for one side of the equation.
    * @param countProperties - map of Element to count for that Element
-   * @param parentNode
+   * @param parentNode - parent for the BarNode instances
    * @param atomCounts - counts of each atom in the equation
    * @param getCount - gets the reactants or products count
    * @param centerX - centerX of the chart
    */
-  private updateBars( countProperties: Map<Element, Property<number>>, parentNode: Node, atomCounts: AtomCount[],
-                      getCount: ( atomCount: AtomCount ) => number, centerX: number ): void {
+  private updateBars( countProperties: Map<Element, Property<number>>,
+                      parentNode: Node,
+                      atomCounts: AtomCount[],
+                      getCount: ( atomCount: AtomCount ) => number,
+                      centerX: number ): void {
 
-    if ( this.visible ) {
+    // Dispose of previous bars.
+    parentNode.getChildren().forEach( child => child.dispose() );
 
-      // Dispose and remove previous bars
-      parentNode.getChildren().forEach( child => child.dispose() );
-      parentNode.removeAllChildren();
+    // Clear the map.
+    countProperties.clear();
 
-      // Clear the map.
-      countProperties.clear();
+    // For each element...
+    atomCounts.forEach( ( atomCount, i ) => {
 
-      for ( let i = 0; i < atomCounts.length; i++ ) {
-        const atomCount = atomCounts[ i ];
+      // Populate the map.
+      const countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
+      countProperties.set( atomCount.element, countProperty );
 
-        // populate the map
-        const countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
-        countProperties.set( atomCount.element, countProperty );
+      // Add a bar node.
+      const barNode = new BarNode( atomCount.element, countProperty );
+      parentNode.addChild( barNode );
 
-        // add a bar node
-        const barNode = new BarNode( atomCount.element, countProperty );
-        parentNode.addChild( barNode );
+      // Position the bar as it changes size.
+      const barCenterX = i * ( BarNode.MAX_BAR_SIZE.width + 60 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+      const barBottom = i * ( BarNode.MAX_BAR_SIZE.height + 50 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+      barNode.boundsProperty.link( () => {
+        if ( this.orientation === 'horizontal' ) {
+          barNode.centerX = barCenterX;
+          barNode.bottom = 0;
+        }
+        else {
+          barNode.centerX = centerX;
+          barNode.bottom = barBottom;
+        }
+      } );
+    } );
 
-        // Position the bar as it changes size.
-        const barCenterX = i * ( BarNode.MAX_BAR_SIZE.width + 60 );
-        const barBottom = i * ( BarNode.MAX_BAR_SIZE.height + 50 );
-        barNode.boundsProperty.link( () => {
-          if ( this.orientation === 'horizontal' ) {
-            barNode.centerX = barCenterX;
-            barNode.bottom = 0;
-          }
-          else {
-            barNode.centerX = centerX;
-            barNode.bottom = barBottom;
-          }
-        } );
-      }
-
-      parentNode.centerX = centerX;
-    }
+    parentNode.centerX = centerX;
   }
 
   /**
-   * Updates the atom counts for each bar.
+   * Updates the count Properties for each element involved in the equation.
    */
   private updateCounts(): void {
-    if ( this.visible ) {
-      const atomCounts = this.equationProperty.value.getAtomCounts();
-      for ( let i = 0; i < atomCounts.length; i++ ) {
-        const atomCount = atomCounts[ i ];
+    const atomCounts = this.equationProperty.value.getAtomCounts();
+    atomCounts.forEach( atomCount => {
 
-        const reactantCountProperty = this.reactantCountProperties.get( atomCount.element )!;
-        assert && assert( reactantCountProperty,
-          `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
-        reactantCountProperty.value = atomCount.reactantsCount;
+      const reactantCountProperty = this.reactantCountProperties.get( atomCount.element )!;
+      assert && assert( reactantCountProperty,
+        `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
+      reactantCountProperty.value = atomCount.reactantsCount;
 
-        const productCountProperty = this.productCountProperties.get( atomCount.element )!;
-        assert && assert( productCountProperty,
-          `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
-        productCountProperty.value = atomCount.productsCount;
-      }
-    }
+      const productCountProperty = this.productCountProperties.get( atomCount.element )!;
+      assert && assert( productCountProperty,
+        `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
+      productCountProperty.value = atomCount.productsCount;
+    } );
   }
 }
 

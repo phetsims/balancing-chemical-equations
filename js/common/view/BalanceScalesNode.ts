@@ -27,13 +27,13 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 type Orientation = 'horizontal' | 'vertical';
 
 type SelfOptions = {
-  
+
   orientation?: Orientation;
 
   // horizontal spacing between the tips of 2 fulcrums
   // see https://github.com/phetsims/balancing-chemical-equations/issues/91
   twoFulcrumsXSpacing?: number;
-  
+
   // horizontal spacing between the tips of 3 fulcrums
   threeFulcrumsXSpacing?: number;
 };
@@ -75,7 +75,7 @@ export default class BalanceScalesNode extends Node {
       bottom: 0
     }, providedOptions );
 
-    super();
+    super( options );
 
     this.equationProperty = equationProperty;
     this.aligner = aligner;
@@ -91,86 +91,68 @@ export default class BalanceScalesNode extends Node {
     // Wire coefficients listener to current equation.
     const coefficientsListener = () => this.updateCounts();
     equationProperty.link( ( newEquation, oldEquation ) => {
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Failure if this.updateNode() is moved last.
       this.updateNode();
       oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
       newEquation.lazyLinkCoefficientProperties( coefficientsListener );
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Guard with isSettingPhetioStateProperty?
       coefficientsListener();
     } );
-
-    this.mutate( options );
-
-    // Update this Node when it becomes visible.
-    this.visibleProperty.link( visible => visible && this.updateNode() );
   }
 
   /**
-   * Updates this node's entire geometry and layout.
+   * Create new count Properties and balance scales that are wired to those Properties.
    */
   private updateNode(): void {
-    if ( this.visible ) {
 
-      // dispose of children before calling removeAllChildren
-      this.getChildren().forEach( child => {
-        if ( child.dispose ) {
-          child.dispose();
-        }
-      } );
+    // dispose of the previous bars
+    this.getChildren().forEach( child => child.dispose() );
 
-      // remove all nodes and clear the maps
-      this.removeAllChildren();
-      this.reactantCountProperties.clear();
-      this.productCountProperties.clear();
+    // Clear the maps.
+    this.reactantCountProperties.clear();
+    this.productCountProperties.clear();
 
-      const atomCounts = this.equationProperty.value.getAtomCounts();
-      let x = 0;
-      let y = 0;
-      for ( let i = 0; i < atomCounts.length; i++ ) {
+    let x = 0;
+    let y = 0;
+    const atomCounts = this.equationProperty.value.getAtomCounts();
 
-        const atomCount = atomCounts[ i ];
+    // For each element...
+    atomCounts.forEach( atomCount => {
 
-        // populate the maps
-        const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
-        const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
-        this.reactantCountProperties.set( atomCount.element, leftCountProperty );
-        this.productCountProperties.set( atomCount.element, rightCountProperty );
+      // Populate the maps.
+      const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
+      const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
+      this.reactantCountProperties.set( atomCount.element, leftCountProperty );
+      this.productCountProperties.set( atomCount.element, rightCountProperty );
 
-        // add a scale node
-        const scaleNodeOptions = this.orientation === 'horizontal' ? { x: x } : { y: y };
-        const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.isBalancedProperty, scaleNodeOptions );
-        this.addChild( scaleNode );
+      // Add a balance scale.
+      const scaleNodeOptions = this.orientation === 'horizontal' ? { x: x } : { y: y };
+      const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.isBalancedProperty, scaleNodeOptions );
+      this.addChild( scaleNode );
 
-        x += ( atomCounts.length === 2 ) ? this.twoFulcrumsXSpacing : this.threeFulcrumsXSpacing;
-        y += 140; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
-      }
+      x += ( atomCounts.length === 2 ) ? this.twoFulcrumsXSpacing : this.threeFulcrumsXSpacing;
+      y += 140; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+    } );
 
-      this.centerX = this.aligner.getScreenCenterX();
-      this.bottom = this.constantBottom;
-      this.updateCounts();
-    }
+    this.centerX = this.aligner.getScreenCenterX();
+    this.bottom = this.constantBottom;
   }
 
   /**
-   * Updates the atom counts for each scale.
+   * Updates the count Properties for each element involved in the equation.
    */
   private updateCounts(): void {
-    if ( this.visible ) {
-      const atomCounts = this.equationProperty.value.getAtomCounts();
-      for ( let i = 0; i < atomCounts.length; i++ ) {
-        const atomCount = atomCounts[ i ];
+    const atomCounts = this.equationProperty.value.getAtomCounts();
+    atomCounts.forEach( atomCount => {
 
-        const reactantCountProperty = this.reactantCountProperties.get( atomCount.element )!;
-        assert && assert( reactantCountProperty,
-          `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
-        reactantCountProperty.value = atomCount.reactantsCount;
+      const reactantCountProperty = this.reactantCountProperties.get( atomCount.element )!;
+      assert && assert( reactantCountProperty,
+        `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
+      reactantCountProperty.value = atomCount.reactantsCount;
 
-        const productCountProperty = this.productCountProperties.get( atomCount.element )!;
-        assert && assert( productCountProperty,
-          `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
-        productCountProperty.value = atomCount.productsCount;
-      }
-    }
+      const productCountProperty = this.productCountProperties.get( atomCount.element )!;
+      assert && assert( productCountProperty,
+        `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
+      productCountProperty.value = atomCount.productsCount;
+    } );
   }
 }
 
