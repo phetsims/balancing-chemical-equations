@@ -68,9 +68,6 @@ export default class Equation extends PhetioObject {
 
     const coefficientProperties = this.terms.map( term => term.coefficientProperty );
 
-    this.hasNonZeroCoefficientProperty = DerivedProperty.deriveAny( coefficientProperties,
-      () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value > 0 ) );
-
     // An equation is balanced if all terms have a non-zero coefficient that is the same integer multiple
     // of the term's balanced coefficient.
     this.isBalancedProperty = DerivedProperty.deriveAny( [ ...coefficientProperties ], () => {
@@ -91,6 +88,9 @@ export default class Equation extends PhetioObject {
         phetioFeatured: true,
         phetioValueType: BooleanIO
       } );
+
+    this.hasNonZeroCoefficientProperty = DerivedProperty.deriveAny( coefficientProperties,
+      () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value > 0 ) );
   }
 
   public reset(): void {
