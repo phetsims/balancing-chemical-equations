@@ -19,7 +19,7 @@ import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
-import BoxesNode from '../../common/view/BoxesNode.js';
+import ParticlesNode from '../../common/view/ParticlesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
@@ -43,8 +43,8 @@ export default class LevelNode extends Node {
   private readonly layoutBounds: Bounds2;
   private readonly aligner: HorizontalAligner;
 
-  // boxes that show particles corresponding to the equation coefficients
-  private readonly accordionBoxes: BoxesNode;
+  // Shows particles corresponding to the equation coefficients
+  private readonly particlesNode: ParticlesNode;
 
   private equationNode: EquationNode;
   private readonly equationNodeParent: Node;
@@ -78,12 +78,12 @@ export default class LevelNode extends Node {
     const statusBar = new BCEFiniteStatusBar( model, layoutBounds, visibleBoundsProperty, tandem.createTandem( 'statusBar' ) );
     this.addChild( statusBar );
 
-    this.accordionBoxes = new BoxesNode( model.challengeProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
+    this.particlesNode = new ParticlesNode( model.challengeProperty, model.coefficientsRange, this.aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         y: statusBar.bottom + 15,
         parentTandem: tandem
       } );
-    this.addChild( this.accordionBoxes );
+    this.addChild( this.particlesNode );
 
     this.equationNode = new EquationNode( model.challengeProperty.value, this.aligner, {
       tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
@@ -93,7 +93,7 @@ export default class LevelNode extends Node {
     this.addChild( this.equationNodeParent );
     this.equationNodeParent.children = [ this.equationNode ];
     // x position is handled by this.aligner.
-    this.equationNodeParent.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.accordionBoxes.bottom ) / 2;
+    this.equationNodeParent.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.particlesNode.bottom ) / 2;
 
     model.challengeProperty.lazyLink( challenge => {
 
@@ -121,7 +121,7 @@ export default class LevelNode extends Node {
 
     this.checkButton.boundsProperty.link( bounds => {
       this.checkButton.centerX = this.layoutBounds.centerX;
-      this.checkButton.bottom = this.accordionBoxes.bottom;
+      this.checkButton.bottom = this.particlesNode.bottom;
     } );
 
     this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty,
@@ -137,7 +137,7 @@ export default class LevelNode extends Node {
 
     this.nextButton.boundsProperty.link( bounds => {
       this.nextButton.centerX = this.layoutBounds.centerX;
-      this.nextButton.bottom = this.accordionBoxes.bottom;
+      this.nextButton.bottom = this.particlesNode.bottom;
     } );
 
     if ( phet.chipper.queryParameters.showAnswers ) {
@@ -170,7 +170,7 @@ export default class LevelNode extends Node {
     this.feedbackNode = new GameFeedbackNode( model, this.aligner, tandem.createTandem( 'feedbackNode' ) );
     this.feedbackNode.localBoundsProperty.link( () => {
       this.feedbackNode.centerX = this.layoutBounds.centerX;
-      this.feedbackNode.top = this.accordionBoxes.top + 10;
+      this.feedbackNode.top = this.particlesNode.top + 10;
     } );
     this.addChild( this.feedbackNode );
 
@@ -258,7 +258,7 @@ export default class LevelNode extends Node {
    */
   private setBalancedHighlightEnabled( enabled: boolean ): void {
     this.equationNode.setBalancedHighlightEnabled( enabled );
-    this.accordionBoxes.setBalancedHighlightEnabled( enabled );
+    this.particlesNode.setBalancedHighlightEnabled( enabled );
   }
 
   /**

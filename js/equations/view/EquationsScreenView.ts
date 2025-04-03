@@ -30,7 +30,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import BarChartNode from '../../common/view/BarChartNode.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
-import BoxesNode from '../../common/view/BoxesNode.js';
+import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationsFeedbackNode from './EquationsFeedbackNode.js';
 
@@ -53,8 +53,7 @@ export default class EquationsScreenView extends ScreenView {
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
-    // Accordion boxes that show particles corresponding to the equation coefficients
-    const accordionBoxes = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
+    const particlesNode = new ParticlesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
           balancedRepresentation => balancedRepresentation === 'particles' ),
@@ -69,7 +68,7 @@ export default class EquationsScreenView extends ScreenView {
     } );
     balanceScalesNode.setScaleMagnitude( 0.85 );
     balanceScalesNode.boundsProperty.link( () => {
-      balanceScalesNode.bottom = accordionBoxes.bottom;
+      balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
     const barChartNode = new BarChartNode( model.equationProperty, aligner, {
@@ -78,7 +77,7 @@ export default class EquationsScreenView extends ScreenView {
       orientation: 'vertical' //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
     } );
     barChartNode.boundsProperty.link( () => {
-      barChartNode.bottom = accordionBoxes.bottom;
+      barChartNode.bottom = particlesNode.bottom;
     } );
 
     // 'Tools' combo box, at upper-right
@@ -105,7 +104,7 @@ export default class EquationsScreenView extends ScreenView {
 
     // Feedback at top left: smiley face with balanced and simplified indicators.
     const feedbackNode = new EquationsFeedbackNode( model.equationProperty );
-    feedbackNode.left = accordionBoxes.left;
+    feedbackNode.left = particlesNode.left;
     feedbackNode.top = this.layoutBounds.top + 10;
 
     // Radio button group for choosing an equation type
@@ -191,7 +190,7 @@ export default class EquationsScreenView extends ScreenView {
 
     const screenViewRootNode = new Node( {
       children: [
-        accordionBoxes,
+        particlesNode,
         balanceScalesNode,
         barChartNode,
         toolsControl,
@@ -230,7 +229,7 @@ export default class EquationsScreenView extends ScreenView {
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
-      accordionBoxes,
+      particlesNode,
       toolsControl,
       resetAllButton
     ];

@@ -22,7 +22,7 @@ import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartNode from '../../common/view/BarChartNode.js';
-import BoxesNode from '../../common/view/BoxesNode.js';
+import ParticlesNode from '../../common/view/ParticlesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import IntroModel from '../model/IntroModel.js';
@@ -52,7 +52,7 @@ export default class IntroScreenView extends ScreenView {
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // Accordion boxes that show particles corresponding to the equation coefficients
-    const accordionBoxes = new BoxesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
+    const particlesNode = new ParticlesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         top: 180,
         parentTandem: tandem
@@ -67,7 +67,7 @@ export default class IntroScreenView extends ScreenView {
       twoFulcrumsXSpacing: 325
     } );
     balanceScalesNode.boundsProperty.link( () => {
-      balanceScalesNode.bottom = accordionBoxes.top - 10;
+      balanceScalesNode.bottom = particlesNode.top - 10;
     } );
 
     const barChartNode = new BarChartNode( model.equationProperty, aligner, {
@@ -75,7 +75,7 @@ export default class IntroScreenView extends ScreenView {
         balancedRepresentation => balancedRepresentation === 'barChart' )
     } );
     barChartNode.boundsProperty.link( () => {
-      barChartNode.bottom = accordionBoxes.top - 10;
+      barChartNode.bottom = particlesNode.top - 10;
     } );
 
     // 'Tools' combo box, at upper-right
@@ -123,7 +123,7 @@ export default class IntroScreenView extends ScreenView {
         visibleProperty: new DerivedProperty( [ model.equationProperty ], equation => equation === choice.equation ),
         tandem: equationNodesTandem.createTandem( `${choice.tandemNamePrefix}Node` )
       } ) ),
-      top: accordionBoxes.bottom + 20,
+      top: particlesNode.bottom + 20,
       tandem: equationNodesTandem
     } );
 
@@ -156,7 +156,7 @@ export default class IntroScreenView extends ScreenView {
 
     const screenViewRootNode = new Node( {
       children: [
-        accordionBoxes,
+        particlesNode,
         balanceScalesNode,
         barChartNode,
         toolsControl,
@@ -192,7 +192,7 @@ export default class IntroScreenView extends ScreenView {
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
-      accordionBoxes,
+      particlesNode,
       toolsControl,
       resetAllButton
     ];

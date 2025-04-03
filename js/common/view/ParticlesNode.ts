@@ -1,7 +1,8 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * BoxesNode is a pair of accordion boxes that show particles for an equation's reactants and products.
+ * ParticlesNode displays the 'particles' representation of an equation. Particles for reactants and products
+ * are shown in a pair of accordion boxes, with an arrow centered between them.
  *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -28,9 +29,9 @@ type SelfOptions = {
   parentTandem: Tandem;
 };
 
-type BoxesNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+type ParticlesNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class BoxesNode extends Node {
+export default class ParticlesNode extends Node {
 
   private readonly arrowNode: RightArrowNode;
 
@@ -51,9 +52,9 @@ export default class BoxesNode extends Node {
                       boxColor: TColor,
                       reactantsBoxExpandedProperty: Property<boolean>,
                       productsBoxExpandedProperty: Property<boolean>,
-                      providedOptions?: BoxesNodeOptions ) {
+                      providedOptions?: ParticlesNodeOptions ) {
 
-    const options = optionize<BoxesNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<ParticlesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       isDisposable: false
@@ -110,4 +111,4 @@ export default class BoxesNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'BoxesNode', BoxesNode );
+balancingChemicalEquations.register( 'ParticlesNode', ParticlesNode );
