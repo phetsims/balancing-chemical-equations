@@ -16,7 +16,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Equation from '../../common/model/Equation.js';
-import RandomStrategy from './RandomStrategy.js';
+import EquationPool from './EquationPool.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Molecule from '../../common/model/Molecule.js';
@@ -39,17 +39,14 @@ type SelfOptions = {
   getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
 
   // The pool of equations for the challenges.
-  equationPool: Equation[];
-
-  // Strategy for selecting a set of equations from the pool.
-  equationSelectionStrategy: RandomStrategy;
+  equationPool: EquationPool;
 };
 
 type GameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class GameLevel extends PhetioObject {
 
-  private static readonly CHALLENGES_PER_GAME = 5;
+  public static readonly CHALLENGES_PER_GAME = 5;
 
   public static readonly POINTS_FIRST_ATTEMPT = 2;  // points to award for correct guess on 1st attempt
   public static readonly POINTS_SECOND_ATTEMPT = 1; // points to award for correct guess on 2nd attempt
@@ -60,8 +57,7 @@ export default class GameLevel extends PhetioObject {
   public readonly icon: Node;
   private readonly coefficientsRange: Range;
   public readonly getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
-  private readonly equationPool: Equation[];
-  private readonly equationSelectionStrategy: RandomStrategy;
+  private readonly equationPool: EquationPool;
 
   public readonly bestScoreProperty: Property<number>;
   public readonly bestTimeProperty: Property<number>;
@@ -87,7 +83,6 @@ export default class GameLevel extends PhetioObject {
     this.coefficientsRange = options.coefficientsRange;
     this.getBalancedRepresentation = options.getBalancedRepresentation;
     this.equationPool = options.equationPool;
-    this.equationSelectionStrategy = options.equationSelectionStrategy;
 
     this.bestScoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
@@ -113,15 +108,14 @@ export default class GameLevel extends PhetioObject {
    * Gets an equation from the pool.
    */
   public getEquation( index: number ): Equation {
-    assert && assert( index >= 0 && index < this.equationPool.length );
-    return this.equationPool[ index ];
+    return this.equationPool.getEquation( index );
   }
 
   /**
    * Gets the number of equations for this level.
    */
   public getNumberOfChallenges(): number {
-    return BCEQueryParameters.playAll ? this.equationPool.length : GameLevel.CHALLENGES_PER_GAME;
+    return BCEQueryParameters.playAll ? this.equationPool.getPoolSize() : GameLevel.CHALLENGES_PER_GAME;
   }
 
   /**
@@ -144,9 +138,7 @@ export default class GameLevel extends PhetioObject {
    * If 'playAll' query parameter is defined, return all equations for the level.
    */
   public getChallenges(): Equation[] {
-    const equations = BCEQueryParameters.playAll ?
-                      this.equationPool :
-                      this.equationSelectionStrategy.getEquations( GameLevel.CHALLENGES_PER_GAME );
+    const equations = this.equationPool.getEquations( this.getNumberOfChallenges() );
     equations.forEach( equation => equation.reset() ); // Ensure that all coefficients are reset to zero.
     return equations;
   }

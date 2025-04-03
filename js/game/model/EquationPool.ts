@@ -1,8 +1,9 @@
 // Copyright 2020-2025, University of Colorado Boulder
 
 /**
- * RandomStrategy selects a random set from a pool of equation generators, with no duplicates. Based on the optional
- * exclusionsMap, selection of an equation generator may cause other equation generators to be excluded from the pool.
+ * EquationPool is the base class for the pool of equations that make up challenges for the Game.
+ * It is responsible for selecting a random set of equations from that pool, with no duplicates.
+ * Based on the optional exclusionsMap, selection of an equation may cause other equations to be excluded from a game.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,44 +12,56 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 
-// For an example, see GameFactory EXCLUSIONS_MAP.
 export type ExclusionsMap = Map<Equation, Equation[]>;
 
 type SelfOptions = {
 
-  // Whether it's OK if the first equation in the set contains a "big" molecule
+  // Whether it's OK if the first equation returned by getEquations() contains a "big" molecule, as defined by Molecule.isBig.
   firstBigMolecule?: boolean;
 
-  // See GameLevel3.EXCLUSIONS_MAP
+  // Defines how selection of an equation may cause other equation to be excluded a game.
+  // For an example, see GameLevel3.EXCLUSIONS_MAP
   exclusionsMap?: ExclusionsMap | null;
 };
 
-type RandomStrategyOptions = SelfOptions;
+type EquationPoolOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class RandomStrategy {
+export default class EquationPool extends PhetioObject {
 
   // The pool of Equations to choose from
-  public readonly pool: Equation[];
+  private readonly pool: Equation[];
 
-  // Whether it's OK if the first equation in the set contains a "big" molecule
+  // See SelfOptions
   public readonly firstBigMolecule: boolean;
 
-  // See GameLevel3.EXCLUSIONS_MAP
-  public readonly exclusionsMap: ExclusionsMap | null;
+  // See SelfOptions
+  private readonly exclusionsMap: ExclusionsMap | null;
 
-  public constructor( pool: Equation[], providedOptions?: RandomStrategyOptions ) {
+  protected constructor( pool: Equation[], providedOptions: EquationPoolOptions ) {
 
-    const options = optionize<RandomStrategyOptions, SelfOptions>()( {
+    const options = optionize<EquationPoolOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       firstBigMolecule: true,
-      exclusionsMap: null
+      exclusionsMap: null,
+
+      // PhetioObjectOptions
+      phetioState: false
     }, providedOptions );
+
+    super( options );
 
     this.pool = pool;
     this.firstBigMolecule = options.firstBigMolecule;
     this.exclusionsMap = options.exclusionsMap;
+  }
+
+  public getPoolSize(): number {
+    return this.pool.length;
   }
 
   /**
@@ -110,7 +123,7 @@ export default class RandomStrategy {
       poolCopy.splice( poolCopy.indexOf( equation ), 1 );
 
       // If the selected equation has exclusions, remove them from the pool.
-      if ( this.exclusionsMap ) {
+      if ( this.exclusionsMap && !BCEQueryParameters.playAll ) {
         const exclusions = this.exclusionsMap.get( equation );
         if ( exclusions ) {
           for ( let j = 0; j < exclusions.length; j++ ) {
@@ -135,6 +148,14 @@ export default class RandomStrategy {
 
     return equations;
   }
+
+  /**
+   * Gets a specific equation from the pool.
+   */
+  public getEquation( index: number ): Equation {
+    assert && assert( index >= 0 && index < this.pool.length );
+    return this.pool[ index ];
+  }
 }
 
-balancingChemicalEquations.register( 'RandomStrategy', RandomStrategy );
+balancingChemicalEquations.register( 'EquationPool', EquationPool );
