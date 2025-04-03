@@ -90,7 +90,7 @@ export default class Equation extends PhetioObject {
       } );
 
     this.hasNonZeroCoefficientProperty = DerivedProperty.deriveAny( coefficientProperties,
-      () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value > 0 ) );
+      () => !!_.find( coefficientProperties, coefficientProperties => coefficientProperties.value !== 0 ) );
   }
 
   public reset(): void {
