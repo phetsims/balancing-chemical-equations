@@ -121,7 +121,8 @@ export default class BalanceScalesNode extends Node {
 
       // Get the corresponding product count Property.
       const productCountProperty = this.productsMap.get( element )!;
-      assert && assert( productCountProperty );
+      assert && assert( productCountProperty,
+        `missing productCountProperty for element ${element.symbol} in equation ${this.equationProperty.value.toString()}` );
 
       // Add a balance scale.
       const scaleNodeOptions = this.orientation === 'horizontal' ? { x: x } : { y: y };
