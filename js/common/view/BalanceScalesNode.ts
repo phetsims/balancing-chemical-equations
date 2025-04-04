@@ -50,9 +50,9 @@ export default class BalanceScalesNode extends Node {
   private readonly twoFulcrumsXSpacing: number;
   private readonly threeFulcrumsXSpacing: number;
 
-  // maps Element to count for that Element
-  private readonly reactantCountProperties: Map<Element, Property<number>>;
-  private readonly productCountProperties: Map<Element, Property<number>>;
+  // maps Element to its count Property
+  private readonly reactantsMap: Map<Element, Property<number>>;
+  private readonly productsMap: Map<Element, Property<number>>;
 
   /**
    * @param equationProperty the equation that the scales are representing
@@ -85,47 +85,47 @@ export default class BalanceScalesNode extends Node {
     this.twoFulcrumsXSpacing = options.twoFulcrumsXSpacing;
     this.threeFulcrumsXSpacing = options.threeFulcrumsXSpacing;
 
-    this.reactantCountProperties = new Map();
-    this.productCountProperties = new Map();
+    this.reactantsMap = new Map();
+    this.productsMap = new Map();
 
     // Wire coefficients listener to current equation.
     const coefficientsListener = () => this.updateCounts();
     equationProperty.link( ( newEquation, oldEquation ) => {
-      this.updateNode();
+
+      // Create count Properties to match the new equation.
+      this.updateCountProperties();
+
+      // Create child Nodes to match the new equation.
+      this.updateChildren();
+
+      // Wire coefficients listener to the current equation.
       oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
       newEquation.lazyLinkCoefficientProperties( coefficientsListener );
-      coefficientsListener();
     } );
   }
 
   /**
-   * Create new count Properties and balance scales that are wired to those Properties.
+   * Creates child Nodes to match the current equation.
    */
-  private updateNode(): void {
+  private updateChildren(): void {
 
-    // dispose of the previous BalanceScaleNode instances.
+    // Dispose of previous BalanceScaleNode instances.
     this.getChildren().forEach( child => child.dispose() );
-
-    // Clear the maps.
-    this.reactantCountProperties.clear();
-    this.productCountProperties.clear();
 
     let x = 0;
     let y = 0;
     const atomCounts = this.equationProperty.value.getAtomCounts();
 
-    // For each element...
-    atomCounts.forEach( atomCount => {
+    // For each entry in the reactants map...
+    this.reactantsMap.forEach( ( reactantCountProperty, element ) => {
 
-      // Populate the maps.
-      const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
-      const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
-      this.reactantCountProperties.set( atomCount.element, leftCountProperty );
-      this.productCountProperties.set( atomCount.element, rightCountProperty );
+      // Get the corresponding product count Property.
+      const productCountProperty = this.productsMap.get( element )!;
+      assert && assert( productCountProperty );
 
       // Add a balance scale.
       const scaleNodeOptions = this.orientation === 'horizontal' ? { x: x } : { y: y };
-      const scaleNode = new BalanceScaleNode( atomCount.element, leftCountProperty, rightCountProperty, this.equationProperty.value.isBalancedProperty, scaleNodeOptions );
+      const scaleNode = new BalanceScaleNode( element, reactantCountProperty, productCountProperty, this.equationProperty.value.isBalancedProperty, scaleNodeOptions );
       this.addChild( scaleNode );
 
       x += ( atomCounts.length === 2 ) ? this.twoFulcrumsXSpacing : this.threeFulcrumsXSpacing;
@@ -137,18 +137,41 @@ export default class BalanceScalesNode extends Node {
   }
 
   /**
+   * Creates count Properties for each element involved in the equation.
+   */
+  private updateCountProperties(): void {
+
+    // Clear the maps.
+    this.reactantsMap.clear();
+    this.productsMap.clear();
+
+    // Get the current counts.
+    const atomCounts = this.equationProperty.value.getAtomCounts();
+
+    // For each element...
+    atomCounts.forEach( atomCount => {
+
+      // Populate the maps.
+      const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
+      const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
+      this.reactantsMap.set( atomCount.element, leftCountProperty );
+      this.productsMap.set( atomCount.element, rightCountProperty );
+    } );
+  }
+
+  /**
    * Updates the count Properties for each element involved in the equation.
    */
   private updateCounts(): void {
     const atomCounts = this.equationProperty.value.getAtomCounts();
     atomCounts.forEach( atomCount => {
 
-      const reactantCountProperty = this.reactantCountProperties.get( atomCount.element )!;
+      const reactantCountProperty = this.reactantsMap.get( atomCount.element )!;
       assert && assert( reactantCountProperty,
         `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
       reactantCountProperty.value = atomCount.reactantsCount;
 
-      const productCountProperty = this.productCountProperties.get( atomCount.element )!;
+      const productCountProperty = this.productsMap.get( atomCount.element )!;
       assert && assert( productCountProperty,
         `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
       productCountProperty.value = atomCount.productsCount;

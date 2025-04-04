@@ -20,7 +20,6 @@ import Element from '../../../../nitroglycerin/js/Element.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import AtomCount from '../model/AtomCount.js';
 import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
@@ -41,9 +40,9 @@ export default class BarChartNode extends Node {
   private readonly aligner: HorizontalAligner;
   private readonly orientation: Orientation;
 
-  // maps Element to count for that Element
-  private readonly reactantCountProperties: Map<Element, Property<number>>;
-  private readonly productCountProperties: Map<Element, Property<number>>;
+  // maps Element to its count Property
+  private readonly reactantsMap: Map<Element, Property<number>>;
+  private readonly productsMap: Map<Element, Property<number>>;
 
   // UI subcomponents
   private readonly reactantBarsParent: Node;
@@ -80,83 +79,76 @@ export default class BarChartNode extends Node {
     this.aligner = aligner;
     this.orientation = options.orientation;
 
-    this.reactantCountProperties = new Map();
-    this.productCountProperties = new Map();
+    this.reactantsMap = new Map();
+    this.productsMap = new Map();
 
     this.reactantBarsParent = reactantBarsParent;
     this.productBarsParent = productBarsParent;
 
     // Wire coefficients listener to current equation.
-    const coefficentsListener = () => this.updateCounts();
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 duplicated in BalanceScalesNode
+    const coefficientsListener = () => this.updateCounts();
     equationProperty.link( ( newEquation, oldEquation ) => {
-      this.updateNode();
-      oldEquation && oldEquation.unlinkCoefficientProperties( coefficentsListener );
-      newEquation.lazyLinkCoefficientProperties( coefficentsListener );
-      coefficentsListener();
+
+      // Create count Properties to match the new equation.
+      this.updateCountProperties();
+
+      // Create child Nodes to match the new equation.
+      this.updateChildren();
+
+      // Wire coefficients listener to the current equation.
+      oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
+      newEquation.lazyLinkCoefficientProperties( coefficientsListener );
     } );
   }
 
   /**
-   * Create new count Properties, and create new balance scales that are wired to those Properties.
+   * Creates child Nodes to match the current equation.
    */
-  private updateNode(): void {
+  private updateChildren(): void {
 
-    const atomCounts = this.equationProperty.value.getAtomCounts();
     const centerXOffset = 125; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
 
     // reactant bars
     this.updateBars(
-      this.reactantCountProperties,
+      this.reactantsMap,
       this.reactantBarsParent,
-      atomCounts,
-      atomCount => atomCount.reactantsCount,
       ( this.orientation === 'horizontal' ) ? this.aligner.getReactantsBoxCenterX() : this.aligner.getScreenCenterX() - centerXOffset
     );
 
     // product bars
     this.updateBars(
-      this.productCountProperties,
+      this.productsMap,
       this.productBarsParent,
-      atomCounts,
-      atomCount => atomCount.productsCount,
       ( this.orientation === 'horizontal' ) ? this.aligner.getProductsBoxCenterX() : this.aligner.getScreenCenterX() + centerXOffset
     );
   }
 
   /**
-   * Creates new count Properties, and bars that are wired to those Properties, for one side of the equation.
+   * Creates new BarNodes for one side of the equation.
    * @param countProperties - map of Element to count for that Element
    * @param parentNode - parent for the BarNode instances
-   * @param atomCounts - counts of each atom in the equation
-   * @param getCount - gets the reactants or products count
    * @param centerX - centerX of the chart
    */
   private updateBars( countProperties: Map<Element, Property<number>>,
                       parentNode: Node,
-                      atomCounts: AtomCount[],
-                      getCount: ( atomCount: AtomCount ) => number,
                       centerX: number ): void {
 
     // Dispose of previous BarNode instances.
     parentNode.getChildren().forEach( child => child.dispose() );
 
-    // Clear the map.
-    countProperties.clear();
+    // For each entry in the map...
+    let i = 0;
+    countProperties.forEach( ( countProperty, element ) => {
 
-    // For each element...
-    atomCounts.forEach( ( atomCount, i ) => {
-
-      // Populate the map.
-      const countProperty = new NumberProperty( getCount( atomCount ), { numberType: 'Integer' } );
-      countProperties.set( atomCount.element, countProperty );
-
-      // Add a bar node.
-      const barNode = new BarNode( atomCount.element, countProperty );
+      // Add a BarNode.
+      const barNode = new BarNode( element, countProperty );
       parentNode.addChild( barNode );
 
       // Position the bar as it changes size.
       const barCenterX = i * ( BarNode.MAX_BAR_SIZE.width + 60 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
       const barBottom = i * ( BarNode.MAX_BAR_SIZE.height + 50 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+      i++;
       barNode.boundsProperty.link( () => {
         if ( this.orientation === 'horizontal' ) {
           barNode.centerX = barCenterX;
@@ -172,19 +164,44 @@ export default class BarChartNode extends Node {
     parentNode.centerX = centerX;
   }
 
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCountProperties is duplicated in BalanceScalesNode
   /**
-   * Updates the count Properties for each element involved in the equation.
+   * Creates count Properties for each element involved in the equation.
+   */
+  private updateCountProperties(): void {
+
+    // Clear the maps.
+    this.reactantsMap.clear();
+    this.productsMap.clear();
+
+    // Get the current counts.
+    const atomCounts = this.equationProperty.value.getAtomCounts();
+
+    // For each element...
+    atomCounts.forEach( atomCount => {
+
+      // Populate the maps.
+      const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
+      const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
+      this.reactantsMap.set( atomCount.element, leftCountProperty );
+      this.productsMap.set( atomCount.element, rightCountProperty );
+    } );
+  }
+
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCounts is duplicated in BalanceScalesNode
+  /**
+   * Updates the counts for each element involved in the equation.
    */
   private updateCounts(): void {
     const atomCounts = this.equationProperty.value.getAtomCounts();
     atomCounts.forEach( atomCount => {
 
-      const reactantCountProperty = this.reactantCountProperties.get( atomCount.element )!;
+      const reactantCountProperty = this.reactantsMap.get( atomCount.element )!;
       assert && assert( reactantCountProperty,
         `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
       reactantCountProperty.value = atomCount.reactantsCount;
 
-      const productCountProperty = this.productCountProperties.get( atomCount.element )!;
+      const productCountProperty = this.productsMap.get( atomCount.element )!;
       assert && assert( productCountProperty,
         `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
       productCountProperty.value = atomCount.productsCount;
