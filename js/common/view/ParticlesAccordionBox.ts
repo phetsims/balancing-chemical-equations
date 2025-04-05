@@ -122,43 +122,28 @@ export default class ParticlesAccordionBox extends AccordionBox {
     this.termNodesMap = new Map();
     this.moleculesParent = moleculesParent;
 
-    // update visible molecules to match the coefficients
     const coefficientsListener = () => {
-      this.updateCounts( getTerms( equationProperty.value ), getXOffsets( equationProperty.value ) );
+      this.updateMoleculeNodes( getTerms( equationProperty.value ), getXOffsets( equationProperty.value ) );
     };
 
     equationProperty.link( ( newEquation, oldEquation ) => {
 
-      // updates the node for molecules of the current equation
-      this.updateNode( getTerms( newEquation ), getXOffsets( newEquation ) );
+      // Remove all MoleculeNodes and clear the map.
+      this.moleculesParent.removeAllChildren();
+      this.termNodesMap.clear();
 
-      // wire up coefficients listener to current equation
+      // Wire up coefficients listener to the current equation.
       oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
       newEquation.lazyLinkCoefficientProperties( coefficientsListener );
+
       coefficientsListener();
     } );
   }
 
   /**
-   * Creates molecules in the boxes for one set of terms (reactants or products).
-   * To improve performance:
-   * - Molecules are created as needed.
-   * - Molecules are never removed; they remain as children for the lifetime of this node.
-   * - The visibility of molecules is adjusted to show the correct number of molecules.
+   * Adds MoleculeNodes or updates their visibility to match the current coefficients.
    */
-  private updateNode( terms: EquationTerm[], xOffsets: number[] ): void {
-
-    // Remove all molecule nodes and clear the map.
-    this.moleculesParent.removeAllChildren();
-    this.termNodesMap.clear();
-
-    this.updateCounts( terms, xOffsets );
-  }
-
-  /**
-   * Updates visibility of molecules to match the current coefficients.
-   */
-  private updateCounts( terms: EquationTerm[], xOffsets: number[] ): void {
+  private updateMoleculeNodes( terms: EquationTerm[], xOffsets: number[] ): void {
 
     const Y_MARGIN = 0;
     const rowHeight = ( this.boxHeight - ( 2 * Y_MARGIN ) ) / this.coefficientsRange.max;
@@ -174,12 +159,12 @@ export default class ParticlesAccordionBox extends AccordionBox {
       for ( let j = 0; j < Math.max( coefficient, moleculeNodes.length ); j++ ) {
         if ( j < moleculeNodes.length ) {
 
-          // set visibility of a molecule that already exists
+          // Set visibility of a molecule that already exists.
           moleculeNodes[ j ].visible = ( j < coefficient );
         }
         else {
 
-          // add a molecule node
+          // Add a MoleculeNode.
           const moleculeNode = term.molecule.createNode( {
             atomNodeOptions: BCEConstants.ATOM_NODE_OPTIONS
           } );
