@@ -146,7 +146,7 @@ export default class BalanceScalesNode extends Node {
     // Get the current counts.
     const atomCounts = this.equationProperty.value.getAtomCounts();
 
-    // For each element...
+    // For each atom...
     atomCounts.forEach( atomCount => {
 
       // Populate the maps.
