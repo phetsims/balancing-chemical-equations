@@ -25,6 +25,8 @@ import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type Orientation = 'horizontal' | 'vertical';
 
@@ -85,20 +87,74 @@ export default class BarChartNode extends Node {
     this.reactantBarsParent = reactantBarsParent;
     this.productBarsParent = productBarsParent;
 
-    // Wire coefficients listener to current equation.
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 duplicated in BalanceScalesNode
-    const coefficientsListener = () => this.updateCounts();
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in BalanceScalesNode
+
+    // When coefficients change, update counts only after PhET-iO state has been fully restored. Otherwise, we'll
+    // be using reactionMap and productsMap for the old equation because equationProperty will not have fired yet.
+    // See https://github.com/phetsims/balancing-chemical-equations/issues/174#issuecomment-2769573393.
+    const coefficientsListener = () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.updateCounts();
+      }
+    };
+    phetioStateSetEmitter.addListener( () => this.updateCounts() );
+
     equationProperty.link( ( newEquation, oldEquation ) => {
+
+      // Wire coefficients listener to the current equation.
+      oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
+      newEquation.lazyLinkCoefficientProperties( coefficientsListener );
 
       // Create count Properties to match the new equation.
       this.updateCountProperties();
 
       // Create child Nodes to match the new equation.
       this.updateChildren();
+    } );
+  }
 
-      // Wire coefficients listener to the current equation.
-      oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
-      newEquation.lazyLinkCoefficientProperties( coefficientsListener );
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCounts is duplicated in BalanceScalesNode
+  /**
+   * Updates the counts for each element involved in the equation.
+   */
+  private updateCounts(): void {
+    const equation = this.equationProperty.value;
+    const atomCounts = equation.getAtomCounts();
+    atomCounts.forEach( atomCount => {
+
+      const reactantCountProperty = this.reactantsMap.get( atomCount.element )!;
+      assert && assert( reactantCountProperty,
+        `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${equation.toString()}` );
+      reactantCountProperty.value = atomCount.reactantsCount;
+
+      const productCountProperty = this.productsMap.get( atomCount.element )!;
+      assert && assert( productCountProperty,
+        `missing productCountProperty for element ${atomCount.element.symbol} in equation ${equation.toString()}` );
+      productCountProperty.value = atomCount.productsCount;
+    } );
+  }
+
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCountProperties is duplicated in BalanceScalesNode
+  /**
+   * Creates count Properties for each element involved in the equation.
+   */
+  private updateCountProperties(): void {
+
+    // Clear the maps.
+    this.reactantsMap.clear();
+    this.productsMap.clear();
+
+    // Get the current counts.
+    const atomCounts = this.equationProperty.value.getAtomCounts();
+
+    // For each element...
+    atomCounts.forEach( atomCount => {
+
+      // Populate the maps.
+      const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
+      const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
+      this.reactantsMap.set( atomCount.element, leftCountProperty );
+      this.productsMap.set( atomCount.element, rightCountProperty );
     } );
   }
 
@@ -162,50 +218,6 @@ export default class BarChartNode extends Node {
     } );
 
     parentNode.centerX = centerX;
-  }
-
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCountProperties is duplicated in BalanceScalesNode
-  /**
-   * Creates count Properties for each element involved in the equation.
-   */
-  private updateCountProperties(): void {
-
-    // Clear the maps.
-    this.reactantsMap.clear();
-    this.productsMap.clear();
-
-    // Get the current counts.
-    const atomCounts = this.equationProperty.value.getAtomCounts();
-
-    // For each element...
-    atomCounts.forEach( atomCount => {
-
-      // Populate the maps.
-      const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
-      const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
-      this.reactantsMap.set( atomCount.element, leftCountProperty );
-      this.productsMap.set( atomCount.element, rightCountProperty );
-    } );
-  }
-
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCounts is duplicated in BalanceScalesNode
-  /**
-   * Updates the counts for each element involved in the equation.
-   */
-  private updateCounts(): void {
-    const atomCounts = this.equationProperty.value.getAtomCounts();
-    atomCounts.forEach( atomCount => {
-
-      const reactantCountProperty = this.reactantsMap.get( atomCount.element )!;
-      assert && assert( reactantCountProperty,
-        `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
-      reactantCountProperty.value = atomCount.reactantsCount;
-
-      const productCountProperty = this.productsMap.get( atomCount.element )!;
-      assert && assert( productCountProperty,
-        `missing productCountProperty for element ${atomCount.element.symbol} in equation ${this.equationProperty.value.toString()}` );
-      productCountProperty.value = atomCount.productsCount;
-    } );
   }
 }
 
