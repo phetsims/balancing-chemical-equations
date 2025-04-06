@@ -4,10 +4,6 @@
  * BalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
  * The left side of each scale is the reactants, the right side is the products.
  *
- * This implementation is very brute force, just about everything is recreated each time a coefficient is changed in
- * the equations.  But we have a small number of coefficients, and nothing else is happening in the sim.  So we're
- * trading efficiency for simplicity of implementation.
- *
  * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
  */
