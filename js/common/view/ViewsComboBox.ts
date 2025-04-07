@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2025, University of Colorado Boulder
 
 //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Move to common/view/
 //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Rename and change label?
@@ -16,12 +16,12 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
+import { BalancedRepresentation } from '../model/BalancedRepresentation.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import BalanceFulcrumNode from '../../common/view/BalanceFulcrumNode.js';
+import BalanceFulcrumNode from './BalanceFulcrumNode.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';

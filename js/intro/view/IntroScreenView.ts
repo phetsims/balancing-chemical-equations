@@ -29,7 +29,7 @@ import IntroModel from '../model/IntroModel.js';
 import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 import HorizontalBarNode from './HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
-import ViewsComboBox from './ViewsComboBox.js';
+import ViewsComboBox from '../../common/view/ViewsComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
