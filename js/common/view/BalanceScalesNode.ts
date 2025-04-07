@@ -21,6 +21,9 @@ import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioS
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
+// Vertical offset of BalanceScaleNode positions. Adjust this empirically so that there is no overlap.
+const Y_OFFSET = 140;
+
 type SelfOptions = EmptySelfOptions;
 
 type BalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
@@ -147,7 +150,7 @@ export default class BalanceScalesNode extends Node {
       } );
       this.addChild( scaleNode );
 
-      y += 140; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+      y += Y_OFFSET;
     } );
   }
 }
