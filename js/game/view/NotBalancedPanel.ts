@@ -22,7 +22,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import Equation from '../../common/model/Equation.js';
-import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
+import HBalanceScalesNode from '../../common/view/HBalanceScalesNode.js';
 import BarChartNode from '../../common/view/BarChartNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -182,7 +182,7 @@ class BalancedRepresentationNode extends Node {
 
     let balancedRepresentationNode;
     if ( balancedRepresentation === 'balanceScales' ) {
-      balancedRepresentationNode = new BalanceScalesNode( new Property( equation ), this.aligner );
+      balancedRepresentationNode = new HBalanceScalesNode( new Property( equation ), this.aligner );
     }
     else {
       balancedRepresentationNode = new BarChartNode( new Property( equation ), this.aligner );

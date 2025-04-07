@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * BalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
+ * HBalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
  * The left side of each scale is the reactants, the right side is the products.
  *
  * @author Vasily Shakhov (mlearner.com)
@@ -34,7 +34,7 @@ type SelfOptions = {
 
 type BalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class BalanceScalesNode extends Node {
+export default class HBalanceScalesNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
@@ -179,4 +179,4 @@ export default class BalanceScalesNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );
+balancingChemicalEquations.register( 'HBalanceScalesNode', HBalanceScalesNode );

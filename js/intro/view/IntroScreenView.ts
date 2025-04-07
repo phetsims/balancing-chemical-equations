@@ -20,7 +20,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
-import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
+import HBalanceScalesNode from '../../common/view/HBalanceScalesNode.js';
 import BarChartNode from '../../common/view/BarChartNode.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
@@ -58,7 +58,7 @@ export default class IntroScreenView extends ScreenView {
         parentTandem: tandem
       } );
 
-    const balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
+    const balanceScalesNode = new HBalanceScalesNode( model.equationProperty, aligner, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'balanceScales' ),
 
