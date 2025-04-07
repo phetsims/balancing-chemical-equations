@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * SmileyFaceFeedbackNode provides feedback on whether the equation is balanced on the 'Equations' screen.
+ * SmileyFaceFeedbackNode provides feedback on whether the equation is balanced on the 'Intro' and 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
