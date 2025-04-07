@@ -51,7 +51,6 @@ function createScreenIcon(): ScreenIcon {
   const equationNode = new HBox( {
     children: [
       new Text( 'A + B', textOptions ),
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Replace ArrowNode with '\u2B95' ?
       new ArrowNode( 0, 0, 25, 0, {
         stroke: null,
         headWidth: 15
