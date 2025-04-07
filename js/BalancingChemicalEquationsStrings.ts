@@ -34,7 +34,7 @@ type StringsType = {
   'showWhyStringProperty': LocalizedStringProperty;
   'simplifiedStringProperty': LocalizedStringProperty;
   'notSimplifiedStringProperty': LocalizedStringProperty;
-  'toolsStringProperty': LocalizedStringProperty;
+  'viewsStringProperty': LocalizedStringProperty;
   'reactantsStringProperty': LocalizedStringProperty;
   'productsStringProperty': LocalizedStringProperty;
   'chooseYourLevelStringProperty': LocalizedStringProperty;

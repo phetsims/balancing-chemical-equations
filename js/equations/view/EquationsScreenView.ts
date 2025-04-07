@@ -87,7 +87,7 @@ export default class EquationsScreenView extends ScreenView {
     const toolsControl = new HBox( {
       spacing: 10,
       children: [
-        new Text( BalancingChemicalEquationsStrings.toolsStringProperty, {
+        new Text( BalancingChemicalEquationsStrings.viewsStringProperty, {
           font: new PhetFont( 22 ),
           fontWeight: 'bold',
           maxWidth: 100,
