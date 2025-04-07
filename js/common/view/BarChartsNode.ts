@@ -8,22 +8,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import BalanceElementsNode from './BalanceElementsNode.js';
 
 // Vertical offset of BarNode positions. Adjust this empirically so that there is no overlap.
 const Y_OFFSET = BarNode.MAX_BAR_SIZE.height + 60;
@@ -32,106 +29,13 @@ type SelfOptions = EmptySelfOptions;
 
 type BarChartsNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class BarChartsNode extends Node {
+export default class BarChartsNode extends BalanceElementsNode {
 
-  private readonly equationProperty: TReadOnlyProperty<Equation>;
-
-  // maps Element to its count Property
-  private readonly reactantsMap: Map<Element, Property<number>>;
-  private readonly productsMap: Map<Element, Property<number>>;
-
-  /**
-   * @param equationProperty - the equation that the bar chart is representing
-   * @param [providedOptions]
-   */
-  public constructor( equationProperty: TReadOnlyProperty<Equation>,
-                      providedOptions?: BarChartsNodeOptions ) {
-
-    const options = optionize<BarChartsNodeOptions, SelfOptions, NodeOptions>()( {
-
-      // NodeOptions
-      isDisposable: false
-    }, providedOptions );
-
-    super( options );
-
-    this.equationProperty = equationProperty;
-
-    this.reactantsMap = new Map();
-    this.productsMap = new Map();
-
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in BalanceScalesNode.
-
-    // When coefficients change, update counts only after PhET-iO state has been fully restored. Otherwise, we'll
-    // be using reactionMap and productsMap for the old equation because equationProperty will not have fired yet.
-    // See https://github.com/phetsims/balancing-chemical-equations/issues/174#issuecomment-2769573393.
-    const coefficientsListener = () => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.updateCounts();
-      }
-    };
-    phetioStateSetEmitter.addListener( () => this.updateCounts() );
-
-    equationProperty.link( ( newEquation, oldEquation ) => {
-
-      // Wire coefficients listener to the current equation.
-      oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
-      newEquation.lazyLinkCoefficientProperties( coefficientsListener );
-
-      // Create count Properties to match the new equation.
-      this.updateCountProperties();
-
-      // Create child Nodes to match the new equation.
-      this.updateChildren();
-    } );
+  public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: BarChartsNodeOptions ) {
+    super( equationProperty, providedOptions );
   }
 
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCounts is duplicated in HBalanceScalesNode and BalanceScalesNode.
-  /**
-   * Updates the counts for each element involved in the equation.
-   */
-  private updateCounts(): void {
-    const equation = this.equationProperty.value;
-    const atomCounts = equation.getAtomCounts();
-    atomCounts.forEach( atomCount => {
-
-      const reactantCountProperty = this.reactantsMap.get( atomCount.element )!;
-      assert && assert( reactantCountProperty,
-        `missing reactantCountProperty for element ${atomCount.element.symbol} in equation ${equation.toString()}` );
-      reactantCountProperty.value = atomCount.reactantsCount;
-
-      const productCountProperty = this.productsMap.get( atomCount.element )!;
-      assert && assert( productCountProperty,
-        `missing productCountProperty for element ${atomCount.element.symbol} in equation ${equation.toString()}` );
-      productCountProperty.value = atomCount.productsCount;
-    } );
-  }
-
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCountProperties is duplicated in HBalanceScalesNode and BalanceScalesNode.
-  /**
-   * Creates count Properties for each element involved in the equation.
-   */
-  private updateCountProperties(): void {
-
-    // Clear the maps.
-    this.reactantsMap.clear();
-    this.productsMap.clear();
-
-    // Get the current counts.
-    const atomCounts = this.equationProperty.value.getAtomCounts();
-
-    // For each atom...
-    atomCounts.forEach( atomCount => {
-
-      // Populate the maps.
-      const leftCountProperty = new NumberProperty( atomCount.reactantsCount, { numberType: 'Integer' } );
-      const rightCountProperty = new NumberProperty( atomCount.productsCount, { numberType: 'Integer' } );
-      this.reactantsMap.set( atomCount.element, leftCountProperty );
-      this.productsMap.set( atomCount.element, rightCountProperty );
-    } );
-  }
-
-  private updateChildren(): void {
+  protected updateChildren(): void {
 
     // Dispose of previous Nodes.
     this.getChildren().forEach( child => child.dispose() );
@@ -166,6 +70,9 @@ export default class BarChartsNode extends Node {
   }
 }
 
+/**
+ * RowNode is a pair of BarChartNodes for one element, separated by an equality operator.
+ */
 class RowNode extends HBox {
 
   public constructor( element: Element,
