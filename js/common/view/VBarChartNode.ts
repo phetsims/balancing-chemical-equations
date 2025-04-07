@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * HBarChartNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
+ * VBarChartNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
  * An indicator between the charts (equals or not equals) indicates whether they are balanced.
  *
  * @author Vasily Shakhov (mlearner.com)
@@ -15,6 +15,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
@@ -22,14 +23,12 @@ import HorizontalAligner from './HorizontalAligner.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-
 
 type SelfOptions = EmptySelfOptions;
 
-type HBarChartNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+type VBarChartNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class HBarChartNode extends Node {
+export default class VBarChartNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
@@ -49,7 +48,7 @@ export default class HBarChartNode extends Node {
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
                       aligner: HorizontalAligner,
-                      providedOptions?: HBarChartNodeOptions ) {
+                      providedOptions?: VBarChartNodeOptions ) {
 
     const reactantBarsParent = new Node();
     const productBarsParent = new Node();
@@ -57,7 +56,7 @@ export default class HBarChartNode extends Node {
       center: new Vector2( aligner.getScreenCenterX(), -40 )
     } );
 
-    const options = optionize<HBarChartNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<VBarChartNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       isDisposable: false,
@@ -151,18 +150,20 @@ export default class HBarChartNode extends Node {
    */
   private updateChildren(): void {
 
+    const centerXOffset = 125; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+
     // reactant bars
     this.updateBars(
       this.reactantsMap,
       this.reactantBarsParent,
-      this.aligner.getReactantsBoxCenterX()
+      this.aligner.getScreenCenterX() - centerXOffset
     );
 
     // product bars
     this.updateBars(
       this.productsMap,
       this.productBarsParent,
-      this.aligner.getProductsBoxCenterX()
+      this.aligner.getScreenCenterX() + centerXOffset
     );
   }
 
@@ -188,11 +189,12 @@ export default class HBarChartNode extends Node {
       parentNode.addChild( barNode );
 
       // Position the bar as it changes size.
-      const barCenterX = i * ( BarNode.MAX_BAR_SIZE.width + 60 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+      const barBottom = i * ( BarNode.MAX_BAR_SIZE.height + 50 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
       i++;
       barNode.boundsProperty.link( () => {
-        barNode.centerX = barCenterX;
-        barNode.bottom = 0;
+
+        barNode.centerX = centerX;
+        barNode.bottom = barBottom;
       } );
     } );
 
@@ -200,4 +202,4 @@ export default class HBarChartNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'HBarChartNode', HBarChartNode );
+balancingChemicalEquations.register( 'VBarChartNode', VBarChartNode );
