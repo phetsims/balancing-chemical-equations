@@ -11,10 +11,7 @@ import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Element from '../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../nitroglycerin/js/nodes/AtomNode.js';
-import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
-import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
-import Text from '../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
@@ -26,7 +23,6 @@ import Dimension2 from '../../../dot/js/Dimension2.js';
 import HBox from '../../../scenery/js/layout/nodes/HBox.js';
 import HStrut from '../../../scenery/js/nodes/HStrut.js';
 import VBox from '../../../scenery/js/layout/nodes/VBox.js';
-import VStrut from '../../../scenery/js/nodes/VStrut.js';
 
 export default class IntroScreen extends Screen<IntroModel, IntroScreenView> {
 
@@ -56,22 +52,6 @@ export default class IntroScreen extends Screen<IntroModel, IntroScreenView> {
  */
 function createScreenIcon(): ScreenIcon {
 
-  // X + Y -> XY
-  const textOptions = {
-    font: new PhetFont( { size: 24, weight: 'bold' } )
-  };
-  const equationNode = new HBox( {
-    children: [
-      new Text( 'X + Y', textOptions ),
-      new ArrowNode( 0, 0, 25, 0, {
-        stroke: null,
-        headWidth: 15
-      } ),
-      new Text( 'XY', textOptions )
-    ],
-    spacing: 5
-  } );
-
   // Atoms
   const atomsNode = new HBox( {
     spacing: 0,
@@ -90,8 +70,6 @@ function createScreenIcon(): ScreenIcon {
     stroke: 'black',
     lineWidth: 0.25
   } );
-  beamNode.centerX = equationNode.centerX;
-  beamNode.top = equationNode.bottom + 25;
 
   const fulcrumNode = new BalanceFulcrumNode( {
     size: new Dimension2( 0.25 * beamNode.width, 20 ),
@@ -102,8 +80,6 @@ function createScreenIcon(): ScreenIcon {
     align: 'center',
     spacing: 0,
     children: [
-      equationNode,
-      new VStrut( 8 ),
       atomsNode,
       beamNode,
       fulcrumNode
