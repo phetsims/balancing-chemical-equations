@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * EquationsFeedbackNode provides feedback on whether the equation is balanced on the 'Equations' screen.
+ * SmileyFaceFeedbackNode provides feedback on whether the equation is balanced on the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -29,7 +29,7 @@ const TEXT_OPTIONS = {
 const X_SPACING = 5;
 const ICON_SCALE = 0.05;
 
-export default class EquationsFeedbackNode extends HBox {
+export default class SmileyFaceFeedbackNode extends HBox {
 
   public constructor( equationProperty: TReadOnlyProperty<Equation> ) {
 
@@ -111,4 +111,4 @@ export default class EquationsFeedbackNode extends HBox {
   }
 }
 
-balancingChemicalEquations.register( 'EquationsFeedbackNode', EquationsFeedbackNode );
+balancingChemicalEquations.register( 'SmileyFaceFeedbackNode', SmileyFaceFeedbackNode );
