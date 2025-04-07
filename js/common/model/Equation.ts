@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * Equation is the base class for all chemical equations.
+ * Equation is the model for a chemical equation.
  * A chemical equation has 2 sets of terms, reactants and products.
  * During the chemical reaction represented by the equation, reactants are transformed into products.
  *
@@ -19,6 +19,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import Molecule from './Molecule.js';
+import Range from '../../../../dot/js/Range.js';
 
 const RIGHTWARDS_BLACK_ARROW = '\u2B95';
 
@@ -43,11 +45,12 @@ export default class Equation extends PhetioObject {
   public readonly hasNonZeroCoefficientProperty: TReadOnlyProperty<boolean>;
 
   /**
+   * Constructor is private because all Equation instances are created via the static factory methods.
    * @param reactants terms on the left side of the equation
    * @param products terms on the right side of the equation
    * @param tandem
    */
-  protected constructor( reactants: EquationTerm[], products: EquationTerm[], tandem: Tandem ) {
+  private constructor( reactants: EquationTerm[], products: EquationTerm[], tandem: Tandem ) {
 
     super( {
       isDisposable: false,
@@ -185,6 +188,143 @@ export default class Equation extends PhetioObject {
     string = string.replace( /<\/sub>/g, '' );
 
     return string;
+  }
+
+  /**
+   * Factory method for creating an Equation with 2 reactants and 1 product.
+   * @param r1 - balanced coefficient for reactant1
+   * @param reactant1
+   * @param r2 - balanced coefficient for reactant2
+   * @param reactant2
+   * @param p1 - balanced coefficient for product1
+   * @param product1
+   * @param coefficientsRange  - range of all coefficients in the equation
+   * @param tandem
+   */
+  public static create2Reactants1Product( r1: number, reactant1: Molecule,
+                                          r2: number, reactant2: Molecule,
+                                          p1: number, product1: Molecule,
+                                          coefficientsRange: Range,
+                                          tandem: Tandem ): Equation {
+
+    let reactantNumber = 1;
+    let productNumber = 1;
+
+    return new Equation(
+      // Reactants
+      [
+        new EquationTerm( r1, reactant1, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `reactant${reactantNumber++}` )
+        } ),
+        new EquationTerm( r2, reactant2, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `reactant${reactantNumber++}` )
+        } )
+      ],
+
+      // Products
+      [
+        new EquationTerm( p1, product1, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `product${productNumber++}` )
+        } )
+      ],
+      tandem
+    );
+  }
+
+  /**
+   * Factory method for creating an Equation with 1 reactant and 2 products.
+   * @param r1 - balanced coefficient for reactant1
+   * @param reactant1
+   * @param p1 - balanced coefficient for product1
+   * @param product1
+   * @param p2 - balanced coefficient for product2
+   * @param product2
+   * @param coefficientsRange - range of all coefficients in the equation
+   * @param tandem
+   */
+  public static create1Reactant2Products( r1: number, reactant1: Molecule,
+                                          p1: number, product1: Molecule,
+                                          p2: number, product2: Molecule,
+                                          coefficientsRange: Range,
+                                          tandem: Tandem ): Equation {
+    let reactantNumber = 1;
+    let productNumber = 1;
+
+    return new Equation(
+      // Reactants
+      [
+        new EquationTerm( r1, reactant1, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `reactant${reactantNumber++}` )
+        } )
+      ],
+
+      // Products
+      [
+        new EquationTerm( p1, product1, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `product${productNumber++}` )
+        } ),
+        new EquationTerm( p2, product2, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `product${productNumber++}` )
+        } )
+      ],
+      tandem
+    );
+  }
+
+  /**
+   * Factory method for creating an Equation with 2 reactant and 2 products.
+   * @param r1 - balanced coefficient for reactant1
+   * @param reactant1
+   * @param r2 - balanced coefficient for reactant2
+   * @param reactant2
+   * @param p1 - balanced coefficient for product1
+   * @param product1
+   * @param p2 - balanced coefficient for product2
+   * @param product2
+   * @param coefficientsRange - range of all coefficients in the equation
+   * @param tandem
+   */
+  public static create2Reactants2Products( r1: number, reactant1: Molecule,
+                                           r2: number, reactant2: Molecule,
+                                           p1: number, product1: Molecule,
+                                           p2: number, product2: Molecule,
+                                           coefficientsRange: Range,
+                                           tandem: Tandem ): Equation {
+    let reactantNumber = 1;
+    let productNumber = 1;
+
+    return new Equation(
+      // Reactants
+      [
+        new EquationTerm( r1, reactant1, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `reactant${reactantNumber++}` )
+        } ),
+        new EquationTerm( r2, reactant2, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `reactant${reactantNumber++}` )
+        } )
+      ],
+
+      // Products
+      [
+        new EquationTerm( p1, product1, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `product${productNumber++}` )
+        } ),
+        new EquationTerm( p2, product2, {
+          coefficientRange: coefficientsRange,
+          tandem: tandem.createTandem( `product${productNumber++}` )
+        } )
+      ],
+      tandem
+    );
   }
 
   /**
