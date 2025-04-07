@@ -30,7 +30,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
-import SmileyFaceFeedbackNode from './SmileyFaceFeedbackNode.js';
+import EquationsFeedbackNode from './EquationsFeedbackNode.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 
@@ -103,7 +103,7 @@ export default class EquationsScreenView extends ScreenView {
     } );
 
     // Feedback at top left: smiley face with balanced and simplified indicators.
-    const feedbackNode = new SmileyFaceFeedbackNode( model.equationProperty );
+    const feedbackNode = new EquationsFeedbackNode( model.equationProperty );
     feedbackNode.left = particlesNode.left;
     feedbackNode.top = this.layoutBounds.top + 10;
 
