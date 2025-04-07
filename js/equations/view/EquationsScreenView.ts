@@ -19,7 +19,6 @@ import BCEConstants from '../../common/BCEConstants.js';
 import EquationsModel from '../model/EquationsModel.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
-import ViewsComboBox from '../../common/view/ViewsComboBox.js';
 import HorizontalBarNode from '../../common/view/HorizontalBarNode.js';
 import EquationsComboBox from './EquationsComboBox.js';
 import Multilink from '../../../../axon/js/Multilink.js';
@@ -33,6 +32,7 @@ import BCEColors from '../../common/BCEColors.js';
 import EquationsFeedbackNode from './EquationsFeedbackNode.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
+import ViewComboBox from '../../common/view/ViewComboBox.js';
 
 const BOX_SIZE = new Dimension2( 285, 260 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -80,26 +80,26 @@ export default class EquationsScreenView extends ScreenView {
       barChartsNode.bottom = particlesNode.bottom;
     } );
 
-    // 'Views' combo box, at upper-right
+    // 'View' combo box, at top-right.
     const listboxParent = new Node();
-    const viewsComboBox = new ViewsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
-      tandem.createTandem( 'viewsComboBox' ) );
-    const viewsControl = new HBox( {
+    const viewComboBox = new ViewComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
+      tandem.createTandem( 'viewComboBox' ) );
+    const viewControl = new HBox( {
       spacing: 10,
       children: [
-        new Text( BalancingChemicalEquationsStrings.viewsStringProperty, {
+        new Text( BalancingChemicalEquationsStrings.viewStringProperty, {
           font: new PhetFont( 22 ),
           fontWeight: 'bold',
           maxWidth: 100,
-          visibleProperty: viewsComboBox.visibleProperty
+          visibleProperty: viewComboBox.visibleProperty
         } ),
-        viewsComboBox
+        viewComboBox
       ]
     } );
 
-    viewsControl.boundsProperty.link( () => {
-      viewsControl.right = this.layoutBounds.right - 45;
-      viewsControl.top = this.layoutBounds.top + 15;
+    viewControl.boundsProperty.link( () => {
+      viewControl.right = this.layoutBounds.right - 45;
+      viewControl.top = this.layoutBounds.top + 15;
     } );
 
     // Feedback at top left: smiley face with balanced and simplified indicators.
@@ -193,7 +193,7 @@ export default class EquationsScreenView extends ScreenView {
         particlesNode,
         balanceScalesNode,
         barChartsNode,
-        viewsControl,
+        viewControl,
         feedbackNode,
         equationNodes,
         horizontalBarNode,
@@ -230,7 +230,7 @@ export default class EquationsScreenView extends ScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       particlesNode,
-      viewsControl,
+      viewControl,
       resetAllButton
     ];
   }

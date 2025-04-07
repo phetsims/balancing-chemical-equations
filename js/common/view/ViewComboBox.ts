@@ -1,7 +1,5 @@
 // Copyright 2025, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Move to common/view/
-//TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Rename and change label?
 /**
  * ViewsComboBox is the combo box for selecting the visual representation for "balanced".
  *
@@ -29,7 +27,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 const FONT = new PhetFont( 18 );
 
-export default class ViewsComboBox extends ComboBox<BalancedRepresentation> {
+export default class ViewComboBox extends ComboBox<BalancedRepresentation> {
 
   public constructor( balanceRepresentationProperty: StringUnionProperty<BalancedRepresentation>,
                       listboxParent: Node,
@@ -180,4 +178,4 @@ function createBarChartsIcon(): Node {
   } );
 }
 
-balancingChemicalEquations.register( 'ViewsComboBox', ViewsComboBox );
+balancingChemicalEquations.register( 'ViewComboBox', ViewComboBox );

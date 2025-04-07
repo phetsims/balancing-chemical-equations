@@ -53,8 +53,8 @@
   "notSimplified": {
     "value": "not simplified"
   },
-  "views": {
-    "value": "Views:"
+  "view": {
+    "value": "View:"
   },
   "reactants": {
     "value": "Reactants"

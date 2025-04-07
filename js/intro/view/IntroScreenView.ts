@@ -26,7 +26,7 @@ import IntroModel from '../model/IntroModel.js';
 import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 import HorizontalBarNode from '../../common/view/HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
-import ViewsComboBox from '../../common/view/ViewsComboBox.js';
+import ViewComboBox from '../../common/view/ViewComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
@@ -79,26 +79,26 @@ export default class IntroScreenView extends ScreenView {
       barChartsNode.bottom = particlesNode.bottom;
     } );
 
-    // 'Views' combo box, at upper-right
+    // 'View' combo box, at top-right.
     const listboxParent = new Node();
-    const viewsComboBox = new ViewsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
-      tandem.createTandem( 'viewsComboBox' ) );
-    const viewsControl = new HBox( {
+    const viewComboBox = new ViewComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
+      tandem.createTandem( 'viewComboBox' ) );
+    const viewControl = new HBox( {
       spacing: 10,
       children: [
-        new Text( BalancingChemicalEquationsStrings.viewsStringProperty, {
+        new Text( BalancingChemicalEquationsStrings.viewStringProperty, {
           font: new PhetFont( 22 ),
           fontWeight: 'bold',
           maxWidth: 100,
-          visibleProperty: viewsComboBox.visibleProperty
+          visibleProperty: viewComboBox.visibleProperty
         } ),
-        viewsComboBox
+        viewComboBox
       ]
     } );
 
-    viewsControl.boundsProperty.link( () => {
-      viewsControl.right = this.layoutBounds.right - 45;
-      viewsControl.top = this.layoutBounds.top + 15;
+    viewControl.boundsProperty.link( () => {
+      viewControl.right = this.layoutBounds.right - 45;
+      viewControl.top = this.layoutBounds.top + 15;
     } );
 
     // Feedback at top left: smiley face with balanced indicator.
@@ -149,7 +149,7 @@ export default class IntroScreenView extends ScreenView {
         particlesNode,
         balanceScalesNode,
         barChartsNode,
-        viewsControl,
+        viewControl,
         feedbackNode,
         equationNodes,
         horizontalBarNode,
@@ -183,7 +183,7 @@ export default class IntroScreenView extends ScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       particlesNode,
-      viewsControl,
+      viewControl,
       resetAllButton
     ];
   }
