@@ -156,7 +156,7 @@ export default class EquationsScreenView extends ScreenView {
       } );
 
     let equationNode = new EquationNode( model.equationProperty.value, aligner, {
-      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically for this screen.
     } );
     const equationNodes = new Node( {
       children: [ equationNode ],
