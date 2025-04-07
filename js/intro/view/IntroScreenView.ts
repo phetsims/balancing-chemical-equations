@@ -28,7 +28,7 @@ import HorizontalBarNode from '../../common/view/HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
 import ViewComboBox from '../../common/view/ViewComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
+import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 import IntroFeedbackNode from './IntroFeedbackNode.js';
 
@@ -60,7 +60,7 @@ export default class IntroScreenView extends ScreenView {
         parentTandem: tandem
       } );
 
-    const balanceScalesNode = new VBalanceScalesNode( model.equationProperty, {
+    const balanceScalesNode = new BalanceScalesNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );

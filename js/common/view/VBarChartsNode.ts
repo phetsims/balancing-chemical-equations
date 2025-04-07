@@ -57,7 +57,7 @@ export default class VBarChartsNode extends Node {
     this.reactantsMap = new Map();
     this.productsMap = new Map();
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in VBalanceScalesNode.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in BalanceScalesNode.
 
     // When coefficients change, update counts only after PhET-iO state has been fully restored. Otherwise, we'll
     // be using reactionMap and productsMap for the old equation because equationProperty will not have fired yet.
@@ -83,7 +83,7 @@ export default class VBarChartsNode extends Node {
     } );
   }
 
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCounts is duplicated in HBalanceScalesNode and VBalanceScalesNode.
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCounts is duplicated in HBalanceScalesNode and BalanceScalesNode.
   /**
    * Updates the counts for each element involved in the equation.
    */
@@ -104,7 +104,7 @@ export default class VBarChartsNode extends Node {
     } );
   }
 
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCountProperties is duplicated in HBalanceScalesNode and VBalanceScalesNode.
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 updateCountProperties is duplicated in HBalanceScalesNode and BalanceScalesNode.
   /**
    * Creates count Properties for each element involved in the equation.
    */

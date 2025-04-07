@@ -30,7 +30,7 @@ import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationsFeedbackNode from './EquationsFeedbackNode.js';
-import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
+import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 import ViewComboBox from '../../common/view/ViewComboBox.js';
 
@@ -61,7 +61,7 @@ export default class EquationsScreenView extends ScreenView {
         parentTandem: tandem
       } );
 
-    const balanceScalesNode = new VBalanceScalesNode( model.equationProperty, {
+    const balanceScalesNode = new BalanceScalesNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );

@@ -31,7 +31,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
-import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
+import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
@@ -186,7 +186,7 @@ class BalancedRepresentationNode extends Node {
 
     let balancedRepresentationNode;
     if ( balancedRepresentation === 'balanceScales' ) {
-      balancedRepresentationNode = new VBalanceScalesNode( new Property( equation ) );
+      balancedRepresentationNode = new BalanceScalesNode( new Property( equation ) );
     }
     else {
       balancedRepresentationNode = new VBarChartsNode( new Property( equation ) );

@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * VBalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
+ * BalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
  * The left side of each scale is the reactants, the right side is the products.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -25,7 +25,7 @@ type SelfOptions = EmptySelfOptions;
 
 type VBalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class VBalanceScalesNode extends Node {
+export default class BalanceScalesNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
 
@@ -151,4 +151,4 @@ export default class VBalanceScalesNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'VBalanceScalesNode', VBalanceScalesNode );
+balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );
