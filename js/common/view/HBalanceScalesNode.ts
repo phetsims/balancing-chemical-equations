@@ -32,7 +32,7 @@ type SelfOptions = {
   threeFulcrumsXSpacing?: number;
 };
 
-type BalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+type HBalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class HBalanceScalesNode extends Node {
 
@@ -54,9 +54,9 @@ export default class HBalanceScalesNode extends Node {
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
                       aligner: HorizontalAligner,
-                      providedOptions?: BalanceScalesNodeOptions ) {
+                      providedOptions?: HBalanceScalesNodeOptions ) {
 
-    const options = optionize<BalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<HBalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       twoFulcrumsXSpacing: 237,
