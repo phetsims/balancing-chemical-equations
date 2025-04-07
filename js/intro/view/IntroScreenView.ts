@@ -30,7 +30,7 @@ import ViewsComboBox from '../../common/view/ViewsComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
-import SmileyFaceFeedbackNode from '../../common/view/SmileyFaceFeedbackNode.js';
+import IntroFeedbackNode from './IntroFeedbackNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -101,8 +101,8 @@ export default class IntroScreenView extends ScreenView {
       viewsControl.top = this.layoutBounds.top + 15;
     } );
 
-    // Feedback at top left: smiley face with balanced and simplified indicators.
-    const feedbackNode = new SmileyFaceFeedbackNode( model.equationProperty );
+    // Feedback at top left: smiley face with balanced indicator.
+    const feedbackNode = new IntroFeedbackNode( model.equationProperty );
     feedbackNode.left = particlesNode.left;
     feedbackNode.top = this.layoutBounds.top + 10;
 
