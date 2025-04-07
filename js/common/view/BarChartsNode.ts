@@ -89,7 +89,7 @@ class RowNode extends HBox {
     equalityOperatorNode.setScaleMagnitude( 0.5 );
 
     super( {
-      children: [ barNodeAlignGroup.createBox( reactantBarNode ), barNodeAlignGroup.createBox( equalityOperatorNode ), productBarNode ],
+      children: [ barNodeAlignGroup.createBox( reactantBarNode ), equalityOperatorNode, barNodeAlignGroup.createBox( productBarNode ) ],
       spacing: 50,
       align: 'bottom'
     } );
