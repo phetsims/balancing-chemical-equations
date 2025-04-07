@@ -20,7 +20,7 @@ import EquationsModel from '../model/EquationsModel.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
 import ViewsComboBox from '../../common/view/ViewsComboBox.js';
-import HorizontalBarNode from '../../intro/view/HorizontalBarNode.js';
+import HorizontalBarNode from '../../common/view/HorizontalBarNode.js';
 import EquationsComboBox from './EquationsComboBox.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
