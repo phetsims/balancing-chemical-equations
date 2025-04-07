@@ -10,7 +10,6 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -31,6 +30,7 @@ import ViewsComboBox from '../../common/view/ViewsComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
+import EquationsFeedbackNode from '../../equations/view/EquationsFeedbackNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -101,21 +101,10 @@ export default class IntroScreenView extends ScreenView {
       viewsControl.top = this.layoutBounds.top + 15;
     } );
 
-    // smiley face, top center, shown when equation is balanced
-    const faceNode = new FaceNode( 70, {
-      centerX: this.layoutBounds.centerX,
-      top: 15
-    } );
-    const updateFace = () => {
-      faceNode.visible = model.equationProperty.value.isBalancedProperty.value;
-    };
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Should this be a Multilink, since updateFace() uses isBalancedProperty?
-    model.equationProperty.link( ( newEquation, oldEquation ) => {
-      if ( oldEquation ) {
-        oldEquation.isBalancedProperty.unlink( updateFace );
-      }
-      newEquation.isBalancedProperty.link( updateFace );
-    } );
+    // Feedback at top left: smiley face with balanced and simplified indicators.
+    const feedbackNode = new EquationsFeedbackNode( model.equationProperty );
+    feedbackNode.left = particlesNode.left;
+    feedbackNode.top = this.layoutBounds.top + 10;
 
     // interactive equations
     const equationNodesTandem = tandem.createTandem( 'equationNodes' );
@@ -161,7 +150,7 @@ export default class IntroScreenView extends ScreenView {
         balanceScalesNode,
         barChartsNode,
         viewsControl,
-        faceNode,
+        feedbackNode,
         equationNodes,
         horizontalBarNode,
         equationRadioButtonGroup,
