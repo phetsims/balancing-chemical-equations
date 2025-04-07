@@ -1,10 +1,10 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Delete either HBalanceScalesNode or VBalanceScalesNode.
 /**
- * BalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
+ * VBalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
  * The left side of each scale is the reactants, the right side is the products.
  *
- * @author Vasily Shakhov (mlearner.com)
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -32,9 +32,9 @@ type SelfOptions = {
   threeFulcrumsXSpacing?: number;
 };
 
-type BalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+type VBalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class BalanceScalesNode extends Node {
+export default class VBalanceScalesNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
@@ -54,9 +54,9 @@ export default class BalanceScalesNode extends Node {
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
                       aligner: HorizontalAligner,
-                      providedOptions?: BalanceScalesNodeOptions ) {
+                      providedOptions?: VBalanceScalesNodeOptions ) {
 
-    const options = optionize<BalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<VBalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       twoFulcrumsXSpacing: 237,
@@ -154,8 +154,7 @@ export default class BalanceScalesNode extends Node {
     // Dispose of previous BalanceScaleNode instances.
     this.getChildren().forEach( child => child.dispose() );
 
-    let x = 0;
-    const atomCounts = this.equationProperty.value.getAtomCounts();
+    let y = 0;
 
     // For each entry in the reactants map...
     this.reactantsMap.forEach( ( reactantCountProperty, element ) => {
@@ -167,11 +166,11 @@ export default class BalanceScalesNode extends Node {
 
       // Add a balance scale.
       const scaleNode = new BalanceScaleNode( element, reactantCountProperty, productCountProperty, this.equationProperty.value.isBalancedProperty, {
-        x: x
+        y: y
       } );
       this.addChild( scaleNode );
 
-      x += ( atomCounts.length === 2 ) ? this.twoFulcrumsXSpacing : this.threeFulcrumsXSpacing;
+      y += 140; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
     } );
 
     this.centerX = this.aligner.getScreenCenterX();
@@ -179,4 +178,4 @@ export default class BalanceScalesNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );
+balancingChemicalEquations.register( 'VBalanceScalesNode', VBalanceScalesNode );

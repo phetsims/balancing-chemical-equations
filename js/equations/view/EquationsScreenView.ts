@@ -29,10 +29,10 @@ import EquationNode from '../../common/view/EquationNode.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import BarChartNode from '../../common/view/BarChartNode.js';
-import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationsFeedbackNode from './EquationsFeedbackNode.js';
+import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 260 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -61,10 +61,9 @@ export default class EquationsScreenView extends ScreenView {
         parentTandem: tandem
       } );
 
-    const balanceScalesNode = new BalanceScalesNode( model.equationProperty, aligner, {
+    const balanceScalesNode = new VBalanceScalesNode( model.equationProperty, aligner, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-        balancedRepresentation => balancedRepresentation === 'balanceScales' ),
-      orientation: 'vertical' //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
+        balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );
     balanceScalesNode.setScaleMagnitude( 0.85 );
     balanceScalesNode.boundsProperty.link( () => {
