@@ -58,7 +58,6 @@ export default class EquationsScreenView extends ScreenView {
       tandem.createTandem( 'equationTypeRadioButtonGroup' ) );
 
     // Bar behind radio buttons at bottom of screen
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Move HorizontalBarNode to common/.
     const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
       visibleProperty: equationTypeRadioButtonGroup.visibleProperty,
       bottom: this.layoutBounds.bottom - 10
