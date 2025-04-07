@@ -159,10 +159,10 @@ export default class EquationsScreenView extends ScreenView {
       tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
     } );
     const equationNodes = new Node( {
-      children: [ equationNode ]
+      children: [ equationNode ],
+      // x position is handled by this.aligner.
+      bottom: horizontalBarNode.top - 20
     } );
-    // x position is handled by this.aligner.
-    equationNodes.bottom = horizontalBarNode.top - 20;
 
     model.equationProperty.lazyLink( equation => {
 
