@@ -22,8 +22,6 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
 import Equation from '../../common/model/Equation.js';
-import HBalanceScalesNode from '../../common/view/HBalanceScalesNode.js';
-import HBarChartNode from '../../common/view/HBarChartNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -33,6 +31,8 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
+import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
+import VBarChartNode from '../../common/view/VBarChartNode.js';
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
@@ -112,7 +112,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     const balancedRepresentationNode = new BalancedRepresentationNode( equation, balancedRepresentation, aligner,
       balancedRepresentationVisibleProperty );
 
-    const content = new VBox( {
+    const vBox = new VBox( {
       excludeInvisibleChildrenFromBounds: true,
       align: 'center',
       spacing: GameFeedbackPanel.VBOX_SPACING,
@@ -136,9 +136,13 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
           children: [ tryAgainButton, showAnswerButton ]
         } ),
 
-        showHideWhyToggleButton,
-        balancedRepresentationNode
+        showHideWhyToggleButton
       ]
+    } );
+
+    const content = new HBox( {
+      children: [ vBox, balancedRepresentationNode ],
+      spacing: 50
     } );
 
     super( content, {
@@ -182,10 +186,10 @@ class BalancedRepresentationNode extends Node {
 
     let balancedRepresentationNode;
     if ( balancedRepresentation === 'balanceScales' ) {
-      balancedRepresentationNode = new HBalanceScalesNode( new Property( equation ), this.aligner );
+      balancedRepresentationNode = new VBalanceScalesNode( new Property( equation ) );
     }
     else {
-      balancedRepresentationNode = new HBarChartNode( new Property( equation ), this.aligner );
+      balancedRepresentationNode = new VBarChartNode( new Property( equation ) );
     }
 
     // Shrink size so that it doesn't cover so much of the screen.

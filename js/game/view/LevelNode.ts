@@ -168,7 +168,7 @@ export default class LevelNode extends Node {
     }
 
     this.feedbackNode = new GameFeedbackNode( model, this.aligner, tandem.createTandem( 'feedbackNode' ) );
-    this.feedbackNode.localBoundsProperty.link( () => {
+    this.feedbackNode.boundsProperty.link( () => {
       this.feedbackNode.centerX = this.layoutBounds.centerX;
       this.feedbackNode.top = this.particlesNode.top + 10;
     } );
