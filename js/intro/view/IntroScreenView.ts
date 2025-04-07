@@ -72,7 +72,7 @@ export default class IntroScreenView extends ScreenView {
 
     const barChartNode = new HBarChartNode( model.equationProperty, aligner, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-        balancedRepresentation => balancedRepresentation === 'barChart' )
+        balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );
     barChartNode.boundsProperty.link( () => {
       barChartNode.bottom = particlesNode.top - 10;

@@ -65,7 +65,7 @@ function createIcon( balancedRepresentation: BalancedRepresentation ): Node {
   else if ( balancedRepresentation === 'balanceScales' ) {
     return createBalanceScalesIcon();
   }
-  else if ( balancedRepresentation === 'barChart' ) {
+  else if ( balancedRepresentation === 'barCharts' ) {
     return createBarChartsIcon();
   }
   else {

@@ -73,7 +73,7 @@ export default class EquationsScreenView extends ScreenView {
 
     const barChartNode = new VBarChartNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-        balancedRepresentation => balancedRepresentation === 'barChart' )
+        balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );
     barChartNode.boundsProperty.link( () => {
       barChartNode.centerX = particlesNode.centerX;
