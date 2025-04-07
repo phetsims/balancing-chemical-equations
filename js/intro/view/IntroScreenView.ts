@@ -29,7 +29,7 @@ import IntroViewProperties from './IntroViewProperties.js';
 import ViewComboBox from '../../common/view/ViewComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
-import VBarChartsNode from '../../common/view/VBarChartsNode.js';
+import BarChartsNode from '../../common/view/BarChartsNode.js';
 import IntroFeedbackNode from './IntroFeedbackNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -70,7 +70,7 @@ export default class IntroScreenView extends ScreenView {
       balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
-    const barChartsNode = new VBarChartsNode( model.equationProperty, {
+    const barChartsNode = new BarChartsNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );

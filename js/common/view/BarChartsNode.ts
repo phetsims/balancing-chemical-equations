@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * VBarChartsNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
+ * BarChartsNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
  * An indicator between the charts (equals or not equals) indicates whether they are balanced.
  *
  * @author Vasily Shakhov (mlearner.com)
@@ -29,7 +29,7 @@ type SelfOptions = EmptySelfOptions;
 
 type VBarChartsNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class VBarChartsNode extends Node {
+export default class BarChartsNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
 
@@ -192,4 +192,4 @@ class RowNode extends HBox {
   }
 }
 
-balancingChemicalEquations.register( 'VBarChartsNode', VBarChartsNode );
+balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );

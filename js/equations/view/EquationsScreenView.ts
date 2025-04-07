@@ -31,7 +31,7 @@ import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationsFeedbackNode from './EquationsFeedbackNode.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
-import VBarChartsNode from '../../common/view/VBarChartsNode.js';
+import BarChartsNode from '../../common/view/BarChartsNode.js';
 import ViewComboBox from '../../common/view/ViewComboBox.js';
 
 const BOX_SIZE = new Dimension2( 285, 260 );
@@ -71,7 +71,7 @@ export default class EquationsScreenView extends ScreenView {
       balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
-    const barChartsNode = new VBarChartsNode( model.equationProperty, {
+    const barChartsNode = new BarChartsNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );
