@@ -80,11 +80,11 @@ export default class EquationsScreenView extends ScreenView {
       barChartsNode.bottom = particlesNode.bottom;
     } );
 
-    // 'Tools' combo box, at upper-right
+    // 'Views' combo box, at upper-right
     const listboxParent = new Node();
     const viewsComboBox = new ViewsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
       tandem.createTandem( 'viewsComboBox' ) );
-    const toolsControl = new HBox( {
+    const viewsControl = new HBox( {
       spacing: 10,
       children: [
         new Text( BalancingChemicalEquationsStrings.viewsStringProperty, {
@@ -97,9 +97,9 @@ export default class EquationsScreenView extends ScreenView {
       ]
     } );
 
-    toolsControl.boundsProperty.link( () => {
-      toolsControl.right = this.layoutBounds.right - 45;
-      toolsControl.top = this.layoutBounds.top + 15;
+    viewsControl.boundsProperty.link( () => {
+      viewsControl.right = this.layoutBounds.right - 45;
+      viewsControl.top = this.layoutBounds.top + 15;
     } );
 
     // Feedback at top left: smiley face with balanced and simplified indicators.
@@ -193,7 +193,7 @@ export default class EquationsScreenView extends ScreenView {
         particlesNode,
         balanceScalesNode,
         barChartsNode,
-        toolsControl,
+        viewsControl,
         feedbackNode,
         equationNodes,
         horizontalBarNode,
@@ -230,7 +230,7 @@ export default class EquationsScreenView extends ScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       particlesNode,
-      toolsControl,
+      viewsControl,
       resetAllButton
     ];
   }
