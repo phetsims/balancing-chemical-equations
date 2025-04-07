@@ -25,6 +25,9 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
+// Vertical offset of BarNode positions. Adjust this empirically so that there is no overlap.
+const Y_OFFSET = BarNode.MAX_BAR_SIZE.height + 60;
+
 type SelfOptions = EmptySelfOptions;
 
 type BarChartsNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
@@ -154,7 +157,7 @@ export default class BarChartsNode extends Node {
       this.addChild( rowNode );
 
       // Position the rowNode as it changes size.
-      const bottom = i * ( BarNode.MAX_BAR_SIZE.height + 60 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+      const bottom = i * Y_OFFSET;
       i++;
       rowNode.boundsProperty.link( () => {
         rowNode.bottom = bottom;
