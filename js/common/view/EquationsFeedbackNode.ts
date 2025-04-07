@@ -7,7 +7,7 @@
  */
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import Equation from '../../common/model/Equation.js';
+import Equation from '../model/Equation.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
@@ -20,7 +20,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
-import BCEColors from '../../common/BCEColors.js';
+import BCEColors from '../BCEColors.js';
 
 const TEXT_OPTIONS = {
   font: new PhetFont( 18 ),

@@ -30,7 +30,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
-import EquationsFeedbackNode from './EquationsFeedbackNode.js';
+import EquationsFeedbackNode from '../../common/view/EquationsFeedbackNode.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 

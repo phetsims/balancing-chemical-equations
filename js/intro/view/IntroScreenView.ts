@@ -30,7 +30,7 @@ import ViewsComboBox from '../../common/view/ViewsComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
 import VBarChartsNode from '../../common/view/VBarChartsNode.js';
-import EquationsFeedbackNode from '../../equations/view/EquationsFeedbackNode.js';
+import EquationsFeedbackNode from '../../common/view/EquationsFeedbackNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
