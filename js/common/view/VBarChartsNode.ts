@@ -57,7 +57,7 @@ export default class VBarChartsNode extends Node {
     this.reactantsMap = new Map();
     this.productsMap = new Map();
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in HBalanceScalesNode and VBalanceScalesNode.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in VBalanceScalesNode.
 
     // When coefficients change, update counts only after PhET-iO state has been fully restored. Otherwise, we'll
     // be using reactionMap and productsMap for the old equation because equationProperty will not have fired yet.
