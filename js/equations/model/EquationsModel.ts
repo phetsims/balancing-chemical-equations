@@ -59,8 +59,6 @@ export default class EquationsModel implements TModel {
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new SynthesisEquation( 2, Molecule.N2, 5, Molecule.O2, 2, Molecule.N2O5,
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
-      new SynthesisEquation( 2, Molecule.S, 3, Molecule.O2, 2, Molecule.SO3,
-        this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new SynthesisEquation( 4, Molecule.P, 5, Molecule.O2, 2, Molecule.P2O5,
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new SynthesisEquation( 1, Molecule.C2H2, 2, Molecule.H2, 1, Molecule.C2H6,
