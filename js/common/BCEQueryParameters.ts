@@ -13,6 +13,14 @@ import balancingChemicalEquations from '../balancingChemicalEquations.js';
 
 const BCEQueryParameters = QueryStringMachine.getAll( {
 
+  // Determines whether the initial value for coefficients will be 0 or 1.
+  initialCoefficient: {
+    public: true,
+    type: 'number',
+    defaultValue: 0,
+    validValues: [ 0, 1 ]
+  },
+
   // The levels to show in the Game screen. This query parameter is public.
   gameLevels: getGameLevelsSchema( 3 ),
 

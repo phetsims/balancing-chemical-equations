@@ -42,7 +42,7 @@ export default class EquationTerm extends PhetioObject {
     const options = optionize<EquationTermOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      initialCoefficient: 0,
+      initialCoefficient: BCEQueryParameters.initialCoefficient,
 
       // PhetioObjectOptions
       phetioDocumentation: molecule.symbol,
