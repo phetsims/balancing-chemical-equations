@@ -55,8 +55,6 @@ export default class EquationsModel implements TModel {
     const synthesisEquationsTandem = tandem.createTandem( 'synthesisEquations' );
     let equationIndex = 0;
     this.synthesisEquations = [
-      new SynthesisEquation( 1, Molecule.C2H2, 2, Molecule.H2, 1, Molecule.C2H6,
-        this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new SynthesisEquation( 2, Molecule.C, 1, Molecule.O2, 2, Molecule.CO,
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new SynthesisEquation( 2, Molecule.N2, 5, Molecule.O2, 2, Molecule.N2O5,
@@ -64,6 +62,8 @@ export default class EquationsModel implements TModel {
       new SynthesisEquation( 2, Molecule.S, 3, Molecule.O2, 2, Molecule.SO3,
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new SynthesisEquation( 4, Molecule.P, 5, Molecule.O2, 2, Molecule.P2O5,
+        this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new SynthesisEquation( 1, Molecule.C2H2, 2, Molecule.H2, 1, Molecule.C2H6,
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) )
     ];
 
@@ -85,11 +85,11 @@ export default class EquationsModel implements TModel {
     this.combustionEquations = [
       new DisplacementEquation( 1, Molecule.C2H4, 3, Molecule.O2, 2, Molecule.CO2, 2, Molecule.H2O,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
-      new DisplacementEquation( 2, Molecule.C2H2, 5, Molecule.O2, 4, Molecule.CO2, 2, Molecule.H2O2,
-        this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new DisplacementEquation( 1, Molecule.C2H5OH, 3, Molecule.O2, 2, Molecule.CO2, 3, Molecule.H2O,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       new DisplacementEquation( 3, Molecule.CH3OH, 3, Molecule.O2, 2, Molecule.CO2, 4, Molecule.H2O,
+        this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
+      new DisplacementEquation( 2, Molecule.C2H2, 5, Molecule.O2, 4, Molecule.CO2, 2, Molecule.H2O2,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) )
     ];
 
