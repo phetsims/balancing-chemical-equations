@@ -11,7 +11,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
@@ -19,10 +18,11 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
-import HorizontalAligner from './HorizontalAligner.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -31,48 +31,30 @@ type VBarChartNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProp
 export default class VBarChartNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
-  private readonly aligner: HorizontalAligner;
 
   // maps Element to its count Property
   private readonly reactantsMap: Map<Element, Property<number>>;
   private readonly productsMap: Map<Element, Property<number>>;
 
-  // UI subcomponents
-  private readonly reactantBarsParent: Node;
-  private readonly productBarsParent: Node;
-
   /**
-   * @param equationProperty - the equation that the scales are representing
-   * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
+   * @param equationProperty - the equation that the bar chart is representing
    * @param [providedOptions]
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
-                      aligner: HorizontalAligner,
                       providedOptions?: VBarChartNodeOptions ) {
-
-    const reactantBarsParent = new Node();
-    const productBarsParent = new Node();
-    const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
-      center: new Vector2( aligner.getScreenCenterX(), -40 )
-    } );
 
     const options = optionize<VBarChartNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
-      isDisposable: false,
-      children: [ reactantBarsParent, productBarsParent, equalityOperatorNode ]
+      isDisposable: false
     }, providedOptions );
 
     super( options );
 
     this.equationProperty = equationProperty;
-    this.aligner = aligner;
 
     this.reactantsMap = new Map();
     this.productsMap = new Map();
-
-    this.reactantBarsParent = reactantBarsParent;
-    this.productBarsParent = productBarsParent;
 
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in HBalanceScalesNode and VBalanceScalesNode.
 
@@ -145,60 +127,65 @@ export default class VBarChartNode extends Node {
     } );
   }
 
-  /**
-   * Creates child Nodes to match the current equation.
-   */
   private updateChildren(): void {
 
-    const centerXOffset = 125; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+    // Dispose of previous Nodes.
+    this.getChildren().forEach( child => child.dispose() );
 
-    // reactant bars
-    this.updateBars(
-      this.reactantsMap,
-      this.reactantBarsParent,
-      this.aligner.getScreenCenterX() - centerXOffset
-    );
-
-    // product bars
-    this.updateBars(
-      this.productsMap,
-      this.productBarsParent,
-      this.aligner.getScreenCenterX() + centerXOffset
-    );
-  }
-
-  /**
-   * Creates new BarNodes for one side of the equation.
-   * @param countProperties - map of Element to count for that Element
-   * @param parentNode - parent for the BarNode instances
-   * @param centerX - centerX of the chart
-   */
-  private updateBars( countProperties: Map<Element, Property<number>>,
-                      parentNode: Node,
-                      centerX: number ): void {
-
-    // Dispose of previous BarNode instances.
-    parentNode.getChildren().forEach( child => child.dispose() );
-
-    // For each entry in the map...
-    let i = 0;
-    countProperties.forEach( ( countProperty, element ) => {
-
-      // Add a BarNode.
-      const barNode = new BarNode( element, countProperty );
-      parentNode.addChild( barNode );
-
-      // Position the bar as it changes size.
-      const barBottom = i * ( BarNode.MAX_BAR_SIZE.height + 50 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
-      i++;
-      barNode.boundsProperty.link( () => {
-
-        barNode.centerX = centerX;
-        barNode.bottom = barBottom;
-      } );
+    // Make all BarNode instances have the same effective width.
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 This does not prevent layout from shifting when a BarNode displays arrow.
+    const barNodeAlignGroup = new AlignGroup( {
+      matchHorizontal: true,
+      matchVertical: false
     } );
 
-    parentNode.centerX = centerX;
+    // For each entry in the reactants map...
+    let i = 0;
+    this.reactantsMap.forEach( ( reactantCountProperty, element ) => {
+
+      // Get the corresponding product count Property.
+      const productCountProperty = this.productsMap.get( element )!;
+      assert && assert( productCountProperty,
+        `missing productCountProperty for element ${element.symbol} in equation ${this.equationProperty.value.toString()}` );
+
+      // Add a row with 2 bar charts, separated by an equality operator.
+      const rowNode = new RowNode( this.equationProperty, element, reactantCountProperty, productCountProperty, barNodeAlignGroup );
+      this.addChild( rowNode );
+
+      // Position the rowNode as it changes size.
+      const bottom = i * ( BarNode.MAX_BAR_SIZE.height + 60 ); //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+      i++;
+      rowNode.boundsProperty.link( () => {
+        rowNode.bottom = bottom;
+      } );
+    } );
+  }
+}
+
+class RowNode extends HBox {
+
+  public constructor( equationProperty: TReadOnlyProperty<Equation>,
+                      element: Element,
+                      reactantCountProperty: TReadOnlyProperty<number>,
+                      productCountProperty: TReadOnlyProperty<number>,
+                      barNodeAlignGroup: AlignGroup ) {
+
+    const reactantBarNode = new BarNode( element, reactantCountProperty );
+    const productBarNode = new BarNode( element, productCountProperty );
+    const equalityOperatorNode = new EqualityOperatorNode( equationProperty );
+    equalityOperatorNode.setScaleMagnitude( 0.5 );
+
+    super( {
+      children: [ barNodeAlignGroup.createBox( reactantBarNode ), barNodeAlignGroup.createBox( equalityOperatorNode ), productBarNode ],
+      spacing: 50,
+      align: 'bottom'
+    } );
+
+    this.disposeEmitter.addListener( () => {
+      reactantBarNode.dispose();
+      productBarNode.dispose();
+      equalityOperatorNode.dispose();
+    } );
   }
 }
 

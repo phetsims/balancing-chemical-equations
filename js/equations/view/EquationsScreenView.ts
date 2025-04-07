@@ -61,20 +61,22 @@ export default class EquationsScreenView extends ScreenView {
         parentTandem: tandem
       } );
 
-    const balanceScalesNode = new VBalanceScalesNode( model.equationProperty, aligner, {
+    const balanceScalesNode = new VBalanceScalesNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );
     balanceScalesNode.setScaleMagnitude( 0.85 );
     balanceScalesNode.boundsProperty.link( () => {
+      balanceScalesNode.centerX = particlesNode.centerX;
       balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
-    const barChartNode = new VBarChartNode( model.equationProperty, aligner, {
+    const barChartNode = new VBarChartNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barChart' )
     } );
     barChartNode.boundsProperty.link( () => {
+      barChartNode.centerX = particlesNode.centerX;
       barChartNode.bottom = particlesNode.bottom;
     } );
 

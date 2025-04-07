@@ -29,11 +29,7 @@ export default class EqualityOperatorNode extends Node {
 
   public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: EqualityOperatorNodeOptions ) {
 
-    const options = optionize<EqualityOperatorNodeOptions, SelfOptions, NodeOptions>()( {
-
-      // NodeOptions
-      isDisposable: false
-    }, providedOptions );
+    const options = optionize<EqualityOperatorNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     const equalToNode = new Text( MathSymbols.EQUAL_TO, combineOptions<TextOptions>( {
       fill: BCEColors.BALANCED_HIGHLIGHT_COLOR

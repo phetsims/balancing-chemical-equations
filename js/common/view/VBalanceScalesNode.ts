@@ -12,36 +12,22 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BalanceScaleNode from './BalanceScaleNode.js';
-import HorizontalAligner from './HorizontalAligner.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 
-type SelfOptions = {
-
-  // horizontal spacing between the tips of 2 fulcrums
-  // see https://github.com/phetsims/balancing-chemical-equations/issues/91
-  twoFulcrumsXSpacing?: number;
-
-  // horizontal spacing between the tips of 3 fulcrums
-  threeFulcrumsXSpacing?: number;
-};
+type SelfOptions = EmptySelfOptions;
 
 type VBalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class VBalanceScalesNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
-  private readonly aligner: HorizontalAligner;
-
-  private readonly constantBottom: number;
-  private readonly twoFulcrumsXSpacing: number;
-  private readonly threeFulcrumsXSpacing: number;
 
   // maps Element to its count Property
   private readonly reactantsMap: Map<Element, Property<number>>;
@@ -49,32 +35,20 @@ export default class VBalanceScalesNode extends Node {
 
   /**
    * @param equationProperty the equation that the scales are representing
-   * @param aligner provides layout information to ensure horizontal alignment with other user-interface elements
    * @param [providedOptions]
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
-                      aligner: HorizontalAligner,
                       providedOptions?: VBalanceScalesNodeOptions ) {
 
     const options = optionize<VBalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
 
-      // SelfOptions
-      twoFulcrumsXSpacing: 237,
-      threeFulcrumsXSpacing: 237,
-
       // NodeOptions
-      isDisposable: false,
-      bottom: 0
+      isDisposable: false
     }, providedOptions );
 
     super( options );
 
     this.equationProperty = equationProperty;
-    this.aligner = aligner;
-
-    this.constantBottom = options.bottom;
-    this.twoFulcrumsXSpacing = options.twoFulcrumsXSpacing;
-    this.threeFulcrumsXSpacing = options.threeFulcrumsXSpacing;
 
     this.reactantsMap = new Map();
     this.productsMap = new Map();
@@ -172,9 +146,6 @@ export default class VBalanceScalesNode extends Node {
 
       y += 140; //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
     } );
-
-    this.centerX = this.aligner.getScreenCenterX();
-    this.bottom = this.constantBottom;
   }
 }
 

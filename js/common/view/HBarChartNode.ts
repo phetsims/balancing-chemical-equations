@@ -43,7 +43,7 @@ export default class HBarChartNode extends Node {
   private readonly productBarsParent: Node;
 
   /**
-   * @param equationProperty - the equation that the scales are representing
+   * @param equationProperty - the equation that the bar chart is representing
    * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
    * @param [providedOptions]
    */
