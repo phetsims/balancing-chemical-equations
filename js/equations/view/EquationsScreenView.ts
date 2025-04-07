@@ -19,7 +19,7 @@ import BCEConstants from '../../common/BCEConstants.js';
 import EquationsModel from '../model/EquationsModel.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
-import ToolsComboBox from '../../intro/view/ToolsComboBox.js';
+import ViewsComboBox from '../../intro/view/ViewsComboBox.js';
 import HorizontalBarNode from '../../intro/view/HorizontalBarNode.js';
 import EquationsComboBox from './EquationsComboBox.js';
 import Multilink from '../../../../axon/js/Multilink.js';
@@ -82,8 +82,8 @@ export default class EquationsScreenView extends ScreenView {
 
     // 'Tools' combo box, at upper-right
     const listboxParent = new Node();
-    const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
-      tandem.createTandem( 'toolsComboBox' ) );
+    const viewsComboBox = new ViewsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
+      tandem.createTandem( 'viewsComboBox' ) );
     const toolsControl = new HBox( {
       spacing: 10,
       children: [
@@ -91,9 +91,9 @@ export default class EquationsScreenView extends ScreenView {
           font: new PhetFont( 22 ),
           fontWeight: 'bold',
           maxWidth: 100,
-          visibleProperty: toolsComboBox.visibleProperty
+          visibleProperty: viewsComboBox.visibleProperty
         } ),
-        toolsComboBox
+        viewsComboBox
       ]
     } );
 

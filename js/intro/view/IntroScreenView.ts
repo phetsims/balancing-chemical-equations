@@ -29,7 +29,7 @@ import IntroModel from '../model/IntroModel.js';
 import EquationRadioButtonGroup from './EquationRadioButtonGroup.js';
 import HorizontalBarNode from './HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
-import ToolsComboBox from './ToolsComboBox.js';
+import ViewsComboBox from './ViewsComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
@@ -80,8 +80,8 @@ export default class IntroScreenView extends ScreenView {
 
     // 'Tools' combo box, at upper-right
     const listboxParent = new Node();
-    const toolsComboBox = new ToolsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
-      tandem.createTandem( 'toolsComboBox' ) );
+    const viewsComboBox = new ViewsComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
+      tandem.createTandem( 'viewsComboBox' ) );
     const toolsControl = new HBox( {
       spacing: 10,
       children: [
@@ -89,9 +89,9 @@ export default class IntroScreenView extends ScreenView {
           font: new PhetFont( 22 ),
           fontWeight: 'bold',
           maxWidth: 100,
-          visibleProperty: toolsComboBox.visibleProperty
+          visibleProperty: viewsComboBox.visibleProperty
         } ),
-        toolsComboBox
+        viewsComboBox
       ]
     } );
 
