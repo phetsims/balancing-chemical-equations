@@ -32,7 +32,7 @@ import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggl
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
-import VBarChartNode from '../../common/view/VBarChartNode.js';
+import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
@@ -189,7 +189,7 @@ class BalancedRepresentationNode extends Node {
       balancedRepresentationNode = new VBalanceScalesNode( new Property( equation ) );
     }
     else {
-      balancedRepresentationNode = new VBarChartNode( new Property( equation ) );
+      balancedRepresentationNode = new VBarChartsNode( new Property( equation ) );
     }
 
     // Shrink size so that it doesn't cover so much of the screen.

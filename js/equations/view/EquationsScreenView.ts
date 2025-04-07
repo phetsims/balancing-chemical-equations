@@ -32,7 +32,7 @@ import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationsFeedbackNode from './EquationsFeedbackNode.js';
 import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
-import VBarChartNode from '../../common/view/VBarChartNode.js';
+import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 260 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -71,13 +71,13 @@ export default class EquationsScreenView extends ScreenView {
       balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
-    const barChartNode = new VBarChartNode( model.equationProperty, {
+    const barChartsNode = new VBarChartsNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );
-    barChartNode.boundsProperty.link( () => {
-      barChartNode.centerX = particlesNode.centerX;
-      barChartNode.bottom = particlesNode.bottom;
+    barChartsNode.boundsProperty.link( () => {
+      barChartsNode.centerX = particlesNode.centerX;
+      barChartsNode.bottom = particlesNode.bottom;
     } );
 
     // 'Tools' combo box, at upper-right
@@ -192,7 +192,7 @@ export default class EquationsScreenView extends ScreenView {
       children: [
         particlesNode,
         balanceScalesNode,
-        barChartNode,
+        barChartsNode,
         toolsControl,
         feedbackNode,
         equationNodes,

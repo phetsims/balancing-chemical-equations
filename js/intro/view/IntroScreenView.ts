@@ -21,7 +21,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import HBalanceScalesNode from '../../common/view/HBalanceScalesNode.js';
-import HBarChartNode from '../../common/view/HBarChartNode.js';
+import HBarChartsNode from '../../common/view/HBarChartsNode.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
@@ -70,12 +70,12 @@ export default class IntroScreenView extends ScreenView {
       balanceScalesNode.bottom = particlesNode.top - 10;
     } );
 
-    const barChartNode = new HBarChartNode( model.equationProperty, aligner, {
+    const barChartsNode = new HBarChartsNode( model.equationProperty, aligner, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );
-    barChartNode.boundsProperty.link( () => {
-      barChartNode.bottom = particlesNode.top - 10;
+    barChartsNode.boundsProperty.link( () => {
+      barChartsNode.bottom = particlesNode.top - 10;
     } );
 
     // 'Tools' combo box, at upper-right
@@ -158,7 +158,7 @@ export default class IntroScreenView extends ScreenView {
       children: [
         particlesNode,
         balanceScalesNode,
-        barChartNode,
+        barChartsNode,
         toolsControl,
         faceNode,
         equationNodes,
