@@ -20,6 +20,7 @@ import BalanceScaleNode from './BalanceScaleNode.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -139,7 +140,9 @@ export default class VBalanceScalesNode extends Node {
         `missing productCountProperty for element ${element.symbol} in equation ${this.equationProperty.value.toString()}` );
 
       // Add a balance scale.
-      const scaleNode = new BalanceScaleNode( element, reactantCountProperty, productCountProperty, this.equationProperty.value.isBalancedProperty, {
+      const elementIsBalancedProperty = new DerivedProperty( [ reactantCountProperty, productCountProperty ],
+        ( reactantCount, productCount ) => ( reactantCount !== 0 ) && ( productCount !== 0 ) && ( reactantCount === productCount ) );
+      const scaleNode = new BalanceScaleNode( element, reactantCountProperty, productCountProperty, elementIsBalancedProperty, {
         y: y
       } );
       this.addChild( scaleNode );
