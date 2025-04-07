@@ -43,7 +43,8 @@ export default class BalanceScalesNode extends Node {
     const options = optionize<BalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
-      isDisposable: false
+      isDisposable: false,
+      scale: 0.85
     }, providedOptions );
 
     super( options );

@@ -51,12 +51,38 @@ export default class IntroScreenView extends ScreenView {
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
+    // Radio button group for choosing an equation
+    const equationRadioButtonGroup = new EquationRadioButtonGroup( model.equationProperty, model.choices,
+      tandem.createTandem( 'equationRadioButtonGroup' ) );
+
+    // Bar behind radio buttons at bottom of screen
+    const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
+      visibleProperty: equationRadioButtonGroup.visibleProperty,
+      bottom: this.layoutBounds.bottom - 10
+    } );
+
+    equationRadioButtonGroup.localBoundsProperty.link( () => {
+      equationRadioButtonGroup.left = 50;
+      equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
+    } );
+
+    // interactive equations
+    const equationNodesTandem = tandem.createTandem( 'equationNodes' );
+    const equationNodes = new Node( {
+      children: model.choices.map( choice => new EquationNode( choice.equation, aligner, {
+        visibleProperty: new DerivedProperty( [ model.equationProperty ], equation => equation === choice.equation ),
+        tandem: equationNodesTandem.createTandem( `${choice.tandemNamePrefix}Node` )
+      } ) ),
+      bottom: horizontalBarNode.top - 20,
+      tandem: equationNodesTandem
+    } );
+
     // Accordion boxes that show particles corresponding to the equation coefficients
     const particlesNode = new ParticlesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
           balancedRepresentation => balancedRepresentation === 'particles' ),
-        top: 180,
+        bottom: equationNodes.top - 20,
         parentTandem: tandem
       } );
 
@@ -64,7 +90,6 @@ export default class IntroScreenView extends ScreenView {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );
-    balanceScalesNode.setScaleMagnitude( 0.85 );
     balanceScalesNode.boundsProperty.link( () => {
       balanceScalesNode.centerX = particlesNode.centerX;
       balanceScalesNode.bottom = particlesNode.bottom;
@@ -105,32 +130,6 @@ export default class IntroScreenView extends ScreenView {
     const feedbackNode = new IntroFeedbackNode( model.equationProperty );
     feedbackNode.left = particlesNode.left;
     feedbackNode.top = this.layoutBounds.top + 10;
-
-    // interactive equations
-    const equationNodesTandem = tandem.createTandem( 'equationNodes' );
-    const equationNodes = new Node( {
-      children: model.choices.map( choice => new EquationNode( choice.equation, aligner, {
-        visibleProperty: new DerivedProperty( [ model.equationProperty ], equation => equation === choice.equation ),
-        tandem: equationNodesTandem.createTandem( `${choice.tandemNamePrefix}Node` )
-      } ) ),
-      top: particlesNode.bottom + 20,
-      tandem: equationNodesTandem
-    } );
-
-    // Radio button group for choosing an equation
-    const equationRadioButtonGroup = new EquationRadioButtonGroup( model.equationProperty, model.choices,
-      tandem.createTandem( 'equationRadioButtonGroup' ) );
-
-    // Bar behind radio buttons at bottom of screen
-    const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
-      visibleProperty: equationRadioButtonGroup.visibleProperty,
-      bottom: this.layoutBounds.bottom - 10
-    } );
-
-    equationRadioButtonGroup.localBoundsProperty.link( () => {
-      equationRadioButtonGroup.left = 50;
-      equationRadioButtonGroup.centerY = horizontalBarNode.centerY;
-    } );
 
     // Reset All button
     const resetAllButton = new ResetAllButton( {

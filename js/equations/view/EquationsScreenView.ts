@@ -53,11 +53,47 @@ export default class EquationsScreenView extends ScreenView {
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
+    // Radio button group for choosing an equation type
+    const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty,
+      tandem.createTandem( 'equationTypeRadioButtonGroup' ) );
+
+    // Bar behind radio buttons at bottom of screen
+    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Move HorizontalBarNode to common/.
+    const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
+      visibleProperty: equationTypeRadioButtonGroup.visibleProperty,
+      bottom: this.layoutBounds.bottom - 10
+    } );
+
+    equationTypeRadioButtonGroup.localBoundsProperty.link( () => {
+      equationTypeRadioButtonGroup.left = 20;
+      equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
+    } );
+
+    let equationNode = new EquationNode( model.equationProperty.value, aligner, {
+      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically for this screen.
+    } );
+    const equationNodeParent = new Node( {
+      children: [ equationNode ],
+      bottom: horizontalBarNode.top - 20
+    } );
+
+    model.equationProperty.lazyLink( equation => {
+
+      // Dispose of the previous equationNode.
+      equationNode.dispose();
+
+      // Create a new equationNode for the current equation.
+      equationNode = new EquationNode( equation, aligner, {
+        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
+      } );
+      equationNodeParent.children = [ equationNode ];
+    } );
+
     const particlesNode = new ParticlesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
           balancedRepresentation => balancedRepresentation === 'particles' ),
-        top: 90, //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
+        bottom: equationNodeParent.top - 20,
         parentTandem: tandem
       } );
 
@@ -65,7 +101,6 @@ export default class EquationsScreenView extends ScreenView {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );
-    balanceScalesNode.setScaleMagnitude( 0.85 );
     balanceScalesNode.boundsProperty.link( () => {
       balanceScalesNode.centerX = particlesNode.centerX;
       balanceScalesNode.bottom = particlesNode.bottom;
@@ -107,22 +142,6 @@ export default class EquationsScreenView extends ScreenView {
     feedbackNode.left = particlesNode.left;
     feedbackNode.top = this.layoutBounds.top + 10;
 
-    // Radio button group for choosing an equation type
-    const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty,
-      tandem.createTandem( 'equationTypeRadioButtonGroup' ) );
-
-    // Bar behind radio buttons at bottom of screen
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Move HorizontalBarNode to common/.
-    const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
-      visibleProperty: equationTypeRadioButtonGroup.visibleProperty,
-      bottom: this.layoutBounds.bottom - 10
-    } );
-
-    equationTypeRadioButtonGroup.localBoundsProperty.link( () => {
-      equationTypeRadioButtonGroup.left = 20;
-      equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
-    } );
-
     // So that all equations have the same effective size.
     const itemAlignGroup = new AlignGroup();
 
@@ -155,27 +174,6 @@ export default class EquationsScreenView extends ScreenView {
         equationComboBoxes.centerY = horizontalBarNode.centerY;
       } );
 
-    let equationNode = new EquationNode( model.equationProperty.value, aligner, {
-      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically for this screen.
-    } );
-    const equationNodes = new Node( {
-      children: [ equationNode ],
-      // x position is handled by this.aligner.
-      bottom: horizontalBarNode.top - 20
-    } );
-
-    model.equationProperty.lazyLink( equation => {
-
-      // Dispose of the previous equationNode.
-      equationNode.dispose();
-
-      // Create a new equationNode for the current equation.
-      equationNode = new EquationNode( equation, aligner, {
-        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
-      } );
-      equationNodes.children = [ equationNode ];
-    } );
-
     // Reset All button
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -195,7 +193,7 @@ export default class EquationsScreenView extends ScreenView {
         barChartsNode,
         viewControl,
         feedbackNode,
-        equationNodes,
+        equationNodeParent,
         horizontalBarNode,
         equationTypeRadioButtonGroup,
         equationComboBoxes,
@@ -224,7 +222,7 @@ export default class EquationsScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       equationTypeRadioButtonGroup,
       equationComboBoxes,
-      equationNodes
+      equationNodeParent
     ];
 
     // Control Area focus order
