@@ -23,6 +23,7 @@ import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.j
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -149,7 +150,7 @@ export default class VBarChartNode extends Node {
         `missing productCountProperty for element ${element.symbol} in equation ${this.equationProperty.value.toString()}` );
 
       // Add a row with 2 bar charts, separated by an equality operator.
-      const rowNode = new RowNode( this.equationProperty, element, reactantCountProperty, productCountProperty, barNodeAlignGroup );
+      const rowNode = new RowNode( element, reactantCountProperty, productCountProperty, barNodeAlignGroup );
       this.addChild( rowNode );
 
       // Position the rowNode as it changes size.
@@ -164,15 +165,17 @@ export default class VBarChartNode extends Node {
 
 class RowNode extends HBox {
 
-  public constructor( equationProperty: TReadOnlyProperty<Equation>,
-                      element: Element,
+  public constructor( element: Element,
                       reactantCountProperty: TReadOnlyProperty<number>,
                       productCountProperty: TReadOnlyProperty<number>,
                       barNodeAlignGroup: AlignGroup ) {
 
     const reactantBarNode = new BarNode( element, reactantCountProperty );
     const productBarNode = new BarNode( element, productCountProperty );
-    const equalityOperatorNode = new EqualityOperatorNode( equationProperty );
+
+    const elementIsBalancedProperty = new DerivedProperty( [ reactantCountProperty, productCountProperty ],
+      ( reactantCount, productCount ) => ( reactantCount !== 0 ) && ( productCount !== 0 ) && ( reactantCount === productCount ) );
+    const equalityOperatorNode = new EqualityOperatorNode( elementIsBalancedProperty );
     equalityOperatorNode.setScaleMagnitude( 0.5 );
 
     super( {

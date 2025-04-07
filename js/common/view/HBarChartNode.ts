@@ -11,7 +11,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
@@ -41,6 +40,7 @@ export default class HBarChartNode extends Node {
   // UI subcomponents
   private readonly reactantBarsParent: Node;
   private readonly productBarsParent: Node;
+  private readonly equalityOperatorParent: Node;
 
   /**
    * @param equationProperty - the equation that the bar chart is representing
@@ -53,15 +53,13 @@ export default class HBarChartNode extends Node {
 
     const reactantBarsParent = new Node();
     const productBarsParent = new Node();
-    const equalityOperatorNode = new EqualityOperatorNode( equationProperty, {
-      center: new Vector2( aligner.getScreenCenterX(), -40 )
-    } );
+    const equalityOperatorParent = new Node();
 
     const options = optionize<HBarChartNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       isDisposable: false,
-      children: [ reactantBarsParent, productBarsParent, equalityOperatorNode ]
+      children: [ reactantBarsParent, productBarsParent, equalityOperatorParent ]
     }, providedOptions );
 
     super( options );
@@ -74,6 +72,7 @@ export default class HBarChartNode extends Node {
 
     this.reactantBarsParent = reactantBarsParent;
     this.productBarsParent = productBarsParent;
+    this.equalityOperatorParent = equalityOperatorParent;
 
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 from here down is duplicated in HBalanceScalesNode and VBalanceScalesNode.
 
@@ -164,6 +163,9 @@ export default class HBarChartNode extends Node {
       this.productBarsParent,
       this.aligner.getProductsBoxCenterX()
     );
+
+    // equality operator
+    this.updateEqualityOperator();
   }
 
   /**
@@ -197,6 +199,18 @@ export default class HBarChartNode extends Node {
     } );
 
     parentNode.centerX = centerX;
+  }
+
+  /**
+   * Creates a new EqualityOperatorNode for the current equation.
+   */
+  private updateEqualityOperator(): void {
+    this.equalityOperatorParent.getChildren().forEach( child => child.dispose() );
+    const equalityOperatorNode = new EqualityOperatorNode( this.equationProperty.value.isBalancedProperty, {
+      centerX: this.aligner.getScreenCenterX(),
+      centerY: -40 //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 magic numbers
+    } );
+    this.equalityOperatorParent.addChild( equalityOperatorNode );
   }
 }
 
