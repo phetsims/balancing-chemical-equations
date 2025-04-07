@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * BarChartNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
+ * HBarChartNode is the visual representation of an equation as a pair of bar charts, for left and right side of equation.
  * An indicator between the charts (equals or not equals) indicates whether they are balanced.
  *
  * @author Vasily Shakhov (mlearner.com)
@@ -30,9 +30,9 @@ type SelfOptions = {
   orientation?: Orientation;
 };
 
-type BarChartNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+type HBarChartNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class BarChartNode extends Node {
+export default class HBarChartNode extends Node {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private readonly aligner: HorizontalAligner;
@@ -53,7 +53,7 @@ export default class BarChartNode extends Node {
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
                       aligner: HorizontalAligner,
-                      providedOptions?: BarChartNodeOptions ) {
+                      providedOptions?: HBarChartNodeOptions ) {
 
     const reactantBarsParent = new Node();
     const productBarsParent = new Node();
@@ -61,7 +61,7 @@ export default class BarChartNode extends Node {
       center: new Vector2( aligner.getScreenCenterX(), -40 )
     } );
 
-    const options = optionize<BarChartNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<HBarChartNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       orientation: 'horizontal',
@@ -217,4 +217,4 @@ export default class BarChartNode extends Node {
   }
 }
 
-balancingChemicalEquations.register( 'BarChartNode', BarChartNode );
+balancingChemicalEquations.register( 'HBarChartNode', HBarChartNode );

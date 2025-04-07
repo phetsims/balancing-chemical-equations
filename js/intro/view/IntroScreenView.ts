@@ -21,7 +21,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import HBalanceScalesNode from '../../common/view/HBalanceScalesNode.js';
-import BarChartNode from '../../common/view/BarChartNode.js';
+import HBarChartNode from '../../common/view/HBarChartNode.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
@@ -70,7 +70,7 @@ export default class IntroScreenView extends ScreenView {
       balanceScalesNode.bottom = particlesNode.top - 10;
     } );
 
-    const barChartNode = new BarChartNode( model.equationProperty, aligner, {
+    const barChartNode = new HBarChartNode( model.equationProperty, aligner, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barChart' )
     } );

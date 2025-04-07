@@ -28,7 +28,7 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import EquationNode from '../../common/view/EquationNode.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
-import BarChartNode from '../../common/view/BarChartNode.js';
+import HBarChartNode from '../../common/view/HBarChartNode.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationsFeedbackNode from './EquationsFeedbackNode.js';
@@ -70,7 +70,7 @@ export default class EquationsScreenView extends ScreenView {
       balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
-    const barChartNode = new BarChartNode( model.equationProperty, aligner, {
+    const barChartNode = new HBarChartNode( model.equationProperty, aligner, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barChart' ),
       orientation: 'vertical' //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170
