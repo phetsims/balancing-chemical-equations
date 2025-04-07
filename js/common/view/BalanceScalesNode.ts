@@ -23,7 +23,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type VBalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+type BalanceScalesNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class BalanceScalesNode extends Node {
 
@@ -38,9 +38,9 @@ export default class BalanceScalesNode extends Node {
    * @param [providedOptions]
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
-                      providedOptions?: VBalanceScalesNodeOptions ) {
+                      providedOptions?: BalanceScalesNodeOptions ) {
 
-    const options = optionize<VBalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<BalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       isDisposable: false

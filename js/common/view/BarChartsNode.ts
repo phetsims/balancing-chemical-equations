@@ -27,7 +27,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type VBarChartsNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
+type BarChartsNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class BarChartsNode extends Node {
 
@@ -42,9 +42,9 @@ export default class BarChartsNode extends Node {
    * @param [providedOptions]
    */
   public constructor( equationProperty: TReadOnlyProperty<Equation>,
-                      providedOptions?: VBarChartsNodeOptions ) {
+                      providedOptions?: BarChartsNodeOptions ) {
 
-    const options = optionize<VBarChartsNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize<BarChartsNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       isDisposable: false
