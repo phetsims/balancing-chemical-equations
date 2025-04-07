@@ -20,8 +20,6 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
-import HBalanceScalesNode from '../../common/view/HBalanceScalesNode.js';
-import HBarChartsNode from '../../common/view/HBarChartsNode.js';
 import ParticlesNode from '../../common/view/ParticlesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
@@ -31,6 +29,8 @@ import HorizontalBarNode from '../../common/view/HorizontalBarNode.js';
 import IntroViewProperties from './IntroViewProperties.js';
 import ViewsComboBox from '../../common/view/ViewsComboBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import VBalanceScalesNode from '../../common/view/VBalanceScalesNode.js';
+import VBarChartsNode from '../../common/view/VBarChartsNode.js';
 
 const BOX_SIZE = new Dimension2( 285, 145 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -54,28 +54,29 @@ export default class IntroScreenView extends ScreenView {
     // Accordion boxes that show particles corresponding to the equation coefficients
     const particlesNode = new ParticlesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
+        visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
+          balancedRepresentation => balancedRepresentation === 'particles' ),
         top: 180,
         parentTandem: tandem
       } );
 
-    const balanceScalesNode = new HBalanceScalesNode( model.equationProperty, aligner, {
+    const balanceScalesNode = new VBalanceScalesNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-        balancedRepresentation => balancedRepresentation === 'balanceScales' ),
-
-      // Use special spacing for 2 fulcrums.
-      // See https://github.com/phetsims/balancing-chemical-equations/issues/91
-      twoFulcrumsXSpacing: 325
+        balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );
+    balanceScalesNode.setScaleMagnitude( 0.85 );
     balanceScalesNode.boundsProperty.link( () => {
-      balanceScalesNode.bottom = particlesNode.top - 10;
+      balanceScalesNode.centerX = particlesNode.centerX;
+      balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
-    const barChartsNode = new HBarChartsNode( model.equationProperty, aligner, {
+    const barChartsNode = new VBarChartsNode( model.equationProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
         balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );
     barChartsNode.boundsProperty.link( () => {
-      barChartsNode.bottom = particlesNode.top - 10;
+      barChartsNode.centerX = particlesNode.centerX;
+      barChartsNode.bottom = particlesNode.bottom;
     } );
 
     // 'Tools' combo box, at upper-right
