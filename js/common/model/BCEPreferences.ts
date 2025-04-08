@@ -7,8 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Range from '../../../../dot/js/Range.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -17,7 +17,7 @@ export default class BCEPreferences {
 
   // Initial coefficient for all terms, in all equations.
   // See https://github.com/phetsims/balancing-chemical-equations/issues/182
-  public readonly initialCoefficientProperty: Property<number>;
+  public readonly initialCoefficientProperty: NumberProperty;
 
   // Singleton instance
   public static readonly instance = new BCEPreferences();
@@ -27,7 +27,7 @@ export default class BCEPreferences {
 
     this.initialCoefficientProperty = new NumberProperty( BCEQueryParameters.initialCoefficient, {
       numberType: 'Integer',
-      validValues: [ 0, 1 ],
+      range: new Range( 0, 1 ),
       tandem: Tandem.PREFERENCES.createTandem( 'initialCoefficientProperty' ),
       phetioFeatured: true
     } );

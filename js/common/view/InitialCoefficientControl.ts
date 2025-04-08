@@ -15,9 +15,13 @@ import BCEConstants from '../BCEConstants.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import PreferencesDialogConstants from '../../../../joist/js/preferences/PreferencesDialogConstants.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+
+const COEFFICIENT_FONT = new PhetFont( 32 );
 
 export default class InitialCoefficientControl extends PreferencesControl {
 
@@ -44,31 +48,44 @@ export default class InitialCoefficientControl extends PreferencesControl {
 /**
  * The radio button group for this control.
  */
-class InitialCoefficientRadioButtonGroup extends AquaRadioButtonGroup<number> {
+class InitialCoefficientRadioButtonGroup extends RectangularRadioButtonGroup<number> {
 
   public constructor( initialCoefficientProperty: Property<number>, tandem: Tandem ) {
 
-    const items: AquaRadioButtonGroupItem<number>[] = [
+    const items: RectangularRadioButtonGroupItem<number>[] = [
       {
         value: 0,
         createNode: () => new Text( 0, {
-          font: PreferencesDialogConstants.CONTENT_FONT
+          font: COEFFICIENT_FONT
         } ),
         tandemName: 'zeroRadioButton'
       },
       {
         value: 1,
         createNode: () => new Text( 1, {
-          font: PreferencesDialogConstants.CONTENT_FONT
+          font: COEFFICIENT_FONT
         } ),
         tandemName: 'oneRadioButton'
       }
     ];
 
     super( initialCoefficientProperty, items, {
-      orientation: 'vertical',
-      spacing: 20,
+      orientation: 'horizontal',
+      spacing: 25,
       radioButtonOptions: {
+        baseColor: 'white',
+        xMargin: 12,
+        yMargin: 5,
+        cornerRadius: 6,
+        buttonAppearanceStrategyOptions: {
+          selectedStroke: new Color( 90, 196, 242 ),
+          selectedLineWidth: 4,
+          selectedButtonOpacity: 1,
+          deselectedStroke: new Color( 50, 50, 50 ),
+          deselectedLineWidth: 1,
+          deselectedButtonOpacity: 0.6,
+          overButtonOpacity: 0.8
+        },
         phetioVisiblePropertyInstrumented: false
       },
       phetioVisiblePropertyInstrumented: false,

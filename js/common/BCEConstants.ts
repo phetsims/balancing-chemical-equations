@@ -11,7 +11,6 @@ import Bounds2 from '../../../dot/js/Bounds2.js';
 import { AtomNodeOptions } from '../../../nitroglycerin/js/nodes/AtomNode.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BCEColors from './BCEColors.js';
-import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
 
 const ATOM_NODE_OPTIONS: AtomNodeOptions = {
@@ -40,14 +39,7 @@ const BCEConstants = {
   PARTICLES_SCALE_FACTOR: 0.74,
 
   // Preferences
-  PREFERENCES_CONTROL_OPTIONS: PREFERENCES_CONTROL_OPTIONS,
-  PREFERENCES_LABEL_FONT: new PhetFont( {
-    size: 16,
-    weight: 'bold'
-  } ),
-  PREFERENCES_LABEL_MAX_WIDTH: 200,
-  PREFERENCES_DESCRIPTION_FONT: new PhetFont( 16 ),
-  PREFERENCES_DESCRIPTION_LINE_WRAP: 500
+  PREFERENCES_CONTROL_OPTIONS: PREFERENCES_CONTROL_OPTIONS
 };
 
 balancingChemicalEquations.register( 'BCEConstants', BCEConstants );
