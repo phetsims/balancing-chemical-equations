@@ -57,9 +57,36 @@ export default class EquationsScreenView extends ScreenView {
     const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty,
       tandem.createTandem( 'equationTypeRadioButtonGroup' ) );
 
+    const listboxParent = new Node();
+
+    // So that all equations have the same effective size.
+    const itemAlignGroup = new AlignGroup();
+
+    // ComboBoxes for selecting specific equations
+    const equationComboBoxesTandem = tandem.createTandem( 'equationsComboBoxes' );
+    const equationComboBoxes = new Node( {
+      children: [
+        new EquationsComboBox( model.synthesisEquationProperty, listboxParent, itemAlignGroup, {
+          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'synthesis' ),
+          tandem: equationComboBoxesTandem.createTandem( 'synthesisEquationComboBox' )
+        } ),
+        new EquationsComboBox( model.decompositionEquationProperty, listboxParent, itemAlignGroup, {
+          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'decomposition' ),
+          tandem: equationComboBoxesTandem.createTandem( 'decompositionEquationComboBox' )
+        } ),
+        new EquationsComboBox( model.combustionEquationProperty, listboxParent, itemAlignGroup, {
+          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'combustion' ),
+          tandem: equationComboBoxesTandem.createTandem( 'combustionEquationComboBox' )
+        } )
+      ],
+      tandem: equationComboBoxesTandem
+    } );
+
     // Bar behind radio buttons at bottom of screen
     const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
-      visibleProperty: equationTypeRadioButtonGroup.visibleProperty,
+
+      // Visible if radio buttons or combo box are visible.
+      visibleProperty: DerivedProperty.or( [ equationTypeRadioButtonGroup.visibleProperty, equationComboBoxes.visibleProperty ] ),
       bottom: this.layoutBounds.bottom - 10
     } );
 
@@ -115,7 +142,6 @@ export default class EquationsScreenView extends ScreenView {
     } );
 
     // 'View' combo box, at top-right.
-    const listboxParent = new Node();
     const viewComboBox = new ViewComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
       tandem.createTandem( 'viewComboBox' ) );
     const viewControl = new HBox( {
@@ -140,29 +166,6 @@ export default class EquationsScreenView extends ScreenView {
     const feedbackNode = new EquationsFeedbackNode( model.equationProperty );
     feedbackNode.left = particlesNode.left;
     feedbackNode.top = this.layoutBounds.top + 10;
-
-    // So that all equations have the same effective size.
-    const itemAlignGroup = new AlignGroup();
-
-    // ComboBoxes for selecting specific equations
-    const equationComboBoxesTandem = tandem.createTandem( 'equationsComboBoxes' );
-    const equationComboBoxes = new Node( {
-      children: [
-        new EquationsComboBox( model.synthesisEquationProperty, listboxParent, itemAlignGroup, {
-          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'synthesis' ),
-          tandem: equationComboBoxesTandem.createTandem( 'synthesisEquationComboBox' )
-        } ),
-        new EquationsComboBox( model.decompositionEquationProperty, listboxParent, itemAlignGroup, {
-          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'decomposition' ),
-          tandem: equationComboBoxesTandem.createTandem( 'decompositionEquationComboBox' )
-        } ),
-        new EquationsComboBox( model.combustionEquationProperty, listboxParent, itemAlignGroup, {
-          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'combustion' ),
-          tandem: equationComboBoxesTandem.createTandem( 'combustionEquationComboBox' )
-        } )
-      ],
-      tandem: equationComboBoxesTandem
-    } );
 
     Multilink.multilink( [ equationTypeRadioButtonGroup.boundsProperty, equationComboBoxes.boundsProperty ],
       ( equationTypeRadioButtonGroupBounds, equationComboBoxesBounds ) => {
