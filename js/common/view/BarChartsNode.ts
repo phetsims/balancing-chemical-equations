@@ -23,7 +23,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BalanceElementsNode from './BalanceElementsNode.js';
 
 // Vertical offset of BarNode positions. Adjust this empirically so that there is no overlap.
-const Y_OFFSET = BarNode.MAX_BAR_SIZE.height + 60;
+const Y_OFFSET = BarNode.MAX_BAR_SIZE.height + 56;
 
 type SelfOptions = EmptySelfOptions;
 
