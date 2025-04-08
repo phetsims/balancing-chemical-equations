@@ -19,7 +19,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import CoefficientPicker from './CoefficientPicker.js';
 
 type SelfOptions = {
-  fontSize?: number;
+  font: PhetFont;
   xSpacing?: number;
 };
 
@@ -34,7 +34,6 @@ export default class EquationTermNode extends Node {
     const options = optionize<EquationTermNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      fontSize: 32,
       xSpacing: 4,
 
       // NodeOptions
@@ -43,13 +42,13 @@ export default class EquationTermNode extends Node {
 
     // coefficient picker
     const coefficientPicker = new CoefficientPicker( term.coefficientProperty, {
-      font: new PhetFont( options.fontSize ),
+      font: options.font,
       tandem: options.tandem.createTandem( 'coefficientPicker' )
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
     const richTextOptions = {
-      font: new PhetFont( options.fontSize )
+      font: options.font
     };
     const symbolNode = new RichText( term.molecule.symbol, richTextOptions );
     symbolNode.left = coefficientPicker.right + options.xSpacing;

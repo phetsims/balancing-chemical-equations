@@ -23,9 +23,12 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+
+const DEFAULT_FONT = new PhetFont( 32 );
 
 type SelfOptions = {
-  fontSize?: number;
+  font?: PhetFont;
 };
 
 type EquationNodeOptions = SelfOptions & NodeTranslationOptions &
@@ -35,7 +38,7 @@ export default class EquationNode extends Node {
 
   private readonly equation: Equation;
   private readonly aligner: HorizontalAligner;
-  private readonly fontSize: number;
+  private readonly font: PhetFont;
   private readonly arrowNode: RightArrowNode;
 
   // the set of EquationTermNodes in the equation
@@ -54,14 +57,14 @@ export default class EquationNode extends Node {
     const options = optionize<EquationNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      fontSize: 32
+      font: DEFAULT_FONT
     }, providedOptions );
 
     super( options );
 
     this.equation = equation;
     this.aligner = aligner;
-    this.fontSize = options.fontSize;
+    this.font = options.font;
 
     // arrow node, at a fixed position
     this.arrowNode = new RightArrowNode( new Property( equation ), {
@@ -112,7 +115,7 @@ export default class EquationNode extends Node {
 
       // term
       termNode = new EquationTermNode( term, {
-        fontSize: this.fontSize,
+        font: this.font,
         tandem: parentTandem.createTandem( `${tandemNamePrefix}${i + 1}Node` )
       } );
       this.termNodes.push( termNode );
