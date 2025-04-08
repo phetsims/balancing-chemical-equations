@@ -18,7 +18,6 @@ import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BalanceElementsNode from './BalanceElementsNode.js';
 
@@ -35,17 +34,11 @@ export default class BarChartsNode extends BalanceElementsNode {
     super( equationProperty, providedOptions );
   }
 
+  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Layout shifts when a BarNode has an arrow head.
   protected updateChildren(): void {
 
     // Dispose of previous Nodes.
     this.getChildren().forEach( child => child.dispose() );
-
-    // Make all BarNode instances have the same effective width.
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 This does not prevent layout from shifting when a BarNode displays arrow.
-    const barNodeAlignGroup = new AlignGroup( {
-      matchHorizontal: true,
-      matchVertical: false
-    } );
 
     // For each entry in the reactants map...
     let i = 0;
@@ -57,7 +50,7 @@ export default class BarChartsNode extends BalanceElementsNode {
         `missing productCountProperty for element ${element.symbol} in equation ${this.equationProperty.value.toString()}` );
 
       // Add a row with 2 bar charts, separated by an equality operator.
-      const rowNode = new RowNode( element, reactantCountProperty, productCountProperty, barNodeAlignGroup );
+      const rowNode = new RowNode( element, reactantCountProperty, productCountProperty );
       this.addChild( rowNode );
 
       // Position the rowNode as it changes size.
@@ -77,8 +70,7 @@ class RowNode extends HBox {
 
   public constructor( element: Element,
                       reactantCountProperty: TReadOnlyProperty<number>,
-                      productCountProperty: TReadOnlyProperty<number>,
-                      barNodeAlignGroup: AlignGroup ) {
+                      productCountProperty: TReadOnlyProperty<number> ) {
 
     const reactantBarNode = new BarNode( element, reactantCountProperty );
     const productBarNode = new BarNode( element, productCountProperty );
@@ -89,7 +81,7 @@ class RowNode extends HBox {
     equalityOperatorNode.setScaleMagnitude( 0.5 );
 
     super( {
-      children: [ barNodeAlignGroup.createBox( reactantBarNode ), equalityOperatorNode, barNodeAlignGroup.createBox( productBarNode ) ],
+      children: [ reactantBarNode, equalityOperatorNode, productBarNode ],
       spacing: 50,
       align: 'bottom'
     } );
