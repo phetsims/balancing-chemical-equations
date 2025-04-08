@@ -64,7 +64,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     faceNode.frown();
 
     const redX = new Path( timesSolidShape, {
-      scale: 0.08,
+      scale: GameFeedbackPanel.ICONS_SCALE,
       fill: PhetColorScheme.RED_COLORBLIND
     } );
 

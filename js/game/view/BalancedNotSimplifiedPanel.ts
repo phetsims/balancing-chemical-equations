@@ -49,12 +49,12 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
     const iconAlignGroup = new AlignGroup();
 
     const greenCheckMark = iconAlignGroup.createBox( new Path( checkSolidShape, {
-      scale: 0.08,
+      scale: GameFeedbackPanel.ICONS_SCALE,
       fill: BCEColors.CHECK_MARK_FILL
     } ) );
 
     const redX = iconAlignGroup.createBox( new Path( timesSolidShape, {
-      scale: 0.08,
+      scale: GameFeedbackPanel.ICONS_SCALE,
       fill: PhetColorScheme.RED_COLORBLIND
     } ) );
 

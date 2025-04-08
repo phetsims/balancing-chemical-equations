@@ -28,6 +28,7 @@ export default class GameFeedbackPanel extends Panel {
   protected static readonly ACTION_AREA_Y_SPACING = 8; // vertical space that separates the 'action area' (buttons) from stuff above it
   protected static readonly HBOX_SPACING = 5;
   protected static readonly VBOX_SPACING = 7;
+  protected static readonly ICONS_SCALE = 0.05;
 
   protected constructor( content: Node, providedOptions: GameFeedbackPanelOptions ) {
 

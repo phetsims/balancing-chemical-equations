@@ -23,8 +23,10 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import BCEColors from '../../common/BCEColors.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 
 const MAX_WIDTH = 385; // maxWidth for UI elements
+const X_SPACING = 5;
 const POINTS_AWARDED_FONT = new PhetFont( {
   size: 24,
   weight: 'bold'
@@ -39,14 +41,34 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: MAX_WIDTH
     };
 
+    // To make icons have the same effective size.
+    const iconAlignGroup = new AlignGroup();
+
     const faceNode = new FaceNode( 75 );
 
-    const greenCheckMark = new Path( checkSolidShape, {
-      scale: 0.08,
-      fill: BCEColors.CHECK_MARK_FILL
+    // Green check mark to the left of 'balanced'.
+    const balancedHBox = new HBox( {
+      children: [
+        iconAlignGroup.createBox( new Path( checkSolidShape, {
+          scale: GameFeedbackPanel.ICONS_SCALE,
+          fill: BCEColors.CHECK_MARK_FILL
+        } ) ),
+        new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions )
+      ],
+      spacing: X_SPACING
     } );
 
-    const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions );
+    // Green check mark to the left of 'simplified'.
+    const simplifiedHBox = new HBox( {
+      children: [
+        iconAlignGroup.createBox( new Path( checkSolidShape, {
+          scale: GameFeedbackPanel.ICONS_SCALE,
+          fill: BCEColors.CHECK_MARK_FILL
+        } ) ),
+        new Text( BalancingChemicalEquationsStrings.simplifiedStringProperty, textOptions )
+      ],
+      spacing: X_SPACING
+    } );
 
     const pointsStringProperty = new DerivedStringProperty(
       [ BalancingChemicalEquationsStrings.pattern_0pointsStringProperty, pointsProperty ],
@@ -72,23 +94,11 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
       align: 'center',
       spacing: GameFeedbackPanel.VBOX_SPACING,
       children: [
-
-        // happy face
         faceNode,
-
-        // check mark + 'balanced'
-        new HBox( {
-          children: [ greenCheckMark, balancedText ],
-          spacing: GameFeedbackPanel.HBOX_SPACING
-        } ),
-
-        // points awarded
+        balancedHBox,
+        simplifiedHBox,
         pointsText,
-
-        // space
         new VStrut( GameFeedbackPanel.ACTION_AREA_Y_SPACING ),
-
-        // Next button
         nextButton
       ]
     } );
