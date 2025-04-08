@@ -29,6 +29,7 @@ export default class BCEPreferences {
       numberType: 'Integer',
       range: new Range( 0, 1 ),
       tandem: Tandem.PREFERENCES.createTandem( 'initialCoefficientProperty' ),
+      phetioDocumentation: 'The initial coefficient for all terms, in all equations, in all screens.',
       phetioFeatured: true
     } );
   }
