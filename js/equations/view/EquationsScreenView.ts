@@ -110,7 +110,7 @@ export default class EquationsScreenView extends ScreenView {
         balancedRepresentation => balancedRepresentation === 'barCharts' )
     } );
     barChartsNode.boundsProperty.link( () => {
-      barChartsNode.centerX = particlesNode.centerX;
+      barChartsNode.x = particlesNode.centerX; // Origin is at the bottom-center of the bottom equality operator.
       barChartsNode.bottom = particlesNode.bottom;
     } );
 
