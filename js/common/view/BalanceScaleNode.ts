@@ -27,7 +27,6 @@ import BalanceFulcrumNode from './BalanceFulcrumNode.js';
 const FULCRUM_SIZE = new Dimension2( 60, 45 );
 const BEAM_LENGTH = 205;
 const BEAM_THICKNESS = 6;
-//TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Should we increase NUMBER_OF_TILT_ANGLES, or fix how tilting works?
 const NUMBER_OF_TILT_ANGLES = 6;
 const COUNT_Y_SPACING = 3;
 const ATOMS_IN_PILE_BASE = 5; // number of atoms along the base of each pile
