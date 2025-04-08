@@ -29,16 +29,20 @@ export default class EquationsModel implements TModel {
   // The type of equation that is selected
   public readonly equationTypeProperty: Property<EquationType>;
 
+  // The sets of equations for each type.
   public readonly synthesisEquations: Equation[];
   public readonly decompositionEquations: Equation[];
   public readonly combustionEquations: Equation[];
+
+  // All equations for this screen.
   private readonly allEquations: Equation[];
 
+  // The selected equation for each type.
   public readonly synthesisEquationProperty: Property<Equation>;
   public readonly decompositionEquationProperty: Property<Equation>;
   public readonly combustionEquationProperty: Property<Equation>;
 
-  // the equation that is selected
+  // The equation that is visible on the screen.
   public readonly equationProperty: TReadOnlyProperty<Equation>;
 
   public constructor( tandem: Tandem ) {
