@@ -16,6 +16,7 @@ import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import EquationTerm from '../model/EquationTerm.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import CoefficientPicker from './CoefficientPicker.js';
 
 type SelfOptions = {
   fontSize?: number;
@@ -41,23 +42,9 @@ export default class EquationTermNode extends Node {
     }, providedOptions );
 
     // coefficient picker
-    const coefficientPicker = new NumberPicker( term.coefficientProperty, term.coefficientProperty.rangeProperty, {
-      color: 'rgb( 50, 50, 50 )',
-      pressedColor: 'black',
-      xMargin: 8,
-      yMargin: 0,
-      touchAreaXDilation: 30,
+    const coefficientPicker = new CoefficientPicker( term.coefficientProperty, {
       font: new PhetFont( options.fontSize ),
-      timerDelay: 400, // ms until the picker starts to fire continuously
-      timerInterval: 200, // ms between value change while firing continuously
-
-      // Hide arrows when picker is disabled.
-      disabledOpacity: 1,
-      backgroundStrokeDisabledOpacity: 1,
-      arrowDisabledOpacity: 0,
-
-      tandem: options.tandem.createTandem( 'coefficientPicker' ),
-      phetioVisiblePropertyInstrumented: false
+      tandem: options.tandem.createTandem( 'coefficientPicker' )
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker
