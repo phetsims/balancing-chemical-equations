@@ -22,7 +22,9 @@ import Molecule from './Molecule.js';
 import Range from '../../../../dot/js/Range.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
+// Unicode symbols
 const RIGHTWARDS_BLACK_ARROW = '\u2B95';
+const WHITE_SQUARE_WITH_ROUNDED_CORNERS = '\u25A2';
 
 export default class Equation extends PhetioObject {
 
@@ -183,15 +185,19 @@ export default class Equation extends PhetioObject {
     return string;
   }
 
-  public toRichString( coefficientsString?: string ): string {
-    return createEquationString( this.reactants, this.products, coefficientsString );
+  /**
+   * Gets a string for this equation that is suitable for displaying in the UI.
+   * Specifically, this string is used in EquationsComboBox.
+   */
+  public getDisplayString(): string {
+    return createEquationString( this.reactants, this.products, WHITE_SQUARE_WITH_ROUNDED_CORNERS );
   }
 
   /**
-   * String value of an equation, shows balanced coefficients, for debugging. Do not rely on this format!
+   * String value of an equation that is suitable for debugging. Do not rely on this format!
    */
   public override toString(): string {
-    let string = this.toRichString();
+    let string = createEquationString( this.reactants, this.products );
 
     // strip out HTML tags to improve readability
     string = string.replace( /<sub>/g, '' );
@@ -348,7 +354,7 @@ export default class Equation extends PhetioObject {
 }
 
 /**
- * Creates PhET-iO documentation for an Equation.
+ * Creates a string version of an equation. This string is suitable for display in the UI, and for PhET-iO documentation.
  */
 function createEquationString( reactants: EquationTerm[], products: EquationTerm[], coefficientsString?: string ): string {
   let string = '';

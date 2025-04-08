@@ -17,8 +17,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 
-const WHITE_SQUARE_WITH_ROUNDED_CORNERS = '\u25A2';
-
 const RICH_TEXT_OPTIONS: RichTextOptions = {
   font: new PhetFont( 16 ),
   maxWidth: 250
@@ -51,7 +49,7 @@ export default class EquationsComboBox<T extends Equation> extends ComboBox<T> {
     assert && assert( equations && equations.length > 0 );
 
     const items: ComboBoxItem<T>[] = equations.map( equation => {
-      const text = new RichText( equation.toRichString( WHITE_SQUARE_WITH_ROUNDED_CORNERS ), RICH_TEXT_OPTIONS );
+      const text = new RichText( equation.getDisplayString(), RICH_TEXT_OPTIONS );
       return {
         value: equation,
         tandemName: `${equation.tandem.name}Item`,
