@@ -14,14 +14,23 @@ import BalancingChemicalEquationsStrings from './BalancingChemicalEquationsStrin
 import GameScreen from './game/GameScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
 import EquationsScreen from './equations/EquationsScreen.js';
+import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
+import BCEPreferencesNode from './common/view/BCEPreferencesNode.js';
+import BCEPreferences from './common/model/BCEPreferences.js';
 
 simLauncher.launch( () => {
 
-  const sim = new Sim( BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty, [
+  const titleStringProperty = BalancingChemicalEquationsStrings[ 'balancing-chemical-equations' ].titleStringProperty;
+
+  const screens = [
     new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
     new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) ),
     new GameScreen( Tandem.ROOT.createTandem( 'gameScreen' ) )
-  ], {
+  ];
+
+  const sim = new Sim( titleStringProperty, screens, {
+
+    // Credits
     credits: {
       leadDesign: 'Kelly Lancaster (Java), Yuen-ying Carpenter (HTML5)',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
@@ -30,7 +39,16 @@ simLauncher.launch( () => {
                         'Laura Rae, Benjamin Roberts, Jacob Romero, Nancy Salpepi, Kathryn Woessner, Kelly Wurtz, Bryan Yoelin',
       thanks: '\u2022 Conversion of this simulation to HTML5 was funded in part by the American Association of Chemistry Teachers (AACT).<br>' +
               '\u2022 Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
-    }
+    },
+
+    // Preferences
+    preferencesModel: new PreferencesModel( {
+      simulationOptions: {
+        customPreferences: [ {
+          createContent: tandem => new BCEPreferencesNode( BCEPreferences.instance, tandem )
+        } ]
+      }
+    } )
   } );
 
   sim.start();

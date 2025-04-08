@@ -17,6 +17,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../../common/model/Equation.js';
 import Molecule from '../../common/model/Molecule.js';
+import BCEPreferences from '../../common/model/BCEPreferences.js';
 
 export type EquationChoice = {
   equation: Equation;
@@ -31,6 +32,8 @@ export default class IntroModel implements TModel {
 
   // Choice of equations
   public readonly choices: EquationChoice[];
+
+  private readonly equations: Equation[];
 
   // the equation that is selected
   public readonly equationProperty: Property<Equation>;
@@ -68,17 +71,23 @@ export default class IntroModel implements TModel {
       }
     ];
 
+    this.equations = this.choices.map( choice => choice.equation );
+
     this.equationProperty = new Property( this.choices[ 0 ].equation, {
-      validValues: this.choices.map( choice => choice.equation ),
+      validValues: this.equations,
       tandem: tandem.createTandem( 'equationProperty' ),
       phetioFeatured: true,
       phetioValueType: Equation.EquationIO
     } );
+
+    // Change the initial coefficient for all equations.
+    BCEPreferences.instance.initialCoefficientProperty.lazyLink( initialCoefficient =>
+      this.equations.forEach( equation => equation.setInitialCoefficients( initialCoefficient ) ) );
   }
 
   public reset(): void {
     this.equationProperty.reset();
-    this.choices.forEach( choice => choice.equation.reset() );
+    this.equations.forEach( equation => equation.reset() );
   }
 }
 

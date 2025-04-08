@@ -16,6 +16,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Molecule from '../../common/model/Molecule.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import BCEPreferences from '../../common/model/BCEPreferences.js';
 
 const EquationTypeValues = [ 'synthesis', 'decomposition', 'combustion' ];
 export type EquationType = ( typeof EquationTypeValues )[number];
@@ -31,6 +32,7 @@ export default class EquationsModel implements TModel {
   public readonly synthesisEquations: Equation[];
   public readonly decompositionEquations: Equation[];
   public readonly combustionEquations: Equation[];
+  private readonly allEquations: Equation[];
 
   public readonly synthesisEquationProperty: Property<Equation>;
   public readonly decompositionEquationProperty: Property<Equation>;
@@ -88,6 +90,12 @@ export default class EquationsModel implements TModel {
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) )
     ];
 
+    this.allEquations = [
+      ...this.synthesisEquations,
+      ...this.decompositionEquations,
+      ...this.combustionEquations
+    ];
+
     this.synthesisEquationProperty = new Property( this.synthesisEquations[ 0 ], {
       validValues: this.synthesisEquations,
       tandem: tandem.createTandem( 'synthesisEquationProperty' ),
@@ -127,13 +135,15 @@ export default class EquationsModel implements TModel {
         phetioFeatured: true,
         phetioValueType: Equation.EquationIO
       } );
+
+    // Change the initial coefficient for all equations.
+    BCEPreferences.instance.initialCoefficientProperty.lazyLink( initialCoefficient =>
+      this.allEquations.forEach( equation => equation.setInitialCoefficients( initialCoefficient ) ) );
   }
 
   public reset(): void {
     this.equationTypeProperty.reset();
-    this.synthesisEquations.forEach( equation => equation.reset() );
-    this.decompositionEquations.forEach( equation => equation.reset() );
-    this.combustionEquations.forEach( equation => equation.reset() );
+    this.allEquations.forEach( equation => equation.reset() );
     this.synthesisEquationProperty.reset();
     this.decompositionEquationProperty.reset();
     this.combustionEquationProperty.reset();

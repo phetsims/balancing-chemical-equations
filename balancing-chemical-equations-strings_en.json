@@ -79,5 +79,11 @@
   },
   "combustion": {
     "value": "Combustion"
+  },
+  "initialCoefficient": {
+    "value": "Initial Coefficient"
+  },
+  "initialCoefficientDescription": {
+    "value": "The initial coefficient for every term, in every equation."
   }
 }

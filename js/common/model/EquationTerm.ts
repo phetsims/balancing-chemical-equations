@@ -17,7 +17,6 @@ import Range from '../../../../dot/js/Range.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  initialCoefficient?: number; // initial value of the coefficient
   coefficientRange: Range;
 };
 
@@ -41,9 +40,6 @@ export default class EquationTerm extends PhetioObject {
 
     const options = optionize<EquationTermOptions, SelfOptions, PhetioObjectOptions>()( {
 
-      // SelfOptions
-      initialCoefficient: BCEQueryParameters.initialCoefficient,
-
       // PhetioObjectOptions
       phetioDocumentation: molecule.symbol,
       phetioState: false
@@ -54,17 +50,14 @@ export default class EquationTerm extends PhetioObject {
     assert && assert( Number.isInteger( options.coefficientRange.max ) && options.coefficientRange.max >= 0,
       `coefficientRange.max must be a non-negative integer: ${options.coefficientRange.max}` );
 
-    // If we're inspecting all game challenges, fill in the correct answer to make our job easier.
-    if ( BCEQueryParameters.autoBalance ) {
-      options.initialCoefficient = balancedCoefficient;
-    }
-
     super( options );
 
     this.balancedCoefficient = balancedCoefficient;
     this.molecule = molecule;
 
-    this.coefficientProperty = new NumberProperty( options.initialCoefficient, {
+    const initialCoefficient = BCEQueryParameters.autoBalance ? balancedCoefficient : BCEQueryParameters.initialCoefficient;
+
+    this.coefficientProperty = new NumberProperty( initialCoefficient, {
       numberType: 'Integer',
       range: options.coefficientRange,
       tandem: options.tandem.createTandem( 'coefficientProperty' ),

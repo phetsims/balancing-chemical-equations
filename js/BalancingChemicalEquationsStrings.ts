@@ -43,6 +43,8 @@ type StringsType = {
   'synthesisStringProperty': LocalizedStringProperty;
   'decompositionStringProperty': LocalizedStringProperty;
   'combustionStringProperty': LocalizedStringProperty;
+  'initialCoefficientStringProperty': LocalizedStringProperty;
+  'initialCoefficientDescriptionStringProperty': LocalizedStringProperty;
 };
 
 const BalancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;

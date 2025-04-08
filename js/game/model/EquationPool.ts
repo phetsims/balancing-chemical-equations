@@ -15,6 +15,7 @@ import Equation from '../../common/model/Equation.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
+import BCEPreferences from '../../common/model/BCEPreferences.js';
 
 export type ExclusionsMap = Map<Equation, Equation[]>;
 
@@ -58,6 +59,10 @@ export default class EquationPool extends PhetioObject {
     this.pool = pool;
     this.firstBigMolecule = options.firstBigMolecule;
     this.exclusionsMap = options.exclusionsMap;
+
+    // Change the initial coefficient for all equations.
+    BCEPreferences.instance.initialCoefficientProperty.lazyLink( initialCoefficient =>
+      this.pool.forEach( equation => equation.setInitialCoefficients( initialCoefficient ) ) );
   }
 
   public getPoolSize(): number {

@@ -9,7 +9,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import AtomCount from './AtomCount.js';
 import EquationTerm from './EquationTerm.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -21,6 +20,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import Molecule from './Molecule.js';
 import Range from '../../../../dot/js/Range.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 const RIGHTWARDS_BLACK_ARROW = '\u2B95';
 
@@ -33,7 +33,7 @@ export default class Equation extends PhetioObject {
   public readonly products: EquationTerm[];
 
   // all terms
-  private readonly terms: EquationTerm[];
+  public readonly terms: EquationTerm[];
 
   // Whether the equation is balanced.
   public readonly isBalancedProperty: TReadOnlyProperty<boolean>;
@@ -120,6 +120,16 @@ export default class Equation extends PhetioObject {
       if ( product.coefficientProperty.hasListener( listener ) ) {
         product.coefficientProperty.unlink( listener );
       }
+    } );
+  }
+
+  /**
+   * For all terms in the equation, change the initial value of coefficientProperty and reset coefficientProperty.
+   */
+  public setInitialCoefficients( initialCoefficient: number ): void {
+    this.terms.forEach( term => {
+      term.coefficientProperty.setInitialValue( initialCoefficient );
+      term.coefficientProperty.reset();
     } );
   }
 
