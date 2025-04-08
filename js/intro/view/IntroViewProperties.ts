@@ -9,9 +9,19 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import { BalancedRepresentation, BalancedRepresentationValues } from '../../common/model/BalancedRepresentation.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+
+  // Initial value of balancedRepresentationProperty.
+  balancedRepresentation?: BalancedRepresentation;
+};
+
+type IntroViewPropertiesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class IntroViewProperties {
 
@@ -24,21 +34,27 @@ export default class IntroViewProperties {
   // The representation for 'balanced' that is chosen from ViewsComboBox.
   public readonly balancedRepresentationProperty: StringUnionProperty<BalancedRepresentation>;
 
-  public constructor( tandem: Tandem ) {
+  public constructor( providedOptions: IntroViewPropertiesOptions ) {
+
+    const options = optionize<IntroViewPropertiesOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // SelfOptions
+      balancedRepresentation: 'particles'
+    }, providedOptions );
 
     this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' ),
+      tandem: options.tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' ),
       phetioFeatured: true
     } );
 
     this.productsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' ),
+      tandem: options.tandem.createTandem( 'productsAccordionBoxExpandedProperty' ),
       phetioFeatured: true
     } );
 
-    this.balancedRepresentationProperty = new StringUnionProperty( 'particles', {
+    this.balancedRepresentationProperty = new StringUnionProperty( options.balancedRepresentation, {
       validValues: BalancedRepresentationValues,
-      tandem: tandem.createTandem( 'balancedRepresentationProperty' ),
+      tandem: options.tandem.createTandem( 'balancedRepresentationProperty' ),
       phetioFeatured: true
     } );
   }
