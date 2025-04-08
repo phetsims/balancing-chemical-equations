@@ -25,8 +25,9 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
+const UNIT_BAR_HEIGHT = 5;
 const MAX_NUMBER_OF_ATOMS = 12; // bar changes to an arrow above this number
-const MAX_BAR_SIZE = new Dimension2( 40, 60 );
+const MAX_BAR_SIZE = new Dimension2( 40, UNIT_BAR_HEIGHT * MAX_NUMBER_OF_ATOMS );
 const BAR_LINE_WIDTH = 1.5;
 const ARROW_SIZE = new Dimension2( 1.5 * MAX_BAR_SIZE.width, 15 );
 const NUMBER_FONT = new PhetFont( 18 );
@@ -83,7 +84,7 @@ export default class BarNode extends VBox {
       let barShape;
       if ( numberOfAtoms <= MAX_NUMBER_OF_ATOMS ) {
         // rectangular bar
-        const height = MAX_BAR_SIZE.height * ( numberOfAtoms / MAX_NUMBER_OF_ATOMS );
+        const height = numberOfAtoms * UNIT_BAR_HEIGHT;
         barShape = Shape.rect( 0, -height, MAX_BAR_SIZE.width, height );
       }
       else {
