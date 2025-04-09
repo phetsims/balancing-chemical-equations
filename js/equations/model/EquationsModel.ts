@@ -88,9 +88,9 @@ export default class EquationsModel implements TModel {
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
       Equation.create2Reactants2Products( 1, Molecule.C2H5OH, 3, Molecule.O2, 2, Molecule.CO2, 3, Molecule.H2O,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
-      Equation.create2Reactants2Products( 3, Molecule.CH3OH, 3, Molecule.O2, 2, Molecule.CO2, 4, Molecule.H2O,
+      Equation.create2Reactants2Products( 2, Molecule.CH3OH, 3, Molecule.O2, 2, Molecule.CO2, 4, Molecule.H2O,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) ),
-      Equation.create2Reactants2Products( 2, Molecule.C2H2, 5, Molecule.O2, 4, Molecule.CO2, 2, Molecule.H2O2,
+      Equation.create2Reactants2Products( 2, Molecule.C2H2, 5, Molecule.O2, 4, Molecule.CO2, 2, Molecule.H2O,
         this.coefficientsRange, combustionEquationsTandem.createTandem( `equation${equationIndex++}` ) )
     ];
 
