@@ -10,6 +10,7 @@ import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
+import BCEConstants from './BCEConstants.js';
 
 const BCEQueryParameters = QueryStringMachine.getAll( {
 
@@ -18,7 +19,7 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
     public: true,
     type: 'number',
     defaultValue: 0,
-    validValues: [ 0, 1 ]
+    validValues: BCEConstants.INITIAL_COEFFICIENT_VALID_VALUES
   },
 
   // The levels to show in the Game screen. This query parameter is public.

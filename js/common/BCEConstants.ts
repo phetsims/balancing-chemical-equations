@@ -39,7 +39,10 @@ const BCEConstants = {
   PARTICLES_SCALE_FACTOR: 0.74,
 
   // Preferences
-  PREFERENCES_CONTROL_OPTIONS: PREFERENCES_CONTROL_OPTIONS
+  PREFERENCES_CONTROL_OPTIONS: PREFERENCES_CONTROL_OPTIONS,
+
+  // Valid values for ?initialCoefficient and initialCoefficientProperty.
+  INITIAL_COEFFICIENT_VALID_VALUES: [ 0, 1 ]
 };
 
 balancingChemicalEquations.register( 'BCEConstants', BCEConstants );

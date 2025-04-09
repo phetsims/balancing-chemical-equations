@@ -8,10 +8,10 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Range from '../../../../dot/js/Range.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BCEConstants from '../BCEConstants.js';
 
 export default class BCEPreferences {
 
@@ -27,7 +27,7 @@ export default class BCEPreferences {
 
     this.initialCoefficientProperty = new NumberProperty( BCEQueryParameters.initialCoefficient, {
       numberType: 'Integer',
-      range: new Range( 0, 1 ),
+      validValues: BCEConstants.INITIAL_COEFFICIENT_VALID_VALUES,
       tandem: Tandem.PREFERENCES.createTandem( 'initialCoefficientProperty' ),
       phetioDocumentation: 'The initial coefficient for all terms, in all equations, in all screens.',
       phetioFeatured: true
