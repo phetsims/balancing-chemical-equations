@@ -93,9 +93,16 @@ export default class EquationsScreenView extends ScreenView {
     Multilink.multilink( [ equationTypeRadioButtonGroup.visibleProperty, equationTypeRadioButtonGroup.boundsProperty ],
       ( visible, bounds ) => {
         const leftMargin = 20;
+
         equationTypeRadioButtonGroup.left = leftMargin;
         equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
-        equationComboBoxes.left = ( visible && bounds.isFinite() ) ? equationTypeRadioButtonGroup.right + 20 : leftMargin;
+
+        if ( visible && bounds.isFinite() ) {
+          equationComboBoxes.left = equationTypeRadioButtonGroup.right + leftMargin;
+        }
+        else {
+          equationComboBoxes.centerX = this.layoutBounds.centerX;
+        }
         equationComboBoxes.centerY = horizontalBarNode.centerY;
       } );
 
