@@ -28,6 +28,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 const ATTEMPTS_RANGE = new Range( 0, 2 );
 
@@ -130,8 +131,9 @@ export default class GameModel implements TModel {
 
     this._challengeIndexProperty = new NumberProperty( 0, {
       numberType: 'Integer',
+      range: new Range( 0, Infinity ), // Infinity because ?playAll plays all possible challenges.
       tandem: tandem.createTandem( 'challengeIndexProperty' ),
-      phetioFeatured: true,
+      phetioDocumentation: 'For internal use only.',
       phetioReadOnly: true
     } );
     this.challengeIndexProperty = this._challengeIndexProperty;
@@ -141,6 +143,16 @@ export default class GameModel implements TModel {
         this._challengeIndexProperty.value = 0;
       }
     } );
+
+    // PhET-iO-only Property, not used elsewhere in the sim.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const challengeNumberProperty = new DerivedProperty( [ this.challengeIndexProperty ],
+      challengeIndex => challengeIndex + 1, {
+        tandem: tandem.createTandem( 'challengeNumberProperty' ),
+        phetioDocumentation: 'The challenge number shown in the scoreboard. Indicates how far the user has progressed through a level.',
+        phetioFeatured: true,
+        phetioValueType: NumberIO
+      } );
 
     // Consider that this derivation may go through intermediate states when PhET-iO state is restored,
     // depending on the order in which the dependencies are set.

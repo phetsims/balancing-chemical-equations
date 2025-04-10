@@ -136,6 +136,7 @@ export default class EquationsModel implements TModel {
       }, {
         tandem: tandem.createTandem( 'equationProperty' ),
         validValues: [ ...this.synthesisEquations, ...this.decompositionEquations, ...this.combustionEquations ],
+        phetioDocumentation: 'Indicates which equation is currently selected.',
         phetioFeatured: true,
         phetioValueType: Equation.EquationIO
       } );
