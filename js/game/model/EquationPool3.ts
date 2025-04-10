@@ -19,6 +19,7 @@ export default class EquationPool3 extends EquationPool {
 
     let equationIndex = 0;
 
+    // Factors out the duplication for creating an Equation with 2 reactants and 2 products.
     const create2Reactants2Products = ( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule,
                                         p1: number, product1: Molecule, p2: number, product2: Molecule ) =>
       Equation.create2Reactants2Products( r1, reactant1, r2, reactant2, p1, product1, p2, product2, coefficientsRange,
@@ -40,6 +41,7 @@ export default class EquationPool3 extends EquationPool {
     const equation_4NH3_6NO_5N2_6H2O = create2Reactants2Products( 4, Molecule.NH3, 6, Molecule.NO, 5, Molecule.N2, 6, Molecule.H2O );
     const equation_5N2_6H2O_4NH3_6NO = create2Reactants2Products( 5, Molecule.N2, 6, Molecule.H2O, 4, Molecule.NH3, 6, Molecule.NO );
 
+    // The equations in the pool.
     const equations: Equation[] = [
       // This is the longest equation, and requires minX adjustment in EquationNode. Put it first to simplify layout testing with ?playAll.
       equation_C2H5OH_3O2_2CO2_3H2O,
@@ -59,14 +61,12 @@ export default class EquationPool3 extends EquationPool {
       equation_5N2_6H2O_4NH3_6NO
     ];
 
-    // Level 3 exclusions map:
-    // This mess deserves some explanation... For level 3, the design team wanted a complicated
-    // strategy for selecting equations, where selection of an equation causes other equations to be
-    // ruled out as possible choices.  For example, if we choose an equation that contains 4NH3 as
-    // a reactant, we don't want to choose any other equations with 4NH3 as a reactant, and we don't
-    // want to choose the reverse equation.  Since this "exclusion" strategy was a moving target and
-    // the rules kept changing, I implemented this general solution, whereby a list of exclusions
-    // can be specified for each equation.
+    // Level 3 exclusions map. This deserves some explanation... For level 3, the design team wanted a complicated
+    // strategy for selecting equations, where selection of an equation causes other equations to be ruled out as
+    // possible choices.  For example, if we choose an equation that contains 4NH3 as a reactant, we don't want to
+    // choose any other equations with 4NH3 as a reactant, and we don't want to choose the reverse equation. Since
+    // this "exclusion" strategy was a moving target and the rules kept changing, I implemented this general solution,
+    // whereby a list of exclusions can be specified for each equation.
     const exclusionsMap: ExclusionsMap = new Map<Equation, Equation[]>();
     exclusionsMap.set( equation_2C2H6_7O2_4CO2_6H2O, [
       equation_4CO2_6H2O_2C2H6_7O2, /* reverse equation */

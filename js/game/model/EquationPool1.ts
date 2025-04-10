@@ -19,14 +19,17 @@ export default class EquationPool1 extends EquationPool {
 
     let equationIndex = 0;
 
+    // Factors out the duplication for creating an Equation with 1 reactant and 2 products.
     const create1Reactant2Products = ( r1: number, reactant1: Molecule, p1: number, product1: Molecule, p2: number, product2: Molecule ) =>
       Equation.create1Reactant2Products( r1, reactant1, p1, product1, p2, product2, coefficientsRange,
         tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
 
+    // Factors out the duplication for creating an Equation with 2 reactants and 1 product.
     const create2Reactants1Product = ( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule, p1: number, product1: Molecule ) =>
       Equation.create2Reactants1Product( r1, reactant1, r2, reactant2, p1, product1, coefficientsRange,
         tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
 
+    // The equations in the pool.
     const equations: Equation[] = [
       // This is the largest molecule. Put it first to simplify layout testing with ?playAll.
       create1Reactant2Products( 1, Molecule.PCl5, 1, Molecule.PCl3, 1, Molecule.Cl2 ),

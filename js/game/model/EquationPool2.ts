@@ -19,11 +19,13 @@ export default class EquationPool2 extends EquationPool {
 
     let equationIndex = 0;
 
+    // Factors out the duplication for creating an Equation with 2 reactants and 2 products.
     const create2Reactants2Products = ( r1: number, reactant1: Molecule, r2: number, reactant2: Molecule,
                                         p1: number, product1: Molecule, p2: number, product2: Molecule ) =>
       Equation.create2Reactants2Products( r1, reactant1, r2, reactant2, p1, product1, p2, product2, coefficientsRange,
         tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
 
+    // The equations in the pool.
     const equations: Equation[] = [
       create2Reactants2Products( 2, Molecule.C, 2, Molecule.H2O, 1, Molecule.CH4, 1, Molecule.CO2 ),
       create2Reactants2Products( 1, Molecule.CH4, 1, Molecule.H2O, 3, Molecule.H2, 1, Molecule.CO ),
