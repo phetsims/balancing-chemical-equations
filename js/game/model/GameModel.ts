@@ -165,8 +165,8 @@ export default class GameModel implements TModel {
       } );
     phet.log && this.challengeProperty.lazyLink( challenge => phet.log( `Playing ${challenge.tandem.name}, ${challenge.toString()}` ) );
 
-    // When the challenge changes, reset it to ensure that coefficients are zero, in case the set of challenges
-    // contains the same equation instance more than once.
+    // When the challenge changes, reset it to ensure that coefficients are zero. It may have been previously
+    // selected from the pool, and have coefficients from previous game play.
     this.challengeProperty.link( challenge => {
       if ( !isSettingPhetioStateProperty.value ) {
         challenge.reset();
@@ -201,8 +201,11 @@ export default class GameModel implements TModel {
 
     this.isNewBestTime = false;
 
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add isSettingPhetioStateProperty guard?
-    this.levelProperty.link( level => level ? this.startGame() : this.startOver() );
+    this.levelProperty.link( level => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        level ? this.startGame() : this.startOver();
+      }
+    } );
 
     if ( BCEQueryParameters.verifyGame ) {
       this.verifyGame();

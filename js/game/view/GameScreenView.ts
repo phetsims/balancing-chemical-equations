@@ -20,6 +20,7 @@ import LevelNode from './LevelNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import LevelSelectionNode from './LevelSelectionNode.js';
 import BCELevelCompletedNode from './BCELevelCompletedNode.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 export default class GameScreenView extends ScreenView {
 
@@ -122,8 +123,10 @@ export default class GameScreenView extends ScreenView {
    * Set up the UI to begin playing a game level.
    */
   private initStartGame(): void {
-    this.viewProperties.reactantsAccordionBoxExpandedProperty.reset();
-    this.viewProperties.productsAccordionBoxExpandedProperty.reset();
+    if ( !isSettingPhetioStateProperty.value ) {
+      this.viewProperties.reactantsAccordionBoxExpandedProperty.reset();
+      this.viewProperties.productsAccordionBoxExpandedProperty.reset();
+    }
     this.levelSelectionNode.visible = false;
     this.levelNode.visible = true;
   }
