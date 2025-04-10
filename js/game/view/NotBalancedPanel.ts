@@ -33,6 +33,7 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
@@ -155,7 +156,9 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
   }
 
   public updateBalancedRepresentation( equation: Equation, balancedRepresentation: Exclude<BalancedRepresentation, 'none'> ): void {
-    this.balancedRepresentationVisibleProperty.reset();
+    if ( !isSettingPhetioStateProperty.value ) {
+      this.balancedRepresentationVisibleProperty.reset();
+    }
     this.balancedRepresentationNode.update( equation, balancedRepresentation );
   }
 }

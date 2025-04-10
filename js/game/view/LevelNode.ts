@@ -28,6 +28,7 @@ import GameViewProperties from './GameViewProperties.js';
 import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
@@ -175,23 +176,14 @@ export default class LevelNode extends Node {
     } );
     this.addChild( this.feedbackNode );
 
-    // Call an initializer to set up UI to correspond to the game state.
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add isSettingPhetioStateProperty guard?
-    model.gameStateProperty.link( gameState => {
-      phet.log && phet.log( `gameState=${gameState}` );
-      if ( gameState === 'check' ) {
-        this.initCheck();
-      }
-      else if ( gameState === 'tryAgain' ) {
-        this.initTryAgain();
-      }
-      else if ( gameState === 'showAnswer' ) {
-        this.initShowAnswer();
-      }
-      else if ( gameState === 'next' ) {
-        this.initNext();
+    // Updating the UI for the game state depends on several other Properties, so there is an ordering problems.
+    // So we need to defer calling updateGameState until after PhET-iO state has been set.
+    model.gameStateProperty.link( () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.updateGameState();
       }
     } );
+    phetioStateSetEmitter.addListener( () => this.updateGameState() );
 
     // Enable the 'Check' button when at least one coefficient is non-zero.
     const hasNonZeroCoefficientListener = ( hasNonZeroCoefficient: boolean ) => {
@@ -205,20 +197,26 @@ export default class LevelNode extends Node {
         newChallenge.hasNonZeroCoefficientProperty.link( hasNonZeroCoefficientListener );
       }
     } );
+  }
 
-    // This listener is called after restoring PhET-iO state, a nd contains workaround for strange PhET-iO state
-    // problems that could not be otherwise resolved.
-    phetioStateSetEmitter.addListener( () => {
-
-      // Highlighting of the equation arrow should be enabled only when in the 'next' game state.
-      // See https://github.com/phetsims/balancing-chemical-equations/issues/187
-      this.setBalancedHighlightEnabled( model.gameStateProperty.value === 'next' );
-
-      // initNext() uses model.challengeProperty, so there is an order dependency when setting state.
-      if ( model.gameStateProperty.value === 'next' ) {
-        this.initNext();
-      }
-    } );
+  /**
+   * Updates the UI for the specified game state.
+   */
+  private updateGameState(): void {
+    const gameState = this.model.gameStateProperty.value;
+    phet.log && phet.log( `gameState=${gameState}` );
+    if ( gameState === 'check' ) {
+      this.initCheck();
+    }
+    else if ( gameState === 'tryAgain' ) {
+      this.initTryAgain();
+    }
+    else if ( gameState === 'showAnswer' ) {
+      this.initShowAnswer();
+    }
+    else if ( gameState === 'next' ) {
+      this.initNext();
+    }
   }
 
   /**
