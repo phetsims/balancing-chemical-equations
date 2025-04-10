@@ -37,7 +37,6 @@ export default class BarChartsNode extends BalanceElementsNode {
     super( equationProperty, providedOptions );
   }
 
-  //TODO https://github.com/phetsims/balancing-chemical-equations/issues/170 Layout shifts when a BarNode has an arrow head.
   protected updateChildren(): void {
 
     // Dispose of previous Nodes.
