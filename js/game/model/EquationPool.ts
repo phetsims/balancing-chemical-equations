@@ -42,6 +42,9 @@ export default class EquationPool extends PhetioObject {
   // See SelfOptions
   private readonly exclusionsMap: ExclusionsMap | null;
 
+  // phetioReadOnly for coefficientProperty in all equation terms.
+  protected static readonly coefficientPropertyPhetioReadOnly = true;
+
   protected constructor( pool: Equation[], providedOptions: EquationPoolOptions ) {
 
     const options = optionize<EquationPoolOptions, SelfOptions, PhetioObjectOptions>()( {

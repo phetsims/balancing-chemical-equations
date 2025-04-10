@@ -18,6 +18,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   coefficientRange: Range;
+  coefficientPropertyPhetioReadOnly?: boolean;
 };
 
 type EquationTermOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -40,6 +41,9 @@ export default class EquationTerm extends PhetioObject {
 
     const options = optionize<EquationTermOptions, SelfOptions, PhetioObjectOptions>()( {
 
+      // SelfOptions
+      coefficientPropertyPhetioReadOnly: false,
+
       // PhetioObjectOptions
       phetioDocumentation: molecule.symbol,
       phetioState: false
@@ -61,7 +65,8 @@ export default class EquationTerm extends PhetioObject {
       numberType: 'Integer',
       range: options.coefficientRange,
       tandem: options.tandem.createTandem( 'coefficientProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioReadOnly: options.coefficientPropertyPhetioReadOnly
     } );
   }
 

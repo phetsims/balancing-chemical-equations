@@ -216,12 +216,14 @@ export default class Equation extends PhetioObject {
    * @param product1
    * @param coefficientsRange  - range of all coefficients in the equation
    * @param tandem
+   * @param coefficientPropertyPhetioReadOnly
    */
   public static create2Reactants1Product( r1: number, reactant1: Molecule,
                                           r2: number, reactant2: Molecule,
                                           p1: number, product1: Molecule,
                                           coefficientsRange: Range,
-                                          tandem: Tandem ): Equation {
+                                          tandem: Tandem,
+                                          coefficientPropertyPhetioReadOnly = false ): Equation {
 
     let reactantNumber = 1;
     let productNumber = 1;
@@ -231,10 +233,12 @@ export default class Equation extends PhetioObject {
       [
         new EquationTerm( r1, reactant1, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } ),
         new EquationTerm( r2, reactant2, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } )
       ],
@@ -243,6 +247,7 @@ export default class Equation extends PhetioObject {
       [
         new EquationTerm( p1, product1, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `product${productNumber++}` )
         } )
       ],
@@ -260,12 +265,14 @@ export default class Equation extends PhetioObject {
    * @param product2
    * @param coefficientsRange - range of all coefficients in the equation
    * @param tandem
+   * @param coefficientPropertyPhetioReadOnly
    */
   public static create1Reactant2Products( r1: number, reactant1: Molecule,
                                           p1: number, product1: Molecule,
                                           p2: number, product2: Molecule,
                                           coefficientsRange: Range,
-                                          tandem: Tandem ): Equation {
+                                          tandem: Tandem,
+                                          coefficientPropertyPhetioReadOnly = false ): Equation {
     let reactantNumber = 1;
     let productNumber = 1;
 
@@ -274,6 +281,7 @@ export default class Equation extends PhetioObject {
       [
         new EquationTerm( r1, reactant1, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } )
       ],
@@ -282,10 +290,12 @@ export default class Equation extends PhetioObject {
       [
         new EquationTerm( p1, product1, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `product${productNumber++}` )
         } ),
         new EquationTerm( p2, product2, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `product${productNumber++}` )
         } )
       ],
@@ -305,13 +315,15 @@ export default class Equation extends PhetioObject {
    * @param product2
    * @param coefficientsRange - range of all coefficients in the equation
    * @param tandem
+   * @param coefficientPropertyPhetioReadonly
    */
   public static create2Reactants2Products( r1: number, reactant1: Molecule,
                                            r2: number, reactant2: Molecule,
                                            p1: number, product1: Molecule,
                                            p2: number, product2: Molecule,
                                            coefficientsRange: Range,
-                                           tandem: Tandem ): Equation {
+                                           tandem: Tandem,
+                                           coefficientPropertyPhetioReadOnly = false ): Equation {
     let reactantNumber = 1;
     let productNumber = 1;
 
@@ -320,10 +332,12 @@ export default class Equation extends PhetioObject {
       [
         new EquationTerm( r1, reactant1, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } ),
         new EquationTerm( r2, reactant2, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `reactant${reactantNumber++}` )
         } )
       ],
@@ -332,10 +346,12 @@ export default class Equation extends PhetioObject {
       [
         new EquationTerm( p1, product1, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `product${productNumber++}` )
         } ),
         new EquationTerm( p2, product2, {
           coefficientRange: coefficientsRange,
+          coefficientPropertyPhetioReadOnly: coefficientPropertyPhetioReadOnly,
           tandem: tandem.createTandem( `product${productNumber++}` )
         } )
       ],

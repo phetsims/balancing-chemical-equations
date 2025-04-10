@@ -21,33 +21,33 @@ export default class EquationPool3 extends EquationPool {
 
     // Define equations as const so that they can be added to exclusionMap.
     const equation_C2H5OH_3O2_2CO2_3H2O = Equation.create2Reactants2Products( 1, Molecule.C2H5OH, 3, Molecule.O2, 2, Molecule.CO2, 3, Molecule.H2O, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_2CO2_3H2O_C2H5OH_3O2 = Equation.create2Reactants2Products( 2, Molecule.CO2, 3, Molecule.H2O, 1, Molecule.C2H5OH, 3, Molecule.O2, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_2C2H6_7O2_4CO2_6H2O = Equation.create2Reactants2Products( 2, Molecule.C2H6, 7, Molecule.O2, 4, Molecule.CO2, 6, Molecule.H2O, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4CO2_6H2O_2C2H6_7O2 = Equation.create2Reactants2Products( 4, Molecule.CO2, 6, Molecule.H2O, 2, Molecule.C2H6, 7, Molecule.O2, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_2C2H2_5O2_4CO2_2H2O = Equation.create2Reactants2Products( 2, Molecule.C2H2, 5, Molecule.O2, 4, Molecule.CO2, 2, Molecule.H2O, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4CO2_2H2O_2C2H2_5O2 = Equation.create2Reactants2Products( 4, Molecule.CO2, 2, Molecule.H2O, 2, Molecule.C2H2, 5, Molecule.O2, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4NH3_3O2_2N2_6H2O = Equation.create2Reactants2Products( 4, Molecule.NH3, 3, Molecule.O2, 2, Molecule.N2, 6, Molecule.H2O, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_2N2_6H2O_4NH3_3O2 = Equation.create2Reactants2Products( 2, Molecule.N2, 6, Molecule.H2O, 4, Molecule.NH3, 3, Molecule.O2, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4NH3_5O2_4NO_6H2O = Equation.create2Reactants2Products( 4, Molecule.NH3, 5, Molecule.O2, 4, Molecule.NO, 6, Molecule.H2O, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4NO_6H2O_4NH3_5O2 = Equation.create2Reactants2Products( 4, Molecule.NO, 6, Molecule.H2O, 4, Molecule.NH3, 5, Molecule.O2, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4NH3_7O2_4NO2_6H2O = Equation.create2Reactants2Products( 4, Molecule.NH3, 7, Molecule.O2, 4, Molecule.NO2, 6, Molecule.H2O, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4NO2_6H2O_4NH3_7O2 = Equation.create2Reactants2Products( 4, Molecule.NO2, 6, Molecule.H2O, 4, Molecule.NH3, 7, Molecule.O2, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_4NH3_6NO_5N2_6H2O = Equation.create2Reactants2Products( 4, Molecule.NH3, 6, Molecule.NO, 5, Molecule.N2, 6, Molecule.H2O, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
     const equation_5N2_6H2O_4NH3_6NO = Equation.create2Reactants2Products( 5, Molecule.N2, 6, Molecule.H2O, 4, Molecule.NH3, 6, Molecule.NO, coefficientsRange,
-      tandem.createTandem( `equation${equationIndex++}` ) );
+      tandem.createTandem( `equation${equationIndex++}` ), EquationPool.coefficientPropertyPhetioReadOnly );
 
     const equations: Equation[] = [
       // This is the longest equation, and requires minX adjustment in EquationNode. Put it first to simplify layout testing with ?playAll.
