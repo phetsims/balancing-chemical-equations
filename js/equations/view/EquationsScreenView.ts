@@ -90,10 +90,14 @@ export default class EquationsScreenView extends ScreenView {
       bottom: this.layoutBounds.bottom - 10
     } );
 
-    equationTypeRadioButtonGroup.localBoundsProperty.link( () => {
-      equationTypeRadioButtonGroup.left = 20;
-      equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
-    } );
+    Multilink.multilink( [ equationTypeRadioButtonGroup.visibleProperty, equationTypeRadioButtonGroup.boundsProperty ],
+      ( visible, bounds ) => {
+        const leftMargin = 20;
+        equationTypeRadioButtonGroup.left = leftMargin;
+        equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
+        equationComboBoxes.left = ( visible && bounds.isFinite() ) ? equationTypeRadioButtonGroup.right + 20 : leftMargin;
+        equationComboBoxes.centerY = horizontalBarNode.centerY;
+      } );
 
     let equationNode = new EquationNode( model.equationProperty.value, aligner, {
       tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically for this screen.
@@ -166,15 +170,6 @@ export default class EquationsScreenView extends ScreenView {
     const feedbackNode = new EquationsFeedbackNode( model.equationProperty );
     feedbackNode.left = particlesNode.left;
     feedbackNode.top = this.layoutBounds.top + 10;
-
-    Multilink.multilink( [ equationTypeRadioButtonGroup.boundsProperty, equationComboBoxes.boundsProperty ],
-      ( equationTypeRadioButtonGroupBounds, equationComboBoxesBounds ) => {
-        const leftMargin = 20;
-        equationTypeRadioButtonGroup.left = leftMargin;
-        equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
-        equationComboBoxes.left = equationTypeRadioButtonGroupBounds.isFinite() ? equationTypeRadioButtonGroup.right + 20 : leftMargin;
-        equationComboBoxes.centerY = horizontalBarNode.centerY;
-      } );
 
     // Reset All button
     const resetAllButton = new ResetAllButton( {
