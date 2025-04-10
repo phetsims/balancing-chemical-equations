@@ -16,7 +16,7 @@ import { EquationType } from '../model/EquationsModel.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-const LABEL_FONT = new PhetFont( 14 );
+const LABEL_FONT = new PhetFont( 16 );
 const LABEL_FILL = 'white';
 
 export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup<EquationType> {
@@ -30,7 +30,7 @@ export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioBut
         createNode: () => new Text( BalancingChemicalEquationsStrings.synthesisStringProperty, {
           font: LABEL_FONT,
           fill: LABEL_FILL,
-          maxWidth: 65 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
+          maxWidth: 70 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
         } )
       },
       {
@@ -39,7 +39,7 @@ export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioBut
         createNode: () => new Text( BalancingChemicalEquationsStrings.decompositionStringProperty, {
           font: LABEL_FONT,
           fill: LABEL_FILL,
-          maxWidth: 105 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
+          maxWidth: 106 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
         } )
       },
       {
@@ -48,7 +48,7 @@ export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioBut
         createNode: () => new Text( BalancingChemicalEquationsStrings.combustionStringProperty, {
           font: LABEL_FONT,
           fill: LABEL_FILL,
-          maxWidth: 80 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
+          maxWidth: 86 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
         } )
       }
     ];
