@@ -16,11 +16,8 @@ import { EquationType } from '../model/EquationsModel.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-const TEXT_OPTIONS = {
-  font: new PhetFont( 14 ),
-  fill: 'white',
-  maxWidth: 100
-};
+const LABEL_FONT = new PhetFont( 14 );
+const LABEL_FILL = 'white';
 
 export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup<EquationType> {
 
@@ -30,17 +27,29 @@ export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioBut
       {
         value: 'synthesis',
         tandemName: 'synthesisRadioButton',
-        createNode: () => new Text( BalancingChemicalEquationsStrings.synthesisStringProperty, TEXT_OPTIONS )
+        createNode: () => new Text( BalancingChemicalEquationsStrings.synthesisStringProperty, {
+          font: LABEL_FONT,
+          fill: LABEL_FILL,
+          maxWidth: 65 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
+        } )
       },
       {
         value: 'decomposition',
         tandemName: 'decompositionRadioButton',
-        createNode: () => new Text( BalancingChemicalEquationsStrings.decompositionStringProperty, TEXT_OPTIONS )
+        createNode: () => new Text( BalancingChemicalEquationsStrings.decompositionStringProperty, {
+          font: LABEL_FONT,
+          fill: LABEL_FILL,
+          maxWidth: 105 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
+        } )
       },
       {
         value: 'combustion',
         tandemName: 'combustionRadioButton',
-        createNode: () => new Text( BalancingChemicalEquationsStrings.combustionStringProperty, TEXT_OPTIONS )
+        createNode: () => new Text( BalancingChemicalEquationsStrings.combustionStringProperty, {
+          font: LABEL_FONT,
+          fill: LABEL_FILL,
+          maxWidth: 80 // Optimized for English, see https://github.com/phetsims/balancing-chemical-equations/issues/185.
+        } )
       }
     ];
 
