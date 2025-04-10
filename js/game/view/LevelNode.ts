@@ -178,6 +178,7 @@ export default class LevelNode extends Node {
     // Call an initializer to set up UI to correspond to the game state.
     //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add isSettingPhetioStateProperty guard?
     model.gameStateProperty.link( gameState => {
+      phet.log && phet.log( `gameState=${gameState}` );
       if ( gameState === 'check' ) {
         this.initCheck();
       }
@@ -212,6 +213,11 @@ export default class LevelNode extends Node {
       // Highlighting of the equation arrow should be enabled only when in the 'next' game state.
       // See https://github.com/phetsims/balancing-chemical-equations/issues/187
       this.setBalancedHighlightEnabled( model.gameStateProperty.value === 'next' );
+
+      // initNext() uses model.challengeProperty, so there is an order dependency when setting state.
+      if ( model.gameStateProperty.value === 'next' ) {
+        this.initNext();
+      }
     } );
   }
 
