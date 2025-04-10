@@ -94,6 +94,7 @@ export default class GameLevel extends PhetioObject {
     this.bestTimeProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       tandem: options.tandem.createTandem( 'bestTimeProperty' ),
+      phetioDocumentation: 'Best time for a game with a perfect score.',
       phetioFeatured: true,
       phetioReadOnly: true
     } );
