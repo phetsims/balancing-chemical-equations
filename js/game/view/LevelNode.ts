@@ -27,6 +27,7 @@ import GameFeedbackNode from './GameFeedbackNode.js';
 import GameViewProperties from './GameViewProperties.js';
 import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
@@ -202,6 +203,15 @@ export default class LevelNode extends Node {
       if ( newChallenge ) {
         newChallenge.hasNonZeroCoefficientProperty.link( hasNonZeroCoefficientListener );
       }
+    } );
+
+    // This listener is called after restoring PhET-iO state, a nd contains workaround for strange PhET-iO state
+    // problems that could not be otherwise resolved.
+    phetioStateSetEmitter.addListener( () => {
+
+      // Highlighting of the equation arrow should be enabled only when in the 'next' game state.
+      // See https://github.com/phetsims/balancing-chemical-equations/issues/187
+      this.setBalancedHighlightEnabled( model.gameStateProperty.value === 'next' );
     } );
   }
 
