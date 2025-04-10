@@ -180,7 +180,7 @@ export default class GameModel implements TModel {
 
     this.pointsProperty = new NumberProperty( 0, {
       numberType: 'Integer',
-      range: new Range( 0, ATTEMPTS_RANGE.max * GameLevel.POINTS_FIRST_ATTEMPT ),
+      range: new Range( 0, GameLevel.POINTS_FIRST_ATTEMPT ),
       tandem: tandem.createTandem( 'pointsProperty' ),
       phetioDocumentation: 'Points that have been earned for the current challenge.',
       phetioFeatured: true,
