@@ -68,7 +68,6 @@ export default class GameScreenView extends ScreenView {
     } );
 
     // Call an initializer to set up the UI to correspond to the game state.
-    //TODO https://github.com/phetsims/balancing-chemical-equations/issues/160 Add isSettingPhetioStateProperty guard?
     model.gameStateProperty.link( gameState => {
       if ( gameState === 'levelSelection' ) {
         this.initLevelSelection();
