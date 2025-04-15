@@ -55,7 +55,9 @@ export default class EquationsModel implements TModel {
       phetioFeatured: true
     } );
 
-    const synthesisEquationsTandem = tandem.createTandem( 'synthesisEquations' );
+    const equationsTandem = tandem.createTandem( 'equations' );
+
+    const synthesisEquationsTandem = equationsTandem.createTandem( 'synthesisEquations' );
     let equationIndex = 0;
     this.synthesisEquations = [
       Equation.create2Reactants1Product( 2, Molecule.C, 1, Molecule.O2, 2, Molecule.CO,
@@ -68,7 +70,7 @@ export default class EquationsModel implements TModel {
         this.coefficientsRange, synthesisEquationsTandem.createTandem( `equation${equationIndex++}` ) )
     ];
 
-    const decompositionEquationsTandem = tandem.createTandem( 'decompositionEquations' );
+    const decompositionEquationsTandem = equationsTandem.createTandem( 'decompositionEquations' );
     equationIndex = 0;
     this.decompositionEquations = [
       Equation.create1Reactant2Products( 1, Molecule.CH3OH, 1, Molecule.CO, 2, Molecule.H2,
@@ -81,7 +83,7 @@ export default class EquationsModel implements TModel {
         this.coefficientsRange, decompositionEquationsTandem.createTandem( `equation${equationIndex++}` ) )
     ];
 
-    const combustionEquationsTandem = tandem.createTandem( 'combustionEquations' );
+    const combustionEquationsTandem = equationsTandem.createTandem( 'combustionEquations' );
     equationIndex = 0;
     this.combustionEquations = [
       Equation.create2Reactants2Products( 1, Molecule.C2H4, 3, Molecule.O2, 2, Molecule.CO2, 2, Molecule.H2O,
