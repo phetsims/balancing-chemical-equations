@@ -33,6 +33,7 @@ import EquationsFeedbackNode from './EquationsFeedbackNode.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import ViewComboBox from '../../common/view/ViewComboBox.js';
+import Equation from '../../common/model/Equation.js';
 
 const BOX_SIZE = new Dimension2( 285, 260 );
 const BOX_X_SPACING = 110; // horizontal spacing between boxes
@@ -106,31 +107,27 @@ export default class EquationsScreenView extends ScreenView {
         equationComboBoxes.centerY = horizontalBarNode.centerY;
       } );
 
-    let equationNode = new EquationNode( model.equationProperty.value, aligner, {
-      tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically for this screen.
-    } );
-    const equationNodeParent = new Node( {
-      children: [ equationNode ],
-      bottom: horizontalBarNode.top - 20
-    } );
+    // interactive equations
+    const createEquationNodes = ( equations: Equation[], parentTandem: Tandem ) => equations.map( equation => new EquationNode( equation, aligner, {
+      visibleProperty: new DerivedProperty( [ model.equationProperty ], value => value === equation ),
+      tandem: parentTandem.createTandem( `${equation.tandem.name}Node` )
+    } ) );
+    const equationNodesTandem = tandem.createTandem( 'equationNodes' );
+    const synthesisEquationNodes = createEquationNodes( model.synthesisEquations, equationNodesTandem.createTandem( 'synthesisEquationNodes' ) );
+    const decompositionEquationNodes = createEquationNodes( model.decompositionEquations, equationNodesTandem.createTandem( 'decompositionEquationNodes' ) );
+    const combustionEquationNodes = createEquationNodes( model.combustionEquations, equationNodesTandem.createTandem( 'combustionEquationNodes' ) );
 
-    model.equationProperty.lazyLink( equation => {
-
-      // Dispose of the previous equationNode.
-      equationNode.dispose();
-
-      // Create a new equationNode for the current equation.
-      equationNode = new EquationNode( equation, aligner, {
-        tandem: Tandem.OPT_OUT // ... because equationNode is created dynamically.
-      } );
-      equationNodeParent.children = [ equationNode ];
+    const equationNodes = new Node( {
+      children: [ ...synthesisEquationNodes, ...decompositionEquationNodes, ...combustionEquationNodes ],
+      bottom: horizontalBarNode.top - 20,
+      tandem: equationNodesTandem
     } );
 
     const particlesNode = new ParticlesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
         visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
           balancedRepresentation => balancedRepresentation === 'particles' ),
-        bottom: equationNodeParent.top - 20,
+        bottom: equationNodes.top - 20,
         parentTandem: tandem
       } );
 
@@ -197,7 +194,7 @@ export default class EquationsScreenView extends ScreenView {
         barChartsNode,
         viewControl,
         feedbackNode,
-        equationNodeParent,
+        equationNodes,
         horizontalBarNode,
         equationTypeRadioButtonGroup,
         equationComboBoxes,
@@ -226,7 +223,7 @@ export default class EquationsScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       equationTypeRadioButtonGroup,
       equationComboBoxes,
-      equationNodeParent
+      equationNodes
     ];
 
     // Control Area focus order
