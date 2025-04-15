@@ -2,7 +2,7 @@
 
 /**
  * BalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
- * The left side of each scale is the reactants, the right side is the products.
+ * The left side of each scale is the reactants, the right side is the products. x = 0 is at the center of the fulcrums.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

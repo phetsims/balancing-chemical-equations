@@ -93,7 +93,7 @@ export default class IntroScreenView extends ScreenView {
         balancedRepresentation => balancedRepresentation === 'balanceScales' )
     } );
     balanceScalesNode.boundsProperty.link( () => {
-      balanceScalesNode.centerX = particlesNode.centerX;
+      balanceScalesNode.x = particlesNode.centerX;
       balanceScalesNode.bottom = particlesNode.bottom;
     } );
 
