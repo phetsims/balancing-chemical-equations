@@ -18,12 +18,7 @@ import GameModel from '../model/GameModel.js';
 import BalancedAndSimplifiedPanel from './BalancedAndSimplifiedPanel.js';
 import BalancedNotSimplifiedPanel from './BalancedNotSimplifiedPanel.js';
 import NotBalancedPanel from './NotBalancedPanel.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import GameFeedbackPanel from './GameFeedbackPanel.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-
-const SHADOW_X_OFFSET = 5;
-const SHADOW_Y_OFFSET = 5;
 
 export default class GameFeedbackNode extends Node {
 
@@ -63,7 +58,6 @@ export default class GameFeedbackNode extends Node {
       this.aligner,
       tandem.createTandem( 'notBalancedPanel' ) );
 
-    // Because notBalancedPanel has dynamic layout, use HBox instead of Node so that resizing of dropShadowNode works correctly.
     const panelsParent = new HBox( {
       children: [
         this.balancedAndSimplifiedPanel,
@@ -72,18 +66,7 @@ export default class GameFeedbackNode extends Node {
       ]
     } );
 
-    // A shadow behind the panel, as in the Java version.
-    const dropShadowNode = new Rectangle( 0, 0, 1, 1, {
-      fill: 'rgba( 80, 80, 80, 0.12 )',
-      cornerRadius: GameFeedbackPanel.CORNER_RADIUS
-    } );
-
-    this.addChild( dropShadowNode );
     this.addChild( panelsParent );
-
-    // Resize dropShadowNode when the panel size changes.
-    panelsParent.localBoundsProperty.link( () =>
-      dropShadowNode.setRect( panelsParent.left + SHADOW_X_OFFSET, panelsParent.top + SHADOW_Y_OFFSET, panelsParent.width, panelsParent.height ) );
   }
 
   /**
