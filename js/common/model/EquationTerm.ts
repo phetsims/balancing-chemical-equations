@@ -15,6 +15,7 @@ import Molecule from './Molecule.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Range from '../../../../dot/js/Range.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import BCEPreferences from './BCEPreferences.js';
 
 type SelfOptions = {
   coefficientRange: Range;
@@ -59,7 +60,7 @@ export default class EquationTerm extends PhetioObject {
     this.balancedCoefficient = balancedCoefficient;
     this.molecule = molecule;
 
-    const initialCoefficient = BCEQueryParameters.autoBalance ? balancedCoefficient : BCEQueryParameters.initialCoefficient;
+    const initialCoefficient = BCEQueryParameters.autoBalance ? balancedCoefficient : BCEPreferences.instance.initialCoefficientProperty.value;
 
     this.coefficientProperty = new NumberProperty( initialCoefficient, {
       numberType: 'Integer',
