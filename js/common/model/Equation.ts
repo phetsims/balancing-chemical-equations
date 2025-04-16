@@ -21,6 +21,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import Molecule from './Molecule.js';
 import Range from '../../../../dot/js/Range.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // Unicode symbols
 const RIGHTWARDS_BLACK_ARROW = '\u2B95';
@@ -131,7 +132,9 @@ export default class Equation extends PhetioObject {
   public setInitialCoefficients( initialCoefficient: number ): void {
     this.terms.forEach( term => {
       term.coefficientProperty.setInitialValue( initialCoefficient );
-      term.coefficientProperty.reset();
+      if ( !isSettingPhetioStateProperty.value ) {
+        term.coefficientProperty.reset();
+      }
     } );
   }
 
