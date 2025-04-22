@@ -89,8 +89,7 @@ export default class ParticlesAccordionBox extends AccordionBox {
         touchAreaYDilation: 20,
         mouseAreaXDilation: 10,
         mouseAreaYDilation: 10
-      },
-      phetioVisiblePropertyInstrumented: false
+      }
     }, providedOptions );
 
     options.titleNode = new Text( titleStringProperty, {
