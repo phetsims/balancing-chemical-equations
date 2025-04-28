@@ -87,7 +87,8 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: MAX_WIDTH,
       listener: nextButtonListener,
       tandem: tandem.createTandem( 'nextButton' ),
-      phetioVisiblePropertyInstrumented: false
+      phetioVisiblePropertyInstrumented: false,
+      phetioEnabledPropertyInstrumented: false // See https://github.com/phetsims/balancing-chemical-equations/issues/197
     } );
 
     const content = new VBox( {

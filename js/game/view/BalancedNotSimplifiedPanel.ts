@@ -68,7 +68,8 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: maxWidth,
       listener: tryAgainButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'tryAgain' ),
-      tandem: tandem.createTandem( 'tryAgainButton' )
+      tandem: tandem.createTandem( 'tryAgainButton' ),
+      phetioEnabledPropertyInstrumented: false // See https://github.com/phetsims/balancing-chemical-equations/issues/197
     } );
 
     const showAnswerButton = new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
@@ -77,7 +78,8 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: maxWidth,
       listener: showAnswerButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'showAnswer' ),
-      tandem: tandem.createTandem( 'showAnswerButton' )
+      tandem: tandem.createTandem( 'showAnswerButton' ),
+      phetioEnabledPropertyInstrumented: false // See https://github.com/phetsims/balancing-chemical-equations/issues/197
     } );
 
     // balanced, not simplified: happy face with 'balance' and 'not simplified' below it
