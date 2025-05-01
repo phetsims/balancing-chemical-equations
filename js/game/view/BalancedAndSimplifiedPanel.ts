@@ -77,8 +77,7 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
 
     const pointsText = new Text( pointsStringProperty, {
       font: POINTS_AWARDED_FONT,
-      maxWidth: MAX_WIDTH,
-      tandem: tandem.createTandem( 'pointsText' )
+      maxWidth: MAX_WIDTH
     } );
 
     const nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty, {
