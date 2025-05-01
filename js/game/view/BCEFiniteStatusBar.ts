@@ -32,7 +32,7 @@ export class BCEFiniteStatusBar extends FiniteStatusBar {
         textFill: STATUS_BAR_TEXT_FILL,
         tandem: tandem.createTandem( 'scoreDisplay' )
       } ),
-      levelProperty: new DerivedProperty( [ model.levelProperty ], level => level ? level.levelNumber : 0 ),
+      levelNumberProperty: new DerivedProperty( [ model.levelProperty ], level => level ? level.levelNumber : 0 ),
       challengeIndexProperty: model.challengeIndexProperty,
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
@@ -51,14 +51,6 @@ export class BCEFiniteStatusBar extends FiniteStatusBar {
         },
         xMargin: 10,
         yMargin: 5
-      },
-      levelTextOptions: {
-        tandem: tandem.createTandem( 'levelText' ),
-        phetioVisiblePropertyInstrumented: true
-      },
-      challengeTextOptions: {
-        tandem: tandem.createTandem( 'challengeText' ),
-        phetioVisiblePropertyInstrumented: true
       },
       tandem: tandem
     } );
