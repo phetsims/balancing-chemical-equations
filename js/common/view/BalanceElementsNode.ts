@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- * BalanceElementsNode is the base class for BalancedRepresentation values that show how individual elements are
+ * BalanceElementsNode is the base class for ViewMode values that show how individual elements are
  * balanced. This includes 'balanceScales' and 'barCharts'.
  *
  * @author Chris Malley (PixelZoom, Inc.)

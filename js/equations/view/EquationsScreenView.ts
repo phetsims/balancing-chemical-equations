@@ -125,15 +125,13 @@ export default class EquationsScreenView extends ScreenView {
 
     const particlesNode = new ParticlesNode( model.equationProperty, model.coefficientsRange, aligner, BOX_SIZE,
       BCEColors.BOX_COLOR, viewProperties.reactantsAccordionBoxExpandedProperty, viewProperties.productsAccordionBoxExpandedProperty, {
-        visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-          balancedRepresentation => balancedRepresentation === 'particles' ),
+        visibleProperty: new DerivedProperty( [ viewProperties.viewModeProperty ], viewMode => viewMode === 'particles' ),
         bottom: equationNodes.top - 20,
         parentTandem: tandem
       } );
 
     const balanceScalesNode = new BalanceScalesNode( model.equationProperty, {
-      visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-        balancedRepresentation => balancedRepresentation === 'balanceScales' )
+      visibleProperty: new DerivedProperty( [ viewProperties.viewModeProperty ], viewMode => viewMode === 'balanceScales' )
     } );
     balanceScalesNode.boundsProperty.link( () => {
       balanceScalesNode.x = particlesNode.centerX;
@@ -141,8 +139,7 @@ export default class EquationsScreenView extends ScreenView {
     } );
 
     const barChartsNode = new BarChartsNode( model.equationProperty, {
-      visibleProperty: new DerivedProperty( [ viewProperties.balancedRepresentationProperty ],
-        balancedRepresentation => balancedRepresentation === 'barCharts' )
+      visibleProperty: new DerivedProperty( [ viewProperties.viewModeProperty ], viewMode => viewMode === 'barCharts' )
     } );
     barChartsNode.boundsProperty.link( () => {
       barChartsNode.x = particlesNode.centerX; // Origin is at the bottom-center of the bottom equality operator.
@@ -150,7 +147,7 @@ export default class EquationsScreenView extends ScreenView {
     } );
 
     // 'View' combo box, at top-right.
-    const viewComboBox = new ViewComboBox( viewProperties.balancedRepresentationProperty, listboxParent,
+    const viewComboBox = new ViewComboBox( viewProperties.viewModeProperty, listboxParent,
       tandem.createTandem( 'viewComboBox' ) );
     const viewControl = new HBox( {
       spacing: 10,

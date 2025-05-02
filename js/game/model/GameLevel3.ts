@@ -22,7 +22,7 @@ export default class GameLevel3 extends GameLevel {
       iconMolecule: Molecule.NH3,
       coefficientsRange: coefficientsRange,
       equationPool: new EquationPool3( coefficientsRange, tandem.createTandem( 'equationPool' ) ),
-      getBalancedRepresentation: () => 'barCharts',
+      getViewMode: () => 'barCharts',
       tandem: tandem
     } );
   }

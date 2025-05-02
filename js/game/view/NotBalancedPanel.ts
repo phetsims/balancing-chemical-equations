@@ -20,7 +20,7 @@ import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
+import { ViewMode } from '../../common/model/ViewMode.js';
 import Equation from '../../common/model/Equation.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -41,11 +41,11 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
   private static readonly WHY_BUTTON_FONT = new PhetFont( GameFeedbackPanel.PUSH_BUTTON_FONT.numericSize - 4 );
   private static readonly WHY_BUTTON_FILL = '#d9d9d9';
 
-  private readonly balancedRepresentationVisibleProperty: Property<boolean>;
-  private readonly balancedRepresentationNode: BalancedRepresentationNode;
+  private readonly showWhyVisibleProperty: Property<boolean>;
+  private readonly viewModeNode: ShowWhyNode;
 
   public constructor( equation: Equation,
-                      balancedRepresentation: Exclude<BalancedRepresentation, 'none'>,
+                      viewMode: Exclude<ViewMode, 'none'>,
                       gameStateProperty: TReadOnlyProperty<GameState>,
                       tryAgainButtonCallback: () => void,
                       showAnswerButtonCallback: () => void,
@@ -91,19 +91,19 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       phetioEnabledPropertyInstrumented: false // See https://github.com/phetsims/balancing-chemical-equations/issues/197
     } );
 
-    const balancedRepresentationVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'balancedRepresentationVisibleProperty' ),
-      phetioDocumentation: 'Visibility of the representation that shows why the equation is not balanced.',
+    const showWhyVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showWhyVisibleProperty' ),
+      phetioDocumentation: 'Visibility of the view that shows why the equation is not balanced.',
       phetioReadOnly: true
     } );
 
     // 'Show Why' or 'Hide Why'
     const showHideWhyStringProperty = new DerivedStringProperty(
-      [ balancedRepresentationVisibleProperty, BalancingChemicalEquationsStrings.showWhyStringProperty, BalancingChemicalEquationsStrings.hideWhyStringProperty ],
+      [ showWhyVisibleProperty, BalancingChemicalEquationsStrings.showWhyStringProperty, BalancingChemicalEquationsStrings.hideWhyStringProperty ],
       ( whyVisible, showWhyString, hideWhyString ) => whyVisible ? hideWhyString : showWhyString );
 
     // Toggle button that shows/hides the 'balanced' representation, to explain why the equation is not balanced.
-    const showHideWhyToggleButton = new RectangularToggleButton<boolean>( balancedRepresentationVisibleProperty, false, true, {
+    const showHideWhyToggleButton = new RectangularToggleButton<boolean>( showWhyVisibleProperty, false, true, {
       content: new Text( showHideWhyStringProperty, {
         font: NotBalancedPanel.WHY_BUTTON_FONT
       } ),
@@ -112,8 +112,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       tandem: tandem.createTandem( 'showHideWhyToggleButton' )
     } );
 
-    const balancedRepresentationNode = new BalancedRepresentationNode( equation, balancedRepresentation, aligner,
-      balancedRepresentationVisibleProperty );
+    const showWhyNode = new ShowWhyNode( equation, viewMode, aligner, showWhyVisibleProperty );
 
     const vBox = new VBox( {
       excludeInvisibleChildrenFromBounds: true,
@@ -144,7 +143,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     } );
 
     const content = new HBox( {
-      children: [ vBox, balancedRepresentationNode ],
+      children: [ vBox, showWhyNode ],
       spacing: 50
     } );
 
@@ -153,27 +152,27 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       phetioDocumentation: 'Provides feedback when the challenge is not balanced.'
     } );
 
-    this.balancedRepresentationVisibleProperty = balancedRepresentationVisibleProperty;
-    this.balancedRepresentationNode = balancedRepresentationNode;
+    this.showWhyVisibleProperty = showWhyVisibleProperty;
+    this.viewModeNode = showWhyNode;
   }
 
-  public updateBalancedRepresentation( equation: Equation, balancedRepresentation: Exclude<BalancedRepresentation, 'none'> ): void {
+  public updateViewMode( equation: Equation, viewMode: Exclude<ViewMode, 'none'> ): void {
     if ( !isSettingPhetioStateProperty.value ) {
-      this.balancedRepresentationVisibleProperty.reset();
+      this.showWhyVisibleProperty.reset();
     }
-    this.balancedRepresentationNode.update( equation, balancedRepresentation );
+    this.viewModeNode.update( equation, viewMode );
   }
 }
 
 /**
- * BalancedRepresentationNode shows why the equation is not balanced.
+ * ShowWhyNode shows why the equation is not balanced.
  */
-class BalancedRepresentationNode extends Node {
+class ShowWhyNode extends Node {
 
   private readonly aligner: HorizontalAligner;
 
   public constructor( equation: Equation,
-                      balancedRepresentation: Exclude<BalancedRepresentation, 'none'>,
+                      viewMode: Exclude<ViewMode, 'none'>,
                       aligner: HorizontalAligner,
                       visibleProperty: TReadOnlyProperty<boolean> ) {
     super( {
@@ -182,26 +181,26 @@ class BalancedRepresentationNode extends Node {
     } );
 
     this.aligner = aligner;
-    this.update( equation, balancedRepresentation );
+    this.update( equation, viewMode );
   }
 
-  public update( equation: Equation, balancedRepresentation: Exclude<BalancedRepresentation, 'none'> ): void {
+  public update( equation: Equation, viewMode: Exclude<ViewMode, 'none'> ): void {
 
     this.removeAllChildren();
 
-    let balancedRepresentationNode;
-    if ( balancedRepresentation === 'balanceScales' ) {
-      balancedRepresentationNode = new BalanceScalesNode( new Property( equation ) );
+    let showWhyNode;
+    if ( viewMode === 'balanceScales' ) {
+      showWhyNode = new BalanceScalesNode( new Property( equation ) );
     }
     else {
-      balancedRepresentationNode = new BarChartsNode( new Property( equation ) );
+      showWhyNode = new BarChartsNode( new Property( equation ) );
     }
 
     // Shrink size so that it doesn't cover so much of the screen.
     // See https://github.com/phetsims/balancing-chemical-equations/issues/29.
-    balancedRepresentationNode.setScaleMagnitude( 0.65 );
+    showWhyNode.setScaleMagnitude( 0.65 );
 
-    this.addChild( balancedRepresentationNode );
+    this.addChild( showWhyNode );
   }
 }
 

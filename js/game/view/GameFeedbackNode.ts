@@ -92,7 +92,7 @@ export default class GameFeedbackNode extends Node {
     else {
       const level = this.model.levelProperty.value!;
       assert && assert( level );
-      this.notBalancedPanel.updateBalancedRepresentation( this.model.challengeProperty.value, level.getBalancedRepresentation() );
+      this.notBalancedPanel.updateViewMode( this.model.challengeProperty.value, level.getViewMode() );
       this.notBalancedPanel.visible = true;
       this.balancedAndSimplifiedPanel.visible = false;
       this.balancedNotSimplifiedPanel.visible = false;

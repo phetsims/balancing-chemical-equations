@@ -13,7 +13,7 @@ import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/Refer
 import Property from '../../../../axon/js/Property.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { BalancedRepresentation } from '../../common/model/BalancedRepresentation.js';
+import { ViewMode } from '../../common/model/ViewMode.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Equation from '../../common/model/Equation.js';
 import EquationPool from './EquationPool.js';
@@ -35,8 +35,8 @@ type SelfOptions = {
   // Range of the coefficient in all equation terms.
   coefficientsRange: Range;
 
-  // Gets the "balanced representation" that is displayed by the "Not Balanced" popup.
-  getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
+  // Gets the representation that will be displayed by the "Not Balanced" popup.
+  getViewMode: () => Exclude<ViewMode, 'none'>;
 
   // The pool of equations for the challenges.
   equationPool: EquationPool;
@@ -56,7 +56,7 @@ export default class GameLevel extends PhetioObject {
   public readonly levelNumber: number;
   public readonly icon: Node;
   private readonly coefficientsRange: Range;
-  public readonly getBalancedRepresentation: () => Exclude<BalancedRepresentation, 'none'>;
+  public readonly getViewMode: () => Exclude<ViewMode, 'none'>;
   private readonly equationPool: EquationPool;
 
   public readonly bestScoreProperty: Property<number>;
@@ -81,7 +81,7 @@ export default class GameLevel extends PhetioObject {
     }, BCEConstants.ATOM_NODE_OPTIONS ) );
 
     this.coefficientsRange = options.coefficientsRange;
-    this.getBalancedRepresentation = options.getBalancedRepresentation;
+    this.getViewMode = options.getViewMode;
     this.equationPool = options.equationPool;
 
     this.bestScoreProperty = new NumberProperty( 0, {

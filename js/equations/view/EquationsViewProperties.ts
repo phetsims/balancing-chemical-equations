@@ -14,7 +14,7 @@ export default class EquationsViewProperties extends IntroViewProperties {
 
   public constructor( tandem: Tandem ) {
     super( {
-      balancedRepresentation: 'balanceScales',
+      viewMode: 'balanceScales',
       tandem: tandem
     } );
   }

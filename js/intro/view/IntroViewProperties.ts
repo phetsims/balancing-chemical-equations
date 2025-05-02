@@ -10,15 +10,15 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import { BalancedRepresentation, BalancedRepresentationValues } from '../../common/model/BalancedRepresentation.js';
+import { ViewMode, ViewModeValues } from '../../common/model/ViewMode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
 
-  // Initial value of balancedRepresentationProperty.
-  balancedRepresentation?: BalancedRepresentation;
+  // Initial value of viewModeProperty.
+  viewMode?: ViewMode;
 };
 
 type IntroViewPropertiesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -31,15 +31,15 @@ export default class IntroViewProperties {
   // Whether the 'Products' accordion box is expanded
   public readonly productsAccordionBoxExpandedProperty: Property<boolean>;
 
-  // The representation for 'balanced' that is chosen from ViewsComboBox.
-  public readonly balancedRepresentationProperty: StringUnionProperty<BalancedRepresentation>;
+  // Choices in the Views combo box.
+  public readonly viewModeProperty: StringUnionProperty<ViewMode>;
 
   public constructor( providedOptions: IntroViewPropertiesOptions ) {
 
     const options = optionize<IntroViewPropertiesOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      balancedRepresentation: 'particles'
+      viewMode: 'particles'
     }, providedOptions );
 
     this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
@@ -52,9 +52,10 @@ export default class IntroViewProperties {
       phetioFeatured: true
     } );
 
-    this.balancedRepresentationProperty = new StringUnionProperty( options.balancedRepresentation, {
-      validValues: BalancedRepresentationValues,
-      tandem: options.tandem.createTandem( 'balancedRepresentationProperty' ),
+    this.viewModeProperty = new StringUnionProperty( options.viewMode, {
+      validValues: ViewModeValues,
+      tandem: options.tandem.createTandem( 'viewModeProperty' ),
+      phetioDocumentation: 'Choices in the View combo box.',
       phetioFeatured: true
     } );
   }
@@ -62,7 +63,7 @@ export default class IntroViewProperties {
   public reset(): void {
     this.reactantsAccordionBoxExpandedProperty.reset();
     this.productsAccordionBoxExpandedProperty.reset();
-    this.balancedRepresentationProperty.reset();
+    this.viewModeProperty.reset();
   }
 }
 

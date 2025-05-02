@@ -14,7 +14,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import { BalancedRepresentation } from '../model/BalancedRepresentation.js';
+import { ViewMode } from '../model/ViewMode.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -27,24 +27,24 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 const FONT = new PhetFont( 18 );
 
-export default class ViewComboBox extends ComboBox<BalancedRepresentation> {
+export default class ViewComboBox extends ComboBox<ViewMode> {
 
-  public constructor( balanceRepresentationProperty: StringUnionProperty<BalancedRepresentation>,
+  public constructor( viewModeProperty: StringUnionProperty<ViewMode>,
                       listboxParent: Node,
                       tandem: Tandem ) {
 
-    const balancedRepresentationValues = balanceRepresentationProperty.validValues!;
-    assert && assert( balancedRepresentationValues );
+    const viewModeValues = viewModeProperty.validValues!;
+    assert && assert( viewModeValues );
 
-    const items: ComboBoxItem<BalancedRepresentation>[] = balancedRepresentationValues.map( value => {
+    const items: ComboBoxItem<ViewMode>[] = viewModeValues.map( viewMode => {
       return {
-        value: value,
-        tandemName: `${value}Item`,
-        createNode: () => createIcon( value )
+        value: viewMode,
+        tandemName: `${viewMode}Item`,
+        createNode: () => createIcon( viewMode )
       };
     } );
 
-    super( balanceRepresentationProperty, items, listboxParent, {
+    super( viewModeProperty, items, listboxParent, {
       isDisposable: false,
       align: 'center',
       xMargin: 10,
@@ -56,14 +56,14 @@ export default class ViewComboBox extends ComboBox<BalancedRepresentation> {
   }
 }
 
-function createIcon( balancedRepresentation: BalancedRepresentation ): Node {
-  if ( balancedRepresentation === 'particles' ) {
+function createIcon( viewMode: ViewMode ): Node {
+  if ( viewMode === 'particles' ) {
     return createParticlesIcon();
   }
-  else if ( balancedRepresentation === 'balanceScales' ) {
+  else if ( viewMode === 'balanceScales' ) {
     return createBalanceScalesIcon();
   }
-  else if ( balancedRepresentation === 'barCharts' ) {
+  else if ( viewMode === 'barCharts' ) {
     return createBarChartsIcon();
   }
   else {
