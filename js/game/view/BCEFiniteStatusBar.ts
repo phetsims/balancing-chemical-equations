@@ -33,7 +33,7 @@ export class BCEFiniteStatusBar extends FiniteStatusBar {
         tandem: tandem.createTandem( 'scoreDisplay' )
       } ),
       levelNumberProperty: new DerivedProperty( [ model.levelProperty ], level => level ? level.levelNumber : 0 ),
-      challengeIndexProperty: model.challengeIndexProperty,
+      challengeNumberProperty: model.challengeNumberProperty,
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
       timerEnabledProperty: model.timerEnabledProperty,

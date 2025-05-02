@@ -28,7 +28,6 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 const ATTEMPTS_RANGE = new Range( 0, 2 );
 
@@ -55,9 +54,9 @@ export default class GameModel implements TModel {
   // Number of challenges in the current game
   public readonly numberOfChallengesProperty: TReadOnlyProperty<number>;
 
-  // Index of the current challenge in this.challenges
-  public readonly challengeIndexProperty: TReadOnlyProperty<number>;
-  private readonly _challengeIndexProperty: Property<number>;
+  // The current challenge in this.challenges, using 1-based index, as shown in the Game status bar.
+  public readonly challengeNumberProperty: TReadOnlyProperty<number>;
+  private readonly _challengeNumberProperty: Property<number>;
 
   // Current challenge to be solved
   public readonly challengeProperty: TReadOnlyProperty<Equation>;
@@ -129,35 +128,25 @@ export default class GameModel implements TModel {
 
     this.numberOfChallengesProperty = new DerivedProperty( [ this.challengesProperty ], challenges => challenges.length );
 
-    this._challengeIndexProperty = new NumberProperty( 0, {
+    this._challengeNumberProperty = new NumberProperty( 1, {
       numberType: 'Integer',
-      range: new Range( 0, Infinity ), // Infinity because ?playAll plays all possible challenges.
-      tandem: tandem.createTandem( 'challengeIndexProperty' ),
-      phetioDocumentation: 'For internal use only.',
+      range: new Range( 1, Infinity ), // Infinity because ?playAll plays all possible challenges.
+      tandem: tandem.createTandem( 'challengeNumberProperty' ),
+      phetioDocumentation: 'The challenge number shown in the status bar. Indicates how far the user has progressed through a level.',
       phetioReadOnly: true
     } );
-    this.challengeIndexProperty = this._challengeIndexProperty;
+    this.challengeNumberProperty = this._challengeNumberProperty;
 
     this.challengesProperty.lazyLink( () => {
       if ( !isSettingPhetioStateProperty.value ) {
-        this._challengeIndexProperty.value = 0;
+        this._challengeNumberProperty.value = 1;
       }
     } );
 
-    // PhET-iO-only Property, not used elsewhere in the sim.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const challengeNumberProperty = new DerivedProperty( [ this.challengeIndexProperty ],
-      challengeIndex => challengeIndex + 1, {
-        tandem: tandem.createTandem( 'challengeNumberProperty' ),
-        phetioDocumentation: 'The challenge number shown in the scoreboard. Indicates how far the user has progressed through a level.',
-        phetioFeatured: true,
-        phetioValueType: NumberIO
-      } );
-
     // Consider that this derivation may go through intermediate states when PhET-iO state is restored,
     // depending on the order in which the dependencies are set.
-    this.challengeProperty = new DerivedProperty( [ this.challengesProperty, this.challengeIndexProperty ],
-      ( challenges, challengeIndex ) => ( challengeIndex >= 0 && challenges.length > challengeIndex ) ? challenges[ challengeIndex ] : challenges[ 0 ], {
+    this.challengeProperty = new DerivedProperty( [ this.challengesProperty, this.challengeNumberProperty ],
+      ( challenges, challengeNumber ) => ( challengeNumber >= 1 && challenges.length >= challengeNumber ) ? challenges[ challengeNumber - 1 ] : challenges[ 0 ], {
         tandem: tandem.createTandem( 'challengeProperty' ),
         phetioDocumentation: 'The challenge being played.',
         phetioFeatured: true,
@@ -220,7 +209,7 @@ export default class GameModel implements TModel {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
     this._gameStateProperty.reset();
-    this._challengeIndexProperty.reset();
+    this._challengeNumberProperty.reset();
     this.timerEnabledProperty.reset();
   }
 
@@ -308,7 +297,7 @@ export default class GameModel implements TModel {
       this.scoreProperty.value += this.pointsProperty.value;
       this.setGameState( 'next' );
 
-      if ( this.challengeIndexProperty.value === this.challengesProperty.value.length - 1 ) {
+      if ( this.challengeNumberProperty.value === this.challengesProperty.value.length ) {
         this.endGame();
       }
     }
@@ -316,7 +305,7 @@ export default class GameModel implements TModel {
       this.setGameState( 'tryAgain' );
     }
     else {
-      if ( this.challengeIndexProperty.value === this.challengesProperty.value.length - 1 ) {
+      if ( this.challengeNumberProperty.value === this.challengesProperty.value.length ) {
         this.endGame();
       }
       this.setGameState( 'showAnswer' );
@@ -341,10 +330,10 @@ export default class GameModel implements TModel {
    * Called when the user presses the "Next" button.
    */
   public next(): void {
-    if ( this.challengeIndexProperty.value < this.challengesProperty.value.length - 1 ) {
+    if ( this.challengeNumberProperty.value < this.challengesProperty.value.length ) {
       this.attemptsProperty.value = 0;
       this.pointsProperty.value = 0;
-      this._challengeIndexProperty.value++;
+      this._challengeNumberProperty.value++;
       this.setGameState( 'check' );
     }
     else {
