@@ -28,6 +28,8 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 const ATTEMPTS_RANGE = new Range( 0, 2 );
 
@@ -37,6 +39,9 @@ export default class GameModel implements TModel {
 
   // The selected game level. null means 'no selection' and causes the view to return to the level-selection UI.
   public readonly levelProperty: Property<GameLevel | null>;
+
+  // Number of the game level that the user is playing. Uses 1-based numbering. Zero means no level is currently being played.
+  public readonly levelNumberProperty: ReadOnlyProperty<number>;
 
   // State of the game. See GameState.ts for documentation of possible state transitions.
   private readonly _gameStateProperty: StringUnionProperty<GameState>;
@@ -52,10 +57,10 @@ export default class GameModel implements TModel {
   private readonly challengesProperty: Property<Equation[]>;
 
   // Number of challenges in the current game
-  public readonly numberOfChallengesProperty: TReadOnlyProperty<number>;
+  public readonly numberOfChallengesProperty: ReadOnlyProperty<number>;
 
   // The current challenge in this.challenges, using 1-based index, as shown in the Game status bar.
-  public readonly challengeNumberProperty: TReadOnlyProperty<number>;
+  public readonly challengeNumberProperty: ReadOnlyProperty<number>;
   private readonly _challengeNumberProperty: Property<number>;
 
   // Current challenge to be solved
@@ -89,6 +94,13 @@ export default class GameModel implements TModel {
       phetioDocumentation: 'The selected level in the game. null means that no level is selected.',
       phetioFeatured: true,
       phetioValueType: NullableIO( GameLevel.GameLevelIO )
+    } );
+
+    this.levelNumberProperty = new DerivedProperty( [ this.levelProperty ], level => level ? level.levelNumber : 0, {
+      tandem: tandem.createTandem( 'levelNumberProperty' ),
+      phetioDocumentation: 'Number of the selected level. Zero means that no level is selected.',
+      phetioFeatured: true,
+      phetioValueType: NumberIO
     } );
 
     this._gameStateProperty = new StringUnionProperty( 'levelSelection', {

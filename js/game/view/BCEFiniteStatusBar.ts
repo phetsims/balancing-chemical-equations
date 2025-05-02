@@ -7,7 +7,6 @@
  */
 
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
@@ -32,7 +31,7 @@ export class BCEFiniteStatusBar extends FiniteStatusBar {
         textFill: STATUS_BAR_TEXT_FILL,
         tandem: tandem.createTandem( 'scoreDisplay' )
       } ),
-      levelNumberProperty: new DerivedProperty( [ model.levelProperty ], level => level ? level.levelNumber : 0 ),
+      levelNumberProperty: model.levelNumberProperty,
       challengeNumberProperty: model.challengeNumberProperty,
       numberOfChallengesProperty: model.numberOfChallengesProperty,
       elapsedTimeProperty: model.timer.elapsedTimeProperty,
