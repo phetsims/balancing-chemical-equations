@@ -98,7 +98,7 @@ export default class GameModel implements TModel {
 
     this.levelNumberProperty = new DerivedProperty( [ this.levelProperty ], level => level ? level.levelNumber : 0, {
       tandem: tandem.createTandem( 'levelNumberProperty' ),
-      phetioDocumentation: 'Number of the selected level. Zero means that no level is selected.',
+      phetioDocumentation: 'Number of the selected level in the game. Zero means that no level is selected.',
       phetioFeatured: true,
       phetioValueType: NumberIO
     } );
