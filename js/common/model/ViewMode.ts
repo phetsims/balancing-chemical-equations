@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2025, University of Colorado Boulder
 
 /**
  * ViewMode is an enumeration of possible choices in the 'View' combo box. We decided on the name ViewMode to be
