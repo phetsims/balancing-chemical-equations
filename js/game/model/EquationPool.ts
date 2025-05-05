@@ -54,7 +54,8 @@ export default class EquationPool extends PhetioObject {
       exclusionsMap: null,
 
       // PhetioObjectOptions
-      phetioState: false
+      phetioState: false,
+      phetioFeatured: true // See https://github.com/phetsims/balancing-chemical-equations/issues/201
     }, providedOptions );
 
     super( options );

@@ -80,7 +80,10 @@ export default class EquationsScreenView extends ScreenView {
           tandem: equationComboBoxesTandem.createTandem( 'combustionEquationComboBox' )
         } )
       ],
-      tandem: equationComboBoxesTandem
+      tandem: equationComboBoxesTandem,
+      visiblePropertyOptions: {
+        phetioFeatured: true // See https://github.com/phetsims/balancing-chemical-equations/issues/201
+      }
     } );
 
     // Bar behind radio buttons at bottom of screen
