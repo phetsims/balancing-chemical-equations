@@ -18,18 +18,18 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import BCEPreferences from '../../common/model/BCEPreferences.js';
 
-const EquationTypeValues = [ 'synthesis', 'decomposition', 'combustion' ];
-export type EquationType = ( typeof EquationTypeValues )[number];
+const ReactionTypeValues = [ 'synthesis', 'decomposition', 'combustion' ];
+export type ReactionType = ( typeof ReactionTypeValues )[number];
 
 export default class EquationsModel implements TModel {
 
   // Range of possible equation coefficients
   public readonly coefficientsRange: Range;
 
-  // The type of equation that is selected
-  public readonly equationTypeProperty: Property<EquationType>;
+  // The type of reaction that is selected
+  public readonly reactionTypeProperty: Property<ReactionType>;
 
-  // The sets of equations for each type.
+  // The sets of equations for each reaction type.
   public readonly synthesisEquations: Equation[];
   public readonly decompositionEquations: Equation[];
   public readonly combustionEquations: Equation[];
@@ -37,7 +37,7 @@ export default class EquationsModel implements TModel {
   // All equations for this screen.
   private readonly allEquations: Equation[];
 
-  // The selected equation for each type.
+  // The selected equation for each reaction type.
   public readonly synthesisEquationProperty: Property<Equation>;
   public readonly decompositionEquationProperty: Property<Equation>;
   public readonly combustionEquationProperty: Property<Equation>;
@@ -49,9 +49,9 @@ export default class EquationsModel implements TModel {
 
     this.coefficientsRange = new Range( 0, 6 );
 
-    this.equationTypeProperty = new StringUnionProperty<EquationType>( 'synthesis', {
-      validValues: EquationTypeValues,
-      tandem: tandem.createTandem( 'equationTypeProperty' ),
+    this.reactionTypeProperty = new StringUnionProperty<ReactionType>( 'synthesis', {
+      validValues: ReactionTypeValues,
+      tandem: tandem.createTandem( 'reactionTypeProperty' ),
       phetioFeatured: true
     } );
 
@@ -124,7 +124,7 @@ export default class EquationsModel implements TModel {
     } );
 
     this.equationProperty = new DerivedProperty(
-      [ this.equationTypeProperty, this.synthesisEquationProperty, this.decompositionEquationProperty, this.combustionEquationProperty ],
+      [ this.reactionTypeProperty, this.synthesisEquationProperty, this.decompositionEquationProperty, this.combustionEquationProperty ],
       ( equationType, synthesisEquation, decompositionEquation, combustionEquation ) => {
         if ( equationType === 'synthesis' ) {
           return synthesisEquation;
@@ -149,7 +149,7 @@ export default class EquationsModel implements TModel {
   }
 
   public reset(): void {
-    this.equationTypeProperty.reset();
+    this.reactionTypeProperty.reset();
     this.allEquations.forEach( equation => equation.reset() );
     this.synthesisEquationProperty.reset();
     this.decompositionEquationProperty.reset();

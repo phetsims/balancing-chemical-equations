@@ -54,9 +54,9 @@ export default class EquationsScreenView extends ScreenView {
     // aligner for equation
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
-    // Radio button group for choosing an equation type
-    const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup( model.equationTypeProperty,
-      tandem.createTandem( 'equationTypeRadioButtonGroup' ) );
+    // Radio button group for choosing a reaction type
+    const reactionTypeRadioButtonGroup = new EquationTypeRadioButtonGroup( model.reactionTypeProperty,
+      tandem.createTandem( 'reactionTypeRadioButtonGroup' ) );
 
     const listboxParent = new Node();
 
@@ -68,15 +68,15 @@ export default class EquationsScreenView extends ScreenView {
     const equationComboBoxes = new Node( {
       children: [
         new EquationsComboBox( model.synthesisEquationProperty, listboxParent, itemAlignGroup, {
-          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'synthesis' ),
+          visibleProperty: new DerivedProperty( [ model.reactionTypeProperty ], equationType => equationType === 'synthesis' ),
           tandem: equationComboBoxesTandem.createTandem( 'synthesisEquationComboBox' )
         } ),
         new EquationsComboBox( model.decompositionEquationProperty, listboxParent, itemAlignGroup, {
-          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'decomposition' ),
+          visibleProperty: new DerivedProperty( [ model.reactionTypeProperty ], equationType => equationType === 'decomposition' ),
           tandem: equationComboBoxesTandem.createTandem( 'decompositionEquationComboBox' )
         } ),
         new EquationsComboBox( model.combustionEquationProperty, listboxParent, itemAlignGroup, {
-          visibleProperty: new DerivedProperty( [ model.equationTypeProperty ], equationType => equationType === 'combustion' ),
+          visibleProperty: new DerivedProperty( [ model.reactionTypeProperty ], equationType => equationType === 'combustion' ),
           tandem: equationComboBoxesTandem.createTandem( 'combustionEquationComboBox' )
         } )
       ],
@@ -90,19 +90,19 @@ export default class EquationsScreenView extends ScreenView {
     const horizontalBarNode = new HorizontalBarNode( this.visibleBoundsProperty, {
 
       // Visible if radio buttons or combo box are visible.
-      visibleProperty: DerivedProperty.or( [ equationTypeRadioButtonGroup.visibleProperty, equationComboBoxes.visibleProperty ] ),
+      visibleProperty: DerivedProperty.or( [ reactionTypeRadioButtonGroup.visibleProperty, equationComboBoxes.visibleProperty ] ),
       bottom: this.layoutBounds.bottom - 10
     } );
 
-    Multilink.multilink( [ equationTypeRadioButtonGroup.visibleProperty, equationTypeRadioButtonGroup.boundsProperty ],
+    Multilink.multilink( [ reactionTypeRadioButtonGroup.visibleProperty, reactionTypeRadioButtonGroup.boundsProperty ],
       ( visible, bounds ) => {
         const leftMargin = 20;
 
-        equationTypeRadioButtonGroup.left = leftMargin;
-        equationTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
+        reactionTypeRadioButtonGroup.left = leftMargin;
+        reactionTypeRadioButtonGroup.centerY = horizontalBarNode.centerY;
 
         if ( visible && bounds.isFinite() ) {
-          equationComboBoxes.left = equationTypeRadioButtonGroup.right + leftMargin;
+          equationComboBoxes.left = reactionTypeRadioButtonGroup.right + leftMargin;
         }
         else {
           equationComboBoxes.centerX = this.layoutBounds.centerX;
@@ -196,7 +196,7 @@ export default class EquationsScreenView extends ScreenView {
         feedbackNode,
         equationNodes,
         horizontalBarNode,
-        equationTypeRadioButtonGroup,
+        reactionTypeRadioButtonGroup,
         equationComboBoxes,
         resetAllButton,
         listboxParent // add this last, so that combo box list is on top of everything else
@@ -221,7 +221,7 @@ export default class EquationsScreenView extends ScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      equationTypeRadioButtonGroup,
+      reactionTypeRadioButtonGroup,
       equationComboBoxes,
       equationNodes
     ];
