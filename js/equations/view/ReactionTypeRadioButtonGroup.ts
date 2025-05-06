@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * EquationTypeRadioButtonGroup is the radio button group for selecting a reaction type on the 'Equations' screen.
+ * ReactionTypeRadioButtonGroup is the radio button group for selecting a reaction type on the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 const LABEL_FONT = new PhetFont( 16 );
 const LABEL_FILL = 'white';
 
-export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup<ReactionType> {
+export default class ReactionTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup<ReactionType> {
 
   public constructor( reactionTypeProperty: Property<ReactionType>, tandem: Tandem ) {
 
@@ -66,4 +66,4 @@ export default class EquationTypeRadioButtonGroup extends HorizontalAquaRadioBut
   }
 }
 
-balancingChemicalEquations.register( 'EquationTypeRadioButtonGroup', EquationTypeRadioButtonGroup );
+balancingChemicalEquations.register( 'ReactionTypeRadioButtonGroup', ReactionTypeRadioButtonGroup );

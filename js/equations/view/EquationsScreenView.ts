@@ -18,7 +18,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import BCEConstants from '../../common/BCEConstants.js';
 import EquationsModel from '../model/EquationsModel.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
-import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
+import ReactionTypeRadioButtonGroup from './ReactionTypeRadioButtonGroup.js';
 import HorizontalBarNode from '../../common/view/HorizontalBarNode.js';
 import EquationsComboBox from './EquationsComboBox.js';
 import Multilink from '../../../../axon/js/Multilink.js';
@@ -55,7 +55,7 @@ export default class EquationsScreenView extends ScreenView {
     const aligner = new HorizontalAligner( this.layoutBounds.width, BOX_SIZE.width, BOX_X_SPACING );
 
     // Radio button group for choosing a reaction type
-    const reactionTypeRadioButtonGroup = new EquationTypeRadioButtonGroup( model.reactionTypeProperty,
+    const reactionTypeRadioButtonGroup = new ReactionTypeRadioButtonGroup( model.reactionTypeProperty,
       tandem.createTandem( 'reactionTypeRadioButtonGroup' ) );
 
     const listboxParent = new Node();
