@@ -18,6 +18,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import BCEPreferences from '../../common/model/BCEPreferences.js';
 
+// Reaction types supported by the Equations screen.
 const ReactionTypeValues = [ 'synthesis', 'decomposition', 'combustion' ];
 export type ReactionType = ( typeof ReactionTypeValues )[number];
 
