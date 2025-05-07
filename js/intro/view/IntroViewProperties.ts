@@ -11,17 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import { ViewMode, ViewModeValues } from '../../common/model/ViewMode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-
-type SelfOptions = {
-
-  // Initial value of viewModeProperty.
-  viewMode?: ViewMode;
-};
-
-type IntroViewPropertiesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class IntroViewProperties {
 
@@ -34,27 +24,21 @@ export default class IntroViewProperties {
   // Choices in the Views combo box.
   public readonly viewModeProperty: StringUnionProperty<ViewMode>;
 
-  public constructor( providedOptions: IntroViewPropertiesOptions ) {
-
-    const options = optionize<IntroViewPropertiesOptions, SelfOptions, PhetioObjectOptions>()( {
-
-      // SelfOptions
-      viewMode: 'particles'
-    }, providedOptions );
+  public constructor( tandem: Tandem ) {
 
     this.reactantsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' ),
+      tandem: tandem.createTandem( 'reactantsAccordionBoxExpandedProperty' ),
       phetioFeatured: true
     } );
 
     this.productsAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'productsAccordionBoxExpandedProperty' ),
+      tandem: tandem.createTandem( 'productsAccordionBoxExpandedProperty' ),
       phetioFeatured: true
     } );
 
-    this.viewModeProperty = new StringUnionProperty( options.viewMode, {
+    this.viewModeProperty = new StringUnionProperty( 'particles', {
       validValues: ViewModeValues,
-      tandem: options.tandem.createTandem( 'viewModeProperty' ),
+      tandem: tandem.createTandem( 'viewModeProperty' ),
       phetioDocumentation: 'Choices in the View combo box.',
       phetioFeatured: true
     } );

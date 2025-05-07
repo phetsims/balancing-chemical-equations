@@ -13,10 +13,7 @@ import IntroViewProperties from '../../intro/view/IntroViewProperties.js';
 export default class EquationsViewProperties extends IntroViewProperties {
 
   public constructor( tandem: Tandem ) {
-    super( {
-      viewMode: 'balanceScales',
-      tandem: tandem
-    } );
+    super( tandem );
   }
 }
 
