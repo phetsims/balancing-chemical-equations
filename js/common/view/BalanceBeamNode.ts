@@ -35,7 +35,7 @@ export default class BalanceBeamNode extends Rectangle {
 
   public setHighlighted( highlighted: boolean ): void {
     this.fill = highlighted ? BCEColors.BALANCED_HIGHLIGHT_COLOR : 'black';
-    this.lineWidth = highlighted ? 1 : 0;
+    this.lineWidth = highlighted ? 1.25 : 0;
   }
 }
 
