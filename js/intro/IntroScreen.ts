@@ -66,7 +66,7 @@ function createScreenIcon(): ScreenIcon {
 
   // balance beam, in horizontal (balanced) orientation
   const beamNode = new Rectangle( 0, 0, 128, 10, {
-    fill: 'yellow',
+    fill: BCEColors.BALANCED_HIGHLIGHT_COLOR,
     stroke: 'black',
     lineWidth: 0.25
   } );
