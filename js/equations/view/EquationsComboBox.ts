@@ -55,7 +55,10 @@ export default class EquationsComboBox<T extends Equation> extends ComboBox<T> {
         tandemName: `${equation.tandem.name}Item`,
         createNode: () => itemAlignGroup.createBox( text, {
           xAlign: 'left'
-        } )
+        } ),
+        comboBoxListItemNodeOptions: {
+          phetioDocumentation: equation.phetioDocumentation
+        }
       };
     } );
 
