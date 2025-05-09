@@ -26,6 +26,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import BCEColors from '../../common/BCEColors.js';
+import BCEConstants from '../../common/BCEConstants.js';
 
 export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
@@ -43,7 +44,7 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
       maxWidth: maxWidth
     };
 
-    const faceNode = new FaceNode( 75 );
+    const faceNode = new FaceNode( 75, BCEConstants.FACE_NODE_OPTIONS );
 
     // To make icons have the same effective size.
     const iconAlignGroup = new AlignGroup();

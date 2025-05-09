@@ -110,7 +110,7 @@ const NODES = [
 
   // level 3: faces and stars
   [
-    new FaceNode( 40, { headStroke: 'black' } ),
+    new FaceNode( 40, BCEConstants.FACE_NODE_OPTIONS ),
     new StarNode()
   ]
 ];

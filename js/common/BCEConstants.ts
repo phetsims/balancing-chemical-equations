@@ -12,6 +12,7 @@ import { AtomNodeOptions } from '../../../nitroglycerin/js/nodes/AtomNode.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BCEColors from './BCEColors.js';
 import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
+import { FaceNodeOptions } from '../../../scenery-phet/js/FaceNode.js';
 
 const ATOM_NODE_OPTIONS: AtomNodeOptions = {
   stroke: BCEColors.ATOM_STROKE,
@@ -24,6 +25,11 @@ const PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {
   visiblePropertyOptions: {
     phetioFeatured: true
   }
+};
+
+const FACE_NODE_OPTIONS: FaceNodeOptions = {
+  headStroke: 'black',
+  headLineWidth: 1
 };
 
 const BCEConstants = {
@@ -40,6 +46,8 @@ const BCEConstants = {
 
   // Preferences
   PREFERENCES_CONTROL_OPTIONS: PREFERENCES_CONTROL_OPTIONS,
+
+  FACE_NODE_OPTIONS: FACE_NODE_OPTIONS,
 
   // Valid values for ?initialCoefficient and initialCoefficientProperty.
   INITIAL_COEFFICIENT_VALID_VALUES: [ 0, 1 ]

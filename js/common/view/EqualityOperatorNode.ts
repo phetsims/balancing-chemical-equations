@@ -16,8 +16,9 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEColors from '../BCEColors.js';
 
 const TEXT_OPTIONS = {
-  font: new PhetFont( 80 ),
-  stroke: 'black'
+  font: new PhetFont( 55 ),
+  stroke: 'black',
+  lineWidth: 1.5
 };
 
 type SelfOptions = EmptySelfOptions;

@@ -21,6 +21,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import BCEColors from '../../common/BCEColors.js';
+import BCEConstants from '../../common/BCEConstants.js';
 
 const TEXT_OPTIONS = {
   font: new PhetFont( 18 ),
@@ -33,7 +34,7 @@ export default class EquationsFeedbackNode extends HBox {
 
   public constructor( equationProperty: TReadOnlyProperty<Equation> ) {
 
-    const faceNode = new FaceNode( 70 );
+    const faceNode = new FaceNode( 70, BCEConstants.FACE_NODE_OPTIONS );
 
     // To make icons have the same effective size.
     const iconAlignGroup = new AlignGroup();

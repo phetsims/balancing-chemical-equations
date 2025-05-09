@@ -59,7 +59,6 @@ export default class BarChartsNode extends BalanceElementsNode {
       const elementIsBalancedProperty = new DerivedProperty( [ reactantCountProperty, productCountProperty ],
         ( reactantCount, productCount ) => ( reactantCount !== 0 ) && ( productCount !== 0 ) && ( reactantCount === productCount ) );
       const equalityOperatorNode = new EqualityOperatorNode( elementIsBalancedProperty );
-      equalityOperatorNode.setScaleMagnitude( 0.5 );
 
       this.addChild( reactantBarNode );
       this.addChild( productBarNode );

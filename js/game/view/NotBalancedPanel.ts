@@ -34,6 +34,7 @@ import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import BCEConstants from '../../common/BCEConstants.js';
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
@@ -61,7 +62,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     };
 
     // sad face
-    const faceNode = new FaceNode( 75 );
+    const faceNode = new FaceNode( 75, BCEConstants.FACE_NODE_OPTIONS );
     faceNode.frown();
 
     const redX = new Path( timesSolidShape, {

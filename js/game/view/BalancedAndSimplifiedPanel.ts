@@ -24,6 +24,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import BCEColors from '../../common/BCEColors.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import BCEConstants from '../../common/BCEConstants.js';
 
 const MAX_WIDTH = 385; // maxWidth for UI elements
 const X_SPACING = 5;
@@ -44,7 +45,7 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
     // To make icons have the same effective size.
     const iconAlignGroup = new AlignGroup();
 
-    const faceNode = new FaceNode( 75 );
+    const faceNode = new FaceNode( 75, BCEConstants.FACE_NODE_OPTIONS );
 
     // Green check mark to the left of 'balanced'.
     const balancedHBox = new HBox( {

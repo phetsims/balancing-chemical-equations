@@ -34,7 +34,8 @@ export default class RightArrowNode extends ArrowNode {
       // ArrowNodeOptions
       tailWidth: 15,
       headWidth: 35,
-      headHeight: 30
+      headHeight: 30,
+      lineWidth: 1.5
     }, providedOptions );
 
     super( 0, 0, ARROW_LENGTH, 0, options );
