@@ -68,12 +68,12 @@ function createScreenIcon(): ScreenIcon {
   const beamNode = new Rectangle( 0, 0, 128, 10, {
     fill: BCEColors.BALANCED_HIGHLIGHT_COLOR,
     stroke: 'black',
-    lineWidth: 0.25
+    lineWidth: 0.75
   } );
 
   const fulcrumNode = new BalanceFulcrumNode( {
     size: new Dimension2( 0.25 * beamNode.width, 20 ),
-    lineWidth: 0.25
+    lineWidth: 0.75
   } );
 
   const contentNode = new VBox( {
