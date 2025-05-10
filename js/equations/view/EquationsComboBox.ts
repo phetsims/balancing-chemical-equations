@@ -16,6 +16,7 @@ import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import isPhetioEnabled from '../../../../phet-core/js/isPhetioEnabled.js';
 
 const RICH_TEXT_OPTIONS: RichTextOptions = {
   font: new PhetFont( 16 ),
@@ -57,7 +58,7 @@ export default class EquationsComboBox<T extends Equation> extends ComboBox<T> {
           xAlign: 'left'
         } ),
         comboBoxListItemNodeOptions: {
-          phetioDocumentation: equation.phetioDocumentation
+          phetioDocumentation: isPhetioEnabled ? equation.phetioDocumentation : ''
         }
       };
     } );
