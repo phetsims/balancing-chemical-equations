@@ -15,12 +15,13 @@ import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEColors from '../BCEColors.js';
 import Equation from '../model/Equation.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const ARROW_LENGTH = 70;
 
 type SelfOptions = EmptySelfOptions;
 
-type RightArrowNodeOptions = SelfOptions & NodeTranslationOptions;
+type RightArrowNodeOptions = SelfOptions & NodeTranslationOptions & PickRequired<ArrowNode, 'tandem'>;
 
 export default class RightArrowNode extends ArrowNode {
 
@@ -35,7 +36,10 @@ export default class RightArrowNode extends ArrowNode {
       tailWidth: 15,
       headWidth: 35,
       headHeight: 30,
-      lineWidth: 1.5
+      lineWidth: 1.5,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     }, providedOptions );
 
     super( 0, 0, ARROW_LENGTH, 0, options );

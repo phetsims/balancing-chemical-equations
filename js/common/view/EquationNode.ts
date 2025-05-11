@@ -68,7 +68,8 @@ export default class EquationNode extends Node {
 
     // arrow node, at a fixed position
     this.arrowNode = new RightArrowNode( new Property( equation ), {
-      centerX: this.aligner.getScreenCenterX()
+      centerX: this.aligner.getScreenCenterX(),
+      tandem: Tandem.OPT_OUT
     } );
     this.addChild( this.arrowNode );
 

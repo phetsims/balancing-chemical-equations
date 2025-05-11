@@ -90,15 +90,16 @@ export default class ParticlesNode extends Node {
         tandem: options.parentTandem.createTandem( 'productsAccordionBox' )
       } );
 
-    // right-pointing arrow, in the middle
-    const arrowNode = new RightArrowNode( equationProperty, {
-      center: new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 )
+    // right-pointing arrow, between the accordion boxes
+    const arrowBetweenAccordionBoxes = new RightArrowNode( equationProperty, {
+      center: new Vector2( aligner.getScreenCenterX(), boxSize.height / 2 ),
+      tandem: options.parentTandem.createTandem( 'arrowBetweenAccordionBoxes' )
     } );
 
-    options.children = [ reactantsAccordionBox, productsAccordionBox, arrowNode ];
+    options.children = [ reactantsAccordionBox, productsAccordionBox, arrowBetweenAccordionBoxes ];
     super( options );
 
-    this.arrowNode = arrowNode;
+    this.arrowNode = arrowBetweenAccordionBoxes;
   }
 
   /**
