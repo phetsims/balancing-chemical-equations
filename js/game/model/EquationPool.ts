@@ -74,6 +74,13 @@ export default class EquationPool extends PhetioObject {
   }
 
   /**
+   * Resets all equations in the pool.
+   */
+  public reset(): void {
+    this.pool.forEach( equation => equation.reset() );
+  }
+
+  /**
    * Randomly selects a specified number of Equations from the pool.
    */
   public getEquations( numberOfEquations: number ): Equation[] {
@@ -124,7 +131,10 @@ export default class EquationPool extends PhetioObject {
         }
       }
 
-      // Add the equation to the game.
+      // Reset the equation so that we are starting with initial coefficients.
+      equation.reset();
+
+      // Add the equation it to the game.
       equations.push( equation );
       phet.log && phet.log( `+ selected ${equation.tandem.name}, ${equation.toString()}` );
 

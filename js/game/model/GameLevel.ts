@@ -139,9 +139,8 @@ export default class GameLevel extends PhetioObject {
    * If 'playAll' query parameter is defined, return all equations for the level.
    */
   public getChallenges(): Equation[] {
-    const equations = this.equationPool.getEquations( this.getNumberOfChallenges() );
-    equations.forEach( equation => equation.reset() ); // Ensure that all coefficients are reset to zero.
-    return equations;
+    this.equationPool.reset(); // See https://github.com/phetsims/balancing-chemical-equations/issues/216
+    return this.equationPool.getEquations( this.getNumberOfChallenges() );
   }
 
   /**
