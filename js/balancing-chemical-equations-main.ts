@@ -48,7 +48,9 @@ simLauncher.launch( () => {
           createContent: tandem => new BCEPreferencesNode( BCEPreferences.instance, tandem )
         } ]
       }
-    } )
+    } ),
+
+    phetioDesigned: true
   } );
 
   sim.start();
