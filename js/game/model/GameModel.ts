@@ -179,6 +179,7 @@ export default class GameModel implements TModel {
 
     this.timerEnabledProperty = new BooleanProperty( false, {
       tandem: timerTandem.createTandem( 'enabledProperty' ),
+      phetioDocumentation: 'Whether the timer will run while playing a level.',
       phetioFeatured: true
     } );
 
