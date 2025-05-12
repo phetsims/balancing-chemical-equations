@@ -13,7 +13,7 @@ import balancingChemicalEquations from './balancingChemicalEquations.js';
 
 type StringsType = {
   'screen': {
-    'introductionStringProperty': LocalizedStringProperty;
+    'introStringProperty': LocalizedStringProperty;
     'equationsStringProperty': LocalizedStringProperty;
     'gameStringProperty': LocalizedStringProperty;
   };
