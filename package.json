@@ -28,6 +28,9 @@
         "default"
       ]
     },
+    "phet-io": {
+      "compareDesignedAPIChanges": true
+    },
     "simulation": true,
     "supportsOutputJS": true,
     "published": true,
