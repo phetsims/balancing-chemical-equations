@@ -28,6 +28,7 @@ type EquationTermNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>
 export default class EquationTermNode extends Node {
 
   private readonly coefficientPicker: NumberPicker;
+  private readonly disposeEquationTermNode: () => void;
 
   public constructor( term: EquationTerm, providedOptions: EquationTermNodeOptions ) {
 
@@ -59,10 +60,15 @@ export default class EquationTermNode extends Node {
     super( options );
 
     this.coefficientPicker = coefficientPicker;
+
+    this.disposeEquationTermNode = () => {
+      this.coefficientPicker.dispose();
+      symbolNode.dispose(); // The symbol might be localized in the future.
+    };
   }
 
   public override dispose(): void {
-    this.coefficientPicker.dispose();
+    this.disposeEquationTermNode();
     super.dispose();
   }
 
