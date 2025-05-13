@@ -113,7 +113,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       tandem: tandem.createTandem( 'showHideWhyToggleButton' )
     } );
 
-    const showWhyNode = new ShowWhyNode( equation, viewMode, aligner, showWhyVisibleProperty );
+    const showWhyNode = new ShowWhyNode( equation, viewMode, showWhyVisibleProperty );
 
     const vBox = new VBox( {
       excludeInvisibleChildrenFromBounds: true,
@@ -170,19 +170,16 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
  */
 class ShowWhyNode extends Node {
 
-  private readonly aligner: HorizontalAligner;
-  private balanceNode: Node | null;
+  private balanceNode: BalanceScalesNode | BarChartsNode | null;
 
   public constructor( equation: Equation,
                       viewMode: Exclude<ViewMode, 'none'>,
-                      aligner: HorizontalAligner,
                       visibleProperty: TReadOnlyProperty<boolean> ) {
     super( {
       isDisposable: false,
       visibleProperty: visibleProperty
     } );
 
-    this.aligner = aligner;
     this.balanceNode = null;
 
     this.update( equation, viewMode );
