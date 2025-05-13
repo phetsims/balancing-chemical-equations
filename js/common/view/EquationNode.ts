@@ -85,7 +85,9 @@ export default class EquationNode extends Node {
     this.createSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ),
       this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), 'product', options.tandem );
 
-    this.addLinkedElement( equation );
+    if ( this.isPhetioInstrumented() && equation.isPhetioInstrumented() ) {
+      this.addLinkedElement( equation );
+    }
 
     this.disposeEmitter.addListener( () => {
       this.arrowNode.dispose();
