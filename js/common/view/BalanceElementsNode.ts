@@ -70,6 +70,7 @@ export default abstract class BalanceElementsNode extends Node {
     this.disposeBalanceElementsNode = () => {
       phetioStateSetEmitter.removeListener( phetioStateSetListener );
       equationProperty.unlink( equationListener );
+      equationProperty.value.unlinkCoefficientProperties( coefficientsListener );
     };
   }
 
