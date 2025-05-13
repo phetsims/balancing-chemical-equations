@@ -43,19 +43,22 @@ export default class GameFeedbackNode extends Node {
     this.model = model;
     this.aligner = aligner;
 
-    this.balancedAndSimplifiedPanel = new BalancedAndSimplifiedPanel( this.model.pointsProperty, () => this.model.next(),
+    this.balancedAndSimplifiedPanel = new BalancedAndSimplifiedPanel(
+      this.model.pointsProperty,
+      () => this.model.next(),
       tandem.createTandem( 'balancedAndSimplifiedPanel' ) );
 
-    this.balancedNotSimplifiedPanel = new BalancedNotSimplifiedPanel( this.model.gameStateProperty, () => this.model.tryAgain(),
-      () => this.model.showAnswer(), this.aligner, tandem.createTandem( 'balancedNotSimplifiedPanel' ) );
-
-    this.notBalancedPanel = new NotBalancedPanel(
-      this.model.challengeProperty.value,
-      'barCharts', // any value will do for instantiation
+    this.balancedNotSimplifiedPanel = new BalancedNotSimplifiedPanel(
       this.model.gameStateProperty,
       () => this.model.tryAgain(),
       () => this.model.showAnswer(),
-      this.aligner,
+      tandem.createTandem( 'balancedNotSimplifiedPanel' ) );
+
+    this.notBalancedPanel = new NotBalancedPanel(
+      this.model.challengeProperty.value,
+      this.model.gameStateProperty,
+      () => this.model.tryAgain(),
+      () => this.model.showAnswer(),
       tandem.createTandem( 'notBalancedPanel' ) );
 
     const panelsParent = new HBox( {

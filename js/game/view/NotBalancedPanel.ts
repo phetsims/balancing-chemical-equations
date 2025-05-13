@@ -20,9 +20,8 @@ import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import { ViewMode } from '../../common/model/ViewMode.js';
+import { ShowWhyViewMode } from '../../common/model/ViewMode.js';
 import Equation from '../../common/model/Equation.js';
-import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { GameState } from '../model/GameState.js';
@@ -36,6 +35,8 @@ import BarChartsNode from '../../common/view/BarChartsNode.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import BCEConstants from '../../common/BCEConstants.js';
 
+const MAX_TEXT_WIDTH = 385; // maxWidth for Text elements
+
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
   // 'Show Why' and 'Hide Why' buttons
@@ -43,22 +44,17 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
   private static readonly WHY_BUTTON_FILL = '#d9d9d9';
 
   private readonly showWhyVisibleProperty: Property<boolean>;
-  private readonly viewModeNode: ShowWhyNode;
+  private readonly showWhyNode: ShowWhyNode;
 
   public constructor( equation: Equation,
-                      viewMode: Exclude<ViewMode, 'none'>,
                       gameStateProperty: TReadOnlyProperty<GameState>,
                       tryAgainButtonCallback: () => void,
                       showAnswerButtonCallback: () => void,
-                      aligner: HorizontalAligner,
                       tandem: Tandem ) {
-
-    // maxWidth for UI elements
-    const maxWidth = 0.5 * aligner.getScreenWidth();
 
     const textOptions = {
       font: GameFeedbackPanel.TEXT_FONT,
-      maxWidth: maxWidth
+      maxWidth: MAX_TEXT_WIDTH
     };
 
     // sad face
@@ -75,7 +71,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     const tryAgainButton = new TextPushButton( BalancingChemicalEquationsStrings.tryAgainStringProperty, {
       font: GameFeedbackPanel.PUSH_BUTTON_FONT,
       baseColor: GameFeedbackPanel.PUSH_BUTTON_COLOR,
-      maxWidth: maxWidth,
+      maxTextWidth: MAX_TEXT_WIDTH,
       listener: tryAgainButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'tryAgain' ),
       tandem: tandem.createTandem( 'tryAgainButton' ),
@@ -85,7 +81,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     const showAnswerButton = new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
       font: GameFeedbackPanel.PUSH_BUTTON_FONT,
       baseColor: GameFeedbackPanel.PUSH_BUTTON_COLOR,
-      maxWidth: maxWidth,
+      maxTextWidth: MAX_TEXT_WIDTH,
       listener: showAnswerButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'showAnswer' ),
       tandem: tandem.createTandem( 'showAnswerButton' ),
@@ -106,14 +102,14 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     // Toggle button that shows/hides the 'balanced' representation, to explain why the equation is not balanced.
     const showHideWhyToggleButton = new RectangularToggleButton<boolean>( showWhyVisibleProperty, false, true, {
       content: new Text( showHideWhyStringProperty, {
-        font: NotBalancedPanel.WHY_BUTTON_FONT
+        font: NotBalancedPanel.WHY_BUTTON_FONT,
+        maxWidth: MAX_TEXT_WIDTH
       } ),
       baseColor: NotBalancedPanel.WHY_BUTTON_FILL,
-      maxWidth: maxWidth,
       tandem: tandem.createTandem( 'showHideWhyToggleButton' )
     } );
 
-    const showWhyNode = new ShowWhyNode( equation, viewMode, showWhyVisibleProperty );
+    const showWhyNode = new ShowWhyNode( equation, showWhyVisibleProperty );
 
     const vBox = new VBox( {
       excludeInvisibleChildrenFromBounds: true,
@@ -154,14 +150,14 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     } );
 
     this.showWhyVisibleProperty = showWhyVisibleProperty;
-    this.viewModeNode = showWhyNode;
+    this.showWhyNode = showWhyNode;
   }
 
-  public updateViewMode( equation: Equation, viewMode: Exclude<ViewMode, 'none'> ): void {
+  public updateViewMode( equation: Equation, viewMode: ShowWhyViewMode ): void {
     if ( !isSettingPhetioStateProperty.value ) {
       this.showWhyVisibleProperty.reset();
     }
-    this.viewModeNode.update( equation, viewMode );
+    this.showWhyNode.update( equation, viewMode );
   }
 }
 
@@ -173,7 +169,6 @@ class ShowWhyNode extends Node {
   private balanceNode: BalanceScalesNode | BarChartsNode | null;
 
   public constructor( equation: Equation,
-                      viewMode: Exclude<ViewMode, 'none'>,
                       visibleProperty: TReadOnlyProperty<boolean> ) {
     super( {
       isDisposable: false,
@@ -182,10 +177,10 @@ class ShowWhyNode extends Node {
 
     this.balanceNode = null;
 
-    this.update( equation, viewMode );
+    this.update( equation, 'balanceScales' ); // any ShowWhyViewMode value will do for instantiation
   }
 
-  public update( equation: Equation, viewMode: Exclude<ViewMode, 'none'> ): void {
+  public update( equation: Equation, viewMode: ShowWhyViewMode ): void {
 
     this.balanceNode && this.balanceNode.dispose();
 

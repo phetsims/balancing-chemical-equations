@@ -19,7 +19,6 @@ import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import { GameState } from '../model/GameState.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -28,20 +27,18 @@ import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
 
+const MAX_TEXT_WIDTH = 385; // maxWidth for Text elements
+
 export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
   public constructor( gameStateProperty: TReadOnlyProperty<GameState>,
                       tryAgainButtonCallback: () => void,
                       showAnswerButtonCallback: () => void,
-                      aligner: HorizontalAligner,
                       tandem: Tandem ) {
-
-    // maxWidth for UI elements
-    const maxWidth = 0.5 * aligner.getScreenWidth();
 
     const textOptions = {
       font: GameFeedbackPanel.TEXT_FONT,
-      maxWidth: maxWidth
+      maxWidth: MAX_TEXT_WIDTH
     };
 
     const faceNode = new FaceNode( 75, BCEConstants.FACE_NODE_OPTIONS );
@@ -66,7 +63,7 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
     const tryAgainButton = new TextPushButton( BalancingChemicalEquationsStrings.tryAgainStringProperty, {
       font: GameFeedbackPanel.PUSH_BUTTON_FONT,
       baseColor: GameFeedbackPanel.PUSH_BUTTON_COLOR,
-      maxWidth: maxWidth,
+      maxTextWidth: MAX_TEXT_WIDTH,
       listener: tryAgainButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'tryAgain' ),
       tandem: tandem.createTandem( 'tryAgainButton' ),
@@ -76,7 +73,7 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
     const showAnswerButton = new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
       font: GameFeedbackPanel.PUSH_BUTTON_FONT,
       baseColor: GameFeedbackPanel.PUSH_BUTTON_COLOR,
-      maxWidth: maxWidth,
+      maxTextWidth: MAX_TEXT_WIDTH,
       listener: showAnswerButtonCallback,
       visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'showAnswer' ),
       tandem: tandem.createTandem( 'showAnswerButton' ),

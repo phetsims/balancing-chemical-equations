@@ -26,7 +26,7 @@ import BCEColors from '../../common/BCEColors.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import BCEConstants from '../../common/BCEConstants.js';
 
-const MAX_WIDTH = 385; // maxWidth for UI elements
+const MAX_TEXT_WIDTH = 385; // maxWidth for Text elements
 const X_SPACING = 5;
 const POINTS_AWARDED_FONT = new PhetFont( {
   size: 24,
@@ -39,7 +39,7 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
 
     const textOptions = {
       font: GameFeedbackPanel.TEXT_FONT,
-      maxWidth: MAX_WIDTH
+      maxWidth: MAX_TEXT_WIDTH
     };
 
     // To make icons have the same effective size.
@@ -78,13 +78,13 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
 
     const pointsText = new Text( pointsStringProperty, {
       font: POINTS_AWARDED_FONT,
-      maxWidth: MAX_WIDTH
+      maxWidth: MAX_TEXT_WIDTH
     } );
 
     const nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty, {
       font: GameFeedbackPanel.PUSH_BUTTON_FONT,
       baseColor: GameFeedbackPanel.PUSH_BUTTON_COLOR,
-      maxWidth: MAX_WIDTH,
+      maxTextWidth: MAX_TEXT_WIDTH,
       listener: nextButtonListener,
       tandem: tandem.createTandem( 'nextButton' ),
       phetioVisiblePropertyInstrumented: false,

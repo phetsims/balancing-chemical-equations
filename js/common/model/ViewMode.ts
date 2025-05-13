@@ -9,3 +9,6 @@
 
 export const ViewModeValues = [ 'particles', 'balanceScales', 'barCharts', 'none' ] as const;
 export type ViewMode = ( typeof ViewModeValues )[number];
+
+// ViewModes supports for 'Show Why' feedback in the Game.
+export type ShowWhyViewMode = Exclude<ViewMode, 'particles' | 'none'>;
