@@ -32,10 +32,10 @@ import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioS
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
-const PUSH_BUTTON_OPTIONS = {
+const TEXT_PUSH_BUTTON_OPTIONS: TextPushButtonOptions = {
   font: new PhetFont( 20 ),
   baseColor: 'yellow',
-  maxWidth: 0.85 * BOX_X_SPACING
+  maxTextWidth: 0.75 * BOX_X_SPACING
 };
 
 export default class LevelNode extends Node {
@@ -110,7 +110,7 @@ export default class LevelNode extends Node {
     } );
 
     this.checkButton = new TextPushButton( BalancingChemicalEquationsStrings.checkStringProperty,
-      combineOptions<TextPushButtonOptions>( {}, PUSH_BUTTON_OPTIONS, {
+      combineOptions<TextPushButtonOptions>( {}, TEXT_PUSH_BUTTON_OPTIONS, {
         listener: () => {
           this.playGuessAudio();
           this.model.check();
@@ -127,7 +127,7 @@ export default class LevelNode extends Node {
     } );
 
     this.nextButton = new TextPushButton( BalancingChemicalEquationsStrings.nextStringProperty,
-      combineOptions<TextPushButtonOptions>( {}, PUSH_BUTTON_OPTIONS, {
+      combineOptions<TextPushButtonOptions>( {}, TEXT_PUSH_BUTTON_OPTIONS, {
         listener: () => {
           this.model.next();
         },
@@ -157,7 +157,7 @@ export default class LevelNode extends Node {
       } );
 
       // Add a 'Skip' button to skip the current equation.
-      const skipButton = new TextPushButton( 'Skip', combineOptions<TextPushButtonOptions>( {}, PUSH_BUTTON_OPTIONS, {
+      const skipButton = new TextPushButton( 'Skip', combineOptions<TextPushButtonOptions>( {}, TEXT_PUSH_BUTTON_OPTIONS, {
         baseColor: 'red',
         textFill: 'white',
         listener: () => model.skip(),
