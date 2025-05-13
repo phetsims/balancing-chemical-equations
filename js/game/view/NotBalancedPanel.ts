@@ -171,6 +171,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
 class ShowWhyNode extends Node {
 
   private readonly aligner: HorizontalAligner;
+  private balanceNode: Node | null;
 
   public constructor( equation: Equation,
                       viewMode: Exclude<ViewMode, 'none'>,
@@ -182,26 +183,27 @@ class ShowWhyNode extends Node {
     } );
 
     this.aligner = aligner;
+    this.balanceNode = null;
+
     this.update( equation, viewMode );
   }
 
   public update( equation: Equation, viewMode: Exclude<ViewMode, 'none'> ): void {
 
-    this.removeAllChildren();
+    this.balanceNode && this.balanceNode.dispose();
 
-    let showWhyNode;
     if ( viewMode === 'balanceScales' ) {
-      showWhyNode = new BalanceScalesNode( new Property( equation ) );
+      this.balanceNode = new BalanceScalesNode( new Property( equation ) );
     }
     else {
-      showWhyNode = new BarChartsNode( new Property( equation ) );
+      this.balanceNode = new BarChartsNode( new Property( equation ) );
     }
 
     // Shrink size so that it doesn't cover so much of the screen.
     // See https://github.com/phetsims/balancing-chemical-equations/issues/29.
-    showWhyNode.setScaleMagnitude( 0.65 );
+    this.balanceNode.setScaleMagnitude( 0.65 );
 
-    this.addChild( showWhyNode );
+    this.addChild( this.balanceNode );
   }
 }
 

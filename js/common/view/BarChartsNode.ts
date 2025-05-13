@@ -33,8 +33,19 @@ type BarChartsNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProp
 
 export default class BarChartsNode extends BalanceElementsNode {
 
+  private readonly disposeBarChartsNode: () => void;
+
   public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: BarChartsNodeOptions ) {
     super( equationProperty, providedOptions );
+
+    this.disposeBarChartsNode = () => {
+      this.getChildren().forEach( child => child.dispose() );
+    };
+  }
+
+  public override dispose(): void {
+    this.disposeBarChartsNode();
+    super.dispose();
   }
 
   protected updateChildren(): void {

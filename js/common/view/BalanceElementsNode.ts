@@ -11,7 +11,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
@@ -31,15 +31,11 @@ export default abstract class BalanceElementsNode extends Node {
   protected readonly reactantsMap: Map<Element, Property<number>>;
   protected readonly productsMap: Map<Element, Property<number>>;
 
+  private readonly disposeBalanceElementsNode: () => void;
+
   protected constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: BalanceElementsNodeOptions ) {
 
-    const options = optionize<BalanceElementsNodeOptions, SelfOptions, NodeOptions>()( {
-
-      // NodeOptions
-      isDisposable: false
-    }, providedOptions );
-
-    super( options );
+    super( providedOptions );
 
     this.equationProperty = equationProperty;
 
@@ -54,9 +50,10 @@ export default abstract class BalanceElementsNode extends Node {
         this.updateCounts();
       }
     };
-    phetioStateSetEmitter.addListener( () => this.updateCounts() );
+    const phetioStateSetListener = () => this.updateCounts();
+    phetioStateSetEmitter.addListener( phetioStateSetListener );
 
-    equationProperty.link( ( newEquation, oldEquation ) => {
+    const equationListener = ( newEquation: Equation, oldEquation: Equation | null ) => {
 
       // Wire coefficients listener to the current equation.
       oldEquation && oldEquation.unlinkCoefficientProperties( coefficientsListener );
@@ -67,7 +64,18 @@ export default abstract class BalanceElementsNode extends Node {
 
       // Create child Nodes to match the new equation.
       this.updateChildren();
-    } );
+    };
+    equationProperty.link( equationListener );
+
+    this.disposeBalanceElementsNode = () => {
+      phetioStateSetEmitter.removeListener( phetioStateSetListener );
+      equationProperty.unlink( equationListener );
+    };
+  }
+
+  public override dispose(): void {
+    this.disposeBalanceElementsNode();
+    super.dispose();
   }
 
   /**

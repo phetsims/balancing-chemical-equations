@@ -25,6 +25,8 @@ type BalanceScalesNodeOptions = SelfOptions & BalanceElementsNodeOptions;
 
 export default class BalanceScalesNode extends BalanceElementsNode {
 
+  private readonly disposeBalanceScalesNode: () => void;
+
   public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: BalanceScalesNodeOptions ) {
 
     const options = optionize<BalanceScalesNodeOptions, SelfOptions, NodeOptions>()( {
@@ -34,6 +36,15 @@ export default class BalanceScalesNode extends BalanceElementsNode {
     }, providedOptions );
 
     super( equationProperty, options );
+
+    this.disposeBalanceScalesNode = () => {
+      this.getChildren().forEach( child => child.dispose() );
+    };
+  }
+
+  public override dispose(): void {
+    this.disposeBalanceScalesNode();
+    super.dispose();
   }
 
   /**
