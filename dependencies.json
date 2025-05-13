@@ -1,31 +1,31 @@
 {
-  "comment": "# balancing-chemical-equations 1.4.0-dev.2 Mon Apr 07 2025 12:07:30 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# balancing-chemical-equations 1.4.0-dev.3 Tue May 13 2025 07:50:17 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f6d41b399ad32df2a00ab4b329981be0c574d77a",
     "branch": "main"
   },
   "axon": {
-    "sha": "0cc3f3bba43aa89ecfcddcd23223c87c99a0beff",
+    "sha": "7339accb2a1a19dc266b48e4d15ea006e88a8754",
     "branch": "main"
   },
   "balancing-chemical-equations": {
-    "sha": "7b883831f93fb85832afd90a37eab33b333aef46",
+    "sha": "898d7c0e53d0a8e8584642bf594366f203723425",
     "branch": "main"
   },
   "brand": {
-    "sha": "e4e24dcdf62ea36c000fc70e78e306bc492a6757",
+    "sha": "d25022090316640bbb47b8265b8de7b1b4e1e6c2",
     "branch": "main"
   },
   "chipper": {
-    "sha": "a1e37d7e3193dcd90e220e19c297041907f29d87",
+    "sha": "46faa1ac62c993f0fb2563f0578dc53e3dad7a81",
     "branch": "main"
   },
   "dot": {
-    "sha": "6a56534cbad98f7ad7605e6b1339a759ff6091b9",
+    "sha": "fc882c815833b67ec5e5a093fb972aef234ff424",
     "branch": "main"
   },
   "joist": {
-    "sha": "0881fc84118aa70fb3b03e07900d4c552dd858c9",
+    "sha": "18894f379842a4c42bb2d6bc404471a971c217c9",
     "branch": "main"
   },
   "kite": {
@@ -33,31 +33,31 @@
     "branch": "main"
   },
   "nitroglycerin": {
-    "sha": "255c56e7cb9749a254071d27f6c1c8eb1fee59ec",
+    "sha": "8b055a0c5099053cea9924f0b4de781f79e3aca5",
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "48248f3050027f9b0741d47030b80b771a5fc610",
+    "sha": "a0d89f848d7f6425a664217e150b4ad2bdb05581",
     "branch": "main"
   },
   "phet-core": {
-    "sha": "0300310c034bf5848df5beb9a32729183c7e0d22",
+    "sha": "a509474c8405366e098cf283b44cf2e32c70993e",
     "branch": "main"
   },
   "phet-io": {
-    "sha": "48c54e7c52d1b47632007ea4bd98859474450177",
+    "sha": "903dd6192e3d8611d1f87948ac7495942fc91c74",
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "273a396246aae96e83282d840bf4c95c5d4bb5b7",
+    "sha": "dc1e9e7e7853549de4de87f29f14b41edfe6169f",
     "branch": "main"
   },
   "phet-io-wrappers": {
-    "sha": "4169c3e77fcbc5a9d59c327b5be2c914e8815170",
+    "sha": "e9df572a4c49a8ab04d0b235eecb83e0ed326e76",
     "branch": "main"
   },
   "phetcommon": {
-    "sha": "6ecaea9fa8ddaa2e0017cb96cf610bc29d082f8b",
+    "sha": "e2d88782c579e34f5d0ed5e728f179a1fc5c4493",
     "branch": "main"
   },
   "phetmarks": {
@@ -69,31 +69,31 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "2dadc8f087e84d4f5ae85235e6b3c183042473cb",
+    "sha": "610b8775c3a5cd865bbfe46724f833338057e657",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "296e5c032cc20961cc284fbad8320158917f0d44",
+    "sha": "6d612506b666e269e7b145ac62b9636e499c719d",
     "branch": "main"
   },
   "sherpa": {
-    "sha": "2c352426479cfa454cc08546d08edae8c93ffd13",
+    "sha": "e43bf3c5d3d61159f714531d0fbceea380634e5e",
     "branch": "main"
   },
   "studio": {
-    "sha": "e10bf8e1c4bc6c2e798d605a134b721149918838",
+    "sha": "0254103f342b17890c5fe862aae6df3b400620a8",
     "branch": "main"
   },
   "sun": {
-    "sha": "5eb4d96e47fd62d1cfc547771664cfb49976a588",
+    "sha": "8a737a30763f6f099db1763691049abb8c63f0aa",
     "branch": "main"
   },
   "tambo": {
-    "sha": "1f050f1314ff776d9040a52db89d0c777b65bd3d",
+    "sha": "bd06610ae80bedbf423c840a837747d503f2f884",
     "branch": "main"
   },
   "tandem": {
-    "sha": "4b6ed37f30f0dda8fd7c0b55bff51c1989efe63a",
+    "sha": "db5ec379bbdcce0e08c4f27c6c6e750900ee2537",
     "branch": "main"
   },
   "twixt": {
@@ -101,11 +101,11 @@
     "branch": "main"
   },
   "utterance-queue": {
-    "sha": "ed9e7af1006263b58f49749219dc78bd886965bf",
+    "sha": "a9967bcfde8a9873f7d57b750047fd9af14c91bc",
     "branch": "main"
   },
   "vegas": {
-    "sha": "eb8f08c3991de3b2601079e5f7e663018c0960fc",
+    "sha": "b7918bbd74ad53391dc42ce29217c8bfe80ed4b6",
     "branch": "main"
   }
 }
