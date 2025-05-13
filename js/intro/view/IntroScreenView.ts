@@ -70,6 +70,7 @@ export default class IntroScreenView extends ScreenView {
     const equationNodesTandem = tandem.createTandem( 'equationNodes' );
     const equationNodes = new Node( {
       children: model.choices.map( choice => new EquationNode( choice.equation, aligner, {
+        isDisposable: false,
         visibleProperty: new DerivedProperty( [ model.equationProperty ], equation => equation === choice.equation ),
         tandem: equationNodesTandem.createTandem( `${choice.tandemNamePrefix}Node` )
       } ) ),

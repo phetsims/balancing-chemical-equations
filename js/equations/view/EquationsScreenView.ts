@@ -112,6 +112,7 @@ export default class EquationsScreenView extends ScreenView {
 
     // interactive equations
     const createEquationNodes = ( equations: Equation[], parentTandem: Tandem ) => equations.map( equation => new EquationNode( equation, aligner, {
+      isDisposable: false,
       visibleProperty: new DerivedProperty( [ model.equationProperty ], value => value === equation ),
       tandem: parentTandem.createTandem( `${equation.tandem.name}Node` )
     } ) );
