@@ -27,6 +27,7 @@ export default class RightArrowNode extends ArrowNode {
 
   private readonly equationProperty: TReadOnlyProperty<Equation>;
   private _highlightEnabled: boolean;
+  private readonly disposeRightArrowNode: () => void;
 
   public constructor( equationProperty: TReadOnlyProperty<Equation>, providedOptions?: RightArrowNodeOptions ) {
 
@@ -56,12 +57,17 @@ export default class RightArrowNode extends ArrowNode {
     };
     equationProperty.link( equationListener );
 
-    this.disposeEmitter.addListener( () => {
+    this.disposeRightArrowNode = () => {
       equationProperty.unlink( equationListener );
       if ( equationProperty.value.isBalancedProperty.hasListener( isBalancedListener ) ) {
         equationProperty.value.isBalancedProperty.unlink( isBalancedListener );
       }
-    } );
+    };
+  }
+
+  public override dispose(): void {
+    this.disposeRightArrowNode();
+    super.dispose();
   }
 
   public setHighlightEnabled( enabled: boolean ): void {

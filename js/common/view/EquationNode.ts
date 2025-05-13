@@ -47,6 +47,8 @@ export default class EquationNode extends Node {
   // the parent for all terms and the "+" operators
   private readonly termsParent: Node;
 
+  private readonly disposeEquationNode: () => void;
+
   /**
    * @param equation
    * @param aligner - provides layout information to ensure horizontal alignment with other user-interface elements
@@ -89,10 +91,15 @@ export default class EquationNode extends Node {
       this.addLinkedElement( equation );
     }
 
-    this.disposeEmitter.addListener( () => {
+    this.disposeEquationNode = () => {
       this.arrowNode.dispose();
       this.termNodes.forEach( termNode => termNode.dispose() );
-    } );
+    };
+  }
+
+  public override dispose(): void {
+    this.disposeEquationNode();
+    super.dispose();
   }
 
   /**
