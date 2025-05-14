@@ -11,9 +11,6 @@
   "none": {
     "value": "None"
   },
-  "balanced": {
-    "value": "balanced"
-  },
   "separateWater": {
     "value": "Separate Water"
   },
@@ -26,8 +23,11 @@
   "tryAgain": {
     "value": "Try Again"
   },
+  "balanced": {
+    "value": "Balanced"
+  },
   "notBalanced": {
-    "value": "not balanced"
+    "value": "Not Balanced"
   },
   "balancing-chemical-equations.title": {
     "value": "Balancing Chemical Equations"
@@ -48,10 +48,10 @@
     "value": "Show Why"
   },
   "simplified": {
-    "value": "simplified"
+    "value": "Simplified"
   },
   "notSimplified": {
-    "value": "not simplified"
+    "value": "Not Simplified"
   },
   "view": {
     "value": "View"

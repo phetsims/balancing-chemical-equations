@@ -18,11 +18,11 @@ type StringsType = {
     'gameStringProperty': LocalizedStringProperty;
   };
   'noneStringProperty': LocalizedStringProperty;
-  'balancedStringProperty': LocalizedStringProperty;
   'separateWaterStringProperty': LocalizedStringProperty;
   'hideWhyStringProperty': LocalizedStringProperty;
   'showAnswerStringProperty': LocalizedStringProperty;
   'tryAgainStringProperty': LocalizedStringProperty;
+  'balancedStringProperty': LocalizedStringProperty;
   'notBalancedStringProperty': LocalizedStringProperty;
   'balancing-chemical-equations': {
     'titleStringProperty': LocalizedStringProperty;
