@@ -49,6 +49,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import PNode from '../../../../nitroglycerin/js/nodes/PNode.js';
 import H2O2Node from '../../../../nitroglycerin/js/nodes/H2O2Node.js';
 import N2O5Node from '../../../../nitroglycerin/js/nodes/N2O5Node.js';
+import P2O5Node from '../../../../nitroglycerin/js/nodes/P2O5Node.js';
 
 const C = Element.C;
 const Cl = Element.Cl;
@@ -122,7 +123,7 @@ export default class Molecule {
   public static readonly OF2 = new Molecule( OF2Node, [ O, F, F ] );
   public static readonly P = new Molecule( PNode, [ P ] );
   public static readonly P4 = new Molecule( P4Node, [ P, P, P, P ] );
-  public static readonly P2O5 = new Molecule( P4Node, [ P, P, O, O, O, O, O ] );
+  public static readonly P2O5 = new Molecule( P2O5Node, [ P, P, O, O, O, O, O ] );
   public static readonly PH3 = new Molecule( PH3Node, [ P, H, H, H ] );
   public static readonly PCl3 = new Molecule( PCl3Node, [ P, Cl, Cl, Cl ] );
   public static readonly PCl5 = new Molecule( PCl5Node, [ P, Cl, Cl, Cl, Cl, Cl ] );
