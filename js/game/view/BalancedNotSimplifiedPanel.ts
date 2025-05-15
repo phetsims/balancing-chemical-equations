@@ -48,12 +48,16 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
     const greenCheckMark = iconAlignGroup.createBox( new Path( checkSolidShape, {
       scale: GameFeedbackPanel.ICONS_SCALE,
-      fill: BCEColors.CHECK_MARK_FILL
+      fill: BCEColors.CHECK_MARK_FILL,
+      stroke: 'black',
+      lineWidth: 1 / GameFeedbackPanel.ICONS_SCALE
     } ) );
 
     const redX = iconAlignGroup.createBox( new Path( timesSolidShape, {
       scale: GameFeedbackPanel.ICONS_SCALE,
-      fill: PhetColorScheme.RED_COLORBLIND
+      fill: PhetColorScheme.RED_COLORBLIND,
+      stroke: 'black',
+      lineWidth: 1 / GameFeedbackPanel.ICONS_SCALE
     } ) );
 
     const balancedText = new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions );

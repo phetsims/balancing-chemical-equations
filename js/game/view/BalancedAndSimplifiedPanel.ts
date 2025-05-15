@@ -52,7 +52,9 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
       children: [
         iconAlignGroup.createBox( new Path( checkSolidShape, {
           scale: GameFeedbackPanel.ICONS_SCALE,
-          fill: BCEColors.CHECK_MARK_FILL
+          fill: BCEColors.CHECK_MARK_FILL,
+          stroke: 'black',
+          lineWidth: 1 / GameFeedbackPanel.ICONS_SCALE
         } ) ),
         new Text( BalancingChemicalEquationsStrings.balancedStringProperty, textOptions )
       ],
@@ -64,7 +66,9 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
       children: [
         iconAlignGroup.createBox( new Path( checkSolidShape, {
           scale: GameFeedbackPanel.ICONS_SCALE,
-          fill: BCEColors.CHECK_MARK_FILL
+          fill: BCEColors.CHECK_MARK_FILL,
+          stroke: 'black',
+          lineWidth: 1 / GameFeedbackPanel.ICONS_SCALE
         } ) ),
         new Text( BalancingChemicalEquationsStrings.simplifiedStringProperty, textOptions )
       ],

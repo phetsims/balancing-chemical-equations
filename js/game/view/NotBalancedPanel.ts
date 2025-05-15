@@ -63,7 +63,9 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
 
     const redX = new Path( timesSolidShape, {
       scale: GameFeedbackPanel.ICONS_SCALE,
-      fill: PhetColorScheme.RED_COLORBLIND
+      fill: PhetColorScheme.RED_COLORBLIND,
+      stroke: 'black',
+      lineWidth: 1 / GameFeedbackPanel.ICONS_SCALE
     } );
 
     const notBalancedText = new Text( BalancingChemicalEquationsStrings.notBalancedStringProperty, textOptions );

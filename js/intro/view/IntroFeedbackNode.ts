@@ -41,7 +41,9 @@ export default class IntroFeedbackNode extends HBox {
       children: [
         iconAlignGroup.createBox( new Path( checkSolidShape, {
           scale: ICON_SCALE,
-          fill: BCEColors.CHECK_MARK_FILL
+          fill: BCEColors.CHECK_MARK_FILL,
+          stroke: 'black',
+          lineWidth: 1 / ICON_SCALE
         } ) ),
         new Text( BalancingChemicalEquationsStrings.balancedStringProperty, TEXT_OPTIONS )
       ],
