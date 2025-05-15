@@ -11,7 +11,7 @@ When new releases occur, add the section below to the top of the doc. -->
 * PhET-iO support, including PhET Studio.
 
 ### Changes:
-* The "Tools" combo box has been re-titled "View", because these are not tools, they are alternative views (visual representations) of the selected equation.
+* The "Tools" combo box has been re-titled "View", because these are not tools. They are alternative views (visual representations) of the selected equation.
 * "Particles" view (Reactants & Products accordion boxes) has been added to the View combobox.   This is now a view that you select, rather than being visible all the time.
 * ⚠️ All views (choices in the View combo box) are now mutually exclusive. Unlike the 1.X version, you cannot (for example) show Particles view and Balance Scales view at the same time. This was a compromise in order to make the Equations screen feasible (due to limited screen space) and to make the Balance Scales and Bar Charts views more usable by displaying them vertically.
 * Balance Scales and Bar Charts views are now displayed vertically, rather than horizontally, because the horizontal layout was confusing.
