@@ -15,6 +15,10 @@ const BCEColors = {
     default: '#d9ebff'
   } ),
 
+  equationsScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'equationsScreenBackgroundColor', {
+    default: '#d9ebff'
+  } ),
+
   gameScreenBackgroundColorProperty: new ProfileColorProperty( balancingChemicalEquations, 'gameScreenBackgroundColor', {
     default: '#ffffe4'
   } ),

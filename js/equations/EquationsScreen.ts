@@ -26,7 +26,7 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
 
     const options: ScreenOptions = {
       name: BalancingChemicalEquationsStrings.screen.equationsStringProperty,
-      backgroundColorProperty: BCEColors.introScreenBackgroundColorProperty,
+      backgroundColorProperty: BCEColors.equationsScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
       tandem: tandem
     };
