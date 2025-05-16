@@ -3,7 +3,7 @@
 For a 1.0.0 release, only the 1.0.0 heading and date is needed. 
 When new releases occur, add the section below to the top of the doc. -->
 
-## 2.0 (2025-XX-XX)
+## 2.0 (in progress)
 
 ### New Features:
 * New _Equations_ screen added,  containing 12 unbalanced equations representing synthesis, decomposition, and combustion reactions.
