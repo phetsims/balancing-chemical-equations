@@ -36,7 +36,7 @@ simLauncher.launch( () => {
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Julia Chamberlain, Patricia Loeblein, Emily B. Moore, Robert Parson, Ariel Paul, Kathy Perkins, Amy Rouinfar, Nancy Salpepi',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Matthew Moore, Elise Morgan, Ashton Morris, Liam Mulhall, Oliver Orejola, ' +
-                        'Laura Rae, Benjamin Roberts, Jacob Romero, Kathryn Woessner, Kelly Wurtz, Bryan Yoelin',
+                        'Valentina Pérez, Laura Rae, Benjamin Roberts, Jacob Romero, Kathryn Woessner, Kelly Wurtz, Bryan Yoelin',
       thanks: '\u2022 Conversion of this simulation to HTML5 was funded in part by the American Association of Chemistry Teachers (AACT).<br>' +
               '\u2022 Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
     },
