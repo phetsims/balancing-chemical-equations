@@ -24,6 +24,7 @@ When new releases occur, add the section below to the top of the doc. -->
 ### New Features:
 * UI Sounds
 * Preferences
-* Dynamic locale: see _Preferences > Localization_.
+* Dynamic locale: see _Preferences > Localization_
+* TypeScript implementation
 
 ## 1.0 (2014-07-31)
