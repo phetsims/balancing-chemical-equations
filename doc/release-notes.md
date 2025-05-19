@@ -22,9 +22,13 @@ When new releases occur, add the section below to the top of the doc. -->
 ## 1.3 (2024-11-15)
 
 ### New Features:
-* UI Sounds
+* UI Sound
 * Preferences
 * Dynamic locale: see _Preferences > Localization_
 * TypeScript implementation
+
+## 1.2 (2019-01-15)
+
+## 1.1 (2016-01-07)
 
 ## 1.0 (2014-07-31)
