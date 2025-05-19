@@ -1,16 +1,16 @@
 {
-  "comment": "# balancing-chemical-equations 2.0.0-dev.1 Tue May 13 2025 12:50:33 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# balancing-chemical-equations 2.0.0-rc.0 Mon May 19 2025 10:14:52 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f6d41b399ad32df2a00ab4b329981be0c574d77a",
     "branch": "main"
   },
   "axon": {
-    "sha": "7339accb2a1a19dc266b48e4d15ea006e88a8754",
+    "sha": "657355ec2bbca0a7c3fbd198fa5b056e9de52d9e",
     "branch": "main"
   },
   "balancing-chemical-equations": {
-    "sha": "1fdacad2bf96fe1d41964b6bc535af7295f5850a",
-    "branch": "main"
+    "sha": "dad059ac61bf5055c53a766339cbb080cc975755",
+    "branch": "2.0"
   },
   "brand": {
     "sha": "d25022090316640bbb47b8265b8de7b1b4e1e6c2",
@@ -33,11 +33,11 @@
     "branch": "main"
   },
   "nitroglycerin": {
-    "sha": "8b055a0c5099053cea9924f0b4de781f79e3aca5",
+    "sha": "10252a4a2cd368478358aa2e37fb23c2219a53fd",
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "a0d89f848d7f6425a664217e150b4ad2bdb05581",
+    "sha": "994eff0be4958fbeb2e72118fa2dd5580e0e743b",
     "branch": "main"
   },
   "phet-core": {
@@ -49,15 +49,15 @@
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "dc1e9e7e7853549de4de87f29f14b41edfe6169f",
+    "sha": "a8f3d388f900565a2db66c13556f01b901b991e4",
     "branch": "main"
   },
   "phet-io-wrappers": {
-    "sha": "e9df572a4c49a8ab04d0b235eecb83e0ed326e76",
+    "sha": "161c0378b9d64222d346d94bd9a87955c4524697",
     "branch": "main"
   },
   "phetcommon": {
-    "sha": "e2d88782c579e34f5d0ed5e728f179a1fc5c4493",
+    "sha": "4bb9f68c868ce36c5bfefadb79ed60389acc8864",
     "branch": "main"
   },
   "phetmarks": {
@@ -69,15 +69,15 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "610b8775c3a5cd865bbfe46724f833338057e657",
+    "sha": "68b8d77afc58c5689e960910e6ea9b289b117a8a",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "6d612506b666e269e7b145ac62b9636e499c719d",
+    "sha": "ca0943f1ccece5326915dde0ca7a0066fb28ee48",
     "branch": "main"
   },
   "sherpa": {
-    "sha": "e43bf3c5d3d61159f714531d0fbceea380634e5e",
+    "sha": "b6c01b31ef6e21cefa602b3fae331cd48671baff",
     "branch": "main"
   },
   "studio": {
