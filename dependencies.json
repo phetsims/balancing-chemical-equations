@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "50bc0acb2db6133b2d6982c9384562c185568c75",
+    "sha": "1fc0741cd8f80e320954858077c60bae03e705d9",
     "branch": "1.3"
   },
   "brand": {
@@ -17,7 +17,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "5ba5cd3ac4db39c73cb133c4f2966f258b8ba20f",
+    "sha": "5ea436d5e025cf1534d7e70e82b7630c06451ae3",
     "branch": "HEAD"
   },
   "dot": {
