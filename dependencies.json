@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 2.0.0-rc.1 Mon May 19 2025 10:15:48 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# balancing-chemical-equations 2.0.0-rc.1 Thu May 22 2025 12:07:45 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f6d41b399ad32df2a00ab4b329981be0c574d77a",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "5d9e8eb03141445cd53c0f25e51c9eb3e52d520a",
+    "sha": "bb5a390b27b014d2b1b2b3968f7fd685fe1225ac",
     "branch": "2.0"
   },
   "brand": {
@@ -49,8 +49,8 @@
     "branch": "HEAD"
   },
   "phet-io-sim-specific": {
-    "sha": "a8f3d388f900565a2db66c13556f01b901b991e4",
-    "branch": "HEAD"
+    "sha": "88a6286708c487ec882e89cdd3e424e89a057809",
+    "branch": "balancing-chemical-equations-2.0"
   },
   "phet-io-wrappers": {
     "sha": "161c0378b9d64222d346d94bd9a87955c4524697",
