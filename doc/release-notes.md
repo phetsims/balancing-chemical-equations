@@ -6,7 +6,7 @@ When new releases occur, add the section below to the top of the doc. -->
 ## 2.0 (2025-05-23)
 
 ### New Features:
-* New _Equations_ screen,  containing 12 unbalanced equations representing synthesis, decomposition, and combustion reactions.
+* New _Equations_ screen, with 12 unbalanced equations representing synthesis, decomposition, and combustion reactions.
 * New preference to set the initial coefficient for all equations. See _Preferences > Simulation > Initial Coefficient_.
 * PhET-iO support, including PhET Studio.
 
