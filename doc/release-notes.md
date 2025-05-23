@@ -1,7 +1,33 @@
 # Balancing Chemical Equations - Release Notes
-<!-- Developer and designer should collaborate on what to include for any release beyond 1.0.0. 
-For a 1.0.0 release, only the 1.0.0 heading and date is needed. 
-When new releases occur, add the section below to the top of the doc. -->
+<!-- 
+Instructions:
+* Replace {{SIM_TITLE}} with the simulation title.
+* Replace {{VERSION}} with the version number, in MAJOR.MINOR format, e.g. "1.2".
+* For a published version, replace {{PUBLICATION_DATE}} with the publication date, in year-month-day format, e.g. "2025-05-16".
+* For a version that has not been published yet, replace {{PUBLICATION_DATE}} with "in progress".
+* For a 1.0 release, only the 1.0 heading and date is needed. This includes ports of legacy sims.
+* Developer and designer should collaborate on what to include for any release beyond 1.0. 
+* For each new version, add a section to the top of these release notes - reverse chronological order, with the most-recent version at the top.
+
+For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/blob/main/doc/release-notes.md
+-->
+
+<!-- 
+## {{VERSION}} ({{PUBLICATION_DATE}})
+
+### New Features
+* Describe a new feature.
+* 
+
+### Bug Fixes
+* Describe a bug fix.
+* 
+
+### Other Changes
+* Describe a change.
+* ⚠️ Use this icon for a change that is breaking, removes a feature, etc. 
+*
+-->
 
 ## 2.0 (2025-05-23)
 
@@ -10,7 +36,7 @@ When new releases occur, add the section below to the top of the doc. -->
 * New preference to set the initial coefficient for all equations. See _Preferences > Simulation > Initial Coefficient_.
 * PhET-iO support, including PhET Studio.
 
-### Changes:
+### Other Changes:
 * The "Tools" combo box has been re-titled "View", because these are not tools. They are alternative views (visual representations) of the selected equation.
 * "Particles" view (Reactants & Products accordion boxes) has been added to the View combobox.   This is now a view that you select, rather than being visible all the time.
 * ⚠️ All views (choices in the View combo box) are now mutually exclusive. Unlike the 1.X version, you cannot (for example) show Particles view and Balance Scales view at the same time. This was a compromise in order to make the new _Equations_ screen feasible (due to limited screen space) and to make the Balance Scales and Bar Charts views more usable by displaying them vertically.
