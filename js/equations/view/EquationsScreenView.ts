@@ -43,7 +43,6 @@ export default class EquationsScreenView extends ScreenView {
   public constructor( model: EquationsModel, tandem: Tandem ) {
 
     super( {
-      isDisposable: false,
       layoutBounds: BCEConstants.LAYOUT_BOUNDS,
       tandem: tandem
     } );

@@ -40,7 +40,6 @@ export default class IntroScreenView extends ScreenView {
   public constructor( model: IntroModel, tandem: Tandem ) {
 
     super( {
-      isDisposable: false,
       layoutBounds: BCEConstants.LAYOUT_BOUNDS,
       tandem: tandem
     } );
