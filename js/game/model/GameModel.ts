@@ -24,7 +24,7 @@ import GameLevel3 from './GameLevel3.js';
 import TModel from '../../../../joist/js/TModel.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';

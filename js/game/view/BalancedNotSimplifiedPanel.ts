@@ -21,7 +21,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { GameState } from '../model/GameState.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import BCEColors from '../../common/BCEColors.js';

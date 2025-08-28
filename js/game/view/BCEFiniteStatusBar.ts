@@ -8,7 +8,7 @@
 
 import ScoreDisplayLabeledNumber from '../../../../vegas/js/ScoreDisplayLabeledNumber.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameModel from '../model/GameModel.js';

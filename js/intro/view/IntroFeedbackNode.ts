@@ -7,7 +7,7 @@
  */
 
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';

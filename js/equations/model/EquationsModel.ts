@@ -15,7 +15,7 @@ import Equation from '../../common/model/Equation.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Molecule from '../../common/model/Molecule.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import BCEPreferences from '../../common/model/BCEPreferences.js';
 
 // Reaction types supported by the Equations screen.

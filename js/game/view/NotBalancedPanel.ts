@@ -23,7 +23,7 @@ import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsS
 import { ShowWhyViewMode } from '../../common/model/ViewMode.js';
 import Equation from '../../common/model/Equation.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { GameState } from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
