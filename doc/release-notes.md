@@ -44,6 +44,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * Balance Scales and Bar Charts will now highlight (turn yellow) individually when they are balanced. In previous versions, they did not highlight until the entire equation was balanced.
 * The _Intro_ screen now shows the smiley face in the upper-left corner of the screen, rather than at top-center.  This change is to accommodate the new vertical layout of Balance Scales and Bar Charts views. A green checkmark with "Balanced" was also added. 
 * Feedback in the _Game_ screen has been improved for balanced equations. In addition to telling the student that the equation is "Balanced", it also indicates whether the equation is "Simplified" (balanced with the smallest integer coefficients) or "Not Simplified".
+* ⚠️Best time is no longer shown on the buttons for the levels in the Game screen.
 
 ## 1.3 (2024-11-15)
 
