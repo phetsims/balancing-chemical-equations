@@ -24,9 +24,9 @@ import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
+import GameLevel from '../model/GameLevel.js';
 import GameModel from '../model/GameModel.js';
 import GameViewProperties from './GameViewProperties.js';
-import GameLevel from '../model/GameLevel.js';
 
 const BUTTON_MARGIN = 20;
 const BUTTON_FONT = new PhetFont( { size: 14, weight: 'bold' } );
@@ -44,14 +44,14 @@ export default class LevelSelectionNode extends Node {
       buttonItems.push( {
         icon: createLevelSelectionButtonIcon( level, moleculeAlignGroup ),
         scoreProperty: level.bestScoreProperty,
+        buttonListener: () => {
+          model.levelProperty.value = level;
+        },
         options: {
           createScoreDisplay: scoreProperty => new ScoreDisplayStars( scoreProperty, {
             numberOfStars: level.getNumberOfChallenges(),
             perfectScore: level.getPerfectScore()
           } ),
-          listener: () => {
-            model.levelProperty.value = level;
-          },
           soundPlayerIndex: level.levelNumber
         }
       } );
