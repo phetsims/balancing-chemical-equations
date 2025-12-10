@@ -52,7 +52,8 @@ export default class LevelSelectionNode extends Node {
             numberOfStars: level.getNumberOfChallenges(),
             perfectScore: level.getPerfectScore()
           } ),
-          soundPlayerIndex: level.levelNumber
+          soundPlayerIndex: level.levelNumber,
+          bestTimeForScoreProperty: level.bestTimeProperty
         }
       } );
     } );

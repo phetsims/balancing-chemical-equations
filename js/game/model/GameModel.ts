@@ -13,6 +13,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
+import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Equation from '../../common/model/Equation.js';
@@ -275,19 +276,10 @@ export default class GameModel implements TModel {
     const level = this.levelProperty.value!;
     assert && assert( level );
 
+    // Update best score and best time if needed.
     const points = this.scoreProperty.value;
-
-    // Check for new best score.
-    if ( points > level.bestScoreProperty.value ) {
-      level.bestScoreProperty.value = points;
-    }
-
-    // Check for new best time.
-    const previousBestTime = level.bestTimeProperty.value;
-    if ( level.isPerfectScore( points ) && ( previousBestTime === 0 || this.timer.elapsedTimeProperty.value < previousBestTime ) ) {
-      this.isNewBestTime = true;
-      level.bestTimeProperty.value = this.timer.elapsedTimeProperty.value;
-    }
+    const time = this.timer.elapsedTimeProperty.value;
+    this.isNewBestTime = LevelSelectionButton.tryUpdateScoreAndBestTime( points, time, level.bestScoreProperty, level.bestTimeProperty );
   }
 
   /**
