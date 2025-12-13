@@ -7,30 +7,30 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import TModel from '../../../../joist/js/TModel.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
-import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
+import GameUtils from '../../../../vegas/js/GameUtils.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Equation from '../../common/model/Equation.js';
-import { GameState, GameStateValues, isValidGameStateTransition } from './GameState.js';
 import GameLevel from './GameLevel.js';
 import GameLevel1 from './GameLevel1.js';
 import GameLevel2 from './GameLevel2.js';
 import GameLevel3 from './GameLevel3.js';
-import TModel from '../../../../joist/js/TModel.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import { GameState, GameStateValues, isValidGameStateTransition } from './GameState.js';
 
 const ATTEMPTS_RANGE = new Range( 0, 2 );
 
@@ -279,7 +279,7 @@ export default class GameModel implements TModel {
     // Update best score and best time if needed.
     const points = this.scoreProperty.value;
     const time = this.timer.elapsedTimeProperty.value;
-    this.isNewBestTime = LevelSelectionButton.tryUpdateScoreAndBestTime( points, time, level.bestScoreProperty, level.bestTimeProperty );
+    this.isNewBestTime = GameUtils.updateScoreAndBestTime( points, time, level.bestScoreProperty, level.bestTimeProperty );
   }
 
   /**
