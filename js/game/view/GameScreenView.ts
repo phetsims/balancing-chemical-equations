@@ -9,18 +9,18 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import GameModel from '../model/GameModel.js';
-import BCERewardNode from './BCERewardNode.js';
-import LevelNode from './LevelNode.js';
-import GameViewProperties from './GameViewProperties.js';
-import LevelSelectionNode from './LevelSelectionNode.js';
 import BCELevelCompletedNode from './BCELevelCompletedNode.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import BCERewardNode from './BCERewardNode.js';
+import GameViewProperties from './GameViewProperties.js';
+import LevelNode from './LevelNode.js';
+import LevelSelectionNode from './LevelSelectionNode.js';
 
 export default class GameScreenView extends ScreenView {
 
@@ -80,7 +80,6 @@ export default class GameScreenView extends ScreenView {
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
       //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161 Alt input for Game is deferred.
-      this.levelSelectionNode
     ];
 
     // Control Area focus order
