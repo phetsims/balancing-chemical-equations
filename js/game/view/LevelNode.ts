@@ -14,6 +14,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
+import nullSoundPlayer from '../../../../tambo/js/nullSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -115,6 +116,7 @@ export default class LevelNode extends Node {
           this.playGuessAudio();
           this.model.check();
         },
+        soundPlayer: nullSoundPlayer,
         tandem: tandem.createTandem( 'checkButton' ),
         phetioEnabledPropertyInstrumented: false,
         phetioVisiblePropertyInstrumented: false
