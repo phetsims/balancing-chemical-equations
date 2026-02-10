@@ -44,7 +44,8 @@ export default class EquationTermNode extends Node {
     // coefficient picker
     const coefficientPicker = new CoefficientPicker( term.coefficientProperty, {
       font: options.font,
-      tandem: options.tandem.createTandem( 'coefficientPicker' )
+      tandem: options.tandem.createTandem( 'coefficientPicker' ),
+      accessibleName: term.molecule.symbol
     } );
 
     // symbol, non-subscript part of the symbol is vertically centered on the picker

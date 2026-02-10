@@ -6,15 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
+import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type CoefficientPickerOptions = SelfOptions & PickRequired<NumberPickerOptions, 'tandem' | 'font'>;
+type CoefficientPickerOptions = SelfOptions & WithRequired<NumberPickerOptions, 'tandem' | 'font'> &
+  StrictOmit<NumberPickerOptions, 'timerDelay' | 'timerInterval' | 'disabledOpacity' | 'backgroundStrokeDisabledOpacity' | 'arrowDisabledOpacity'>;
 
 export default class CoefficientPicker extends NumberPicker {
 

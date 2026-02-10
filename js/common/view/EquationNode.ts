@@ -8,22 +8,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
 import EquationTermNode from './EquationTermNode.js';
 import HorizontalAligner from './HorizontalAligner.js';
 import RightArrowNode from './RightArrowNode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 
 const DEFAULT_FONT = new PhetFont( 32 );
 
@@ -46,6 +48,10 @@ export default class EquationNode extends Node {
 
   // the parent for all terms and the "+" operators
   private readonly termsParent: Node;
+
+  // PDOM structure for organizing reactant and product terms
+  private readonly reactantTermsHeading: Node;
+  private readonly productTermsHeading: Node;
 
   private readonly disposeEquationNode: () => void;
 
@@ -79,13 +85,24 @@ export default class EquationNode extends Node {
     this.termsParent = new Node();
     this.addChild( this.termsParent );
 
+    // Create PDOM heading nodes for reactants and products
+    this.reactantTermsHeading = new Node( {
+      accessibleHeading: BalancingChemicalEquationsStrings.reactantsStringProperty
+    } );
+    this.termsParent.addChild( this.reactantTermsHeading );
+
+    this.productTermsHeading = new Node( {
+      accessibleHeading: BalancingChemicalEquationsStrings.productsStringProperty
+    } );
+    this.termsParent.addChild( this.productTermsHeading );
+
     // Create the reactants side of the equation.
     this.createSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ),
-      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), 'reactant', options.tandem );
+      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), 'reactant', options.tandem, this.reactantTermsHeading );
 
     // Create the products side of the equation.
     this.createSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ),
-      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), 'product', options.tandem );
+      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), 'product', options.tandem, this.productTermsHeading );
 
     if ( this.isPhetioInstrumented() && equation.isPhetioInstrumented() ) {
       this.addLinkedElement( equation );
@@ -110,9 +127,10 @@ export default class EquationNode extends Node {
    * @param maxX - maximum possible x for equation
    * @param tandemNamePrefix
    * @param parentTandem
+   * @param headingParent - the parent node for this side of the equation (for PDOM structure)
    */
-  private createSideOfEquation( terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number, tandemNamePrefix: string, parentTandem: Tandem ): void {
-    assert && assert( terms.length > 0 );
+  private createSideOfEquation( terms: EquationTerm[], xOffsets: number[], minX: number, maxX: number, tandemNamePrefix: string, parentTandem: Tandem, headingParent: Node ): void {
+    affirm( terms.length > 0 );
 
     let plusNode;
     let termNode: EquationTermNode | null = null;
@@ -129,7 +147,7 @@ export default class EquationNode extends Node {
         tandem: parentTandem.createTandem( `${tandemNamePrefix}${i + 1}Node` )
       } );
       this.termNodes.push( termNode );
-      this.termsParent.addChild( termNode );
+      headingParent.addChild( termNode );
       termNode.center = new Vector2( xOffsets[ i ], 0 );
 
       // if node over previous plusNode move node to the right
@@ -142,7 +160,7 @@ export default class EquationNode extends Node {
 
       if ( terms.length > 1 && i < terms.length - 1 ) {
         plusNode = new PlusNode();
-        this.termsParent.addChild( plusNode );
+        headingParent.addChild( plusNode );
         plusNode.centerX = xOffsets[ i ] + ( ( xOffsets[ i + 1 ] - xOffsets[ i ] ) / 2 ); // centered between 2 offsets;
         plusNode.centerY = termNode.centerY;
         tempNodes.push( plusNode );
@@ -173,8 +191,8 @@ export default class EquationNode extends Node {
       }
     }
 
-    assert && assert( termNode );
-    this.arrowNode.centerY = termNode!.centerY;
+    affirm( termNode );
+    this.arrowNode.centerY = termNode.centerY;
   }
 
   /**
