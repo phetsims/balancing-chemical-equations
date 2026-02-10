@@ -8,22 +8,23 @@
  */
 
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { ViewMode } from '../model/ViewMode.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Color from '../../../../scenery/js/util/Color.js';
-import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import BalanceFulcrumNode from './BalanceFulcrumNode.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 const FONT = new PhetFont( 18 );
 
@@ -34,12 +35,16 @@ export default class ViewComboBox extends ComboBox<ViewMode> {
                       tandem: Tandem ) {
 
     const viewModeValues = viewModeProperty.validValues!;
-    assert && assert( viewModeValues );
+    affirm( viewModeValues );
 
     const items: ComboBoxItem<ViewMode>[] = viewModeValues.map( viewMode => {
       return {
         value: viewMode,
         tandemName: `${viewMode}Item`,
+        accessibleName: viewMode === 'particles' ? BalancingChemicalEquationsStrings.a11y.particlesStringProperty :
+                        viewMode === 'balanceScales' ? BalancingChemicalEquationsStrings.a11y.balanceScalesStringProperty :
+                        viewMode === 'barCharts' ? BalancingChemicalEquationsStrings.a11y.barChartsStringProperty :
+                        BalancingChemicalEquationsStrings.noneStringProperty,
         createNode: () => createIcon( viewMode )
       };
     } );
@@ -51,6 +56,7 @@ export default class ViewComboBox extends ComboBox<ViewMode> {
       yMargin: 10,
       cornerRadius: 4,
       maxWidth: 600,
+      accessibleName: BalancingChemicalEquationsStrings.viewStringProperty,
       tandem: tandem
     } );
   }

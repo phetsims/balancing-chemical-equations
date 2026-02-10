@@ -7,10 +7,12 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ComboBox, { ComboBoxItem, ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../../common/model/Equation.js';
 import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -43,11 +45,12 @@ export default class EquationsComboBox<T extends Equation> extends ComboBox<T> {
       yMargin: 5,
       cornerRadius: 4,
       maxWidth: 600,
+      accessibleName: BalancingChemicalEquationsStrings.a11y.equationStringProperty,
       phetioEnabledPropertyInstrumented: false
     }, providedOptions );
 
     const equations = equationProperty.validValues!;
-    assert && assert( equations && equations.length > 0 );
+    affirm( equations && equations.length > 0 );
 
     const items: ComboBoxItem<T>[] = equations.map( equation => {
       const text = new RichText( equation.getDisplayString(), RICH_TEXT_OPTIONS );

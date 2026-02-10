@@ -85,5 +85,19 @@
   },
   "initialCoefficientDescription": {
     "value": "The initial coefficient for every term, in every equation."
+  },
+  "a11y": {
+    "particles": {
+        "value": "Particles"
+    },
+    "balanceScales": {
+        "value": "Balance Scales"
+    },
+    "barCharts": {
+        "value": "Bar Charts"
+    },
+    "equation": {
+        "value": "Equation"
+    }
   }
 }

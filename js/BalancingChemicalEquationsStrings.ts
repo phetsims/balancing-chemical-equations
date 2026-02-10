@@ -45,6 +45,12 @@ type StringsType = {
   'combustionStringProperty': LocalizedStringProperty;
   'initialCoefficientStringProperty': LocalizedStringProperty;
   'initialCoefficientDescriptionStringProperty': LocalizedStringProperty;
+  'a11y': {
+    'particlesStringProperty': LocalizedStringProperty;
+    'balanceScalesStringProperty': LocalizedStringProperty;
+    'barChartsStringProperty': LocalizedStringProperty;
+    'equationStringProperty': LocalizedStringProperty;
+  }
 };
 
 const BalancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;
