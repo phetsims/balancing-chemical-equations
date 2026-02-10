@@ -8,6 +8,7 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import PDOMUtils from '../../../../scenery/js/accessibility/pdom/PDOMUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -39,7 +40,11 @@ export default class GameScreenView extends ScreenView {
 
     super( {
       layoutBounds: BCEConstants.LAYOUT_BOUNDS,
-      tandem: tandem
+      tandem: tandem,
+
+      // Remove the "normal" PDOM structure Nodes like the screen summary, play area, and control area Nodes from the
+      // LevelSelectionScreen. The LevelSelectionScreen handles its own description.
+      includeAccessibleSectionNodes: false
     } );
 
     this.model = model;
@@ -76,16 +81,6 @@ export default class GameScreenView extends ScreenView {
         this.initLevelCompleted();
       }
     } );
-
-    // Play Area focus order
-    this.pdomPlayAreaNode.pdomOrder = [
-      //TODO https://github.com/phetsims/balancing-chemical-equations/issues/161 Alt input for Game is deferred.
-    ];
-
-    // Control Area focus order
-    this.pdomControlAreaNode.pdomOrder = [
-      // TODO https://github.com/phetsims/balancing-chemical-equations/issues/161 Alt input for Game is deferred.
-    ];
   }
 
   public override step( dt: number ): void {
@@ -127,6 +122,7 @@ export default class GameScreenView extends ScreenView {
     }
     this.levelSelectionNode.visible = false;
     this.levelNode.visible = true;
+    PDOMUtils.focusTop();
   }
 
   /**

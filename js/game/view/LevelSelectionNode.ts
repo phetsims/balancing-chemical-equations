@@ -20,6 +20,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
+import LevelSelectionScreenNode from '../../../../vegas/js/LevelSelectionScreenNode.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
@@ -32,7 +33,7 @@ const BUTTON_MARGIN = 20;
 const BUTTON_FONT = new PhetFont( { size: 14, weight: 'bold' } );
 const TITLE_FONT = new PhetFont( 36 );
 
-export default class LevelSelectionNode extends Node {
+export default class LevelSelectionNode extends LevelSelectionScreenNode {
 
   public constructor( model: GameModel, viewProperties: GameViewProperties, layoutBounds: Bounds2, tandem: Tandem ) {
 
@@ -112,13 +113,22 @@ export default class LevelSelectionNode extends Node {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    super( {
+    super( BalancingChemicalEquationsStrings.chooseYourLevelStringProperty, buttonGroup, {
       isDisposable: false,
       children: [ buttonGroup, chooseYourLevelText, timerToggleButton, resetAllButton ],
       tandem: tandem,
       phetioDocumentation: 'The user interface for choosing a game level.',
       phetioVisiblePropertyInstrumented: false
     } );
+
+    // pdom - traversal order and section grouping
+    this.accessibleLevelsSectionNode.pdomOrder = [
+      buttonGroup
+    ];
+    this.accessibleOptionsSectionNode.pdomOrder = [
+      timerToggleButton,
+      resetAllButton
+    ];
   }
 }
 

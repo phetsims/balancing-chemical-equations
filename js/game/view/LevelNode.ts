@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -15,21 +16,21 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import nullSoundPlayer from '../../../../tambo/js/nullSoundPlayer.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ChallengeScreenNode from '../../../../vegas/js/ChallengeScreenNode.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
-import ParticlesNode from '../../common/view/ParticlesNode.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
+import ParticlesNode from '../../common/view/ParticlesNode.js';
 import GameModel from '../model/GameModel.js';
+import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
 import GameFeedbackNode from './GameFeedbackNode.js';
 import GameViewProperties from './GameViewProperties.js';
-import { BCEFiniteStatusBar } from './BCEFiniteStatusBar.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 const BOX_SIZE = new Dimension2( 285, 340 );
 const BOX_X_SPACING = 140; // horizontal spacing between boxes
@@ -39,7 +40,7 @@ const TEXT_PUSH_BUTTON_OPTIONS: TextPushButtonOptions = {
   maxTextWidth: 0.75 * BOX_X_SPACING
 };
 
-export default class LevelNode extends Node {
+export default class LevelNode extends ChallengeScreenNode {
 
   private readonly model: GameModel;
   private readonly audioPlayer: GameAudioPlayer;
@@ -65,9 +66,12 @@ export default class LevelNode extends Node {
                       tandem: Tandem ) {
 
     super( {
+      levelNumberProperty: model.levelNumberProperty,
 
-      // NodeOptions
+      // Node Options
       isDisposable: false,
+
+      // PhET-iO Options
       tandem: tandem,
       phetioDocumentation: 'The user interface for playing a game level.',
       phetioVisiblePropertyInstrumented: false
@@ -95,6 +99,7 @@ export default class LevelNode extends Node {
     this.equationNodeParent = new Node();
     this.addChild( this.equationNodeParent );
     this.equationNodeParent.children = [ this.equationNode ];
+
     // x position is handled by this.aligner.
     this.equationNodeParent.centerY = this.layoutBounds.height - ( this.layoutBounds.height - this.particlesNode.bottom ) / 2;
 
@@ -123,7 +128,7 @@ export default class LevelNode extends Node {
       } ) );
     this.addChild( this.checkButton );
 
-    this.checkButton.boundsProperty.link( bounds => {
+    this.checkButton.boundsProperty.link( () => {
       this.checkButton.centerX = this.layoutBounds.centerX;
       this.checkButton.bottom = this.particlesNode.bottom;
     } );
@@ -139,7 +144,7 @@ export default class LevelNode extends Node {
       } ) );
     this.addChild( this.nextButton );
 
-    this.nextButton.boundsProperty.link( bounds => {
+    this.nextButton.boundsProperty.link( () => {
       this.nextButton.centerX = this.layoutBounds.centerX;
       this.nextButton.bottom = this.particlesNode.bottom;
     } );
@@ -178,7 +183,7 @@ export default class LevelNode extends Node {
     } );
     this.addChild( this.feedbackNode );
 
-    // Updating the UI for the game state depends on several other Properties, so there is an ordering problems.
+    // Updating the UI for the game state depends on several other Properties, so there is an ordering problem.
     // So we need to defer calling updateGameState until after PhET-iO state has been set.
     model.gameStateProperty.link( () => {
       if ( !isSettingPhetioStateProperty.value ) {
@@ -199,6 +204,19 @@ export default class LevelNode extends Node {
         newChallenge.hasNonZeroCoefficientProperty.link( hasNonZeroCoefficientListener );
       }
     } );
+
+    this.accessibleChallengeSectionNode.pdomOrder = [
+      this.particlesNode,
+      this.equationNodeParent,
+      this.feedbackNode
+    ];
+    this.accessibleAnswerSectionNode.pdomOrder = [
+      this.checkButton,
+      this.nextButton
+    ];
+    this.accessibleStatusSectionNode.pdomOrder = [
+      statusBar
+    ];
   }
 
   /**
