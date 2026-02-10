@@ -18,7 +18,7 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
   initialCoefficient: {
     public: true,
     type: 'number',
-    defaultValue: 0,
+    defaultValue: 1,
     validValues: BCEConstants.INITIAL_COEFFICIENT_VALID_VALUES
   },
 
