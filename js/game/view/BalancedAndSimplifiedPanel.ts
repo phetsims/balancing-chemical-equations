@@ -16,6 +16,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
+import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -34,6 +35,7 @@ const POINTS_AWARDED_FONT = new PhetFont( {
 } );
 
 export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
+  public nextButton: ButtonNode;
 
   public constructor( pointsProperty: TReadOnlyProperty<number>, nextButtonListener: () => void, tandem: Tandem ) {
 
@@ -112,6 +114,8 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
       tandem: tandem,
       phetioDocumentation: 'Provides feedback when the challenge is balanced and simplified.'
     } );
+
+    this.nextButton = nextButton;
   }
 }
 

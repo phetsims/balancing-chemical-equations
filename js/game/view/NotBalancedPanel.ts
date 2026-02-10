@@ -16,13 +16,11 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
-import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { ShowWhyViewMode } from '../../common/model/ViewMode.js';
 import Equation from '../../common/model/Equation.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { GameState } from '../model/GameState.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
@@ -35,9 +33,12 @@ import BarChartsNode from '../../common/view/BarChartsNode.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import BCEConstants from '../../common/BCEConstants.js';
 
-const MAX_TEXT_WIDTH = 385; // maxWidth for Text elements
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
+
+  // We need to expose the button for a11y, so that it can be focused when the panel is shown.
+  // We know this Property is reliable because it is updated downstream of the gameStateProperty.
+  public readonly visibleButtonProperty: TReadOnlyProperty<Node>;
 
   // 'Show Why' and 'Hide Why' buttons
   private static readonly WHY_BUTTON_FONT = new PhetFont( GameFeedbackPanel.PUSH_BUTTON_FONT.numericSize - 4 );
@@ -54,7 +55,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
 
     const textOptions = {
       font: GameFeedbackPanel.TEXT_FONT,
-      maxWidth: MAX_TEXT_WIDTH
+      maxWidth: GameFeedbackPanel.MAX_TEXT_WIDTH
     };
 
     // sad face
@@ -70,25 +71,12 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
 
     const notBalancedText = new Text( BalancingChemicalEquationsStrings.notBalancedStringProperty, textOptions );
 
-    const tryAgainButton = new TextPushButton( BalancingChemicalEquationsStrings.tryAgainStringProperty, {
-      font: GameFeedbackPanel.PUSH_BUTTON_FONT,
-      baseColor: GameFeedbackPanel.PUSH_BUTTON_COLOR,
-      maxTextWidth: MAX_TEXT_WIDTH,
-      listener: tryAgainButtonCallback,
-      visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'tryAgain' ),
-      tandem: tandem.createTandem( 'tryAgainButton' ),
-      phetioEnabledPropertyInstrumented: false // See https://github.com/phetsims/balancing-chemical-equations/issues/197
-    } );
-
-    const showAnswerButton = new TextPushButton( BalancingChemicalEquationsStrings.showAnswerStringProperty, {
-      font: GameFeedbackPanel.PUSH_BUTTON_FONT,
-      baseColor: GameFeedbackPanel.PUSH_BUTTON_COLOR,
-      maxTextWidth: MAX_TEXT_WIDTH,
-      listener: showAnswerButtonCallback,
-      visibleProperty: new DerivedProperty( [ gameStateProperty ], gameState => gameState === 'showAnswer' ),
-      tandem: tandem.createTandem( 'showAnswerButton' ),
-      phetioEnabledPropertyInstrumented: false // See https://github.com/phetsims/balancing-chemical-equations/issues/197
-    } );
+    const { tryAgainButton, showAnswerButton, visibleButtonProperty } = GameFeedbackPanel.createTryAgainShowAnswerButtons(
+      gameStateProperty,
+      tryAgainButtonCallback,
+      showAnswerButtonCallback,
+      tandem
+    );
 
     const showWhyVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showWhyVisibleProperty' ),
@@ -105,7 +93,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
     const showHideWhyToggleButton = new RectangularToggleButton<boolean>( showWhyVisibleProperty, false, true, {
       content: new Text( showHideWhyStringProperty, {
         font: NotBalancedPanel.WHY_BUTTON_FONT,
-        maxWidth: MAX_TEXT_WIDTH
+        maxWidth: GameFeedbackPanel.MAX_TEXT_WIDTH
       } ),
       baseColor: NotBalancedPanel.WHY_BUTTON_FILL,
       tandem: tandem.createTandem( 'showHideWhyToggleButton' )
@@ -151,6 +139,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       phetioDocumentation: 'Provides feedback when the challenge is not balanced.'
     } );
 
+    this.visibleButtonProperty = visibleButtonProperty;
     this.showWhyVisibleProperty = showWhyVisibleProperty;
     this.showWhyNode = showWhyNode;
   }

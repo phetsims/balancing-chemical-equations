@@ -10,6 +10,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
@@ -29,6 +30,7 @@ export default class GameFeedbackNode extends Node {
   private readonly balancedAndSimplifiedPanel: BalancedAndSimplifiedPanel;
   private readonly balancedNotSimplifiedPanel: BalancedNotSimplifiedPanel;
   private readonly notBalancedPanel: NotBalancedPanel;
+  public buttonToFocus: Node | null = null;
 
   public constructor( model: GameModel, aligner: HorizontalAligner, tandem: Tandem ) {
 
@@ -84,19 +86,22 @@ export default class GameFeedbackNode extends Node {
     // invisible at the same time.
     if ( challenge.isSimplifiedProperty.value ) {
       this.balancedAndSimplifiedPanel.visible = true;
+      this.buttonToFocus = this.balancedAndSimplifiedPanel.nextButton;
       this.balancedNotSimplifiedPanel.visible = false;
       this.notBalancedPanel.visible = false;
     }
     else if ( challenge.isBalancedProperty.value ) {
       this.balancedNotSimplifiedPanel.visible = true;
+      this.buttonToFocus = this.balancedNotSimplifiedPanel.visibleButtonProperty.value;
       this.balancedAndSimplifiedPanel.visible = false;
       this.notBalancedPanel.visible = false;
     }
     else {
       const level = this.model.levelProperty.value!;
-      assert && assert( level );
+      affirm( level );
       this.notBalancedPanel.updateViewMode( this.model.challengeProperty.value, level.getViewMode() );
       this.notBalancedPanel.visible = true;
+      this.buttonToFocus = this.notBalancedPanel.visibleButtonProperty.value;
       this.balancedAndSimplifiedPanel.visible = false;
       this.balancedNotSimplifiedPanel.visible = false;
     }

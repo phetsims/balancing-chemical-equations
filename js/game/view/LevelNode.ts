@@ -12,6 +12,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import PDOMUtils from '../../../../scenery/js/accessibility/pdom/PDOMUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
@@ -171,6 +172,7 @@ export default class LevelNode extends ChallengeScreenNode {
         centerX: this.checkButton.centerX,
         bottom: this.checkButton.top - 15,
         enabledProperty: new DerivedProperty( [ model.gameStateProperty ], gameState => gameState === 'check' ),
+        accessibleHelpText: 'This button allows you to skip the current equation only when the showAnswers query parameter is enabled.',
         tandem: Tandem.OPT_OUT // skipButton is optional with ?showAnswers, not part of the PhET-iO API.
       } ) );
       this.addChild( skipButton );
@@ -315,6 +317,12 @@ export default class LevelNode extends ChallengeScreenNode {
     this.feedbackNode.update();
     this.feedbackNode.moveToFront();
     this.feedbackNode.visible = visible;
+    if ( visible ) {
+     this.feedbackNode.buttonToFocus && this.feedbackNode.buttonToFocus.focus();
+    }
+    else {
+      PDOMUtils.focusTop();
+    }
   }
 }
 
