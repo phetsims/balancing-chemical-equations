@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * GameFeedbackNode presents feedback about a user's guess. The format of the feedback is specific to whether

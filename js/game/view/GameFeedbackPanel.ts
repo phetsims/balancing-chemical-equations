@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * GameFeedbackPanel is the base class for panels that present feedback when the 'Check' button is pressed.

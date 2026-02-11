@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * ViewsComboBox is the combo box for selecting the visual representation for "balanced".

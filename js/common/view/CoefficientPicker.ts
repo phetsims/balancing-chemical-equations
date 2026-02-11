@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * CoefficientPicker is a specialization of NumberPicker for setting the coefficient of a term in an equation.
