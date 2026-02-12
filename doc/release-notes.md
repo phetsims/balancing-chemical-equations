@@ -28,6 +28,14 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * ⚠️ Use this icon for a change that is breaking, removes a feature, etc. 
 *
 -->
+## 2.1 (YYYY-MM-DD)
+
+### New Features:
+* Alternative Input
+* Interactive Highlights: see _Preferences > Visual > Interactive Highlights_
+
+### Other Changes:
+* The initial coefficient in all equations is 1.
 
 ## 2.0 (2025-05-23)
 
