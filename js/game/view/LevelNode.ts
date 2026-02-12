@@ -318,7 +318,7 @@ export default class LevelNode extends ChallengeScreenNode {
     this.feedbackNode.moveToFront();
     this.feedbackNode.visible = visible;
     if ( visible ) {
-     this.feedbackNode.buttonToFocus && this.feedbackNode.buttonToFocus.focus();
+     this.feedbackNode.buttonToFocus && this.feedbackNode.buttonToFocus.visible && this.feedbackNode.buttonToFocus.focus();
     }
     else {
       PDOMUtils.focusTop();
