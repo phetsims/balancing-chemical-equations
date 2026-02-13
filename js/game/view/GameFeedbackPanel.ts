@@ -30,13 +30,7 @@ export type TryAgainShowAnswerButtons = {
   tryAgainButton: TextPushButton;
   showAnswerButton: TextPushButton;
 
-  /**
-   *   TODO REVIEW: This being a generic <Node> is not type safe.
-   *   TODO REVIEW: At the very least I'd make it <TextPushButton> or even go as far as creating a type for each button.
-   *   TODO REVIEW: This is only alternating between 'Try again' and 'Show answer' and the type should reflect that.
-   *
-   *   TODO REVIEW: https://github.com/phetsims/balancing-chemical-equations/issues/161
-   */
+  // TODO REVIEW: I suggest removing this property, discussion in: https://github.com/phetsims/balancing-chemical-equations/issues/161
   visibleButtonProperty: TReadOnlyProperty<Node>;
 };
 
