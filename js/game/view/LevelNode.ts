@@ -210,6 +210,8 @@ export default class LevelNode extends ChallengeScreenNode {
     this.accessibleChallengeSectionNode.pdomOrder = [
       this.particlesNode,
       this.equationNodeParent,
+
+      // TODO REVIEW: For BAA the feedbackNode is in the answer section, I also feel like it belongs there, otherwise it's always empty. https://github.com/phetsims/balancing-chemical-equations/issues/161
       this.feedbackNode
     ];
     this.accessibleAnswerSectionNode.pdomOrder = [

@@ -6,27 +6,37 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
-import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { GameState } from '../model/GameState.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
+import { GameState } from '../model/GameState.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type GameFeedbackPanelOptions = SelfOptions & PickRequired<PanelOptions, 'tandem' | 'phetioDocumentation'>;
 
+
+// TODO REVIEW: I would add documentation on what this type is and why it's needed. https://github.com/phetsims/balancing-chemical-equations/issues/161
 export type TryAgainShowAnswerButtons = {
   tryAgainButton: TextPushButton;
   showAnswerButton: TextPushButton;
+
+  /**
+   *   TODO REVIEW: This being a generic <Node> is not type safe.
+   *   TODO REVIEW: At the very least I'd make it <TextPushButton> or even go as far as creating a type for each button.
+   *   TODO REVIEW: This is only alternating between 'Try again' and 'Show answer' and the type should reflect that.
+   *
+   *   TODO REVIEW: https://github.com/phetsims/balancing-chemical-equations/issues/161
+   */
   visibleButtonProperty: TReadOnlyProperty<Node>;
 };
 

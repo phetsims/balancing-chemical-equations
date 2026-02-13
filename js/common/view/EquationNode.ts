@@ -85,6 +85,7 @@ export default class EquationNode extends Node {
     this.termsParent = new Node();
     this.addChild( this.termsParent );
 
+    // TODO REVIEW: It seems these two don't have to be class fields, they are only used down below. I suggest turning into constants instead. https://github.com/phetsims/balancing-chemical-equations/issues/161
     // Create PDOM heading nodes for reactants and products
     this.reactantTermsHeading = new Node( {
       accessibleHeading: BalancingChemicalEquationsStrings.reactantsStringProperty

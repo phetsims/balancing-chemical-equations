@@ -15,6 +15,7 @@ import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 type SelfOptions = EmptySelfOptions;
 
+// TODO REVIEW: Why is StrictOmit necessary here? Please document! https://github.com/phetsims/balancing-chemical-equations/issues/161
 type CoefficientPickerOptions = SelfOptions & WithRequired<NumberPickerOptions, 'tandem' | 'font'> &
   StrictOmit<NumberPickerOptions, 'timerDelay' | 'timerInterval' | 'disabledOpacity' | 'backgroundStrokeDisabledOpacity' | 'arrowDisabledOpacity'>;
 
