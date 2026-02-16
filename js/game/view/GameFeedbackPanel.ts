@@ -23,8 +23,10 @@ type SelfOptions = EmptySelfOptions;
 
 type GameFeedbackPanelOptions = SelfOptions & PickRequired<PanelOptions, 'tandem' | 'phetioDocumentation'>;
 
-
-// TODO REVIEW: I would add documentation on what this type is and why it's needed. https://github.com/phetsims/balancing-chemical-equations/issues/161
+/**
+ * This type is used by createTryAgainShowAnswerButtons to return both buttons as a single object, making it
+ * convenient for subclasses to destructure and use these buttons in their layouts.
+ */
 export type TryAgainShowAnswerButtons = {
   tryAgainButton: TextPushButton;
   showAnswerButton: TextPushButton;

@@ -49,9 +49,6 @@ export default class EquationNode extends Node {
   // the parent for all terms and the "+" operators
   private readonly termsParent: Node;
 
-  // PDOM structure for organizing reactant and product terms
-  private readonly reactantTermsHeading: Node;
-  private readonly productTermsHeading: Node;
 
   private readonly disposeEquationNode: () => void;
 
@@ -85,25 +82,24 @@ export default class EquationNode extends Node {
     this.termsParent = new Node();
     this.addChild( this.termsParent );
 
-    // TODO REVIEW: It seems these two don't have to be class fields, they are only used down below. I suggest turning into constants instead. https://github.com/phetsims/balancing-chemical-equations/issues/161
     // Create PDOM heading nodes for reactants and products
-    this.reactantTermsHeading = new Node( {
+    const reactantTermsHeading = new Node( {
       accessibleHeading: BalancingChemicalEquationsStrings.reactantsStringProperty
     } );
-    this.termsParent.addChild( this.reactantTermsHeading );
+    this.termsParent.addChild( reactantTermsHeading );
 
-    this.productTermsHeading = new Node( {
+    const productTermsHeading = new Node( {
       accessibleHeading: BalancingChemicalEquationsStrings.productsStringProperty
     } );
-    this.termsParent.addChild( this.productTermsHeading );
+    this.termsParent.addChild( productTermsHeading );
 
     // Create the reactants side of the equation.
     this.createSideOfEquation( this.equation.reactants, this.aligner.getReactantXOffsets( this.equation ),
-      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), 'reactant', options.tandem, this.reactantTermsHeading );
+      this.aligner.getReactantsBoxLeft(), this.aligner.getReactantsBoxRight(), 'reactant', options.tandem, reactantTermsHeading );
 
     // Create the products side of the equation.
     this.createSideOfEquation( this.equation.products, this.aligner.getProductXOffsets( this.equation ),
-      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), 'product', options.tandem, this.productTermsHeading );
+      this.aligner.getProductsBoxLeft(), this.aligner.getScreenRight(), 'product', options.tandem, productTermsHeading );
 
     if ( this.isPhetioInstrumented() && equation.isPhetioInstrumented() ) {
       this.addLinkedElement( equation );
