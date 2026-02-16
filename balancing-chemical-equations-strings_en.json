@@ -98,6 +98,23 @@
     },
     "equation": {
         "value": "Equation"
+    },
+    "keyboardHelpDialog": {
+      "coefficientControls": {
+        "value": "Coefficient Controls"
+      },
+      "coefficient": {
+        "value": "coefficient"
+      },
+      "chooseAView": {
+        "value": "Choose a View"
+      },
+      "view": {
+        "value": "view"
+      },
+      "views": {
+        "value": "views"
+      }
     }
   }
 }

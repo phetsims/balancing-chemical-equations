@@ -18,6 +18,7 @@ import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStri
 import BCEColors from '../common/BCEColors.js';
 import GameModel from './model/GameModel.js';
 import GameScreenView from './view/GameScreenView.js';
+import BCEGameKeyboardHelpContent from './view/BCEGameKeyboardHelpContent.js';
 import VBox from '../../../scenery/js/layout/nodes/VBox.js';
 import HBox from '../../../scenery/js/layout/nodes/HBox.js';
 
@@ -29,6 +30,7 @@ export default class GameScreen extends Screen<GameModel, GameScreenView> {
       name: BalancingChemicalEquationsStrings.screen.gameStringProperty,
       backgroundColorProperty: BCEColors.gameScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
+      createKeyboardHelpNode: () => new BCEGameKeyboardHelpContent(),
       tandem: tandem
     };
 

@@ -16,6 +16,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../common/BCEColors.js';
+import BCEKeyboardHelpContent from '../common/view/BCEKeyboardHelpContent.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
 import BalanceFulcrumNode from '../common/view/BalanceFulcrumNode.js';
@@ -32,6 +33,7 @@ export default class IntroScreen extends Screen<IntroModel, IntroScreenView> {
       name: BalancingChemicalEquationsStrings.screen.introStringProperty,
       backgroundColorProperty: BCEColors.introScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
+      createKeyboardHelpNode: () => new BCEKeyboardHelpContent(),
       tandem: tandem
     };
 

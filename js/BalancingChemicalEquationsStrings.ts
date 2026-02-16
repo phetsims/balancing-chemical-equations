@@ -50,6 +50,13 @@ type StringsType = {
     'balanceScalesStringProperty': LocalizedStringProperty;
     'barChartsStringProperty': LocalizedStringProperty;
     'equationStringProperty': LocalizedStringProperty;
+    'keyboardHelpDialog': {
+      'coefficientControlsStringProperty': LocalizedStringProperty;
+      'coefficientStringProperty': LocalizedStringProperty;
+      'chooseAViewStringProperty': LocalizedStringProperty;
+      'viewStringProperty': LocalizedStringProperty;
+      'viewsStringProperty': LocalizedStringProperty;
+    }
   }
 };
 

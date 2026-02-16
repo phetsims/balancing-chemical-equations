@@ -13,6 +13,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../common/BCEColors.js';
+import BCEKeyboardHelpContent from '../common/view/BCEKeyboardHelpContent.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
 import EquationsModel from './model/EquationsModel.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
@@ -28,6 +29,7 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
       name: BalancingChemicalEquationsStrings.screen.equationsStringProperty,
       backgroundColorProperty: BCEColors.equationsScreenBackgroundColorProperty,
       homeScreenIcon: createScreenIcon(),
+      createKeyboardHelpNode: () => new BCEKeyboardHelpContent(),
       tandem: tandem
     };
 
