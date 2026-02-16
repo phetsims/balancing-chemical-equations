@@ -92,7 +92,7 @@ export default class GameFeedbackNode extends Node {
     }
     else if ( challenge.isBalancedProperty.value ) {
       this.balancedNotSimplifiedPanel.visible = true;
-      this.buttonToFocus = this.balancedNotSimplifiedPanel.visibleButtonProperty.value;
+      this.buttonToFocus = this.balancedNotSimplifiedPanel.buttonToFocus;
       this.balancedAndSimplifiedPanel.visible = false;
       this.notBalancedPanel.visible = false;
     }
@@ -101,7 +101,7 @@ export default class GameFeedbackNode extends Node {
       affirm( level );
       this.notBalancedPanel.updateViewMode( this.model.challengeProperty.value, level.getViewMode() );
       this.notBalancedPanel.visible = true;
-      this.buttonToFocus = this.notBalancedPanel.visibleButtonProperty.value;
+      this.buttonToFocus = this.notBalancedPanel.buttonToFocus;
       this.balancedAndSimplifiedPanel.visible = false;
       this.balancedNotSimplifiedPanel.visible = false;
     }

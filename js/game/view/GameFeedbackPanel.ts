@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -29,9 +28,6 @@ type GameFeedbackPanelOptions = SelfOptions & PickRequired<PanelOptions, 'tandem
 export type TryAgainShowAnswerButtons = {
   tryAgainButton: TextPushButton;
   showAnswerButton: TextPushButton;
-
-  // TODO REVIEW: I suggest removing this property, discussion in: https://github.com/phetsims/balancing-chemical-equations/issues/161
-  visibleButtonProperty: TReadOnlyProperty<Node>;
 };
 
 export default class GameFeedbackPanel extends Panel {
@@ -94,18 +90,9 @@ export default class GameFeedbackPanel extends Panel {
       phetioEnabledPropertyInstrumented: false // See https://github.com/phetsims/balancing-chemical-equations/issues/197
     } );
 
-    const visibleButtonProperty = new DerivedProperty( [ tryAgainButton.visibleProperty, showAnswerButton.visibleProperty ], ( tryAgainVisible, showAnswerVisible ) => {
-      affirm( !( tryAgainVisible && showAnswerVisible ), 'tryAgainButton and showAnswerButton should not be visible at the same time' );
-
-      // Track which button is visible so that we can focus it when the panel is shown.
-      // If both buttons are invisible, then it doesn't matter which one we return, so we'll return the Show Answer button.
-      return tryAgainVisible ? tryAgainButton : showAnswerButton;
-    } );
-
     return {
       tryAgainButton: tryAgainButton,
-      showAnswerButton: showAnswerButton,
-      visibleButtonProperty: visibleButtonProperty
+      showAnswerButton: showAnswerButton
     };
   }
 }

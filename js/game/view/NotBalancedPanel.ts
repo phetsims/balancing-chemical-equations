@@ -6,8 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
@@ -16,29 +20,24 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
+import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import { ShowWhyViewMode } from '../../common/model/ViewMode.js';
+import BCEConstants from '../../common/BCEConstants.js';
 import Equation from '../../common/model/Equation.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { GameState } from '../model/GameState.js';
-import GameFeedbackPanel from './GameFeedbackPanel.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
+import { ShowWhyViewMode } from '../../common/model/ViewMode.js';
 import BalanceScalesNode from '../../common/view/BalanceScalesNode.js';
 import BarChartsNode from '../../common/view/BarChartsNode.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import BCEConstants from '../../common/BCEConstants.js';
+import { GameState } from '../model/GameState.js';
+import GameFeedbackPanel from './GameFeedbackPanel.js';
 
 
 export default class NotBalancedPanel extends GameFeedbackPanel {
 
-  // We need to expose the button for a11y, so that it can be focused when the panel is shown.
-  // We know this Property is reliable because it is updated downstream of the gameStateProperty.
-  public readonly visibleButtonProperty: TReadOnlyProperty<Node>;
+  // This button is exposed for a11y. The button that should receive focus when the panel is shown.
+  public buttonToFocus: Node | null = null;
 
   // 'Show Why' and 'Hide Why' buttons
   private static readonly WHY_BUTTON_FONT = new PhetFont( GameFeedbackPanel.PUSH_BUTTON_FONT.numericSize - 4 );
@@ -71,7 +70,7 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
 
     const notBalancedText = new Text( BalancingChemicalEquationsStrings.notBalancedStringProperty, textOptions );
 
-    const { tryAgainButton, showAnswerButton, visibleButtonProperty } = GameFeedbackPanel.createTryAgainShowAnswerButtons(
+    const { tryAgainButton, showAnswerButton } = GameFeedbackPanel.createTryAgainShowAnswerButtons(
       gameStateProperty,
       tryAgainButtonCallback,
       showAnswerButtonCallback,
@@ -139,7 +138,11 @@ export default class NotBalancedPanel extends GameFeedbackPanel {
       phetioDocumentation: 'Provides feedback when the challenge is not balanced.'
     } );
 
-    this.visibleButtonProperty = visibleButtonProperty;
+    // Track which button is visible so that we can focus it when the panel is shown.
+    // If both buttons are invisible, then it doesn't matter which one we return, so we'll return the Show Answer button.
+    gameStateProperty.link( gameState => {
+      this.buttonToFocus = gameState === 'tryAgain' ? tryAgainButton : showAnswerButton;
+    } );
     this.showWhyVisibleProperty = showWhyVisibleProperty;
     this.showWhyNode = showWhyNode;
   }

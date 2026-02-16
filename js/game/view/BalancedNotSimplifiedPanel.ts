@@ -6,7 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
@@ -19,19 +21,16 @@ import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape
 import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
-import { GameState } from '../model/GameState.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import GameFeedbackPanel from './GameFeedbackPanel.js';
-import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
+import { GameState } from '../model/GameState.js';
+import GameFeedbackPanel from './GameFeedbackPanel.js';
 
 
 export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
-  // We need to expose the button for a11y, so that it can be focused when the panel is shown.
-  // We know this Property is reliable because it is updated downstream of the gameStateProperty.
-  public readonly visibleButtonProperty: TReadOnlyProperty<Node>;
+  // This button is exposed for a11y. The button that should receive focus when the panel is shown.
+  public buttonToFocus: Node | null = null;
 
   public constructor( gameStateProperty: TReadOnlyProperty<GameState>,
                       tryAgainButtonCallback: () => void,
@@ -66,7 +65,7 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
     const notSimplifiedText = new Text( BalancingChemicalEquationsStrings.notSimplifiedStringProperty, textOptions );
 
-    const { tryAgainButton, showAnswerButton, visibleButtonProperty } = GameFeedbackPanel.createTryAgainShowAnswerButtons(
+    const { tryAgainButton, showAnswerButton } = GameFeedbackPanel.createTryAgainShowAnswerButtons(
       gameStateProperty,
       tryAgainButtonCallback,
       showAnswerButtonCallback,
@@ -114,7 +113,11 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
       phetioDocumentation: 'Provides feedback when the challenge is balanced, but not simplified.'
     } );
 
-    this.visibleButtonProperty = visibleButtonProperty;
+    // Track which button is visible so that we can focus it when the panel is shown.
+    // If both buttons are invisible, then it doesn't matter which one we return, so we'll return the Show Answer button.
+    gameStateProperty.link( gameState => {
+      this.buttonToFocus = gameState === 'tryAgain' ? tryAgainButton : showAnswerButton;
+    } );
 
   }
 }
