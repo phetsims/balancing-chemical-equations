@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2026, University of Colorado Boulder
 
 /**
  * BCEKeyboardHelpContent is the keyboard help content for the Intro and Equations screens.

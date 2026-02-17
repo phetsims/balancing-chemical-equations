@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2026, University of Colorado Boulder
 
 /**
  * BCEGameKeyboardHelpContent is the keyboard help content for the Game screen.
