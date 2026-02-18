@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * ReactionTypeRadioButtonGroup is the radio button group for selecting a reaction type on the 'Equations' screen.
