@@ -12,10 +12,11 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import balancingChemicalEquations from '../../balancingChemicalEquations.js';
+import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../../common/model/Equation.js';
 import { EquationChoice } from '../model/IntroModel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 const TEXT_OPTIONS = {
   font: new PhetFont( 16 ),
@@ -41,6 +42,7 @@ export default class EquationRadioButtonGroup extends HorizontalAquaRadioButtonG
       radioButtonOptions: { radius: 8 },
       touchAreaYDilation: 15,
       spacing: 30,
+      accessibleName: BalancingChemicalEquationsStrings.a11y.equationStringProperty,
       tandem: tandem
     } );
   }

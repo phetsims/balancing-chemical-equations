@@ -99,6 +99,9 @@
     "equation": {
         "value": "Equation"
     },
+    "reactionType": {
+        "value": "Reaction Type"
+    },
     "keyboardHelpDialog": {
       "coefficientControls": {
         "value": "Coefficient Controls"

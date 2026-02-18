@@ -50,6 +50,7 @@ type StringsType = {
     'balanceScalesStringProperty': LocalizedStringProperty;
     'barChartsStringProperty': LocalizedStringProperty;
     'equationStringProperty': LocalizedStringProperty;
+    'reactionTypeStringProperty': LocalizedStringProperty;
     'keyboardHelpDialog': {
       'coefficientControlsStringProperty': LocalizedStringProperty;
       'coefficientStringProperty': LocalizedStringProperty;
