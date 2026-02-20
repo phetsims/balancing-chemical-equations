@@ -33,9 +33,11 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 ### New Features:
 * Alternative Input
 * Interactive Highlights: see _Preferences > Visual > Interactive Highlights_
+* Accessible Names for interactive components
 
 ### Other Changes:
 * The initial coefficient in all equations is 1.
+* Best times are shown inside each level button when the level is completed and timer is enabled.
 
 ## 2.0 (2025-05-23)
 
