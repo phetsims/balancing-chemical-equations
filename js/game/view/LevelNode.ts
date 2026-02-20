@@ -317,7 +317,7 @@ export default class LevelNode extends ChallengeScreenNode {
     this.feedbackNode.update();
     this.feedbackNode.moveToFront();
     this.feedbackNode.visible = visible;
-    if ( visible ) {
+    if ( visible && !isSettingPhetioStateProperty.value ) {
      this.feedbackNode.buttonToFocus && this.feedbackNode.buttonToFocus.visible && this.feedbackNode.buttonToFocus.focus();
     }
     else {
