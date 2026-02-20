@@ -54,7 +54,8 @@ export default class LevelSelectionNode extends LevelSelectionScreenNode {
             perfectScore: level.getPerfectScore()
           } ),
           soundPlayerIndex: level.levelNumber,
-          bestTimeForScoreProperty: level.bestTimeProperty
+          bestTimeForScoreProperty: level.bestTimeProperty,
+          bestTimeVisibleProperty: model.timerEnabledProperty
         }
       } );
     } );
