@@ -282,7 +282,10 @@ export default class LevelNode extends ChallengeScreenNode {
 
     const currentEquation = this.model.challengeProperty.value;
     this.nextButton.visible = !currentEquation.isSimplifiedProperty.value;
-    this.setFeedbackNodeVisible( currentEquation.isSimplifiedProperty.value );
+
+    // We want to show the feedback node only if the user gained points for the current challenge.
+    // https://github.com/phetsims/balancing-chemical-equations/issues/236
+    this.setFeedbackNodeVisible( this.model.pointsProperty.value > 0 );
     this.setBalancedHighlightEnabled( true );
     currentEquation.balance(); // show the correct answer (do this last!)
   }
@@ -321,7 +324,7 @@ export default class LevelNode extends ChallengeScreenNode {
      this.feedbackNode.buttonToFocus && this.feedbackNode.buttonToFocus.visible && this.feedbackNode.buttonToFocus.focus();
     }
     else {
-      PDOMUtils.focusTop();
+      !isSettingPhetioStateProperty.value && PDOMUtils.focusTop();
     }
   }
 }
