@@ -13,7 +13,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import EquationTerm from '../model/EquationTerm.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import CoefficientPicker from './CoefficientPicker.js';
@@ -80,5 +79,3 @@ export default class EquationTermNode extends Node {
     this.coefficientPicker.enabledProperty.value = editable;
   }
 }
-
-balancingChemicalEquations.register( 'EquationTermNode', EquationTermNode );

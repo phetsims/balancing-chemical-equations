@@ -13,7 +13,6 @@
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import HorizontalAligner from '../../common/view/HorizontalAligner.js';
 import GameModel from '../model/GameModel.js';
 import BalancedAndSimplifiedPanel from './BalancedAndSimplifiedPanel.js';
@@ -107,5 +106,3 @@ export default class GameFeedbackNode extends Node {
     }
   }
 }
-
-balancingChemicalEquations.register( 'GameFeedbackNode', GameFeedbackNode );

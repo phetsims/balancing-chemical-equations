@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
@@ -70,5 +69,3 @@ export default class IntroFeedbackNode extends HBox {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'IntroFeedbackNode', IntroFeedbackNode );

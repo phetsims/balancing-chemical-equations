@@ -10,7 +10,6 @@
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../common/BCEColors.js';
 import BCEKeyboardHelpContent from '../common/view/BCEKeyboardHelpContent.js';
@@ -68,5 +67,3 @@ function createScreenIcon(): ScreenIcon {
     fill: 'white'
   } );
 }
-
-balancingChemicalEquations.register( 'EquationsScreen', EquationsScreen );

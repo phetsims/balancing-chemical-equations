@@ -11,7 +11,6 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ComboBox, { ComboBoxItem, ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../../common/model/Equation.js';
 import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
@@ -69,5 +68,3 @@ export default class EquationsComboBox<T extends Equation> extends ComboBox<T> {
     super( equationProperty, items, listboxParent, options );
   }
 }
-
-balancingChemicalEquations.register( 'EquationsComboBox', EquationsComboBox );

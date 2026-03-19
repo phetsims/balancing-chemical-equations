@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import LevelCompletedNode from '../../../../vegas/js/LevelCompletedNode.js';
 import GameModel from '../model/GameModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -44,5 +43,3 @@ export default class BCELevelCompletedNode extends LevelCompletedNode {
     );
   }
 }
-
-balancingChemicalEquations.register( 'BCELevelCompletedNode', BCELevelCompletedNode );

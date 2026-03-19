@@ -45,7 +45,6 @@ import SNode from '../../../../nitroglycerin/js/nodes/SNode.js';
 import SO2Node from '../../../../nitroglycerin/js/nodes/SO2Node.js';
 import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import PNode from '../../../../nitroglycerin/js/nodes/PNode.js';
 import H2O2Node from '../../../../nitroglycerin/js/nodes/H2O2Node.js';
 import N2O5Node from '../../../../nitroglycerin/js/nodes/N2O5Node.js';
@@ -177,5 +176,3 @@ function elementsToSymbol( elements: Element[], withMarkup = true ): string {
 
   return symbol;
 }
-
-balancingChemicalEquations.register( 'Molecule', Molecule );

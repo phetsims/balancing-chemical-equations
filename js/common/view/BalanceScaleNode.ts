@@ -19,7 +19,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 import BalanceBeamNode from './BalanceBeamNode.js';
 import BalanceFulcrumNode from './BalanceFulcrumNode.js';
@@ -245,5 +244,3 @@ function updatePile( element: Element, numberOfAtoms: number, pileNode: Node, co
     countText.bottom = pileNode.visibleBounds.top - COUNT_Y_SPACING;
   }
 }
-
-balancingChemicalEquations.register( 'BalanceScaleNode', BalanceScaleNode );

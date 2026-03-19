@@ -23,7 +23,6 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import GameTimer from '../../../../vegas/js/GameTimer.js';
 import GameUtils from '../../../../vegas/js/GameUtils.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import Equation from '../../common/model/Equation.js';
 import GameLevel from './GameLevel.js';
@@ -390,5 +389,3 @@ export default class GameModel implements TModel {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'GameModel', GameModel );

@@ -45,7 +45,6 @@ import SO3Node from '../../../../nitroglycerin/js/nodes/SO3Node.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
 import RewardNode from '../../../../vegas/js/RewardNode.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 
 const NUMBER_OF_NODES = 150;
@@ -127,5 +126,3 @@ export default class BCERewardNode extends RewardNode {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'BCERewardNode', BCERewardNode );

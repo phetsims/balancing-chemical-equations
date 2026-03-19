@@ -10,7 +10,6 @@
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -176,5 +175,3 @@ export default class EquationPool extends PhetioObject {
     return this.pool[ index ];
   }
 }
-
-balancingChemicalEquations.register( 'EquationPool', EquationPool );

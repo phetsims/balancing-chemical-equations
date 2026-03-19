@@ -7,7 +7,6 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import IntroViewProperties from '../../intro/view/IntroViewProperties.js';
 
 export default class EquationsViewProperties extends IntroViewProperties {
@@ -16,5 +15,3 @@ export default class EquationsViewProperties extends IntroViewProperties {
     super( tandem );
   }
 }
-
-balancingChemicalEquations.register( 'EquationsViewProperties', EquationsViewProperties );

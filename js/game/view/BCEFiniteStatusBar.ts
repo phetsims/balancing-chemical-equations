@@ -13,7 +13,6 @@ import FiniteStatusBar from '../../../../vegas/js/FiniteStatusBar.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameModel from '../model/GameModel.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 const STATUS_BAR_FONT = new PhetFont( 14 );
 const STATUS_BAR_TEXT_FILL = 'white';
@@ -55,5 +54,3 @@ export class BCEFiniteStatusBar extends FiniteStatusBar {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'BCEFiniteStatusBar', BCEFiniteStatusBar );

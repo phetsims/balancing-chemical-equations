@@ -11,7 +11,6 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import ComboBoxKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/ComboBoxKeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 
 export default class BCEKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
@@ -38,5 +37,3 @@ export default class BCEKeyboardHelpContent extends TwoColumnKeyboardHelpContent
     super( [ coefficientControlsSection, chooseAViewSection ], [ basicActionsSection ] );
   }
 }
-
-balancingChemicalEquations.register( 'BCEKeyboardHelpContent', BCEKeyboardHelpContent );

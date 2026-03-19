@@ -22,7 +22,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup, { LevelSelectionButtonGroupItem } from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import LevelSelectionScreenNode from '../../../../vegas/js/LevelSelectionScreenNode.js';
 import ScoreDisplayStars from '../../../../vegas/js/ScoreDisplayStars.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import GameLevel from '../model/GameLevel.js';
@@ -160,5 +159,3 @@ function createLevelSelectionButtonIcon( level: GameLevel, moleculeAlignGroup: A
     children: [ labelText, alignBox ]
   } );
 }
-
-balancingChemicalEquations.register( 'LevelSelectionNode', LevelSelectionNode );

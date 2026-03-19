@@ -11,7 +11,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -42,5 +41,3 @@ export default class CoefficientPicker extends NumberPicker {
     super( coefficientProperty, coefficientProperty.rangeProperty, options );
   }
 }
-
-balancingChemicalEquations.register( 'CoefficientPicker', CoefficientPicker );

@@ -20,7 +20,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import Molecule from './Molecule.js';
 import Range from '../../../../dot/js/Range.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // Unicode symbols
@@ -403,5 +402,3 @@ function createEquationString( reactants: EquationTerm[], products: EquationTerm
 
   return string;
 }
-
-balancingChemicalEquations.register( 'Equation', Equation );

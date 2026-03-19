@@ -13,7 +13,6 @@ import Element from '../../../nitroglycerin/js/Element.js';
 import AtomNode from '../../../nitroglycerin/js/nodes/AtomNode.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../common/BCEColors.js';
 import BCEKeyboardHelpContent from '../common/view/BCEKeyboardHelpContent.js';
@@ -90,5 +89,3 @@ function createScreenIcon(): ScreenIcon {
     fill: 'white'
   } );
 }
-
-balancingChemicalEquations.register( 'IntroScreen', IntroScreen );

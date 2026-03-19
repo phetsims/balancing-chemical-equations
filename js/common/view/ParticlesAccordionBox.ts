@@ -19,7 +19,6 @@ import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
@@ -179,5 +178,3 @@ export default class ParticlesAccordionBox extends AccordionBox {
     }
   }
 }
-
-balancingChemicalEquations.register( 'ParticlesAccordionBox', ParticlesAccordionBox );

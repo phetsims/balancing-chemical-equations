@@ -23,7 +23,6 @@ import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape
 import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import Equation from '../../common/model/Equation.js';
@@ -192,5 +191,3 @@ class ShowWhyNode extends Node {
     this.addChild( this.balanceNode );
   }
 }
-
-balancingChemicalEquations.register( 'NotBalancedPanel', NotBalancedPanel );

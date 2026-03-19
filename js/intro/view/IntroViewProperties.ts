@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import { ViewMode, ViewModeValues } from '../../common/model/ViewMode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
@@ -50,5 +49,3 @@ export default class IntroViewProperties {
     this.viewModeProperty.reset();
   }
 }
-
-balancingChemicalEquations.register( 'IntroViewProperties', IntroViewProperties );

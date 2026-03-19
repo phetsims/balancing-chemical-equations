@@ -15,7 +15,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { GameState } from '../model/GameState.js';
 
@@ -98,5 +97,3 @@ export default class GameFeedbackPanel extends Panel {
     };
   }
 }
-
-balancingChemicalEquations.register( 'GameFeedbackPanel', GameFeedbackPanel );

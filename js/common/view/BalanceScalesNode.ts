@@ -10,7 +10,6 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BalanceScaleNode from './BalanceScaleNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -77,5 +76,3 @@ export default class BalanceScalesNode extends BalanceElementsNode {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'BalanceScalesNode', BalanceScalesNode );

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
 */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Range from '../../../../dot/js/Range.js';
 import EquationPool, { ExclusionsMap } from './EquationPool.js';
@@ -145,5 +144,3 @@ export default class EquationPool3 extends EquationPool {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'EquationPool3', EquationPool3 );

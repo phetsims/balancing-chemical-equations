@@ -22,7 +22,6 @@ import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.j
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ChallengeScreenNode from '../../../../vegas/js/ChallengeScreenNode.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
 import EquationNode from '../../common/view/EquationNode.js';
@@ -328,5 +327,3 @@ export default class LevelNode extends ChallengeScreenNode {
     }
   }
 }
-
-balancingChemicalEquations.register( 'LevelNode', LevelNode );

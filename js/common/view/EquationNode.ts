@@ -19,7 +19,6 @@ import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
@@ -210,5 +209,3 @@ export default class EquationNode extends Node {
     }
   }
 }
-
-balancingChemicalEquations.register( 'EquationNode', EquationNode );

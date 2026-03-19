@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle, { RectangleOptions } from '../../../../scenery/js/nodes/Rectangle.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const BAR_HEIGHT = 50;
@@ -41,5 +40,3 @@ export default class HorizontalBarNode extends Rectangle {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'HorizontalBarNode', HorizontalBarNode );

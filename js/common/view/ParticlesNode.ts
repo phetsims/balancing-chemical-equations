@@ -17,7 +17,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../model/Equation.js';
 import ParticlesAccordionBox from './ParticlesAccordionBox.js';
@@ -111,5 +110,3 @@ export default class ParticlesNode extends Node {
     this.arrowNode.setHighlightEnabled( enabled );
   }
 }
-
-balancingChemicalEquations.register( 'ParticlesNode', ParticlesNode );

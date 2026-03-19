@@ -9,7 +9,6 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
 import Molecule from './Molecule.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
@@ -75,5 +74,3 @@ export default class EquationTerm extends PhetioObject {
     this.coefficientProperty.reset();
   }
 }
-
-balancingChemicalEquations.register( 'EquationTerm', EquationTerm );

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import GameLevel from './GameLevel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Range from '../../../../dot/js/Range.js';
@@ -27,5 +26,3 @@ export default class GameLevel1 extends GameLevel {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'GameLevel1', GameLevel1 );

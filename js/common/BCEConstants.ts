@@ -9,7 +9,6 @@
 
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import { AtomNodeOptions } from '../../../nitroglycerin/js/nodes/AtomNode.js';
-import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BCEColors from './BCEColors.js';
 import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
 import { FaceNodeOptions } from '../../../scenery-phet/js/FaceNode.js';
@@ -53,5 +52,4 @@ const BCEConstants = {
   INITIAL_COEFFICIENT_VALID_VALUES: [ 0, 1 ]
 };
 
-balancingChemicalEquations.register( 'BCEConstants', BCEConstants );
 export default BCEConstants;

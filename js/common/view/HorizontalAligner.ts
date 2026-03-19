@@ -10,7 +10,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import EquationTerm from '../model/EquationTerm.js';
 
@@ -121,5 +120,3 @@ function getXOffsets( terms: EquationTerm[], boxWidth: number, boxLeft: number, 
   }
   return xOffsets;
 }
-
-balancingChemicalEquations.register( 'HorizontalAligner', HorizontalAligner );

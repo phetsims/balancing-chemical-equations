@@ -10,7 +10,6 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Molecule from '../../common/model/Molecule.js';
@@ -157,5 +156,3 @@ export default class EquationsModel implements TModel {
     this.combustionEquationProperty.reset();
   }
 }
-
-balancingChemicalEquations.register( 'EquationsModel', EquationsModel );

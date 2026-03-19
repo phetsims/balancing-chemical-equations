@@ -16,7 +16,6 @@ import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/j
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 const FONT = new PhetFont( 22 );
 
@@ -68,5 +67,3 @@ export default class BalanceFulcrumNode extends Node {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'BalanceFulcrumNode', BalanceFulcrumNode );

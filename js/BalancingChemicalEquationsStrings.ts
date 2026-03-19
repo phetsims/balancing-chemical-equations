@@ -63,6 +63,4 @@ type StringsType = {
 
 const BalancingChemicalEquationsStrings = getStringModule( 'BALANCING_CHEMICAL_EQUATIONS' ) as StringsType;
 
-balancingChemicalEquations.register( 'BalancingChemicalEquationsStrings', BalancingChemicalEquationsStrings );
-
 export default BalancingChemicalEquationsStrings;

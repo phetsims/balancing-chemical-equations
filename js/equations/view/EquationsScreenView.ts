@@ -13,7 +13,6 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import EquationsModel from '../model/EquationsModel.js';
@@ -234,5 +233,3 @@ export default class EquationsScreenView extends ScreenView {
     ];
   }
 }
-
-balancingChemicalEquations.register( 'EquationsScreenView', EquationsScreenView );

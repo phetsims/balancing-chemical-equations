@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
@@ -153,5 +152,3 @@ export default class GameLevel extends PhetioObject {
     documentation: 'A level in the game.'
   } );
 }
-
-balancingChemicalEquations.register( 'GameLevel', GameLevel );

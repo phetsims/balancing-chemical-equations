@@ -10,7 +10,6 @@
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import BCEQueryParameters from '../BCEQueryParameters.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
 export default class BCEPreferences {
@@ -34,5 +33,3 @@ export default class BCEPreferences {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'BCEPreferences', BCEPreferences );

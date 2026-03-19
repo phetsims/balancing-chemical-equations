@@ -13,7 +13,6 @@ import Shape from '../../../kite/js/Shape.js';
 import FaceNode from '../../../scenery-phet/js/FaceNode.js';
 import Path from '../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../common/BCEColors.js';
 import GameModel from './model/GameModel.js';
@@ -77,5 +76,3 @@ function createScreenIcon(): ScreenIcon {
     fill: 'white'
   } );
 }
-
-balancingChemicalEquations.register( 'GameScreen', GameScreen );

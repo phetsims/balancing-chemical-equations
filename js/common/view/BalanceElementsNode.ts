@@ -13,7 +13,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -127,5 +126,3 @@ export default abstract class BalanceElementsNode extends Node {
    */
   protected abstract updateChildren(): void;
 }
-
-balancingChemicalEquations.register( 'BalanceElementsNode', BalanceElementsNode );

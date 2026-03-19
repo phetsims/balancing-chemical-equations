@@ -31,5 +31,4 @@ const BCEColors = {
   CHECK_MARK_FILL: 'rgb( 0, 180, 0 )'
 };
 
-balancingChemicalEquations.register( 'BCEColors', BCEColors );
 export default BCEColors;

@@ -19,7 +19,6 @@ import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape.js';
 import timesSolidShape from '../../../../sherpa/js/fontawesome-5/timesSolidShape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import BCEColors from '../../common/BCEColors.js';
 import BCEConstants from '../../common/BCEConstants.js';
@@ -121,5 +120,3 @@ export default class BalancedNotSimplifiedPanel extends GameFeedbackPanel {
 
   }
 }
-
-balancingChemicalEquations.register( 'BalancedNotSimplifiedPanel', BalancedNotSimplifiedPanel );

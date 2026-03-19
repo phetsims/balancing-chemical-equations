@@ -8,7 +8,6 @@
  */
 
 import BCEPreferences from '../model/BCEPreferences.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import InitialCoefficientControl from './InitialCoefficientControl.js';
@@ -29,5 +28,3 @@ export default class BCEPreferencesNode extends VBox {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'BCEPreferencesNode', BCEPreferencesNode );

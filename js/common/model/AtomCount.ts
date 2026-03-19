@@ -10,7 +10,6 @@
 
 import Atom from '../../../../nitroglycerin/js/Atom.js';
 import Element from '../../../../nitroglycerin/js/Element.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from './Equation.js';
 import EquationTerm from './EquationTerm.js';
 
@@ -90,5 +89,3 @@ function appendToCounts( atomCounts: AtomCount[], terms: EquationTerm[], isReact
   } );
   return atomCounts;
 }
-
-balancingChemicalEquations.register( 'AtomCount', AtomCount );

@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 
 export default class GameViewProperties {
 
@@ -39,5 +38,3 @@ export default class GameViewProperties {
     this.productsAccordionBoxExpandedProperty.reset();
   }
 }
-
-balancingChemicalEquations.register( 'GameViewProperties', GameViewProperties );

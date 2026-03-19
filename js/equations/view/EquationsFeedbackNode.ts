@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../../common/model/Equation.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -117,5 +116,3 @@ export default class EquationsFeedbackNode extends HBox {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'EquationsFeedbackNode', EquationsFeedbackNode );

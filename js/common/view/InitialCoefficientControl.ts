@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Property from '../../../../axon/js/Property.js';
 import PreferencesControl, { PreferencesControlOptions } from '../../../../joist/js/preferences/PreferencesControl.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -93,5 +92,3 @@ class InitialCoefficientRadioButtonGroup extends RectangularRadioButtonGroup<num
     } );
   }
 }
-
-balancingChemicalEquations.register( 'InitialCoefficientControl', InitialCoefficientControl );

@@ -13,7 +13,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import Equation from '../../common/model/Equation.js';
 import { EquationChoice } from '../model/IntroModel.js';
@@ -47,5 +46,3 @@ export default class EquationRadioButtonGroup extends HorizontalAquaRadioButtonG
     } );
   }
 }
-
-balancingChemicalEquations.register( 'EquationRadioButtonGroup', EquationRadioButtonGroup );

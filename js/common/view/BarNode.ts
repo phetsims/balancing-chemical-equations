@@ -22,7 +22,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../BCEConstants.js';
 
 const UNIT_BAR_HEIGHT = 5;
@@ -116,5 +115,3 @@ export default class BarNode extends VBox {
     super.dispose();
   }
 }
-
-balancingChemicalEquations.register( 'BarNode', BarNode );

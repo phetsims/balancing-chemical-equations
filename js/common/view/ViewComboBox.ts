@@ -21,7 +21,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import ComboBox, { ComboBoxItem } from '../../../../sun/js/ComboBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { ViewMode } from '../model/ViewMode.js';
 import BalanceFulcrumNode from './BalanceFulcrumNode.js';
@@ -183,5 +182,3 @@ function createBarChartsIcon(): Node {
     align: 'bottom'
   } );
 }
-
-balancingChemicalEquations.register( 'ViewComboBox', ViewComboBox );

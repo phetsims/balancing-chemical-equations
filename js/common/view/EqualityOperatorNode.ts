@@ -12,7 +12,6 @@ import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEColors from '../BCEColors.js';
 
 const TEXT_OPTIONS = {
@@ -50,5 +49,3 @@ export default class EqualityOperatorNode extends Node {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'EqualityOperatorNode', EqualityOperatorNode );

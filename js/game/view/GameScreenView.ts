@@ -13,7 +13,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BCEConstants from '../../common/BCEConstants.js';
 import BCEQueryParameters from '../../common/BCEQueryParameters.js';
 import GameModel from '../model/GameModel.js';
@@ -169,5 +168,3 @@ export default class GameScreenView extends ScreenView {
     this.model.startOver();
   }
 }
-
-balancingChemicalEquations.register( 'GameScreenView', GameScreenView );

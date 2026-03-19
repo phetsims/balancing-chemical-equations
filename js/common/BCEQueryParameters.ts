@@ -9,7 +9,6 @@
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
-import balancingChemicalEquations from '../balancingChemicalEquations.js';
 import BCEConstants from './BCEConstants.js';
 
 const BCEQueryParameters = QueryStringMachine.getAll( {
@@ -37,8 +36,6 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
   // Verifies the game model by creating lots of equation sets for each game level.
   verifyGame: { type: 'flag' }
 } );
-
-balancingChemicalEquations.register( 'BCEQueryParameters', BCEQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

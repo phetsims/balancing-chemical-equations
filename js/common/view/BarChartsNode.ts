@@ -12,7 +12,6 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import Equation from '../model/Equation.js';
 import BarNode from './BarNode.js';
 import EqualityOperatorNode from './EqualityOperatorNode.js';
@@ -92,5 +91,3 @@ export default class BarChartsNode extends BalanceElementsNode {
     } );
   }
 }
-
-balancingChemicalEquations.register( 'BarChartsNode', BarChartsNode );

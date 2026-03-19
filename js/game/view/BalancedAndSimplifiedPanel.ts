@@ -19,7 +19,6 @@ import checkSolidShape from '../../../../sherpa/js/fontawesome-5/checkSolidShape
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import balancingChemicalEquations from '../../balancingChemicalEquations.js';
 import BalancingChemicalEquationsStrings from '../../BalancingChemicalEquationsStrings.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import GameFeedbackPanel from './GameFeedbackPanel.js';
@@ -118,5 +117,3 @@ export default class BalancedAndSimplifiedPanel extends GameFeedbackPanel {
     this.nextButton = nextButton;
   }
 }
-
-balancingChemicalEquations.register( 'BalancedAndSimplifiedPanel', BalancedAndSimplifiedPanel );
