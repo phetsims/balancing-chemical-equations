@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "adbab12fc6ba120afc5e10c62e993a204c09cfd3",
+    "sha": "ea248fac68cef233d4d5c9e67b1d2bc2eab1d726",
     "branch": "2.1"
   },
   "brand": {
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "2d71a602f9bc3fd3e4c7e3404d863c375b136f5e",
+    "sha": "32d0a53177b4d803365048badd15ae647683f09c",
     "branch": "HEAD"
   },
   "kite": {
