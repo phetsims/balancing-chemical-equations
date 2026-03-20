@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * BalanceFulcrumNode is the fulcrum on which the scale balances. This is a triangle that is labeled with the atom symbol.

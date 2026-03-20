@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * BCELevelCompletedNode presents a summary of how the user did on a level, after all challenges have been played.

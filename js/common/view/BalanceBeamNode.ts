@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * BalanceBeamNode is the beam for the balance scale. It is a horizontal lever, centered on the fulcrum.

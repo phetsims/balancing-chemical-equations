@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * ParticlesAccordionBox is an accordion box that shows particles (molecules and atoms) for one side of an equation.

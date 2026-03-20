@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * BarNode is a bar that displays some number of atoms for a specified atom. The bar is capable of displaying some

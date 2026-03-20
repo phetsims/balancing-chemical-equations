@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * BalanceScaleNode displays a balance scale, which depicts the relationship between the atom count on the left

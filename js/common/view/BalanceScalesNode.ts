@@ -1,4 +1,4 @@
-// Copyright 2014-2025, University of Colorado Boulder
+// Copyright 2014-2026, University of Colorado Boulder
 
 /**
  * BalanceScalesNode is the visual representation of an equation as a set of balance scales, one for each atom type.
