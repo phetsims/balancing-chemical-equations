@@ -40,6 +40,6 @@ const BCEQueryParameters = QueryStringMachine.getAll( {
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.balancingChemicalEquations.BCEQueryParameters' );
+phet.log && phet.log( `BCEQueryParameters: ${JSON.stringify( BCEQueryParameters, null, 2 )}` );
 
 export default BCEQueryParameters;
