@@ -1,5 +1,5 @@
 {
-  "comment": "# balancing-chemical-equations 2.1.0 Wed Apr 01 2026 23:04:41 GMT-0700 (Pacific Daylight Time)",
+  "comment": "# balancing-chemical-equations 2.1.1-rc.1 Tue Apr 07 2026 12:23:37 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "4fa534de08d265643688965bf233cb73326c3cb7",
     "branch": "HEAD"
@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "balancing-chemical-equations": {
-    "sha": "dd85d66fa27098dc6aef6e1bb55ae1e30738c4cb",
+    "sha": "656d8c3a16f573059d5a136972546df53ddded4d",
     "branch": "2.1"
   },
   "brand": {
